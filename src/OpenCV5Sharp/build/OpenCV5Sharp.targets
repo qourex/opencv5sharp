@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 Qourex. Licensed under Apache-2.0. -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    This .targets file is included automatically by NuGet consumers.
+    It copies the native DLLs to the output directory at build time.
+  -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64' OR ('$(RuntimeIdentifier)' == '' AND '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)' == 'X64')">
+    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv5sharp_native.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv5sharp_native.dll" />
+    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv_world500.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv_world500.dll" />
+    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv_videoio_ffmpeg500_64.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv_videoio_ffmpeg500_64.dll" />
+  </ItemGroup>
+</Project>

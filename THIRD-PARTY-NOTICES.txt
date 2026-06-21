@@ -1,0 +1,93 @@
+OpenCV5Sharp Third-Party Notices
+===============================
+
+This package incorporates components from the following third-party projects:
+
+1. OpenCV (Open Source Computer Vision Library)
+   - License: Apache License 2.0 (included in the root LICENSE file)
+   - Project URL: https://opencv.org/
+   - Source Code: https://github.com/opencv/opencv
+   - Copyright: Copyright (c) 2015-2026, OpenCV Foundation, all rights reserved.
+
+2. FFmpeg (specifically opencv_videoio_ffmpeg500_64.dll)
+   - License: GNU Lesser General Public License version 2.1 or later
+   - Project URL: https://ffmpeg.org/
+   - Source Code: https://ffmpeg.org/download.html
+   - Copyright: Copyright (c) 2000-2026 the FFmpeg developers
+   - Notice: FFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project.
+   - License Text: The full text of the GNU Lesser General Public License version 2.1
+     is included in the package as LICENSE_FFMPEG.txt.
+   - Source Code Availability (LGPL Compliance): The FFmpeg source code corresponding
+     to the version bundled in this package can be obtained from
+     https://ffmpeg.org/download.html. You may also contact the project maintainers
+     for a copy. The FFmpeg DLL is dynamically linked and can be replaced with a
+     compatible version built from source.
+
+The following libraries are statically linked inside opencv_world500.dll. Their
+license terms are satisfied by OpenCV's Apache 2.0 license and the individual
+component licenses listed below:
+
+3. zlib
+   - License: zlib License
+   - Project URL: https://zlib.net/
+   - Copyright: Copyright (c) 1995-2024 Jean-loup Gailly and Mark Adler
+
+4. libpng
+   - License: libpng License (BSD-like)
+   - Project URL: http://www.libpng.org/
+   - Copyright: Copyright (c) 1998-2024 Glenn Randers-Pehrson et al.
+
+5. libjpeg-turbo
+   - License: IJG License / Modified BSD / zlib License
+   - Project URL: https://libjpeg-turbo.org/
+   - Copyright: Copyright (c) 2009-2024 D. R. Commander et al.
+
+6. libtiff
+   - License: MIT-style License
+   - Project URL: http://www.libtiff.org/
+   - Copyright: Copyright (c) 1988-2024 Sam Leffler, Silicon Graphics, Inc.
+
+7. OpenEXR
+   - License: BSD-3-Clause
+   - Project URL: https://openexr.com/
+   - Copyright: Copyright (c) Contributors to the OpenEXR Project
+
+8. protobuf (Protocol Buffers)
+   - License: BSD-3-Clause
+   - Project URL: https://protobuf.dev/
+   - Copyright: Copyright (c) 2008 Google Inc.
+
+9. FlatBuffers
+   - License: Apache License 2.0
+   - Project URL: https://google.github.io/flatbuffers/
+   - Copyright: Copyright (c) 2014 Google Inc.
+
+10. OpenJPEG
+    - License: BSD-2-Clause
+    - Project URL: https://www.openjpeg.org/
+    - Copyright: Copyright (c) 2002-2014, Universite catholique de Louvain (UCL), Belgium
+
+11. libwebp
+    - License: BSD-3-Clause
+    - Project URL: https://developers.google.com/speed/webp/
+    - Copyright: Copyright (c) 2010 Google Inc.
+
+12. HarfBuzz
+    - License: MIT (Old MIT)
+    - Project URL: https://harfbuzz.github.io/
+    - Copyright: Copyright (c) 2010-2024 Google, Inc., Behdad Esfahbod et al.
+
+13. Intel IPP / IPPICV (Integrated Performance Primitives)
+    - License: Intel Simplified Software License
+    - Project URL: https://www.intel.com/content/www/us/en/developer/tools/oneapi/ipp.html
+    - Copyright: Copyright (c) Intel Corporation
+
+14. Intel TBB (Threading Building Blocks)
+    - License: Apache License 2.0
+    - Project URL: https://github.com/oneapi-src/oneTBB
+    - Copyright: Copyright (c) Intel Corporation
+
+15. DLPack
+    - License: Apache License 2.0
+    - Project URL: https://github.com/dmlc/dlpack
+    - Copyright: Copyright (c) by Contributors

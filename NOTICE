@@ -1,0 +1,16 @@
+OpenCV5Sharp
+Copyright (c) 2026 Qourex
+
+This product includes software developed by:
+
+- The OpenCV Foundation (https://opencv.org/)
+  Licensed under the Apache License, Version 2.0.
+
+- The FFmpeg project (https://ffmpeg.org/)
+  Licensed under the GNU Lesser General Public License, Version 2.1 or later.
+
+TRADEMARK NOTICE:
+"OpenCV" is a registered trademark of the OpenCV Foundation.
+This project is not affiliated with, endorsed by, or sponsored by the
+OpenCV Foundation or OpenCV.org. The use of the "OpenCV" name is purely
+for descriptive purposes to indicate compatibility with the OpenCV library.

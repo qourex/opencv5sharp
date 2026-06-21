@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/OpenCV5Sharp.Samples/OpenCV5Sharp.Samples.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/OpenCV5Sharp/OpenCV5Sharp.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OpenCV5Sharp.Tests/OpenCV5Sharp.Tests.csproj" />
+  </Folder>
+</Solution>

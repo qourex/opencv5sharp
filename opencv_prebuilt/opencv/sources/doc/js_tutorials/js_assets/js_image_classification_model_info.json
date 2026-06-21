@@ -1,0 +1,72 @@
+{
+    "onnx": [
+        {
+            "model": "googlenet",
+            "inputSize": "224, 224",
+            "mean": "103.939, 116.779, 123.675",
+            "std": "1, 1, 1",
+            "scale": "1",
+            "swapRB": "false",
+            "needSoftmax": "true",
+            "labelsUrl": "https://raw.githubusercontent.com/opencv/opencv/5.x/samples/data/dnn/classification_classes_ILSVRC2012.txt",
+            "modelUrl": "https://github.com/onnx/models/raw/69c5d3751dda5349fd3fc53f525395d180420c07/vision/classification/inception_and_googlenet/googlenet/model/googlenet-8.onnx"
+        },
+        {
+            "model": "squeezenet",
+            "inputSize": "224, 224",
+            "mean": "0.485, 0.456, 0.406",
+            "std": "0.229, 0.224, 0.225",
+            "scale": "0.003921",
+            "swapRB": "true",
+            "needSoftmax": "true",
+            "labelsUrl": "https://raw.githubusercontent.com/opencv/opencv/5.x/samples/data/dnn/classification_classes_ILSVRC2012.txt",
+            "modelUrl": "https://github.com/onnx/models/raw/main/validated/vision/classification/squeezenet/model/squeezenet1.1-7.onnx?download="
+        },
+        {
+            "model": "resnet",
+            "inputSize": "224, 224",
+            "mean": "123.675, 116.28, 103.53",
+            "std": "58.395, 57.12, 57.375",
+            "scale": "1",
+            "swapRB": "true",
+            "needSoftmax": "true",
+            "labelsUrl": "https://raw.githubusercontent.com/opencv/opencv/5.x/samples/data/dnn/classification_classes_ILSVRC2012.txt",
+            "modelUrl": "https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v2-7.onnx"
+        },
+        {
+            "model": "vgg16",
+            "inputSize": "224, 224",
+            "mean": "103.939, 116.779, 123.68",
+            "std": "1, 1, 1",
+            "scale": "1",
+            "swapRB": "false",
+            "needSoftmax": "true",
+            "labelsUrl": "https://raw.githubusercontent.com/opencv/opencv/5.x/samples/data/dnn/classification_classes_ILSVRC2012.txt",
+            "modelUrl": "https://github.com/onnx/models/raw/f884b33c3e2371952aad7ea091898f418c830fe5/vision/classification/vgg/model/vgg16-bn-7.onnx"
+        },
+        {
+            "model": "densenet121",
+            "inputSize": "224, 224",
+            "mean": "123.675, 116.28, 103.53",
+            "std": "0.229, 0.224, 0.225",
+            "scale": "0.003921",
+            "swapRB": "true",
+            "needSoftmax": "true",
+            "labelsUrl": "https://raw.githubusercontent.com/opencv/opencv/5.x/samples/data/dnn/classification_classes_ILSVRC2012.txt",
+            "modelUrl": "https://github.com/onnx/models/raw/4eff8f9b9189672de28d087684e7085ad977747c/vision/classification/densenet-121/model/densenet-8.onnx"
+        }
+    ],
+    "tensorflow": [
+        {
+            "model": "inception",
+            "inputSize": "224, 224",
+            "mean": "123, 117, 104",
+            "std": "1",
+            "scale": "1",
+            "swapRB": "true",
+            "needSoftmax": "false",
+            "labelsUrl": "https://raw.githubusercontent.com/petewarden/tf_ios_makefile_example/master/data/imagenet_comp_graph_label_strings.txt",
+            "modelUrl": "https://raw.githubusercontent.com/petewarden/tf_ios_makefile_example/master/data/tensorflow_inception_graph.pb"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CS8600;CS8602</NoWarn> <!-- Suppress nullable warnings for generated API return types -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenCV5Sharp\OpenCV5Sharp.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\..\src\OpenCV5Sharp\build\OpenCV5Sharp.targets" />
+</Project>

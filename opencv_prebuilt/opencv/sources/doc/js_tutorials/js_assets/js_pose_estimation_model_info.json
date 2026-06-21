@@ -1,0 +1,22 @@
+{
+    "onnx": [
+        {
+            "model": "openpose_coco",
+            "inputSize": "368, 368",
+            "mean": "0, 0, 0",
+            "std": "0.00392",
+            "swapRB": "false",
+            "dataset": "COCO",
+            "modelUrl": "https://github.com/omrope79/opencv-test-models/releases/download/v1.3.0/openpose_pose_coco.onnx"
+        },
+        {
+            "model": "openpose_mpi",
+            "inputSize": "368, 368",
+            "mean": "0, 0, 0",
+            "std": "0.00392",
+            "swapRB": "false",
+            "dataset": "MPI",
+            "modelUrl": "https://github.com/omrope79/opencv-test-models/releases/download/v1.3.0/openpose_pose_mpi.onnx"
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+# Copyright (c) 2026 Qourex. Licensed under Apache-2.0.
+# CODEOWNERS — Default code review assignments
+
+# Default owners for all files
+* @qourex/opencv5sharp-maintainers
+
+# Generator changes require senior review
+src/OpenCV5Sharp.Generator/ @qourex/opencv5sharp-maintainers
+
+# Native code changes require senior review
+src/OpenCV5Sharp.Native/ @qourex/opencv5sharp-maintainers
+
+# CI/CD workflow changes
+.github/workflows/ @qourex/opencv5sharp-maintainers
