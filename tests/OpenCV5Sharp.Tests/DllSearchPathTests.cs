@@ -16,10 +16,10 @@ namespace OpenCV5Sharp.Tests
         {
             Assembly assembly = typeof(Cv2).Assembly;
             DefaultDllImportSearchPathsAttribute? attr = assembly.GetCustomAttribute<DefaultDllImportSearchPathsAttribute>();
-            
+
             Assert.NotNull(attr);
             Assert.Equal(
-                DllImportSearchPath.AssemblyDirectory | DllImportSearchPath.UseDllDirectoryForDependencies, 
+                DllImportSearchPath.AssemblyDirectory | DllImportSearchPath.UseDllDirectoryForDependencies,
                 attr.Paths
             );
         }

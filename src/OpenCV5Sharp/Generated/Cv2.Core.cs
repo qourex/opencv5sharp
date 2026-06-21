@@ -11,3410 +11,3410 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Computes the source location of an extrapolated pixel.
-            /// </summary>
-            /// <param name="p">0-based coordinate of the extrapolated pixel along one of the axes, likely \&lt;0 or \&gt;= len</param>
-            /// <param name="len">Length of the array along the corresponding axis.</param>
-            /// <param name="borderType">Border type, one of the #BorderTypes, except for #BORDER_TRANSPARENT and #BORDER_ISOLATED. When borderType==#BORDER_CONSTANT, the function always returns -1, regardless of p and len.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function computes and returns the coordinate of a donor pixel corresponding to the specified
-            /// extrapolated pixel when using the specified extrapolation border mode. For example, if you use
-            /// cv::BORDER_WRAP mode in the horizontal direction, cv::BORDER_REFLECT_101 in the vertical direction and
-            /// want to compute value of the "virtual" pixel Point(-5, 100) in a floating-point image img, it
-            /// looks like:
-            /// @code{.cpp}
-            /// float val = img.at&lt;float&gt;(borderInterpolate(100, img.rows, cv::BORDER_REFLECT_101),
-            /// borderInterpolate(-5, img.cols, cv::BORDER_WRAP));
-            /// @endcode
-            /// Normally, the function is not called directly. It is used inside filtering functions and also in
-            /// copyMakeBorder.
-            /// @sa copyMakeBorder
-            /// </remarks>
-            public static int BorderInterpolate(int p, int len, int borderType)
-            {
-                var res = NativeMethods.cv_borderInterpolate_0(p, len, borderType);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Forms a border around an image.
-            /// </summary>
-            /// <param name="src">Source image.</param>
-            /// <param name="dst">Destination image of the same type as src and the size Size(src.cols+left+right, src.rows+top+bottom) .</param>
-            /// <param name="top">the top pixels</param>
-            /// <param name="bottom">the bottom pixels</param>
-            /// <param name="left">the left pixels</param>
-            /// <param name="right">Parameter specifying how many pixels in each direction from the source image rectangle to extrapolate. For example, top=1, bottom=1, left=1, right=1 mean that 1 pixel-wide border needs to be built.</param>
-            /// <param name="borderType">Border type. See borderInterpolate for details.</param>
-            /// <param name="value">Border value if borderType==BORDER_CONSTANT .</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function copies the source image into the middle of the destination image. The areas to the
-            /// left, to the right, above and below the copied source image will be filled with extrapolated
-            /// pixels. This is not what filtering functions based on it do (they extrapolate pixels on-fly), but
-            /// what other more complex functions, including your own, may do to simplify image boundary handling.
-            /// The function supports the mode when src is already in the middle of dst . In this case, the
-            /// function does not copy src itself but simply constructs the border, for example:
-            /// @code{.cpp}
-            /// // let border be the same in all directions
-            /// int border=2;
-            /// // constructs a larger image to fit both the image and the border
-            /// Mat gray_buf(rgb.rows + border*2, rgb.cols + border*2, rgb.depth());
-            /// // select the middle part of it w/o copying data
-            /// Mat gray(gray_canvas, Rect(border, border, rgb.cols, rgb.rows));
-            /// // convert image from RGB to grayscale
-            /// cvtColor(rgb, gray, COLOR_RGB2GRAY);
-            /// // form a border in-place
-            /// copyMakeBorder(gray, gray_buf, border, border,
-            /// border, border, BORDER_REPLICATE);
-            /// // now do some custom filtering ...
-            /// ...
-            /// @endcode
-            /// @note When the source image is a part (ROI) of a bigger image, the function will try to use the
-            /// pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
-            /// if src was not a ROI, use borderType | #BORDER_ISOLATED.
-            /// @sa  borderInterpolate
-            /// </remarks>
-            public static void CopyMakeBorder(Mat src, Mat dst, int top, int bottom, int left, int right, int borderType, Scalar value)
-            {
-                NativeMethods.cv_copyMakeBorder_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), top, bottom, left, right, borderType, value);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element sum of two arrays or an array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array that has the same size and number of channels as the input array(s); the depth is defined by dtype or src1/src2.</param>
-            /// <param name="mask">optional operation mask - CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
-            /// <param name="dtype">optional depth of the output array (see the discussion below).</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function add calculates:
-            /// - Sum of two arrays when both input arrays have the same size and the same number of channels:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) +  \texttt{src2}(I)) \quad \texttt{if mask}(I) \ne0\f]
-            /// - Sum of an array and a scalar when src2 is constructed from Scalar or has the same number of
-            /// elements as `src1.channels()`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) +  \texttt{src2} ) \quad \texttt{if mask}(I) \ne0\f]
-            /// - Sum of a scalar and an array when src1 is constructed from Scalar or has the same number of
-            /// elements as `src2.channels()`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1} +  \texttt{src2}(I) ) \quad \texttt{if mask}(I) \ne0\f]
-            /// where `I` is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-            /// channel is processed independently.
-            /// The first function in the list above can be replaced with matrix expressions:
-            /// @code{.cpp}
-            /// dst = src1 + src2;
-            /// dst += src1; // equivalent to add(dst, src1, dst);
-            /// @endcode
-            /// The input arrays and the output array can all have the same or different depths. For example, you
-            /// can add a 16-bit unsigned array to a 8-bit signed array and store the sum as a 32-bit
-            /// floating-point array. Depth of the output array is determined by the dtype parameter. In the second
-            /// and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
-            /// be set to the default -1. In this case, the output array will have the same depth as the input
-            /// array, be it src1, src2 or both.
-            /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
-            /// result of an incorrect sign in the case of overflow.
-            /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
-            /// `add(src,X)` means `add(src,(X,X,X,X))`.
-            /// `add(src,(X,))` means `add(src,(X,0,0,0))`.
-            /// @sa subtract, addWeighted, scaleAdd, Mat::convertTo
-            /// </remarks>
-            public static void Add(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
-            {
-                NativeMethods.cv_add_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element difference between two arrays or array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array of the same size and the same number of channels as the input array.</param>
-            /// <param name="mask">optional operation mask; this is CV_8U, CV8S or CV_Bool single channel array that specifies elements of the output array to be changed.</param>
-            /// <param name="dtype">optional depth of the output array</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function subtract calculates:
-            /// - Difference between two arrays, when both input arrays have the same size and the same number of
-            /// channels:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) -  \texttt{src2}(I)) \quad \texttt{if mask}(I) \ne0\f]
-            /// - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
-            /// number of elements as `src1.channels()`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) -  \texttt{src2} ) \quad \texttt{if mask}(I) \ne0\f]
-            /// - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
-            /// number of elements as `src2.channels()`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1} -  \texttt{src2}(I) ) \quad \texttt{if mask}(I) \ne0\f]
-            /// - The reverse difference between a scalar and an array in the case of `SubRS`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src2} -  \texttt{src1}(I) ) \quad \texttt{if mask}(I) \ne0\f]
-            /// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-            /// channel is processed independently.
-            /// The first function in the list above can be replaced with matrix expressions:
-            /// @code{.cpp}
-            /// dst = src1 - src2;
-            /// dst -= src1; // equivalent to subtract(dst, src1, dst);
-            /// @endcode
-            /// The input arrays and the output array can all have the same or different depths. For example, you
-            /// can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
-            /// the output array is determined by dtype parameter. In the second and third cases above, as well as
-            /// in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
-            /// case the output array will have the same depth as the input array, be it src1, src2 or both.
-            /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
-            /// result of an incorrect sign in the case of overflow.
-            /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
-            /// `subtract(src,X)` means `subtract(src,(X,X,X,X))`.
-            /// `subtract(src,(X,))` means `subtract(src,(X,0,0,0))`.
-            /// @sa  add, addWeighted, scaleAdd, Mat::convertTo
-            /// </remarks>
-            public static void Subtract(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
-            {
-                NativeMethods.cv_subtract_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element scaled product of two arrays.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size and the same type as src1.</param>
-            /// <param name="dst">output array of the same size and type as src1.</param>
-            /// <param name="scale">optional scale factor.</param>
-            /// <param name="dtype">optional depth of the output array</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function multiply calculates the per-element product of two arrays:
-            /// \f[\texttt{dst} (I)= \texttt{saturate} ( \texttt{scale} \cdot \texttt{src1} (I)  \cdot \texttt{src2} (I))\f]
-            /// There is also a @ref MatrixExpressions -friendly variant of the first function. See Mat::mul .
-            /// For a not-per-element matrix product, see gemm .
-            /// @note Saturation is not applied when the output array has the depth
-            /// CV_32S. You may even get result of an incorrect sign in the case of
-            /// overflow.
-            /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
-            /// `multiply(src,X)` means `multiply(src,(X,X,X,X))`.
-            /// `multiply(src,(X,))` means `multiply(src,(X,0,0,0))`.
-            /// @sa add, subtract, divide, scaleAdd, addWeighted, accumulate, accumulateProduct, accumulateSquare,
-            /// Mat::convertTo
-            /// </remarks>
-            public static void Multiply(Mat src1, Mat src2, Mat dst, double scale, int dtype)
-            {
-                NativeMethods.cv_multiply_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs per-element division of two arrays or a scalar by an array.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size and type as src1.</param>
-            /// <param name="dst">output array of the same size and type as src2.</param>
-            /// <param name="scale">scalar factor.</param>
-            /// <param name="dtype">optional depth of the output array; if -1, dst will have depth src2.depth(), but in case of an array-by-array division, you can only pass -1 when src1.depth()==src2.depth().</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::divide divides one array by another:
-            /// \f[\texttt{dst(I) = saturate(src1(I)*scale/src2(I))}\f]
-            /// or a scalar by an array when there is no src1 :
-            /// \f[\texttt{dst(I) = saturate(scale/src2(I))}\f]
-            /// Different channels of multi-channel arrays are processed independently.
-            /// For integer types when src2(I) is zero, dst(I) will also be zero.
-            /// @note In case of floating point data there is no special defined behavior for zero src2(I) values.
-            /// Regular floating-point division is used.
-            /// Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
-            /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
-            /// result of an incorrect sign in the case of overflow.
-            /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
-            /// `divide(src,X)` means `divide(src,(X,X,X,X))`.
-            /// `divide(src,(X,))` means `divide(src,(X,0,0,0))`.
-            /// @sa  multiply, add, subtract
-            /// </remarks>
-            public static void Divide(Mat src1, Mat src2, Mat dst, double scale, int dtype)
-            {
-                NativeMethods.cv_divide_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="scale">The scale parameter.</param>
-            /// <param name="src2">The src2 parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <param name="dtype">The dtype parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Divide(double scale, Mat src2, Mat dst, int dtype)
-            {
-                NativeMethods.cv_divide_1(scale, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the sum of a scaled array and another array.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="alpha">scale factor for the first array.</param>
-            /// <param name="src2">second input array of the same size and type as src1.</param>
-            /// <param name="dst">output array of the same size and type as src1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function scaleAdd is one of the classical primitive linear algebra operations, known as DAXPY
-            /// or SAXPY in [BLAS](http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms). It calculates
-            /// the sum of a scaled array and another array:
-            /// \f[\texttt{dst} (I)= \texttt{scale} \cdot \texttt{src1} (I) +  \texttt{src2} (I)\f]
-            /// The function can also be emulated with a matrix expression, for example:
-            /// @code{.cpp}
-            /// Mat A(3, 3, CV_64F);
-            /// ...
-            /// A.row(0) = A.row(1)*2 + A.row(2);
-            /// @endcode
-            /// @sa add, addWeighted, subtract, Mat::dot, Mat::convertTo
-            /// </remarks>
-            public static void ScaleAdd(Mat src1, double alpha, Mat src2, Mat dst)
-            {
-                NativeMethods.cv_scaleAdd_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the weighted sum of two arrays.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="alpha">weight of the first array elements.</param>
-            /// <param name="src2">second input array of the same size and channel number as src1.</param>
-            /// <param name="beta">weight of the second array elements.</param>
-            /// <param name="gamma">scalar added to each sum.</param>
-            /// <param name="dst">output array that has the same size and number of channels as the input arrays.</param>
-            /// <param name="dtype">optional depth of the output array; when both input arrays have the same depth, dtype can be set to -1, which will be equivalent to src1.depth().</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function addWeighted calculates the weighted sum of two arrays as follows:
-            /// \f[\texttt{dst} (I)= \texttt{saturate} ( \texttt{src1} (I)* \texttt{alpha} +  \texttt{src2} (I)* \texttt{beta} +  \texttt{gamma} )\f]
-            /// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
-            /// channel is processed independently.
-            /// The function can be replaced with a matrix expression:
-            /// @code{.cpp}
-            /// dst = src1*alpha + src2*beta + gamma;
-            /// @endcode
-            /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
-            /// result of an incorrect sign in the case of overflow.
-            /// @sa  add, subtract, scaleAdd, Mat::convertTo
-            /// </remarks>
-            public static void AddWeighted(Mat src1, double alpha, Mat src2, double beta, double gamma, Mat dst, int dtype)
-            {
-                NativeMethods.cv_addWeighted_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), beta, gamma, ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Scales, calculates absolute values, and converts the result to 8-bit.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array.</param>
-            /// <param name="alpha">optional scale factor.</param>
-            /// <param name="beta">optional delta added to the scaled values.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// On each element of the input array, the function convertScaleAbs
-            /// performs three operations sequentially: scaling, taking an absolute
-            /// value, conversion to an unsigned 8-bit type:
-            /// \f[\texttt{dst} (I)= \texttt{saturate\_cast&lt;uchar&gt;} (| \texttt{src} (I)* \texttt{alpha} +  \texttt{beta} |)\f]
-            /// In case of multi-channel arrays, the function processes each channel
-            /// independently. When the output is not 8-bit, the operation can be
-            /// emulated by calling the Mat::convertTo method (or by using matrix
-            /// expressions) and then by calculating an absolute value of the result.
-            /// For example:
-            /// @code{.cpp}
-            /// Mat_&lt;float&gt; A(30,30);
-            /// randu(A, Scalar(-100), Scalar(100));
-            /// Mat_&lt;float&gt; B = A*5 + 3;
-            /// B = abs(B);
-            /// // Mat_&lt;float&gt; B = abs(A*5+3) will also do the job,
-            /// // but it will allocate a temporary matrix
-            /// @endcode
-            /// @sa  Mat::convertTo, cv::abs(const Mat&amp;)
-            /// </remarks>
-            public static void ConvertScaleAbs(Mat src, Mat dst, double alpha, double beta)
-            {
-                NativeMethods.cv_convertScaleAbs_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs a look-up table transform of an array.
-            /// </summary>
-            /// <param name="src">input array of 8-bit or 16-bit integer elements.</param>
-            /// <param name="lut">look-up table of 256 elements (if src has depth CV_8U or CV_8S) or 65536 elements(if src has depth CV_16U or CV_16S); in case of multi-channel input array, the table should either have a single channel (in this case the same table is used for all channels) or the same number of channels as in the input array.</param>
-            /// <param name="dst">output array of the same size and number of channels as src, and the same depth as lut.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function LUT fills the output array with values from the look-up table. Indices of the entries
-            /// are taken from the input array. That is, the function processes each element of src as follows:
-            /// \f[\texttt{dst} (I)  \leftarrow \texttt{lut(src(I) + d)}\f]
-            /// where
-            /// \f[d =  \forkthree{0}{if \(\texttt{src}\) has depth \(\texttt{CV_8U}\) or \(\texttt{CV_16U}\)}{128}{if \(\texttt{src}\) has depth \(\texttt{CV_8S}\)}{32768}{if \(\texttt{src}\) has depth \(\texttt{CV_16S}\)}\f]
-            /// @sa  convertScaleAbs, Mat::convertTo
-            /// </remarks>
-            public static void Lut(Mat src, Mat lut, Mat dst)
-            {
-                NativeMethods.cv_LUT_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lut, nameof(lut), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the sum of array elements.
-            /// </summary>
-            /// <param name="src">input array that must have from 1 to 4 channels.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::sum calculates and returns the sum of array elements,
-            /// independently for each channel.
-            /// @sa  countNonZero, mean, meanStdDev, norm, minMaxLoc, reduce
-            /// </remarks>
-            public static Scalar Sum(Mat src)
-            {
-                var res = NativeMethods.cv_sum_0(ValidationHelper.GetHandle(src, nameof(src), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Checks for the presence of at least one non-zero array element.
-            /// </summary>
-            /// <param name="src">single-channel array.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns whether there are non-zero elements in src
-            /// The function do not work with multi-channel arrays. If you need to check non-zero array
-            /// elements across all the channels, use Mat::reshape first to reinterpret the array as
-            /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
-            /// mixChannels, or split.
-            /// @note
-            /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
-            /// - If the location of non-zero array elements is important, @ref findNonZero is helpful.
-            /// - If the count of non-zero array elements is important, @ref countNonZero is helpful.
-            /// @sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
-            /// @sa  findNonZero, countNonZero
-            /// </remarks>
-            public static bool HasNonZero(Mat src)
-            {
-                var res = NativeMethods.cv_hasNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Counts non-zero array elements.
-            /// </summary>
-            /// <param name="src">single-channel array.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns the number of non-zero elements in src :
-            /// \f[\sum _{I: \; \texttt{src} (I) \ne0 } 1\f]
-            /// The function do not work with multi-channel arrays. If you need to count non-zero array
-            /// elements across all the channels, use Mat::reshape first to reinterpret the array as
-            /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
-            /// mixChannels, or split.
-            /// @note
-            /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
-            /// - If only whether there are non-zero elements is important, @ref hasNonZero is helpful.
-            /// - If the location of non-zero array elements is important, @ref findNonZero is helpful.
-            /// @sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
-            /// @sa  findNonZero, hasNonZero
-            /// </remarks>
-            public static int CountNonZero(Mat src)
-            {
-                var res = NativeMethods.cv_countNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the list of locations of non-zero pixels
-            /// </summary>
-            /// <param name="src">single-channel array</param>
-            /// <param name="idx">the output array, type of cv::Mat or std::vector&lt;Point&gt;, corresponding to non-zero indices in the input</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Given a binary matrix (likely returned from an operation such
-            /// as threshold(), compare(), &gt;, ==, etc, return all of
-            /// the non-zero indices as a cv::Mat or std::vector&lt;cv::Point&gt; (x,y)
-            /// For example:
-            /// @code{.cpp}
-            /// cv::Mat binaryImage; // input, binary image
-            /// cv::Mat locations;   // output, locations of non-zero pixels
-            /// cv::findNonZero(binaryImage, locations);
-            /// // access pixel coordinates
-            /// Point pnt = locations.at&lt;Point&gt;(i);
-            /// @endcode
-            /// or
-            /// @code{.cpp}
-            /// cv::Mat binaryImage; // input, binary image
-            /// vector&lt;Point&gt; locations;   // output, locations of non-zero pixels
-            /// cv::findNonZero(binaryImage, locations);
-            /// // access pixel coordinates
-            /// Point pnt = locations[i];
-            /// @endcode
-            /// The function do not work with multi-channel arrays. If you need to find non-zero
-            /// elements across all the channels, use Mat::reshape first to reinterpret the array as
-            /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
-            /// mixChannels, or split.
-            /// @note
-            /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
-            /// - If only count of non-zero array elements is important, @ref countNonZero is helpful.
-            /// - If only whether there are non-zero elements is important, @ref hasNonZero is helpful.
-            /// @sa  countNonZero, hasNonZero
-            /// </remarks>
-            public static void FindNonZero(Mat src, Mat idx)
-            {
-                NativeMethods.cv_findNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(idx, nameof(idx), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates an average (mean) of array elements.
-            /// </summary>
-            /// <param name="src">input array that should have from 1 to 4 channels so that the result can be stored in Scalar_ .</param>
-            /// <param name="mask">optional operation mask ot type CV_8U, CV_8S or CV_Bool.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::mean calculates the mean value M of array elements,
-            /// independently for each channel, and return it:
-            /// \f[\begin{array}{l} N =  \sum _{I: \; \texttt{mask} (I) \ne 0} 1 \\ M_c =  \left ( \sum _{I: \; \texttt{mask} (I) \ne 0}{ \texttt{mtx} (I)_c} \right )/N \end{array}\f]
-            /// When all the mask elements are 0's, the function returns Scalar::all(0)
-            /// @sa  countNonZero, meanStdDev, norm, minMaxLoc
-            /// </remarks>
-            public static Scalar Mean(Mat src, Mat? mask)
-            {
-                var res = NativeMethods.cv_mean_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Calculates a mean and standard deviation of array elements.
-            /// </summary>
-            /// <param name="src">input array that should have from 1 to 4 channels so that the results can be stored in Scalar_ 's.</param>
-            /// <param name="mean">output parameter: calculated mean value.</param>
-            /// <param name="stddev">output parameter: calculated standard deviation.</param>
-            /// <param name="mask">optional operation mask of type CV_8U, CV_8S or CV_Bool.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::meanStdDev calculates the mean and the standard deviation M
-            /// of array elements independently for each channel and returns it via the
-            /// output parameters:
-            /// \f[\begin{array}{l} N =  \sum _{I, \texttt{mask} (I)  \ne 0} 1 \\ \texttt{mean} _c =  \frac{\sum_{ I: \; \texttt{mask}(I) \ne 0} \texttt{src} (I)_c}{N} \\ \texttt{stddev} _c =  \sqrt{\frac{\sum_{ I: \; \texttt{mask}(I) \ne 0} \left ( \texttt{src} (I)_c -  \texttt{mean} _c \right )^2}{N}} \end{array}\f]
-            /// When all the mask elements are 0's, the function returns
-            /// mean=stddev=Scalar::all(0).
-            /// @note The calculated standard deviation is only the diagonal of the
-            /// complete normalized covariance matrix. If the full matrix is needed, you
-            /// can reshape the multi-channel array M x N to the single-channel array
-            /// M\*N x mtx.channels() (only possible when the matrix is continuous) and
-            /// then pass the matrix to calcCovarMatrix .
-            /// @sa  countNonZero, mean, norm, minMaxLoc, calcCovarMatrix
-            /// </remarks>
-            public static void MeanStdDev(Mat src, Mat mean, Mat stddev, Mat? mask)
-            {
-                NativeMethods.cv_meanStdDev_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the  absolute norm of an array.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="normType">type of the norm (see #NormTypes).</param>
-            /// <param name="mask">optional operation mask; it must have the same size as src1 and type CV_8UC1, CV_8SC1 or CV_BoolC1.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This version of #norm calculates the absolute norm of src1. The type of norm to calculate is specified using #NormTypes.
-            /// As example for one array consider the function \f$r(x)= \begin{pmatrix} x \\ 1-x \end{pmatrix}, x \in [-1;1]\f$.
-            /// The \f$ L_{1}, L_{2} \f$ and \f$ L_{\infty} \f$ norm for the sample value \f$r(-1) = \begin{pmatrix} -1 \\ 2 \end{pmatrix}\f$
-            /// is calculated as follows
-            /// \f{align*}
-            /// \| r(-1) \|_{L_1} &amp;= |-1| + |2| = 3 \\
-            /// \| r(-1) \|_{L_2} &amp;= \sqrt{(-1)^{2} + (2)^{2}} = \sqrt{5} \\
-            /// \| r(-1) \|_{L_\infty} &amp;= \max(|-1|,|2|) = 2
-            /// \f}
-            /// and for \f$r(0.5) = \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}\f$ the calculation is
-            /// \f{align*}
-            /// \| r(0.5) \|_{L_1} &amp;= |0.5| + |0.5| = 1 \\
-            /// \| r(0.5) \|_{L_2} &amp;= \sqrt{(0.5)^{2} + (0.5)^{2}} = \sqrt{0.5} \\
-            /// \| r(0.5) \|_{L_\infty} &amp;= \max(|0.5|,|0.5|) = 0.5.
-            /// \f}
-            /// The following graphic shows all values for the three norm functions \f$\| r(x) \|_{L_1}, \| r(x) \|_{L_2}\f$ and \f$\| r(x) \|_{L_\infty}\f$.
-            /// It is notable that the \f$ L_{1} \f$ norm forms the upper and the \f$ L_{\infty} \f$ norm forms the lower border for the example function \f$ r(x) \f$.
-            /// ![Graphs for the different norm functions from the above example](pics/NormTypes_OneArray_1-2-INF.png)
-            /// When the mask parameter is specified and it is not empty, the norm is
-            /// If normType is not specified, #NORM_L2 is used.
-            /// calculated only over the region specified by the mask.
-            /// Multi-channel input arrays are treated as single-channel arrays, that is,
-            /// the results for all channels are combined.
-            /// Hamming norms can only be calculated with CV_8U depth arrays.
-            /// </remarks>
-            public static double Norm(Mat src1, int normType, Mat? mask)
-            {
-                var res = NativeMethods.cv_norm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Calculates an absolute difference norm or a relative difference norm.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size and the same type as src1.</param>
-            /// <param name="normType">type of the norm (see #NormTypes).</param>
-            /// <param name="mask">optional operation mask; it must have the same size as src1 and type CV_8UC1, CV_8S1 or CV_BoolC1.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This version of cv::norm calculates the absolute difference norm
-            /// or the relative difference norm of arrays src1 and src2.
-            /// The type of norm to calculate is specified using #NormTypes.
-            /// </remarks>
-            public static double Norm(Mat src1, Mat src2, int normType, Mat? mask)
-            {
-                var res = NativeMethods.cv_norm_1(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size as src1.</param>
-            /// <param name="R">the maximum pixel value (255 by default)</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This function calculates the Peak Signal-to-Noise Ratio (PSNR) image quality metric in decibels (dB),
-            /// between two input arrays src1 and src2. The arrays must have the same type.
-            /// The PSNR is calculated as follows:
-            /// \f[
-            /// \texttt{PSNR} = 10 \cdot \log_{10}{\left( \frac{R^2}{MSE} \right) }
-            /// \f]
-            /// where R is the maximum integer value of depth (e.g. 255 in the case of CV_8U data)
-            /// and MSE is the mean squared error between the two arrays.
-            /// </remarks>
-            public static double Psnr(Mat src1, Mat src2, double R)
-            {
-                var res = NativeMethods.cv_PSNR_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), R);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// naive nearest neighbor finder
-            /// </summary>
-            /// <param name="src1">The src1 parameter.</param>
-            /// <param name="src2">The src2 parameter.</param>
-            /// <param name="dist">The dist parameter.</param>
-            /// <param name="dtype">The dtype parameter.</param>
-            /// <param name="nidx">The nidx parameter.</param>
-            /// <param name="normType">The normType parameter.</param>
-            /// <param name="K">The K parameter.</param>
-            /// <param name="mask">The mask parameter.</param>
-            /// <param name="update">The update parameter.</param>
-            /// <param name="crosscheck">The crosscheck parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// see http://en.wikipedia.org/wiki/Nearest_neighbor_search
-            /// @todo document
-            /// </remarks>
-            public static void BatchDistance(Mat src1, Mat src2, Mat dist, int dtype, Mat nidx, int normType, int K, Mat? mask, int update, bool crosscheck)
-            {
-                NativeMethods.cv_batchDistance_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dist, nameof(dist), false), dtype, ValidationHelper.GetHandle(nidx, nameof(nidx), false), normType, K, ValidationHelper.GetHandle(mask, nameof(mask), true), update, crosscheck);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Normalizes the norm or value range of an array.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same size as src .</param>
-            /// <param name="alpha">norm value to normalize to or the lower range boundary in case of the range normalization.</param>
-            /// <param name="beta">upper range boundary in case of the range normalization; it is not used for the norm normalization.</param>
-            /// <param name="norm_type">normalization type (see cv::NormTypes).</param>
-            /// <param name="dtype">when negative, the output array has the same type as src; otherwise, it has the same number of channels as src and the depth =CV_MAT_DEPTH(dtype).</param>
-            /// <param name="mask">optional operation mask of type CV_8U, CV_8S or CV_Bool.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::normalize normalizes scale and shift the input array elements so that
-            /// \f[\| \texttt{dst} \| _{L_p}= \texttt{alpha}\f]
-            /// (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
-            /// \f[\min _I  \texttt{dst} (I)= \texttt{alpha} , \, \, \max _I  \texttt{dst} (I)= \texttt{beta}\f]
-            /// when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
-            /// normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
-            /// sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
-            /// min-max but modify the whole array, you can use norm and Mat::convertTo.
-            /// In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
-            /// the range transformation for sparse matrices is not allowed since it can shift the zero level.
-            /// Possible usage with some positive example data:
-            /// @code{.cpp}
-            /// vector&lt;double&gt; positiveData = { 2.0, 8.0, 10.0 };
-            /// vector&lt;double&gt; normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
-            /// // Norm to probability (total count)
-            /// // sum(numbers) = 20.0
-            /// // 2.0      0.1     (2.0/20.0)
-            /// // 8.0      0.4     (8.0/20.0)
-            /// // 10.0     0.5     (10.0/20.0)
-            /// normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
-            /// // Norm to unit vector: ||positiveData|| = 1.0
-            /// // 2.0      0.15
-            /// // 8.0      0.62
-            /// // 10.0     0.77
-            /// normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
-            /// // Norm to max element
-            /// // 2.0      0.2     (2.0/10.0)
-            /// // 8.0      0.8     (8.0/10.0)
-            /// // 10.0     1.0     (10.0/10.0)
-            /// normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
-            /// // Norm to range [0.0;1.0]
-            /// // 2.0      0.0     (shift to left border)
-            /// // 8.0      0.75    (6.0/8.0)
-            /// // 10.0     1.0     (shift to right border)
-            /// normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
-            /// @endcode
-            /// @note Due to rounding issues, min-max normalization can result in values outside provided boundaries.
-            /// If exact range conformity is needed, following workarounds can be used:
-            /// - use double floating point precision (dtype = CV_64F)
-            /// - manually clip values (`cv::max(res, left_bound, res)`, `cv::min(res, right_bound, res)` or `np.clip`)
-            /// @sa norm, Mat::convertTo, SparseMat::convertTo
-            /// </remarks>
-            public static void Normalize(Mat src, Mat dst, double alpha, double beta, int norm_type, int dtype, Mat? mask)
-            {
-                NativeMethods.cv_normalize_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta, norm_type, dtype, ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Finds the global minimum and maximum in an array.
-            /// </summary>
-            /// <param name="src">input single-channel array.</param>
-            /// <param name="minVal">pointer to the returned minimum value; NULL is used if not required.</param>
-            /// <param name="maxVal">pointer to the returned maximum value; NULL is used if not required.</param>
-            /// <param name="minLoc">pointer to the returned minimum location (in 2D case); NULL is used if not required.</param>
-            /// <param name="maxLoc">pointer to the returned maximum location (in 2D case); NULL is used if not required.</param>
-            /// <param name="mask">optional mask used to select a sub-array of type CV_8U, CV_8S or CV_Bool.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::minMaxLoc finds the minimum and maximum element values and their positions. The
-            /// extremums are searched across the whole array or, if mask is not an empty array, in the specified
-            /// array region.
-            /// In C++, if the input is multi-channel, you should omit the minLoc, maxLoc, and mask arguments
-            /// (i.e. leave them as NULL, NULL, and noArray() respectively). These arguments are not
-            /// supported for multi-channel input arrays. If working with multi-channel input and you
-            /// need the minLoc, maxLoc, or mask arguments, then use Mat::reshape first to reinterpret
-            /// the array as single-channel. Alternatively, you can extract the particular channel using either
-            /// extractImageCOI, mixChannels, or split.
-            /// In Python, multi-channel input is not supported at all due to a limitation in the
-            /// binding generation process (there is no way to set minLoc and maxLoc to NULL). A
-            /// workaround is to operate on each channel individually or to use NumPy to achieve the same
-            /// functionality.
-            /// @note CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
-            /// @sa max, min, reduceArgMin, reduceArgMax, compare, inRange, extractImageCOI, mixChannels, split, Mat::reshape
-            /// </remarks>
-            public static void MinMaxLoc(Mat src, IntPtr minVal, IntPtr maxVal, IntPtr minLoc, IntPtr maxLoc, Mat? mask)
-            {
-                NativeMethods.cv_minMaxLoc_0(ValidationHelper.GetHandle(src, nameof(src), false), minVal, maxVal, minLoc, maxLoc, ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// * @brief Finds indices of min elements along provided axis
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <param name="axis">The axis parameter.</param>
-            /// <param name="lastIndex">The lastIndex parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// *
-            /// * @note
-            /// *      - If input or output array is not continuous, this function will create an internal copy.
-            /// *      - NaN handling is left unspecified, see patchNaNs().
-            /// *      - The returned index is always in bounds of input matrix.
-            /// *
-            /// * @param src input single-channel array.
-            /// * @param dst output array of type CV_32SC1 with the same dimensionality as src,
-            /// * except for axis being reduced - it should be set to 1.
-            /// * @param lastIndex whether to get the index of first or last occurrence of min.
-            /// * @param axis axis to reduce along.
-            /// * @sa reduceArgMax, minMaxLoc, min, max, compare, reduce
-            /// </remarks>
-            public static void ReduceArgMin(Mat src, Mat dst, int axis, bool lastIndex)
-            {
-                NativeMethods.cv_reduceArgMin_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// * @brief Finds indices of max elements along provided axis
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <param name="axis">The axis parameter.</param>
-            /// <param name="lastIndex">The lastIndex parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// *
-            /// * @note
-            /// *      - If input or output array is not continuous, this function will create an internal copy.
-            /// *      - NaN handling is left unspecified, see patchNaNs().
-            /// *      - The returned index is always in bounds of input matrix.
-            /// *
-            /// * @param src input single-channel array.
-            /// * @param dst output array of type CV_32SC1 with the same dimensionality as src,
-            /// * except for axis being reduced - it should be set to 1.
-            /// * @param lastIndex whether to get the index of first or last occurrence of max.
-            /// * @param axis axis to reduce along.
-            /// * @sa reduceArgMin, minMaxLoc, min, max, compare, reduce
-            /// </remarks>
-            public static void ReduceArgMax(Mat src, Mat dst, int axis, bool lastIndex)
-            {
-                NativeMethods.cv_reduceArgMax_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Reduces a matrix to a vector.
-            /// </summary>
-            /// <param name="src">input 2D matrix.</param>
-            /// <param name="dst">output vector. Its size and type is defined by dim and dtype parameters.</param>
-            /// <param name="dim">dimension index along which the matrix is reduced. 0 means that the matrix is reduced to a single row. 1 means that the matrix is reduced to a single column.</param>
-            /// <param name="rtype">reduction operation that could be one of #ReduceTypes</param>
-            /// <param name="dtype">when negative, the output vector will have the same type as the input matrix, otherwise, its type will be CV_MAKE_TYPE(CV_MAT_DEPTH(dtype), src.channels()).</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function #reduce reduces the matrix to a vector by treating the matrix rows/columns as a set of
-            /// 1D vectors and performing the specified operation on the vectors until a single row/column is
-            /// obtained. For example, the function can be used to compute horizontal and vertical projections of a
-            /// raster image. In case of #REDUCE_MAX and #REDUCE_MIN, the output image should have the same type as the source one.
-            /// In case of #REDUCE_SUM, #REDUCE_SUM2 and #REDUCE_AVG, the output may have a larger element bit-depth to preserve accuracy.
-            /// And multi-channel arrays are also supported in these two reduction modes.
-            /// The following code demonstrates its usage for a single channel matrix.
-            /// @snippet snippets/core_reduce.cpp example
-            /// And the following code demonstrates its usage for a two-channel matrix.
-            /// @snippet snippets/core_reduce.cpp example2
-            /// @sa repeat, reduceArgMin, reduceArgMax
-            /// </remarks>
-            public static void Reduce(Mat src, Mat dst, int dim, int rtype, int dtype)
-            {
-                NativeMethods.cv_reduce_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dim, rtype, dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="mv">input vector of matrices to be merged; all the matrices in mv must have the same size and the same depth.</param>
-            /// <param name="dst">output array of the same size and the same depth as mv[0]; The number of channels will be the total number of channels in the matrix array.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Merge(IntPtr mv, Mat dst)
-            {
-                NativeMethods.cv_merge_0(mv, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="m">input multi-channel array.</param>
-            /// <param name="mv">output vector of arrays; the arrays themselves are reallocated, if needed.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Split(Mat m, IntPtr mv)
-            {
-                NativeMethods.cv_split_0(ValidationHelper.GetHandle(m, nameof(m), false), mv);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="src">input array or vector of matrices; all of the matrices must have the same size and the same depth.</param>
-            /// <param name="dst">output array or vector of matrices; all the matrices **must be allocated**; their size and depth must be the same as in src[0].</param>
-            /// <param name="fromTo">array of index pairs specifying which channels are copied and where; fromTo[k\*2] is a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to src[0].channels()-1, the second input image channels are indexed from src[0].channels() to src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is filled with zero .</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void MixChannels(IntPtr src, IntPtr dst, IntPtr fromTo)
-            {
-                NativeMethods.cv_mixChannels_0(src, dst, fromTo);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Extracts a single channel from src (coi is 0-based index)
-            /// </summary>
-            /// <param name="src">input array</param>
-            /// <param name="dst">output array</param>
-            /// <param name="coi">index of channel to extract</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa mixChannels, split
-            /// </remarks>
-            public static void ExtractChannel(Mat src, Mat dst, int coi)
-            {
-                NativeMethods.cv_extractChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Inserts a single channel to dst (coi is 0-based index)
-            /// </summary>
-            /// <param name="src">input array</param>
-            /// <param name="dst">output array</param>
-            /// <param name="coi">index of channel for insertion</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa mixChannels, merge
-            /// </remarks>
-            public static void InsertChannel(Mat src, Mat dst, int coi)
-            {
-                NativeMethods.cv_insertChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Flips a 2D array around vertical, horizontal, or both axes.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <param name="flipCode">a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::flip flips the array in one of three different ways (row
-            /// and column indices are 0-based):
-            /// \f[\texttt{dst} _{ij} =
-            /// \left\{
-            /// \begin{array}{l l}
-            /// \texttt{src} _{\texttt{src.rows}-i-1,j} &amp; if\;  \texttt{flipCode} = 0 \\
-            /// \texttt{src} _{i, \texttt{src.cols} -j-1} &amp; if\;  \texttt{flipCode} &gt; 0 \\
-            /// \texttt{src} _{ \texttt{src.rows} -i-1, \texttt{src.cols} -j-1} &amp; if\; \texttt{flipCode} &lt; 0 \\
-            /// \end{array}
-            /// \right.\f]
-            /// The example scenarios of using the function are the following:
-            /// *   Vertical flipping of the image (flipCode == 0) to switch between
-            /// top-left and bottom-left image origin. This is a typical operation
-            /// in video processing on Microsoft Windows\* OS.
-            /// *   Horizontal flipping of the image with the subsequent horizontal
-            /// shift and absolute difference calculation to check for a
-            /// vertical-axis symmetry (flipCode \&gt; 0).
-            /// *   Simultaneous horizontal and vertical flipping of the image with
-            /// the subsequent shift and absolute difference calculation to check
-            /// for a central symmetry (flipCode \&lt; 0).
-            /// *   Reversing the order of point arrays (flipCode \&gt; 0 or
-            /// flipCode == 0).
-            /// @sa transpose, repeat, completeSymm
-            /// </remarks>
-            public static void Flip(Mat src, Mat dst, int flipCode)
-            {
-                NativeMethods.cv_flip_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flipCode);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Flips a n-dimensional at given axis
-            /// *  @param src input array
-            /// *  @param dst output array that has the same shape of src
-            /// *  @param axis axis that performs a flip on. 0 &lt;= axis &lt; src.dims.
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <param name="axis">The axis parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FlipND(Mat src, Mat dst, int axis)
-            {
-                NativeMethods.cv_flipND_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Broadcast the given Mat to the given shape.
-            /// * @param src input array
-            /// * @param shape target shape. Should be a list of CV_32S numbers. Note that negative values are not supported.
-            /// * @param dst output array that has the given shape
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="shape">The shape parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Broadcast(Mat src, Mat shape, Mat dst)
-            {
-                NativeMethods.cv_broadcast_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(shape, nameof(shape), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Rotates a 2D array in multiples of 90 degrees.
-            /// The function cv::rotate rotates the array in one of three different ways:
-            /// *   Rotate by 90 degrees clockwise (rotateCode = ROTATE_90_CLOCKWISE).
-            /// *   Rotate by 180 degrees clockwise (rotateCode = ROTATE_180).
-            /// *   Rotate by 270 degrees clockwise (rotateCode = ROTATE_90_COUNTERCLOCKWISE).
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same type as src.  The size is the same with ROTATE_180, and the rows and cols are switched for ROTATE_90_CLOCKWISE and ROTATE_90_COUNTERCLOCKWISE.</param>
-            /// <param name="rotateCode">an enum to specify how to rotate the array; see the enum #RotateFlags</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa transpose, repeat, completeSymm, flip, RotateFlags
-            /// </remarks>
-            public static void Rotate(Mat src, Mat dst, int rotateCode)
-            {
-                NativeMethods.cv_rotate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), rotateCode);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Fills the output array with repeated copies of the input array.
-            /// </summary>
-            /// <param name="src">input array to replicate.</param>
-            /// <param name="ny">Flag to specify how many times the `src` is repeated along the vertical axis.</param>
-            /// <param name="nx">Flag to specify how many times the `src` is repeated along the horizontal axis.</param>
-            /// <param name="dst">output array of the same type as `src`.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::repeat duplicates the input array one or more times along each of the two axes:
-            /// \f[\texttt{dst} _{ij}= \texttt{src} _{i\mod src.rows, \; j\mod src.cols }\f]
-            /// The second variant of the function is more convenient to use with @ref MatrixExpressions.
-            /// @sa cv::reduce
-            /// </remarks>
-            public static void Repeat(Mat src, int ny, int nx, Mat dst)
-            {
-                NativeMethods.cv_repeat_0(ValidationHelper.GetHandle(src, nameof(src), false), ny, nx, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="src">input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.</param>
-            /// <param name="dst">output array. It has the same number of rows and depth as the src, and the sum of cols of the src. same depth.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @code{.cpp}
-            /// std::vector&lt;cv::Mat&gt; matrices = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
-            /// cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
-            /// cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
-            /// cv::Mat out;
-            /// cv::hconcat( matrices, out );
-            /// //out:
-            /// //[1, 2, 3;
-            /// // 1, 2, 3;
-            /// // 1, 2, 3;
-            /// // 1, 2, 3]
-            /// @endcode
-            /// </remarks>
-            public static void Hconcat(IntPtr src, Mat dst)
-            {
-                NativeMethods.cv_hconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="src">input array or vector of matrices. all of the matrices must have the same number of cols and the same depth</param>
-            /// <param name="dst">output array. It has the same number of cols and depth as the src, and the sum of rows of the src. same depth.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @code{.cpp}
-            /// std::vector&lt;cv::Mat&gt; matrices = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
-            /// cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
-            /// cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
-            /// cv::Mat out;
-            /// cv::vconcat( matrices, out );
-            /// //out:
-            /// //[1,   1,   1,   1;
-            /// // 2,   2,   2,   2;
-            /// // 3,   3,   3,   3]
-            /// @endcode
-            /// </remarks>
-            public static void Vconcat(IntPtr src, Mat dst)
-            {
-                NativeMethods.cv_vconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// computes bitwise conjunction of the two arrays (dst = src1 &amp; src2)
-            /// Calculates the per-element bit-wise conjunction of two arrays or an
-            /// array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array that has the same size and type as the input arrays.</param>
-            /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::bitwise_and calculates the per-element bit-wise logical conjunction for:
-            /// *   Two arrays when src1 and src2 have the same size:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \wedge \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// *   An array and a scalar when src2 is constructed from Scalar or has
-            /// the same number of elements as `src1.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \wedge \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
-            /// *   A scalar and an array when src1 is constructed from Scalar or has
-            /// the same number of elements as `src2.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1}  \wedge \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// In case of floating-point arrays, their machine-specific bit
-            /// representations (usually IEEE754-compliant) are used for the operation.
-            /// In case of multi-channel arrays, each channel is processed
-            /// independently. In the second and third cases above, the scalar is first
-            /// converted to the array type.
-            /// </remarks>
-            public static void BitwiseAnd(Mat src1, Mat src2, Mat dst, Mat? mask)
-            {
-                NativeMethods.cv_bitwise_and_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element bit-wise disjunction of two arrays or an
-            /// array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array that has the same size and type as the input arrays.</param>
-            /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::bitwise_or calculates the per-element bit-wise logical disjunction for:
-            /// *   Two arrays when src1 and src2 have the same size:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \vee \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// *   An array and a scalar when src2 is constructed from Scalar or has
-            /// the same number of elements as `src1.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \vee \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
-            /// *   A scalar and an array when src1 is constructed from Scalar or has
-            /// the same number of elements as `src2.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1}  \vee \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// In case of floating-point arrays, their machine-specific bit
-            /// representations (usually IEEE754-compliant) are used for the operation.
-            /// In case of multi-channel arrays, each channel is processed
-            /// independently. In the second and third cases above, the scalar is first
-            /// converted to the array type.
-            /// </remarks>
-            public static void BitwiseOr(Mat src1, Mat src2, Mat dst, Mat? mask)
-            {
-                NativeMethods.cv_bitwise_or_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element bit-wise "exclusive or" operation on two
-            /// arrays or an array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array that has the same size and type as the input arrays.</param>
-            /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::bitwise_xor calculates the per-element bit-wise logical "exclusive-or"
-            /// operation for:
-            /// *   Two arrays when src1 and src2 have the same size:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \oplus \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// *   An array and a scalar when src2 is constructed from Scalar or has
-            /// the same number of elements as `src1.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \oplus \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
-            /// *   A scalar and an array when src1 is constructed from Scalar or has
-            /// the same number of elements as `src2.channels()`:
-            /// \f[\texttt{dst} (I) =  \texttt{src1}  \oplus \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
-            /// In case of floating-point arrays, their machine-specific bit
-            /// representations (usually IEEE754-compliant) are used for the operation.
-            /// In case of multi-channel arrays, each channel is processed
-            /// independently. In the 2nd and 3rd cases above, the scalar is first
-            /// converted to the array type.
-            /// </remarks>
-            public static void BitwiseXor(Mat src1, Mat src2, Mat dst, Mat? mask)
-            {
-                NativeMethods.cv_bitwise_xor_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Inverts every bit of an array.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array that has the same size and type as the input array.</param>
-            /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::bitwise_not calculates per-element bit-wise inversion of the input
-            /// array:
-            /// \f[\texttt{dst} (I) =  \neg \texttt{src} (I)\f]
-            /// In case of a floating-point input array, its machine-specific bit
-            /// representation (usually IEEE754-compliant) is used for the operation. In
-            /// case of multi-channel arrays, each channel is processed independently.
-            /// </remarks>
-            public static void BitwiseNot(Mat src, Mat dst, Mat? mask)
-            {
-                NativeMethods.cv_bitwise_not_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the per-element absolute difference between two arrays or between an array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar.</param>
-            /// <param name="src2">second input array or a scalar.</param>
-            /// <param name="dst">output array that has the same size and type as input arrays.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::absdiff calculates:
-            /// *   Absolute difference between two arrays when they have the same
-            /// size and type:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1}(I) -  \texttt{src2}(I)|)\f]
-            /// *   Absolute difference between an array and a scalar when the second
-            /// array is constructed from Scalar or has as many elements as the
-            /// number of channels in `src1`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1}(I) -  \texttt{src2} |)\f]
-            /// *   Absolute difference between a scalar and an array when the first
-            /// array is constructed from Scalar or has as many elements as the
-            /// number of channels in `src2`:
-            /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1} -  \texttt{src2}(I) |)\f]
-            /// where I is a multi-dimensional index of array elements. In case of
-            /// multi-channel arrays, each channel is processed independently.
-            /// @note Saturation is not applied when the arrays have the depth CV_32S.
-            /// You may even get a negative value in the case of overflow.
-            /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
-            /// `absdiff(src,X)` means `absdiff(src,(X,X,X,X))`.
-            /// `absdiff(src,(X,))` means `absdiff(src,(X,0,0,0))`.
-            /// @sa cv::abs(const Mat&amp;)
-            /// </remarks>
-            public static void Absdiff(Mat src1, Mat src2, Mat dst)
-            {
-                NativeMethods.cv_absdiff_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// This is an overloaded member function, provided for convenience (python)
-            /// Copies the matrix to another one.
-            /// When the operation mask is specified, if the Mat::create call shown above reallocates the matrix, the newly allocated matrix is initialized with all zeros before copying the data.
-            /// </summary>
-            /// <param name="src">source matrix.</param>
-            /// <param name="dst">Destination matrix. If it does not have a proper size or type before the operation, it is reallocated.</param>
-            /// <param name="mask">Operation mask of the same size as \*this. Its non-zero elements indicate which matrix elements need to be copied. The mask has to be of type CV_8U, CV_8S or CV_Bool and can have 1 or multiple channels.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CopyTo(Mat src, Mat dst, Mat mask)
-            {
-                NativeMethods.cv_copyTo_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Checks if array elements lie between the elements of two other arrays.
-            /// </summary>
-            /// <param name="src">first input array.</param>
-            /// <param name="lowerb">inclusive lower boundary array or a scalar.</param>
-            /// <param name="upperb">inclusive upper boundary array or a scalar.</param>
-            /// <param name="dst">output array of the same size as src and CV_8U type.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function checks the range as follows:
-            /// -   For every element of a single-channel input array:
-            /// \f[\texttt{dst} (I)= \texttt{lowerb} (I)_0  \leq \texttt{src} (I)_0 \leq  \texttt{upperb} (I)_0\f]
-            /// -   For two-channel arrays:
-            /// \f[\texttt{dst} (I)= \texttt{lowerb} (I)_0  \leq \texttt{src} (I)_0 \leq  \texttt{upperb} (I)_0  \land \texttt{lowerb} (I)_1  \leq \texttt{src} (I)_1 \leq  \texttt{upperb} (I)_1\f]
-            /// -   and so forth.
-            /// That is, dst (I) is set to 255 (all 1 -bits) if src (I) is within the
-            /// specified 1D, 2D, 3D, ... box and 0 otherwise.
-            /// When the lower and/or upper boundary parameters are scalars, the indexes
-            /// (I) at lowerb and upperb in the above formulas should be omitted.
-            /// </remarks>
-            public static void InRange(Mat src, Mat lowerb, Mat upperb, Mat dst)
-            {
-                NativeMethods.cv_inRange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lowerb, nameof(lowerb), false), ValidationHelper.GetHandle(upperb, nameof(upperb), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs the per-element comparison of two arrays or an array and scalar value.
-            /// </summary>
-            /// <param name="src1">first input array or a scalar; when it is an array, it must have a single channel.</param>
-            /// <param name="src2">second input array or a scalar; when it is an array, it must have a single channel.</param>
-            /// <param name="dst">output array of type ref CV_8U that has the same size and the same number of channels as the input arrays.</param>
-            /// <param name="cmpop">a flag, that specifies correspondence between the arrays (cv::CmpTypes)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function compares:
-            /// *   Elements of two arrays when src1 and src2 have the same size:
-            /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \,\texttt{cmpop}\, \texttt{src2} (I)\f]
-            /// *   Elements of src1 with a scalar src2 when src2 is constructed from
-            /// Scalar or has a single element:
-            /// \f[\texttt{dst} (I) =  \texttt{src1}(I) \,\texttt{cmpop}\,  \texttt{src2}\f]
-            /// *   src1 with elements of src2 when src1 is constructed from Scalar or
-            /// has a single element:
-            /// \f[\texttt{dst} (I) =  \texttt{src1}  \,\texttt{cmpop}\, \texttt{src2} (I)\f]
-            /// When the comparison result is true, the corresponding element of output
-            /// array is set to 255. The comparison operations can be replaced with the
-            /// equivalent matrix expressions:
-            /// @code{.cpp}
-            /// Mat dst1 = src1 &gt;= src2;
-            /// Mat dst2 = src1 &lt; 8;
-            /// ...
-            /// @endcode
-            /// @sa checkRange, min, max, threshold
-            /// </remarks>
-            public static void Compare(Mat src1, Mat src2, Mat dst, int cmpop)
-            {
-                NativeMethods.cv_compare_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), cmpop);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates per-element minimum of two arrays or an array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size and type as src1.</param>
-            /// <param name="dst">output array of the same size and type as src1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::min calculates the per-element minimum of two arrays:
-            /// \f[\texttt{dst} (I)= \min ( \texttt{src1} (I), \texttt{src2} (I))\f]
-            /// or array and a scalar:
-            /// \f[\texttt{dst} (I)= \min ( \texttt{src1} (I), \texttt{value} )\f]
-            /// @sa max, compare, inRange, minMaxLoc
-            /// </remarks>
-            public static void Min(Mat src1, Mat src2, Mat dst)
-            {
-                NativeMethods.cv_min_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates per-element maximum of two arrays or an array and a scalar.
-            /// </summary>
-            /// <param name="src1">first input array.</param>
-            /// <param name="src2">second input array of the same size and type as src1 .</param>
-            /// <param name="dst">output array of the same size and type as src1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::max calculates the per-element maximum of two arrays:
-            /// \f[\texttt{dst} (I)= \max ( \texttt{src1} (I), \texttt{src2} (I))\f]
-            /// or array and a scalar:
-            /// \f[\texttt{dst} (I)= \max ( \texttt{src1} (I), \texttt{value} )\f]
-            /// @sa  min, compare, inRange, minMaxLoc, @ref MatrixExpressions
-            /// </remarks>
-            public static void Max(Mat src1, Mat src2, Mat dst)
-            {
-                NativeMethods.cv_max_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates a square root of array elements.
-            /// </summary>
-            /// <param name="src">input floating-point array.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::sqrt calculates a square root of each input array element.
-            /// In case of multi-channel arrays, each channel is processed
-            /// independently. The accuracy is approximately the same as of the built-in
-            /// std::sqrt .
-            /// </remarks>
-            public static void Sqrt(Mat src, Mat dst)
-            {
-                NativeMethods.cv_sqrt_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Raises every array element to a power.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="power">exponent of power.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::pow raises every element of the input array to power :
-            /// \f[\texttt{dst} (I) =  \fork{\texttt{src}(I)^{power}}{if \(\texttt{power}\) is integer}{|\texttt{src}(I)|^{power}}{otherwise}\f]
-            /// So, for a non-integer power exponent, the absolute values of input array
-            /// elements are used. However, it is possible to get true values for
-            /// negative values using some extra operations. In the example below,
-            /// computing the 5th root of array src shows:
-            /// @code{.cpp}
-            /// Mat mask = src &lt; 0;
-            /// pow(src, 1./5, dst);
-            /// subtract(Scalar::all(0), dst, dst, mask);
-            /// @endcode
-            /// For some values of power, such as integer values, 0.5 and -0.5,
-            /// specialized faster algorithms are used.
-            /// Special values (NaN, Inf) are not handled.
-            /// @sa sqrt, exp, log, cartToPolar, polarToCart
-            /// </remarks>
-            public static void Pow(Mat src, double power, Mat dst)
-            {
-                NativeMethods.cv_pow_0(ValidationHelper.GetHandle(src, nameof(src), false), power, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the exponent of every array element.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::exp calculates the exponent of every element of the input
-            /// array:
-            /// \f[\texttt{dst} [I] = e^{ src(I) }\f]
-            /// The maximum relative error is about 7e-6 for single-precision input and
-            /// less than 1e-10 for double-precision input. Currently, the function
-            /// converts denormalized values to zeros on output. Special values (NaN,
-            /// Inf) are not handled.
-            /// @sa log, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
-            /// </remarks>
-            public static void Exp(Mat src, Mat dst)
-            {
-                NativeMethods.cv_exp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the natural logarithm of every array element.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same size and type as src .</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::log calculates the natural logarithm of every element of the input array:
-            /// \f[\texttt{dst} (I) =  \log (\texttt{src}(I)) \f]
-            /// Output on zero, negative and special (NaN, Inf) values is undefined.
-            /// @sa exp, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
-            /// </remarks>
-            public static void Log(Mat src, Mat dst)
-            {
-                NativeMethods.cv_log_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates x and y coordinates of 2D vectors from their magnitude and angle.
-            /// </summary>
-            /// <param name="magnitude">input floating-point array of magnitudes of 2D vectors; it can be an empty matrix (=Mat()), in this case, the function assumes that all the magnitudes are =1; if it is not empty, it must have the same size and type as angle.</param>
-            /// <param name="angle">input floating-point array of angles of 2D vectors.</param>
-            /// <param name="x">output array of x-coordinates of 2D vectors; it has the same size and type as angle.</param>
-            /// <param name="y">output array of y-coordinates of 2D vectors; it has the same size and type as angle.</param>
-            /// <param name="angleInDegrees">when true, the input angles are measured in degrees, otherwise, they are measured in radians.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::polarToCart calculates the Cartesian coordinates of each 2D
-            /// vector represented by the corresponding elements of magnitude and angle:
-            /// \f[\begin{array}{l} \texttt{x} (I) =  \texttt{magnitude} (I) \cos ( \texttt{angle} (I)) \\ \texttt{y} (I) =  \texttt{magnitude} (I) \sin ( \texttt{angle} (I)) \\ \end{array}\f]
-            /// The relative accuracy of the estimated coordinates is about 1e-6.
-            /// @sa cartToPolar, magnitude, phase, exp, log, pow, sqrt
-            /// </remarks>
-            public static void PolarToCart(Mat magnitude, Mat angle, Mat x, Mat y, bool angleInDegrees)
-            {
-                NativeMethods.cv_polarToCart_0(ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), angleInDegrees);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the magnitude and angle of 2D vectors.
-            /// </summary>
-            /// <param name="x">array of x-coordinates; this must be a single-precision or double-precision floating-point array.</param>
-            /// <param name="y">array of y-coordinates, that must have the same size and same type as x.</param>
-            /// <param name="magnitude">output array of magnitudes of the same size and type as x.</param>
-            /// <param name="angle">output array of angles that has the same size and type as x; the angles are measured in radians (from 0 to 2\*Pi) or in degrees (0 to 360 degrees).</param>
-            /// <param name="angleInDegrees">a flag, indicating whether the angles are measured in radians (which is by default), or in degrees.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::cartToPolar calculates either the magnitude, angle, or both
-            /// for every 2D vector (x(I),y(I)):
-            /// \f[\begin{array}{l} \texttt{magnitude} (I)= \sqrt{\texttt{x}(I)^2+\texttt{y}(I)^2} , \\ \texttt{angle} (I)= \texttt{atan2} ( \texttt{y} (I), \texttt{x} (I))[ \cdot180 / \pi ] \end{array}\f]
-            /// The angles are calculated with accuracy about 0.3 degrees. For the point
-            /// (0,0), the angle is set to 0.
-            /// @sa Sobel, Scharr
-            /// </remarks>
-            public static void CartToPolar(Mat x, Mat y, Mat magnitude, Mat angle, bool angleInDegrees)
-            {
-                NativeMethods.cv_cartToPolar_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the rotation angle of 2D vectors.
-            /// </summary>
-            /// <param name="x">input floating-point array of x-coordinates of 2D vectors.</param>
-            /// <param name="y">input array of y-coordinates of 2D vectors; it must have the same size and the same type as x.</param>
-            /// <param name="angle">output array of vector angles; it has the same size and same type as x .</param>
-            /// <param name="angleInDegrees">when true, the function calculates the angle in degrees, otherwise, they are measured in radians.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::phase calculates the rotation angle of each 2D vector that
-            /// is formed from the corresponding elements of x and y :
-            /// \f[\texttt{angle} (I) =  \texttt{atan2} ( \texttt{y} (I), \texttt{x} (I))\f]
-            /// The angle estimation accuracy is about 0.3 degrees. When x(I)=y(I)=0 ,
-            /// the corresponding angle(I) is set to 0.
-            /// </remarks>
-            public static void Phase(Mat x, Mat y, Mat angle, bool angleInDegrees)
-            {
-                NativeMethods.cv_phase_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the magnitude of 2D vectors.
-            /// </summary>
-            /// <param name="x">floating-point array of x-coordinates of the vectors.</param>
-            /// <param name="y">floating-point array of y-coordinates of the vectors; it must have the same size as x.</param>
-            /// <param name="magnitude">output array of the same size and type as x.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::magnitude calculates the magnitude of 2D vectors formed
-            /// from the corresponding elements of x and y arrays:
-            /// \f[\texttt{dst} (I) =  \sqrt{\texttt{x}(I)^2 + \texttt{y}(I)^2}\f]
-            /// @sa cartToPolar, polarToCart, phase, sqrt
-            /// </remarks>
-            public static void Magnitude(Mat x, Mat y, Mat magnitude)
-            {
-                NativeMethods.cv_magnitude_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Checks every element of an input array for invalid values.
-            /// </summary>
-            /// <param name="a">input array.</param>
-            /// <param name="quiet">a flag, indicating whether the functions quietly return false when the array elements are out of range or they throw an exception.</param>
-            /// <param name="pos">optional output parameter, when not NULL, must be a pointer to array of src.dims elements.</param>
-            /// <param name="minVal">inclusive lower boundary of valid values range.</param>
-            /// <param name="maxVal">exclusive upper boundary of valid values range.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::checkRange checks that every array element is neither NaN nor infinite. When minVal \&gt;
-            /// -DBL_MAX and maxVal \&lt; DBL_MAX, the function also checks that each value is between minVal and
-            /// maxVal. In case of multi-channel arrays, each channel is processed independently. If some values
-            /// are out of range, position of the first outlier is stored in pos (when pos != NULL). Then, the
-            /// function either returns false (when quiet=true) or throws an exception.
-            /// </remarks>
-            public static bool CheckRange(Mat a, bool quiet, IntPtr pos, double minVal, double maxVal)
-            {
-                var res = NativeMethods.cv_checkRange_0(ValidationHelper.GetHandle(a, nameof(a), false), quiet, pos, minVal, maxVal);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Replaces NaNs (Not-a-Number values) in a matrix with the specified value.
-            /// </summary>
-            /// <param name="a">Input/output matrix (CV_32F or CV_64F type).</param>
-            /// <param name="val">Value used to replace NaNs (defaults to 0).</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This function modifies the input matrix in-place.
-            /// The input matrix must be of type `CV_32F` or `CV_64F`; other types are not supported.
-            /// </remarks>
-            public static void PatchNaNs(Mat a, double val)
-            {
-                NativeMethods.cv_patchNaNs_0(ValidationHelper.GetHandle(a, nameof(a), false), val);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Generates a mask of finite float values, i.e. not NaNs nor Infs.
-            /// </summary>
-            /// <param name="src">Input matrix, should contain float or double elements of 1 to 4 channels</param>
-            /// <param name="mask">Output matrix of the same size as input of type CV_8UC1</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// An element is set to to 255 (all 1-bits) if all channels are finite.
-            /// </remarks>
-            public static void FiniteMask(Mat src, Mat mask)
-            {
-                NativeMethods.cv_finiteMask_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs generalized matrix multiplication.
-            /// </summary>
-            /// <param name="src1">first multiplied input matrix that could be real(CV_32FC1, CV_64FC1) or complex(CV_32FC2, CV_64FC2).</param>
-            /// <param name="src2">second multiplied input matrix of the same type as src1.</param>
-            /// <param name="alpha">weight of the matrix product.</param>
-            /// <param name="src3">third optional delta matrix added to the matrix product; it should have the same type as src1 and src2.</param>
-            /// <param name="beta">weight of src3.</param>
-            /// <param name="dst">output matrix; it has the proper size and the same type as input matrices.</param>
-            /// <param name="flags">operation flags (cv::GemmFlags)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::gemm performs generalized matrix multiplication similar to the
-            /// gemm functions in BLAS level 3. For example,
-            /// `gemm(src1, src2, alpha, src3, beta, dst, GEMM_1_T + GEMM_3_T)`
-            /// corresponds to
-            /// \f[\texttt{dst} =  \texttt{alpha} \cdot \texttt{src1} ^T  \cdot \texttt{src2} +  \texttt{beta} \cdot \texttt{src3} ^T\f]
-            /// In case of complex (two-channel) data, performed a complex matrix
-            /// multiplication.
-            /// The function can be replaced with a matrix expression. For example, the
-            /// above call can be replaced with:
-            /// @code{.cpp}
-            /// dst = alpha*src1.t()*src2 + beta*src3.t();
-            /// @endcode
-            /// @sa mulTransposed, transform
-            /// </remarks>
-            public static void Gemm(Mat src1, Mat src2, double alpha, Mat src3, double beta, Mat dst, int flags)
-            {
-                NativeMethods.cv_gemm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), alpha, ValidationHelper.GetHandle(src3, nameof(src3), false), beta, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the product of a matrix and its transposition.
-            /// </summary>
-            /// <param name="src">input single-channel matrix. Note that unlike gemm, the function can multiply not only floating-point matrices.</param>
-            /// <param name="dst">output square matrix.</param>
-            /// <param name="aTa">Flag specifying the multiplication ordering. See the description below.</param>
-            /// <param name="delta">Optional delta matrix subtracted from src before the multiplication. When the matrix is empty ( delta=noArray() ), it is assumed to be zero, that is, nothing is subtracted. If it has the same size as src, it is simply subtracted. Otherwise, it is "repeated" (see repeat ) to cover the full src and then subtracted. Type of the delta matrix, when it is not empty, must be the same as the type of created output matrix. See the dtype parameter description below.</param>
-            /// <param name="scale">Optional scale factor for the matrix product.</param>
-            /// <param name="dtype">Optional type of the output matrix. When it is negative, the output matrix will have the same type as src . Otherwise, it will be type=CV_MAT_DEPTH(dtype) that should be either CV_32F or CV_64F .</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::mulTransposed calculates the product of src and its
-            /// transposition:
-            /// \f[\texttt{dst} = \texttt{scale} ( \texttt{src} - \texttt{delta} )^T ( \texttt{src} - \texttt{delta} )\f]
-            /// if aTa=true, and
-            /// \f[\texttt{dst} = \texttt{scale} ( \texttt{src} - \texttt{delta} ) ( \texttt{src} - \texttt{delta} )^T\f]
-            /// otherwise. The function is used to calculate the covariance matrix. With
-            /// zero delta, it can be used as a faster substitute for general matrix
-            /// product A\*B when B=A'
-            /// @sa calcCovarMatrix, gemm, repeat, reduce
-            /// </remarks>
-            public static void MulTransposed(Mat src, Mat dst, bool aTa, Mat? delta, double scale, int dtype)
-            {
-                NativeMethods.cv_mulTransposed_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), aTa, ValidationHelper.GetHandle(delta, nameof(delta), true), scale, dtype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Transposes a matrix.
-            /// </summary>
-            /// <param name="src">input array.</param>
-            /// <param name="dst">output array of the same type as src.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::transpose transposes the matrix src :
-            /// \f[\texttt{dst} (i,j) =  \texttt{src} (j,i)\f]
-            /// @note No complex conjugation is done in case of a complex matrix. It
-            /// should be done separately if needed.
-            /// </remarks>
-            public static void Transpose(Mat src, Mat dst)
-            {
-                NativeMethods.cv_transpose_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Transpose for n-dimensional matrices.
-            /// *
-            /// * @note Input should be continuous single-channel matrix.
-            /// * @param src input array.
-            /// * @param order a permutation of [0,1,..,N-1] where N is the number of axes of src.
-            /// * The i'th axis of dst will correspond to the axis numbered order[i] of the input.
-            /// * @param dst output array of the same type as src.
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="order">The order parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void TransposeND(Mat src, IntPtr order, Mat dst)
-            {
-                NativeMethods.cv_transposeND_0(ValidationHelper.GetHandle(src, nameof(src), false), order, ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs the matrix transformation of every array element.
-            /// </summary>
-            /// <param name="src">input array that must have as many channels (1 to 4) as m.cols or m.cols-1.</param>
-            /// <param name="dst">output array of the same size and depth as src; it has as many channels as m.rows.</param>
-            /// <param name="m">transformation 2x2 or 2x3 floating-point matrix.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::transform performs the matrix transformation of every
-            /// element of the array src and stores the results in dst :
-            /// \f[\texttt{dst} (I) =  \texttt{m} \cdot \texttt{src} (I)\f]
-            /// (when m.cols=src.channels() ), or
-            /// \f[\texttt{dst} (I) =  \texttt{m} \cdot [ \texttt{src} (I); 1]\f]
-            /// (when m.cols=src.channels()+1 )
-            /// Every element of the N -channel array src is interpreted as N -element
-            /// vector that is transformed using the M x N or M x (N+1) matrix m to
-            /// M-element vector - the corresponding element of the output array dst .
-            /// The function may be used for geometrical transformation of
-            /// N -dimensional points, arbitrary linear color space transformation (such
-            /// as various kinds of RGB to YUV transforms), shuffling the image
-            /// channels, and so forth.
-            /// @sa perspectiveTransform, getAffineTransform, estimateAffine2D, warpAffine, warpPerspective
-            /// </remarks>
-            public static void Transform(Mat src, Mat dst, Mat m)
-            {
-                NativeMethods.cv_transform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs the perspective matrix transformation of vectors.
-            /// </summary>
-            /// <param name="src">input two-channel or three-channel floating-point array; each element is a 2D/3D vector to be transformed.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <param name="m">3x3 or 4x4 floating-point transformation matrix.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::perspectiveTransform transforms every element of src by
-            /// treating it as a 2D or 3D vector, in the following way:
-            /// \f[(x, y, z)  \rightarrow (x'/w, y'/w, z'/w)\f]
-            /// where
-            /// \f[(x', y', z', w') =  \texttt{mat} \cdot \begin{bmatrix} x &amp; y &amp; z &amp; 1  \end{bmatrix}\f]
-            /// and
-            /// \f[w =  \fork{w'}{if \(w' \ne 0\)}{\infty}{otherwise}\f]
-            /// Here a 3D vector transformation is shown. In case of a 2D vector
-            /// transformation, the z component is omitted.
-            /// @note The function transforms a sparse set of 2D or 3D vectors. If you
-            /// want to transform an image using perspective transformation, use
-            /// warpPerspective . If you have an inverse problem, that is, you want to
-            /// compute the most probable perspective transformation out of several
-            /// pairs of corresponding points, you can use getPerspectiveTransform or
-            /// findHomography .
-            /// @sa  transform, warpPerspective, getPerspectiveTransform, findHomography
-            /// </remarks>
-            public static void PerspectiveTransform(Mat src, Mat dst, Mat m)
-            {
-                NativeMethods.cv_perspectiveTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Copies the lower or the upper half of a square matrix to its another half.
-            /// </summary>
-            /// <param name="m">input-output floating-point square matrix.</param>
-            /// <param name="lowerToUpper">operation flag; if true, the lower half is copied to the upper half. Otherwise, the upper half is copied to the lower half.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::completeSymm copies the lower or the upper half of a square matrix to
-            /// its another half. The matrix diagonal remains unchanged:
-            /// - \f$\texttt{m}_{ij}=\texttt{m}_{ji}\f$ for \f$i &gt; j\f$ if
-            /// lowerToUpper=false
-            /// - \f$\texttt{m}_{ij}=\texttt{m}_{ji}\f$ for \f$i &lt; j\f$ if
-            /// lowerToUpper=true
-            /// @sa flip, transpose
-            /// </remarks>
-            public static void CompleteSymm(Mat m, bool lowerToUpper)
-            {
-                NativeMethods.cv_completeSymm_0(ValidationHelper.GetHandle(m, nameof(m), false), lowerToUpper);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Initializes a scaled identity matrix.
-            /// </summary>
-            /// <param name="mtx">matrix to initialize (not necessarily square).</param>
-            /// <param name="s">value to assign to diagonal elements.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::setIdentity initializes a scaled identity matrix:
-            /// \f[\texttt{mtx} (i,j)= \fork{\texttt{value}}{ if \(i=j\)}{0}{otherwise}\f]
-            /// The function can also be emulated using the matrix initializers and the
-            /// matrix expressions:
-            /// @code
-            /// Mat A = Mat::eye(4, 3, CV_32F)*5;
-            /// // A will be set to [[5, 0, 0], [0, 5, 0], [0, 0, 5], [0, 0, 0]]
-            /// @endcode
-            /// @sa Mat::zeros, Mat::ones, Mat::setTo, Mat::operator=
-            /// </remarks>
-            public static void SetIdentity(Mat mtx, Scalar s)
-            {
-                NativeMethods.cv_setIdentity_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false), s);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns the determinant of a square floating-point matrix.
-            /// </summary>
-            /// <param name="mtx">input matrix that must have CV_32FC1 or CV_64FC1 type and square size.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::determinant calculates and returns the determinant of the
-            /// specified matrix. For small matrices ( mtx.cols=mtx.rows\&lt;=3 ), the
-            /// direct method is used. For larger matrices, the function uses LU
-            /// factorization with partial pivoting.
-            /// For symmetric positively-determined matrices, it is also possible to use
-            /// eigen decomposition to calculate the determinant.
-            /// @sa trace, invert, solve, eigen, @ref MatrixExpressions
-            /// </remarks>
-            public static double Determinant(Mat mtx)
-            {
-                var res = NativeMethods.cv_determinant_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the trace of a matrix.
-            /// </summary>
-            /// <param name="mtx">input matrix.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::trace returns the sum of the diagonal elements of the
-            /// matrix mtx .
-            /// \f[\mathrm{tr} ( \texttt{mtx} ) =  \sum _i  \texttt{mtx} (i,i)\f]
-            /// </remarks>
-            public static Scalar Trace(Mat mtx)
-            {
-                var res = NativeMethods.cv_trace_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Finds the inverse or pseudo-inverse of a matrix.
-            /// </summary>
-            /// <param name="src">input floating-point M x N matrix.</param>
-            /// <param name="dst">output matrix of N x M size and the same type as src.</param>
-            /// <param name="flags">inversion method (cv::DecompTypes)</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::invert inverts the matrix src and stores the result in dst
-            /// . When the matrix src is singular or non-square, the function calculates
-            /// the pseudo-inverse matrix (the dst matrix) so that norm(src\*dst - I) is
-            /// minimal, where I is an identity matrix.
-            /// In case of the #DECOMP_LU method, the function returns non-zero value if
-            /// the inverse has been successfully calculated and 0 if src is singular.
-            /// In case of the #DECOMP_SVD method, the function returns the inverse
-            /// condition number of src (the ratio of the smallest singular value to the
-            /// largest singular value) and 0 if src is singular. The SVD method
-            /// calculates a pseudo-inverse matrix if src is singular.
-            /// Similarly to #DECOMP_LU, the method #DECOMP_CHOLESKY works only with
-            /// non-singular square matrices that should also be symmetrical and
-            /// positively defined. In this case, the function stores the inverted
-            /// matrix in dst and returns non-zero. Otherwise, it returns 0.
-            /// @sa solve, SVD
-            /// </remarks>
-            public static double Invert(Mat src, Mat dst, int flags)
-            {
-                var res = NativeMethods.cv_invert_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Solves one or more linear systems or least-squares problems.
-            /// </summary>
-            /// <param name="src1">input matrix on the left-hand side of the system.</param>
-            /// <param name="src2">input matrix on the right-hand side of the system.</param>
-            /// <param name="dst">output solution.</param>
-            /// <param name="flags">solution (matrix inversion) method (#DecompTypes)</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::solve solves a linear system or least-squares problem (the
-            /// latter is possible with SVD or QR methods, or by specifying the flag
-            /// #DECOMP_NORMAL ):
-            /// \f[\texttt{dst} =  \arg \min _X \| \texttt{src1} \cdot \texttt{X} -  \texttt{src2} \|\f]
-            /// If #DECOMP_LU or #DECOMP_CHOLESKY method is used, the function returns 1
-            /// if src1 (or \f$\texttt{src1}^T\texttt{src1}\f$ ) is non-singular. Otherwise,
-            /// it returns 0. In the latter case, dst is not valid. Other methods find a
-            /// pseudo-solution in case of a singular left-hand side part.
-            /// @note If you want to find a unity-norm solution of an under-defined
-            /// singular system \f$\texttt{src1}\cdot\texttt{dst}=0\f$ , the function solve
-            /// will not do the work. Use SVD::solveZ instead.
-            /// @sa invert, SVD, eigen
-            /// </remarks>
-            public static bool Solve(Mat src1, Mat src2, Mat dst, int flags)
-            {
-                var res = NativeMethods.cv_solve_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Sorts each row or each column of a matrix.
-            /// </summary>
-            /// <param name="src">input single-channel array.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <param name="flags">operation flags, a combination of #SortFlags</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::sort sorts each matrix row or each matrix column in
-            /// ascending or descending order. So you should pass two operation flags to
-            /// get desired behaviour. If you want to sort matrix rows or columns
-            /// lexicographically, you can use STL std::sort generic function with the
-            /// proper comparison predicate.
-            /// @sa sortIdx, randShuffle
-            /// </remarks>
-            public static void Sort(Mat src, Mat dst, int flags)
-            {
-                NativeMethods.cv_sort_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Sorts each row or each column of a matrix.
-            /// </summary>
-            /// <param name="src">input single-channel array.</param>
-            /// <param name="dst">output integer array of the same size as src.</param>
-            /// <param name="flags">operation flags that could be a combination of cv::SortFlags</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::sortIdx sorts each matrix row or each matrix column in the
-            /// ascending or descending order. So you should pass two operation flags to
-            /// get desired behaviour. Instead of reordering the elements themselves, it
-            /// stores the indices of sorted elements in the output array. For example:
-            /// @code
-            /// Mat A = Mat::eye(3,3,CV_32F), B;
-            /// sortIdx(A, B, SORT_EVERY_ROW + SORT_ASCENDING);
-            /// // B will probably contain
-            /// // (because of equal elements in A some permutations are possible):
-            /// // [[1, 2, 0], [0, 2, 1], [0, 1, 2]]
-            /// @endcode
-            /// @sa sort, randShuffle
-            /// </remarks>
-            public static void SortIdx(Mat src, Mat dst, int flags)
-            {
-                NativeMethods.cv_sortIdx_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Finds the real roots of a cubic equation.
-            /// </summary>
-            /// <param name="coeffs">equation coefficients, an array of 3 or 4 elements.</param>
-            /// <param name="roots">output array of real roots that has 0, 1, 2 or 3 elements.</param>
-            /// <returns>number of real roots. It can be -1 (all real numbers), 0, 1, 2 or 3.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function solveCubic finds the real roots of a cubic equation:
-            /// -   if coeffs is a 4-element vector:
-            /// \f[\texttt{coeffs} [0] x^3 +  \texttt{coeffs} [1] x^2 +  \texttt{coeffs} [2] x +  \texttt{coeffs} [3] = 0\f]
-            /// -   if coeffs is a 3-element vector:
-            /// \f[x^3 +  \texttt{coeffs} [0] x^2 +  \texttt{coeffs} [1] x +  \texttt{coeffs} [2] = 0\f]
-            /// The roots are stored in the roots array.
-            /// </remarks>
-            public static int SolveCubic(Mat coeffs, Mat roots)
-            {
-                var res = NativeMethods.cv_solveCubic_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Finds the real or complex roots of a polynomial equation.
-            /// </summary>
-            /// <param name="coeffs">array of polynomial coefficients.</param>
-            /// <param name="roots">output (complex) array of roots.</param>
-            /// <param name="maxIters">maximum number of iterations the algorithm does.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::solvePoly finds real and complex roots of a polynomial equation:
-            /// \f[\texttt{coeffs} [n] x^{n} +  \texttt{coeffs} [n-1] x^{n-1} + ... +  \texttt{coeffs} [1] x +  \texttt{coeffs} [0] = 0\f]
-            /// </remarks>
-            public static double SolvePoly(Mat coeffs, Mat roots, int maxIters)
-            {
-                var res = NativeMethods.cv_solvePoly_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false), maxIters);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Calculates eigenvalues and eigenvectors of a symmetric matrix.
-            /// </summary>
-            /// <param name="src">input matrix that must have CV_32FC1 or CV_64FC1 type, square size and be symmetrical (src ^T^ == src).</param>
-            /// <param name="eigenvalues">output vector of eigenvalues of the same type as src; the eigenvalues are stored in the descending order.</param>
-            /// <param name="eigenvectors">output matrix of eigenvectors; it has the same size and type as src; the eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::eigen calculates just eigenvalues, or eigenvalues and eigenvectors of the symmetric
-            /// matrix src:
-            /// @code
-            /// src*eigenvectors.row(i).t() = eigenvalues.at&lt;srcType&gt;(i)*eigenvectors.row(i).t()
-            /// @endcode
-            /// @note Use cv::eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of non-symmetric matrix.
-            /// @sa eigenNonSymmetric, completeSymm, PCA
-            /// </remarks>
-            public static bool Eigen(Mat src, Mat eigenvalues, Mat? eigenvectors)
-            {
-                var res = NativeMethods.cv_eigen_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
-            /// </summary>
-            /// <param name="src">input matrix (CV_32FC1 or CV_64FC1 type).</param>
-            /// <param name="eigenvalues">output vector of eigenvalues (type is the same type as src).</param>
-            /// <param name="eigenvectors">output matrix of eigenvectors (type is the same type as src). The eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note Assumes real eigenvalues.
-            /// The function calculates eigenvalues and eigenvectors (optional) of the square matrix src:
-            /// @code
-            /// src*eigenvectors.row(i).t() = eigenvalues.at&lt;srcType&gt;(i)*eigenvectors.row(i).t()
-            /// @endcode
-            /// @sa eigen
-            /// </remarks>
-            public static void EigenNonSymmetric(Mat src, Mat eigenvalues, Mat eigenvectors)
-            {
-                NativeMethods.cv_eigenNonSymmetric_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="samples">samples stored as rows/columns of a single matrix.</param>
-            /// <param name="covar">output covariance matrix of the type ctype and square size.</param>
-            /// <param name="mean">input or output (depending on the flags) array as the average value of the input vectors.</param>
-            /// <param name="flags">operation flags as a combination of #CovarFlags</param>
-            /// <param name="ctype">type of the matrixl; it equals 'CV_64F' by default.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note use #COVAR_ROWS or #COVAR_COLS flag
-            /// </remarks>
-            public static void CalcCovarMatrix(Mat samples, Mat covar, Mat mean, int flags, int ctype)
-            {
-                NativeMethods.cv_calcCovarMatrix_0(ValidationHelper.GetHandle(samples, nameof(samples), false), ValidationHelper.GetHandle(covar, nameof(covar), false), ValidationHelper.GetHandle(mean, nameof(mean), false), flags, ctype);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::operator()
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="maxComponents">The maxComponents parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, int maxComponents)
-            {
-                NativeMethods.cv_PCACompute_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), maxComponents);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::operator() and add eigenvalues output parameter
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="eigenvalues">The eigenvalues parameter.</param>
-            /// <param name="maxComponents">The maxComponents parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, int maxComponents)
-            {
-                NativeMethods.cv_PCACompute_1(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), maxComponents);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::operator()
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="retainedVariance">The retainedVariance parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, double retainedVariance)
-            {
-                NativeMethods.cv_PCACompute_2(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), retainedVariance);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::operator() and add eigenvalues output parameter
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="eigenvalues">The eigenvalues parameter.</param>
-            /// <param name="retainedVariance">The retainedVariance parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, double retainedVariance)
-            {
-                NativeMethods.cv_PCACompute_3(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), retainedVariance);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::project
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="result">The result parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCAProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
-            {
-                NativeMethods.cv_PCAProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap PCA::backProject
-            /// </summary>
-            /// <param name="data">The data parameter.</param>
-            /// <param name="mean">The mean parameter.</param>
-            /// <param name="eigenvectors">The eigenvectors parameter.</param>
-            /// <param name="result">The result parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PCABackProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
-            {
-                NativeMethods.cv_PCABackProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap SVD::compute
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="w">The w parameter.</param>
-            /// <param name="u">The u parameter.</param>
-            /// <param name="vt">The vt parameter.</param>
-            /// <param name="flags">The flags parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void SVDecomp(Mat src, Mat w, Mat u, Mat vt, int flags)
-            {
-                NativeMethods.cv_SVDecomp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// wrap SVD::backSubst
-            /// </summary>
-            /// <param name="w">The w parameter.</param>
-            /// <param name="u">The u parameter.</param>
-            /// <param name="vt">The vt parameter.</param>
-            /// <param name="rhs">The rhs parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void SVBackSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat dst)
-            {
-                NativeMethods.cv_SVBackSubst_0(ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), ValidationHelper.GetHandle(rhs, nameof(rhs), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the Mahalanobis distance between two vectors.
-            /// </summary>
-            /// <param name="v1">first 1D input vector.</param>
-            /// <param name="v2">second 1D input vector.</param>
-            /// <param name="icovar">inverse covariance matrix.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::Mahalanobis calculates and returns the weighted distance between two vectors:
-            /// \f[d( \texttt{vec1} , \texttt{vec2} )= \sqrt{\sum_{i,j}{\texttt{icovar(i,j)}\cdot(\texttt{vec1}(I)-\texttt{vec2}(I))\cdot(\texttt{vec1(j)}-\texttt{vec2(j)})} }\f]
-            /// The covariance matrix may be calculated using the #calcCovarMatrix function and then inverted using
-            /// the invert function (preferably using the #DECOMP_SVD method, as the most accurate).
-            /// </remarks>
-            public static double Mahalanobis(Mat v1, Mat v2, Mat icovar)
-            {
-                var res = NativeMethods.cv_Mahalanobis_0(ValidationHelper.GetHandle(v1, nameof(v1), false), ValidationHelper.GetHandle(v2, nameof(v2), false), ValidationHelper.GetHandle(icovar, nameof(icovar), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Performs a forward or inverse Discrete Fourier transform of a 1D or 2D floating-point array.
-            /// </summary>
-            /// <param name="src">input array that could be real or complex.</param>
-            /// <param name="dst">output array whose size and type depends on the flags .</param>
-            /// <param name="flags">transformation flags, representing a combination of the #DftFlags</param>
-            /// <param name="nonzeroRows">when the parameter is not zero, the function assumes that only the first nonzeroRows rows of the input array (#DFT_INVERSE is not set) or only the first nonzeroRows of the output array (#DFT_INVERSE is set) contain non-zeros, thus, the function can handle the rest of the rows more efficiently and save some time; this technique is very useful for calculating array cross-correlation or convolution using DFT.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::dft performs one of the following:
-            /// -   Forward the Fourier transform of a 1D vector of N elements:
-            /// \f[Y = F^{(N)}  \cdot X,\f]
-            /// where \f$F^{(N)}_{jk}=\exp(-2\pi i j k/N)\f$ and \f$i=\sqrt{-1}\f$
-            /// -   Inverse the Fourier transform of a 1D vector of N elements:
-            /// \f[\begin{array}{l} X'=  \left (F^{(N)} \right )^{-1}  \cdot Y =  \left (F^{(N)} \right )^*  \cdot y  \\ X = (1/N)  \cdot X, \end{array}\f]
-            /// where \f$F^*=\left(\textrm{Re}(F^{(N)})-\textrm{Im}(F^{(N)})\right)^T\f$
-            /// -   Forward the 2D Fourier transform of a M x N matrix:
-            /// \f[Y = F^{(M)}  \cdot X  \cdot F^{(N)}\f]
-            /// -   Inverse the 2D Fourier transform of a M x N matrix:
-            /// \f[\begin{array}{l} X'=  \left (F^{(M)} \right )^*  \cdot Y  \cdot \left (F^{(N)} \right )^* \\ X =  \frac{1}{M \cdot N} \cdot X' \end{array}\f]
-            /// In case of real (single-channel) data, the output spectrum of the forward Fourier transform or input
-            /// spectrum of the inverse Fourier transform can be represented in a packed format called *CCS*
-            /// (complex-conjugate-symmetrical). It was borrowed from IPL (Intel\* Image Processing Library). Here
-            /// is how 2D *CCS* spectrum looks:
-            /// \f[\begin{bmatrix} Re Y_{0,0} &amp; Re Y_{0,1} &amp; Im Y_{0,1} &amp; Re Y_{0,2} &amp; Im Y_{0,2} &amp;  \cdots &amp; Re Y_{0,N/2-1} &amp; Im Y_{0,N/2-1} &amp; Re Y_{0,N/2}  \\ Re Y_{1,0} &amp; Re Y_{1,1} &amp; Im Y_{1,1} &amp; Re Y_{1,2} &amp; Im Y_{1,2} &amp;  \cdots &amp; Re Y_{1,N/2-1} &amp; Im Y_{1,N/2-1} &amp; Re Y_{1,N/2}  \\ Im Y_{1,0} &amp; Re Y_{2,1} &amp; Im Y_{2,1} &amp; Re Y_{2,2} &amp; Im Y_{2,2} &amp;  \cdots &amp; Re Y_{2,N/2-1} &amp; Im Y_{2,N/2-1} &amp; Im Y_{1,N/2}  \\ \hdotsfor{9} \\ Re Y_{M/2-1,0} &amp;  Re Y_{M-3,1}  &amp; Im Y_{M-3,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-3,N/2-1} &amp; Im Y_{M-3,N/2-1}&amp; Re Y_{M/2-1,N/2}  \\ Im Y_{M/2-1,0} &amp;  Re Y_{M-2,1}  &amp; Im Y_{M-2,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-2,N/2-1} &amp; Im Y_{M-2,N/2-1}&amp; Im Y_{M/2-1,N/2}  \\ Re Y_{M/2,0}  &amp;  Re Y_{M-1,1} &amp;  Im Y_{M-1,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-1,N/2-1} &amp; Im Y_{M-1,N/2-1}&amp; Re Y_{M/2,N/2} \end{bmatrix}\f]
-            /// In case of 1D transform of a real vector, the output looks like the first row of the matrix above.
-            /// So, the function chooses an operation mode depending on the flags and size of the input array:
-            /// -   If #DFT_ROWS is set or the input array has a single row or single column, the function
-            /// performs a 1D forward or inverse transform of each row of a matrix when #DFT_ROWS is set.
-            /// Otherwise, it performs a 2D transform.
-            /// -   If the input array is real and #DFT_INVERSE is not set, the function performs a forward 1D or
-            /// 2D transform:
-            /// -   When #DFT_COMPLEX_OUTPUT is set, the output is a complex matrix of the same size as
-            /// input.
-            /// -   When #DFT_COMPLEX_OUTPUT is not set, the output is a real matrix of the same size as
-            /// input. In case of 2D transform, it uses the packed format as shown above. In case of a
-            /// single 1D transform, it looks like the first row of the matrix above. In case of
-            /// multiple 1D transforms (when using the #DFT_ROWS flag), each row of the output matrix
-            /// looks like the first row of the matrix above.
-            /// -   If the input array is complex and either #DFT_INVERSE or #DFT_REAL_OUTPUT are not set, the
-            /// output is a complex array of the same size as input. The function performs a forward or
-            /// inverse 1D or 2D transform of the whole input array or each row of the input array
-            /// independently, depending on the flags DFT_INVERSE and DFT_ROWS.
-            /// -   When #DFT_INVERSE is set and the input array is real, or it is complex but #DFT_REAL_OUTPUT
-            /// is set, the output is a real array of the same size as input. The function performs a 1D or 2D
-            /// inverse transformation of the whole input array or each individual row, depending on the flags
-            /// #DFT_INVERSE and #DFT_ROWS.
-            /// If #DFT_SCALE is set, the scaling is done after the transformation.
-            /// Unlike dct, the function supports arrays of arbitrary size. But only those arrays are processed
-            /// efficiently, whose sizes can be factorized in a product of small prime numbers (2, 3, and 5 in the
-            /// current implementation). Such an efficient DFT size can be calculated using the getOptimalDFTSize
-            /// method.
-            /// The sample below illustrates how to calculate a DFT-based convolution of two 2D real arrays:
-            /// @include samples/cpp/snippets/dft.cpp
-            /// An example on DFT-based convolution
-            /// To optimize this sample, consider the following approaches:
-            /// -   Since nonzeroRows != 0 is passed to the forward transform calls and since A and B are copied to
-            /// the top-left corners of tempA and tempB, respectively, it is not necessary to clear the whole
-            /// tempA and tempB. It is only necessary to clear the tempA.cols - A.cols ( tempB.cols - B.cols)
-            /// rightmost columns of the matrices.
-            /// -   This DFT-based convolution does not have to be applied to the whole big arrays, especially if B
-            /// is significantly smaller than A or vice versa. Instead, you can calculate convolution by parts.
-            /// To do this, you need to split the output array C into multiple tiles. For each tile, estimate
-            /// which parts of A and B are required to calculate convolution in this tile. If the tiles in C are
-            /// too small, the speed will decrease a lot because of repeated work. In the ultimate case, when
-            /// each tile in C is a single pixel, the algorithm becomes equivalent to the naive convolution
-            /// algorithm. If the tiles are too big, the temporary arrays tempA and tempB become too big and
-            /// there is also a slowdown because of bad cache locality. So, there is an optimal tile size
-            /// somewhere in the middle.
-            /// -   If different tiles in C can be calculated in parallel and, thus, the convolution is done by
-            /// parts, the loop can be threaded.
-            /// All of the above improvements have been implemented in #matchTemplate and #filter2D . Therefore, by
-            /// using them, you can get the performance even better than with the above theoretically optimal
-            /// implementation. Though, those two functions actually calculate cross-correlation, not convolution,
-            /// so you need to "flip" the second convolution operand B vertically and horizontally using flip .
-            /// @note
-            /// -   An example using the discrete fourier transform can be found at
-            /// opencv_source_code/samples/cpp/dft.cpp
-            /// -   (Python) An example using the dft functionality to perform Wiener deconvolution can be found
-            /// at opencv_source/samples/python/deconvolution.py
-            /// -   (Python) An example rearranging the quadrants of a Fourier image can be found at
-            /// opencv_source/samples/python/dft.py
-            /// @sa dct, getOptimalDFTSize, mulSpectrums, filter2D, matchTemplate, flip, cartToPolar,
-            /// magnitude, phase
-            /// </remarks>
-            public static void Dft(Mat src, Mat dst, int flags, int nonzeroRows)
-            {
-                NativeMethods.cv_dft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
-            /// </summary>
-            /// <param name="src">input floating-point real or complex array.</param>
-            /// <param name="dst">output array whose size and type depend on the flags.</param>
-            /// <param name="flags">operation flags (see dft and #DftFlags).</param>
-            /// <param name="nonzeroRows">number of dst rows to process; the rest of the rows have undefined content (see the convolution sample in dft description.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// idft(src, dst, flags) is equivalent to dft(src, dst, flags | #DFT_INVERSE) .
-            /// @note None of dft and idft scales the result by default. So, you should pass #DFT_SCALE to one of
-            /// dft or idft explicitly to make these transforms mutually inverse.
-            /// @sa dft, dct, idct, mulSpectrums, getOptimalDFTSize
-            /// </remarks>
-            public static void Idft(Mat src, Mat dst, int flags, int nonzeroRows)
-            {
-                NativeMethods.cv_idft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
-            /// </summary>
-            /// <param name="src">input floating-point array.</param>
-            /// <param name="dst">output array of the same size and type as src .</param>
-            /// <param name="flags">transformation flags as a combination of cv::DftFlags (DCT_*)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::dct performs a forward or inverse discrete Cosine transform (DCT) of a 1D or 2D
-            /// floating-point array:
-            /// -   Forward Cosine transform of a 1D vector of N elements:
-            /// \f[Y = C^{(N)}  \cdot X\f]
-            /// where
-            /// \f[C^{(N)}_{jk}= \sqrt{\alpha_j/N} \cos \left ( \frac{\pi(2k+1)j}{2N} \right )\f]
-            /// and
-            /// \f$\alpha_0=1\f$, \f$\alpha_j=2\f$ for *j \&gt; 0*.
-            /// -   Inverse Cosine transform of a 1D vector of N elements:
-            /// \f[X =  \left (C^{(N)} \right )^{-1}  \cdot Y =  \left (C^{(N)} \right )^T  \cdot Y\f]
-            /// (since \f$C^{(N)}\f$ is an orthogonal matrix, \f$C^{(N)} \cdot \left(C^{(N)}\right)^T = I\f$ )
-            /// -   Forward 2D Cosine transform of M x N matrix:
-            /// \f[Y = C^{(N)}  \cdot X  \cdot \left (C^{(N)} \right )^T\f]
-            /// -   Inverse 2D Cosine transform of M x N matrix:
-            /// \f[X =  \left (C^{(N)} \right )^T  \cdot X  \cdot C^{(N)}\f]
-            /// The function chooses the mode of operation by looking at the flags and size of the input array:
-            /// -   If (flags &amp; #DCT_INVERSE) == 0, the function does a forward 1D or 2D transform. Otherwise, it
-            /// is an inverse 1D or 2D transform.
-            /// -   If (flags &amp; #DCT_ROWS) != 0, the function performs a 1D transform of each row.
-            /// -   If the array is a single column or a single row, the function performs a 1D transform.
-            /// -   If none of the above is true, the function performs a 2D transform.
-            /// @note Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you
-            /// can pad the array when necessary.
-            /// Also, the function performance depends very much, and not monotonically, on the array size (see
-            /// getOptimalDFTSize ). In the current implementation DCT of a vector of size N is calculated via DFT
-            /// of a vector of size N/2 . Thus, the optimal DCT size N1 \&gt;= N can be calculated as:
-            /// @code
-            /// size_t getOptimalDCTSize(size_t N) { return 2*getOptimalDFTSize((N+1)/2); }
-            /// N1 = getOptimalDCTSize(N);
-            /// @endcode
-            /// @sa dft, getOptimalDFTSize, idct
-            /// </remarks>
-            public static void Dct(Mat src, Mat dst, int flags)
-            {
-                NativeMethods.cv_dct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
-            /// </summary>
-            /// <param name="src">input floating-point single-channel array.</param>
-            /// <param name="dst">output array of the same size and type as src.</param>
-            /// <param name="flags">operation flags.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// idct(src, dst, flags) is equivalent to dct(src, dst, flags | DCT_INVERSE).
-            /// @sa  dct, dft, idft, getOptimalDFTSize
-            /// </remarks>
-            public static void Idct(Mat src, Mat dst, int flags)
-            {
-                NativeMethods.cv_idct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs the per-element multiplication of two Fourier spectrums.
-            /// </summary>
-            /// <param name="a">first input array.</param>
-            /// <param name="b">second input array of the same size and type as src1 .</param>
-            /// <param name="c">output array of the same size and type as src1 .</param>
-            /// <param name="flags">operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.</param>
-            /// <param name="conjB">optional flag that conjugates the second input array before the multiplication (true) or not (false).</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::mulSpectrums performs the per-element multiplication of the two CCS-packed or complex
-            /// matrices that are results of a real or complex Fourier transform.
-            /// The function, together with dft and idft, may be used to calculate convolution (pass conjB=false )
-            /// or correlation (pass conjB=true ) of two arrays rapidly. When the arrays are complex, they are
-            /// simply multiplied (per element) with an optional conjugation of the second-array elements. When the
-            /// arrays are real, they are assumed to be CCS-packed (see dft for details).
-            /// </remarks>
-            public static void MulSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
-            {
-                NativeMethods.cv_mulSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs the per-element division of the first Fourier spectrum by the second Fourier spectrum.
-            /// *
-            /// * The function cv::divSpectrums performs the per-element division of the first array by the second array.
-            /// * The arrays are CCS-packed or complex matrices that are results of a real or complex Fourier transform.
-            /// *
-            /// * @param a first input array.
-            /// * @param b second input array of the same size and type as src1 .
-            /// * @param c output array of the same size and type as src1 .
-            /// * @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
-            /// * each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.
-            /// * @param conjB optional flag that conjugates the second input array before the multiplication (true)
-            /// * or not (false).
-            /// </summary>
-            /// <param name="a">The a parameter.</param>
-            /// <param name="b">The b parameter.</param>
-            /// <param name="c">The c parameter.</param>
-            /// <param name="flags">The flags parameter.</param>
-            /// <param name="conjB">The conjB parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DivSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
-            {
-                NativeMethods.cv_divSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns the optimal DFT size for a given vector size.
-            /// </summary>
-            /// <param name="vecsize">vector size.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// DFT performance is not a monotonic function of a vector size. Therefore, when you calculate
-            /// convolution of two arrays or perform the spectral analysis of an array, it usually makes sense to
-            /// pad the input data with zeros to get a bit larger array that can be transformed much faster than the
-            /// original one. Arrays whose size is a power-of-two (2, 4, 8, 16, 32, ...) are the fastest to process.
-            /// Though, the arrays whose size is a product of 2's, 3's, and 5's (for example, 300 = 5\*5\*3\*2\*2)
-            /// are also processed quite efficiently.
-            /// The function cv::getOptimalDFTSize returns the minimum number N that is greater than or equal to vecsize
-            /// so that the DFT of a vector of size N can be processed efficiently. In the current implementation N
-            /// = 2 ^p^ \* 3 ^q^ \* 5 ^r^ for some integer p, q, r.
-            /// The function returns a negative number if vecsize is too large (very close to INT_MAX ).
-            /// While the function cannot be used directly to estimate the optimal vector size for DCT transform
-            /// (since the current DCT implementation supports only even-size vectors), it can be easily processed
-            /// as getOptimalDFTSize((vecsize+1)/2)\*2.
-            /// @sa dft, dct, idft, idct, mulSpectrums
-            /// </remarks>
-            public static int GetOptimalDFTSize(int vecsize)
-            {
-                var res = NativeMethods.cv_getOptimalDFTSize_0(vecsize);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Sets state of default random number generator.
-            /// </summary>
-            /// <param name="seed">new state for default random number generator</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::setRNGSeed sets state of default random number generator to custom value.
-            /// @sa RNG, randu, randn
-            /// </remarks>
-            public static void SetRNGSeed(int seed)
-            {
-                NativeMethods.cv_setRNGSeed_0(seed);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Generates a single uniformly-distributed random number or an array of random numbers.
-            /// </summary>
-            /// <param name="dst">output array of random numbers; the array must be pre-allocated.</param>
-            /// <param name="low">inclusive lower boundary of the generated random numbers.</param>
-            /// <param name="high">exclusive upper boundary of the generated random numbers.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Non-template variant of the function fills the matrix dst with uniformly-distributed
-            /// random numbers from the specified range:
-            /// \f[\texttt{low} _c  \leq \texttt{dst} (I)_c &lt;  \texttt{high} _c\f]
-            /// @sa RNG, randn, theRNG
-            /// </remarks>
-            public static void Randu(Mat dst, Mat low, Mat high)
-            {
-                NativeMethods.cv_randu_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(low, nameof(low), false), ValidationHelper.GetHandle(high, nameof(high), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Fills the array with normally distributed random numbers.
-            /// </summary>
-            /// <param name="dst">output array of random numbers; the array must be pre-allocated and have 1 to 4 channels.</param>
-            /// <param name="mean">mean value (expectation) of the generated random numbers.</param>
-            /// <param name="stddev">standard deviation of the generated random numbers; it can be either a vector (in which case a diagonal standard deviation matrix is assumed) or a square matrix.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::randn fills the matrix dst with normally distributed random numbers with the specified
-            /// mean vector and the standard deviation matrix. The generated random numbers are clipped to fit the
-            /// value range of the output array data type.
-            /// @sa RNG, randu
-            /// </remarks>
-            public static void Randn(Mat dst, Mat mean, Mat stddev)
-            {
-                NativeMethods.cv_randn_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Shuffles the array elements randomly.
-            /// </summary>
-            /// <param name="dst">input/output numerical 1D array.</param>
-            /// <param name="iterFactor">scale factor that determines the number of random swap operations (see the details below).</param>
-            /// <param name="rng">optional random number generator used for shuffling; if it is zero, theRNG () is used instead.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cv::randShuffle shuffles the specified 1D array by randomly choosing pairs of elements and
-            /// swapping them. The number of such swap operations will be dst.rows\*dst.cols\*iterFactor .
-            /// @sa RNG, sort
-            /// </remarks>
-            public static void RandShuffle(Mat dst, double iterFactor, IntPtr rng)
-            {
-                NativeMethods.cv_randShuffle_0(ValidationHelper.GetHandle(dst, nameof(dst), false), iterFactor, rng);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Finds centers of clusters and groups input samples around the clusters.
-            /// </summary>
-            /// <param name="data">Data for clustering. An array of N-Dimensional points with float coordinates is needed. Examples of this array can be: -   Mat points(count, 2, CV_32F); -   Mat points(count, 1, CV_32FC2); -   Mat points(1, count, CV_32FC2); -   std::vector\&lt;cv::Point2f\&gt; points(sampleCount);</param>
-            /// <param name="K">Number of clusters to split the set by.</param>
-            /// <param name="bestLabels">Input/output integer array that stores the cluster indices for every sample.</param>
-            /// <param name="criteria">The algorithm termination criteria, that is, the maximum number of iterations and/or the desired accuracy. The accuracy is specified as criteria.epsilon. As soon as each of the cluster centers moves by less than criteria.epsilon on some iteration, the algorithm stops.</param>
-            /// <param name="attempts">Flag to specify the number of times the algorithm is executed using different initial labellings. The algorithm returns the labels that yield the best compactness (see the last function parameter).</param>
-            /// <param name="flags">Flag that can take values of cv::KmeansFlags</param>
-            /// <param name="centers">Output matrix of the cluster centers, one row per each cluster center.</param>
-            /// <returns>The function returns the compactness measure that is computed as \f[\sum _i  \| \texttt{samples} _i -  \texttt{centers} _{ \texttt{labels} _i} \| ^2\f] after every attempt. The best (minimum) value is chosen and the corresponding labels and the compactness value are returned by the function. Basically, you can use only the core of the function, set the number of attempts to 1, initialize labels each time using a custom algorithm, pass them with the ( flags = #KMEANS_USE_INITIAL_LABELS ) flag, and then choose the best (most-compact) clustering.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function kmeans implements a k-means algorithm that finds the centers of cluster_count clusters
-            /// and groups the input samples around the clusters. As an output, \f$\texttt{bestLabels}_i\f$ contains a
-            /// 0-based cluster index for the sample stored in the \f$i^{th}\f$ row of the samples matrix.
-            /// @note
-            /// -   (Python) An example on k-means clustering can be found at
-            /// opencv_source_code/samples/python/kmeans.py
-            /// </remarks>
-            public static double Kmeans(Mat data, int K, Mat bestLabels, TermCriteria criteria, int attempts, int flags, Mat? centers)
-            {
-                var res = NativeMethods.cv_kmeans_0(ValidationHelper.GetHandle(data, nameof(data), false), K, ValidationHelper.GetHandle(bestLabels, nameof(bestLabels), false), criteria, attempts, flags, ValidationHelper.GetHandle(centers, nameof(centers), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Computes the cube root of an argument.
-            /// </summary>
-            /// <param name="val">A function argument.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function cubeRoot computes \f$\sqrt[3]{\texttt{val}}\f$. Negative arguments are handled correctly.
-            /// NaN and Inf are not handled. The accuracy approaches the maximum possible accuracy for
-            /// single-precision data.
-            /// </remarks>
-            public static float CubeRoot(float val)
-            {
-                var res = NativeMethods.cv_cubeRoot_0(val);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Calculates the angle of a 2D vector in degrees.
-            /// </summary>
-            /// <param name="y">y-coordinate of the vector.</param>
-            /// <param name="x">x-coordinate of the vector.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function fastAtan2 calculates the full-range angle of an input 2D vector. The angle is measured
-            /// in degrees and varies from 0 to 360 degrees. The accuracy is about 0.3 degrees.
-            /// </remarks>
-            public static float FastAtan2(float y, float x)
-            {
-                var res = NativeMethods.cv_fastAtan2_0(y, x);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// proxy for hal::Cholesky
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool IppUseIPP()
-            {
-                var res = NativeMethods.cv_ipp_useIPP_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="flag">The flag parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void IppSetUseIPP(bool flag)
-            {
-                NativeMethods.cv_ipp_setUseIPP_0(flag);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? IppGetIppVersion()
-            {
-                IntPtr res = NativeMethods.cv_ipp_getIppVersion_0();
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool IppUseIPPNotExact()
-            {
-                var res = NativeMethods.cv_ipp_useIPP_NotExact_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="flag">The flag parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void IppSetUseIPPNotExact(bool flag)
-            {
-                NativeMethods.cv_ipp_setUseIPP_NotExact_0(flag);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Creates a continuous matrix.
-            /// </summary>
-            /// <param name="rows">Row count.</param>
-            /// <param name="cols">Column count.</param>
-            /// <param name="type">Type of the matrix.</param>
-            /// <param name="arr">Destination matrix. This parameter changes only if it has a proper type and area ( \f$\texttt{rows} \times \texttt{cols}\f$ ). Matrix is called continuous if its elements are stored continuously, that is, without gaps at the end of each row.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaCreateContinuous(int rows, int cols, int type, Mat arr)
-            {
-                NativeMethods.cv_cuda_createContinuous_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Ensures that the size of a matrix is big enough and the matrix has a proper type.
-            /// </summary>
-            /// <param name="rows">Minimum desired number of rows.</param>
-            /// <param name="cols">Minimum desired number of columns.</param>
-            /// <param name="type">Desired matrix type.</param>
-            /// <param name="arr">Destination matrix. The function does not reallocate memory if the matrix has proper attributes already.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaEnsureSizeIsEnough(int rows, int cols, int type, Mat arr)
-            {
-                NativeMethods.cv_cuda_ensureSizeIsEnough_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Bindings overload to create a GpuMat from existing GPU memory.
-            /// </summary>
-            /// <param name="rows">Row count.</param>
-            /// <param name="cols">Column count.</param>
-            /// <param name="type">Type of the matrix.</param>
-            /// <param name="cudaMemoryAddress">Address of the allocated GPU memory on the device. This does not allocate matrix data. Instead, it just initializes the matrix header that points to the specified \a cudaMemoryAddress, which means that no data is copied. This operation is very efficient and can be used to process external data using OpenCV functions. The external data is not automatically deallocated, so you should take care of it.</param>
-            /// <param name="step">Number of bytes each matrix row occupies. The value should include the padding bytes at the end of each row, if any. If the parameter is missing (set to Mat::AUTO_STEP ), no padding is assumed and the actual step is calculated as cols*elemSize(). See GpuMat::elemSize.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
-            /// </remarks>
-            public static CudaGpuMat? CudaCreateGpuMatFromCudaMemory(int rows, int cols, int type, long cudaMemoryAddress, long step)
-            {
-                IntPtr res = NativeMethods.cv_cuda_createGpuMatFromCudaMemory_0(rows, cols, type, cudaMemoryAddress, step);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new CudaGpuMat(res);
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="size">2D array size: Size(cols, rows). In the Size() constructor, the number of rows and the number of columns go in the reverse order.</param>
-            /// <param name="type">Type of the matrix.</param>
-            /// <param name="cudaMemoryAddress">Address of the allocated GPU memory on the device. This does not allocate matrix data. Instead, it just initializes the matrix header that points to the specified \a cudaMemoryAddress, which means that no data is copied. This operation is very efficient and can be used to process external data using OpenCV functions. The external data is not automatically deallocated, so you should take care of it.</param>
-            /// <param name="step">Number of bytes each matrix row occupies. The value should include the padding bytes at the end of each row, if any. If the parameter is missing (set to Mat::AUTO_STEP ), no padding is assumed and the actual step is calculated as cols*elemSize(). See GpuMat::elemSize.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
-            /// </remarks>
-            public static CudaGpuMat? CudaCreateGpuMatFromCudaMemory(Size size, int type, long cudaMemoryAddress, long step)
-            {
-                IntPtr res = NativeMethods.cv_cuda_createGpuMatFromCudaMemory_1(size, type, cudaMemoryAddress, step);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new CudaGpuMat(res);
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="on">The on parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaSetBufferPoolUsage(bool on)
-            {
-                NativeMethods.cv_cuda_setBufferPoolUsage_0(on);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="deviceId">The deviceId parameter.</param>
-            /// <param name="stackSize">The stackSize parameter.</param>
-            /// <param name="stackCount">The stackCount parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaSetBufferPoolConfig(int deviceId, long stackSize, int stackCount)
-            {
-                NativeMethods.cv_cuda_setBufferPoolConfig_0(deviceId, stackSize, stackCount);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Page-locks the memory of matrix and maps it for the device(s).
-            /// </summary>
-            /// <param name="m">Input matrix.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaRegisterPageLocked(Mat m)
-            {
-                NativeMethods.cv_cuda_registerPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Unmaps the memory of matrix and makes it pageable again.
-            /// </summary>
-            /// <param name="m">Input matrix.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaUnregisterPageLocked(Mat m)
-            {
-                NativeMethods.cv_cuda_unregisterPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Bindings overload to create a Stream object from the address stored in an existing CUDA Runtime API stream pointer (cudaStream_t).
-            /// </summary>
-            /// <param name="cudaStreamMemoryAddress">Memory address stored in a CUDA Runtime API stream pointer (cudaStream_t). The created Stream object does not perform any allocation or deallocation and simply wraps existing raw CUDA Runtime API stream pointer.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
-            /// </remarks>
-            public static CudaStream? CudaWrapStream(long cudaStreamMemoryAddress)
-            {
-                IntPtr res = NativeMethods.cv_cuda_wrapStream_0(cudaStreamMemoryAddress);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new CudaStream(res);
-            }
-            /// <summary>
-            /// Returns the number of installed CUDA-enabled devices.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Use this function before any other CUDA functions calls. If OpenCV is compiled without CUDA support,
-            /// this function returns 0. If the CUDA driver is not installed, or is incompatible, this function
-            /// returns -1.
-            /// </remarks>
-            public static int CudaGetCudaEnabledDeviceCount()
-            {
-                var res = NativeMethods.cv_cuda_getCudaEnabledDeviceCount_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Sets a device and initializes it for the current thread.
-            /// </summary>
-            /// <param name="device">System index of a CUDA device starting with 0. If the call of this function is omitted, a default device is initialized at the fist CUDA usage.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaSetDevice(int device)
-            {
-                NativeMethods.cv_cuda_setDevice_0(device);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns the current device index set by cuda::setDevice or initialized by default.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int CudaGetDevice()
-            {
-                var res = NativeMethods.cv_cuda_getDevice_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Explicitly destroys and cleans up all resources associated with the current device in the current
-            /// process.
-            /// </summary>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Any subsequent API call to this device will reinitialize the device.
-            /// </remarks>
-            public static void CudaResetDevice()
-            {
-                NativeMethods.cv_cuda_resetDevice_0();
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="device">The device parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaPrintCudaDeviceInfo(int device)
-            {
-                NativeMethods.cv_cuda_printCudaDeviceInfo_0(device);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="device">The device parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void CudaPrintShortCudaDeviceInfo(int device)
-            {
-                NativeMethods.cv_cuda_printShortCudaDeviceInfo_0(device);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool OclHaveOpenCL()
-            {
-                var res = NativeMethods.cv_ocl_haveOpenCL_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool OclUseOpenCL()
-            {
-                var res = NativeMethods.cv_ocl_useOpenCL_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool OclHaveAmdBlas()
-            {
-                var res = NativeMethods.cv_ocl_haveAmdBlas_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool OclHaveAmdFft()
-            {
-                var res = NativeMethods.cv_ocl_haveAmdFft_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="flag">The flag parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void OclSetUseOpenCL(bool flag)
-            {
-                NativeMethods.cv_ocl_setUseOpenCL_0(flag);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void OclFinish()
-            {
-                NativeMethods.cv_ocl_finish_0();
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Solve given (non-integer) linear programming problem using the Simplex Algorithm (Simplex Method).
-            /// </summary>
-            /// <param name="Func">This row-vector corresponds to \f$c\f$ in the LP problem formulation (see above). It should contain 32- or 64-bit floating point numbers. As a convenience, column-vector may be also submitted, in the latter case it is understood to correspond to \f$c^T\f$.</param>
-            /// <param name="Constr">`m`-by-`n+1` matrix, whose rightmost column corresponds to \f$b\f$ in formulation above and the remaining to \f$A\f$. It should contain 32- or 64-bit floating point numbers.</param>
-            /// <param name="z">The solution will be returned here as a column-vector - it corresponds to \f$c\f$ in the formulation above. It will contain 64-bit floating point numbers.</param>
-            /// <param name="constr_eps">allowed numeric disparity for constraints</param>
-            /// <returns>One of cv::SolveLPResult</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// What we mean here by "linear programming problem" (or LP problem, for short) can be formulated as:
-            /// \f[\mbox{Maximize } c\cdot x\\
-            /// \mbox{Subject to:}\\
-            /// Ax\leq b\\
-            /// x\geq 0\f]
-            /// Where \f$c\f$ is fixed `1`-by-`n` row-vector, \f$A\f$ is fixed `m`-by-`n` matrix, \f$b\f$ is fixed `m`-by-`1`
-            /// column vector and \f$x\f$ is an arbitrary `n`-by-`1` column vector, which satisfies the constraints.
-            /// Simplex algorithm is one of many algorithms that are designed to handle this sort of problems
-            /// efficiently. Although it is not optimal in theoretical sense (there exist algorithms that can solve
-            /// any problem written as above in polynomial time, while simplex method degenerates to exponential
-            /// time for some special cases), it is well-studied, easy to implement and is shown to work well for
-            /// real-life purposes.
-            /// The particular implementation is taken almost verbatim from **Introduction to Algorithms, third
-            /// edition** by T. H. Cormen, C. E. Leiserson, R. L. Rivest and Clifford Stein. In particular, the
-            /// Bland's rule &lt;http://en.wikipedia.org/wiki/Bland%27s_rule&gt; is used to prevent cycling.
-            /// </remarks>
-            public static int SolveLP(Mat Func, Mat Constr, Mat z, double constr_eps)
-            {
-                var res = NativeMethods.cv_solveLP_0(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false), constr_eps);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="Func">The Func parameter.</param>
-            /// <param name="Constr">The Constr parameter.</param>
-            /// <param name="z">The z parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int SolveLP(Mat Func, Mat Constr, Mat z)
-            {
-                var res = NativeMethods.cv_solveLP_1(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Finds out if there is any intersection between two rectangles
-            /// *
-            /// * mainly useful for language bindings
-            /// * @param a First rectangle
-            /// * @param b Second rectangle
-            /// * @return the area of the intersection
-            /// </summary>
-            /// <param name="a">The a parameter.</param>
-            /// <param name="b">The b parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static double RectangleIntersectionArea(IntPtr a, IntPtr b)
-            {
-                var res = NativeMethods.cv_rectangleIntersectionArea_0(a, b);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV will try to set the number of threads for subsequent parallel regions.
-            /// </summary>
-            /// <param name="nthreads">Number of threads used by OpenCV.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// If threads == 1, OpenCV will disable threading optimizations and run all it's functions
-            /// sequentially. Passing threads \&lt; 0 will reset threads number to system default.
-            /// The function is not thread-safe. It must not be called in parallel region or concurrent threads.
-            /// OpenCV will try to run its functions with specified threads number, but some behaviour differs from
-            /// framework:
-            /// -   `TBB` - User-defined parallel constructions will run with the same threads number, if
-            /// another is not specified. If later on user creates his own scheduler, OpenCV will use it.
-            /// -   `OpenMP` - No special defined behaviour.
-            /// -   `Concurrency` - If threads == 1, OpenCV will disable threading optimizations and run its
-            /// functions sequentially.
-            /// -   `GCD` - Supports only values \&lt;= 0.
-            /// -   `C=` - No special defined behaviour.
-            /// @sa getNumThreads, getThreadNum
-            /// </remarks>
-            public static void SetNumThreads(int nthreads)
-            {
-                NativeMethods.cv_setNumThreads_0(nthreads);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns the number of threads used by OpenCV for parallel regions.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Always returns 1 if OpenCV is built without threading support.
-            /// The exact meaning of return value depends on the threading framework used by OpenCV library:
-            /// - `TBB` - The number of threads, that OpenCV will try to use for parallel regions. If there is
-            /// any tbb::thread_scheduler_init in user code conflicting with OpenCV, then function returns
-            /// default number of threads used by TBB library.
-            /// - `OpenMP` - An upper bound on the number of threads that could be used to form a new team.
-            /// - `Concurrency` - The number of threads, that OpenCV will try to use for parallel regions.
-            /// - `GCD` - Unsupported; returns the GCD thread pool limit (512) for compatibility.
-            /// - `C=` - The number of threads, that OpenCV will try to use for parallel regions, if before
-            /// called setNumThreads with threads \&gt; 0, otherwise returns the number of logical CPUs,
-            /// available for the process.
-            /// @sa setNumThreads, getThreadNum
-            /// </remarks>
-            public static int GetNumThreads()
-            {
-                var res = NativeMethods.cv_getNumThreads_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the index of the currently executed thread within the current parallel region. Always
-            /// returns 0 if called outside of parallel region.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @deprecated Current implementation doesn't corresponding to this documentation.
-            /// The exact meaning of the return value depends on the threading framework used by OpenCV library:
-            /// - `TBB` - Unsupported with current 4.1 TBB release. Maybe will be supported in future.
-            /// - `OpenMP` - The thread number, within the current team, of the calling thread.
-            /// - `Concurrency` - An ID for the virtual processor that the current context is executing on (0
-            /// for master thread and unique number for others, but not necessary 1,2,3,...).
-            /// - `GCD` - System calling thread's ID. Never returns 0 inside parallel region.
-            /// - `C=` - The index of the current parallel task.
-            /// @sa setNumThreads, getNumThreads
-            /// </remarks>
-            public static int GetThreadNum()
-            {
-                var res = NativeMethods.cv_getThreadNum_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns full configuration time cmake output.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Returned value is raw cmake output including version control system revision, compiler version,
-            /// compiler flags, enabled modules and third party libraries, etc. Output format depends on target
-            /// architecture.
-            /// </remarks>
-            public static string? GetBuildInformation()
-            {
-                IntPtr res = NativeMethods.cv_getBuildInformation_0();
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns library version string
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// For example "3.4.1-dev".
-            /// @sa getMajorVersion, getMinorVersion, getRevisionVersion
-            /// </remarks>
-            public static string? GetVersionString()
-            {
-                IntPtr res = NativeMethods.cv_getVersionString_0();
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns major library version
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int GetVersionMajor()
-            {
-                var res = NativeMethods.cv_getVersionMajor_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns minor library version
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int GetVersionMinor()
-            {
-                var res = NativeMethods.cv_getVersionMinor_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns revision field of the library version
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int GetVersionRevision()
-            {
-                var res = NativeMethods.cv_getVersionRevision_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the number of ticks.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns the number of ticks after the certain event (for example, when the machine was
-            /// turned on). It can be used to initialize RNG or to measure a function execution time by reading the
-            /// tick count before and after the function call.
-            /// @sa getTickFrequency, TickMeter
-            /// </remarks>
-            public static long GetTickCount()
-            {
-                var res = NativeMethods.cv_getTickCount_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the number of ticks per second.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns the number of ticks per second. That is, the following code computes the
-            /// execution time in seconds:
-            /// @code
-            /// double t = (double)getTickCount();
-            /// // do something ...
-            /// t = ((double)getTickCount() - t)/getTickFrequency();
-            /// @endcode
-            /// @sa getTickCount, TickMeter
-            /// </remarks>
-            public static double GetTickFrequency()
-            {
-                var res = NativeMethods.cv_getTickFrequency_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns the number of CPU ticks.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns the current number of CPU ticks on some architectures (such as x86, x64,
-            /// PowerPC). On other platforms the function is equivalent to getTickCount. It can also be used for
-            /// very accurate time measurements, as well as for RNG initialization. Note that in case of multi-CPU
-            /// systems a thread, from which getCPUTickCount is called, can be suspended and resumed at another CPU
-            /// with its own counter. So, theoretically (and practically) the subsequent calls to the function do
-            /// not necessary return the monotonously increasing values. Also, since a modern CPU varies the CPU
-            /// frequency depending on the load, the number of CPU clocks spent in some code cannot be directly
-            /// converted to time units. Therefore, getTickCount is generally a preferable solution for measuring
-            /// execution time.
-            /// </remarks>
-            public static long GetCPUTickCount()
-            {
-                var res = NativeMethods.cv_getCPUTickCount_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns true if the specified feature is supported by the host hardware.
-            /// </summary>
-            /// <param name="feature">The feature of interest, one of cv::CpuFeatures</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns true if the host hardware supports the specified feature. When user calls
-            /// setUseOptimized(false), the subsequent calls to checkHardwareSupport() will return false until
-            /// setUseOptimized(true) is called. This way user can dynamically switch on and off the optimized code
-            /// in OpenCV.
-            /// </remarks>
-            public static bool CheckHardwareSupport(int feature)
-            {
-                var res = NativeMethods.cv_checkHardwareSupport_0(feature);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns feature name by ID
-            /// </summary>
-            /// <param name="feature">The feature parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Returns empty string if feature is not defined
-            /// </remarks>
-            public static string? GetHardwareFeatureName(int feature)
-            {
-                IntPtr res = NativeMethods.cv_getHardwareFeatureName_0(feature);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns list of CPU features enabled during compilation.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Returned value is a string containing space separated list of CPU features with following markers:
-            /// - no markers - baseline features
-            /// - prefix `*` - features enabled in dispatcher
-            /// - suffix `?` - features enabled but not available in HW
-            /// Example: `SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?`
-            /// </remarks>
-            public static string? GetCPUFeaturesLine()
-            {
-                IntPtr res = NativeMethods.cv_getCPUFeaturesLine_0();
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns the number of logical CPUs available for the process.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int GetNumberOfCPUs()
-            {
-                var res = NativeMethods.cv_getNumberOfCPUs_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static AlgorithmHint GetDefaultAlgorithmHint()
-            {
-                var res = NativeMethods.cv_getDefaultAlgorithmHint_0();
-                ErrorHelper.CheckError();
-                return (AlgorithmHint)res;
-            }
-            /// <summary>
-            /// Enables or disables the optimized code.
-            /// </summary>
-            /// <param name="onoff">The boolean flag specifying whether the optimized code should be used (onoff=true) or not (onoff=false).</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function can be used to dynamically turn on and off optimized dispatched code (code that uses SSE4.2, AVX/AVX2,
-            /// and other instructions on the platforms that support it). It sets a global flag that is further
-            /// checked by OpenCV functions. Since the flag is not checked in the inner OpenCV loops, it is only
-            /// safe to call the function on the very top level in your application where you can be sure that no
-            /// other OpenCV function is currently executed.
-            /// By default, the optimized code is enabled unless you disable it in CMake. The current status can be
-            /// retrieved using useOptimized.
-            /// </remarks>
-            public static void SetUseOptimized(bool onoff)
-            {
-                NativeMethods.cv_setUseOptimized_0(onoff);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns the status of optimized code usage.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function returns true if the optimized code is enabled. Otherwise, it returns false.
-            /// </remarks>
-            public static bool UseOptimized()
-            {
-                var res = NativeMethods.cv_useOptimized_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Try to find requested data file
-            /// </summary>
-            /// <param name="relative_path">Relative path to data file</param>
-            /// <param name="required">Specify "file not found" handling. If true, function prints information message and raises cv::Exception. If false, function returns empty result</param>
-            /// <param name="silentMode">Disables messages</param>
-            /// <returns>Returns path (absolute or relative to the current directory) or empty string if file is not found</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Search directories:
-            /// 1. Directories passed via `addSamplesDataSearchPath()`
-            /// 2. OPENCV_SAMPLES_DATA_PATH_HINT environment variable
-            /// 3. OPENCV_SAMPLES_DATA_PATH environment variable
-            /// If parameter value is not empty and nothing is found then stop searching.
-            /// 4. Detects build/install path based on:
-            /// a. current working directory (CWD)
-            /// b. and/or binary module location (opencv_core/opencv_world, doesn't work with static linkage)
-            /// 5. Scan `&lt;source&gt;/{,data,samples/data}` directories if build directory is detected or the current directory is in source tree.
-            /// 6. Scan `&lt;install&gt;/share/OpenCV` directory if install directory is detected.
-            /// @see cv::utils::findDataFile
-            /// </remarks>
-            public static string? SamplesFindFile(string relative_path, bool required, bool silentMode)
-            {
-                IntPtr res = NativeMethods.cv_samples_findFile_0(relative_path, required, silentMode);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="relative_path">The relative_path parameter.</param>
-            /// <param name="silentMode">The silentMode parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? SamplesFindFileOrKeep(string relative_path, bool silentMode)
-            {
-                IntPtr res = NativeMethods.cv_samples_findFileOrKeep_0(relative_path, silentMode);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Override search data path by adding new search location
-            /// </summary>
-            /// <param name="path">Path to used samples data</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Use this only to override default behavior
-            /// Passed paths are used in LIFO order.
-            /// </remarks>
-            public static void SamplesAddSamplesDataSearchPath(string path)
-            {
-                NativeMethods.cv_samples_addSamplesDataSearchPath_0(path);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Append samples search data sub directory
-            /// </summary>
-            /// <param name="subdir">samples data sub directory</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// General usage is to add OpenCV modules name (`&lt;opencv_contrib&gt;/modules/&lt;name&gt;/samples/data` -&gt; `&lt;name&gt;/samples/data` + `modules/&lt;name&gt;/samples/data`).
-            /// Passed subdirectories are used in LIFO order.
-            /// </remarks>
-            public static void SamplesAddSamplesDataSearchSubDirectory(string subdir)
-            {
-                NativeMethods.cv_samples_addSamplesDataSearchSubDirectory_0(subdir);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Change OpenCV parallel_for backend
-            /// *
-            /// * @note This call is not thread-safe. Consider calling this function from the `main()` before any other OpenCV processing functions (and without any other created threads).
-            /// </summary>
-            /// <param name="backendName">The backendName parameter.</param>
-            /// <param name="propagateNumThreads">The propagateNumThreads parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool ParallelSetParallelForBackend(string backendName, bool propagateNumThreads)
-            {
-                var res = NativeMethods.cv_parallel_setParallelForBackend_0(backendName, propagateNumThreads);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Set global logging level
-            /// </summary>
-            /// <param name="logLevel">The logLevel parameter.</param>
-            /// <returns>previous logging level</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static UtilsLoggingLogLevel UtilsLoggingSetLogLevel(UtilsLoggingLogLevel logLevel)
-            {
-                var res = NativeMethods.cv_utils_logging_setLogLevel_0((int)logLevel);
-                ErrorHelper.CheckError();
-                return (UtilsLoggingLogLevel)res;
-            }
-            /// <summary>
-            /// Get global logging level
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static UtilsLoggingLogLevel UtilsLoggingGetLogLevel()
-            {
-                var res = NativeMethods.cv_utils_logging_getLogLevel_0();
-                ErrorHelper.CheckError();
-                return (UtilsLoggingLogLevel)res;
-            }
+        /// <summary>
+        /// Computes the source location of an extrapolated pixel.
+        /// </summary>
+        /// <param name="p">0-based coordinate of the extrapolated pixel along one of the axes, likely \&lt;0 or \&gt;= len</param>
+        /// <param name="len">Length of the array along the corresponding axis.</param>
+        /// <param name="borderType">Border type, one of the #BorderTypes, except for #BORDER_TRANSPARENT and #BORDER_ISOLATED. When borderType==#BORDER_CONSTANT, the function always returns -1, regardless of p and len.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function computes and returns the coordinate of a donor pixel corresponding to the specified
+        /// extrapolated pixel when using the specified extrapolation border mode. For example, if you use
+        /// cv::BORDER_WRAP mode in the horizontal direction, cv::BORDER_REFLECT_101 in the vertical direction and
+        /// want to compute value of the "virtual" pixel Point(-5, 100) in a floating-point image img, it
+        /// looks like:
+        /// @code{.cpp}
+        /// float val = img.at&lt;float&gt;(borderInterpolate(100, img.rows, cv::BORDER_REFLECT_101),
+        /// borderInterpolate(-5, img.cols, cv::BORDER_WRAP));
+        /// @endcode
+        /// Normally, the function is not called directly. It is used inside filtering functions and also in
+        /// copyMakeBorder.
+        /// @sa copyMakeBorder
+        /// </remarks>
+        public static int BorderInterpolate(int p, int len, int borderType)
+        {
+            var res = NativeMethods.cv_borderInterpolate_0(p, len, borderType);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Forms a border around an image.
+        /// </summary>
+        /// <param name="src">Source image.</param>
+        /// <param name="dst">Destination image of the same type as src and the size Size(src.cols+left+right, src.rows+top+bottom) .</param>
+        /// <param name="top">the top pixels</param>
+        /// <param name="bottom">the bottom pixels</param>
+        /// <param name="left">the left pixels</param>
+        /// <param name="right">Parameter specifying how many pixels in each direction from the source image rectangle to extrapolate. For example, top=1, bottom=1, left=1, right=1 mean that 1 pixel-wide border needs to be built.</param>
+        /// <param name="borderType">Border type. See borderInterpolate for details.</param>
+        /// <param name="value">Border value if borderType==BORDER_CONSTANT .</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function copies the source image into the middle of the destination image. The areas to the
+        /// left, to the right, above and below the copied source image will be filled with extrapolated
+        /// pixels. This is not what filtering functions based on it do (they extrapolate pixels on-fly), but
+        /// what other more complex functions, including your own, may do to simplify image boundary handling.
+        /// The function supports the mode when src is already in the middle of dst . In this case, the
+        /// function does not copy src itself but simply constructs the border, for example:
+        /// @code{.cpp}
+        /// // let border be the same in all directions
+        /// int border=2;
+        /// // constructs a larger image to fit both the image and the border
+        /// Mat gray_buf(rgb.rows + border*2, rgb.cols + border*2, rgb.depth());
+        /// // select the middle part of it w/o copying data
+        /// Mat gray(gray_canvas, Rect(border, border, rgb.cols, rgb.rows));
+        /// // convert image from RGB to grayscale
+        /// cvtColor(rgb, gray, COLOR_RGB2GRAY);
+        /// // form a border in-place
+        /// copyMakeBorder(gray, gray_buf, border, border,
+        /// border, border, BORDER_REPLICATE);
+        /// // now do some custom filtering ...
+        /// ...
+        /// @endcode
+        /// @note When the source image is a part (ROI) of a bigger image, the function will try to use the
+        /// pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
+        /// if src was not a ROI, use borderType | #BORDER_ISOLATED.
+        /// @sa  borderInterpolate
+        /// </remarks>
+        public static void CopyMakeBorder(Mat src, Mat dst, int top, int bottom, int left, int right, int borderType, Scalar value)
+        {
+            NativeMethods.cv_copyMakeBorder_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), top, bottom, left, right, borderType, value);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element sum of two arrays or an array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array that has the same size and number of channels as the input array(s); the depth is defined by dtype or src1/src2.</param>
+        /// <param name="mask">optional operation mask - CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
+        /// <param name="dtype">optional depth of the output array (see the discussion below).</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function add calculates:
+        /// - Sum of two arrays when both input arrays have the same size and the same number of channels:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) +  \texttt{src2}(I)) \quad \texttt{if mask}(I) \ne0\f]
+        /// - Sum of an array and a scalar when src2 is constructed from Scalar or has the same number of
+        /// elements as `src1.channels()`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) +  \texttt{src2} ) \quad \texttt{if mask}(I) \ne0\f]
+        /// - Sum of a scalar and an array when src1 is constructed from Scalar or has the same number of
+        /// elements as `src2.channels()`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1} +  \texttt{src2}(I) ) \quad \texttt{if mask}(I) \ne0\f]
+        /// where `I` is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+        /// channel is processed independently.
+        /// The first function in the list above can be replaced with matrix expressions:
+        /// @code{.cpp}
+        /// dst = src1 + src2;
+        /// dst += src1; // equivalent to add(dst, src1, dst);
+        /// @endcode
+        /// The input arrays and the output array can all have the same or different depths. For example, you
+        /// can add a 16-bit unsigned array to a 8-bit signed array and store the sum as a 32-bit
+        /// floating-point array. Depth of the output array is determined by the dtype parameter. In the second
+        /// and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
+        /// be set to the default -1. In this case, the output array will have the same depth as the input
+        /// array, be it src1, src2 or both.
+        /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+        /// result of an incorrect sign in the case of overflow.
+        /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
+        /// `add(src,X)` means `add(src,(X,X,X,X))`.
+        /// `add(src,(X,))` means `add(src,(X,0,0,0))`.
+        /// @sa subtract, addWeighted, scaleAdd, Mat::convertTo
+        /// </remarks>
+        public static void Add(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
+        {
+            NativeMethods.cv_add_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element difference between two arrays or array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array of the same size and the same number of channels as the input array.</param>
+        /// <param name="mask">optional operation mask; this is CV_8U, CV8S or CV_Bool single channel array that specifies elements of the output array to be changed.</param>
+        /// <param name="dtype">optional depth of the output array</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function subtract calculates:
+        /// - Difference between two arrays, when both input arrays have the same size and the same number of
+        /// channels:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) -  \texttt{src2}(I)) \quad \texttt{if mask}(I) \ne0\f]
+        /// - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
+        /// number of elements as `src1.channels()`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1}(I) -  \texttt{src2} ) \quad \texttt{if mask}(I) \ne0\f]
+        /// - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
+        /// number of elements as `src2.channels()`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src1} -  \texttt{src2}(I) ) \quad \texttt{if mask}(I) \ne0\f]
+        /// - The reverse difference between a scalar and an array in the case of `SubRS`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} ( \texttt{src2} -  \texttt{src1}(I) ) \quad \texttt{if mask}(I) \ne0\f]
+        /// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+        /// channel is processed independently.
+        /// The first function in the list above can be replaced with matrix expressions:
+        /// @code{.cpp}
+        /// dst = src1 - src2;
+        /// dst -= src1; // equivalent to subtract(dst, src1, dst);
+        /// @endcode
+        /// The input arrays and the output array can all have the same or different depths. For example, you
+        /// can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
+        /// the output array is determined by dtype parameter. In the second and third cases above, as well as
+        /// in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
+        /// case the output array will have the same depth as the input array, be it src1, src2 or both.
+        /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+        /// result of an incorrect sign in the case of overflow.
+        /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
+        /// `subtract(src,X)` means `subtract(src,(X,X,X,X))`.
+        /// `subtract(src,(X,))` means `subtract(src,(X,0,0,0))`.
+        /// @sa  add, addWeighted, scaleAdd, Mat::convertTo
+        /// </remarks>
+        public static void Subtract(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
+        {
+            NativeMethods.cv_subtract_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element scaled product of two arrays.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size and the same type as src1.</param>
+        /// <param name="dst">output array of the same size and type as src1.</param>
+        /// <param name="scale">optional scale factor.</param>
+        /// <param name="dtype">optional depth of the output array</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function multiply calculates the per-element product of two arrays:
+        /// \f[\texttt{dst} (I)= \texttt{saturate} ( \texttt{scale} \cdot \texttt{src1} (I)  \cdot \texttt{src2} (I))\f]
+        /// There is also a @ref MatrixExpressions -friendly variant of the first function. See Mat::mul .
+        /// For a not-per-element matrix product, see gemm .
+        /// @note Saturation is not applied when the output array has the depth
+        /// CV_32S. You may even get result of an incorrect sign in the case of
+        /// overflow.
+        /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
+        /// `multiply(src,X)` means `multiply(src,(X,X,X,X))`.
+        /// `multiply(src,(X,))` means `multiply(src,(X,0,0,0))`.
+        /// @sa add, subtract, divide, scaleAdd, addWeighted, accumulate, accumulateProduct, accumulateSquare,
+        /// Mat::convertTo
+        /// </remarks>
+        public static void Multiply(Mat src1, Mat src2, Mat dst, double scale, int dtype)
+        {
+            NativeMethods.cv_multiply_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs per-element division of two arrays or a scalar by an array.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size and type as src1.</param>
+        /// <param name="dst">output array of the same size and type as src2.</param>
+        /// <param name="scale">scalar factor.</param>
+        /// <param name="dtype">optional depth of the output array; if -1, dst will have depth src2.depth(), but in case of an array-by-array division, you can only pass -1 when src1.depth()==src2.depth().</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::divide divides one array by another:
+        /// \f[\texttt{dst(I) = saturate(src1(I)*scale/src2(I))}\f]
+        /// or a scalar by an array when there is no src1 :
+        /// \f[\texttt{dst(I) = saturate(scale/src2(I))}\f]
+        /// Different channels of multi-channel arrays are processed independently.
+        /// For integer types when src2(I) is zero, dst(I) will also be zero.
+        /// @note In case of floating point data there is no special defined behavior for zero src2(I) values.
+        /// Regular floating-point division is used.
+        /// Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
+        /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+        /// result of an incorrect sign in the case of overflow.
+        /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
+        /// `divide(src,X)` means `divide(src,(X,X,X,X))`.
+        /// `divide(src,(X,))` means `divide(src,(X,0,0,0))`.
+        /// @sa  multiply, add, subtract
+        /// </remarks>
+        public static void Divide(Mat src1, Mat src2, Mat dst, double scale, int dtype)
+        {
+            NativeMethods.cv_divide_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="scale">The scale parameter.</param>
+        /// <param name="src2">The src2 parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <param name="dtype">The dtype parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Divide(double scale, Mat src2, Mat dst, int dtype)
+        {
+            NativeMethods.cv_divide_1(scale, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the sum of a scaled array and another array.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="alpha">scale factor for the first array.</param>
+        /// <param name="src2">second input array of the same size and type as src1.</param>
+        /// <param name="dst">output array of the same size and type as src1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function scaleAdd is one of the classical primitive linear algebra operations, known as DAXPY
+        /// or SAXPY in [BLAS](http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms). It calculates
+        /// the sum of a scaled array and another array:
+        /// \f[\texttt{dst} (I)= \texttt{scale} \cdot \texttt{src1} (I) +  \texttt{src2} (I)\f]
+        /// The function can also be emulated with a matrix expression, for example:
+        /// @code{.cpp}
+        /// Mat A(3, 3, CV_64F);
+        /// ...
+        /// A.row(0) = A.row(1)*2 + A.row(2);
+        /// @endcode
+        /// @sa add, addWeighted, subtract, Mat::dot, Mat::convertTo
+        /// </remarks>
+        public static void ScaleAdd(Mat src1, double alpha, Mat src2, Mat dst)
+        {
+            NativeMethods.cv_scaleAdd_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the weighted sum of two arrays.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="alpha">weight of the first array elements.</param>
+        /// <param name="src2">second input array of the same size and channel number as src1.</param>
+        /// <param name="beta">weight of the second array elements.</param>
+        /// <param name="gamma">scalar added to each sum.</param>
+        /// <param name="dst">output array that has the same size and number of channels as the input arrays.</param>
+        /// <param name="dtype">optional depth of the output array; when both input arrays have the same depth, dtype can be set to -1, which will be equivalent to src1.depth().</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function addWeighted calculates the weighted sum of two arrays as follows:
+        /// \f[\texttt{dst} (I)= \texttt{saturate} ( \texttt{src1} (I)* \texttt{alpha} +  \texttt{src2} (I)* \texttt{beta} +  \texttt{gamma} )\f]
+        /// where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+        /// channel is processed independently.
+        /// The function can be replaced with a matrix expression:
+        /// @code{.cpp}
+        /// dst = src1*alpha + src2*beta + gamma;
+        /// @endcode
+        /// @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+        /// result of an incorrect sign in the case of overflow.
+        /// @sa  add, subtract, scaleAdd, Mat::convertTo
+        /// </remarks>
+        public static void AddWeighted(Mat src1, double alpha, Mat src2, double beta, double gamma, Mat dst, int dtype)
+        {
+            NativeMethods.cv_addWeighted_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), beta, gamma, ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Scales, calculates absolute values, and converts the result to 8-bit.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array.</param>
+        /// <param name="alpha">optional scale factor.</param>
+        /// <param name="beta">optional delta added to the scaled values.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// On each element of the input array, the function convertScaleAbs
+        /// performs three operations sequentially: scaling, taking an absolute
+        /// value, conversion to an unsigned 8-bit type:
+        /// \f[\texttt{dst} (I)= \texttt{saturate\_cast&lt;uchar&gt;} (| \texttt{src} (I)* \texttt{alpha} +  \texttt{beta} |)\f]
+        /// In case of multi-channel arrays, the function processes each channel
+        /// independently. When the output is not 8-bit, the operation can be
+        /// emulated by calling the Mat::convertTo method (or by using matrix
+        /// expressions) and then by calculating an absolute value of the result.
+        /// For example:
+        /// @code{.cpp}
+        /// Mat_&lt;float&gt; A(30,30);
+        /// randu(A, Scalar(-100), Scalar(100));
+        /// Mat_&lt;float&gt; B = A*5 + 3;
+        /// B = abs(B);
+        /// // Mat_&lt;float&gt; B = abs(A*5+3) will also do the job,
+        /// // but it will allocate a temporary matrix
+        /// @endcode
+        /// @sa  Mat::convertTo, cv::abs(const Mat&amp;)
+        /// </remarks>
+        public static void ConvertScaleAbs(Mat src, Mat dst, double alpha, double beta)
+        {
+            NativeMethods.cv_convertScaleAbs_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs a look-up table transform of an array.
+        /// </summary>
+        /// <param name="src">input array of 8-bit or 16-bit integer elements.</param>
+        /// <param name="lut">look-up table of 256 elements (if src has depth CV_8U or CV_8S) or 65536 elements(if src has depth CV_16U or CV_16S); in case of multi-channel input array, the table should either have a single channel (in this case the same table is used for all channels) or the same number of channels as in the input array.</param>
+        /// <param name="dst">output array of the same size and number of channels as src, and the same depth as lut.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function LUT fills the output array with values from the look-up table. Indices of the entries
+        /// are taken from the input array. That is, the function processes each element of src as follows:
+        /// \f[\texttt{dst} (I)  \leftarrow \texttt{lut(src(I) + d)}\f]
+        /// where
+        /// \f[d =  \forkthree{0}{if \(\texttt{src}\) has depth \(\texttt{CV_8U}\) or \(\texttt{CV_16U}\)}{128}{if \(\texttt{src}\) has depth \(\texttt{CV_8S}\)}{32768}{if \(\texttt{src}\) has depth \(\texttt{CV_16S}\)}\f]
+        /// @sa  convertScaleAbs, Mat::convertTo
+        /// </remarks>
+        public static void Lut(Mat src, Mat lut, Mat dst)
+        {
+            NativeMethods.cv_LUT_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lut, nameof(lut), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the sum of array elements.
+        /// </summary>
+        /// <param name="src">input array that must have from 1 to 4 channels.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::sum calculates and returns the sum of array elements,
+        /// independently for each channel.
+        /// @sa  countNonZero, mean, meanStdDev, norm, minMaxLoc, reduce
+        /// </remarks>
+        public static Scalar Sum(Mat src)
+        {
+            var res = NativeMethods.cv_sum_0(ValidationHelper.GetHandle(src, nameof(src), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Checks for the presence of at least one non-zero array element.
+        /// </summary>
+        /// <param name="src">single-channel array.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns whether there are non-zero elements in src
+        /// The function do not work with multi-channel arrays. If you need to check non-zero array
+        /// elements across all the channels, use Mat::reshape first to reinterpret the array as
+        /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
+        /// mixChannels, or split.
+        /// @note
+        /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+        /// - If the location of non-zero array elements is important, @ref findNonZero is helpful.
+        /// - If the count of non-zero array elements is important, @ref countNonZero is helpful.
+        /// @sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
+        /// @sa  findNonZero, countNonZero
+        /// </remarks>
+        public static bool HasNonZero(Mat src)
+        {
+            var res = NativeMethods.cv_hasNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Counts non-zero array elements.
+        /// </summary>
+        /// <param name="src">single-channel array.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns the number of non-zero elements in src :
+        /// \f[\sum _{I: \; \texttt{src} (I) \ne0 } 1\f]
+        /// The function do not work with multi-channel arrays. If you need to count non-zero array
+        /// elements across all the channels, use Mat::reshape first to reinterpret the array as
+        /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
+        /// mixChannels, or split.
+        /// @note
+        /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+        /// - If only whether there are non-zero elements is important, @ref hasNonZero is helpful.
+        /// - If the location of non-zero array elements is important, @ref findNonZero is helpful.
+        /// @sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
+        /// @sa  findNonZero, hasNonZero
+        /// </remarks>
+        public static int CountNonZero(Mat src)
+        {
+            var res = NativeMethods.cv_countNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the list of locations of non-zero pixels
+        /// </summary>
+        /// <param name="src">single-channel array</param>
+        /// <param name="idx">the output array, type of cv::Mat or std::vector&lt;Point&gt;, corresponding to non-zero indices in the input</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Given a binary matrix (likely returned from an operation such
+        /// as threshold(), compare(), &gt;, ==, etc, return all of
+        /// the non-zero indices as a cv::Mat or std::vector&lt;cv::Point&gt; (x,y)
+        /// For example:
+        /// @code{.cpp}
+        /// cv::Mat binaryImage; // input, binary image
+        /// cv::Mat locations;   // output, locations of non-zero pixels
+        /// cv::findNonZero(binaryImage, locations);
+        /// // access pixel coordinates
+        /// Point pnt = locations.at&lt;Point&gt;(i);
+        /// @endcode
+        /// or
+        /// @code{.cpp}
+        /// cv::Mat binaryImage; // input, binary image
+        /// vector&lt;Point&gt; locations;   // output, locations of non-zero pixels
+        /// cv::findNonZero(binaryImage, locations);
+        /// // access pixel coordinates
+        /// Point pnt = locations[i];
+        /// @endcode
+        /// The function do not work with multi-channel arrays. If you need to find non-zero
+        /// elements across all the channels, use Mat::reshape first to reinterpret the array as
+        /// single-channel. Or you may extract the particular channel using either extractImageCOI, or
+        /// mixChannels, or split.
+        /// @note
+        /// - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+        /// - If only count of non-zero array elements is important, @ref countNonZero is helpful.
+        /// - If only whether there are non-zero elements is important, @ref hasNonZero is helpful.
+        /// @sa  countNonZero, hasNonZero
+        /// </remarks>
+        public static void FindNonZero(Mat src, Mat idx)
+        {
+            NativeMethods.cv_findNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(idx, nameof(idx), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates an average (mean) of array elements.
+        /// </summary>
+        /// <param name="src">input array that should have from 1 to 4 channels so that the result can be stored in Scalar_ .</param>
+        /// <param name="mask">optional operation mask ot type CV_8U, CV_8S or CV_Bool.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::mean calculates the mean value M of array elements,
+        /// independently for each channel, and return it:
+        /// \f[\begin{array}{l} N =  \sum _{I: \; \texttt{mask} (I) \ne 0} 1 \\ M_c =  \left ( \sum _{I: \; \texttt{mask} (I) \ne 0}{ \texttt{mtx} (I)_c} \right )/N \end{array}\f]
+        /// When all the mask elements are 0's, the function returns Scalar::all(0)
+        /// @sa  countNonZero, meanStdDev, norm, minMaxLoc
+        /// </remarks>
+        public static Scalar Mean(Mat src, Mat? mask)
+        {
+            var res = NativeMethods.cv_mean_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Calculates a mean and standard deviation of array elements.
+        /// </summary>
+        /// <param name="src">input array that should have from 1 to 4 channels so that the results can be stored in Scalar_ 's.</param>
+        /// <param name="mean">output parameter: calculated mean value.</param>
+        /// <param name="stddev">output parameter: calculated standard deviation.</param>
+        /// <param name="mask">optional operation mask of type CV_8U, CV_8S or CV_Bool.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::meanStdDev calculates the mean and the standard deviation M
+        /// of array elements independently for each channel and returns it via the
+        /// output parameters:
+        /// \f[\begin{array}{l} N =  \sum _{I, \texttt{mask} (I)  \ne 0} 1 \\ \texttt{mean} _c =  \frac{\sum_{ I: \; \texttt{mask}(I) \ne 0} \texttt{src} (I)_c}{N} \\ \texttt{stddev} _c =  \sqrt{\frac{\sum_{ I: \; \texttt{mask}(I) \ne 0} \left ( \texttt{src} (I)_c -  \texttt{mean} _c \right )^2}{N}} \end{array}\f]
+        /// When all the mask elements are 0's, the function returns
+        /// mean=stddev=Scalar::all(0).
+        /// @note The calculated standard deviation is only the diagonal of the
+        /// complete normalized covariance matrix. If the full matrix is needed, you
+        /// can reshape the multi-channel array M x N to the single-channel array
+        /// M\*N x mtx.channels() (only possible when the matrix is continuous) and
+        /// then pass the matrix to calcCovarMatrix .
+        /// @sa  countNonZero, mean, norm, minMaxLoc, calcCovarMatrix
+        /// </remarks>
+        public static void MeanStdDev(Mat src, Mat mean, Mat stddev, Mat? mask)
+        {
+            NativeMethods.cv_meanStdDev_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the  absolute norm of an array.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="normType">type of the norm (see #NormTypes).</param>
+        /// <param name="mask">optional operation mask; it must have the same size as src1 and type CV_8UC1, CV_8SC1 or CV_BoolC1.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This version of #norm calculates the absolute norm of src1. The type of norm to calculate is specified using #NormTypes.
+        /// As example for one array consider the function \f$r(x)= \begin{pmatrix} x \\ 1-x \end{pmatrix}, x \in [-1;1]\f$.
+        /// The \f$ L_{1}, L_{2} \f$ and \f$ L_{\infty} \f$ norm for the sample value \f$r(-1) = \begin{pmatrix} -1 \\ 2 \end{pmatrix}\f$
+        /// is calculated as follows
+        /// \f{align*}
+        /// \| r(-1) \|_{L_1} &amp;= |-1| + |2| = 3 \\
+        /// \| r(-1) \|_{L_2} &amp;= \sqrt{(-1)^{2} + (2)^{2}} = \sqrt{5} \\
+        /// \| r(-1) \|_{L_\infty} &amp;= \max(|-1|,|2|) = 2
+        /// \f}
+        /// and for \f$r(0.5) = \begin{pmatrix} 0.5 \\ 0.5 \end{pmatrix}\f$ the calculation is
+        /// \f{align*}
+        /// \| r(0.5) \|_{L_1} &amp;= |0.5| + |0.5| = 1 \\
+        /// \| r(0.5) \|_{L_2} &amp;= \sqrt{(0.5)^{2} + (0.5)^{2}} = \sqrt{0.5} \\
+        /// \| r(0.5) \|_{L_\infty} &amp;= \max(|0.5|,|0.5|) = 0.5.
+        /// \f}
+        /// The following graphic shows all values for the three norm functions \f$\| r(x) \|_{L_1}, \| r(x) \|_{L_2}\f$ and \f$\| r(x) \|_{L_\infty}\f$.
+        /// It is notable that the \f$ L_{1} \f$ norm forms the upper and the \f$ L_{\infty} \f$ norm forms the lower border for the example function \f$ r(x) \f$.
+        /// ![Graphs for the different norm functions from the above example](pics/NormTypes_OneArray_1-2-INF.png)
+        /// When the mask parameter is specified and it is not empty, the norm is
+        /// If normType is not specified, #NORM_L2 is used.
+        /// calculated only over the region specified by the mask.
+        /// Multi-channel input arrays are treated as single-channel arrays, that is,
+        /// the results for all channels are combined.
+        /// Hamming norms can only be calculated with CV_8U depth arrays.
+        /// </remarks>
+        public static double Norm(Mat src1, int normType, Mat? mask)
+        {
+            var res = NativeMethods.cv_norm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Calculates an absolute difference norm or a relative difference norm.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size and the same type as src1.</param>
+        /// <param name="normType">type of the norm (see #NormTypes).</param>
+        /// <param name="mask">optional operation mask; it must have the same size as src1 and type CV_8UC1, CV_8S1 or CV_BoolC1.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This version of cv::norm calculates the absolute difference norm
+        /// or the relative difference norm of arrays src1 and src2.
+        /// The type of norm to calculate is specified using #NormTypes.
+        /// </remarks>
+        public static double Norm(Mat src1, Mat src2, int normType, Mat? mask)
+        {
+            var res = NativeMethods.cv_norm_1(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size as src1.</param>
+        /// <param name="R">the maximum pixel value (255 by default)</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This function calculates the Peak Signal-to-Noise Ratio (PSNR) image quality metric in decibels (dB),
+        /// between two input arrays src1 and src2. The arrays must have the same type.
+        /// The PSNR is calculated as follows:
+        /// \f[
+        /// \texttt{PSNR} = 10 \cdot \log_{10}{\left( \frac{R^2}{MSE} \right) }
+        /// \f]
+        /// where R is the maximum integer value of depth (e.g. 255 in the case of CV_8U data)
+        /// and MSE is the mean squared error between the two arrays.
+        /// </remarks>
+        public static double Psnr(Mat src1, Mat src2, double R)
+        {
+            var res = NativeMethods.cv_PSNR_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), R);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// naive nearest neighbor finder
+        /// </summary>
+        /// <param name="src1">The src1 parameter.</param>
+        /// <param name="src2">The src2 parameter.</param>
+        /// <param name="dist">The dist parameter.</param>
+        /// <param name="dtype">The dtype parameter.</param>
+        /// <param name="nidx">The nidx parameter.</param>
+        /// <param name="normType">The normType parameter.</param>
+        /// <param name="K">The K parameter.</param>
+        /// <param name="mask">The mask parameter.</param>
+        /// <param name="update">The update parameter.</param>
+        /// <param name="crosscheck">The crosscheck parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// see http://en.wikipedia.org/wiki/Nearest_neighbor_search
+        /// @todo document
+        /// </remarks>
+        public static void BatchDistance(Mat src1, Mat src2, Mat dist, int dtype, Mat nidx, int normType, int K, Mat? mask, int update, bool crosscheck)
+        {
+            NativeMethods.cv_batchDistance_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dist, nameof(dist), false), dtype, ValidationHelper.GetHandle(nidx, nameof(nidx), false), normType, K, ValidationHelper.GetHandle(mask, nameof(mask), true), update, crosscheck);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Normalizes the norm or value range of an array.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same size as src .</param>
+        /// <param name="alpha">norm value to normalize to or the lower range boundary in case of the range normalization.</param>
+        /// <param name="beta">upper range boundary in case of the range normalization; it is not used for the norm normalization.</param>
+        /// <param name="norm_type">normalization type (see cv::NormTypes).</param>
+        /// <param name="dtype">when negative, the output array has the same type as src; otherwise, it has the same number of channels as src and the depth =CV_MAT_DEPTH(dtype).</param>
+        /// <param name="mask">optional operation mask of type CV_8U, CV_8S or CV_Bool.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::normalize normalizes scale and shift the input array elements so that
+        /// \f[\| \texttt{dst} \| _{L_p}= \texttt{alpha}\f]
+        /// (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
+        /// \f[\min _I  \texttt{dst} (I)= \texttt{alpha} , \, \, \max _I  \texttt{dst} (I)= \texttt{beta}\f]
+        /// when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
+        /// normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
+        /// sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
+        /// min-max but modify the whole array, you can use norm and Mat::convertTo.
+        /// In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
+        /// the range transformation for sparse matrices is not allowed since it can shift the zero level.
+        /// Possible usage with some positive example data:
+        /// @code{.cpp}
+        /// vector&lt;double&gt; positiveData = { 2.0, 8.0, 10.0 };
+        /// vector&lt;double&gt; normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
+        /// // Norm to probability (total count)
+        /// // sum(numbers) = 20.0
+        /// // 2.0      0.1     (2.0/20.0)
+        /// // 8.0      0.4     (8.0/20.0)
+        /// // 10.0     0.5     (10.0/20.0)
+        /// normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
+        /// // Norm to unit vector: ||positiveData|| = 1.0
+        /// // 2.0      0.15
+        /// // 8.0      0.62
+        /// // 10.0     0.77
+        /// normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
+        /// // Norm to max element
+        /// // 2.0      0.2     (2.0/10.0)
+        /// // 8.0      0.8     (8.0/10.0)
+        /// // 10.0     1.0     (10.0/10.0)
+        /// normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
+        /// // Norm to range [0.0;1.0]
+        /// // 2.0      0.0     (shift to left border)
+        /// // 8.0      0.75    (6.0/8.0)
+        /// // 10.0     1.0     (shift to right border)
+        /// normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
+        /// @endcode
+        /// @note Due to rounding issues, min-max normalization can result in values outside provided boundaries.
+        /// If exact range conformity is needed, following workarounds can be used:
+        /// - use double floating point precision (dtype = CV_64F)
+        /// - manually clip values (`cv::max(res, left_bound, res)`, `cv::min(res, right_bound, res)` or `np.clip`)
+        /// @sa norm, Mat::convertTo, SparseMat::convertTo
+        /// </remarks>
+        public static void Normalize(Mat src, Mat dst, double alpha, double beta, int norm_type, int dtype, Mat? mask)
+        {
+            NativeMethods.cv_normalize_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta, norm_type, dtype, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Finds the global minimum and maximum in an array.
+        /// </summary>
+        /// <param name="src">input single-channel array.</param>
+        /// <param name="minVal">pointer to the returned minimum value; NULL is used if not required.</param>
+        /// <param name="maxVal">pointer to the returned maximum value; NULL is used if not required.</param>
+        /// <param name="minLoc">pointer to the returned minimum location (in 2D case); NULL is used if not required.</param>
+        /// <param name="maxLoc">pointer to the returned maximum location (in 2D case); NULL is used if not required.</param>
+        /// <param name="mask">optional mask used to select a sub-array of type CV_8U, CV_8S or CV_Bool.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::minMaxLoc finds the minimum and maximum element values and their positions. The
+        /// extremums are searched across the whole array or, if mask is not an empty array, in the specified
+        /// array region.
+        /// In C++, if the input is multi-channel, you should omit the minLoc, maxLoc, and mask arguments
+        /// (i.e. leave them as NULL, NULL, and noArray() respectively). These arguments are not
+        /// supported for multi-channel input arrays. If working with multi-channel input and you
+        /// need the minLoc, maxLoc, or mask arguments, then use Mat::reshape first to reinterpret
+        /// the array as single-channel. Alternatively, you can extract the particular channel using either
+        /// extractImageCOI, mixChannels, or split.
+        /// In Python, multi-channel input is not supported at all due to a limitation in the
+        /// binding generation process (there is no way to set minLoc and maxLoc to NULL). A
+        /// workaround is to operate on each channel individually or to use NumPy to achieve the same
+        /// functionality.
+        /// @note CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+        /// @sa max, min, reduceArgMin, reduceArgMax, compare, inRange, extractImageCOI, mixChannels, split, Mat::reshape
+        /// </remarks>
+        public static void MinMaxLoc(Mat src, IntPtr minVal, IntPtr maxVal, IntPtr minLoc, IntPtr maxLoc, Mat? mask)
+        {
+            NativeMethods.cv_minMaxLoc_0(ValidationHelper.GetHandle(src, nameof(src), false), minVal, maxVal, minLoc, maxLoc, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// * @brief Finds indices of min elements along provided axis
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <param name="axis">The axis parameter.</param>
+        /// <param name="lastIndex">The lastIndex parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// *
+        /// * @note
+        /// *      - If input or output array is not continuous, this function will create an internal copy.
+        /// *      - NaN handling is left unspecified, see patchNaNs().
+        /// *      - The returned index is always in bounds of input matrix.
+        /// *
+        /// * @param src input single-channel array.
+        /// * @param dst output array of type CV_32SC1 with the same dimensionality as src,
+        /// * except for axis being reduced - it should be set to 1.
+        /// * @param lastIndex whether to get the index of first or last occurrence of min.
+        /// * @param axis axis to reduce along.
+        /// * @sa reduceArgMax, minMaxLoc, min, max, compare, reduce
+        /// </remarks>
+        public static void ReduceArgMin(Mat src, Mat dst, int axis, bool lastIndex)
+        {
+            NativeMethods.cv_reduceArgMin_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// * @brief Finds indices of max elements along provided axis
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <param name="axis">The axis parameter.</param>
+        /// <param name="lastIndex">The lastIndex parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// *
+        /// * @note
+        /// *      - If input or output array is not continuous, this function will create an internal copy.
+        /// *      - NaN handling is left unspecified, see patchNaNs().
+        /// *      - The returned index is always in bounds of input matrix.
+        /// *
+        /// * @param src input single-channel array.
+        /// * @param dst output array of type CV_32SC1 with the same dimensionality as src,
+        /// * except for axis being reduced - it should be set to 1.
+        /// * @param lastIndex whether to get the index of first or last occurrence of max.
+        /// * @param axis axis to reduce along.
+        /// * @sa reduceArgMin, minMaxLoc, min, max, compare, reduce
+        /// </remarks>
+        public static void ReduceArgMax(Mat src, Mat dst, int axis, bool lastIndex)
+        {
+            NativeMethods.cv_reduceArgMax_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Reduces a matrix to a vector.
+        /// </summary>
+        /// <param name="src">input 2D matrix.</param>
+        /// <param name="dst">output vector. Its size and type is defined by dim and dtype parameters.</param>
+        /// <param name="dim">dimension index along which the matrix is reduced. 0 means that the matrix is reduced to a single row. 1 means that the matrix is reduced to a single column.</param>
+        /// <param name="rtype">reduction operation that could be one of #ReduceTypes</param>
+        /// <param name="dtype">when negative, the output vector will have the same type as the input matrix, otherwise, its type will be CV_MAKE_TYPE(CV_MAT_DEPTH(dtype), src.channels()).</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function #reduce reduces the matrix to a vector by treating the matrix rows/columns as a set of
+        /// 1D vectors and performing the specified operation on the vectors until a single row/column is
+        /// obtained. For example, the function can be used to compute horizontal and vertical projections of a
+        /// raster image. In case of #REDUCE_MAX and #REDUCE_MIN, the output image should have the same type as the source one.
+        /// In case of #REDUCE_SUM, #REDUCE_SUM2 and #REDUCE_AVG, the output may have a larger element bit-depth to preserve accuracy.
+        /// And multi-channel arrays are also supported in these two reduction modes.
+        /// The following code demonstrates its usage for a single channel matrix.
+        /// @snippet snippets/core_reduce.cpp example
+        /// And the following code demonstrates its usage for a two-channel matrix.
+        /// @snippet snippets/core_reduce.cpp example2
+        /// @sa repeat, reduceArgMin, reduceArgMax
+        /// </remarks>
+        public static void Reduce(Mat src, Mat dst, int dim, int rtype, int dtype)
+        {
+            NativeMethods.cv_reduce_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dim, rtype, dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="mv">input vector of matrices to be merged; all the matrices in mv must have the same size and the same depth.</param>
+        /// <param name="dst">output array of the same size and the same depth as mv[0]; The number of channels will be the total number of channels in the matrix array.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Merge(IntPtr mv, Mat dst)
+        {
+            NativeMethods.cv_merge_0(mv, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="m">input multi-channel array.</param>
+        /// <param name="mv">output vector of arrays; the arrays themselves are reallocated, if needed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Split(Mat m, IntPtr mv)
+        {
+            NativeMethods.cv_split_0(ValidationHelper.GetHandle(m, nameof(m), false), mv);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="src">input array or vector of matrices; all of the matrices must have the same size and the same depth.</param>
+        /// <param name="dst">output array or vector of matrices; all the matrices **must be allocated**; their size and depth must be the same as in src[0].</param>
+        /// <param name="fromTo">array of index pairs specifying which channels are copied and where; fromTo[k\*2] is a 0-based index of the input channel in src, fromTo[k\*2+1] is an index of the output channel in dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to src[0].channels()-1, the second input image channels are indexed from src[0].channels() to src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image channels; as a special case, when fromTo[k\*2] is negative, the corresponding output channel is filled with zero .</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void MixChannels(IntPtr src, IntPtr dst, IntPtr fromTo)
+        {
+            NativeMethods.cv_mixChannels_0(src, dst, fromTo);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Extracts a single channel from src (coi is 0-based index)
+        /// </summary>
+        /// <param name="src">input array</param>
+        /// <param name="dst">output array</param>
+        /// <param name="coi">index of channel to extract</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa mixChannels, split
+        /// </remarks>
+        public static void ExtractChannel(Mat src, Mat dst, int coi)
+        {
+            NativeMethods.cv_extractChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Inserts a single channel to dst (coi is 0-based index)
+        /// </summary>
+        /// <param name="src">input array</param>
+        /// <param name="dst">output array</param>
+        /// <param name="coi">index of channel for insertion</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa mixChannels, merge
+        /// </remarks>
+        public static void InsertChannel(Mat src, Mat dst, int coi)
+        {
+            NativeMethods.cv_insertChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Flips a 2D array around vertical, horizontal, or both axes.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <param name="flipCode">a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::flip flips the array in one of three different ways (row
+        /// and column indices are 0-based):
+        /// \f[\texttt{dst} _{ij} =
+        /// \left\{
+        /// \begin{array}{l l}
+        /// \texttt{src} _{\texttt{src.rows}-i-1,j} &amp; if\;  \texttt{flipCode} = 0 \\
+        /// \texttt{src} _{i, \texttt{src.cols} -j-1} &amp; if\;  \texttt{flipCode} &gt; 0 \\
+        /// \texttt{src} _{ \texttt{src.rows} -i-1, \texttt{src.cols} -j-1} &amp; if\; \texttt{flipCode} &lt; 0 \\
+        /// \end{array}
+        /// \right.\f]
+        /// The example scenarios of using the function are the following:
+        /// *   Vertical flipping of the image (flipCode == 0) to switch between
+        /// top-left and bottom-left image origin. This is a typical operation
+        /// in video processing on Microsoft Windows\* OS.
+        /// *   Horizontal flipping of the image with the subsequent horizontal
+        /// shift and absolute difference calculation to check for a
+        /// vertical-axis symmetry (flipCode \&gt; 0).
+        /// *   Simultaneous horizontal and vertical flipping of the image with
+        /// the subsequent shift and absolute difference calculation to check
+        /// for a central symmetry (flipCode \&lt; 0).
+        /// *   Reversing the order of point arrays (flipCode \&gt; 0 or
+        /// flipCode == 0).
+        /// @sa transpose, repeat, completeSymm
+        /// </remarks>
+        public static void Flip(Mat src, Mat dst, int flipCode)
+        {
+            NativeMethods.cv_flip_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flipCode);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Flips a n-dimensional at given axis
+        /// *  @param src input array
+        /// *  @param dst output array that has the same shape of src
+        /// *  @param axis axis that performs a flip on. 0 &lt;= axis &lt; src.dims.
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <param name="axis">The axis parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FlipND(Mat src, Mat dst, int axis)
+        {
+            NativeMethods.cv_flipND_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Broadcast the given Mat to the given shape.
+        /// * @param src input array
+        /// * @param shape target shape. Should be a list of CV_32S numbers. Note that negative values are not supported.
+        /// * @param dst output array that has the given shape
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="shape">The shape parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Broadcast(Mat src, Mat shape, Mat dst)
+        {
+            NativeMethods.cv_broadcast_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(shape, nameof(shape), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Rotates a 2D array in multiples of 90 degrees.
+        /// The function cv::rotate rotates the array in one of three different ways:
+        /// *   Rotate by 90 degrees clockwise (rotateCode = ROTATE_90_CLOCKWISE).
+        /// *   Rotate by 180 degrees clockwise (rotateCode = ROTATE_180).
+        /// *   Rotate by 270 degrees clockwise (rotateCode = ROTATE_90_COUNTERCLOCKWISE).
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same type as src.  The size is the same with ROTATE_180, and the rows and cols are switched for ROTATE_90_CLOCKWISE and ROTATE_90_COUNTERCLOCKWISE.</param>
+        /// <param name="rotateCode">an enum to specify how to rotate the array; see the enum #RotateFlags</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa transpose, repeat, completeSymm, flip, RotateFlags
+        /// </remarks>
+        public static void Rotate(Mat src, Mat dst, int rotateCode)
+        {
+            NativeMethods.cv_rotate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), rotateCode);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Fills the output array with repeated copies of the input array.
+        /// </summary>
+        /// <param name="src">input array to replicate.</param>
+        /// <param name="ny">Flag to specify how many times the `src` is repeated along the vertical axis.</param>
+        /// <param name="nx">Flag to specify how many times the `src` is repeated along the horizontal axis.</param>
+        /// <param name="dst">output array of the same type as `src`.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::repeat duplicates the input array one or more times along each of the two axes:
+        /// \f[\texttt{dst} _{ij}= \texttt{src} _{i\mod src.rows, \; j\mod src.cols }\f]
+        /// The second variant of the function is more convenient to use with @ref MatrixExpressions.
+        /// @sa cv::reduce
+        /// </remarks>
+        public static void Repeat(Mat src, int ny, int nx, Mat dst)
+        {
+            NativeMethods.cv_repeat_0(ValidationHelper.GetHandle(src, nameof(src), false), ny, nx, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="src">input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.</param>
+        /// <param name="dst">output array. It has the same number of rows and depth as the src, and the sum of cols of the src. same depth.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @code{.cpp}
+        /// std::vector&lt;cv::Mat&gt; matrices = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
+        /// cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
+        /// cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
+        /// cv::Mat out;
+        /// cv::hconcat( matrices, out );
+        /// //out:
+        /// //[1, 2, 3;
+        /// // 1, 2, 3;
+        /// // 1, 2, 3;
+        /// // 1, 2, 3]
+        /// @endcode
+        /// </remarks>
+        public static void Hconcat(IntPtr src, Mat dst)
+        {
+            NativeMethods.cv_hconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="src">input array or vector of matrices. all of the matrices must have the same number of cols and the same depth</param>
+        /// <param name="dst">output array. It has the same number of cols and depth as the src, and the sum of rows of the src. same depth.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @code{.cpp}
+        /// std::vector&lt;cv::Mat&gt; matrices = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
+        /// cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
+        /// cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
+        /// cv::Mat out;
+        /// cv::vconcat( matrices, out );
+        /// //out:
+        /// //[1,   1,   1,   1;
+        /// // 2,   2,   2,   2;
+        /// // 3,   3,   3,   3]
+        /// @endcode
+        /// </remarks>
+        public static void Vconcat(IntPtr src, Mat dst)
+        {
+            NativeMethods.cv_vconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// computes bitwise conjunction of the two arrays (dst = src1 &amp; src2)
+        /// Calculates the per-element bit-wise conjunction of two arrays or an
+        /// array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array that has the same size and type as the input arrays.</param>
+        /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::bitwise_and calculates the per-element bit-wise logical conjunction for:
+        /// *   Two arrays when src1 and src2 have the same size:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \wedge \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// *   An array and a scalar when src2 is constructed from Scalar or has
+        /// the same number of elements as `src1.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \wedge \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
+        /// *   A scalar and an array when src1 is constructed from Scalar or has
+        /// the same number of elements as `src2.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1}  \wedge \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// In case of floating-point arrays, their machine-specific bit
+        /// representations (usually IEEE754-compliant) are used for the operation.
+        /// In case of multi-channel arrays, each channel is processed
+        /// independently. In the second and third cases above, the scalar is first
+        /// converted to the array type.
+        /// </remarks>
+        public static void BitwiseAnd(Mat src1, Mat src2, Mat dst, Mat? mask)
+        {
+            NativeMethods.cv_bitwise_and_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element bit-wise disjunction of two arrays or an
+        /// array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array that has the same size and type as the input arrays.</param>
+        /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::bitwise_or calculates the per-element bit-wise logical disjunction for:
+        /// *   Two arrays when src1 and src2 have the same size:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \vee \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// *   An array and a scalar when src2 is constructed from Scalar or has
+        /// the same number of elements as `src1.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \vee \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
+        /// *   A scalar and an array when src1 is constructed from Scalar or has
+        /// the same number of elements as `src2.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1}  \vee \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// In case of floating-point arrays, their machine-specific bit
+        /// representations (usually IEEE754-compliant) are used for the operation.
+        /// In case of multi-channel arrays, each channel is processed
+        /// independently. In the second and third cases above, the scalar is first
+        /// converted to the array type.
+        /// </remarks>
+        public static void BitwiseOr(Mat src1, Mat src2, Mat dst, Mat? mask)
+        {
+            NativeMethods.cv_bitwise_or_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element bit-wise "exclusive or" operation on two
+        /// arrays or an array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array that has the same size and type as the input arrays.</param>
+        /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::bitwise_xor calculates the per-element bit-wise logical "exclusive-or"
+        /// operation for:
+        /// *   Two arrays when src1 and src2 have the same size:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \oplus \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// *   An array and a scalar when src2 is constructed from Scalar or has
+        /// the same number of elements as `src1.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \oplus \texttt{src2} \quad \texttt{if mask} (I) \ne0\f]
+        /// *   A scalar and an array when src1 is constructed from Scalar or has
+        /// the same number of elements as `src2.channels()`:
+        /// \f[\texttt{dst} (I) =  \texttt{src1}  \oplus \texttt{src2} (I) \quad \texttt{if mask} (I) \ne0\f]
+        /// In case of floating-point arrays, their machine-specific bit
+        /// representations (usually IEEE754-compliant) are used for the operation.
+        /// In case of multi-channel arrays, each channel is processed
+        /// independently. In the 2nd and 3rd cases above, the scalar is first
+        /// converted to the array type.
+        /// </remarks>
+        public static void BitwiseXor(Mat src1, Mat src2, Mat dst, Mat? mask)
+        {
+            NativeMethods.cv_bitwise_xor_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Inverts every bit of an array.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array that has the same size and type as the input array.</param>
+        /// <param name="mask">optional operation mask, CV_8U, CV_8S or CV_Bool single channel array, that specifies elements of the output array to be changed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::bitwise_not calculates per-element bit-wise inversion of the input
+        /// array:
+        /// \f[\texttt{dst} (I) =  \neg \texttt{src} (I)\f]
+        /// In case of a floating-point input array, its machine-specific bit
+        /// representation (usually IEEE754-compliant) is used for the operation. In
+        /// case of multi-channel arrays, each channel is processed independently.
+        /// </remarks>
+        public static void BitwiseNot(Mat src, Mat dst, Mat? mask)
+        {
+            NativeMethods.cv_bitwise_not_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the per-element absolute difference between two arrays or between an array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar.</param>
+        /// <param name="src2">second input array or a scalar.</param>
+        /// <param name="dst">output array that has the same size and type as input arrays.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::absdiff calculates:
+        /// *   Absolute difference between two arrays when they have the same
+        /// size and type:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1}(I) -  \texttt{src2}(I)|)\f]
+        /// *   Absolute difference between an array and a scalar when the second
+        /// array is constructed from Scalar or has as many elements as the
+        /// number of channels in `src1`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1}(I) -  \texttt{src2} |)\f]
+        /// *   Absolute difference between a scalar and an array when the first
+        /// array is constructed from Scalar or has as many elements as the
+        /// number of channels in `src2`:
+        /// \f[\texttt{dst}(I) =  \texttt{saturate} (| \texttt{src1} -  \texttt{src2}(I) |)\f]
+        /// where I is a multi-dimensional index of array elements. In case of
+        /// multi-channel arrays, each channel is processed independently.
+        /// @note Saturation is not applied when the arrays have the depth CV_32S.
+        /// You may even get a negative value in the case of overflow.
+        /// @note (Python) Be careful to difference behaviour between src1/src2 are single number and they are tuple/array.
+        /// `absdiff(src,X)` means `absdiff(src,(X,X,X,X))`.
+        /// `absdiff(src,(X,))` means `absdiff(src,(X,0,0,0))`.
+        /// @sa cv::abs(const Mat&amp;)
+        /// </remarks>
+        public static void Absdiff(Mat src1, Mat src2, Mat dst)
+        {
+            NativeMethods.cv_absdiff_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// This is an overloaded member function, provided for convenience (python)
+        /// Copies the matrix to another one.
+        /// When the operation mask is specified, if the Mat::create call shown above reallocates the matrix, the newly allocated matrix is initialized with all zeros before copying the data.
+        /// </summary>
+        /// <param name="src">source matrix.</param>
+        /// <param name="dst">Destination matrix. If it does not have a proper size or type before the operation, it is reallocated.</param>
+        /// <param name="mask">Operation mask of the same size as \*this. Its non-zero elements indicate which matrix elements need to be copied. The mask has to be of type CV_8U, CV_8S or CV_Bool and can have 1 or multiple channels.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CopyTo(Mat src, Mat dst, Mat mask)
+        {
+            NativeMethods.cv_copyTo_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Checks if array elements lie between the elements of two other arrays.
+        /// </summary>
+        /// <param name="src">first input array.</param>
+        /// <param name="lowerb">inclusive lower boundary array or a scalar.</param>
+        /// <param name="upperb">inclusive upper boundary array or a scalar.</param>
+        /// <param name="dst">output array of the same size as src and CV_8U type.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function checks the range as follows:
+        /// -   For every element of a single-channel input array:
+        /// \f[\texttt{dst} (I)= \texttt{lowerb} (I)_0  \leq \texttt{src} (I)_0 \leq  \texttt{upperb} (I)_0\f]
+        /// -   For two-channel arrays:
+        /// \f[\texttt{dst} (I)= \texttt{lowerb} (I)_0  \leq \texttt{src} (I)_0 \leq  \texttt{upperb} (I)_0  \land \texttt{lowerb} (I)_1  \leq \texttt{src} (I)_1 \leq  \texttt{upperb} (I)_1\f]
+        /// -   and so forth.
+        /// That is, dst (I) is set to 255 (all 1 -bits) if src (I) is within the
+        /// specified 1D, 2D, 3D, ... box and 0 otherwise.
+        /// When the lower and/or upper boundary parameters are scalars, the indexes
+        /// (I) at lowerb and upperb in the above formulas should be omitted.
+        /// </remarks>
+        public static void InRange(Mat src, Mat lowerb, Mat upperb, Mat dst)
+        {
+            NativeMethods.cv_inRange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lowerb, nameof(lowerb), false), ValidationHelper.GetHandle(upperb, nameof(upperb), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs the per-element comparison of two arrays or an array and scalar value.
+        /// </summary>
+        /// <param name="src1">first input array or a scalar; when it is an array, it must have a single channel.</param>
+        /// <param name="src2">second input array or a scalar; when it is an array, it must have a single channel.</param>
+        /// <param name="dst">output array of type ref CV_8U that has the same size and the same number of channels as the input arrays.</param>
+        /// <param name="cmpop">a flag, that specifies correspondence between the arrays (cv::CmpTypes)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function compares:
+        /// *   Elements of two arrays when src1 and src2 have the same size:
+        /// \f[\texttt{dst} (I) =  \texttt{src1} (I)  \,\texttt{cmpop}\, \texttt{src2} (I)\f]
+        /// *   Elements of src1 with a scalar src2 when src2 is constructed from
+        /// Scalar or has a single element:
+        /// \f[\texttt{dst} (I) =  \texttt{src1}(I) \,\texttt{cmpop}\,  \texttt{src2}\f]
+        /// *   src1 with elements of src2 when src1 is constructed from Scalar or
+        /// has a single element:
+        /// \f[\texttt{dst} (I) =  \texttt{src1}  \,\texttt{cmpop}\, \texttt{src2} (I)\f]
+        /// When the comparison result is true, the corresponding element of output
+        /// array is set to 255. The comparison operations can be replaced with the
+        /// equivalent matrix expressions:
+        /// @code{.cpp}
+        /// Mat dst1 = src1 &gt;= src2;
+        /// Mat dst2 = src1 &lt; 8;
+        /// ...
+        /// @endcode
+        /// @sa checkRange, min, max, threshold
+        /// </remarks>
+        public static void Compare(Mat src1, Mat src2, Mat dst, int cmpop)
+        {
+            NativeMethods.cv_compare_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), cmpop);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates per-element minimum of two arrays or an array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size and type as src1.</param>
+        /// <param name="dst">output array of the same size and type as src1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::min calculates the per-element minimum of two arrays:
+        /// \f[\texttt{dst} (I)= \min ( \texttt{src1} (I), \texttt{src2} (I))\f]
+        /// or array and a scalar:
+        /// \f[\texttt{dst} (I)= \min ( \texttt{src1} (I), \texttt{value} )\f]
+        /// @sa max, compare, inRange, minMaxLoc
+        /// </remarks>
+        public static void Min(Mat src1, Mat src2, Mat dst)
+        {
+            NativeMethods.cv_min_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates per-element maximum of two arrays or an array and a scalar.
+        /// </summary>
+        /// <param name="src1">first input array.</param>
+        /// <param name="src2">second input array of the same size and type as src1 .</param>
+        /// <param name="dst">output array of the same size and type as src1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::max calculates the per-element maximum of two arrays:
+        /// \f[\texttt{dst} (I)= \max ( \texttt{src1} (I), \texttt{src2} (I))\f]
+        /// or array and a scalar:
+        /// \f[\texttt{dst} (I)= \max ( \texttt{src1} (I), \texttt{value} )\f]
+        /// @sa  min, compare, inRange, minMaxLoc, @ref MatrixExpressions
+        /// </remarks>
+        public static void Max(Mat src1, Mat src2, Mat dst)
+        {
+            NativeMethods.cv_max_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates a square root of array elements.
+        /// </summary>
+        /// <param name="src">input floating-point array.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::sqrt calculates a square root of each input array element.
+        /// In case of multi-channel arrays, each channel is processed
+        /// independently. The accuracy is approximately the same as of the built-in
+        /// std::sqrt .
+        /// </remarks>
+        public static void Sqrt(Mat src, Mat dst)
+        {
+            NativeMethods.cv_sqrt_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Raises every array element to a power.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="power">exponent of power.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::pow raises every element of the input array to power :
+        /// \f[\texttt{dst} (I) =  \fork{\texttt{src}(I)^{power}}{if \(\texttt{power}\) is integer}{|\texttt{src}(I)|^{power}}{otherwise}\f]
+        /// So, for a non-integer power exponent, the absolute values of input array
+        /// elements are used. However, it is possible to get true values for
+        /// negative values using some extra operations. In the example below,
+        /// computing the 5th root of array src shows:
+        /// @code{.cpp}
+        /// Mat mask = src &lt; 0;
+        /// pow(src, 1./5, dst);
+        /// subtract(Scalar::all(0), dst, dst, mask);
+        /// @endcode
+        /// For some values of power, such as integer values, 0.5 and -0.5,
+        /// specialized faster algorithms are used.
+        /// Special values (NaN, Inf) are not handled.
+        /// @sa sqrt, exp, log, cartToPolar, polarToCart
+        /// </remarks>
+        public static void Pow(Mat src, double power, Mat dst)
+        {
+            NativeMethods.cv_pow_0(ValidationHelper.GetHandle(src, nameof(src), false), power, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the exponent of every array element.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::exp calculates the exponent of every element of the input
+        /// array:
+        /// \f[\texttt{dst} [I] = e^{ src(I) }\f]
+        /// The maximum relative error is about 7e-6 for single-precision input and
+        /// less than 1e-10 for double-precision input. Currently, the function
+        /// converts denormalized values to zeros on output. Special values (NaN,
+        /// Inf) are not handled.
+        /// @sa log, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
+        /// </remarks>
+        public static void Exp(Mat src, Mat dst)
+        {
+            NativeMethods.cv_exp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the natural logarithm of every array element.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same size and type as src .</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::log calculates the natural logarithm of every element of the input array:
+        /// \f[\texttt{dst} (I) =  \log (\texttt{src}(I)) \f]
+        /// Output on zero, negative and special (NaN, Inf) values is undefined.
+        /// @sa exp, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
+        /// </remarks>
+        public static void Log(Mat src, Mat dst)
+        {
+            NativeMethods.cv_log_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates x and y coordinates of 2D vectors from their magnitude and angle.
+        /// </summary>
+        /// <param name="magnitude">input floating-point array of magnitudes of 2D vectors; it can be an empty matrix (=Mat()), in this case, the function assumes that all the magnitudes are =1; if it is not empty, it must have the same size and type as angle.</param>
+        /// <param name="angle">input floating-point array of angles of 2D vectors.</param>
+        /// <param name="x">output array of x-coordinates of 2D vectors; it has the same size and type as angle.</param>
+        /// <param name="y">output array of y-coordinates of 2D vectors; it has the same size and type as angle.</param>
+        /// <param name="angleInDegrees">when true, the input angles are measured in degrees, otherwise, they are measured in radians.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::polarToCart calculates the Cartesian coordinates of each 2D
+        /// vector represented by the corresponding elements of magnitude and angle:
+        /// \f[\begin{array}{l} \texttt{x} (I) =  \texttt{magnitude} (I) \cos ( \texttt{angle} (I)) \\ \texttt{y} (I) =  \texttt{magnitude} (I) \sin ( \texttt{angle} (I)) \\ \end{array}\f]
+        /// The relative accuracy of the estimated coordinates is about 1e-6.
+        /// @sa cartToPolar, magnitude, phase, exp, log, pow, sqrt
+        /// </remarks>
+        public static void PolarToCart(Mat magnitude, Mat angle, Mat x, Mat y, bool angleInDegrees)
+        {
+            NativeMethods.cv_polarToCart_0(ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), angleInDegrees);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the magnitude and angle of 2D vectors.
+        /// </summary>
+        /// <param name="x">array of x-coordinates; this must be a single-precision or double-precision floating-point array.</param>
+        /// <param name="y">array of y-coordinates, that must have the same size and same type as x.</param>
+        /// <param name="magnitude">output array of magnitudes of the same size and type as x.</param>
+        /// <param name="angle">output array of angles that has the same size and type as x; the angles are measured in radians (from 0 to 2\*Pi) or in degrees (0 to 360 degrees).</param>
+        /// <param name="angleInDegrees">a flag, indicating whether the angles are measured in radians (which is by default), or in degrees.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::cartToPolar calculates either the magnitude, angle, or both
+        /// for every 2D vector (x(I),y(I)):
+        /// \f[\begin{array}{l} \texttt{magnitude} (I)= \sqrt{\texttt{x}(I)^2+\texttt{y}(I)^2} , \\ \texttt{angle} (I)= \texttt{atan2} ( \texttt{y} (I), \texttt{x} (I))[ \cdot180 / \pi ] \end{array}\f]
+        /// The angles are calculated with accuracy about 0.3 degrees. For the point
+        /// (0,0), the angle is set to 0.
+        /// @sa Sobel, Scharr
+        /// </remarks>
+        public static void CartToPolar(Mat x, Mat y, Mat magnitude, Mat angle, bool angleInDegrees)
+        {
+            NativeMethods.cv_cartToPolar_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the rotation angle of 2D vectors.
+        /// </summary>
+        /// <param name="x">input floating-point array of x-coordinates of 2D vectors.</param>
+        /// <param name="y">input array of y-coordinates of 2D vectors; it must have the same size and the same type as x.</param>
+        /// <param name="angle">output array of vector angles; it has the same size and same type as x .</param>
+        /// <param name="angleInDegrees">when true, the function calculates the angle in degrees, otherwise, they are measured in radians.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::phase calculates the rotation angle of each 2D vector that
+        /// is formed from the corresponding elements of x and y :
+        /// \f[\texttt{angle} (I) =  \texttt{atan2} ( \texttt{y} (I), \texttt{x} (I))\f]
+        /// The angle estimation accuracy is about 0.3 degrees. When x(I)=y(I)=0 ,
+        /// the corresponding angle(I) is set to 0.
+        /// </remarks>
+        public static void Phase(Mat x, Mat y, Mat angle, bool angleInDegrees)
+        {
+            NativeMethods.cv_phase_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the magnitude of 2D vectors.
+        /// </summary>
+        /// <param name="x">floating-point array of x-coordinates of the vectors.</param>
+        /// <param name="y">floating-point array of y-coordinates of the vectors; it must have the same size as x.</param>
+        /// <param name="magnitude">output array of the same size and type as x.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::magnitude calculates the magnitude of 2D vectors formed
+        /// from the corresponding elements of x and y arrays:
+        /// \f[\texttt{dst} (I) =  \sqrt{\texttt{x}(I)^2 + \texttt{y}(I)^2}\f]
+        /// @sa cartToPolar, polarToCart, phase, sqrt
+        /// </remarks>
+        public static void Magnitude(Mat x, Mat y, Mat magnitude)
+        {
+            NativeMethods.cv_magnitude_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Checks every element of an input array for invalid values.
+        /// </summary>
+        /// <param name="a">input array.</param>
+        /// <param name="quiet">a flag, indicating whether the functions quietly return false when the array elements are out of range or they throw an exception.</param>
+        /// <param name="pos">optional output parameter, when not NULL, must be a pointer to array of src.dims elements.</param>
+        /// <param name="minVal">inclusive lower boundary of valid values range.</param>
+        /// <param name="maxVal">exclusive upper boundary of valid values range.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::checkRange checks that every array element is neither NaN nor infinite. When minVal \&gt;
+        /// -DBL_MAX and maxVal \&lt; DBL_MAX, the function also checks that each value is between minVal and
+        /// maxVal. In case of multi-channel arrays, each channel is processed independently. If some values
+        /// are out of range, position of the first outlier is stored in pos (when pos != NULL). Then, the
+        /// function either returns false (when quiet=true) or throws an exception.
+        /// </remarks>
+        public static bool CheckRange(Mat a, bool quiet, IntPtr pos, double minVal, double maxVal)
+        {
+            var res = NativeMethods.cv_checkRange_0(ValidationHelper.GetHandle(a, nameof(a), false), quiet, pos, minVal, maxVal);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Replaces NaNs (Not-a-Number values) in a matrix with the specified value.
+        /// </summary>
+        /// <param name="a">Input/output matrix (CV_32F or CV_64F type).</param>
+        /// <param name="val">Value used to replace NaNs (defaults to 0).</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This function modifies the input matrix in-place.
+        /// The input matrix must be of type `CV_32F` or `CV_64F`; other types are not supported.
+        /// </remarks>
+        public static void PatchNaNs(Mat a, double val)
+        {
+            NativeMethods.cv_patchNaNs_0(ValidationHelper.GetHandle(a, nameof(a), false), val);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Generates a mask of finite float values, i.e. not NaNs nor Infs.
+        /// </summary>
+        /// <param name="src">Input matrix, should contain float or double elements of 1 to 4 channels</param>
+        /// <param name="mask">Output matrix of the same size as input of type CV_8UC1</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// An element is set to to 255 (all 1-bits) if all channels are finite.
+        /// </remarks>
+        public static void FiniteMask(Mat src, Mat mask)
+        {
+            NativeMethods.cv_finiteMask_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs generalized matrix multiplication.
+        /// </summary>
+        /// <param name="src1">first multiplied input matrix that could be real(CV_32FC1, CV_64FC1) or complex(CV_32FC2, CV_64FC2).</param>
+        /// <param name="src2">second multiplied input matrix of the same type as src1.</param>
+        /// <param name="alpha">weight of the matrix product.</param>
+        /// <param name="src3">third optional delta matrix added to the matrix product; it should have the same type as src1 and src2.</param>
+        /// <param name="beta">weight of src3.</param>
+        /// <param name="dst">output matrix; it has the proper size and the same type as input matrices.</param>
+        /// <param name="flags">operation flags (cv::GemmFlags)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::gemm performs generalized matrix multiplication similar to the
+        /// gemm functions in BLAS level 3. For example,
+        /// `gemm(src1, src2, alpha, src3, beta, dst, GEMM_1_T + GEMM_3_T)`
+        /// corresponds to
+        /// \f[\texttt{dst} =  \texttt{alpha} \cdot \texttt{src1} ^T  \cdot \texttt{src2} +  \texttt{beta} \cdot \texttt{src3} ^T\f]
+        /// In case of complex (two-channel) data, performed a complex matrix
+        /// multiplication.
+        /// The function can be replaced with a matrix expression. For example, the
+        /// above call can be replaced with:
+        /// @code{.cpp}
+        /// dst = alpha*src1.t()*src2 + beta*src3.t();
+        /// @endcode
+        /// @sa mulTransposed, transform
+        /// </remarks>
+        public static void Gemm(Mat src1, Mat src2, double alpha, Mat src3, double beta, Mat dst, int flags)
+        {
+            NativeMethods.cv_gemm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), alpha, ValidationHelper.GetHandle(src3, nameof(src3), false), beta, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the product of a matrix and its transposition.
+        /// </summary>
+        /// <param name="src">input single-channel matrix. Note that unlike gemm, the function can multiply not only floating-point matrices.</param>
+        /// <param name="dst">output square matrix.</param>
+        /// <param name="aTa">Flag specifying the multiplication ordering. See the description below.</param>
+        /// <param name="delta">Optional delta matrix subtracted from src before the multiplication. When the matrix is empty ( delta=noArray() ), it is assumed to be zero, that is, nothing is subtracted. If it has the same size as src, it is simply subtracted. Otherwise, it is "repeated" (see repeat ) to cover the full src and then subtracted. Type of the delta matrix, when it is not empty, must be the same as the type of created output matrix. See the dtype parameter description below.</param>
+        /// <param name="scale">Optional scale factor for the matrix product.</param>
+        /// <param name="dtype">Optional type of the output matrix. When it is negative, the output matrix will have the same type as src . Otherwise, it will be type=CV_MAT_DEPTH(dtype) that should be either CV_32F or CV_64F .</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::mulTransposed calculates the product of src and its
+        /// transposition:
+        /// \f[\texttt{dst} = \texttt{scale} ( \texttt{src} - \texttt{delta} )^T ( \texttt{src} - \texttt{delta} )\f]
+        /// if aTa=true, and
+        /// \f[\texttt{dst} = \texttt{scale} ( \texttt{src} - \texttt{delta} ) ( \texttt{src} - \texttt{delta} )^T\f]
+        /// otherwise. The function is used to calculate the covariance matrix. With
+        /// zero delta, it can be used as a faster substitute for general matrix
+        /// product A\*B when B=A'
+        /// @sa calcCovarMatrix, gemm, repeat, reduce
+        /// </remarks>
+        public static void MulTransposed(Mat src, Mat dst, bool aTa, Mat? delta, double scale, int dtype)
+        {
+            NativeMethods.cv_mulTransposed_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), aTa, ValidationHelper.GetHandle(delta, nameof(delta), true), scale, dtype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Transposes a matrix.
+        /// </summary>
+        /// <param name="src">input array.</param>
+        /// <param name="dst">output array of the same type as src.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::transpose transposes the matrix src :
+        /// \f[\texttt{dst} (i,j) =  \texttt{src} (j,i)\f]
+        /// @note No complex conjugation is done in case of a complex matrix. It
+        /// should be done separately if needed.
+        /// </remarks>
+        public static void Transpose(Mat src, Mat dst)
+        {
+            NativeMethods.cv_transpose_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Transpose for n-dimensional matrices.
+        /// *
+        /// * @note Input should be continuous single-channel matrix.
+        /// * @param src input array.
+        /// * @param order a permutation of [0,1,..,N-1] where N is the number of axes of src.
+        /// * The i'th axis of dst will correspond to the axis numbered order[i] of the input.
+        /// * @param dst output array of the same type as src.
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="order">The order parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void TransposeND(Mat src, IntPtr order, Mat dst)
+        {
+            NativeMethods.cv_transposeND_0(ValidationHelper.GetHandle(src, nameof(src), false), order, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs the matrix transformation of every array element.
+        /// </summary>
+        /// <param name="src">input array that must have as many channels (1 to 4) as m.cols or m.cols-1.</param>
+        /// <param name="dst">output array of the same size and depth as src; it has as many channels as m.rows.</param>
+        /// <param name="m">transformation 2x2 or 2x3 floating-point matrix.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::transform performs the matrix transformation of every
+        /// element of the array src and stores the results in dst :
+        /// \f[\texttt{dst} (I) =  \texttt{m} \cdot \texttt{src} (I)\f]
+        /// (when m.cols=src.channels() ), or
+        /// \f[\texttt{dst} (I) =  \texttt{m} \cdot [ \texttt{src} (I); 1]\f]
+        /// (when m.cols=src.channels()+1 )
+        /// Every element of the N -channel array src is interpreted as N -element
+        /// vector that is transformed using the M x N or M x (N+1) matrix m to
+        /// M-element vector - the corresponding element of the output array dst .
+        /// The function may be used for geometrical transformation of
+        /// N -dimensional points, arbitrary linear color space transformation (such
+        /// as various kinds of RGB to YUV transforms), shuffling the image
+        /// channels, and so forth.
+        /// @sa perspectiveTransform, getAffineTransform, estimateAffine2D, warpAffine, warpPerspective
+        /// </remarks>
+        public static void Transform(Mat src, Mat dst, Mat m)
+        {
+            NativeMethods.cv_transform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs the perspective matrix transformation of vectors.
+        /// </summary>
+        /// <param name="src">input two-channel or three-channel floating-point array; each element is a 2D/3D vector to be transformed.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <param name="m">3x3 or 4x4 floating-point transformation matrix.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::perspectiveTransform transforms every element of src by
+        /// treating it as a 2D or 3D vector, in the following way:
+        /// \f[(x, y, z)  \rightarrow (x'/w, y'/w, z'/w)\f]
+        /// where
+        /// \f[(x', y', z', w') =  \texttt{mat} \cdot \begin{bmatrix} x &amp; y &amp; z &amp; 1  \end{bmatrix}\f]
+        /// and
+        /// \f[w =  \fork{w'}{if \(w' \ne 0\)}{\infty}{otherwise}\f]
+        /// Here a 3D vector transformation is shown. In case of a 2D vector
+        /// transformation, the z component is omitted.
+        /// @note The function transforms a sparse set of 2D or 3D vectors. If you
+        /// want to transform an image using perspective transformation, use
+        /// warpPerspective . If you have an inverse problem, that is, you want to
+        /// compute the most probable perspective transformation out of several
+        /// pairs of corresponding points, you can use getPerspectiveTransform or
+        /// findHomography .
+        /// @sa  transform, warpPerspective, getPerspectiveTransform, findHomography
+        /// </remarks>
+        public static void PerspectiveTransform(Mat src, Mat dst, Mat m)
+        {
+            NativeMethods.cv_perspectiveTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Copies the lower or the upper half of a square matrix to its another half.
+        /// </summary>
+        /// <param name="m">input-output floating-point square matrix.</param>
+        /// <param name="lowerToUpper">operation flag; if true, the lower half is copied to the upper half. Otherwise, the upper half is copied to the lower half.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::completeSymm copies the lower or the upper half of a square matrix to
+        /// its another half. The matrix diagonal remains unchanged:
+        /// - \f$\texttt{m}_{ij}=\texttt{m}_{ji}\f$ for \f$i &gt; j\f$ if
+        /// lowerToUpper=false
+        /// - \f$\texttt{m}_{ij}=\texttt{m}_{ji}\f$ for \f$i &lt; j\f$ if
+        /// lowerToUpper=true
+        /// @sa flip, transpose
+        /// </remarks>
+        public static void CompleteSymm(Mat m, bool lowerToUpper)
+        {
+            NativeMethods.cv_completeSymm_0(ValidationHelper.GetHandle(m, nameof(m), false), lowerToUpper);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Initializes a scaled identity matrix.
+        /// </summary>
+        /// <param name="mtx">matrix to initialize (not necessarily square).</param>
+        /// <param name="s">value to assign to diagonal elements.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::setIdentity initializes a scaled identity matrix:
+        /// \f[\texttt{mtx} (i,j)= \fork{\texttt{value}}{ if \(i=j\)}{0}{otherwise}\f]
+        /// The function can also be emulated using the matrix initializers and the
+        /// matrix expressions:
+        /// @code
+        /// Mat A = Mat::eye(4, 3, CV_32F)*5;
+        /// // A will be set to [[5, 0, 0], [0, 5, 0], [0, 0, 5], [0, 0, 0]]
+        /// @endcode
+        /// @sa Mat::zeros, Mat::ones, Mat::setTo, Mat::operator=
+        /// </remarks>
+        public static void SetIdentity(Mat mtx, Scalar s)
+        {
+            NativeMethods.cv_setIdentity_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false), s);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns the determinant of a square floating-point matrix.
+        /// </summary>
+        /// <param name="mtx">input matrix that must have CV_32FC1 or CV_64FC1 type and square size.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::determinant calculates and returns the determinant of the
+        /// specified matrix. For small matrices ( mtx.cols=mtx.rows\&lt;=3 ), the
+        /// direct method is used. For larger matrices, the function uses LU
+        /// factorization with partial pivoting.
+        /// For symmetric positively-determined matrices, it is also possible to use
+        /// eigen decomposition to calculate the determinant.
+        /// @sa trace, invert, solve, eigen, @ref MatrixExpressions
+        /// </remarks>
+        public static double Determinant(Mat mtx)
+        {
+            var res = NativeMethods.cv_determinant_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the trace of a matrix.
+        /// </summary>
+        /// <param name="mtx">input matrix.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::trace returns the sum of the diagonal elements of the
+        /// matrix mtx .
+        /// \f[\mathrm{tr} ( \texttt{mtx} ) =  \sum _i  \texttt{mtx} (i,i)\f]
+        /// </remarks>
+        public static Scalar Trace(Mat mtx)
+        {
+            var res = NativeMethods.cv_trace_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Finds the inverse or pseudo-inverse of a matrix.
+        /// </summary>
+        /// <param name="src">input floating-point M x N matrix.</param>
+        /// <param name="dst">output matrix of N x M size and the same type as src.</param>
+        /// <param name="flags">inversion method (cv::DecompTypes)</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::invert inverts the matrix src and stores the result in dst
+        /// . When the matrix src is singular or non-square, the function calculates
+        /// the pseudo-inverse matrix (the dst matrix) so that norm(src\*dst - I) is
+        /// minimal, where I is an identity matrix.
+        /// In case of the #DECOMP_LU method, the function returns non-zero value if
+        /// the inverse has been successfully calculated and 0 if src is singular.
+        /// In case of the #DECOMP_SVD method, the function returns the inverse
+        /// condition number of src (the ratio of the smallest singular value to the
+        /// largest singular value) and 0 if src is singular. The SVD method
+        /// calculates a pseudo-inverse matrix if src is singular.
+        /// Similarly to #DECOMP_LU, the method #DECOMP_CHOLESKY works only with
+        /// non-singular square matrices that should also be symmetrical and
+        /// positively defined. In this case, the function stores the inverted
+        /// matrix in dst and returns non-zero. Otherwise, it returns 0.
+        /// @sa solve, SVD
+        /// </remarks>
+        public static double Invert(Mat src, Mat dst, int flags)
+        {
+            var res = NativeMethods.cv_invert_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Solves one or more linear systems or least-squares problems.
+        /// </summary>
+        /// <param name="src1">input matrix on the left-hand side of the system.</param>
+        /// <param name="src2">input matrix on the right-hand side of the system.</param>
+        /// <param name="dst">output solution.</param>
+        /// <param name="flags">solution (matrix inversion) method (#DecompTypes)</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::solve solves a linear system or least-squares problem (the
+        /// latter is possible with SVD or QR methods, or by specifying the flag
+        /// #DECOMP_NORMAL ):
+        /// \f[\texttt{dst} =  \arg \min _X \| \texttt{src1} \cdot \texttt{X} -  \texttt{src2} \|\f]
+        /// If #DECOMP_LU or #DECOMP_CHOLESKY method is used, the function returns 1
+        /// if src1 (or \f$\texttt{src1}^T\texttt{src1}\f$ ) is non-singular. Otherwise,
+        /// it returns 0. In the latter case, dst is not valid. Other methods find a
+        /// pseudo-solution in case of a singular left-hand side part.
+        /// @note If you want to find a unity-norm solution of an under-defined
+        /// singular system \f$\texttt{src1}\cdot\texttt{dst}=0\f$ , the function solve
+        /// will not do the work. Use SVD::solveZ instead.
+        /// @sa invert, SVD, eigen
+        /// </remarks>
+        public static bool Solve(Mat src1, Mat src2, Mat dst, int flags)
+        {
+            var res = NativeMethods.cv_solve_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Sorts each row or each column of a matrix.
+        /// </summary>
+        /// <param name="src">input single-channel array.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <param name="flags">operation flags, a combination of #SortFlags</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::sort sorts each matrix row or each matrix column in
+        /// ascending or descending order. So you should pass two operation flags to
+        /// get desired behaviour. If you want to sort matrix rows or columns
+        /// lexicographically, you can use STL std::sort generic function with the
+        /// proper comparison predicate.
+        /// @sa sortIdx, randShuffle
+        /// </remarks>
+        public static void Sort(Mat src, Mat dst, int flags)
+        {
+            NativeMethods.cv_sort_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Sorts each row or each column of a matrix.
+        /// </summary>
+        /// <param name="src">input single-channel array.</param>
+        /// <param name="dst">output integer array of the same size as src.</param>
+        /// <param name="flags">operation flags that could be a combination of cv::SortFlags</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::sortIdx sorts each matrix row or each matrix column in the
+        /// ascending or descending order. So you should pass two operation flags to
+        /// get desired behaviour. Instead of reordering the elements themselves, it
+        /// stores the indices of sorted elements in the output array. For example:
+        /// @code
+        /// Mat A = Mat::eye(3,3,CV_32F), B;
+        /// sortIdx(A, B, SORT_EVERY_ROW + SORT_ASCENDING);
+        /// // B will probably contain
+        /// // (because of equal elements in A some permutations are possible):
+        /// // [[1, 2, 0], [0, 2, 1], [0, 1, 2]]
+        /// @endcode
+        /// @sa sort, randShuffle
+        /// </remarks>
+        public static void SortIdx(Mat src, Mat dst, int flags)
+        {
+            NativeMethods.cv_sortIdx_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Finds the real roots of a cubic equation.
+        /// </summary>
+        /// <param name="coeffs">equation coefficients, an array of 3 or 4 elements.</param>
+        /// <param name="roots">output array of real roots that has 0, 1, 2 or 3 elements.</param>
+        /// <returns>number of real roots. It can be -1 (all real numbers), 0, 1, 2 or 3.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function solveCubic finds the real roots of a cubic equation:
+        /// -   if coeffs is a 4-element vector:
+        /// \f[\texttt{coeffs} [0] x^3 +  \texttt{coeffs} [1] x^2 +  \texttt{coeffs} [2] x +  \texttt{coeffs} [3] = 0\f]
+        /// -   if coeffs is a 3-element vector:
+        /// \f[x^3 +  \texttt{coeffs} [0] x^2 +  \texttt{coeffs} [1] x +  \texttt{coeffs} [2] = 0\f]
+        /// The roots are stored in the roots array.
+        /// </remarks>
+        public static int SolveCubic(Mat coeffs, Mat roots)
+        {
+            var res = NativeMethods.cv_solveCubic_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Finds the real or complex roots of a polynomial equation.
+        /// </summary>
+        /// <param name="coeffs">array of polynomial coefficients.</param>
+        /// <param name="roots">output (complex) array of roots.</param>
+        /// <param name="maxIters">maximum number of iterations the algorithm does.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::solvePoly finds real and complex roots of a polynomial equation:
+        /// \f[\texttt{coeffs} [n] x^{n} +  \texttt{coeffs} [n-1] x^{n-1} + ... +  \texttt{coeffs} [1] x +  \texttt{coeffs} [0] = 0\f]
+        /// </remarks>
+        public static double SolvePoly(Mat coeffs, Mat roots, int maxIters)
+        {
+            var res = NativeMethods.cv_solvePoly_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false), maxIters);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Calculates eigenvalues and eigenvectors of a symmetric matrix.
+        /// </summary>
+        /// <param name="src">input matrix that must have CV_32FC1 or CV_64FC1 type, square size and be symmetrical (src ^T^ == src).</param>
+        /// <param name="eigenvalues">output vector of eigenvalues of the same type as src; the eigenvalues are stored in the descending order.</param>
+        /// <param name="eigenvectors">output matrix of eigenvectors; it has the same size and type as src; the eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::eigen calculates just eigenvalues, or eigenvalues and eigenvectors of the symmetric
+        /// matrix src:
+        /// @code
+        /// src*eigenvectors.row(i).t() = eigenvalues.at&lt;srcType&gt;(i)*eigenvectors.row(i).t()
+        /// @endcode
+        /// @note Use cv::eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of non-symmetric matrix.
+        /// @sa eigenNonSymmetric, completeSymm, PCA
+        /// </remarks>
+        public static bool Eigen(Mat src, Mat eigenvalues, Mat? eigenvectors)
+        {
+            var res = NativeMethods.cv_eigen_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
+        /// </summary>
+        /// <param name="src">input matrix (CV_32FC1 or CV_64FC1 type).</param>
+        /// <param name="eigenvalues">output vector of eigenvalues (type is the same type as src).</param>
+        /// <param name="eigenvectors">output matrix of eigenvectors (type is the same type as src). The eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note Assumes real eigenvalues.
+        /// The function calculates eigenvalues and eigenvectors (optional) of the square matrix src:
+        /// @code
+        /// src*eigenvectors.row(i).t() = eigenvalues.at&lt;srcType&gt;(i)*eigenvectors.row(i).t()
+        /// @endcode
+        /// @sa eigen
+        /// </remarks>
+        public static void EigenNonSymmetric(Mat src, Mat eigenvalues, Mat eigenvectors)
+        {
+            NativeMethods.cv_eigenNonSymmetric_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="samples">samples stored as rows/columns of a single matrix.</param>
+        /// <param name="covar">output covariance matrix of the type ctype and square size.</param>
+        /// <param name="mean">input or output (depending on the flags) array as the average value of the input vectors.</param>
+        /// <param name="flags">operation flags as a combination of #CovarFlags</param>
+        /// <param name="ctype">type of the matrixl; it equals 'CV_64F' by default.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note use #COVAR_ROWS or #COVAR_COLS flag
+        /// </remarks>
+        public static void CalcCovarMatrix(Mat samples, Mat covar, Mat mean, int flags, int ctype)
+        {
+            NativeMethods.cv_calcCovarMatrix_0(ValidationHelper.GetHandle(samples, nameof(samples), false), ValidationHelper.GetHandle(covar, nameof(covar), false), ValidationHelper.GetHandle(mean, nameof(mean), false), flags, ctype);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::operator()
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="maxComponents">The maxComponents parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, int maxComponents)
+        {
+            NativeMethods.cv_PCACompute_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), maxComponents);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::operator() and add eigenvalues output parameter
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="eigenvalues">The eigenvalues parameter.</param>
+        /// <param name="maxComponents">The maxComponents parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, int maxComponents)
+        {
+            NativeMethods.cv_PCACompute_1(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), maxComponents);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::operator()
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="retainedVariance">The retainedVariance parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, double retainedVariance)
+        {
+            NativeMethods.cv_PCACompute_2(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), retainedVariance);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::operator() and add eigenvalues output parameter
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="eigenvalues">The eigenvalues parameter.</param>
+        /// <param name="retainedVariance">The retainedVariance parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, double retainedVariance)
+        {
+            NativeMethods.cv_PCACompute_3(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), retainedVariance);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::project
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="result">The result parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCAProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
+        {
+            NativeMethods.cv_PCAProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap PCA::backProject
+        /// </summary>
+        /// <param name="data">The data parameter.</param>
+        /// <param name="mean">The mean parameter.</param>
+        /// <param name="eigenvectors">The eigenvectors parameter.</param>
+        /// <param name="result">The result parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PCABackProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
+        {
+            NativeMethods.cv_PCABackProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap SVD::compute
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="w">The w parameter.</param>
+        /// <param name="u">The u parameter.</param>
+        /// <param name="vt">The vt parameter.</param>
+        /// <param name="flags">The flags parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void SVDecomp(Mat src, Mat w, Mat u, Mat vt, int flags)
+        {
+            NativeMethods.cv_SVDecomp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// wrap SVD::backSubst
+        /// </summary>
+        /// <param name="w">The w parameter.</param>
+        /// <param name="u">The u parameter.</param>
+        /// <param name="vt">The vt parameter.</param>
+        /// <param name="rhs">The rhs parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void SVBackSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat dst)
+        {
+            NativeMethods.cv_SVBackSubst_0(ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), ValidationHelper.GetHandle(rhs, nameof(rhs), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the Mahalanobis distance between two vectors.
+        /// </summary>
+        /// <param name="v1">first 1D input vector.</param>
+        /// <param name="v2">second 1D input vector.</param>
+        /// <param name="icovar">inverse covariance matrix.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::Mahalanobis calculates and returns the weighted distance between two vectors:
+        /// \f[d( \texttt{vec1} , \texttt{vec2} )= \sqrt{\sum_{i,j}{\texttt{icovar(i,j)}\cdot(\texttt{vec1}(I)-\texttt{vec2}(I))\cdot(\texttt{vec1(j)}-\texttt{vec2(j)})} }\f]
+        /// The covariance matrix may be calculated using the #calcCovarMatrix function and then inverted using
+        /// the invert function (preferably using the #DECOMP_SVD method, as the most accurate).
+        /// </remarks>
+        public static double Mahalanobis(Mat v1, Mat v2, Mat icovar)
+        {
+            var res = NativeMethods.cv_Mahalanobis_0(ValidationHelper.GetHandle(v1, nameof(v1), false), ValidationHelper.GetHandle(v2, nameof(v2), false), ValidationHelper.GetHandle(icovar, nameof(icovar), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Performs a forward or inverse Discrete Fourier transform of a 1D or 2D floating-point array.
+        /// </summary>
+        /// <param name="src">input array that could be real or complex.</param>
+        /// <param name="dst">output array whose size and type depends on the flags .</param>
+        /// <param name="flags">transformation flags, representing a combination of the #DftFlags</param>
+        /// <param name="nonzeroRows">when the parameter is not zero, the function assumes that only the first nonzeroRows rows of the input array (#DFT_INVERSE is not set) or only the first nonzeroRows of the output array (#DFT_INVERSE is set) contain non-zeros, thus, the function can handle the rest of the rows more efficiently and save some time; this technique is very useful for calculating array cross-correlation or convolution using DFT.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::dft performs one of the following:
+        /// -   Forward the Fourier transform of a 1D vector of N elements:
+        /// \f[Y = F^{(N)}  \cdot X,\f]
+        /// where \f$F^{(N)}_{jk}=\exp(-2\pi i j k/N)\f$ and \f$i=\sqrt{-1}\f$
+        /// -   Inverse the Fourier transform of a 1D vector of N elements:
+        /// \f[\begin{array}{l} X'=  \left (F^{(N)} \right )^{-1}  \cdot Y =  \left (F^{(N)} \right )^*  \cdot y  \\ X = (1/N)  \cdot X, \end{array}\f]
+        /// where \f$F^*=\left(\textrm{Re}(F^{(N)})-\textrm{Im}(F^{(N)})\right)^T\f$
+        /// -   Forward the 2D Fourier transform of a M x N matrix:
+        /// \f[Y = F^{(M)}  \cdot X  \cdot F^{(N)}\f]
+        /// -   Inverse the 2D Fourier transform of a M x N matrix:
+        /// \f[\begin{array}{l} X'=  \left (F^{(M)} \right )^*  \cdot Y  \cdot \left (F^{(N)} \right )^* \\ X =  \frac{1}{M \cdot N} \cdot X' \end{array}\f]
+        /// In case of real (single-channel) data, the output spectrum of the forward Fourier transform or input
+        /// spectrum of the inverse Fourier transform can be represented in a packed format called *CCS*
+        /// (complex-conjugate-symmetrical). It was borrowed from IPL (Intel\* Image Processing Library). Here
+        /// is how 2D *CCS* spectrum looks:
+        /// \f[\begin{bmatrix} Re Y_{0,0} &amp; Re Y_{0,1} &amp; Im Y_{0,1} &amp; Re Y_{0,2} &amp; Im Y_{0,2} &amp;  \cdots &amp; Re Y_{0,N/2-1} &amp; Im Y_{0,N/2-1} &amp; Re Y_{0,N/2}  \\ Re Y_{1,0} &amp; Re Y_{1,1} &amp; Im Y_{1,1} &amp; Re Y_{1,2} &amp; Im Y_{1,2} &amp;  \cdots &amp; Re Y_{1,N/2-1} &amp; Im Y_{1,N/2-1} &amp; Re Y_{1,N/2}  \\ Im Y_{1,0} &amp; Re Y_{2,1} &amp; Im Y_{2,1} &amp; Re Y_{2,2} &amp; Im Y_{2,2} &amp;  \cdots &amp; Re Y_{2,N/2-1} &amp; Im Y_{2,N/2-1} &amp; Im Y_{1,N/2}  \\ \hdotsfor{9} \\ Re Y_{M/2-1,0} &amp;  Re Y_{M-3,1}  &amp; Im Y_{M-3,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-3,N/2-1} &amp; Im Y_{M-3,N/2-1}&amp; Re Y_{M/2-1,N/2}  \\ Im Y_{M/2-1,0} &amp;  Re Y_{M-2,1}  &amp; Im Y_{M-2,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-2,N/2-1} &amp; Im Y_{M-2,N/2-1}&amp; Im Y_{M/2-1,N/2}  \\ Re Y_{M/2,0}  &amp;  Re Y_{M-1,1} &amp;  Im Y_{M-1,1} &amp;  \hdotsfor{3} &amp; Re Y_{M-1,N/2-1} &amp; Im Y_{M-1,N/2-1}&amp; Re Y_{M/2,N/2} \end{bmatrix}\f]
+        /// In case of 1D transform of a real vector, the output looks like the first row of the matrix above.
+        /// So, the function chooses an operation mode depending on the flags and size of the input array:
+        /// -   If #DFT_ROWS is set or the input array has a single row or single column, the function
+        /// performs a 1D forward or inverse transform of each row of a matrix when #DFT_ROWS is set.
+        /// Otherwise, it performs a 2D transform.
+        /// -   If the input array is real and #DFT_INVERSE is not set, the function performs a forward 1D or
+        /// 2D transform:
+        /// -   When #DFT_COMPLEX_OUTPUT is set, the output is a complex matrix of the same size as
+        /// input.
+        /// -   When #DFT_COMPLEX_OUTPUT is not set, the output is a real matrix of the same size as
+        /// input. In case of 2D transform, it uses the packed format as shown above. In case of a
+        /// single 1D transform, it looks like the first row of the matrix above. In case of
+        /// multiple 1D transforms (when using the #DFT_ROWS flag), each row of the output matrix
+        /// looks like the first row of the matrix above.
+        /// -   If the input array is complex and either #DFT_INVERSE or #DFT_REAL_OUTPUT are not set, the
+        /// output is a complex array of the same size as input. The function performs a forward or
+        /// inverse 1D or 2D transform of the whole input array or each row of the input array
+        /// independently, depending on the flags DFT_INVERSE and DFT_ROWS.
+        /// -   When #DFT_INVERSE is set and the input array is real, or it is complex but #DFT_REAL_OUTPUT
+        /// is set, the output is a real array of the same size as input. The function performs a 1D or 2D
+        /// inverse transformation of the whole input array or each individual row, depending on the flags
+        /// #DFT_INVERSE and #DFT_ROWS.
+        /// If #DFT_SCALE is set, the scaling is done after the transformation.
+        /// Unlike dct, the function supports arrays of arbitrary size. But only those arrays are processed
+        /// efficiently, whose sizes can be factorized in a product of small prime numbers (2, 3, and 5 in the
+        /// current implementation). Such an efficient DFT size can be calculated using the getOptimalDFTSize
+        /// method.
+        /// The sample below illustrates how to calculate a DFT-based convolution of two 2D real arrays:
+        /// @include samples/cpp/snippets/dft.cpp
+        /// An example on DFT-based convolution
+        /// To optimize this sample, consider the following approaches:
+        /// -   Since nonzeroRows != 0 is passed to the forward transform calls and since A and B are copied to
+        /// the top-left corners of tempA and tempB, respectively, it is not necessary to clear the whole
+        /// tempA and tempB. It is only necessary to clear the tempA.cols - A.cols ( tempB.cols - B.cols)
+        /// rightmost columns of the matrices.
+        /// -   This DFT-based convolution does not have to be applied to the whole big arrays, especially if B
+        /// is significantly smaller than A or vice versa. Instead, you can calculate convolution by parts.
+        /// To do this, you need to split the output array C into multiple tiles. For each tile, estimate
+        /// which parts of A and B are required to calculate convolution in this tile. If the tiles in C are
+        /// too small, the speed will decrease a lot because of repeated work. In the ultimate case, when
+        /// each tile in C is a single pixel, the algorithm becomes equivalent to the naive convolution
+        /// algorithm. If the tiles are too big, the temporary arrays tempA and tempB become too big and
+        /// there is also a slowdown because of bad cache locality. So, there is an optimal tile size
+        /// somewhere in the middle.
+        /// -   If different tiles in C can be calculated in parallel and, thus, the convolution is done by
+        /// parts, the loop can be threaded.
+        /// All of the above improvements have been implemented in #matchTemplate and #filter2D . Therefore, by
+        /// using them, you can get the performance even better than with the above theoretically optimal
+        /// implementation. Though, those two functions actually calculate cross-correlation, not convolution,
+        /// so you need to "flip" the second convolution operand B vertically and horizontally using flip .
+        /// @note
+        /// -   An example using the discrete fourier transform can be found at
+        /// opencv_source_code/samples/cpp/dft.cpp
+        /// -   (Python) An example using the dft functionality to perform Wiener deconvolution can be found
+        /// at opencv_source/samples/python/deconvolution.py
+        /// -   (Python) An example rearranging the quadrants of a Fourier image can be found at
+        /// opencv_source/samples/python/dft.py
+        /// @sa dct, getOptimalDFTSize, mulSpectrums, filter2D, matchTemplate, flip, cartToPolar,
+        /// magnitude, phase
+        /// </remarks>
+        public static void Dft(Mat src, Mat dst, int flags, int nonzeroRows)
+        {
+            NativeMethods.cv_dft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
+        /// </summary>
+        /// <param name="src">input floating-point real or complex array.</param>
+        /// <param name="dst">output array whose size and type depend on the flags.</param>
+        /// <param name="flags">operation flags (see dft and #DftFlags).</param>
+        /// <param name="nonzeroRows">number of dst rows to process; the rest of the rows have undefined content (see the convolution sample in dft description.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// idft(src, dst, flags) is equivalent to dft(src, dst, flags | #DFT_INVERSE) .
+        /// @note None of dft and idft scales the result by default. So, you should pass #DFT_SCALE to one of
+        /// dft or idft explicitly to make these transforms mutually inverse.
+        /// @sa dft, dct, idct, mulSpectrums, getOptimalDFTSize
+        /// </remarks>
+        public static void Idft(Mat src, Mat dst, int flags, int nonzeroRows)
+        {
+            NativeMethods.cv_idft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
+        /// </summary>
+        /// <param name="src">input floating-point array.</param>
+        /// <param name="dst">output array of the same size and type as src .</param>
+        /// <param name="flags">transformation flags as a combination of cv::DftFlags (DCT_*)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::dct performs a forward or inverse discrete Cosine transform (DCT) of a 1D or 2D
+        /// floating-point array:
+        /// -   Forward Cosine transform of a 1D vector of N elements:
+        /// \f[Y = C^{(N)}  \cdot X\f]
+        /// where
+        /// \f[C^{(N)}_{jk}= \sqrt{\alpha_j/N} \cos \left ( \frac{\pi(2k+1)j}{2N} \right )\f]
+        /// and
+        /// \f$\alpha_0=1\f$, \f$\alpha_j=2\f$ for *j \&gt; 0*.
+        /// -   Inverse Cosine transform of a 1D vector of N elements:
+        /// \f[X =  \left (C^{(N)} \right )^{-1}  \cdot Y =  \left (C^{(N)} \right )^T  \cdot Y\f]
+        /// (since \f$C^{(N)}\f$ is an orthogonal matrix, \f$C^{(N)} \cdot \left(C^{(N)}\right)^T = I\f$ )
+        /// -   Forward 2D Cosine transform of M x N matrix:
+        /// \f[Y = C^{(N)}  \cdot X  \cdot \left (C^{(N)} \right )^T\f]
+        /// -   Inverse 2D Cosine transform of M x N matrix:
+        /// \f[X =  \left (C^{(N)} \right )^T  \cdot X  \cdot C^{(N)}\f]
+        /// The function chooses the mode of operation by looking at the flags and size of the input array:
+        /// -   If (flags &amp; #DCT_INVERSE) == 0, the function does a forward 1D or 2D transform. Otherwise, it
+        /// is an inverse 1D or 2D transform.
+        /// -   If (flags &amp; #DCT_ROWS) != 0, the function performs a 1D transform of each row.
+        /// -   If the array is a single column or a single row, the function performs a 1D transform.
+        /// -   If none of the above is true, the function performs a 2D transform.
+        /// @note Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you
+        /// can pad the array when necessary.
+        /// Also, the function performance depends very much, and not monotonically, on the array size (see
+        /// getOptimalDFTSize ). In the current implementation DCT of a vector of size N is calculated via DFT
+        /// of a vector of size N/2 . Thus, the optimal DCT size N1 \&gt;= N can be calculated as:
+        /// @code
+        /// size_t getOptimalDCTSize(size_t N) { return 2*getOptimalDFTSize((N+1)/2); }
+        /// N1 = getOptimalDCTSize(N);
+        /// @endcode
+        /// @sa dft, getOptimalDFTSize, idct
+        /// </remarks>
+        public static void Dct(Mat src, Mat dst, int flags)
+        {
+            NativeMethods.cv_dct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
+        /// </summary>
+        /// <param name="src">input floating-point single-channel array.</param>
+        /// <param name="dst">output array of the same size and type as src.</param>
+        /// <param name="flags">operation flags.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// idct(src, dst, flags) is equivalent to dct(src, dst, flags | DCT_INVERSE).
+        /// @sa  dct, dft, idft, getOptimalDFTSize
+        /// </remarks>
+        public static void Idct(Mat src, Mat dst, int flags)
+        {
+            NativeMethods.cv_idct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs the per-element multiplication of two Fourier spectrums.
+        /// </summary>
+        /// <param name="a">first input array.</param>
+        /// <param name="b">second input array of the same size and type as src1 .</param>
+        /// <param name="c">output array of the same size and type as src1 .</param>
+        /// <param name="flags">operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.</param>
+        /// <param name="conjB">optional flag that conjugates the second input array before the multiplication (true) or not (false).</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::mulSpectrums performs the per-element multiplication of the two CCS-packed or complex
+        /// matrices that are results of a real or complex Fourier transform.
+        /// The function, together with dft and idft, may be used to calculate convolution (pass conjB=false )
+        /// or correlation (pass conjB=true ) of two arrays rapidly. When the arrays are complex, they are
+        /// simply multiplied (per element) with an optional conjugation of the second-array elements. When the
+        /// arrays are real, they are assumed to be CCS-packed (see dft for details).
+        /// </remarks>
+        public static void MulSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
+        {
+            NativeMethods.cv_mulSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs the per-element division of the first Fourier spectrum by the second Fourier spectrum.
+        /// *
+        /// * The function cv::divSpectrums performs the per-element division of the first array by the second array.
+        /// * The arrays are CCS-packed or complex matrices that are results of a real or complex Fourier transform.
+        /// *
+        /// * @param a first input array.
+        /// * @param b second input array of the same size and type as src1 .
+        /// * @param c output array of the same size and type as src1 .
+        /// * @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
+        /// * each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.
+        /// * @param conjB optional flag that conjugates the second input array before the multiplication (true)
+        /// * or not (false).
+        /// </summary>
+        /// <param name="a">The a parameter.</param>
+        /// <param name="b">The b parameter.</param>
+        /// <param name="c">The c parameter.</param>
+        /// <param name="flags">The flags parameter.</param>
+        /// <param name="conjB">The conjB parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DivSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
+        {
+            NativeMethods.cv_divSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns the optimal DFT size for a given vector size.
+        /// </summary>
+        /// <param name="vecsize">vector size.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// DFT performance is not a monotonic function of a vector size. Therefore, when you calculate
+        /// convolution of two arrays or perform the spectral analysis of an array, it usually makes sense to
+        /// pad the input data with zeros to get a bit larger array that can be transformed much faster than the
+        /// original one. Arrays whose size is a power-of-two (2, 4, 8, 16, 32, ...) are the fastest to process.
+        /// Though, the arrays whose size is a product of 2's, 3's, and 5's (for example, 300 = 5\*5\*3\*2\*2)
+        /// are also processed quite efficiently.
+        /// The function cv::getOptimalDFTSize returns the minimum number N that is greater than or equal to vecsize
+        /// so that the DFT of a vector of size N can be processed efficiently. In the current implementation N
+        /// = 2 ^p^ \* 3 ^q^ \* 5 ^r^ for some integer p, q, r.
+        /// The function returns a negative number if vecsize is too large (very close to INT_MAX ).
+        /// While the function cannot be used directly to estimate the optimal vector size for DCT transform
+        /// (since the current DCT implementation supports only even-size vectors), it can be easily processed
+        /// as getOptimalDFTSize((vecsize+1)/2)\*2.
+        /// @sa dft, dct, idft, idct, mulSpectrums
+        /// </remarks>
+        public static int GetOptimalDFTSize(int vecsize)
+        {
+            var res = NativeMethods.cv_getOptimalDFTSize_0(vecsize);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Sets state of default random number generator.
+        /// </summary>
+        /// <param name="seed">new state for default random number generator</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::setRNGSeed sets state of default random number generator to custom value.
+        /// @sa RNG, randu, randn
+        /// </remarks>
+        public static void SetRNGSeed(int seed)
+        {
+            NativeMethods.cv_setRNGSeed_0(seed);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Generates a single uniformly-distributed random number or an array of random numbers.
+        /// </summary>
+        /// <param name="dst">output array of random numbers; the array must be pre-allocated.</param>
+        /// <param name="low">inclusive lower boundary of the generated random numbers.</param>
+        /// <param name="high">exclusive upper boundary of the generated random numbers.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Non-template variant of the function fills the matrix dst with uniformly-distributed
+        /// random numbers from the specified range:
+        /// \f[\texttt{low} _c  \leq \texttt{dst} (I)_c &lt;  \texttt{high} _c\f]
+        /// @sa RNG, randn, theRNG
+        /// </remarks>
+        public static void Randu(Mat dst, Mat low, Mat high)
+        {
+            NativeMethods.cv_randu_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(low, nameof(low), false), ValidationHelper.GetHandle(high, nameof(high), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Fills the array with normally distributed random numbers.
+        /// </summary>
+        /// <param name="dst">output array of random numbers; the array must be pre-allocated and have 1 to 4 channels.</param>
+        /// <param name="mean">mean value (expectation) of the generated random numbers.</param>
+        /// <param name="stddev">standard deviation of the generated random numbers; it can be either a vector (in which case a diagonal standard deviation matrix is assumed) or a square matrix.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::randn fills the matrix dst with normally distributed random numbers with the specified
+        /// mean vector and the standard deviation matrix. The generated random numbers are clipped to fit the
+        /// value range of the output array data type.
+        /// @sa RNG, randu
+        /// </remarks>
+        public static void Randn(Mat dst, Mat mean, Mat stddev)
+        {
+            NativeMethods.cv_randn_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Shuffles the array elements randomly.
+        /// </summary>
+        /// <param name="dst">input/output numerical 1D array.</param>
+        /// <param name="iterFactor">scale factor that determines the number of random swap operations (see the details below).</param>
+        /// <param name="rng">optional random number generator used for shuffling; if it is zero, theRNG () is used instead.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cv::randShuffle shuffles the specified 1D array by randomly choosing pairs of elements and
+        /// swapping them. The number of such swap operations will be dst.rows\*dst.cols\*iterFactor .
+        /// @sa RNG, sort
+        /// </remarks>
+        public static void RandShuffle(Mat dst, double iterFactor, IntPtr rng)
+        {
+            NativeMethods.cv_randShuffle_0(ValidationHelper.GetHandle(dst, nameof(dst), false), iterFactor, rng);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Finds centers of clusters and groups input samples around the clusters.
+        /// </summary>
+        /// <param name="data">Data for clustering. An array of N-Dimensional points with float coordinates is needed. Examples of this array can be: -   Mat points(count, 2, CV_32F); -   Mat points(count, 1, CV_32FC2); -   Mat points(1, count, CV_32FC2); -   std::vector\&lt;cv::Point2f\&gt; points(sampleCount);</param>
+        /// <param name="K">Number of clusters to split the set by.</param>
+        /// <param name="bestLabels">Input/output integer array that stores the cluster indices for every sample.</param>
+        /// <param name="criteria">The algorithm termination criteria, that is, the maximum number of iterations and/or the desired accuracy. The accuracy is specified as criteria.epsilon. As soon as each of the cluster centers moves by less than criteria.epsilon on some iteration, the algorithm stops.</param>
+        /// <param name="attempts">Flag to specify the number of times the algorithm is executed using different initial labellings. The algorithm returns the labels that yield the best compactness (see the last function parameter).</param>
+        /// <param name="flags">Flag that can take values of cv::KmeansFlags</param>
+        /// <param name="centers">Output matrix of the cluster centers, one row per each cluster center.</param>
+        /// <returns>The function returns the compactness measure that is computed as \f[\sum _i  \| \texttt{samples} _i -  \texttt{centers} _{ \texttt{labels} _i} \| ^2\f] after every attempt. The best (minimum) value is chosen and the corresponding labels and the compactness value are returned by the function. Basically, you can use only the core of the function, set the number of attempts to 1, initialize labels each time using a custom algorithm, pass them with the ( flags = #KMEANS_USE_INITIAL_LABELS ) flag, and then choose the best (most-compact) clustering.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function kmeans implements a k-means algorithm that finds the centers of cluster_count clusters
+        /// and groups the input samples around the clusters. As an output, \f$\texttt{bestLabels}_i\f$ contains a
+        /// 0-based cluster index for the sample stored in the \f$i^{th}\f$ row of the samples matrix.
+        /// @note
+        /// -   (Python) An example on k-means clustering can be found at
+        /// opencv_source_code/samples/python/kmeans.py
+        /// </remarks>
+        public static double Kmeans(Mat data, int K, Mat bestLabels, TermCriteria criteria, int attempts, int flags, Mat? centers)
+        {
+            var res = NativeMethods.cv_kmeans_0(ValidationHelper.GetHandle(data, nameof(data), false), K, ValidationHelper.GetHandle(bestLabels, nameof(bestLabels), false), criteria, attempts, flags, ValidationHelper.GetHandle(centers, nameof(centers), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Computes the cube root of an argument.
+        /// </summary>
+        /// <param name="val">A function argument.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function cubeRoot computes \f$\sqrt[3]{\texttt{val}}\f$. Negative arguments are handled correctly.
+        /// NaN and Inf are not handled. The accuracy approaches the maximum possible accuracy for
+        /// single-precision data.
+        /// </remarks>
+        public static float CubeRoot(float val)
+        {
+            var res = NativeMethods.cv_cubeRoot_0(val);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Calculates the angle of a 2D vector in degrees.
+        /// </summary>
+        /// <param name="y">y-coordinate of the vector.</param>
+        /// <param name="x">x-coordinate of the vector.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function fastAtan2 calculates the full-range angle of an input 2D vector. The angle is measured
+        /// in degrees and varies from 0 to 360 degrees. The accuracy is about 0.3 degrees.
+        /// </remarks>
+        public static float FastAtan2(float y, float x)
+        {
+            var res = NativeMethods.cv_fastAtan2_0(y, x);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// proxy for hal::Cholesky
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool IppUseIPP()
+        {
+            var res = NativeMethods.cv_ipp_useIPP_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="flag">The flag parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void IppSetUseIPP(bool flag)
+        {
+            NativeMethods.cv_ipp_setUseIPP_0(flag);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? IppGetIppVersion()
+        {
+            IntPtr res = NativeMethods.cv_ipp_getIppVersion_0();
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool IppUseIPPNotExact()
+        {
+            var res = NativeMethods.cv_ipp_useIPP_NotExact_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="flag">The flag parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void IppSetUseIPPNotExact(bool flag)
+        {
+            NativeMethods.cv_ipp_setUseIPP_NotExact_0(flag);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Creates a continuous matrix.
+        /// </summary>
+        /// <param name="rows">Row count.</param>
+        /// <param name="cols">Column count.</param>
+        /// <param name="type">Type of the matrix.</param>
+        /// <param name="arr">Destination matrix. This parameter changes only if it has a proper type and area ( \f$\texttt{rows} \times \texttt{cols}\f$ ). Matrix is called continuous if its elements are stored continuously, that is, without gaps at the end of each row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaCreateContinuous(int rows, int cols, int type, Mat arr)
+        {
+            NativeMethods.cv_cuda_createContinuous_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Ensures that the size of a matrix is big enough and the matrix has a proper type.
+        /// </summary>
+        /// <param name="rows">Minimum desired number of rows.</param>
+        /// <param name="cols">Minimum desired number of columns.</param>
+        /// <param name="type">Desired matrix type.</param>
+        /// <param name="arr">Destination matrix. The function does not reallocate memory if the matrix has proper attributes already.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaEnsureSizeIsEnough(int rows, int cols, int type, Mat arr)
+        {
+            NativeMethods.cv_cuda_ensureSizeIsEnough_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Bindings overload to create a GpuMat from existing GPU memory.
+        /// </summary>
+        /// <param name="rows">Row count.</param>
+        /// <param name="cols">Column count.</param>
+        /// <param name="type">Type of the matrix.</param>
+        /// <param name="cudaMemoryAddress">Address of the allocated GPU memory on the device. This does not allocate matrix data. Instead, it just initializes the matrix header that points to the specified \a cudaMemoryAddress, which means that no data is copied. This operation is very efficient and can be used to process external data using OpenCV functions. The external data is not automatically deallocated, so you should take care of it.</param>
+        /// <param name="step">Number of bytes each matrix row occupies. The value should include the padding bytes at the end of each row, if any. If the parameter is missing (set to Mat::AUTO_STEP ), no padding is assumed and the actual step is calculated as cols*elemSize(). See GpuMat::elemSize.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
+        /// </remarks>
+        public static CudaGpuMat? CudaCreateGpuMatFromCudaMemory(int rows, int cols, int type, long cudaMemoryAddress, long step)
+        {
+            IntPtr res = NativeMethods.cv_cuda_createGpuMatFromCudaMemory_0(rows, cols, type, cudaMemoryAddress, step);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new CudaGpuMat(res);
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="size">2D array size: Size(cols, rows). In the Size() constructor, the number of rows and the number of columns go in the reverse order.</param>
+        /// <param name="type">Type of the matrix.</param>
+        /// <param name="cudaMemoryAddress">Address of the allocated GPU memory on the device. This does not allocate matrix data. Instead, it just initializes the matrix header that points to the specified \a cudaMemoryAddress, which means that no data is copied. This operation is very efficient and can be used to process external data using OpenCV functions. The external data is not automatically deallocated, so you should take care of it.</param>
+        /// <param name="step">Number of bytes each matrix row occupies. The value should include the padding bytes at the end of each row, if any. If the parameter is missing (set to Mat::AUTO_STEP ), no padding is assumed and the actual step is calculated as cols*elemSize(). See GpuMat::elemSize.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
+        /// </remarks>
+        public static CudaGpuMat? CudaCreateGpuMatFromCudaMemory(Size size, int type, long cudaMemoryAddress, long step)
+        {
+            IntPtr res = NativeMethods.cv_cuda_createGpuMatFromCudaMemory_1(size, type, cudaMemoryAddress, step);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new CudaGpuMat(res);
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="on">The on parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaSetBufferPoolUsage(bool on)
+        {
+            NativeMethods.cv_cuda_setBufferPoolUsage_0(on);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="deviceId">The deviceId parameter.</param>
+        /// <param name="stackSize">The stackSize parameter.</param>
+        /// <param name="stackCount">The stackCount parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaSetBufferPoolConfig(int deviceId, long stackSize, int stackCount)
+        {
+            NativeMethods.cv_cuda_setBufferPoolConfig_0(deviceId, stackSize, stackCount);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Page-locks the memory of matrix and maps it for the device(s).
+        /// </summary>
+        /// <param name="m">Input matrix.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaRegisterPageLocked(Mat m)
+        {
+            NativeMethods.cv_cuda_registerPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Unmaps the memory of matrix and makes it pageable again.
+        /// </summary>
+        /// <param name="m">Input matrix.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaUnregisterPageLocked(Mat m)
+        {
+            NativeMethods.cv_cuda_unregisterPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Bindings overload to create a Stream object from the address stored in an existing CUDA Runtime API stream pointer (cudaStream_t).
+        /// </summary>
+        /// <param name="cudaStreamMemoryAddress">Memory address stored in a CUDA Runtime API stream pointer (cudaStream_t). The created Stream object does not perform any allocation or deallocation and simply wraps existing raw CUDA Runtime API stream pointer.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note Overload for generation of bindings only, not exported or intended for use internally from C++.
+        /// </remarks>
+        public static CudaStream? CudaWrapStream(long cudaStreamMemoryAddress)
+        {
+            IntPtr res = NativeMethods.cv_cuda_wrapStream_0(cudaStreamMemoryAddress);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new CudaStream(res);
+        }
+        /// <summary>
+        /// Returns the number of installed CUDA-enabled devices.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Use this function before any other CUDA functions calls. If OpenCV is compiled without CUDA support,
+        /// this function returns 0. If the CUDA driver is not installed, or is incompatible, this function
+        /// returns -1.
+        /// </remarks>
+        public static int CudaGetCudaEnabledDeviceCount()
+        {
+            var res = NativeMethods.cv_cuda_getCudaEnabledDeviceCount_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Sets a device and initializes it for the current thread.
+        /// </summary>
+        /// <param name="device">System index of a CUDA device starting with 0. If the call of this function is omitted, a default device is initialized at the fist CUDA usage.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaSetDevice(int device)
+        {
+            NativeMethods.cv_cuda_setDevice_0(device);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns the current device index set by cuda::setDevice or initialized by default.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int CudaGetDevice()
+        {
+            var res = NativeMethods.cv_cuda_getDevice_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Explicitly destroys and cleans up all resources associated with the current device in the current
+        /// process.
+        /// </summary>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Any subsequent API call to this device will reinitialize the device.
+        /// </remarks>
+        public static void CudaResetDevice()
+        {
+            NativeMethods.cv_cuda_resetDevice_0();
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="device">The device parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaPrintCudaDeviceInfo(int device)
+        {
+            NativeMethods.cv_cuda_printCudaDeviceInfo_0(device);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="device">The device parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void CudaPrintShortCudaDeviceInfo(int device)
+        {
+            NativeMethods.cv_cuda_printShortCudaDeviceInfo_0(device);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool OclHaveOpenCL()
+        {
+            var res = NativeMethods.cv_ocl_haveOpenCL_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool OclUseOpenCL()
+        {
+            var res = NativeMethods.cv_ocl_useOpenCL_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool OclHaveAmdBlas()
+        {
+            var res = NativeMethods.cv_ocl_haveAmdBlas_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool OclHaveAmdFft()
+        {
+            var res = NativeMethods.cv_ocl_haveAmdFft_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="flag">The flag parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void OclSetUseOpenCL(bool flag)
+        {
+            NativeMethods.cv_ocl_setUseOpenCL_0(flag);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void OclFinish()
+        {
+            NativeMethods.cv_ocl_finish_0();
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Solve given (non-integer) linear programming problem using the Simplex Algorithm (Simplex Method).
+        /// </summary>
+        /// <param name="Func">This row-vector corresponds to \f$c\f$ in the LP problem formulation (see above). It should contain 32- or 64-bit floating point numbers. As a convenience, column-vector may be also submitted, in the latter case it is understood to correspond to \f$c^T\f$.</param>
+        /// <param name="Constr">`m`-by-`n+1` matrix, whose rightmost column corresponds to \f$b\f$ in formulation above and the remaining to \f$A\f$. It should contain 32- or 64-bit floating point numbers.</param>
+        /// <param name="z">The solution will be returned here as a column-vector - it corresponds to \f$c\f$ in the formulation above. It will contain 64-bit floating point numbers.</param>
+        /// <param name="constr_eps">allowed numeric disparity for constraints</param>
+        /// <returns>One of cv::SolveLPResult</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// What we mean here by "linear programming problem" (or LP problem, for short) can be formulated as:
+        /// \f[\mbox{Maximize } c\cdot x\\
+        /// \mbox{Subject to:}\\
+        /// Ax\leq b\\
+        /// x\geq 0\f]
+        /// Where \f$c\f$ is fixed `1`-by-`n` row-vector, \f$A\f$ is fixed `m`-by-`n` matrix, \f$b\f$ is fixed `m`-by-`1`
+        /// column vector and \f$x\f$ is an arbitrary `n`-by-`1` column vector, which satisfies the constraints.
+        /// Simplex algorithm is one of many algorithms that are designed to handle this sort of problems
+        /// efficiently. Although it is not optimal in theoretical sense (there exist algorithms that can solve
+        /// any problem written as above in polynomial time, while simplex method degenerates to exponential
+        /// time for some special cases), it is well-studied, easy to implement and is shown to work well for
+        /// real-life purposes.
+        /// The particular implementation is taken almost verbatim from **Introduction to Algorithms, third
+        /// edition** by T. H. Cormen, C. E. Leiserson, R. L. Rivest and Clifford Stein. In particular, the
+        /// Bland's rule &lt;http://en.wikipedia.org/wiki/Bland%27s_rule&gt; is used to prevent cycling.
+        /// </remarks>
+        public static int SolveLP(Mat Func, Mat Constr, Mat z, double constr_eps)
+        {
+            var res = NativeMethods.cv_solveLP_0(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false), constr_eps);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="Func">The Func parameter.</param>
+        /// <param name="Constr">The Constr parameter.</param>
+        /// <param name="z">The z parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int SolveLP(Mat Func, Mat Constr, Mat z)
+        {
+            var res = NativeMethods.cv_solveLP_1(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Finds out if there is any intersection between two rectangles
+        /// *
+        /// * mainly useful for language bindings
+        /// * @param a First rectangle
+        /// * @param b Second rectangle
+        /// * @return the area of the intersection
+        /// </summary>
+        /// <param name="a">The a parameter.</param>
+        /// <param name="b">The b parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static double RectangleIntersectionArea(IntPtr a, IntPtr b)
+        {
+            var res = NativeMethods.cv_rectangleIntersectionArea_0(a, b);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV will try to set the number of threads for subsequent parallel regions.
+        /// </summary>
+        /// <param name="nthreads">Number of threads used by OpenCV.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// If threads == 1, OpenCV will disable threading optimizations and run all it's functions
+        /// sequentially. Passing threads \&lt; 0 will reset threads number to system default.
+        /// The function is not thread-safe. It must not be called in parallel region or concurrent threads.
+        /// OpenCV will try to run its functions with specified threads number, but some behaviour differs from
+        /// framework:
+        /// -   `TBB` - User-defined parallel constructions will run with the same threads number, if
+        /// another is not specified. If later on user creates his own scheduler, OpenCV will use it.
+        /// -   `OpenMP` - No special defined behaviour.
+        /// -   `Concurrency` - If threads == 1, OpenCV will disable threading optimizations and run its
+        /// functions sequentially.
+        /// -   `GCD` - Supports only values \&lt;= 0.
+        /// -   `C=` - No special defined behaviour.
+        /// @sa getNumThreads, getThreadNum
+        /// </remarks>
+        public static void SetNumThreads(int nthreads)
+        {
+            NativeMethods.cv_setNumThreads_0(nthreads);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns the number of threads used by OpenCV for parallel regions.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Always returns 1 if OpenCV is built without threading support.
+        /// The exact meaning of return value depends on the threading framework used by OpenCV library:
+        /// - `TBB` - The number of threads, that OpenCV will try to use for parallel regions. If there is
+        /// any tbb::thread_scheduler_init in user code conflicting with OpenCV, then function returns
+        /// default number of threads used by TBB library.
+        /// - `OpenMP` - An upper bound on the number of threads that could be used to form a new team.
+        /// - `Concurrency` - The number of threads, that OpenCV will try to use for parallel regions.
+        /// - `GCD` - Unsupported; returns the GCD thread pool limit (512) for compatibility.
+        /// - `C=` - The number of threads, that OpenCV will try to use for parallel regions, if before
+        /// called setNumThreads with threads \&gt; 0, otherwise returns the number of logical CPUs,
+        /// available for the process.
+        /// @sa setNumThreads, getThreadNum
+        /// </remarks>
+        public static int GetNumThreads()
+        {
+            var res = NativeMethods.cv_getNumThreads_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the index of the currently executed thread within the current parallel region. Always
+        /// returns 0 if called outside of parallel region.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @deprecated Current implementation doesn't corresponding to this documentation.
+        /// The exact meaning of the return value depends on the threading framework used by OpenCV library:
+        /// - `TBB` - Unsupported with current 4.1 TBB release. Maybe will be supported in future.
+        /// - `OpenMP` - The thread number, within the current team, of the calling thread.
+        /// - `Concurrency` - An ID for the virtual processor that the current context is executing on (0
+        /// for master thread and unique number for others, but not necessary 1,2,3,...).
+        /// - `GCD` - System calling thread's ID. Never returns 0 inside parallel region.
+        /// - `C=` - The index of the current parallel task.
+        /// @sa setNumThreads, getNumThreads
+        /// </remarks>
+        public static int GetThreadNum()
+        {
+            var res = NativeMethods.cv_getThreadNum_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns full configuration time cmake output.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Returned value is raw cmake output including version control system revision, compiler version,
+        /// compiler flags, enabled modules and third party libraries, etc. Output format depends on target
+        /// architecture.
+        /// </remarks>
+        public static string? GetBuildInformation()
+        {
+            IntPtr res = NativeMethods.cv_getBuildInformation_0();
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns library version string
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// For example "3.4.1-dev".
+        /// @sa getMajorVersion, getMinorVersion, getRevisionVersion
+        /// </remarks>
+        public static string? GetVersionString()
+        {
+            IntPtr res = NativeMethods.cv_getVersionString_0();
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns major library version
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int GetVersionMajor()
+        {
+            var res = NativeMethods.cv_getVersionMajor_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns minor library version
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int GetVersionMinor()
+        {
+            var res = NativeMethods.cv_getVersionMinor_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns revision field of the library version
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int GetVersionRevision()
+        {
+            var res = NativeMethods.cv_getVersionRevision_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the number of ticks.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns the number of ticks after the certain event (for example, when the machine was
+        /// turned on). It can be used to initialize RNG or to measure a function execution time by reading the
+        /// tick count before and after the function call.
+        /// @sa getTickFrequency, TickMeter
+        /// </remarks>
+        public static long GetTickCount()
+        {
+            var res = NativeMethods.cv_getTickCount_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the number of ticks per second.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns the number of ticks per second. That is, the following code computes the
+        /// execution time in seconds:
+        /// @code
+        /// double t = (double)getTickCount();
+        /// // do something ...
+        /// t = ((double)getTickCount() - t)/getTickFrequency();
+        /// @endcode
+        /// @sa getTickCount, TickMeter
+        /// </remarks>
+        public static double GetTickFrequency()
+        {
+            var res = NativeMethods.cv_getTickFrequency_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns the number of CPU ticks.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns the current number of CPU ticks on some architectures (such as x86, x64,
+        /// PowerPC). On other platforms the function is equivalent to getTickCount. It can also be used for
+        /// very accurate time measurements, as well as for RNG initialization. Note that in case of multi-CPU
+        /// systems a thread, from which getCPUTickCount is called, can be suspended and resumed at another CPU
+        /// with its own counter. So, theoretically (and practically) the subsequent calls to the function do
+        /// not necessary return the monotonously increasing values. Also, since a modern CPU varies the CPU
+        /// frequency depending on the load, the number of CPU clocks spent in some code cannot be directly
+        /// converted to time units. Therefore, getTickCount is generally a preferable solution for measuring
+        /// execution time.
+        /// </remarks>
+        public static long GetCPUTickCount()
+        {
+            var res = NativeMethods.cv_getCPUTickCount_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns true if the specified feature is supported by the host hardware.
+        /// </summary>
+        /// <param name="feature">The feature of interest, one of cv::CpuFeatures</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns true if the host hardware supports the specified feature. When user calls
+        /// setUseOptimized(false), the subsequent calls to checkHardwareSupport() will return false until
+        /// setUseOptimized(true) is called. This way user can dynamically switch on and off the optimized code
+        /// in OpenCV.
+        /// </remarks>
+        public static bool CheckHardwareSupport(int feature)
+        {
+            var res = NativeMethods.cv_checkHardwareSupport_0(feature);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns feature name by ID
+        /// </summary>
+        /// <param name="feature">The feature parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Returns empty string if feature is not defined
+        /// </remarks>
+        public static string? GetHardwareFeatureName(int feature)
+        {
+            IntPtr res = NativeMethods.cv_getHardwareFeatureName_0(feature);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns list of CPU features enabled during compilation.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Returned value is a string containing space separated list of CPU features with following markers:
+        /// - no markers - baseline features
+        /// - prefix `*` - features enabled in dispatcher
+        /// - suffix `?` - features enabled but not available in HW
+        /// Example: `SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?`
+        /// </remarks>
+        public static string? GetCPUFeaturesLine()
+        {
+            IntPtr res = NativeMethods.cv_getCPUFeaturesLine_0();
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns the number of logical CPUs available for the process.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int GetNumberOfCPUs()
+        {
+            var res = NativeMethods.cv_getNumberOfCPUs_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static AlgorithmHint GetDefaultAlgorithmHint()
+        {
+            var res = NativeMethods.cv_getDefaultAlgorithmHint_0();
+            ErrorHelper.CheckError();
+            return (AlgorithmHint)res;
+        }
+        /// <summary>
+        /// Enables or disables the optimized code.
+        /// </summary>
+        /// <param name="onoff">The boolean flag specifying whether the optimized code should be used (onoff=true) or not (onoff=false).</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function can be used to dynamically turn on and off optimized dispatched code (code that uses SSE4.2, AVX/AVX2,
+        /// and other instructions on the platforms that support it). It sets a global flag that is further
+        /// checked by OpenCV functions. Since the flag is not checked in the inner OpenCV loops, it is only
+        /// safe to call the function on the very top level in your application where you can be sure that no
+        /// other OpenCV function is currently executed.
+        /// By default, the optimized code is enabled unless you disable it in CMake. The current status can be
+        /// retrieved using useOptimized.
+        /// </remarks>
+        public static void SetUseOptimized(bool onoff)
+        {
+            NativeMethods.cv_setUseOptimized_0(onoff);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns the status of optimized code usage.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function returns true if the optimized code is enabled. Otherwise, it returns false.
+        /// </remarks>
+        public static bool UseOptimized()
+        {
+            var res = NativeMethods.cv_useOptimized_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Try to find requested data file
+        /// </summary>
+        /// <param name="relative_path">Relative path to data file</param>
+        /// <param name="required">Specify "file not found" handling. If true, function prints information message and raises cv::Exception. If false, function returns empty result</param>
+        /// <param name="silentMode">Disables messages</param>
+        /// <returns>Returns path (absolute or relative to the current directory) or empty string if file is not found</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Search directories:
+        /// 1. Directories passed via `addSamplesDataSearchPath()`
+        /// 2. OPENCV_SAMPLES_DATA_PATH_HINT environment variable
+        /// 3. OPENCV_SAMPLES_DATA_PATH environment variable
+        /// If parameter value is not empty and nothing is found then stop searching.
+        /// 4. Detects build/install path based on:
+        /// a. current working directory (CWD)
+        /// b. and/or binary module location (opencv_core/opencv_world, doesn't work with static linkage)
+        /// 5. Scan `&lt;source&gt;/{,data,samples/data}` directories if build directory is detected or the current directory is in source tree.
+        /// 6. Scan `&lt;install&gt;/share/OpenCV` directory if install directory is detected.
+        /// @see cv::utils::findDataFile
+        /// </remarks>
+        public static string? SamplesFindFile(string relative_path, bool required, bool silentMode)
+        {
+            IntPtr res = NativeMethods.cv_samples_findFile_0(relative_path, required, silentMode);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="relative_path">The relative_path parameter.</param>
+        /// <param name="silentMode">The silentMode parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? SamplesFindFileOrKeep(string relative_path, bool silentMode)
+        {
+            IntPtr res = NativeMethods.cv_samples_findFileOrKeep_0(relative_path, silentMode);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Override search data path by adding new search location
+        /// </summary>
+        /// <param name="path">Path to used samples data</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Use this only to override default behavior
+        /// Passed paths are used in LIFO order.
+        /// </remarks>
+        public static void SamplesAddSamplesDataSearchPath(string path)
+        {
+            NativeMethods.cv_samples_addSamplesDataSearchPath_0(path);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Append samples search data sub directory
+        /// </summary>
+        /// <param name="subdir">samples data sub directory</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// General usage is to add OpenCV modules name (`&lt;opencv_contrib&gt;/modules/&lt;name&gt;/samples/data` -&gt; `&lt;name&gt;/samples/data` + `modules/&lt;name&gt;/samples/data`).
+        /// Passed subdirectories are used in LIFO order.
+        /// </remarks>
+        public static void SamplesAddSamplesDataSearchSubDirectory(string subdir)
+        {
+            NativeMethods.cv_samples_addSamplesDataSearchSubDirectory_0(subdir);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Change OpenCV parallel_for backend
+        /// *
+        /// * @note This call is not thread-safe. Consider calling this function from the `main()` before any other OpenCV processing functions (and without any other created threads).
+        /// </summary>
+        /// <param name="backendName">The backendName parameter.</param>
+        /// <param name="propagateNumThreads">The propagateNumThreads parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool ParallelSetParallelForBackend(string backendName, bool propagateNumThreads)
+        {
+            var res = NativeMethods.cv_parallel_setParallelForBackend_0(backendName, propagateNumThreads);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Set global logging level
+        /// </summary>
+        /// <param name="logLevel">The logLevel parameter.</param>
+        /// <returns>previous logging level</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static UtilsLoggingLogLevel UtilsLoggingSetLogLevel(UtilsLoggingLogLevel logLevel)
+        {
+            var res = NativeMethods.cv_utils_logging_setLogLevel_0((int)logLevel);
+            ErrorHelper.CheckError();
+            return (UtilsLoggingLogLevel)res;
+        }
+        /// <summary>
+        /// Get global logging level
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static UtilsLoggingLogLevel UtilsLoggingGetLogLevel()
+        {
+            var res = NativeMethods.cv_utils_logging_getLogLevel_0();
+            ErrorHelper.CheckError();
+            return (UtilsLoggingLogLevel)res;
+        }
     }
 }

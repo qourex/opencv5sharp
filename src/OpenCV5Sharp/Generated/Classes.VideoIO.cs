@@ -30,7 +30,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class VideoCapture : DisposableOpenCVObject
     {
-        internal VideoCapture(IntPtr handle) : base(handle) {}
+        internal VideoCapture(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.VideoCapture_Delete(handle);
@@ -372,7 +372,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class VideoWriter : DisposableOpenCVObject
     {
-        internal VideoWriter(IntPtr handle) : base(handle) {}
+        internal VideoWriter(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.VideoWriter_Delete(handle);

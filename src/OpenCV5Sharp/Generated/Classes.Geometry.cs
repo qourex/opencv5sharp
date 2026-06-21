@@ -20,7 +20,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MSTEdge : DisposableOpenCVObject
     {
-        internal MSTEdge(IntPtr handle) : base(handle) {}
+        internal MSTEdge(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MSTEdge_Delete(handle);
@@ -54,7 +54,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Subdiv2D : DisposableOpenCVObject
     {
-        internal Subdiv2D(IntPtr handle) : base(handle) {}
+        internal Subdiv2D(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Subdiv2D_Delete(handle);
@@ -444,7 +444,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class UsacParams : DisposableOpenCVObject
     {
-        internal UsacParams(IntPtr handle) : base(handle) {}
+        internal UsacParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.UsacParams_Delete(handle);

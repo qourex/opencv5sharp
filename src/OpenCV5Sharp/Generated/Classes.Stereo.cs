@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class StereoBM : StereoMatcher
     {
-        internal StereoBM(IntPtr handle) : base(handle) {}
+        internal StereoBM(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.StereoBM_Delete(handle);
@@ -227,7 +227,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class StereoMatcher : Algorithm
     {
-        internal StereoMatcher(IntPtr handle) : base(handle) {}
+        internal StereoMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.StereoMatcher_Delete(handle);
@@ -409,7 +409,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class StereoSGBM : StereoMatcher
     {
-        internal StereoSGBM(IntPtr handle) : base(handle) {}
+        internal StereoSGBM(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.StereoSGBM_Delete(handle);

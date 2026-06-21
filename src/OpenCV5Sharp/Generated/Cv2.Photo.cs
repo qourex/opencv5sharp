@@ -11,616 +11,616 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Restores the selected region in an image using the region neighborhood.
-            /// </summary>
-            /// <param name="src">Input 8-bit, 16-bit unsigned or 32-bit float 1-channel or 8-bit 3-channel image.</param>
-            /// <param name="inpaintMask">Inpainting mask, 8-bit 1-channel image. Non-zero pixels indicate the area that needs to be inpainted.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="inpaintRadius">Radius of a circular neighborhood of each point inpainted that is considered by the algorithm.</param>
-            /// <param name="flags">Inpainting method that could be cv::INPAINT_NS or cv::INPAINT_TELEA The function reconstructs the selected image area from the pixel near the area boundary. The function may be used to remove dust and scratches from a scanned photo, or to remove undesirable objects from still images or video. See &lt;http://en.wikipedia.org/wiki/Inpainting&gt; for more details.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note
-            /// -   An example using the inpainting technique can be found at
-            /// opencv_source_code/samples/cpp/inpaint.cpp
-            /// -   (Python) An example using the inpainting technique can be found at
-            /// opencv_source_code/samples/python/inpaint.py
-            /// </remarks>
-            public static void Inpaint(Mat src, Mat inpaintMask, Mat dst, double inpaintRadius, int flags)
-            {
-                NativeMethods.cv_inpaint_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(inpaintMask, nameof(inpaintMask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), inpaintRadius, flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Perform image denoising using Non-local Means Denoising algorithm
-            /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/&gt; with several computational
-            /// optimizations. Noise expected to be a gaussian white noise
-            /// </summary>
-            /// <param name="src">Input 8-bit 1-channel, 2-channel, 3-channel or 4-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="h">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise This function expected to be applied to grayscale images. For colored images look at fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting image to CIELAB colorspace and then separately denoise L and AB components with different h parameter.</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoising(Mat src, Mat dst, float h, int templateWindowSize, int searchWindowSize)
-            {
-                NativeMethods.cv_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Perform image denoising using Non-local Means Denoising algorithm
-            /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/&gt; with several computational
-            /// optimizations. Noise expected to be a gaussian white noise
-            /// </summary>
-            /// <param name="src">Input 8-bit or 16-bit (only with NORM_L1) 1-channel, 2-channel, 3-channel or 4-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="h">Array of parameters regulating filter strength, either one parameter applied to all channels or one per channel in dst. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <param name="normType">Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1 This function expected to be applied to grayscale images. For colored images look at fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting image to CIELAB colorspace and then separately denoise L and AB components with different h parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoising(Mat src, Mat dst, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
-            {
-                NativeMethods.cv_fastNlMeansDenoising_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize, normType);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Modification of fastNlMeansDenoising function for colored images
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="h">Parameter regulating filter strength for luminance component. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="hColor">The same as h but for color components. For most images value equals 10 will be enough to remove colored noise and do not distort colors The function converts image to CIELAB colorspace and then separately denoise L and AB components with given h parameters using fastNlMeansDenoising function.</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoisingColored(Mat src, Mat dst, float h, float hColor, int templateWindowSize, int searchWindowSize)
-            {
-                NativeMethods.cv_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, hColor, templateWindowSize, searchWindowSize);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
-            /// captured in small period of time. For example video. This version of the function is for grayscale
-            /// images or for manual manipulation with colorspaces. See @cite Buades2005DenoisingIS for more details
-            /// (open access [here](https://static.aminer.org/pdf/PDF/000/317/196/spatio_temporal_wiener_filtering_of_image_sequences_using_a_parametric.pdf)).
-            /// </summary>
-            /// <param name="srcImgs">Input 8-bit 1-channel, 2-channel, 3-channel or 4-channel images sequence. All images should have the same type and size.</param>
-            /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
-            /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
-            /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
-            /// <param name="h">Parameter regulating filter strength. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, int templateWindowSize, int searchWindowSize)
-            {
-                NativeMethods.cv_fastNlMeansDenoisingMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
-            /// captured in small period of time. For example video. This version of the function is for grayscale
-            /// images or for manual manipulation with colorspaces. See @cite Buades2005DenoisingIS for more details
-            /// (open access [here](https://static.aminer.org/pdf/PDF/000/317/196/spatio_temporal_wiener_filtering_of_image_sequences_using_a_parametric.pdf)).
-            /// </summary>
-            /// <param name="srcImgs">Input 8-bit or 16-bit (only with NORM_L1) 1-channel, 2-channel, 3-channel or 4-channel images sequence. All images should have the same type and size.</param>
-            /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
-            /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
-            /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
-            /// <param name="h">Array of parameters regulating filter strength, either one parameter applied to all channels or one per channel in dst. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <param name="normType">Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
-            {
-                NativeMethods.cv_fastNlMeansDenoisingMulti_1(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Modification of fastNlMeansDenoisingMulti function for colored images sequences
-            /// </summary>
-            /// <param name="srcImgs">Input 8-bit 3-channel images sequence. All images should have the same type and size.</param>
-            /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
-            /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
-            /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
-            /// <param name="h">Parameter regulating filter strength for luminance component. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise.</param>
-            /// <param name="hColor">The same as h but for color components. The function converts images to CIELAB colorspace and then separately denoise L and AB components with given h parameters using fastNlMeansDenoisingMulti function.</param>
-            /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FastNlMeansDenoisingColoredMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, float hColor, int templateWindowSize, int searchWindowSize)
-            {
-                NativeMethods.cv_fastNlMeansDenoisingColoredMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Primal-dual algorithm is an algorithm for solving special types of variational problems (that is,
-            /// finding a function to minimize some functional). As the image denoising, in particular, may be seen
-            /// as the variational problem, primal-dual algorithm then can be used to perform denoising and this is
-            /// exactly what is implemented.
-            /// </summary>
-            /// <param name="observations">This array should contain one or more noised versions of the image that is to be restored.</param>
-            /// <param name="result">Here the denoised image will be stored. There is no need to do pre-allocation of storage space, as it will be automatically allocated, if necessary.</param>
-            /// <param name="lambda">Corresponds to \f$\lambda\f$ in the formulas above. As it is enlarged, the smooth (blurred) images are treated more favorably than detailed (but maybe more noised) ones. Roughly speaking, as it becomes smaller, the result will be more blur but more sever outliers will be removed.</param>
-            /// <param name="niters">Number of iterations that the algorithm will run. Of course, as more iterations as better, but it is hard to quantitatively refine this statement, so just use the default and increase it if the results are poor.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// It should be noted, that this implementation was taken from the July 2013 blog entry
-            /// @cite MA13 , which also contained (slightly more general) ready-to-use source code on Python.
-            /// Subsequently, that code was rewritten on C++ with the usage of openCV by Vadim Pisarevsky at the end
-            /// of July 2013 and finally it was slightly adapted by later authors.
-            /// Although the thorough discussion and justification of the algorithm involved may be found in
-            /// @cite ChambolleEtAl, it might make sense to skim over it here, following @cite MA13 . To begin
-            /// with, we consider the 1-byte gray-level images as the functions from the rectangular domain of
-            /// pixels (it may be seen as set
-            /// \f$\left\{(x,y)\in\mathbb{N}\times\mathbb{N}\mid 1\leq x\leq n,\;1\leq y\leq m\right\}\f$ for some
-            /// \f$m,\;n\in\mathbb{N}\f$) into \f$\{0,1,\dots,255\}\f$. We shall denote the noised images as \f$f_i\f$ and with
-            /// this view, given some image \f$x\f$ of the same size, we may measure how bad it is by the formula
-            /// \f[\left\|\left\|\nabla x\right\|\right\| + \lambda\sum_i\left\|\left\|x-f_i\right\|\right\|\f]
-            /// \f$\|\|\cdot\|\|\f$ here denotes \f$L_2\f$-norm and as you see, the first addend states that we want our
-            /// image to be smooth (ideally, having zero gradient, thus being constant) and the second states that
-            /// we want our result to be close to the observations we've got. If we treat \f$x\f$ as a function, this is
-            /// exactly the functional what we seek to minimize and here the Primal-Dual algorithm comes into play.
-            /// </remarks>
-            public static void DenoiseTVL1(IntPtr observations, Mat result, double lambda, int niters)
-            {
-                NativeMethods.cv_denoise_TVL1_0(observations, ValidationHelper.GetHandle(result, nameof(result), false), lambda, niters);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Creates simple linear mapper with gamma correction
-            /// </summary>
-            /// <param name="gamma">positive value for gamma correction. Gamma value of 1.0 implies no correction, gamma equal to 2.2f is suitable for most displays. Generally gamma \&gt; 1 brightens the image and gamma \&lt; 1 darkens it.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static Tonemap? CreateTonemap(float gamma)
-            {
-                IntPtr res = NativeMethods.cv_createTonemap_0(gamma);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new Tonemap(res);
-            }
-            /// <summary>
-            /// Creates TonemapDrago object
-            /// </summary>
-            /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
-            /// <param name="saturation">positive saturation enhancement value. 1.0 preserves saturation, values greater than 1 increase saturation and values less than 1 decrease it.</param>
-            /// <param name="bias">value for bias function in [0, 1] range. Values from 0.7 to 0.9 usually give best results, default value is 0.85.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static TonemapDrago? CreateTonemapDrago(float gamma, float saturation, float bias)
-            {
-                IntPtr res = NativeMethods.cv_createTonemapDrago_0(gamma, saturation, bias);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new TonemapDrago(res);
-            }
-            /// <summary>
-            /// Creates TonemapReinhard object
-            /// </summary>
-            /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
-            /// <param name="intensity">result intensity in [-8, 8] range. Greater intensity produces brighter results.</param>
-            /// <param name="light_adapt">light adaptation in [0, 1] range. If 1 adaptation is based only on pixel value, if 0 it's global, otherwise it's a weighted mean of this two cases.</param>
-            /// <param name="color_adapt">chromatic adaptation in [0, 1] range. If 1 channels are treated independently, if 0 adaptation level is the same for each channel.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static TonemapReinhard? CreateTonemapReinhard(float gamma, float intensity, float light_adapt, float color_adapt)
-            {
-                IntPtr res = NativeMethods.cv_createTonemapReinhard_0(gamma, intensity, light_adapt, color_adapt);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new TonemapReinhard(res);
-            }
-            /// <summary>
-            /// Creates TonemapMantiuk object
-            /// </summary>
-            /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
-            /// <param name="scale">contrast scale factor. HVS response is multiplied by this parameter, thus compressing dynamic range. Values from 0.6 to 0.9 produce best results.</param>
-            /// <param name="saturation">saturation enhancement value. See createTonemapDrago</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static TonemapMantiuk? CreateTonemapMantiuk(float gamma, float scale, float saturation)
-            {
-                IntPtr res = NativeMethods.cv_createTonemapMantiuk_0(gamma, scale, saturation);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new TonemapMantiuk(res);
-            }
-            /// <summary>
-            /// Creates AlignMTB object
-            /// </summary>
-            /// <param name="max_bits">logarithm to the base 2 of maximal shift in each dimension. Values of 5 and 6 are usually good enough (31 and 63 pixels shift respectively).</param>
-            /// <param name="exclude_range">range for exclusion bitmap that is constructed to suppress noise around the median value.</param>
-            /// <param name="cut">if true cuts images, otherwise fills the new regions with zeros.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static AlignMTB? CreateAlignMTB(int max_bits, int exclude_range, bool cut)
-            {
-                IntPtr res = NativeMethods.cv_createAlignMTB_0(max_bits, exclude_range, cut);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new AlignMTB(res);
-            }
-            /// <summary>
-            /// Creates CalibrateDebevec object
-            /// </summary>
-            /// <param name="samples">number of pixel locations to use</param>
-            /// <param name="lambda">smoothness term weight. Greater values produce smoother results, but can alter the response.</param>
-            /// <param name="random">if true sample pixel locations are chosen at random, otherwise they form a rectangular grid.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static CalibrateDebevec? CreateCalibrateDebevec(int samples, float lambda, bool random)
-            {
-                IntPtr res = NativeMethods.cv_createCalibrateDebevec_0(samples, lambda, random);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new CalibrateDebevec(res);
-            }
-            /// <summary>
-            /// Creates CalibrateRobertson object
-            /// </summary>
-            /// <param name="max_iter">maximal number of Gauss-Seidel solver iterations.</param>
-            /// <param name="threshold">target difference between results of two successive steps of the minimization.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static CalibrateRobertson? CreateCalibrateRobertson(int max_iter, float threshold)
-            {
-                IntPtr res = NativeMethods.cv_createCalibrateRobertson_0(max_iter, threshold);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new CalibrateRobertson(res);
-            }
-            /// <summary>
-            /// Creates MergeDebevec object
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static MergeDebevec? CreateMergeDebevec()
-            {
-                IntPtr res = NativeMethods.cv_createMergeDebevec_0();
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new MergeDebevec(res);
-            }
-            /// <summary>
-            /// Creates MergeMertens object
-            /// </summary>
-            /// <param name="contrast_weight">contrast measure weight. See MergeMertens.</param>
-            /// <param name="saturation_weight">saturation measure weight</param>
-            /// <param name="exposure_weight">well-exposedness measure weight</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static MergeMertens? CreateMergeMertens(float contrast_weight, float saturation_weight, float exposure_weight)
-            {
-                IntPtr res = NativeMethods.cv_createMergeMertens_0(contrast_weight, saturation_weight, exposure_weight);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new MergeMertens(res);
-            }
-            /// <summary>
-            /// Creates MergeRobertson object
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static MergeRobertson? CreateMergeRobertson()
-            {
-                IntPtr res = NativeMethods.cv_createMergeRobertson_0();
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new MergeRobertson(res);
-            }
-            /// <summary>
-            /// Transforms a color image to a grayscale image. It is a basic tool in digital printing, stylized
-            /// black-and-white photograph rendering, and in many single channel image processing applications
-            /// @cite CL12 .
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="grayscale">Output 8-bit 1-channel image.</param>
-            /// <param name="color_boost">Output 8-bit 3-channel image. This function is to be applied on color images.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Decolor(Mat src, Mat grayscale, Mat color_boost)
-            {
-                NativeMethods.cv_decolor_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(grayscale, nameof(grayscale), false), ValidationHelper.GetHandle(color_boost, nameof(color_boost), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs seamless cloning to blend a region from a source image into a destination image.
-            /// This function is designed for local image editing, allowing changes restricted to a region
-            /// (manually selected as the ROI) to be applied effortlessly and seamlessly. These changes can
-            /// range from slight distortions to complete replacement by novel content @cite PM03.
-            /// </summary>
-            /// <param name="src">The source image (8-bit 3-channel), from which a region will be blended into the destination.</param>
-            /// <param name="dst">The destination image (8-bit 3-channel), where the src image will be blended.</param>
-            /// <param name="mask">A binary mask (8-bit, 1, 3, or 4-channel) specifying the region in the source image to blend. Non-zero pixels indicate the region to be blended. If an empty Mat is provided, a mask with all non-zero pixels is created internally.</param>
-            /// <param name="p">The point where the center of the src image is placed in the dst image.</param>
-            /// <param name="blend">The output image that stores the result of the seamless cloning. It has the same size and type as `dst`.</param>
-            /// <param name="flags">Flags that control the type of cloning method, can take values of `cv::SeamlessCloneFlags`.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void SeamlessClone(Mat src, Mat dst, Mat mask, Point p, Mat blend, int flags)
-            {
-                NativeMethods.cv_seamlessClone_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), p, ValidationHelper.GetHandle(blend, nameof(blend), false), flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Given an original color image, two differently colored versions of this image can be mixed
-            /// seamlessly.
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="red_mul">R-channel multiply factor.</param>
-            /// <param name="green_mul">G-channel multiply factor.</param>
-            /// <param name="blue_mul">B-channel multiply factor. Multiplication factor is between .5 to 2.5.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul)
-            {
-                NativeMethods.cv_colorChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), red_mul, green_mul, blue_mul);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Applying an appropriate non-linear transformation to the gradient field inside the selection and
-            /// then integrating back with a Poisson solver, modifies locally the apparent illumination of an image.
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src.</param>
-            /// <param name="alpha">Value ranges between 0-2.</param>
-            /// <param name="beta">Value ranges between 0-2. This is useful to highlight under-exposed foreground objects or to reduce specular reflections.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void IlluminationChange(Mat src, Mat mask, Mat dst, float alpha, float beta)
-            {
-                NativeMethods.cv_illuminationChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// By retaining only the gradients at edge locations, before integrating with the Poisson solver, one
-            /// washes out the texture of the selected region, giving its contents a flat aspect. Here Canny Edge %Detector is used.
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src.</param>
-            /// <param name="low_threshold">%Range from 0 to 100.</param>
-            /// <param name="high_threshold">Value \&gt; 100.</param>
-            /// <param name="kernel_size">The size of the Sobel kernel to be used.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note
-            /// The algorithm assumes that the color of the source image is close to that of the destination. This
-            /// assumption means that when the colors don't match, the source image color gets tinted toward the
-            /// color of the destination image.
-            /// </remarks>
-            public static void TextureFlattening(Mat src, Mat mask, Mat dst, float low_threshold, float high_threshold, int kernel_size)
-            {
-                NativeMethods.cv_textureFlattening_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), low_threshold, high_threshold, kernel_size);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Filtering is the fundamental operation in image and video processing. Edge-preserving smoothing
-            /// filters are used in many different applications @cite EM11 .
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst">Output 8-bit 3-channel image.</param>
-            /// <param name="flags">Edge preserving filters: cv::RECURS_FILTER or cv::NORMCONV_FILTER</param>
-            /// <param name="sigma_s">%Range between 0 to 200.</param>
-            /// <param name="sigma_r">%Range between 0 to 1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void EdgePreservingFilter(Mat src, Mat dst, int flags, float sigma_s, float sigma_r)
-            {
-                NativeMethods.cv_edgePreservingFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, sigma_s, sigma_r);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// This filter enhances the details of a particular image.
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src.</param>
-            /// <param name="sigma_s">%Range between 0 to 200.</param>
-            /// <param name="sigma_r">%Range between 0 to 1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailEnhance(Mat src, Mat dst, float sigma_s, float sigma_r)
-            {
-                NativeMethods.cv_detailEnhance_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Pencil-like non-photorealistic line drawing
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst1">Output 8-bit 1-channel image.</param>
-            /// <param name="dst2">Output image with the same size and type as src.</param>
-            /// <param name="sigma_s">%Range between 0 to 200.</param>
-            /// <param name="sigma_r">%Range between 0 to 1.</param>
-            /// <param name="shade_factor">%Range between 0 to 0.1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void PencilSketch(Mat src, Mat dst1, Mat dst2, float sigma_s, float sigma_r, float shade_factor)
-            {
-                NativeMethods.cv_pencilSketch_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst1, nameof(dst1), false), ValidationHelper.GetHandle(dst2, nameof(dst2), false), sigma_s, sigma_r, shade_factor);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Stylization aims to produce digital imagery with a wide variety of effects not focused on
-            /// photorealism. Edge-aware filters are ideal for stylization, as they can abstract regions of low
-            /// contrast while preserving, or enhancing, high-contrast features.
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src.</param>
-            /// <param name="sigma_s">%Range between 0 to 200.</param>
-            /// <param name="sigma_r">%Range between 0 to 1.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void Stylization(Mat src, Mat dst, float sigma_s, float sigma_r)
-            {
-                NativeMethods.cv_stylization_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Corrects lateral chromatic aberration in an image using polynomial distortion model.
-            /// </summary>
-            /// <param name="input_image">Input BGR image to correct</param>
-            /// <param name="coefficients">Coefficient model</param>
-            /// <param name="output_image">Corrected BGR image</param>
-            /// <param name="image_size">Size of images for the calibration coefficient model</param>
-            /// <param name="calib_degree">Degree of the calibration coefficient model</param>
-            /// <param name="bayer_pattern">Bayer pattern code (e.g. cv::COLOR_BayerBG2BGR) used for demosaicing when @p input_image has one channel; ignored otherwise.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This function loads polynomial calibration data from the specified file and applies
-            /// a channel‐specific warp to remove chromatic aberration.
-            /// If @p input_image has one channel, it is assumed to be a raw Bayer image and is
-            /// first demosaiced using @p bayer_pattern. If it has three channels, it is treated
-            /// as a BGR image and @p bayer_pattern is ignored.
-            /// Firstly, calibration needs to be done using apps/chromatic-aberration-calibration/ca_calibration.py on a photo of
-            /// a pattern of black discs on white background, included in opencv_extra/testdata/cv/cameracalibration/chromatic_aberration/chromatic_aberration_pattern_a3.png
-            /// Calibration and correction are based on the algorithm described in @cite rudakova2013precise.
-            /// The chromatic aberration is modeled as a polynomial of some degree in red and blue channels compared to green.
-            /// In calibration, a photo of many black discs on white background is used, and the displacements
-            /// between the centres of discs in red and blue channels compared to green are minimized. The coefficients
-            /// are then saved in a yaml file which can be used with this function to correct lateral chromatic aberration.
-            /// @sa loadChromaticAberrationParams, demosaicing
-            /// </remarks>
-            public static void CorrectChromaticAberration(Mat input_image, Mat coefficients, Mat output_image, Size image_size, int calib_degree, int bayer_pattern)
-            {
-                NativeMethods.cv_correctChromaticAberration_0(ValidationHelper.GetHandle(input_image, nameof(input_image), false), ValidationHelper.GetHandle(coefficients, nameof(coefficients), false), ValidationHelper.GetHandle(output_image, nameof(output_image), false), image_size, calib_degree, bayer_pattern);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Load chromatic-aberration calibration parameters from opened FileStorage.
-            /// *
-            /// R e*ads the red and blue polynomial coefficients from the specified file and
-            /// packs them into a 4×N CV_32F matrix:
-            /// row 0 = blue dx coefficients
-            /// row 1 = blue dy coefficients
-            /// row 2 = red  dx coefficients
-            /// row 3 = red  dy coefficients
-            /// </summary>
-            /// <param name="node">Node of opened cv::FileStorage object.</param>
-            /// <param name="coeffMat">Output 4xN coefficient matrix (CV_32F).</param>
-            /// <param name="calib_size">Calibration image size read from file.</param>
-            /// <param name="degree">Polynomial degree inferred from N.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa correctChromaticAberration
-            /// </remarks>
-            public static void LoadChromaticAberrationParams(FileNode node, Mat coeffMat, Size calib_size, int degree)
-            {
-                NativeMethods.cv_loadChromaticAberrationParams_0(ValidationHelper.GetHandle(node, nameof(node), false), ValidationHelper.GetHandle(coeffMat, nameof(coeffMat), false), calib_size, degree);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// * @brief Applies gamma correction to the input image.
-            /// </summary>
-            /// <param name="src">The src parameter.</param>
-            /// <param name="dst">The dst parameter.</param>
-            /// <param name="gamma">The gamma parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * @param src Input image.
-            /// * @param dst Output image.
-            /// * @param gamma Gamma correction greater than zero.
-            /// </remarks>
-            public static void CcmGammaCorrection(Mat src, Mat dst, double gamma)
-            {
-                NativeMethods.cv_ccm_gammaCorrection_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), gamma);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Performs pure non local means denoising without any simplification, and thus it is not fast.
-            /// </summary>
-            /// <param name="src">Source image. Supports only CV_8UC1, CV_8UC2 and CV_8UC3.</param>
-            /// <param name="dst">Destination image.</param>
-            /// <param name="h">Filter sigma regulating filter strength for color.</param>
-            /// <param name="search_window">Size of search window.</param>
-            /// <param name="block_size">Size of block used for computing weights.</param>
-            /// <param name="borderMode">Border type. See borderInterpolate for details. BORDER_REFLECT101 , BORDER_REPLICATE , BORDER_CONSTANT , BORDER_REFLECT and BORDER_WRAP are supported for now.</param>
-            /// <param name="stream">Stream for the asynchronous version.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa
-            /// fastNlMeansDenoising
-            /// </remarks>
-            public static void CudaNonLocalMeans(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, int borderMode, CudaStream? stream)
-            {
-                NativeMethods.cv_cuda_nonLocalMeans_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, borderMode, ValidationHelper.GetHandle(stream, nameof(stream), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Perform image denoising using Non-local Means Denoising algorithm
-            /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising&gt; with several computational
-            /// optimizations. Noise expected to be a gaussian white noise
-            /// </summary>
-            /// <param name="src">Input 8-bit 1-channel, 2-channel or 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="h">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="search_window">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater search_window - greater denoising time. Recommended value 21 pixels</param>
-            /// <param name="block_size">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="stream">Stream for the asynchronous invocations. This function expected to be applied to grayscale images. For colored images look at FastNonLocalMeansDenoising::labMethod.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa
-            /// fastNlMeansDenoising
-            /// </remarks>
-            public static void CudaFastNlMeansDenoising(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, CudaStream? stream)
-            {
-                NativeMethods.cv_cuda_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Modification of fastNlMeansDenoising function for colored images
-            /// </summary>
-            /// <param name="src">Input 8-bit 3-channel image.</param>
-            /// <param name="dst">Output image with the same size and type as src .</param>
-            /// <param name="h_luminance">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
-            /// <param name="photo_render">float The same as h but for color components. For most images value equals 10 will be enough to remove colored noise and do not distort colors</param>
-            /// <param name="search_window">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater search_window - greater denoising time. Recommended value 21 pixels</param>
-            /// <param name="block_size">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
-            /// <param name="stream">Stream for the asynchronous invocations. The function converts image to CIELAB colorspace and then separately denoise L and AB components with given h parameters using FastNonLocalMeansDenoising::simpleMethod function.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @sa
-            /// fastNlMeansDenoisingColored
-            /// </remarks>
-            public static void CudaFastNlMeansDenoisingColored(CudaGpuMat src, CudaGpuMat dst, float h_luminance, float photo_render, int search_window, int block_size, CudaStream? stream)
-            {
-                NativeMethods.cv_cuda_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h_luminance, photo_render, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
-                ErrorHelper.CheckError();
-            }
+        /// <summary>
+        /// Restores the selected region in an image using the region neighborhood.
+        /// </summary>
+        /// <param name="src">Input 8-bit, 16-bit unsigned or 32-bit float 1-channel or 8-bit 3-channel image.</param>
+        /// <param name="inpaintMask">Inpainting mask, 8-bit 1-channel image. Non-zero pixels indicate the area that needs to be inpainted.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="inpaintRadius">Radius of a circular neighborhood of each point inpainted that is considered by the algorithm.</param>
+        /// <param name="flags">Inpainting method that could be cv::INPAINT_NS or cv::INPAINT_TELEA The function reconstructs the selected image area from the pixel near the area boundary. The function may be used to remove dust and scratches from a scanned photo, or to remove undesirable objects from still images or video. See &lt;http://en.wikipedia.org/wiki/Inpainting&gt; for more details.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note
+        /// -   An example using the inpainting technique can be found at
+        /// opencv_source_code/samples/cpp/inpaint.cpp
+        /// -   (Python) An example using the inpainting technique can be found at
+        /// opencv_source_code/samples/python/inpaint.py
+        /// </remarks>
+        public static void Inpaint(Mat src, Mat inpaintMask, Mat dst, double inpaintRadius, int flags)
+        {
+            NativeMethods.cv_inpaint_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(inpaintMask, nameof(inpaintMask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), inpaintRadius, flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Perform image denoising using Non-local Means Denoising algorithm
+        /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/&gt; with several computational
+        /// optimizations. Noise expected to be a gaussian white noise
+        /// </summary>
+        /// <param name="src">Input 8-bit 1-channel, 2-channel, 3-channel or 4-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="h">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise This function expected to be applied to grayscale images. For colored images look at fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting image to CIELAB colorspace and then separately denoise L and AB components with different h parameter.</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoising(Mat src, Mat dst, float h, int templateWindowSize, int searchWindowSize)
+        {
+            NativeMethods.cv_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Perform image denoising using Non-local Means Denoising algorithm
+        /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/&gt; with several computational
+        /// optimizations. Noise expected to be a gaussian white noise
+        /// </summary>
+        /// <param name="src">Input 8-bit or 16-bit (only with NORM_L1) 1-channel, 2-channel, 3-channel or 4-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="h">Array of parameters regulating filter strength, either one parameter applied to all channels or one per channel in dst. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <param name="normType">Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1 This function expected to be applied to grayscale images. For colored images look at fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting image to CIELAB colorspace and then separately denoise L and AB components with different h parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoising(Mat src, Mat dst, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
+        {
+            NativeMethods.cv_fastNlMeansDenoising_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize, normType);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Modification of fastNlMeansDenoising function for colored images
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="h">Parameter regulating filter strength for luminance component. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="hColor">The same as h but for color components. For most images value equals 10 will be enough to remove colored noise and do not distort colors The function converts image to CIELAB colorspace and then separately denoise L and AB components with given h parameters using fastNlMeansDenoising function.</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoisingColored(Mat src, Mat dst, float h, float hColor, int templateWindowSize, int searchWindowSize)
+        {
+            NativeMethods.cv_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, hColor, templateWindowSize, searchWindowSize);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
+        /// captured in small period of time. For example video. This version of the function is for grayscale
+        /// images or for manual manipulation with colorspaces. See @cite Buades2005DenoisingIS for more details
+        /// (open access [here](https://static.aminer.org/pdf/PDF/000/317/196/spatio_temporal_wiener_filtering_of_image_sequences_using_a_parametric.pdf)).
+        /// </summary>
+        /// <param name="srcImgs">Input 8-bit 1-channel, 2-channel, 3-channel or 4-channel images sequence. All images should have the same type and size.</param>
+        /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
+        /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
+        /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
+        /// <param name="h">Parameter regulating filter strength. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, int templateWindowSize, int searchWindowSize)
+        {
+            NativeMethods.cv_fastNlMeansDenoisingMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
+        /// captured in small period of time. For example video. This version of the function is for grayscale
+        /// images or for manual manipulation with colorspaces. See @cite Buades2005DenoisingIS for more details
+        /// (open access [here](https://static.aminer.org/pdf/PDF/000/317/196/spatio_temporal_wiener_filtering_of_image_sequences_using_a_parametric.pdf)).
+        /// </summary>
+        /// <param name="srcImgs">Input 8-bit or 16-bit (only with NORM_L1) 1-channel, 2-channel, 3-channel or 4-channel images sequence. All images should have the same type and size.</param>
+        /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
+        /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
+        /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
+        /// <param name="h">Array of parameters regulating filter strength, either one parameter applied to all channels or one per channel in dst. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <param name="normType">Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
+        {
+            NativeMethods.cv_fastNlMeansDenoisingMulti_1(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Modification of fastNlMeansDenoisingMulti function for colored images sequences
+        /// </summary>
+        /// <param name="srcImgs">Input 8-bit 3-channel images sequence. All images should have the same type and size.</param>
+        /// <param name="dst">Output image with the same size and type as srcImgs images.</param>
+        /// <param name="imgToDenoiseIndex">Target image to denoise index in srcImgs sequence</param>
+        /// <param name="temporalWindowSize">Number of surrounding images to use for target image denoising. Should be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to imgToDenoiseIndex + temporalWindowSize / 2 from srcImgs will be used to denoise srcImgs[imgToDenoiseIndex] image.</param>
+        /// <param name="h">Parameter regulating filter strength for luminance component. Bigger h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise.</param>
+        /// <param name="hColor">The same as h but for color components. The function converts images to CIELAB colorspace and then separately denoise L and AB components with given h parameters using fastNlMeansDenoisingMulti function.</param>
+        /// <param name="templateWindowSize">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="searchWindowSize">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater denoising time. Recommended value 21 pixels</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FastNlMeansDenoisingColoredMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, float hColor, int templateWindowSize, int searchWindowSize)
+        {
+            NativeMethods.cv_fastNlMeansDenoisingColoredMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Primal-dual algorithm is an algorithm for solving special types of variational problems (that is,
+        /// finding a function to minimize some functional). As the image denoising, in particular, may be seen
+        /// as the variational problem, primal-dual algorithm then can be used to perform denoising and this is
+        /// exactly what is implemented.
+        /// </summary>
+        /// <param name="observations">This array should contain one or more noised versions of the image that is to be restored.</param>
+        /// <param name="result">Here the denoised image will be stored. There is no need to do pre-allocation of storage space, as it will be automatically allocated, if necessary.</param>
+        /// <param name="lambda">Corresponds to \f$\lambda\f$ in the formulas above. As it is enlarged, the smooth (blurred) images are treated more favorably than detailed (but maybe more noised) ones. Roughly speaking, as it becomes smaller, the result will be more blur but more sever outliers will be removed.</param>
+        /// <param name="niters">Number of iterations that the algorithm will run. Of course, as more iterations as better, but it is hard to quantitatively refine this statement, so just use the default and increase it if the results are poor.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// It should be noted, that this implementation was taken from the July 2013 blog entry
+        /// @cite MA13 , which also contained (slightly more general) ready-to-use source code on Python.
+        /// Subsequently, that code was rewritten on C++ with the usage of openCV by Vadim Pisarevsky at the end
+        /// of July 2013 and finally it was slightly adapted by later authors.
+        /// Although the thorough discussion and justification of the algorithm involved may be found in
+        /// @cite ChambolleEtAl, it might make sense to skim over it here, following @cite MA13 . To begin
+        /// with, we consider the 1-byte gray-level images as the functions from the rectangular domain of
+        /// pixels (it may be seen as set
+        /// \f$\left\{(x,y)\in\mathbb{N}\times\mathbb{N}\mid 1\leq x\leq n,\;1\leq y\leq m\right\}\f$ for some
+        /// \f$m,\;n\in\mathbb{N}\f$) into \f$\{0,1,\dots,255\}\f$. We shall denote the noised images as \f$f_i\f$ and with
+        /// this view, given some image \f$x\f$ of the same size, we may measure how bad it is by the formula
+        /// \f[\left\|\left\|\nabla x\right\|\right\| + \lambda\sum_i\left\|\left\|x-f_i\right\|\right\|\f]
+        /// \f$\|\|\cdot\|\|\f$ here denotes \f$L_2\f$-norm and as you see, the first addend states that we want our
+        /// image to be smooth (ideally, having zero gradient, thus being constant) and the second states that
+        /// we want our result to be close to the observations we've got. If we treat \f$x\f$ as a function, this is
+        /// exactly the functional what we seek to minimize and here the Primal-Dual algorithm comes into play.
+        /// </remarks>
+        public static void DenoiseTVL1(IntPtr observations, Mat result, double lambda, int niters)
+        {
+            NativeMethods.cv_denoise_TVL1_0(observations, ValidationHelper.GetHandle(result, nameof(result), false), lambda, niters);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Creates simple linear mapper with gamma correction
+        /// </summary>
+        /// <param name="gamma">positive value for gamma correction. Gamma value of 1.0 implies no correction, gamma equal to 2.2f is suitable for most displays. Generally gamma \&gt; 1 brightens the image and gamma \&lt; 1 darkens it.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static Tonemap? CreateTonemap(float gamma)
+        {
+            IntPtr res = NativeMethods.cv_createTonemap_0(gamma);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new Tonemap(res);
+        }
+        /// <summary>
+        /// Creates TonemapDrago object
+        /// </summary>
+        /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
+        /// <param name="saturation">positive saturation enhancement value. 1.0 preserves saturation, values greater than 1 increase saturation and values less than 1 decrease it.</param>
+        /// <param name="bias">value for bias function in [0, 1] range. Values from 0.7 to 0.9 usually give best results, default value is 0.85.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static TonemapDrago? CreateTonemapDrago(float gamma, float saturation, float bias)
+        {
+            IntPtr res = NativeMethods.cv_createTonemapDrago_0(gamma, saturation, bias);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new TonemapDrago(res);
+        }
+        /// <summary>
+        /// Creates TonemapReinhard object
+        /// </summary>
+        /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
+        /// <param name="intensity">result intensity in [-8, 8] range. Greater intensity produces brighter results.</param>
+        /// <param name="light_adapt">light adaptation in [0, 1] range. If 1 adaptation is based only on pixel value, if 0 it's global, otherwise it's a weighted mean of this two cases.</param>
+        /// <param name="color_adapt">chromatic adaptation in [0, 1] range. If 1 channels are treated independently, if 0 adaptation level is the same for each channel.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static TonemapReinhard? CreateTonemapReinhard(float gamma, float intensity, float light_adapt, float color_adapt)
+        {
+            IntPtr res = NativeMethods.cv_createTonemapReinhard_0(gamma, intensity, light_adapt, color_adapt);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new TonemapReinhard(res);
+        }
+        /// <summary>
+        /// Creates TonemapMantiuk object
+        /// </summary>
+        /// <param name="gamma">gamma value for gamma correction. See createTonemap</param>
+        /// <param name="scale">contrast scale factor. HVS response is multiplied by this parameter, thus compressing dynamic range. Values from 0.6 to 0.9 produce best results.</param>
+        /// <param name="saturation">saturation enhancement value. See createTonemapDrago</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static TonemapMantiuk? CreateTonemapMantiuk(float gamma, float scale, float saturation)
+        {
+            IntPtr res = NativeMethods.cv_createTonemapMantiuk_0(gamma, scale, saturation);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new TonemapMantiuk(res);
+        }
+        /// <summary>
+        /// Creates AlignMTB object
+        /// </summary>
+        /// <param name="max_bits">logarithm to the base 2 of maximal shift in each dimension. Values of 5 and 6 are usually good enough (31 and 63 pixels shift respectively).</param>
+        /// <param name="exclude_range">range for exclusion bitmap that is constructed to suppress noise around the median value.</param>
+        /// <param name="cut">if true cuts images, otherwise fills the new regions with zeros.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static AlignMTB? CreateAlignMTB(int max_bits, int exclude_range, bool cut)
+        {
+            IntPtr res = NativeMethods.cv_createAlignMTB_0(max_bits, exclude_range, cut);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new AlignMTB(res);
+        }
+        /// <summary>
+        /// Creates CalibrateDebevec object
+        /// </summary>
+        /// <param name="samples">number of pixel locations to use</param>
+        /// <param name="lambda">smoothness term weight. Greater values produce smoother results, but can alter the response.</param>
+        /// <param name="random">if true sample pixel locations are chosen at random, otherwise they form a rectangular grid.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static CalibrateDebevec? CreateCalibrateDebevec(int samples, float lambda, bool random)
+        {
+            IntPtr res = NativeMethods.cv_createCalibrateDebevec_0(samples, lambda, random);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new CalibrateDebevec(res);
+        }
+        /// <summary>
+        /// Creates CalibrateRobertson object
+        /// </summary>
+        /// <param name="max_iter">maximal number of Gauss-Seidel solver iterations.</param>
+        /// <param name="threshold">target difference between results of two successive steps of the minimization.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static CalibrateRobertson? CreateCalibrateRobertson(int max_iter, float threshold)
+        {
+            IntPtr res = NativeMethods.cv_createCalibrateRobertson_0(max_iter, threshold);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new CalibrateRobertson(res);
+        }
+        /// <summary>
+        /// Creates MergeDebevec object
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static MergeDebevec? CreateMergeDebevec()
+        {
+            IntPtr res = NativeMethods.cv_createMergeDebevec_0();
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new MergeDebevec(res);
+        }
+        /// <summary>
+        /// Creates MergeMertens object
+        /// </summary>
+        /// <param name="contrast_weight">contrast measure weight. See MergeMertens.</param>
+        /// <param name="saturation_weight">saturation measure weight</param>
+        /// <param name="exposure_weight">well-exposedness measure weight</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static MergeMertens? CreateMergeMertens(float contrast_weight, float saturation_weight, float exposure_weight)
+        {
+            IntPtr res = NativeMethods.cv_createMergeMertens_0(contrast_weight, saturation_weight, exposure_weight);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new MergeMertens(res);
+        }
+        /// <summary>
+        /// Creates MergeRobertson object
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static MergeRobertson? CreateMergeRobertson()
+        {
+            IntPtr res = NativeMethods.cv_createMergeRobertson_0();
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new MergeRobertson(res);
+        }
+        /// <summary>
+        /// Transforms a color image to a grayscale image. It is a basic tool in digital printing, stylized
+        /// black-and-white photograph rendering, and in many single channel image processing applications
+        /// @cite CL12 .
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="grayscale">Output 8-bit 1-channel image.</param>
+        /// <param name="color_boost">Output 8-bit 3-channel image. This function is to be applied on color images.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Decolor(Mat src, Mat grayscale, Mat color_boost)
+        {
+            NativeMethods.cv_decolor_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(grayscale, nameof(grayscale), false), ValidationHelper.GetHandle(color_boost, nameof(color_boost), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs seamless cloning to blend a region from a source image into a destination image.
+        /// This function is designed for local image editing, allowing changes restricted to a region
+        /// (manually selected as the ROI) to be applied effortlessly and seamlessly. These changes can
+        /// range from slight distortions to complete replacement by novel content @cite PM03.
+        /// </summary>
+        /// <param name="src">The source image (8-bit 3-channel), from which a region will be blended into the destination.</param>
+        /// <param name="dst">The destination image (8-bit 3-channel), where the src image will be blended.</param>
+        /// <param name="mask">A binary mask (8-bit, 1, 3, or 4-channel) specifying the region in the source image to blend. Non-zero pixels indicate the region to be blended. If an empty Mat is provided, a mask with all non-zero pixels is created internally.</param>
+        /// <param name="p">The point where the center of the src image is placed in the dst image.</param>
+        /// <param name="blend">The output image that stores the result of the seamless cloning. It has the same size and type as `dst`.</param>
+        /// <param name="flags">Flags that control the type of cloning method, can take values of `cv::SeamlessCloneFlags`.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void SeamlessClone(Mat src, Mat dst, Mat mask, Point p, Mat blend, int flags)
+        {
+            NativeMethods.cv_seamlessClone_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), p, ValidationHelper.GetHandle(blend, nameof(blend), false), flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Given an original color image, two differently colored versions of this image can be mixed
+        /// seamlessly.
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="red_mul">R-channel multiply factor.</param>
+        /// <param name="green_mul">G-channel multiply factor.</param>
+        /// <param name="blue_mul">B-channel multiply factor. Multiplication factor is between .5 to 2.5.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul)
+        {
+            NativeMethods.cv_colorChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), red_mul, green_mul, blue_mul);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Applying an appropriate non-linear transformation to the gradient field inside the selection and
+        /// then integrating back with a Poisson solver, modifies locally the apparent illumination of an image.
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src.</param>
+        /// <param name="alpha">Value ranges between 0-2.</param>
+        /// <param name="beta">Value ranges between 0-2. This is useful to highlight under-exposed foreground objects or to reduce specular reflections.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void IlluminationChange(Mat src, Mat mask, Mat dst, float alpha, float beta)
+        {
+            NativeMethods.cv_illuminationChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// By retaining only the gradients at edge locations, before integrating with the Poisson solver, one
+        /// washes out the texture of the selected region, giving its contents a flat aspect. Here Canny Edge %Detector is used.
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="mask">Input 8-bit 1 or 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src.</param>
+        /// <param name="low_threshold">%Range from 0 to 100.</param>
+        /// <param name="high_threshold">Value \&gt; 100.</param>
+        /// <param name="kernel_size">The size of the Sobel kernel to be used.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note
+        /// The algorithm assumes that the color of the source image is close to that of the destination. This
+        /// assumption means that when the colors don't match, the source image color gets tinted toward the
+        /// color of the destination image.
+        /// </remarks>
+        public static void TextureFlattening(Mat src, Mat mask, Mat dst, float low_threshold, float high_threshold, int kernel_size)
+        {
+            NativeMethods.cv_textureFlattening_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), low_threshold, high_threshold, kernel_size);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Filtering is the fundamental operation in image and video processing. Edge-preserving smoothing
+        /// filters are used in many different applications @cite EM11 .
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst">Output 8-bit 3-channel image.</param>
+        /// <param name="flags">Edge preserving filters: cv::RECURS_FILTER or cv::NORMCONV_FILTER</param>
+        /// <param name="sigma_s">%Range between 0 to 200.</param>
+        /// <param name="sigma_r">%Range between 0 to 1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void EdgePreservingFilter(Mat src, Mat dst, int flags, float sigma_s, float sigma_r)
+        {
+            NativeMethods.cv_edgePreservingFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, sigma_s, sigma_r);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// This filter enhances the details of a particular image.
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src.</param>
+        /// <param name="sigma_s">%Range between 0 to 200.</param>
+        /// <param name="sigma_r">%Range between 0 to 1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailEnhance(Mat src, Mat dst, float sigma_s, float sigma_r)
+        {
+            NativeMethods.cv_detailEnhance_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Pencil-like non-photorealistic line drawing
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst1">Output 8-bit 1-channel image.</param>
+        /// <param name="dst2">Output image with the same size and type as src.</param>
+        /// <param name="sigma_s">%Range between 0 to 200.</param>
+        /// <param name="sigma_r">%Range between 0 to 1.</param>
+        /// <param name="shade_factor">%Range between 0 to 0.1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void PencilSketch(Mat src, Mat dst1, Mat dst2, float sigma_s, float sigma_r, float shade_factor)
+        {
+            NativeMethods.cv_pencilSketch_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst1, nameof(dst1), false), ValidationHelper.GetHandle(dst2, nameof(dst2), false), sigma_s, sigma_r, shade_factor);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Stylization aims to produce digital imagery with a wide variety of effects not focused on
+        /// photorealism. Edge-aware filters are ideal for stylization, as they can abstract regions of low
+        /// contrast while preserving, or enhancing, high-contrast features.
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src.</param>
+        /// <param name="sigma_s">%Range between 0 to 200.</param>
+        /// <param name="sigma_r">%Range between 0 to 1.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void Stylization(Mat src, Mat dst, float sigma_s, float sigma_r)
+        {
+            NativeMethods.cv_stylization_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Corrects lateral chromatic aberration in an image using polynomial distortion model.
+        /// </summary>
+        /// <param name="input_image">Input BGR image to correct</param>
+        /// <param name="coefficients">Coefficient model</param>
+        /// <param name="output_image">Corrected BGR image</param>
+        /// <param name="image_size">Size of images for the calibration coefficient model</param>
+        /// <param name="calib_degree">Degree of the calibration coefficient model</param>
+        /// <param name="bayer_pattern">Bayer pattern code (e.g. cv::COLOR_BayerBG2BGR) used for demosaicing when @p input_image has one channel; ignored otherwise.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This function loads polynomial calibration data from the specified file and applies
+        /// a channel‐specific warp to remove chromatic aberration.
+        /// If @p input_image has one channel, it is assumed to be a raw Bayer image and is
+        /// first demosaiced using @p bayer_pattern. If it has three channels, it is treated
+        /// as a BGR image and @p bayer_pattern is ignored.
+        /// Firstly, calibration needs to be done using apps/chromatic-aberration-calibration/ca_calibration.py on a photo of
+        /// a pattern of black discs on white background, included in opencv_extra/testdata/cv/cameracalibration/chromatic_aberration/chromatic_aberration_pattern_a3.png
+        /// Calibration and correction are based on the algorithm described in @cite rudakova2013precise.
+        /// The chromatic aberration is modeled as a polynomial of some degree in red and blue channels compared to green.
+        /// In calibration, a photo of many black discs on white background is used, and the displacements
+        /// between the centres of discs in red and blue channels compared to green are minimized. The coefficients
+        /// are then saved in a yaml file which can be used with this function to correct lateral chromatic aberration.
+        /// @sa loadChromaticAberrationParams, demosaicing
+        /// </remarks>
+        public static void CorrectChromaticAberration(Mat input_image, Mat coefficients, Mat output_image, Size image_size, int calib_degree, int bayer_pattern)
+        {
+            NativeMethods.cv_correctChromaticAberration_0(ValidationHelper.GetHandle(input_image, nameof(input_image), false), ValidationHelper.GetHandle(coefficients, nameof(coefficients), false), ValidationHelper.GetHandle(output_image, nameof(output_image), false), image_size, calib_degree, bayer_pattern);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Load chromatic-aberration calibration parameters from opened FileStorage.
+        /// *
+        /// R e*ads the red and blue polynomial coefficients from the specified file and
+        /// packs them into a 4×N CV_32F matrix:
+        /// row 0 = blue dx coefficients
+        /// row 1 = blue dy coefficients
+        /// row 2 = red  dx coefficients
+        /// row 3 = red  dy coefficients
+        /// </summary>
+        /// <param name="node">Node of opened cv::FileStorage object.</param>
+        /// <param name="coeffMat">Output 4xN coefficient matrix (CV_32F).</param>
+        /// <param name="calib_size">Calibration image size read from file.</param>
+        /// <param name="degree">Polynomial degree inferred from N.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa correctChromaticAberration
+        /// </remarks>
+        public static void LoadChromaticAberrationParams(FileNode node, Mat coeffMat, Size calib_size, int degree)
+        {
+            NativeMethods.cv_loadChromaticAberrationParams_0(ValidationHelper.GetHandle(node, nameof(node), false), ValidationHelper.GetHandle(coeffMat, nameof(coeffMat), false), calib_size, degree);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// * @brief Applies gamma correction to the input image.
+        /// </summary>
+        /// <param name="src">The src parameter.</param>
+        /// <param name="dst">The dst parameter.</param>
+        /// <param name="gamma">The gamma parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * @param src Input image.
+        /// * @param dst Output image.
+        /// * @param gamma Gamma correction greater than zero.
+        /// </remarks>
+        public static void CcmGammaCorrection(Mat src, Mat dst, double gamma)
+        {
+            NativeMethods.cv_ccm_gammaCorrection_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), gamma);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs pure non local means denoising without any simplification, and thus it is not fast.
+        /// </summary>
+        /// <param name="src">Source image. Supports only CV_8UC1, CV_8UC2 and CV_8UC3.</param>
+        /// <param name="dst">Destination image.</param>
+        /// <param name="h">Filter sigma regulating filter strength for color.</param>
+        /// <param name="search_window">Size of search window.</param>
+        /// <param name="block_size">Size of block used for computing weights.</param>
+        /// <param name="borderMode">Border type. See borderInterpolate for details. BORDER_REFLECT101 , BORDER_REPLICATE , BORDER_CONSTANT , BORDER_REFLECT and BORDER_WRAP are supported for now.</param>
+        /// <param name="stream">Stream for the asynchronous version.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa
+        /// fastNlMeansDenoising
+        /// </remarks>
+        public static void CudaNonLocalMeans(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, int borderMode, CudaStream? stream)
+        {
+            NativeMethods.cv_cuda_nonLocalMeans_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, borderMode, ValidationHelper.GetHandle(stream, nameof(stream), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Perform image denoising using Non-local Means Denoising algorithm
+        /// &lt;http://www.ipol.im/pub/algo/bcm_non_local_means_denoising&gt; with several computational
+        /// optimizations. Noise expected to be a gaussian white noise
+        /// </summary>
+        /// <param name="src">Input 8-bit 1-channel, 2-channel or 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="h">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="search_window">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater search_window - greater denoising time. Recommended value 21 pixels</param>
+        /// <param name="block_size">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="stream">Stream for the asynchronous invocations. This function expected to be applied to grayscale images. For colored images look at FastNonLocalMeansDenoising::labMethod.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa
+        /// fastNlMeansDenoising
+        /// </remarks>
+        public static void CudaFastNlMeansDenoising(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, CudaStream? stream)
+        {
+            NativeMethods.cv_cuda_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Modification of fastNlMeansDenoising function for colored images
+        /// </summary>
+        /// <param name="src">Input 8-bit 3-channel image.</param>
+        /// <param name="dst">Output image with the same size and type as src .</param>
+        /// <param name="h_luminance">Parameter regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise</param>
+        /// <param name="photo_render">float The same as h but for color components. For most images value equals 10 will be enough to remove colored noise and do not distort colors</param>
+        /// <param name="search_window">Size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Affect performance linearly: greater search_window - greater denoising time. Recommended value 21 pixels</param>
+        /// <param name="block_size">Size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels</param>
+        /// <param name="stream">Stream for the asynchronous invocations. The function converts image to CIELAB colorspace and then separately denoise L and AB components with given h parameters using FastNonLocalMeansDenoising::simpleMethod function.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @sa
+        /// fastNlMeansDenoisingColored
+        /// </remarks>
+        public static void CudaFastNlMeansDenoisingColored(CudaGpuMat src, CudaGpuMat dst, float h_luminance, float photo_render, int search_window, int block_size, CudaStream? stream)
+        {
+            NativeMethods.cv_cuda_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h_luminance, photo_render, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
+            ErrorHelper.CheckError();
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class AlignExposures : Algorithm
     {
-        internal AlignExposures(IntPtr handle) : base(handle) {}
+        internal AlignExposures(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.AlignExposures_Delete(handle);
@@ -51,7 +51,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class AlignMTB : AlignExposures
     {
-        internal AlignMTB(IntPtr handle) : base(handle) {}
+        internal AlignMTB(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.AlignMTB_Delete(handle);
@@ -208,7 +208,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CalibrateCRF : Algorithm
     {
-        internal CalibrateCRF(IntPtr handle) : base(handle) {}
+        internal CalibrateCRF(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CalibrateCRF_Delete(handle);
@@ -241,7 +241,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CalibrateDebevec : CalibrateCRF
     {
-        internal CalibrateDebevec(IntPtr handle) : base(handle) {}
+        internal CalibrateDebevec(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CalibrateDebevec_Delete(handle);
@@ -327,7 +327,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CalibrateRobertson : CalibrateCRF
     {
-        internal CalibrateRobertson(IntPtr handle) : base(handle) {}
+        internal CalibrateRobertson(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CalibrateRobertson_Delete(handle);
@@ -402,7 +402,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MergeDebevec : MergeExposures
     {
-        internal MergeDebevec(IntPtr handle) : base(handle) {}
+        internal MergeDebevec(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MergeDebevec_Delete(handle);
@@ -446,7 +446,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class MergeExposures : Algorithm
     {
-        internal MergeExposures(IntPtr handle) : base(handle) {}
+        internal MergeExposures(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MergeExposures_Delete(handle);
@@ -483,7 +483,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MergeMertens : MergeExposures
     {
-        internal MergeMertens(IntPtr handle) : base(handle) {}
+        internal MergeMertens(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MergeMertens_Delete(handle);
@@ -599,7 +599,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MergeRobertson : MergeExposures
     {
-        internal MergeRobertson(IntPtr handle) : base(handle) {}
+        internal MergeRobertson(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MergeRobertson_Delete(handle);
@@ -643,7 +643,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Tonemap : Algorithm
     {
-        internal Tonemap(IntPtr handle) : base(handle) {}
+        internal Tonemap(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Tonemap_Delete(handle);
@@ -700,7 +700,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class TonemapDrago : Tonemap
     {
-        internal TonemapDrago(IntPtr handle) : base(handle) {}
+        internal TonemapDrago(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.TonemapDrago_Delete(handle);
@@ -764,7 +764,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class TonemapMantiuk : Tonemap
     {
-        internal TonemapMantiuk(IntPtr handle) : base(handle) {}
+        internal TonemapMantiuk(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.TonemapMantiuk_Delete(handle);
@@ -828,7 +828,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class TonemapReinhard : Tonemap
     {
-        internal TonemapReinhard(IntPtr handle) : base(handle) {}
+        internal TonemapReinhard(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.TonemapReinhard_Delete(handle);
@@ -913,7 +913,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CcmColorCorrectionModel : DisposableOpenCVObject
     {
-        internal CcmColorCorrectionModel(IntPtr handle) : base(handle) {}
+        internal CcmColorCorrectionModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ccm_ColorCorrectionModel_Delete(handle);
@@ -1293,7 +1293,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class SegmentationIntelligentScissorsMB : DisposableOpenCVObject
     {
-        internal SegmentationIntelligentScissorsMB(IntPtr handle) : base(handle) {}
+        internal SegmentationIntelligentScissorsMB(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.segmentation_IntelligentScissorsMB_Delete(handle);

@@ -2,8 +2,8 @@
 // See LICENSE file in the project root for full license information.
 
 using System;
-using Xunit;
 using OpenCV5Sharp;
+using Xunit;
 
 namespace OpenCV5Sharp.Tests
 {

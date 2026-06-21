@@ -193,7 +193,7 @@ namespace OpenCV5Sharp
         /// <summary>Sqpnp</summary>
         Sqpnp = 6,
         /// <summary>MaxCount</summary>
-        MaxCount = unchecked((int)(6+1)),
+        MaxCount = unchecked((int)(6 + 1)),
     }
 
     /// <summary>

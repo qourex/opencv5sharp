@@ -11,340 +11,340 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Finds the positions of internal corners of the chessboard.
-            /// </summary>
-            /// <param name="image">Source chessboard view. It must be an 8-bit grayscale or color image.</param>
-            /// <param name="patternSize">Number of inner corners per a chessboard row and column ( patternSize = cv::Size(points_per_row,points_per_column) = cv::Size(columns,rows) ).</param>
-            /// <param name="corners">Output array of detected corners.</param>
-            /// <param name="flags">Various operation flags that can be zero or a combination of the following values: -   @ref CALIB_CB_ADAPTIVE_THRESH Use adaptive thresholding to convert the image to black and white, rather than a fixed threshold level (computed from the average image brightness). -   @ref CALIB_CB_NORMALIZE_IMAGE Normalize the image gamma with equalizeHist before applying fixed or adaptive thresholding. -   @ref CALIB_CB_FILTER_QUADS Use additional criteria (like contour area, perimeter, square-like shape) to filter out false quads extracted at the contour retrieval stage. -   @ref CALIB_CB_FAST_CHECK Run a fast check on the image that looks for chessboard corners, and shortcut the call if none is found. This can drastically speed up the call in the degenerate condition when no chessboard is observed. -   @ref CALIB_CB_PLAIN All other flags are ignored. The input image is taken as is. No image processing is done to improve to find the checkerboard. This has the effect of speeding up the execution of the function but could lead to not recognizing the checkerboard if the image is not previously binarized in the appropriate manner.</param>
-            /// <returns>True if all of the corners are found and placed in a certain order (row by row, left to right in every row). Otherwise, if the function fails to find all the corners or reorder them, it returns false. The function attempts to determine whether the input image is a view of the chessboard pattern and locate the internal chessboard corners. For example, a regular chessboard has 8 x 8 squares and 7 x 7 internal corners, that is, points where the black squares touch each other. The detected coordinates are approximate, and to determine their positions more accurately, the function calls #cornerSubPix. You also may use the function #cornerSubPix with different parameters if returned coordinates are not accurate enough. Sample usage of detecting and drawing chessboard corners: : @code Size patternsize(8,6); //interior number of corners Mat gray = ....; //source image vector&lt;Point2f&gt; corners; //this will be filled by the detected corners //CALIB_CB_FAST_CHECK saves a lot of time on images //that do not contain any chessboard corners bool patternfound = findChessboardCorners(gray, patternsize, corners, CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE + CALIB_CB_FAST_CHECK); if(patternfound) cornerSubPix(gray, corners, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1)); drawChessboardCorners(img, patternsize, Mat(corners), patternfound); @endcode</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note The function requires white space (like a square-thick border, the wider the better) around
-            /// the board to make the detection more robust in various environments. Otherwise, if there is no
-            /// border and the background is dark, the outer black squares cannot be segmented properly and so the
-            /// square grouping and ordering algorithm fails.
-            /// Use the `generate_pattern.py` Python script (@ref tutorial_camera_calibration_pattern)
-            /// to create the desired checkerboard pattern.
-            /// </remarks>
-            public static bool FindChessboardCorners(Mat image, Size patternSize, Mat corners, int flags)
-            {
-                var res = NativeMethods.cv_findChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Checks whether the image contains chessboard of the specific size or not.
-            /// </summary>
-            /// <param name="img">Source chessboard view.</param>
-            /// <param name="size">Size of the chessboard.</param>
-            /// <returns>Whether a chessboard was found.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool CheckChessboard(Mat img, Size size)
-            {
-                var res = NativeMethods.cv_checkChessboard_0(ValidationHelper.GetHandle(img, nameof(img), false), size);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Finds the positions of internal corners of the chessboard using a sector based approach.
-            /// </summary>
-            /// <param name="image">Source chessboard view. It must be an 8-bit grayscale or color image.</param>
-            /// <param name="patternSize">Number of inner corners per a chessboard row and column ( patternSize = cv::Size(points_per_row,points_per_column) = cv::Size(columns,rows) ).</param>
-            /// <param name="corners">Output array of detected corners.</param>
-            /// <param name="flags">Various operation flags that can be zero or a combination of the following values: -   @ref CALIB_CB_NORMALIZE_IMAGE Normalize the image gamma with equalizeHist before detection. -   @ref CALIB_CB_EXHAUSTIVE Run an exhaustive search to improve detection rate. -   @ref CALIB_CB_ACCURACY Up sample input image to improve sub-pixel accuracy due to aliasing effects. -   @ref CALIB_CB_LARGER The detected pattern is allowed to be larger than patternSize (see description). -   @ref CALIB_CB_MARKER The detected pattern must have a marker (see description). This should be used if an accurate camera calibration is required.</param>
-            /// <param name="meta">Optional output array of detected corners (CV_8UC1 and size = cv::Size(columns,rows)). Each entry stands for one corner of the pattern and can have one of the following values: -   0 = no meta data attached -   1 = left-top corner of a black cell -   2 = left-top corner of a white cell -   3 = left-top corner of a black cell with a white marker dot -   4 = left-top corner of a white cell with a black marker dot (pattern origin in case of markers otherwise first corner) The function is analog to #findChessboardCorners but uses a localized radon transformation approximated by box filters being more robust to all sort of noise, faster on larger images and is able to directly return the sub-pixel position of the internal chessboard corners. The Method is based on the paper @cite duda2018 "Accurate Detection and Localization of Checkerboard Corners for Calibration" demonstrating that the returned sub-pixel positions are more accurate than the one returned by cornerSubPix allowing a precise camera calibration for demanding applications. In the case, the flags @ref CALIB_CB_LARGER or @ref CALIB_CB_MARKER are given, the result can be recovered from the optional meta array. Both flags are helpful to use calibration patterns exceeding the field of view of the camera. These oversized patterns allow more accurate calibrations as corners can be utilized, which are as close as possible to the image borders.  For a consistent coordinate system across all images, the optional marker (see image below) can be used to move the origin of the board to the location where the black circle is located.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note The function requires a white boarder with roughly the same width as one
-            /// of the checkerboard fields around the whole board to improve the detection in
-            /// various environments. In addition, because of the localized radon
-            /// transformation it is beneficial to use round corners for the field corners
-            /// which are located on the outside of the board. The following figure illustrates
-            /// a sample checkerboard optimized for the detection. However, any other checkerboard
-            /// can be used as well.
-            /// Use the `generate_pattern.py` Python script (@ref tutorial_camera_calibration_pattern)
-            /// to create the corresponding checkerboard pattern:
-            /// \image html pics/checkerboard_radon.png width=60%
-            /// </remarks>
-            public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags, Mat meta)
-            {
-                var res = NativeMethods.cv_findChessboardCornersSB_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags, ValidationHelper.GetHandle(meta, nameof(meta), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="image">The image parameter.</param>
-            /// <param name="patternSize">The patternSize parameter.</param>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="flags">The flags parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags)
-            {
-                var res = NativeMethods.cv_findChessboardCornersSB_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Estimates the sharpness of a detected chessboard.
-            /// </summary>
-            /// <param name="image">Gray image used to find chessboard corners</param>
-            /// <param name="patternSize">Size of a found chessboard pattern</param>
-            /// <param name="corners">Corners found by #findChessboardCornersSB</param>
-            /// <param name="rise_distance">Rise distance 0.8 means 10% ... 90% of the final signal strength</param>
-            /// <param name="vertical">By default edge responses for horizontal lines are calculated</param>
-            /// <param name="sharpness">Optional output array with a sharpness value for calculated edge responses (see description) The optional sharpness array is of type CV_32FC1 and has for each calculated profile one row with the following five entries: * 0 = x coordinate of the underlying edge in the image * 1 = y coordinate of the underlying edge in the image * 2 = width of the transition area (sharpness) * 3 = signal strength in the black cell (min brightness) * 4 = signal strength in the white cell (max brightness)</param>
-            /// <returns>Scalar(average sharpness, average min brightness, average max brightness,0)</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// Image sharpness, as well as brightness, are a critical parameter for accuracte
-            /// camera calibration. For accessing these parameters for filtering out
-            /// problematic calibraiton images, this method calculates edge profiles by traveling from
-            /// black to white chessboard cell centers. Based on this, the number of pixels is
-            /// calculated required to transit from black to white. This width of the
-            /// transition area is a good indication of how sharp the chessboard is imaged
-            /// and should be below ~3.0 pixels.
-            /// </remarks>
-            public static Scalar EstimateChessboardSharpness(Mat image, Size patternSize, Mat corners, float rise_distance, bool vertical, Mat? sharpness)
-            {
-                var res = NativeMethods.cv_estimateChessboardSharpness_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), rise_distance, vertical, ValidationHelper.GetHandle(sharpness, nameof(sharpness), true));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// No description available.
-            /// </summary>
-            /// <param name="img">The img parameter.</param>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="region_size">The region_size parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool Find4QuadCornerSubpix(Mat img, Mat corners, Size region_size)
-            {
-                var res = NativeMethods.cv_find4QuadCornerSubpix_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(corners, nameof(corners), false), region_size);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Renders the detected chessboard corners.
-            /// </summary>
-            /// <param name="image">Destination image. It must be an 8-bit color image.</param>
-            /// <param name="patternSize">Number of inner corners per a chessboard row and column (patternSize = cv::Size(points_per_row,points_per_column)).</param>
-            /// <param name="corners">Array of detected corners, the output of #findChessboardCorners.</param>
-            /// <param name="patternWasFound">Parameter indicating whether the complete board was found or not. The return value of #findChessboardCorners should be passed here. The function draws individual chessboard corners detected either as red circles if the board was not found, or as colored corners connected with lines if the board was found.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DrawChessboardCorners(Mat image, Size patternSize, Mat corners, bool patternWasFound)
-            {
-                NativeMethods.cv_drawChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), patternWasFound);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Finds centers in the grid of circles.
-            /// </summary>
-            /// <param name="image">grid view of input circles; it must be an 8-bit grayscale or color image.</param>
-            /// <param name="patternSize">number of circles per row and column ( patternSize = Size(points_per_row, points_per_column) ).</param>
-            /// <param name="centers">output array of detected centers.</param>
-            /// <param name="flags">various operation flags that can be one of the following values: -   @ref CALIB_CB_SYMMETRIC_GRID uses symmetric pattern of circles. -   @ref CALIB_CB_ASYMMETRIC_GRID uses asymmetric pattern of circles. -   @ref CALIB_CB_CLUSTERING uses a special algorithm for grid detection. It is more robust to perspective distortions but much more sensitive to background clutter.</param>
-            /// <param name="blobDetector">feature detector that finds blobs like dark circles on light background. If `blobDetector` is NULL then `image` represents Point2f array of candidates.</param>
-            /// <param name="parameters">struct for finding circles in a grid pattern. return True if all of the centers have been found and they have been placed in a certain order (row by row, left to right in every row). Otherwise, if the function fails to find all the corners or reorder them, it returns false. The function attempts to determine whether the input image contains a grid of circles. If it is, the function locates centers of the circles. Sample usage of detecting and drawing the centers of circles: : @code Size patternsize(7,7); //number of centers Mat gray = ...; //source image vector&lt;Point2f&gt; centers; //this will be filled by the detected centers bool patternfound = findCirclesGrid(gray, patternsize, centers); drawChessboardCorners(img, patternsize, Mat(centers), patternfound); @endcode</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note The function requires white space (like a square-thick border, the wider the better) around
-            /// the board to make the detection more robust in various environments.
-            /// </remarks>
-            public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector, CirclesGridFinderParameters parameters)
-            {
-                var res = NativeMethods.cv_findCirclesGrid_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector, ValidationHelper.GetHandle(parameters, nameof(parameters), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// @overload
-            /// </summary>
-            /// <param name="image">The image parameter.</param>
-            /// <param name="patternSize">The patternSize parameter.</param>
-            /// <param name="centers">The centers parameter.</param>
-            /// <param name="flags">The flags parameter.</param>
-            /// <param name="blobDetector">The blobDetector parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector)
-            {
-                var res = NativeMethods.cv_findCirclesGrid_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Draw detected markers in image
-            /// *
-            /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not altered.
-            /// * @param corners positions of marker corners on input image.
-            /// * (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers, the dimensions of
-            /// * this array should be Nx4. The order of the corners should be clockwise.
-            /// * @param ids vector of identifiers for markers in markersCorners .
-            /// * Optional, if not provided, ids are not painted.
-            /// * @param borderColor color of marker borders. Rest of colors (text color and first corner color)
-            /// * are calculated based on this one to improve visualization.
-            /// *
-            /// * Given an array of detected marker corners and its corresponding ids, this functions draws
-            /// * the markers in the image. The marker borders are painted and the markers identifiers if provided.
-            /// * Useful for debugging purposes.
-            /// </summary>
-            /// <param name="image">The image parameter.</param>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="ids">The ids parameter.</param>
-            /// <param name="borderColor">The borderColor parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void ArucoDrawDetectedMarkers(Mat image, IntPtr corners, Mat? ids, Scalar borderColor)
-            {
-                NativeMethods.cv_aruco_drawDetectedMarkers_0(ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), true), borderColor);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Generate a canonical marker image
-            /// *
-            /// * @param dictionary dictionary of markers indicating the type of markers
-            /// * @param id identifier of the marker that will be returned. It has to be a valid id in the specified dictionary.
-            /// * @param sidePixels size of the image in pixels
-            /// * @param img output image with the marker
-            /// * @param borderBits width of the marker border.
-            /// *
-            /// * This function returns a marker image in its canonical form (i.e. ready to be printed)
-            /// </summary>
-            /// <param name="dictionary">The dictionary parameter.</param>
-            /// <param name="id">The id parameter.</param>
-            /// <param name="sidePixels">The sidePixels parameter.</param>
-            /// <param name="img">The img parameter.</param>
-            /// <param name="borderBits">The borderBits parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void ArucoGenerateImageMarker(ArucoDictionary dictionary, int id, int sidePixels, Mat img, int borderBits)
-            {
-                NativeMethods.cv_aruco_generateImageMarker_0(ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), id, sidePixels, ValidationHelper.GetHandle(img, nameof(img), false), borderBits);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns one of the predefined dictionaries referenced by DICT_*.
-            /// </summary>
-            /// <param name="dict">The dict parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static ArucoDictionary? ArucoGetPredefinedDictionary(int dict)
-            {
-                IntPtr res = NativeMethods.cv_aruco_getPredefinedDictionary_0(dict);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new ArucoDictionary(res);
-            }
-            /// <summary>
-            /// Extend base dictionary by new nMarkers
-            /// *
-            /// * @param nMarkers number of markers in the dictionary
-            /// * @param markerSize number of bits per dimension of each markers
-            /// * @param baseDictionary Include the markers in this dictionary at the beginning (optional)
-            /// * @param randomSeed a user supplied seed for theRNG()
-            /// *
-            /// * This function creates a new dictionary composed by nMarkers markers and each markers composed
-            /// * by markerSize x markerSize bits. If baseDictionary is provided, its markers are directly
-            /// * included and the rest are generated based on them. If the size of baseDictionary is higher
-            /// * than nMarkers, only the first nMarkers in baseDictionary are taken and no new marker is added.
-            /// </summary>
-            /// <param name="nMarkers">The nMarkers parameter.</param>
-            /// <param name="markerSize">The markerSize parameter.</param>
-            /// <param name="baseDictionary">The baseDictionary parameter.</param>
-            /// <param name="randomSeed">The randomSeed parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static ArucoDictionary? ArucoExtendDictionary(int nMarkers, int markerSize, ArucoDictionary? baseDictionary, int randomSeed)
-            {
-                IntPtr res = NativeMethods.cv_aruco_extendDictionary_0(nMarkers, markerSize, ValidationHelper.GetHandle(baseDictionary, nameof(baseDictionary), true), randomSeed);
-                ErrorHelper.CheckError();
-                return res == IntPtr.Zero ? null : new ArucoDictionary(res);
-            }
-            /// <summary>
-            /// * @brief Draws a set of Charuco corners
-            /// </summary>
-            /// <param name="image">The image parameter.</param>
-            /// <param name="charucoCorners">The charucoCorners parameter.</param>
-            /// <param name="charucoIds">The charucoIds parameter.</param>
-            /// <param name="cornerColor">The cornerColor parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not
-            /// * altered.
-            /// * @param charucoCorners vector of detected charuco corners
-            /// * @param charucoIds list of identifiers for each corner in charucoCorners
-            /// * @param cornerColor color of the square surrounding each corner
-            /// *
-            /// * This function draws a set of detected Charuco corners. If identifiers vector is provided, it also
-            /// * draws the id of each corner.
-            /// </remarks>
-            public static void ArucoDrawDetectedCornersCharuco(Mat image, Mat charucoCorners, Mat? charucoIds, Scalar cornerColor)
-            {
-                NativeMethods.cv_aruco_drawDetectedCornersCharuco_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(charucoCorners, nameof(charucoCorners), false), ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), true), cornerColor);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// * @brief Draw a set of detected ChArUco Diamond markers
-            /// </summary>
-            /// <param name="image">The image parameter.</param>
-            /// <param name="diamondCorners">The diamondCorners parameter.</param>
-            /// <param name="diamondIds">The diamondIds parameter.</param>
-            /// <param name="borderColor">The borderColor parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// *
-            /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not
-            /// * altered.
-            /// * @param diamondCorners positions of diamond corners in the same format returned by
-            /// * detectCharucoDiamond(). (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers,
-            /// * the dimensions of this array should be Nx4. The order of the corners should be clockwise.
-            /// * @param diamondIds vector of identifiers for diamonds in diamondCorners, in the same format
-            /// * returned by detectCharucoDiamond() (e.g. std::vector&lt;Vec4i&gt;).
-            /// * Optional, if not provided, ids are not painted.
-            /// * @param borderColor color of marker borders. Rest of colors (text color and first corner color)
-            /// * are calculated based on this one.
-            /// *
-            /// * Given an array of detected diamonds, this functions draws them in the image. The marker borders
-            /// * are painted and the markers identifiers if provided.
-            /// * Useful for debugging purposes.
-            /// </remarks>
-            public static void ArucoDrawDetectedDiamonds(Mat image, IntPtr diamondCorners, Mat? diamondIds, Scalar borderColor)
-            {
-                NativeMethods.cv_aruco_drawDetectedDiamonds_0(ValidationHelper.GetHandle(image, nameof(image), false), diamondCorners, ValidationHelper.GetHandle(diamondIds, nameof(diamondIds), true), borderColor);
-                ErrorHelper.CheckError();
-            }
+        /// <summary>
+        /// Finds the positions of internal corners of the chessboard.
+        /// </summary>
+        /// <param name="image">Source chessboard view. It must be an 8-bit grayscale or color image.</param>
+        /// <param name="patternSize">Number of inner corners per a chessboard row and column ( patternSize = cv::Size(points_per_row,points_per_column) = cv::Size(columns,rows) ).</param>
+        /// <param name="corners">Output array of detected corners.</param>
+        /// <param name="flags">Various operation flags that can be zero or a combination of the following values: -   @ref CALIB_CB_ADAPTIVE_THRESH Use adaptive thresholding to convert the image to black and white, rather than a fixed threshold level (computed from the average image brightness). -   @ref CALIB_CB_NORMALIZE_IMAGE Normalize the image gamma with equalizeHist before applying fixed or adaptive thresholding. -   @ref CALIB_CB_FILTER_QUADS Use additional criteria (like contour area, perimeter, square-like shape) to filter out false quads extracted at the contour retrieval stage. -   @ref CALIB_CB_FAST_CHECK Run a fast check on the image that looks for chessboard corners, and shortcut the call if none is found. This can drastically speed up the call in the degenerate condition when no chessboard is observed. -   @ref CALIB_CB_PLAIN All other flags are ignored. The input image is taken as is. No image processing is done to improve to find the checkerboard. This has the effect of speeding up the execution of the function but could lead to not recognizing the checkerboard if the image is not previously binarized in the appropriate manner.</param>
+        /// <returns>True if all of the corners are found and placed in a certain order (row by row, left to right in every row). Otherwise, if the function fails to find all the corners or reorder them, it returns false. The function attempts to determine whether the input image is a view of the chessboard pattern and locate the internal chessboard corners. For example, a regular chessboard has 8 x 8 squares and 7 x 7 internal corners, that is, points where the black squares touch each other. The detected coordinates are approximate, and to determine their positions more accurately, the function calls #cornerSubPix. You also may use the function #cornerSubPix with different parameters if returned coordinates are not accurate enough. Sample usage of detecting and drawing chessboard corners: : @code Size patternsize(8,6); //interior number of corners Mat gray = ....; //source image vector&lt;Point2f&gt; corners; //this will be filled by the detected corners //CALIB_CB_FAST_CHECK saves a lot of time on images //that do not contain any chessboard corners bool patternfound = findChessboardCorners(gray, patternsize, corners, CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE + CALIB_CB_FAST_CHECK); if(patternfound) cornerSubPix(gray, corners, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1)); drawChessboardCorners(img, patternsize, Mat(corners), patternfound); @endcode</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note The function requires white space (like a square-thick border, the wider the better) around
+        /// the board to make the detection more robust in various environments. Otherwise, if there is no
+        /// border and the background is dark, the outer black squares cannot be segmented properly and so the
+        /// square grouping and ordering algorithm fails.
+        /// Use the `generate_pattern.py` Python script (@ref tutorial_camera_calibration_pattern)
+        /// to create the desired checkerboard pattern.
+        /// </remarks>
+        public static bool FindChessboardCorners(Mat image, Size patternSize, Mat corners, int flags)
+        {
+            var res = NativeMethods.cv_findChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Checks whether the image contains chessboard of the specific size or not.
+        /// </summary>
+        /// <param name="img">Source chessboard view.</param>
+        /// <param name="size">Size of the chessboard.</param>
+        /// <returns>Whether a chessboard was found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool CheckChessboard(Mat img, Size size)
+        {
+            var res = NativeMethods.cv_checkChessboard_0(ValidationHelper.GetHandle(img, nameof(img), false), size);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Finds the positions of internal corners of the chessboard using a sector based approach.
+        /// </summary>
+        /// <param name="image">Source chessboard view. It must be an 8-bit grayscale or color image.</param>
+        /// <param name="patternSize">Number of inner corners per a chessboard row and column ( patternSize = cv::Size(points_per_row,points_per_column) = cv::Size(columns,rows) ).</param>
+        /// <param name="corners">Output array of detected corners.</param>
+        /// <param name="flags">Various operation flags that can be zero or a combination of the following values: -   @ref CALIB_CB_NORMALIZE_IMAGE Normalize the image gamma with equalizeHist before detection. -   @ref CALIB_CB_EXHAUSTIVE Run an exhaustive search to improve detection rate. -   @ref CALIB_CB_ACCURACY Up sample input image to improve sub-pixel accuracy due to aliasing effects. -   @ref CALIB_CB_LARGER The detected pattern is allowed to be larger than patternSize (see description). -   @ref CALIB_CB_MARKER The detected pattern must have a marker (see description). This should be used if an accurate camera calibration is required.</param>
+        /// <param name="meta">Optional output array of detected corners (CV_8UC1 and size = cv::Size(columns,rows)). Each entry stands for one corner of the pattern and can have one of the following values: -   0 = no meta data attached -   1 = left-top corner of a black cell -   2 = left-top corner of a white cell -   3 = left-top corner of a black cell with a white marker dot -   4 = left-top corner of a white cell with a black marker dot (pattern origin in case of markers otherwise first corner) The function is analog to #findChessboardCorners but uses a localized radon transformation approximated by box filters being more robust to all sort of noise, faster on larger images and is able to directly return the sub-pixel position of the internal chessboard corners. The Method is based on the paper @cite duda2018 "Accurate Detection and Localization of Checkerboard Corners for Calibration" demonstrating that the returned sub-pixel positions are more accurate than the one returned by cornerSubPix allowing a precise camera calibration for demanding applications. In the case, the flags @ref CALIB_CB_LARGER or @ref CALIB_CB_MARKER are given, the result can be recovered from the optional meta array. Both flags are helpful to use calibration patterns exceeding the field of view of the camera. These oversized patterns allow more accurate calibrations as corners can be utilized, which are as close as possible to the image borders.  For a consistent coordinate system across all images, the optional marker (see image below) can be used to move the origin of the board to the location where the black circle is located.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note The function requires a white boarder with roughly the same width as one
+        /// of the checkerboard fields around the whole board to improve the detection in
+        /// various environments. In addition, because of the localized radon
+        /// transformation it is beneficial to use round corners for the field corners
+        /// which are located on the outside of the board. The following figure illustrates
+        /// a sample checkerboard optimized for the detection. However, any other checkerboard
+        /// can be used as well.
+        /// Use the `generate_pattern.py` Python script (@ref tutorial_camera_calibration_pattern)
+        /// to create the corresponding checkerboard pattern:
+        /// \image html pics/checkerboard_radon.png width=60%
+        /// </remarks>
+        public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags, Mat meta)
+        {
+            var res = NativeMethods.cv_findChessboardCornersSB_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags, ValidationHelper.GetHandle(meta, nameof(meta), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="image">The image parameter.</param>
+        /// <param name="patternSize">The patternSize parameter.</param>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="flags">The flags parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags)
+        {
+            var res = NativeMethods.cv_findChessboardCornersSB_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Estimates the sharpness of a detected chessboard.
+        /// </summary>
+        /// <param name="image">Gray image used to find chessboard corners</param>
+        /// <param name="patternSize">Size of a found chessboard pattern</param>
+        /// <param name="corners">Corners found by #findChessboardCornersSB</param>
+        /// <param name="rise_distance">Rise distance 0.8 means 10% ... 90% of the final signal strength</param>
+        /// <param name="vertical">By default edge responses for horizontal lines are calculated</param>
+        /// <param name="sharpness">Optional output array with a sharpness value for calculated edge responses (see description) The optional sharpness array is of type CV_32FC1 and has for each calculated profile one row with the following five entries: * 0 = x coordinate of the underlying edge in the image * 1 = y coordinate of the underlying edge in the image * 2 = width of the transition area (sharpness) * 3 = signal strength in the black cell (min brightness) * 4 = signal strength in the white cell (max brightness)</param>
+        /// <returns>Scalar(average sharpness, average min brightness, average max brightness,0)</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// Image sharpness, as well as brightness, are a critical parameter for accuracte
+        /// camera calibration. For accessing these parameters for filtering out
+        /// problematic calibraiton images, this method calculates edge profiles by traveling from
+        /// black to white chessboard cell centers. Based on this, the number of pixels is
+        /// calculated required to transit from black to white. This width of the
+        /// transition area is a good indication of how sharp the chessboard is imaged
+        /// and should be below ~3.0 pixels.
+        /// </remarks>
+        public static Scalar EstimateChessboardSharpness(Mat image, Size patternSize, Mat corners, float rise_distance, bool vertical, Mat? sharpness)
+        {
+            var res = NativeMethods.cv_estimateChessboardSharpness_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), rise_distance, vertical, ValidationHelper.GetHandle(sharpness, nameof(sharpness), true));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// No description available.
+        /// </summary>
+        /// <param name="img">The img parameter.</param>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="region_size">The region_size parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool Find4QuadCornerSubpix(Mat img, Mat corners, Size region_size)
+        {
+            var res = NativeMethods.cv_find4QuadCornerSubpix_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(corners, nameof(corners), false), region_size);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Renders the detected chessboard corners.
+        /// </summary>
+        /// <param name="image">Destination image. It must be an 8-bit color image.</param>
+        /// <param name="patternSize">Number of inner corners per a chessboard row and column (patternSize = cv::Size(points_per_row,points_per_column)).</param>
+        /// <param name="corners">Array of detected corners, the output of #findChessboardCorners.</param>
+        /// <param name="patternWasFound">Parameter indicating whether the complete board was found or not. The return value of #findChessboardCorners should be passed here. The function draws individual chessboard corners detected either as red circles if the board was not found, or as colored corners connected with lines if the board was found.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DrawChessboardCorners(Mat image, Size patternSize, Mat corners, bool patternWasFound)
+        {
+            NativeMethods.cv_drawChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), patternWasFound);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Finds centers in the grid of circles.
+        /// </summary>
+        /// <param name="image">grid view of input circles; it must be an 8-bit grayscale or color image.</param>
+        /// <param name="patternSize">number of circles per row and column ( patternSize = Size(points_per_row, points_per_column) ).</param>
+        /// <param name="centers">output array of detected centers.</param>
+        /// <param name="flags">various operation flags that can be one of the following values: -   @ref CALIB_CB_SYMMETRIC_GRID uses symmetric pattern of circles. -   @ref CALIB_CB_ASYMMETRIC_GRID uses asymmetric pattern of circles. -   @ref CALIB_CB_CLUSTERING uses a special algorithm for grid detection. It is more robust to perspective distortions but much more sensitive to background clutter.</param>
+        /// <param name="blobDetector">feature detector that finds blobs like dark circles on light background. If `blobDetector` is NULL then `image` represents Point2f array of candidates.</param>
+        /// <param name="parameters">struct for finding circles in a grid pattern. return True if all of the centers have been found and they have been placed in a certain order (row by row, left to right in every row). Otherwise, if the function fails to find all the corners or reorder them, it returns false. The function attempts to determine whether the input image contains a grid of circles. If it is, the function locates centers of the circles. Sample usage of detecting and drawing the centers of circles: : @code Size patternsize(7,7); //number of centers Mat gray = ...; //source image vector&lt;Point2f&gt; centers; //this will be filled by the detected centers bool patternfound = findCirclesGrid(gray, patternsize, centers); drawChessboardCorners(img, patternsize, Mat(centers), patternfound); @endcode</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note The function requires white space (like a square-thick border, the wider the better) around
+        /// the board to make the detection more robust in various environments.
+        /// </remarks>
+        public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector, CirclesGridFinderParameters parameters)
+        {
+            var res = NativeMethods.cv_findCirclesGrid_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector, ValidationHelper.GetHandle(parameters, nameof(parameters), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// @overload
+        /// </summary>
+        /// <param name="image">The image parameter.</param>
+        /// <param name="patternSize">The patternSize parameter.</param>
+        /// <param name="centers">The centers parameter.</param>
+        /// <param name="flags">The flags parameter.</param>
+        /// <param name="blobDetector">The blobDetector parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector)
+        {
+            var res = NativeMethods.cv_findCirclesGrid_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Draw detected markers in image
+        /// *
+        /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not altered.
+        /// * @param corners positions of marker corners on input image.
+        /// * (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers, the dimensions of
+        /// * this array should be Nx4. The order of the corners should be clockwise.
+        /// * @param ids vector of identifiers for markers in markersCorners .
+        /// * Optional, if not provided, ids are not painted.
+        /// * @param borderColor color of marker borders. Rest of colors (text color and first corner color)
+        /// * are calculated based on this one to improve visualization.
+        /// *
+        /// * Given an array of detected marker corners and its corresponding ids, this functions draws
+        /// * the markers in the image. The marker borders are painted and the markers identifiers if provided.
+        /// * Useful for debugging purposes.
+        /// </summary>
+        /// <param name="image">The image parameter.</param>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="ids">The ids parameter.</param>
+        /// <param name="borderColor">The borderColor parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void ArucoDrawDetectedMarkers(Mat image, IntPtr corners, Mat? ids, Scalar borderColor)
+        {
+            NativeMethods.cv_aruco_drawDetectedMarkers_0(ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), true), borderColor);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Generate a canonical marker image
+        /// *
+        /// * @param dictionary dictionary of markers indicating the type of markers
+        /// * @param id identifier of the marker that will be returned. It has to be a valid id in the specified dictionary.
+        /// * @param sidePixels size of the image in pixels
+        /// * @param img output image with the marker
+        /// * @param borderBits width of the marker border.
+        /// *
+        /// * This function returns a marker image in its canonical form (i.e. ready to be printed)
+        /// </summary>
+        /// <param name="dictionary">The dictionary parameter.</param>
+        /// <param name="id">The id parameter.</param>
+        /// <param name="sidePixels">The sidePixels parameter.</param>
+        /// <param name="img">The img parameter.</param>
+        /// <param name="borderBits">The borderBits parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void ArucoGenerateImageMarker(ArucoDictionary dictionary, int id, int sidePixels, Mat img, int borderBits)
+        {
+            NativeMethods.cv_aruco_generateImageMarker_0(ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), id, sidePixels, ValidationHelper.GetHandle(img, nameof(img), false), borderBits);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns one of the predefined dictionaries referenced by DICT_*.
+        /// </summary>
+        /// <param name="dict">The dict parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static ArucoDictionary? ArucoGetPredefinedDictionary(int dict)
+        {
+            IntPtr res = NativeMethods.cv_aruco_getPredefinedDictionary_0(dict);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new ArucoDictionary(res);
+        }
+        /// <summary>
+        /// Extend base dictionary by new nMarkers
+        /// *
+        /// * @param nMarkers number of markers in the dictionary
+        /// * @param markerSize number of bits per dimension of each markers
+        /// * @param baseDictionary Include the markers in this dictionary at the beginning (optional)
+        /// * @param randomSeed a user supplied seed for theRNG()
+        /// *
+        /// * This function creates a new dictionary composed by nMarkers markers and each markers composed
+        /// * by markerSize x markerSize bits. If baseDictionary is provided, its markers are directly
+        /// * included and the rest are generated based on them. If the size of baseDictionary is higher
+        /// * than nMarkers, only the first nMarkers in baseDictionary are taken and no new marker is added.
+        /// </summary>
+        /// <param name="nMarkers">The nMarkers parameter.</param>
+        /// <param name="markerSize">The markerSize parameter.</param>
+        /// <param name="baseDictionary">The baseDictionary parameter.</param>
+        /// <param name="randomSeed">The randomSeed parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static ArucoDictionary? ArucoExtendDictionary(int nMarkers, int markerSize, ArucoDictionary? baseDictionary, int randomSeed)
+        {
+            IntPtr res = NativeMethods.cv_aruco_extendDictionary_0(nMarkers, markerSize, ValidationHelper.GetHandle(baseDictionary, nameof(baseDictionary), true), randomSeed);
+            ErrorHelper.CheckError();
+            return res == IntPtr.Zero ? null : new ArucoDictionary(res);
+        }
+        /// <summary>
+        /// * @brief Draws a set of Charuco corners
+        /// </summary>
+        /// <param name="image">The image parameter.</param>
+        /// <param name="charucoCorners">The charucoCorners parameter.</param>
+        /// <param name="charucoIds">The charucoIds parameter.</param>
+        /// <param name="cornerColor">The cornerColor parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not
+        /// * altered.
+        /// * @param charucoCorners vector of detected charuco corners
+        /// * @param charucoIds list of identifiers for each corner in charucoCorners
+        /// * @param cornerColor color of the square surrounding each corner
+        /// *
+        /// * This function draws a set of detected Charuco corners. If identifiers vector is provided, it also
+        /// * draws the id of each corner.
+        /// </remarks>
+        public static void ArucoDrawDetectedCornersCharuco(Mat image, Mat charucoCorners, Mat? charucoIds, Scalar cornerColor)
+        {
+            NativeMethods.cv_aruco_drawDetectedCornersCharuco_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(charucoCorners, nameof(charucoCorners), false), ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), true), cornerColor);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// * @brief Draw a set of detected ChArUco Diamond markers
+        /// </summary>
+        /// <param name="image">The image parameter.</param>
+        /// <param name="diamondCorners">The diamondCorners parameter.</param>
+        /// <param name="diamondIds">The diamondIds parameter.</param>
+        /// <param name="borderColor">The borderColor parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// *
+        /// * @param image input/output image. It must have 1 or 3 channels. The number of channels is not
+        /// * altered.
+        /// * @param diamondCorners positions of diamond corners in the same format returned by
+        /// * detectCharucoDiamond(). (e.g std::vector&lt;std::vector&lt;cv::Point2f&gt; &gt; ). For N detected markers,
+        /// * the dimensions of this array should be Nx4. The order of the corners should be clockwise.
+        /// * @param diamondIds vector of identifiers for diamonds in diamondCorners, in the same format
+        /// * returned by detectCharucoDiamond() (e.g. std::vector&lt;Vec4i&gt;).
+        /// * Optional, if not provided, ids are not painted.
+        /// * @param borderColor color of marker borders. Rest of colors (text color and first corner color)
+        /// * are calculated based on this one.
+        /// *
+        /// * Given an array of detected diamonds, this functions draws them in the image. The marker borders
+        /// * are painted and the markers identifiers if provided.
+        /// * Useful for debugging purposes.
+        /// </remarks>
+        public static void ArucoDrawDetectedDiamonds(Mat image, IntPtr diamondCorners, Mat? diamondIds, Scalar borderColor)
+        {
+            NativeMethods.cv_aruco_drawDetectedDiamonds_0(ValidationHelper.GetHandle(image, nameof(image), false), diamondCorners, ValidationHelper.GetHandle(diamondIds, nameof(diamondIds), true), borderColor);
+            ErrorHelper.CheckError();
+        }
     }
 }

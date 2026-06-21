@@ -16,7 +16,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CirclesGridFinderParameters : DisposableOpenCVObject
     {
-        internal CirclesGridFinderParameters(IntPtr handle) : base(handle) {}
+        internal CirclesGridFinderParameters(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CirclesGridFinderParameters_Delete(handle);
@@ -153,7 +153,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FaceDetectorYN : DisposableOpenCVObject
     {
-        internal FaceDetectorYN(IntPtr handle) : base(handle) {}
+        internal FaceDetectorYN(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FaceDetectorYN_Delete(handle);
@@ -358,7 +358,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FaceRecognizerSF : DisposableOpenCVObject
     {
-        internal FaceRecognizerSF(IntPtr handle) : base(handle) {}
+        internal FaceRecognizerSF(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FaceRecognizerSF_Delete(handle);
@@ -469,7 +469,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class GraphicalCodeDetector : DisposableOpenCVObject
     {
-        internal GraphicalCodeDetector(IntPtr handle) : base(handle) {}
+        internal GraphicalCodeDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GraphicalCodeDetector_Delete(handle);
@@ -593,7 +593,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetector : GraphicalCodeDetector
     {
-        internal QRCodeDetector(IntPtr handle) : base(handle) {}
+        internal QRCodeDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetector_Delete(handle);
@@ -712,7 +712,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetectorAruco : GraphicalCodeDetector
     {
-        internal QRCodeDetectorAruco(IntPtr handle) : base(handle) {}
+        internal QRCodeDetectorAruco(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetectorAruco_Delete(handle);
@@ -782,7 +782,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetectorArucoParams : DisposableOpenCVObject
     {
-        internal QRCodeDetectorArucoParams(IntPtr handle) : base(handle) {}
+        internal QRCodeDetectorArucoParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetectorAruco_Params_Delete(handle);
@@ -853,7 +853,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeEncoder : DisposableOpenCVObject
     {
-        internal QRCodeEncoder(IntPtr handle) : base(handle) {}
+        internal QRCodeEncoder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeEncoder_Delete(handle);
@@ -904,7 +904,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeEncoderParams : DisposableOpenCVObject
     {
-        internal QRCodeEncoderParams(IntPtr handle) : base(handle) {}
+        internal QRCodeEncoderParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeEncoder_Params_Delete(handle);
@@ -959,7 +959,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoArucoDetector : Algorithm
     {
-        internal ArucoArucoDetector(IntPtr handle) : base(handle) {}
+        internal ArucoArucoDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_ArucoDetector_Delete(handle);
@@ -1304,7 +1304,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoBoard : DisposableOpenCVObject
     {
-        internal ArucoBoard(IntPtr handle) : base(handle) {}
+        internal ArucoBoard(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_Board_Delete(handle);
@@ -1453,7 +1453,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class ArucoCharucoBoard : ArucoBoard
     {
-        internal ArucoCharucoBoard(IntPtr handle) : base(handle) {}
+        internal ArucoCharucoBoard(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoBoard_Delete(handle);
@@ -1591,7 +1591,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoCharucoDetector : Algorithm
     {
-        internal ArucoCharucoDetector(IntPtr handle) : base(handle) {}
+        internal ArucoCharucoDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoDetector_Delete(handle);
@@ -1801,7 +1801,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoCharucoParameters : DisposableOpenCVObject
     {
-        internal ArucoCharucoParameters(IntPtr handle) : base(handle) {}
+        internal ArucoCharucoParameters(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoParameters_Delete(handle);
@@ -1819,7 +1819,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? CameraMatrix
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_cameraMatrix_get(Handle);
                 ErrorHelper.CheckError();
@@ -1831,7 +1832,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? DistCoeffs
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_distCoeffs_get(Handle);
                 ErrorHelper.CheckError();
@@ -1868,7 +1870,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoDetectorParameters : DisposableOpenCVObject
     {
-        internal ArucoDetectorParameters(IntPtr handle) : base(handle) {}
+        internal ArucoDetectorParameters(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_DetectorParameters_Delete(handle);
@@ -2177,7 +2179,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoDictionary : DisposableOpenCVObject
     {
-        internal ArucoDictionary(IntPtr handle) : base(handle) {}
+        internal ArucoDictionary(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_Dictionary_Delete(handle);
@@ -2370,7 +2372,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? BytesList
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_Dictionary_bytesList_get(Handle);
                 ErrorHelper.CheckError();
@@ -2403,7 +2406,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoGridBoard : ArucoBoard
     {
-        internal ArucoGridBoard(IntPtr handle) : base(handle) {}
+        internal ArucoGridBoard(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_GridBoard_Delete(handle);
@@ -2476,7 +2479,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoRefineParameters : DisposableOpenCVObject
     {
-        internal ArucoRefineParameters(IntPtr handle) : base(handle) {}
+        internal ArucoRefineParameters(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_RefineParameters_Delete(handle);
@@ -2553,7 +2556,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class BarcodeBarcodeDetector : GraphicalCodeDetector
     {
-        internal BarcodeBarcodeDetector(IntPtr handle) : base(handle) {}
+        internal BarcodeBarcodeDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.barcode_BarcodeDetector_Delete(handle);
@@ -2749,7 +2752,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MccCChecker : Algorithm
     {
-        internal MccCChecker(IntPtr handle) : base(handle) {}
+        internal MccCChecker(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_CChecker_Delete(handle);
@@ -2934,7 +2937,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class MccCCheckerDetector : Algorithm
     {
-        internal MccCCheckerDetector(IntPtr handle) : base(handle) {}
+        internal MccCCheckerDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_CCheckerDetector_Delete(handle);
@@ -3127,7 +3130,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class MccDetectorParametersMCC : DisposableOpenCVObject
     {
-        internal MccDetectorParametersMCC(IntPtr handle) : base(handle) {}
+        internal MccDetectorParametersMCC(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_DetectorParametersMCC_Delete(handle);

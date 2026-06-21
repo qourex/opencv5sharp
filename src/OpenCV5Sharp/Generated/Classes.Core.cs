@@ -101,7 +101,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Algorithm : DisposableOpenCVObject
     {
-        internal Algorithm(IntPtr handle) : base(handle) {}
+        internal Algorithm(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Algorithm_Delete(handle);
@@ -213,7 +213,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class AsyncArray : DisposableOpenCVObject
     {
-        internal AsyncArray(IntPtr handle) : base(handle) {}
+        internal AsyncArray(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.AsyncArray_Delete(handle);
@@ -309,7 +309,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DMatch : DisposableOpenCVObject
     {
-        internal DMatch(IntPtr handle) : base(handle) {}
+        internal DMatch(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.DMatch_Delete(handle);
@@ -394,7 +394,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FileNode : DisposableOpenCVObject
     {
-        internal FileNode(IntPtr handle) : base(handle) {}
+        internal FileNode(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FileNode_Delete(handle);
@@ -648,7 +648,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class FileStorage : DisposableOpenCVObject
     {
-        internal FileStorage(IntPtr handle) : base(handle) {}
+        internal FileStorage(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FileStorage_Delete(handle);
@@ -940,7 +940,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class KeyPoint : DisposableOpenCVObject
     {
-        internal KeyPoint(IntPtr handle) : base(handle) {}
+        internal KeyPoint(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.KeyPoint_Delete(handle);
@@ -1069,7 +1069,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Mat : DisposableOpenCVObject
     {
-        internal Mat(IntPtr handle) : base(handle) {}
+        internal Mat(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Mat_Delete(handle);
@@ -1335,7 +1335,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MatShape : DisposableOpenCVObject
     {
-        internal MatShape(IntPtr handle) : base(handle) {}
+        internal MatShape(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MatShape_Delete(handle);
@@ -1467,7 +1467,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Moments : DisposableOpenCVObject
     {
-        internal Moments(IntPtr handle) : base(handle) {}
+        internal Moments(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Moments_Delete(handle);
@@ -1656,7 +1656,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class RotatedRect : DisposableOpenCVObject
     {
-        internal RotatedRect(IntPtr handle) : base(handle) {}
+        internal RotatedRect(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.RotatedRect_Delete(handle);
@@ -1774,7 +1774,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class TickMeter : DisposableOpenCVObject
     {
-        internal TickMeter(IntPtr handle) : base(handle) {}
+        internal TickMeter(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.TickMeter_Delete(handle);
@@ -2058,7 +2058,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CudaBufferPool : DisposableOpenCVObject
     {
-        internal CudaBufferPool(IntPtr handle) : base(handle) {}
+        internal CudaBufferPool(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_BufferPool_Delete(handle);
@@ -2124,7 +2124,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CudaDeviceInfo : DisposableOpenCVObject
     {
-        internal CudaDeviceInfo(IntPtr handle) : base(handle) {}
+        internal CudaDeviceInfo(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_DeviceInfo_Delete(handle);
@@ -2832,7 +2832,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CudaEvent : DisposableOpenCVObject
     {
-        internal CudaEvent(IntPtr handle) : base(handle) {}
+        internal CudaEvent(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_Event_Delete(handle);
@@ -2895,7 +2895,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CudaGpuData : DisposableOpenCVObject
     {
-        internal CudaGpuData(IntPtr handle) : base(handle) {}
+        internal CudaGpuData(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_GpuData_Delete(handle);
@@ -2931,7 +2931,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CudaGpuMat : DisposableOpenCVObject
     {
-        internal CudaGpuMat(IntPtr handle) : base(handle) {}
+        internal CudaGpuMat(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_GpuMat_Delete(handle);
@@ -3666,7 +3666,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CudaGpuMatAllocator : DisposableOpenCVObject
     {
-        internal CudaGpuMatAllocator(IntPtr handle) : base(handle) {}
+        internal CudaGpuMatAllocator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_GpuMat_Allocator_Delete(handle);
@@ -3679,7 +3679,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CudaGpuMatND : DisposableOpenCVObject
     {
-        internal CudaGpuMatND(IntPtr handle) : base(handle) {}
+        internal CudaGpuMatND(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_GpuMatND_Delete(handle);
@@ -3704,7 +3704,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CudaHostMem : DisposableOpenCVObject
     {
-        internal CudaHostMem(IntPtr handle) : base(handle) {}
+        internal CudaHostMem(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_HostMem_Delete(handle);
@@ -3961,7 +3961,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CudaStream : DisposableOpenCVObject
     {
-        internal CudaStream(IntPtr handle) : base(handle) {}
+        internal CudaStream(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_Stream_Delete(handle);
@@ -4072,7 +4072,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class CudaTargetArchs : DisposableOpenCVObject
     {
-        internal CudaTargetArchs(IntPtr handle) : base(handle) {}
+        internal CudaTargetArchs(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.cuda_TargetArchs_Delete(handle);
@@ -4177,7 +4177,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class OclDevice : DisposableOpenCVObject
     {
-        internal OclDevice(IntPtr handle) : base(handle) {}
+        internal OclDevice(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ocl_Device_Delete(handle);
@@ -5096,7 +5096,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class OclOpenCLExecutionContext : DisposableOpenCVObject
     {
-        internal OclOpenCLExecutionContext(IntPtr handle) : base(handle) {}
+        internal OclOpenCLExecutionContext(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ocl_OpenCLExecutionContext_Delete(handle);
