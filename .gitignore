@@ -28,7 +28,7 @@ x64/
 
 # Large binaries at root
 opencv-5.0.0-windows.exe
-opencv_world500.dll
+/opencv_world500.dll
 
 # OS files
 .DS_Store
