@@ -182,7 +182,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objectPoints">The objectPoints parameter.</param>
         /// <param name="imagePoints1">The imagePoints1 parameter.</param>
@@ -209,7 +209,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objectPoints">The objectPoints parameter.</param>
         /// <param name="imagePoints1">The imagePoints1 parameter.</param>
@@ -272,7 +272,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objectPoints1">The objectPoints1 parameter.</param>
         /// <param name="objectPoints2">The objectPoints2 parameter.</param>
@@ -334,7 +334,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objPoints">The objPoints parameter.</param>
         /// <param name="imagePoints">The imagePoints parameter.</param>
@@ -408,7 +408,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objectPoints">The objectPoints parameter.</param>
         /// <param name="imagePoints1">The imagePoints1 parameter.</param>

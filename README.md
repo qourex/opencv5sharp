@@ -22,6 +22,10 @@
 It parses OpenCV headers using the official OpenCV parser and generates flat C++ exports
 along with managed C# P/Invoke wrappers covering **2,600+ API methods**.
 
+## Why OpenCV5Sharp?
+
+We built **OpenCV5Sharp** because we wanted a modern, lightweight, and zero-configuration wrapper for **OpenCV 5** without the legacy overhead or setup friction of older wrappers. Our goal is to make computer vision in C# feel natural, fast, and safe on modern .NET 8.0/9.0 runtimes.
+
 ## ✨ Features
 
 - **Complete OpenCV 5 Coverage** — 2,600+ methods across core, imgproc, videoio, highgui, features2d, calib3d, objdetect, photo, dnn, and more.

@@ -127,7 +127,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="img">Input image.</param>
         /// <param name="corners">The corners parameter.</param>

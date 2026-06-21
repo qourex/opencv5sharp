@@ -325,7 +325,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="src">Source matrix or image.</param>
         /// <param name="dst">Destination matrix or image (output).</param>
@@ -2288,7 +2288,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="image">Input image.</param>
         /// <param name="contours">The contours parameter.</param>

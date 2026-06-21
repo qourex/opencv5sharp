@@ -143,7 +143,7 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
                     remarks_lines.append(line_strip)
 
     if not summary_lines or (len(summary_lines) == 1 and not summary_lines[0].strip()):
-        summary_lines = ["OpenCV type (see OpenCV documentation for details)."]
+        summary_lines = ["Wrapper for OpenCV's native functionality."]
         
     indent = " " * indent_spaces
     xml_lines = []

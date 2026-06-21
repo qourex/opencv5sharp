@@ -112,7 +112,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="roi1">The roi1 parameter.</param>
         /// <param name="roi2">The roi2 parameter.</param>
@@ -128,7 +128,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="disparity">The disparity parameter.</param>
         /// <param name="cost">The cost parameter.</param>

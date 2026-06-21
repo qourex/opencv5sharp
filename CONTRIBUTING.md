@@ -1,7 +1,8 @@
 # Contributing to OpenCV5Sharp
 
-Thank you for considering contributing to OpenCV5Sharp! This guide will help you
-get started.
+We are excited that you want to contribute to OpenCV5Sharp! Whether you're fixing a bug, adding new module configurations, improving documentation, or writing tests, your contributions are welcome.
+
+This guide will help you get your environment set up and outline our development workflow.
 
 ## Development Environment Setup
 
