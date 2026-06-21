@@ -1,0 +1,61 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: ['8.0.x', '9.0.x']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - name: Verify DLL integrity checksums
+        run: powershell -ExecutionPolicy Bypass -File scripts/VerifyChecksums.ps1
+
+      - name: Restore dependencies
+        run: dotnet restore OpenCV5Sharp.slnx
+
+      - name: Build
+        run: dotnet build OpenCV5Sharp.slnx -c Release --no-restore
+
+      - name: Test
+        run: dotnet test OpenCV5Sharp.slnx --no-build -c Release --settings tests/coverlet.runsettings --collect:"XPlat Code Coverage" --logger:"console;verbosity=detailed"
+
+      - name: Pack NuGet
+        run: dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build
+
+      - name: Upload NuGet Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkg-${{ matrix.dotnet-version }}
+          path: '**/*.nupkg'
+          if-no-files-found: warn
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.dotnet-version }}
+          path: '**/coverage.cobertura.xml'
+          if-no-files-found: ignore

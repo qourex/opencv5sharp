@@ -1,0 +1,1783 @@
+/*
+This file is part of OpenCV project.
+It is subject to the license terms in the LICENSE file found in the top-level directory
+of this distribution and at http://opencv.org/license.html.
+Copyright (C) 2026, BigVision LLC, all rights reserved.
+Third party copyrights are property of their respective owners.
+*/
+:root,
+html[data-theme="light"],
+html[data-theme="dark"] {
+    --pst-font-family-base: "Inter", "Source Sans Pro", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+    --pst-font-family-heading: var(--pst-font-family-base);
+    --pst-font-family-monospace: "JetBrains Mono", "SFMono-Regular", Menlo,
+        Consolas, "Liberation Mono", monospace;
+    --pst-font-size-base: 16px;
+}
+
+html { font-size: 16px; }
+body, .bd-main { font-family: var(--pst-font-family-base); }
+
+h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin-top: 2rem; }
+h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+
+.bd-content p, .bd-content li { line-height: 1.6; }
+.bd-content ol > li { margin-bottom: 1.1rem; padding-left: 0.25rem; }
+.bd-content ol ol { list-style-type: lower-alpha; }
+.bd-content ol ol ol { list-style-type: lower-roman; }
+.bd-content ol > li > p:first-child > strong:first-child::after { content: ":"; }
+
+.bd-content .toctree-wrapper > ul { list-style: disc; padding-left: 1.5rem; }
+.bd-content .toctree-wrapper li { list-style: disc; margin: 0.4rem 0; }
+.bd-content .toctree-wrapper { margin: 0.5rem 0 1.5rem; }
+
+.ocv-landing { max-width: 720px; }
+.ocv-landing h2:first-child { margin-top: 1rem; }
+.ocv-landing p { margin: 0.25rem 0 0.5rem; }
+
+html[data-theme="light"] {
+    --pst-color-link: #0969da;
+    --pst-color-link-hover: #0550ae;
+    --opencv-accent: #003a6b;
+}
+html[data-theme="dark"] {
+    --opencv-accent: #a4c9ff;
+}
+
+.bd-content a { text-decoration: none; color: #0969da; }
+html[data-theme="dark"] .bd-article-container a { color: #539bf5 !important; }
+.bd-content a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+    color: #0550ae;
+}
+/* Hover keeps the SAME #0969da — no separate hover-blue shade in dark
+ * mode (per "no hover blue, everything at rest"). */
+html[data-theme="dark"] .bd-article-container a:hover,
+html[data-theme="dark"] .bd-article-container a.reference:hover,
+html[data-theme="dark"] .bd-article-container a.reference.internal:hover,
+html[data-theme="dark"] .bd-article-container a.reference.external:hover,
+html[data-theme="dark"] .bd-article-container .toctree-wrapper a:hover,
+html[data-theme="dark"] .bd-article-container li > a:hover {
+    color: #0969da !important;
+}
+.bd-content a > code, .bd-content code > a { color: inherit; }
+
+.bd-content a.opencv-enum-link,
+.bd-content code.opencv-enum-sig > a,
+.bd-content .opencv-enum-clickable a,
+.bd-content .opencv-enum-clickable a span,
+.bd-content code > a.opencv-include-link {
+    color: var(--pst-color-link, #0969da) !important;
+    text-decoration: none;
+    border-radius: 2px;
+}
+.bd-content a.opencv-enum-link:hover,
+.bd-content code.opencv-enum-sig > a:hover,
+.bd-content .opencv-enum-clickable a:hover,
+.bd-content code > a.opencv-include-link:hover {
+    color: var(--pst-color-link-hover, #0550ae) !important;
+    text-decoration: none;          /* blue only — no underline on hover */
+}
+html[data-theme="dark"] .bd-content a.opencv-enum-link,
+html[data-theme="dark"] .bd-content code.opencv-enum-sig > a,
+html[data-theme="dark"] .bd-content .opencv-enum-clickable a,
+html[data-theme="dark"] .bd-content .opencv-enum-clickable a span,
+html[data-theme="dark"] .bd-content code > a.opencv-include-link {
+    color: #539bf5 !important;
+}
+html[data-theme="dark"] .bd-content a.opencv-enum-link:hover,
+html[data-theme="dark"] .bd-content code.opencv-enum-sig > a:hover,
+html[data-theme="dark"] .bd-content .opencv-enum-clickable a:hover,
+html[data-theme="dark"] .bd-content code > a.opencv-include-link:hover {
+    color: #6cb6ff !important;
+}
+
+html:not([data-theme="dark"]) .bd-content #typedef-documentation a {
+    color: var(--pst-color-link, #0969da) !important;
+}
+
+html:not([data-theme="dark"]) .bd-content #function-documentation a {
+    color: var(--pst-color-link, #0969da) !important;
+}
+
+.opencv-meta-table,
+.opencv-meta-table .pst-scrollable-table-container { margin: 0 !important; padding: 0 !important; }
+.opencv-meta-table table { margin-bottom: 0 !important; }
+.opencv-meta-table + p,
+.opencv-meta-table + ul,
+.opencv-meta-table + ol,
+div.opencv-meta-table + p,
+div.opencv-meta-table + ul,
+div.opencv-meta-table + ol { margin-top: 1.5rem !important; }
+.opencv-meta-table .pst-scrollable-table-container,
+.opencv-meta-table table,
+table.opencv-meta-table {
+    width: auto !important;
+    max-width: fit-content;
+    margin-right: auto;
+    margin-left: 0;
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.5rem;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    overflow: hidden;
+}
+.opencv-meta-table table th,
+.opencv-meta-table table td,
+table.opencv-meta-table th,
+table.opencv-meta-table td {
+    padding: 0.45rem 1rem;
+    font-size: 0.92rem;
+    border-bottom: 1px solid var(--pst-color-border);
+    border-right: 1px solid var(--pst-color-border);
+    vertical-align: middle;
+    text-align: left !important;
+}
+.opencv-meta-table table td:first-child,
+table.opencv-meta-table td:first-child {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--pst-color-on-surface);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.opencv-meta-table table tr:last-child td,
+table.opencv-meta-table tr:last-child td { border-bottom: none; }
+.opencv-meta-table table td:last-child,
+table.opencv-meta-table td:last-child { border-right: none; }
+.opencv-meta-table table thead,
+table.opencv-meta-table thead { display: none; }
+.opencv-meta-table td hr.cv-rowdiv {
+    margin: 4px -1rem;
+    border: none;
+    border-top: 1px solid var(--pst-color-border);
+    opacity: 1;
+}
+
+html[data-theme="dark"] .opencv-meta-table table,
+html[data-theme="dark"] table.opencv-meta-table {
+    border: 1px solid #444c56 !important;
+    border-radius: 0.5rem !important;
+    overflow: hidden !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+html[data-theme="dark"] .opencv-meta-table table th,
+html[data-theme="dark"] .opencv-meta-table table td,
+html[data-theme="dark"] table.opencv-meta-table th,
+html[data-theme="dark"] table.opencv-meta-table td {
+    border-bottom: 1px solid #444c56 !important;
+    border-right: 1px solid #444c56 !important;
+    color: #cdd9e5 !important;
+    background-color: #22272e !important;
+}
+html[data-theme="dark"] .opencv-meta-table table td:first-child,
+html[data-theme="dark"] table.opencv-meta-table td:first-child {
+    background: #2d333b !important;
+    font-weight: 600 !important;
+    color: #cdd9e5 !important;
+}
+html[data-theme="dark"] .opencv-meta-table table tr:last-child td,
+html[data-theme="dark"] table.opencv-meta-table tr:last-child td { border-bottom: none !important; }
+html[data-theme="dark"] .opencv-meta-table table td:last-child,
+html[data-theme="dark"] table.opencv-meta-table td:last-child { border-right: none !important; }
+
+.bd-content figure figcaption,
+.bd-content figure figcaption p,
+.bd-content figure figcaption .caption-text {
+    font-weight: 700 !important;
+    font-style: normal !important;
+}
+.bd-content figure,
+.bd-content p img,
+.bd-content li img { margin-top: 1rem; margin-bottom: 1rem; }
+.bd-content figure { margin-left: auto; margin-right: auto; text-align: center; }
+.bd-content p:has(> img:only-child) { text-align: center; }
+.bd-content p > img { display: inline-block; }
+
+.opencv-youtube {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 1.5rem auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+}
+.opencv-youtube iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.bd-content table {
+    border-collapse: collapse !important;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid var(--pst-color-border) !important;
+}
+.bd-content table th {
+    border: 1px solid var(--pst-color-border) !important;
+    padding: 0.65rem 1rem !important;
+    background: var(--pst-color-surface) !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    color: var(--pst-color-muted) !important;
+    font-weight: 600 !important;
+}
+.bd-content table td {
+    border: 1px solid var(--pst-color-border) !important;
+    padding: 0.65rem 1rem !important;
+    vertical-align: middle !important;
+}
+.bd-content table tbody tr:hover td { background: var(--pst-color-surface) !important; }
+
+.bd-header {
+    border-bottom: 1px solid var(--pst-color-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.bd-header .navbar { min-height: 3.25rem; padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.bd-header .navbar-header-items__start { gap: 15px; align-items: center; padding-left: 3rem; }
+/* OpenCV SVG logo: scale the vector to the official proportions. */
+.bd-header img.logo__image {
+    height: 46px;
+    width: auto;
+    max-width: 50px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+.navbar-brand .logo__title {
+    font-weight: 600;
+    font-size: 1.45rem;
+    color: inherit;
+}
+/* "OpenCV" wordmark + "Open Source Computer Vision" subtitle stacked in a
+   column to the right of the SVG mark (see _templates/navbar-logo.html). */
+.navbar-brand.logo .logo__textwrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+}
+.navbar-brand.logo .logo__textwrap .logo__title { margin: 0; }
+.navbar-brand.logo .logo__subtitle {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--pst-color-text-muted);
+    white-space: nowrap;
+}
+
+.version-badge {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    margin-left: 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--pst-color-text-muted);
+    background: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.35rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+}
+
+.bd-header .navbar-nav { gap: 0.25rem; }
+.bd-header .navbar-nav > li > a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pst-color-text-muted);
+    padding: 0.4rem 0.75rem !important;
+    border-radius: 0.35rem;
+    transition: color 120ms ease, background 120ms ease;
+}
+.bd-header .navbar-nav > li > a:hover {
+    color: var(--opencv-accent);
+    background: var(--pst-color-surface);
+    text-decoration: none;
+}
+.bd-header .navbar-nav > li > a.active,
+.bd-header .navbar-nav > li > a.current {
+    color: var(--opencv-accent);
+    font-weight: 600;
+}
+.bd-header .navbar-persistent--mobile,
+.bd-header .navbar-persistent--container,
+.bd-header button.theme-switch-button,
+.bd-header .navbar-icon-links a.nav-link { color: var(--pst-color-text-muted); }
+.bd-header button.theme-switch-button:hover,
+.bd-header .navbar-icon-links a.nav-link:hover { color: var(--opencv-accent); }
+
+/* --- Version switcher dropdown (navbar) -------------------------------- *
+ * Sits in the `navbar_start` slot right after `navbar-logo`. The custom
+ * template `_templates/opencv-version-switcher.html` renders a plain
+ * `<select>`; styles below give it a compact pill shape that reads as a
+ * peer of the wordmark in both light and dark themes. */
+.opencv-version-switcher {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+.opencv-version-switcher #opencv-version-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font: 500 0.85rem/1.2 "Inter", sans-serif;
+    color: var(--pst-color-text-base);
+    background-color: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 6px;
+    padding: 0.2rem 1.8rem 0.2rem 0.6rem;
+    /* Dropdown arrow drawn via background SVG so we can colour it via
+     * CSS variables (light/dark) instead of relying on the UA default. */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23656d76' d='M0 0l5 6 5-6z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.55rem center;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.opencv-version-switcher #opencv-version-select:hover {
+    border-color: var(--opencv-accent, #0969da);
+}
+.opencv-version-switcher #opencv-version-select:focus {
+    outline: none;
+    border-color: var(--opencv-accent, #0969da);
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.25);
+}
+html[data-theme="dark"] .opencv-version-switcher #opencv-version-select {
+    color: #e6edf3;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%238b949e' d='M0 0l5 6 5-6z'/></svg>");
+}
+html[data-theme="dark"] .opencv-version-switcher #opencv-version-select option {
+    background-color: #1c2128;
+    color: #e6edf3;
+}
+
+/* --- Wider reading column ---------------------------------------------- */
+@media (min-width: 960px) {
+    .bd-page-width,
+    .bd-container__inner.bd-page-width { max-width: none !important; }
+    .bd-container { max-width: none !important; }
+    .bd-sidebar-primary { padding-left: 0.1rem !important; padding-right: 0.75rem !important; }
+    .bd-main .bd-content,
+    .bd-main .bd-article-container { padding-left: 2rem; padding-right: 2rem; }
+    .bd-main .bd-article { padding-left: 0; padding-right: 0; }
+}
+
+/* Narrower left section-nav sidebar — the theme default is width:25%, which is
+   ~480px on a wide screen (very intrusive). Pin it to a sensible fixed width so
+   the content and the (often wide) diagrams get more room. Desktop only; the
+   mobile off-canvas drawer keeps the theme's own sizing. */
+@media (min-width: 960px) {
+    .bd-sidebar-primary { width: 16rem; flex: 0 0 16rem; }
+}
+
+.bd-sidebar-primary nav.bd-links { margin-right: 0 !important; }
+.bd-sidebar-primary nav.bd-docs-nav p.bd-links__title {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    color: var(--pst-color-text-base) !important;
+    margin-bottom: 0.5rem !important;
+}
+.bd-sidebar-primary nav.bd-links li > a {
+    font-size: 0.9rem !important;
+    line-height: 1.45 !important;
+    padding-top: 0.28rem !important;
+    padding-bottom: 0.28rem !important;
+}
+.bd-sidebar-primary nav.bd-links .toctree-l1 > a {
+    font-weight: 500 !important;
+    padding-left: 0.65rem !important;
+}
+.bd-sidebar-primary nav.bd-links .toctree-l2 > a {
+    font-size: 0.875rem !important;
+    padding-left: 1.25rem !important;
+    color: var(--pst-color-text-muted) !important;
+}
+.bd-sidebar-primary nav.bd-links .toctree-l3 > a {
+    font-size: 0.86rem !important;
+    padding-left: 2rem !important;
+    color: var(--pst-color-text-muted) !important;
+}
+.bd-sidebar-primary nav.bd-links .current > a {
+    color: var(--pst-color-primary) !important;
+    font-weight: 600 !important;
+}
+html[data-theme="dark"] .bd-sidebar-primary nav.bd-links .current > a { color: #539bf5 !important; }
+
+/* --- Code blocks ------------------------------------------------------- */
+div.highlight {
+    position: relative;
+    display: block !important;
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+div.highlight pre {
+    font-size: 0.875rem !important;
+    line-height: 1.55 !important;
+    overflow-x: auto !important;
+    white-space: pre !important;
+    background: #f6f8fa !important;
+    color: #24292e !important;
+    border: none !important;
+    border-left: 3px solid #0550ae !important;
+    border-radius: 0.4rem !important;
+    padding: 0.6rem 0.85rem !important;
+    margin: 0 !important;
+    font-style: normal !important;
+}
+.highlight .c, .highlight .ch, .highlight .cm,
+.highlight .cpf, .highlight .c1, .highlight .cs { font-style: normal !important; }
+
+/* Clickable tokens inside code blocks: force link blue on every
+ * descendant of `<a>` inside `<pre>`. Pygments wraps identifiers in
+ * `<span class="n">…</span>` (or `nc`/`nf`/…) and colours them per
+ * the theme stylesheet — those rules win over the inherited `<a>`
+ * color, so the link text renders as ordinary dark-grey code, not
+ * blue. This rule (high specificity, !important) restores the
+ * theme-link blue across both modes, the same blue we use everywhere
+ * else clickable tokens appear. */
+div.highlight pre a,
+div.highlight pre a *,
+div.highlight pre a span {
+    color: #0969da !important;
+}
+html[data-theme="dark"] div.highlight pre a,
+html[data-theme="dark"] div.highlight pre a *,
+html[data-theme="dark"] div.highlight pre a span {
+    color: #0969da !important;
+}
+div.highlight pre a:hover,
+div.highlight pre a:hover *,
+div.highlight pre a:hover span,
+html[data-theme="dark"] div.highlight pre a:hover,
+html[data-theme="dark"] div.highlight pre a:hover *,
+html[data-theme="dark"] div.highlight pre a:hover span {
+    color: #0969da !important;
+    text-decoration: underline !important;
+    text-underline-offset: 0.18em;
+}
+
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dark"] div.highlight span,
+html[data-theme="dark"] div.highlight * { color: unset !important; }
+
+html[data-theme="dark"] .highlight .c, html[data-theme="dark"] .highlight .c1,
+html[data-theme="dark"] .highlight .c2, html[data-theme="dark"] .highlight .cm,
+html[data-theme="dark"] .highlight .cp, html[data-theme="dark"] .highlight .cs,
+html[data-theme="dark"] .highlight .ch,
+html[data-theme="dark"] .highlight .cpf { color: #e3b341 !important; font-style: normal !important; }
+html[data-theme="dark"] .highlight .k, html[data-theme="dark"] .highlight .kd,
+html[data-theme="dark"] .highlight .kn, html[data-theme="dark"] .highlight .kp,
+html[data-theme="dark"] .highlight .kr,
+html[data-theme="dark"] .highlight .kt { color: #f47067 !important; font-weight: 600; }
+html[data-theme="dark"] .highlight .s, html[data-theme="dark"] .highlight .s1,
+html[data-theme="dark"] .highlight .s2, html[data-theme="dark"] .highlight .sa,
+html[data-theme="dark"] .highlight .sb, html[data-theme="dark"] .highlight .sc,
+html[data-theme="dark"] .highlight .sd, html[data-theme="dark"] .highlight .se,
+html[data-theme="dark"] .highlight .si,
+html[data-theme="dark"] .highlight .ss { color: #96d0ff !important; }
+html[data-theme="dark"] .highlight .n, html[data-theme="dark"] .highlight .na,
+html[data-theme="dark"] .highlight .nb, html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] .highlight .nf,
+html[data-theme="dark"] .highlight .nn { color: #cdd9e5 !important; }
+html[data-theme="dark"] .highlight .o,
+html[data-theme="dark"] .highlight .ow { color: #f47067 !important; }
+html[data-theme="dark"] .highlight .mi, html[data-theme="dark"] .highlight .mf,
+html[data-theme="dark"] .highlight .mh,
+html[data-theme="dark"] .highlight .mo { color: #6cb6ff !important; }
+
+html[data-theme="dark"] div.highlight pre {
+    background: #2d333b !important;
+    color: #cdd9e5 !important;
+    border-left: 3px solid #0969da !important;
+}
+html[data-theme="dark"] code,
+html[data-theme="dark"] .sig {
+    background-color: #2d333b !important;
+    color: #cdd9e5 !important;
+}
+
+a.headerlink { opacity: 0; transition: opacity 120ms; }
+h1:hover a.headerlink, h2:hover a.headerlink, h3:hover a.headerlink,
+h4:hover a.headerlink, h5:hover a.headerlink, h6:hover a.headerlink,
+dt:hover a.headerlink { opacity: 1; }
+
+.prev-next-area { overflow: hidden; clear: both; }
+.prev-next-area .prev-next-title {
+    color: var(--pst-color-link) !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+.prev-next-area a:hover .prev-next-title {
+    color: var(--pst-color-link-hover) !important;
+    text-decoration: underline !important;
+}
+.prev-next-area .prev-next-subtitle {
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: var(--pst-color-muted) !important;
+}
+
+#pst-back-to-top {
+    font-family: var(--pst-font-family-base) !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    padding: 0.65rem 1.6rem !important;
+    border-radius: 2rem !important;
+    border: none !important;
+    background: linear-gradient(135deg, #0066cc, #003a6b) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 14px rgba(0, 60, 120, 0.35) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    transition: box-shadow 150ms ease, opacity 150ms ease !important;
+}
+#pst-back-to-top:hover {
+    box-shadow: 0 6px 20px rgba(0, 60, 120, 0.5) !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    opacity: 0.92 !important;
+}
+
+dl.cpp.function,
+dl.cpp.class,
+dl.cpp.struct,
+dl.cpp.type,
+dl.cpp.var,
+dl.cpp.enum,
+dl.cpp.member,
+dl.cpp.macro {
+    border: 1px solid var(--pst-color-border, #d0d7de);
+    border-radius: 8px;
+    background: #ffffff;
+    margin: 0.85rem 0 1.35rem;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+dl.cpp.function:hover,
+dl.cpp.class:hover,
+dl.cpp.struct:hover,
+dl.cpp.type:hover,
+dl.cpp.var:hover,
+dl.cpp.enum:hover,
+dl.cpp.member:hover,
+dl.cpp.macro:hover {
+    border-color: var(--pst-color-link, #0969da);
+    box-shadow: 0 1px 6px rgba(9, 105, 218, 0.12);
+}
+html[data-theme="dark"] dl.cpp.function,
+html[data-theme="dark"] dl.cpp.class,
+html[data-theme="dark"] dl.cpp.struct,
+html[data-theme="dark"] dl.cpp.type,
+html[data-theme="dark"] dl.cpp.var,
+html[data-theme="dark"] dl.cpp.enum,
+html[data-theme="dark"] dl.cpp.member,
+html[data-theme="dark"] dl.cpp.macro {
+    background: #1a2234;
+    border-color: #2d3748;
+}
+html[data-theme="dark"] dl.cpp.function:hover,
+html[data-theme="dark"] dl.cpp.class:hover,
+html[data-theme="dark"] dl.cpp.struct:hover,
+html[data-theme="dark"] dl.cpp.type:hover,
+html[data-theme="dark"] dl.cpp.var:hover,
+html[data-theme="dark"] dl.cpp.enum:hover,
+html[data-theme="dark"] dl.cpp.member:hover,
+html[data-theme="dark"] dl.cpp.macro:hover {
+    border-color: #58a6ff;
+    box-shadow: none;
+}
+
+dl.cpp > dt.sig {
+    background: var(--pst-color-surface, #f6f8fa);
+    border: none;
+    border-radius: 0;
+    padding: 0.7rem 1rem;
+    margin: 0;
+    font-family: var(--pst-font-family-monospace);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+dl.cpp > dt.sig:not(:last-child) {
+    border-bottom: 1px solid var(--pst-color-border, #d0d7de);
+}
+html[data-theme="dark"] dl.cpp > dt.sig {
+    background: #111622;
+}
+html[data-theme="dark"] dl.cpp > dt.sig:not(:last-child) {
+    border-bottom-color: #2d3748;
+}
+dl.cpp .sig-name.descname { color: var(--opencv-accent); font-weight: 700; }
+dl.cpp .sig-prename.descclassname { color: var(--pst-color-text-muted); }
+
+dl.cpp > dd {
+    margin: 0;
+    padding: 0.85rem 1rem 0.6rem;
+}
+dl.cpp > dd > :last-child { margin-bottom: 0; }
+
+section[id$="-documentation"] > section {
+    border: 1px solid var(--pst-color-border, #d0d7de);
+    border-radius: 8px;
+    background: #ffffff;
+    margin: 1rem 0 1.4rem;
+    overflow: hidden;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+section[id$="-documentation"] > section:hover {
+    border-color: var(--pst-color-link, #0969da);
+    box-shadow: 0 1px 6px rgba(9, 105, 218, 0.12);
+}
+html[data-theme="dark"] section[id$="-documentation"] > section {
+    background: #1a2234;
+    border-color: #2d3748;
+}
+html[data-theme="dark"] section[id$="-documentation"] > section:hover {
+    border-color: #58a6ff;
+    box-shadow: none;
+}
+
+section[id$="-documentation"] > section > h3 {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    align-items: baseline;
+    margin: 0.7rem 0.9rem 0.35rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--pst-color-surface, #f6f8fa);
+    border: 1px solid var(--pst-color-border, #d0d7de);
+    border-radius: 6px;
+    font-size: 1.0rem;
+    font-weight: 600;
+}
+section[id$="-documentation"] > section > h3::before {
+    content: "\25C6";              /* ◆ */
+    color: var(--pst-color-link, #0969da);
+    margin-right: 0.5rem;
+    font-size: 0.8em;
+    align-self: center;
+}
+section[id$="-documentation"] > section > h3 > a.headerlink { margin-left: 0.4rem; }
+html[data-theme="dark"] section[id$="-documentation"] > section > h3 {
+    background: #111622;
+    border-color: #2d3748;
+}
+html[data-theme="dark"] section[id$="-documentation"] > section > h3::before { color: #0969da; }
+
+section[id$="-documentation"] > section > p,
+section[id$="-documentation"] > section > ul,
+section[id$="-documentation"] > section > dl,
+section[id$="-documentation"] > section > div[class*="highlight"] {
+    margin: 0;
+    padding: 0.35rem 1rem;
+}
+
+section[id$="-documentation"] > section > ul,
+section[id$="-documentation"] > section > ol {
+    padding-left: 2.5rem;
+}
+
+section[id$="-documentation"] > section > p:has(> code) { line-height: 1.7; }
+section[id$="-documentation"] > section > p > code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+}
+
+section[id$="-documentation"] > section > p.opencv-api-sig > code {
+    white-space: pre-wrap;
+}
+/* Clickable type / enum-value tokens inside a member-detail signature: light
+   blue, no underline. The ID-qualified selectors out-specify the per-section
+   `#…-documentation a` colour rules so signature links win everywhere. */
+.bd-content a.opencv-sig-link,
+#function-documentation a.opencv-sig-link,
+#typedef-documentation a.opencv-sig-link {
+    color: #4ea1ff !important;
+    text-decoration: none !important;
+}
+.bd-content a.opencv-sig-link:hover { color: #6cb6ff !important; }
+html[data-theme="dark"] .bd-content a.opencv-sig-link,
+html[data-theme="dark"] #function-documentation a.opencv-sig-link,
+html[data-theme="dark"] #typedef-documentation a.opencv-sig-link {
+    color: #6cb6ff !important;
+}
+
+html[data-theme="dark"] section[id$="-documentation"] > section code,
+html[data-theme="dark"] section[id$="-documentation"] > section code span {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+section[id$="-documentation"] > section > p.opencv-api-include {
+    margin: 0.65rem 1rem 0.85rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--pst-color-surface, #f6f8fa);
+    border: 1px solid var(--pst-color-border, #d0d7de);
+    border-radius: 6px;
+}
+html[data-theme="dark"] section[id$="-documentation"] > section > p.opencv-api-include {
+    background: #111622;
+    border-color: #2d3748;
+}
+
+section[id$="-documentation"] > section,
+section[id$="-documentation"] > section > span[id],
+section[id$="-documentation"] > section > h3 {
+    scroll-margin-top: 5rem;
+}
+
+mjx-container.MathJax:not([display="true"]) { vertical-align: -0.15em !important; }
+
+.bd-content p:has(img + img) img {
+    max-width: 49%;
+    height: auto;
+    display: inline-block;
+    vertical-align: top;
+}
+.bd-content p img + img { margin-left: 0.25rem; }
+
+button.copybtn {
+    width: 1.85rem !important;
+    height: 1.85rem !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    color: var(--pst-color-text-muted) !important;
+    background: var(--pst-color-surface) !important;
+    border: 1px solid var(--pst-color-border) !important;
+    border-radius: 0.4rem !important;
+    transition: opacity 0.15s ease, color 0.15s ease,
+                border-color 0.15s ease, background 0.15s ease,
+                transform 0.05s ease !important;
+}
+button.copybtn svg {
+    width: 0.95rem !important;
+    height: 0.95rem !important;
+    padding: 0 !important;
+    stroke: currentColor;
+}
+.highlight:hover button.copybtn:hover,
+button.copybtn:focus-visible {
+    color: var(--opencv-accent) !important;
+    border-color: var(--opencv-accent) !important;
+    background: var(--pst-color-surface) !important;
+}
+button.copybtn:focus-visible {
+    outline: 2px solid var(--opencv-accent) !important;
+    outline-offset: 2px;
+}
+button.copybtn:active { transform: translateY(1px); }
+
+button.copybtn.success {
+    color: var(--opencv-accent) !important;
+    border-color: var(--opencv-accent) !important;
+    background: var(--pst-color-surface) !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="light"] button.copybtn {
+    background: #ffffff !important;
+    color: #57606a !important;
+    border-color: #d0d7de !important;
+}
+html[data-theme="light"] button.copybtn:hover,
+html[data-theme="light"] button.copybtn.success {
+    color: var(--opencv-accent) !important;
+    border-color: var(--opencv-accent) !important;
+}
+
+html[data-theme="dark"] button.copybtn {
+    background: #373e47 !important;
+    color: #adbac7 !important;
+    border-color: #444c56 !important;
+}
+html[data-theme="dark"] button.copybtn:hover,
+html[data-theme="dark"] button.copybtn.success {
+    color: var(--opencv-accent) !important;
+    border-color: var(--opencv-accent) !important;
+}
+
+.o-tooltip--left:after {
+    font-family: var(--pst-font-family-base);
+    background: var(--pst-color-surface);
+    color: var(--pst-color-text-base);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.78rem;
+}
+
+/* On touch devices the hover-reveal is invisible — keep it shown. */
+@media (max-width: 768px) {
+    button.copybtn { opacity: 1 !important; }
+}
+
+/* --- Keep the copy button reachable on tall code blocks ---------------- */
+/* sphinx-copybutton pins the button (`position: absolute; top`) to the top of
+   its code block, so on a block taller than the viewport — e.g. the long C++
+   sample under group functions like cv::imwrite — it scrolls out of sight the
+   moment you read past the first lines, and the whole button looks "missing".
+   Make it `position: sticky` so it rides along at the top-right of the visible
+   area instead. Hover-reveal behaviour is untouched (no opacity change); the
+   button is still a child of `.highlight`, so `.highlight:hover .copybtn` still
+   fires.
+   Sticky needs NO non-`visible` overflow between the button and the scrolling
+   viewport (the window). Two ancestors set overflow and silently disabled it:
+   the member-detail card (rounded-corner clip) and the theme's
+   `.bd-article-container`. Neither actually scrolls — the window does — so
+   relaxing them is safe; the secondary "On this page" TOC stays sticky
+   (verified). `display:flex` + `order:-1` put the button above <pre> in flow so
+   `top` has something to pin to; the negative bottom margin cancels the
+   button's own box so it overlays the code instead of pushing it down. */
+div.bd-article-container { overflow: visible !important; }
+section[id$="-documentation"] > section { overflow: visible !important; }
+div.highlight { display: flex !important; flex-direction: column; }
+div.highlight > pre { min-width: 0; }   /* let the flex item shrink so overflow-x: auto still scrolls */
+div.highlight > button.copybtn {
+    order: -1;                            /* render above <pre> so sticky `top` can pin it */
+    position: sticky;
+    align-self: flex-end;                 /* hold it at the right edge */
+    margin: 0.5rem 0.5rem -2.35rem 0;     /* negative bottom overlays the code, no extra height */
+    z-index: 2;
+}
+
+/* --- Class collaboration diagram (.opencv-coll-graph) ------------------ */
+/* Inlined as <svg> at build-finished (so links work); two theme variants carry
+   the theme's .only-light/.only-dark classes. Size only — no display/filter. */
+.opencv-coll-graph {
+    display: block;
+    margin: 1rem auto 1.5rem;
+    width: auto;
+    height: auto;
+}
+
+.bd-content p:has(> svg.opencv-coll-graph),
+.bd-content p:has(> img.opencv-coll-graph) {
+    overflow-x: auto;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* Scroll box wrapping every inlined diagram (class collaboration graphs AND the
+   large file include-dependency graphs). The whole graph stays reachable —
+   scrolls when wider/taller than the content area, fits otherwise, never cut. */
+.opencv-graph-scroll {
+    overflow: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    margin: 1rem 0 1.5rem;
+    text-align: center;   /* center a graph narrower than the content area */
+}
+.opencv-graph-scroll > svg.opencv-coll-graph {
+    display: block;
+    margin: 0 auto;     /* centered when it fits; auto-margins collapse on pan */
+    max-width: none;    /* keep natural size so the box can pan a big graph */
+}
+
+/* File-page member declaration boxes (parsed-literal). Look like a code block
+   but contain a clickable member name. The `:class:` lands on the <pre>
+   (pre.opencv-decl); guard against a wrapper too (.opencv-decl pre). */
+pre.opencv-decl,
+.opencv-decl pre,
+.opencv-decl {
+    font-family: var(--pst-font-family-monospace);
+    font-size: 0.85em;
+    line-height: 1.5;
+    padding: 0.6rem 0.9rem;
+    margin: 0.25rem 0 0.5rem;
+    border-radius: 0.35rem;
+    overflow-x: auto;                 /* long signatures scroll, never clip */
+    background-color: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+}
+/* The one real link in the box (the member name): blue, no underline. */
+pre.opencv-decl a,
+.opencv-decl a,
+.opencv-decl a.reference {
+    color: #0969da !important;
+    text-decoration: none !important;
+}
+html[data-theme="dark"] pre.opencv-decl a,
+html[data-theme="dark"] .opencv-decl a,
+html[data-theme="dark"] .opencv-decl a.reference { color: #539bf5 !important; }
+/* --- Clickable enum synopsis (.opencv-enum-synopsis) ------------------- */
+/* Link colour + no-underline handled by the central enum-links rule near
+ * the top of this file; this block layers explicit dark-mode coverage so
+ * the unified `#0969da` (no hover differentiation) applies even if the
+ * central rule changes. */
+.opencv-enum-synopsis a.opencv-enum-link {
+    color: #0969da !important;
+    text-decoration: none;
+    border-radius: 2px;
+}
+.opencv-enum-synopsis a.opencv-enum-link:hover {
+    color: #0550ae !important;
+}
+html[data-theme="dark"] .opencv-enum-synopsis a.opencv-enum-link,
+html[data-theme="dark"] .opencv-enum-synopsis a.opencv-enum-link:hover {
+    color: #0969da !important;
+}
+
+section#member-enumeration-documentation .highlight-cpp .n {
+    color: #0969da !important;
+}
+html[data-theme="dark"] section#member-enumeration-documentation .highlight-cpp .n {
+    color: #539bf5 !important;
+}
+
+.opencv-enum-target {
+    scroll-margin-top: 5rem;
+}
+
+/* --- Member Enumeration Documentation: per-value detail list ----------- */
+.opencv-enum-heading {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--pst-color-text-base);
+    scroll-margin-top: 5rem;        /* clear the sticky navbar */
+}
+.opencv-enum-heading .opencv-enum-name {
+    color: #0969da;
+    font-family: var(--pst-font-family-monospace);
+}
+html[data-theme="dark"] .opencv-enum-heading .opencv-enum-name {
+    color: #539bf5;
+}
+.opencv-enum-detail {
+    margin: 0 0 1.5rem;
+    padding: 0;
+}
+.opencv-enum-detail dt {
+    padding: 0.5rem 0.8rem;
+    margin-top: 0.5rem;
+    background: var(--pst-color-surface);
+    border-left: 3px solid #0969da;
+    border-radius: 0 4px 4px 0;
+    font-family: var(--pst-font-family-monospace);
+    font-size: 0.9rem;
+    scroll-margin-top: 5rem;        /* clear the sticky navbar on hash landing */
+}
+html[data-theme="dark"] .opencv-enum-detail dt {
+    border-left-color: #539bf5;
+}
+.opencv-enum-detail dt .opencv-enum-name {
+    color: #0969da;
+}
+html[data-theme="dark"] .opencv-enum-detail dt .opencv-enum-name {
+    color: #539bf5;
+}
+.opencv-enum-detail dt .opencv-enum-init {
+    color: var(--pst-color-text-muted);
+    font-weight: normal;
+}
+.opencv-enum-detail dd {
+    margin: 0.25rem 0 0 1.5rem;
+    color: var(--pst-color-text-muted);
+}
+/* Highlight the row the URL hash targets. */
+.opencv-enum-detail dt:target {
+    background: color-mix(in srgb, var(--pst-color-link) 12%, transparent);
+    transition: background 0.6s ease-out;
+}
+/* Defeat any theme override on the inner `.highlight .n`. */
+.opencv-enum-synopsis a.opencv-enum-link > span.n {
+    color: inherit !important;
+}
+.opencv-enum-synopsis a.opencv-enum-link {
+    scroll-margin-top: 4rem;
+}
+
+.toc-entry a.nav-link code,
+.bd-toc-nav a.nav-link code,
+.toc-entry a.nav-link code.literal,
+.bd-toc-nav a.nav-link code.literal {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+}
+
+table.api-reference-table {
+    display: block;
+    width: 100%;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0.5rem 0 1rem;
+    padding: 8px !important;
+    border-radius: 10px;
+    background: #f0f2f5 !important;
+}
+
+html[data-theme="dark"] table.api-reference-table {
+    background: #111622 !important;
+}
+
+table.api-reference-table thead {
+    display: none  !important;
+}
+
+table.api-reference-table tbody {
+    display: block;
+}
+
+/* --- Card row: border-only hover --------------------------------------- */
+table.api-reference-table tbody tr,
+table.api-reference-table tbody tr:nth-child(even),
+table.api-reference-table tbody tr:nth-child(odd) {
+    display: block;
+    margin-bottom: 6px !important;
+    padding: 10px 14px !important;
+    border-radius: 6px;
+    border: 1px solid var(--pst-color-border, #d0d7de) !important;
+    background: #ffffff !important;
+    transition: border-color 100ms ease;
+}
+
+table.api-reference-table tbody tr:last-child {
+    margin-bottom: 0 !important;
+}
+
+table.api-reference-table tbody tr:hover {
+    border-color: var(--pst-color-link, #0969da) !important;
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr,
+html[data-theme="dark"] table.api-reference-table tbody tr:nth-child(even),
+html[data-theme="dark"] table.api-reference-table tbody tr:nth-child(odd) {
+    background: #1a2234 !important;
+    border-color: #2d3748 !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr:hover {
+    border-color: #58a6ff !important;
+    background: #1a2234 !important;
+}
+
+table.api-reference-table tbody tr td {
+    display: block;
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+table.api-reference-table tbody tr td > p {
+    margin: 0;
+    background: transparent !important;
+}
+
+/* Hide empty description cells. */
+table.api-reference-table tbody tr td:not(:first-child):empty,
+table.api-reference-table tbody tr td:not(:first-child):has(> p:empty:only-child) {
+    display: none  !important;
+}
+
+/* --- Title cell (class/function name) ---------------------------------- */
+table.api-reference-table tbody tr td:first-child {
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: 'JetBrains Mono', var(--pst-font-family-monospace-system);
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+/* Strip the inner gray theme-strip behind the title text. */
+table.api-reference-table tbody tr td:first-child,
+table.api-reference-table tbody tr td:first-child * {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Keywords like "class"/"typedef" — muted, not clickable. */
+table.api-reference-table tbody tr td:first-child {
+    color: var(--pst-color-text-muted, #656d76) !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr td:first-child {
+    color: #8b949e !important;
+}
+
+table.api-reference-table tbody tr td a,
+table.api-reference-table tbody tr td a:link,
+table.api-reference-table tbody tr td a:visited,
+table.api-reference-table tbody tr td a *,
+table.api-reference-table tbody tr td a:link *,
+table.api-reference-table tbody tr td a:visited * {
+    color: var(--pst-color-link, #0969da) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+table.api-reference-table tbody tr td:first-child a:hover {
+    text-decoration: underline !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr td a,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:link,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:visited,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:hover,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:active,
+html[data-theme="dark"] table.api-reference-table tbody tr td a *,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:link *,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:visited *,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:hover *,
+html[data-theme="dark"] table.api-reference-table tbody tr td a:active * {
+    color: #0969da !important;
+}
+
+table.api-reference-table tbody tr td a code,
+table.api-reference-table tbody tr td a code *,
+table.api-reference-table tbody tr td a span,
+table.api-reference-table tbody tr td a .std,
+table.api-reference-table tbody tr td a .std-doc,
+table.api-reference-table tbody tr td a .xref,
+table.api-reference-table tbody tr td a .pre,
+table.api-reference-table tbody tr td:not(:first-child) a code,
+table.api-reference-table tbody tr td:not(:first-child) a code * {
+    color: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    font-weight: 500 !important;
+    font-size: inherit !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr td:not(:first-child) a code,
+html[data-theme="dark"] table.api-reference-table tbody tr td:not(:first-child) a code * {
+    color: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* Functions-table signature cell: the row is rendered as
+ *   `<a><code>cv::name</code></a> <code>(<a>Type</a> arg, …)</code>`
+ * The unanchored `<code>` wrapping the parameter list (and any `<code>`
+ * around inline tokens) picks up the default code-chip background +
+ * border via the global `code` rule, which renders as a "grey box"
+ * around the clickables. Strip the chip styling AND the 500 weight
+ * that makes the link text read as bold — clickables here should be
+ * plain blue text, not boxed-and-bold. Applies to both the cell
+ * `<code>` and any inner `<span class="pre">` Sphinx wraps long
+ * tokens in. */
+table.api-function-table tbody tr td code,
+table.api-function-table tbody tr td code *,
+table.api-function-table tbody tr td a,
+table.api-function-table tbody tr td a code,
+table.api-function-table tbody tr td a code * {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-weight: normal !important;
+    font-size: inherit !important;
+}
+html[data-theme="dark"] table.api-function-table tbody tr td code,
+html[data-theme="dark"] table.api-function-table tbody tr td code *,
+html[data-theme="dark"] table.api-function-table tbody tr td a code,
+html[data-theme="dark"] table.api-function-table tbody tr td a code * {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Functions summary cards: the signature is split one parameter per line, each
+   line its own <code> span joined by <br>, with a padded type column built from
+   spaces (à la `_signature_lines`). Inline <code> collapses runs of spaces,
+   which would wreck that alignment — preserve them and keep wrapping for long
+   lists, so the card signature reads like the detail-block declaration. */
+table.api-function-table tbody tr td:not(:first-child) a code,
+table.api-function-table tbody tr td:not(:first-child) code {
+    white-space: pre-wrap;
+}
+
+/* No description -> collapse the title's bottom margin. */
+table.api-reference-table tbody tr td:first-child:last-child,
+table.api-reference-table tbody tr:has(> td:not(:first-child):empty) td:first-child,
+table.api-reference-table tbody tr:has(> td:not(:first-child):has(> p:empty:only-child)) td:first-child {
+    margin-bottom: 0 !important;
+}
+
+/* --- Description cell -------------------------------------------------- */
+table.api-reference-table tbody tr td:not(:first-child) {
+    color: var(--pst-color-text-muted, #656d76);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    background: transparent !important;
+}
+
+table.api-reference-table tbody tr td:not(:first-child) p {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr td:not(:first-child) {
+    color: #8b949e;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr:hover td:not(:first-child) {
+    color: #ffffff !important;
+}
+
+table.api-reference-table tbody tr td:not(:first-child) code {
+    color: var(--pst-color-text, #24292f);
+    background: var(--pst-color-surface, transparent);
+    padding: 0 0.2rem;
+    border-radius: 3px;
+    font-size: 0.88em;
+}
+
+html[data-theme="dark"] table.api-reference-table tbody tr td:not(:first-child) code {
+    color: #c9d1d9;
+    background: #2d333b;
+}
+
+table.api-typedef-table {
+    display: block !important;
+    width: 100%;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0.5rem 0 1rem;
+    padding: 8px !important;
+    background: #f0f2f5 !important;
+    border-radius: 10px;
+}
+
+html[data-theme="dark"] table.api-typedef-table {
+    background: #111622 !important;
+}
+
+table.api-typedef-table thead {
+    display: none !important;
+}
+
+table.api-typedef-table tbody {
+    display: block !important;
+    width: 100% !important;
+}
+
+table.api-typedef-table tbody tr,
+table.api-typedef-table tbody tr:nth-child(even),
+table.api-typedef-table tbody tr:nth-child(odd) {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 32px !important;
+    padding: 8px 12px !important;
+    margin-bottom: 4px !important;
+    background: #ffffff !important;
+    border: 1px solid var(--pst-color-border, #d0d7de) !important;
+    border-radius: 6px;
+    transition: border-color 100ms ease;
+}
+
+table.api-typedef-table tbody tr:last-child {
+    margin-bottom: 0 !important;
+}
+
+table.api-typedef-table tbody tr:hover {
+    border-color: var(--pst-color-link, #0969da) !important;
+}
+
+table.api-typedef-table tbody tr:hover td,
+table.api-typedef-table tbody tr:hover td * {
+    border-color: #58a6ff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] table.api-typedef-table tbody tr,
+html[data-theme="dark"] table.api-typedef-table tbody tr:nth-child(even),
+html[data-theme="dark"] table.api-typedef-table tbody tr:nth-child(odd) {
+    background: #1a2234 !important;
+    border-color: #2d3748 !important;
+}
+
+html[data-theme="dark"] table.api-typedef-table tbody tr:hover {
+    border-color: #58a6ff !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+table.api-typedef-table tbody tr td {
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    font-family: 'JetBrains Mono', var(--pst-font-family-monospace-system);
+    font-size: 0.9rem;
+    flex: 1 !important;
+    max-width: 45%;
+}
+
+/* Column 1: type declaration. */
+table.api-typedef-table tbody tr td:nth-child(1) {
+    color: var(--pst-color-text-muted, #656d76) !important;
+    font-weight: 400;
+    text-align: left  !important;
+}
+
+table.api-typedef-table tbody tr td:nth-child(1) * {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(1) {
+    color: #8b949e !important;
+}
+
+/* Light-mode: blue Type-cell links. */
+html:not([data-theme="dark"]) table.api-typedef-table tbody tr td:nth-child(1) a {
+    color: var(--pst-color-link, #0969da) !important;
+}
+
+/* Column 2: alias name — strip the code pill and inherit the link colour. */
+table.api-typedef-table tbody tr td:nth-child(2) {
+    color: var(--pst-color-link, #0969da) !important;
+    font-weight: 400 !important;
+    text-align: left  !important;
+}
+
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:link,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:visited,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:hover,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a *,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:link *,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:visited *,
+html[data-theme="dark"] table.api-typedef-table tbody tr td:nth-child(2) a:hover * {
+    color: #0969da !important;
+}
+
+table.api-typedef-table tbody tr td:nth-child(2) a,
+table.api-typedef-table tbody tr td:nth-child(2) a:link,
+table.api-typedef-table tbody tr td:nth-child(2) a:visited,
+table.api-typedef-table tbody tr td:nth-child(2) a:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-weight: 400 !important;
+}
+
+table.api-typedef-table tbody tr td:nth-child(2) a:hover {
+    text-decoration: underline !important;
+}
+
+table.api-typedef-table tbody tr td:nth-child(2) code,
+table.api-typedef-table tbody tr td:nth-child(2) code * {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-weight: 400 !important;
+    font-size: inherit !important;
+}
+
+/* Column 3: drop empty description so it doesn't skew spacing. */
+table.api-typedef-table tbody tr td:nth-child(3):empty,
+table.api-typedef-table tbody tr td:nth-child(3):has(> p:empty:only-child) {
+    display: none !important;
+}
+
+/* Disable the overflow wrapper for card tables. */
+.table-wrapper:has(> table.api-reference-table),
+.table-wrapper:has(> table.api-typedef-table) {
+    overflow: visible;
+}
+
+.opencv-class-include {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--pst-color-text-muted);
+}
+.opencv-class-include code {
+    background: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 4px;
+    padding: 0.1rem 0.45rem;
+    font-family: var(--pst-font-family-monospace);
+    color: var(--pst-color-text-base);
+}
+.opencv-class-brief {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--pst-color-text-base);
+}
+a.opencv-class-more {
+    color: #0969da;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 0.25rem;
+    white-space: nowrap;
+}
+a.opencv-class-more:hover {
+    color: #0550ae;
+    text-decoration: underline;
+}
+html[data-theme="dark"] a.opencv-class-more { color: #0969da; }
+html[data-theme="dark"] a.opencv-class-more:hover { color: #0969da; }
+
+.opencv-class-files { margin-top: 1.75rem; }
+.opencv-class-files > h2 { display: none; }
+nav a[href="#source-file"] { display: none; }
+
+/* --- Detailed Description (Breathe-rendered) --------------------------- */
+section#detailed-description > h2 {
+    margin-bottom: 1.5rem;
+}
+section#detailed-description code,
+section#member-enumeration-documentation code {
+    background: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 3px;
+    padding: 0 0.3rem;
+    font-family: var(--pst-font-family-monospace);
+    font-size: 0.88em;
+}
+/* Breathe <ref> cross-refs: monospace chip, inherit the parent <a> link colour. */
+section#detailed-description a.reference > span.std-ref,
+section#member-enumeration-documentation a.reference > span.std-ref {
+    background: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    border-radius: 3px;
+    padding: 0 0.3rem;
+    font-family: var(--pst-font-family-monospace);
+    font-size: 0.88em;
+    color: inherit;
+}
+/* Enum detail <dt> cards already self-style as monospace panels — don't double-chip. */
+.opencv-enum-detail dt code,
+.opencv-enum-detail dt .opencv-enum-name,
+.opencv-enum-detail dt .opencv-enum-init {
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+/* --- Per-class "Examples" cross-reference ------------------------------ */
+dl.opencv-examples {
+    margin: 1.5rem 0 0;
+    padding: 0;
+}
+dl.opencv-examples > dt {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+    color: var(--pst-color-text-base);
+}
+dl[class].opencv-examples > dd {
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+dl.opencv-examples a.opencv-example-link {
+    text-decoration: none;
+    color: #0969da;
+}
+html[data-theme="dark"] dl.opencv-examples a.opencv-example-link {
+    color: #539bf5;
+}
+dl.opencv-examples a.opencv-example-link:hover {
+    text-decoration: underline;
+}
+/* Defang the Detailed Description's blanket code-chip rule on example links. */
+dl.opencv-examples a.opencv-example-link code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* Doxygen search-box variables (consumed by the local search.css) — light. */
+:root {
+    --search-background-color: white;
+    --search-foreground-color: #909090;
+    --search-active-color: black;
+    --search-filter-background-color: #F9FAFC;
+    --search-filter-foreground-color: black;
+    --search-filter-border-color: #90A5CE;
+    --search-filter-highlight-text-color: white;
+    --search-filter-highlight-bg-color: #3D578C;
+    --search-results-foreground-color: #425E97;
+    --search-results-background-color: #EEF1F7;
+    --search-results-border-color: black;
+    --search-box-shadow: inset 0.5px 0.5px 3px 0px #555;
+}
+html[data-theme="dark"] {
+    --search-background-color: black;
+    --search-foreground-color: #C5C5C5;
+    --search-active-color: #C5C5C5;
+    --search-filter-background-color: #101826;
+    --search-filter-foreground-color: #90A5CE;
+    --search-filter-border-color: #7C95C6;
+    --search-filter-highlight-text-color: #BCC9E2;
+    --search-filter-highlight-bg-color: #283A5D;
+    --search-results-foreground-color: #90A5CE;
+    --search-results-background-color: #101826;
+    --search-results-border-color: #7C95C6;
+    --search-box-shadow: inset 0.5px 0.5px 3px 0px #2F436C;
+}
+
+/* Centered search modal — mimics the native PyData search dialog: dimmed
+   backdrop, panel pinned near top-center. The Doxygen box lives inside. */
+.opencv-search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1055;
+    background: rgba(0, 0, 0, 0.5);
+}
+.opencv-search-overlay.opencv-search-open { display: block; }
+.opencv-search-modal {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92vw, 640px);
+}
+
+/* Doxygen MSearchBox — large field styled like the native search input. */
+#MSearchBox {
+    width: 100%;
+    height: 3rem;
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.375rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.6rem;
+    background: var(--pst-color-background) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+#MSearchBox.MSearchBoxActive,
+#MSearchBox:focus-within {
+    border-color: #d63384;
+    outline: 2px solid rgba(214, 51, 132, 0.25);
+}
+#MSearchBox .left {
+    flex: 1;
+    display: inline-flex !important;
+    align-items: center;
+    height: 100% !important;
+    min-width: 0;
+}
+#MSearchSelect {
+    flex-shrink: 0;
+    width: 26px !important;
+    height: 26px !important;
+    margin: 0 0.25em 0 0 !important;
+    cursor: pointer;
+    border-radius: 4px;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 20px 20px !important;
+    opacity: 0.85;
+}
+#MSearchSelect:hover {
+    opacity: 1;
+    background-color: var(--pst-color-surface, rgba(128, 128, 128, 0.15));
+}
+#MSearchField {
+    flex: 1;
+    width: auto !important;
+    min-width: 0;
+    height: auto !important;
+    font-size: 1.05rem;
+    background: transparent !important;
+    color: var(--pst-color-text-base) !important;
+}
+#MSearchBox .right {
+    flex-shrink: 0;
+    width: auto !important;
+    height: auto !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+#MSearchKbd { display: inline-flex; align-items: center; gap: 2px; }
+.MSearchBoxActive #MSearchKbd { display: none; }
+#MSearchCloseImg { width: 16px; height: 16px; }
+
+/* Popups: solid, theme-aware styling (Doxygen's var-based search.css renders transparent here) */
+#MSearchResultsWindow,
+#MSearchSelectWindow {
+    background: var(--pst-color-background) !important;
+    border: 1px solid var(--pst-color-border) !important;
+    border-radius: 6px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28) !important;
+    z-index: 10005 !important;
+}
+#MSearchResultsWindow {
+    width: 420px !important;
+    max-height: 70vh;
+    height: auto !important;
+    overflow-y: auto;
+    padding: 2px 0;
+}
+#MSearchSelectWindow { padding: 4px 0; min-width: 160px; }
+a.SelectItem {
+    display: block !important;
+    padding: 4px 16px !important;
+    color: var(--pst-color-text-base) !important;
+    white-space: nowrap;
+}
+a.SelectItem:hover {
+    background: var(--pst-color-primary) !important;
+    color: #fff !important;
+}
+/* One result per row: bold symbol, scope on its own muted line, separators */
+div.SRPage { background: transparent !important; }
+.SRResult { display: block; }
+.SRPage .SREntry {
+    padding: 7px 16px !important;
+    font-size: 0.85rem !important;
+    line-height: 1.35;
+    border-bottom: 1px solid var(--pst-color-border);
+}
+.SRSymbol { color: var(--pst-color-link) !important; font-weight: 600; }
+/* Single result: scope sits inline after the symbol (like original). */
+span.SRScope {
+    padding-left: 6px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--pst-color-text-muted) !important;
+}
+/* Multiple results: child pages stack, indented (like original). */
+a.SRScope {
+    display: block !important;
+    font-size: 0.8rem !important;
+    font-weight: 400;
+    color: var(--pst-color-text-muted) !important;
+}
+.SRPage .SRStatus { color: var(--pst-color-text-muted); padding: 8px 16px; }
+
+/* ============================================================
+ * GLOBAL DARK-MODE CLICKABLE-BLUE OVERRIDE
+ * ------------------------------------------------------------
+ * One rule to keep every clickable a consistent blue in dark
+ * mode. Light mode already paints links `#0969da`; pst-sphinx
+ * repaints them lighter (or grey, or visited-purple) in dark
+ * mode through dozens of class-specific rules. Rather than
+ * chase each one, this final block forces every `<a>` (and
+ * every descendant of `<a>`) inside `html[data-theme="dark"]`
+ * back to the same `#0969da` link blue used in light mode —
+ * body content, sidebar, TOC, tables, code chips, code-block
+ * tokens, See-Also lines, breadcrumbs, footers. Visited /
+ * hover / active / focused all collapse to the same hex per
+ * the "no hover-blue, everything at rest" rule.
+ *
+ * Specificity: `html[data-theme="dark"] a` is (0,0,1,2); the
+ * `* { color: unset }` rule earlier in the file is (0,0,1,2)
+ * too but ours runs LATER and uses `!important`, so it wins.
+ * ============================================================ */
+html[data-theme="dark"] a,
+html[data-theme="dark"] a:link,
+html[data-theme="dark"] a:visited,
+html[data-theme="dark"] a:focus,
+html[data-theme="dark"] a *,
+html[data-theme="dark"] a:link *,
+html[data-theme="dark"] a:visited *,
+html[data-theme="dark"] a:focus * {
+    color: #0969da !important;
+}
+html[data-theme="dark"] a:hover,
+html[data-theme="dark"] a:hover *,
+html[data-theme="dark"] a:active,
+html[data-theme="dark"] a:active * {
+    color: #0969da !important;
+}
+
+/* Pygments-tokens-inside-link override.
+ * The dark-mode Pygments rule `html[data-theme="dark"] .highlight .n
+ * { color:#cdd9e5 !important }` (3-class specificity) was beating the
+ * global `html[data-theme="dark"] a *` rule above (1-class) when a
+ * Pygments identifier span (`.n`, `.nc`, `.nf`, `.na`, `.nb`, `.nv`,
+ * `.nn`, `.pre`) sat inside an `<a>` — so enum-synopsis entries like
+ * `cv::NORM_INF` rendered the same grey as plain identifiers. Adding
+ * `.highlight` to the selector raises specificity to (0,0,3,2),
+ * enough to win on every token class Pygments uses for names. */
+html[data-theme="dark"] .highlight a,
+html[data-theme="dark"] .highlight a *,
+html[data-theme="dark"] .highlight a .n,
+html[data-theme="dark"] .highlight a .na,
+html[data-theme="dark"] .highlight a .nb,
+html[data-theme="dark"] .highlight a .nc,
+html[data-theme="dark"] .highlight a .nf,
+html[data-theme="dark"] .highlight a .nv,
+html[data-theme="dark"] .highlight a .nn,
+html[data-theme="dark"] .highlight a .pre,
+html[data-theme="dark"] .highlight a .o,
+html[data-theme="dark"] .highlight a .p {
+    color: #0969da !important;
+}
+html[data-theme="dark"] .highlight a:hover,
+html[data-theme="dark"] .highlight a:hover *,
+html[data-theme="dark"] .highlight a:hover .n,
+html[data-theme="dark"] .highlight a:hover .nc,
+html[data-theme="dark"] .highlight a:hover .nf {
+    color: #0969da !important;
+}
+
+/* Parameter-name box in member-detail "Parameters" lists (light + dark). The
+   `section[…-documentation]` selector out-specifies the blanket transparent
+   `<code>` rule so the box survives in dark mode. */
+code.opencv-param-name,
+section[id$="-documentation"] code.opencv-param-name {
+    background-color: #eff1f3 !important;
+    border: 1px solid #d0d7de !important;
+    border-radius: 4px !important;
+    padding: 0.1em 0.4em !important;
+    font-size: 0.85em !important;
+    color: #24292f !important;
+    white-space: nowrap;
+}
+html[data-theme="dark"] code.opencv-param-name,
+html[data-theme="dark"] section[id$="-documentation"] code.opencv-param-name {
+    background-color: #2d333b !important;
+    border: 1px solid #444c56 !important;
+    color: #adbac7 !important;
+}

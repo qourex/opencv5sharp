@@ -1,0 +1,51 @@
+# Build and output directories
+bin/
+obj/
+build/
+x64/
+[Dd]ebug/
+[Rr]elease/
+
+# MSVC and IDE files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.db
+*.opendb
+
+# Native compiled object files and libraries (exclude native binaries we distribute)
+*.obj
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.aps
+
+# Keep native dlls that are packaged under runtimes/
+*.dll
+!src/OpenCV5Sharp/runtimes/**/*.dll
+
+# Large binaries at root
+opencv-5.0.0-windows.exe
+opencv_world500.dll
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+*.snupkg
+
+# Native build artifacts (specific to OpenCV5Sharp.Native)
+src/OpenCV5Sharp.Native/build/
+src/OpenCV5Sharp.Native/*.obj
+src/OpenCV5Sharp.Native/*.lib
+src/OpenCV5Sharp.Native/*.exp
+src/OpenCV5Sharp.Native/*.pdb
+
+# Test results and coverage
+TestResults/
+**/coverage.cobertura.xml
+

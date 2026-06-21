@@ -1,0 +1,45 @@
+{
+    "func_arg_fix" : {
+        "Dnn": {
+            "(Net*)readNetFromONNX:(NSString*)onnxFile engine:(int)engine" : { "readNetFromONNX" : {"name" : "readNetFromONNXFile"} },
+            "(Net*)readNetFromONNX:(ByteVector*)buffer engine:(int)engine" : { "readNetFromONNX" : {"name" : "readNetFromONNXBuffer"} },
+            "(Net*)readNetFromTensorflow:(NSString*)model config:(NSString*)config engine:(int)engine extraOutputs:(NSArray<NSString*>*)extraOutputs" : { "readNetFromTensorflow" : {"name" : "readNetFromTensorflowFile"} },
+            "(Net*)readNetFromTensorflow:(ByteVector*)bufferModel bufferConfig:(ByteVector*)bufferConfig engine:(int)engine extraOutputs:(NSArray<NSString*>*)extraOutputs" : { "readNetFromTensorflow" : {"name" : "readNetFromTensorflowBuffer"} },
+            "(Net*)readNetFromTFLite:(NSString*)model engine:(int)engine" : { "readNetFromTFLite" : {"name" : "readNetFromTFLiteFile"} },
+            "(Net*)readNetFromTFLite:(ByteVector*)buffer engine:(int)engine" : { "readNetFromTFLite" : {"name" : "readNetFromTFLiteBuffer"} }
+        },
+        "Net": {
+            "(void)forward:(NSMutableArray<Mat*>*)outputBlobs outputName:(NSString*)outputName" : { "forward" : {"name" : "forwardOutputBlobs"} },
+            "(void)forward:(NSMutableArray<Mat*>*)outputBlobs outBlobNames:(NSArray<NSString*>*)outBlobNames" : { "forward" : {"name" : "forwardOutputBlobs"} },
+            "(void)forwardAndRetrieve:(NSMutableArray<NSMutableArray<Mat*>*>*)outputBlobs outBlobNames:(NSArray<NSString*>*)outBlobNames" : { "forward" : {"swift_name" : "forwardAndRetrieve"} },
+            "(Layer*)getLayer:(NSString*)layerName" : { "getLayer" : {"name" : "getLayerByName"} },
+            "(Layer*)getLayer:(DictValue*)layerId" : { "getLayer" : {"name" : "getLayerByDictValue"} },
+            "(Mat*)getParam:(NSString*)layerName numParam:(int)numParam" : { "getParam" : {"name" : "getParamByName"} },
+            "(void)setParam:(NSString*)layerName numParam:(int)numParam blob:(Mat*)blob" : { "setParam" : {"name" : "setParamByName"} }
+        }
+    },
+    "type_dict": {
+        "MatShape": {
+            "objc_type": "IntVector*",
+            "to_cpp": "cv::MatShape(%(n)s.nativeRef)",
+            "from_cpp": "[IntVector fromNative:%(n)s.vec()]"
+        },
+        "vector_MatShape": {
+            "objc_type": "IntVector*",
+            "to_cpp": "cv::MatShape(%(n)s.nativeRef)",
+            "from_cpp": "[IntVector fromNative:%(n)s.vec()]",
+            "v_type": "MatShape"
+        },
+        "vector_vector_MatShape": {
+            "objc_type": "IntVector*",
+            "to_cpp": "cv::MatShape(%(n)s.nativeRef)",
+            "from_cpp": "[IntVector fromNative:%(n)s.vec()]",
+            "v_v_type": "MatShape"
+        },
+        "LayerId": {
+            "objc_type": "DictValue*",
+            "to_cpp": "*(cv::dnn::DictValue*)(%(n)s.nativePtr)",
+            "from_cpp": "[DictValue fromNative:%(n)s]"
+        }
+    }
+}
