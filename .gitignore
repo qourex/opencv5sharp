@@ -2,6 +2,7 @@
 bin/
 obj/
 build/
+!src/OpenCV5Sharp/build/
 x64/
 [Dd]ebug/
 [Rr]elease/
