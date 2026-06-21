@@ -16,7 +16,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class PyRotationWarper : DisposableOpenCVObject
     {
-        internal PyRotationWarper(IntPtr handle) : base(handle) {}
+        internal PyRotationWarper(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.PyRotationWarper_Delete(handle);
@@ -193,7 +193,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Stitcher : DisposableOpenCVObject
     {
-        internal Stitcher(IntPtr handle) : base(handle) {}
+        internal Stitcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Stitcher_Delete(handle);
@@ -480,7 +480,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class WarperCreator : DisposableOpenCVObject
     {
-        internal WarperCreator(IntPtr handle) : base(handle) {}
+        internal WarperCreator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.WarperCreator_Delete(handle);
@@ -498,7 +498,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailAffineBasedEstimator : DetailEstimator
     {
-        internal DetailAffineBasedEstimator(IntPtr handle) : base(handle) {}
+        internal DetailAffineBasedEstimator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_AffineBasedEstimator_Delete(handle);
@@ -527,7 +527,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailAffineBestOf2NearestMatcher : DetailBestOf2NearestMatcher
     {
-        internal DetailAffineBestOf2NearestMatcher(IntPtr handle) : base(handle) {}
+        internal DetailAffineBestOf2NearestMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_AffineBestOf2NearestMatcher_Delete(handle);
@@ -561,7 +561,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBestOf2NearestMatcher : DetailFeaturesMatcher
     {
-        internal DetailBestOf2NearestMatcher(IntPtr handle) : base(handle) {}
+        internal DetailBestOf2NearestMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BestOf2NearestMatcher_Delete(handle);
@@ -614,7 +614,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailBestOf2NearestRangeMatcher : DetailBestOf2NearestMatcher
     {
-        internal DetailBestOf2NearestRangeMatcher(IntPtr handle) : base(handle) {}
+        internal DetailBestOf2NearestRangeMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BestOf2NearestRangeMatcher_Delete(handle);
@@ -644,7 +644,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBlender : DisposableOpenCVObject
     {
-        internal DetailBlender(IntPtr handle) : base(handle) {}
+        internal DetailBlender(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_Blender_Delete(handle);
@@ -723,7 +723,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailBlocksChannelsCompensator : DetailBlocksCompensator
     {
-        internal DetailBlocksChannelsCompensator(IntPtr handle) : base(handle) {}
+        internal DetailBlocksChannelsCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BlocksChannelsCompensator_Delete(handle);
@@ -748,7 +748,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailBlocksCompensator : DetailExposureCompensator
     {
-        internal DetailBlocksCompensator(IntPtr handle) : base(handle) {}
+        internal DetailBlocksCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BlocksCompensator_Delete(handle);
@@ -904,7 +904,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailBlocksGainCompensator : DetailBlocksCompensator
     {
-        internal DetailBlocksGainCompensator(IntPtr handle) : base(handle) {}
+        internal DetailBlocksGainCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BlocksGainCompensator_Delete(handle);
@@ -985,7 +985,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBundleAdjusterAffine : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterAffine(IntPtr handle) : base(handle) {}
+        internal DetailBundleAdjusterAffine(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BundleAdjusterAffine_Delete(handle);
@@ -1014,7 +1014,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBundleAdjusterAffinePartial : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterAffinePartial(IntPtr handle) : base(handle) {}
+        internal DetailBundleAdjusterAffinePartial(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BundleAdjusterAffinePartial_Delete(handle);
@@ -1036,7 +1036,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailBundleAdjusterBase : DetailEstimator
     {
-        internal DetailBundleAdjusterBase(IntPtr handle) : base(handle) {}
+        internal DetailBundleAdjusterBase(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BundleAdjusterBase_Delete(handle);
@@ -1124,7 +1124,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBundleAdjusterRay : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterRay(IntPtr handle) : base(handle) {}
+        internal DetailBundleAdjusterRay(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BundleAdjusterRay_Delete(handle);
@@ -1151,7 +1151,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailBundleAdjusterReproj : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterReproj(IntPtr handle) : base(handle) {}
+        internal DetailBundleAdjusterReproj(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_BundleAdjusterReproj_Delete(handle);
@@ -1176,7 +1176,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailCameraParams : DisposableOpenCVObject
     {
-        internal DetailCameraParams(IntPtr handle) : base(handle) {}
+        internal DetailCameraParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_CameraParams_Delete(handle);
@@ -1225,7 +1225,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? R
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_CameraParams_R_get(Handle);
                 ErrorHelper.CheckError();
@@ -1237,7 +1238,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? T
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_CameraParams_t_get(Handle);
                 ErrorHelper.CheckError();
@@ -1254,7 +1256,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailChannelsCompensator : DetailExposureCompensator
     {
-        internal DetailChannelsCompensator(IntPtr handle) : base(handle) {}
+        internal DetailChannelsCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_ChannelsCompensator_Delete(handle);
@@ -1361,7 +1363,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailDpSeamFinder : DetailSeamFinder
     {
-        internal DetailDpSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailDpSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_DpSeamFinder_Delete(handle);
@@ -1401,7 +1403,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailEstimator : DisposableOpenCVObject
     {
-        internal DetailEstimator(IntPtr handle) : base(handle) {}
+        internal DetailEstimator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_Estimator_Delete(handle);
@@ -1429,7 +1431,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailExposureCompensator : DisposableOpenCVObject
     {
-        internal DetailExposureCompensator(IntPtr handle) : base(handle) {}
+        internal DetailExposureCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_ExposureCompensator_Delete(handle);
@@ -1528,7 +1530,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailFeatherBlender : DetailBlender
     {
-        internal DetailFeatherBlender(IntPtr handle) : base(handle) {}
+        internal DetailFeatherBlender(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_FeatherBlender_Delete(handle);
@@ -1629,7 +1631,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailFeaturesMatcher : DisposableOpenCVObject
     {
-        internal DetailFeaturesMatcher(IntPtr handle) : base(handle) {}
+        internal DetailFeaturesMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_FeaturesMatcher_Delete(handle);
@@ -1696,7 +1698,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailGainCompensator : DetailExposureCompensator
     {
-        internal DetailGainCompensator(IntPtr handle) : base(handle) {}
+        internal DetailGainCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_GainCompensator_Delete(handle);
@@ -1812,7 +1814,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailGraphCutSeamFinder : DisposableOpenCVObject
     {
-        internal DetailGraphCutSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailGraphCutSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_GraphCutSeamFinder_Delete(handle);
@@ -1850,7 +1852,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailHomographyBasedEstimator : DetailEstimator
     {
-        internal DetailHomographyBasedEstimator(IntPtr handle) : base(handle) {}
+        internal DetailHomographyBasedEstimator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_HomographyBasedEstimator_Delete(handle);
@@ -1873,7 +1875,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailImageFeatures : DisposableOpenCVObject
     {
-        internal DetailImageFeatures(IntPtr handle) : base(handle) {}
+        internal DetailImageFeatures(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_ImageFeatures_Delete(handle);
@@ -1932,7 +1934,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailLightGlueFeaturesMatcher : DetailFeaturesMatcher
     {
-        internal DetailLightGlueFeaturesMatcher(IntPtr handle) : base(handle) {}
+        internal DetailLightGlueFeaturesMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_LightGlueFeaturesMatcher_Delete(handle);
@@ -1976,7 +1978,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DetailMatchesInfo : DisposableOpenCVObject
     {
-        internal DetailMatchesInfo(IntPtr handle) : base(handle) {}
+        internal DetailMatchesInfo(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_MatchesInfo_Delete(handle);
@@ -2044,7 +2046,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? H
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_MatchesInfo_H_get(Handle);
                 ErrorHelper.CheckError();
@@ -2067,7 +2070,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailMultiBandBlender : DetailBlender
     {
-        internal DetailMultiBandBlender(IntPtr handle) : base(handle) {}
+        internal DetailMultiBandBlender(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_MultiBandBlender_Delete(handle);
@@ -2155,7 +2158,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailNoBundleAdjuster : DetailBundleAdjusterBase
     {
-        internal DetailNoBundleAdjuster(IntPtr handle) : base(handle) {}
+        internal DetailNoBundleAdjuster(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_NoBundleAdjuster_Delete(handle);
@@ -2177,7 +2180,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailNoExposureCompensator : DetailExposureCompensator
     {
-        internal DetailNoExposureCompensator(IntPtr handle) : base(handle) {}
+        internal DetailNoExposureCompensator(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_NoExposureCompensator_Delete(handle);
@@ -2228,7 +2231,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailNoSeamFinder : DetailSeamFinder
     {
-        internal DetailNoSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailNoSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_NoSeamFinder_Delete(handle);
@@ -2254,7 +2257,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailPairwiseSeamFinder : DetailSeamFinder
     {
-        internal DetailPairwiseSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailPairwiseSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_PairwiseSeamFinder_Delete(handle);
@@ -2280,7 +2283,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailProjectorBase : DisposableOpenCVObject
     {
-        internal DetailProjectorBase(IntPtr handle) : base(handle) {}
+        internal DetailProjectorBase(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_ProjectorBase_Delete(handle);
@@ -2293,7 +2296,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailSeamFinder : DisposableOpenCVObject
     {
-        internal DetailSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_SeamFinder_Delete(handle);
@@ -2332,7 +2335,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailSphericalProjector : DetailProjectorBase
     {
-        internal DetailSphericalProjector(IntPtr handle) : base(handle) {}
+        internal DetailSphericalProjector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_SphericalProjector_Delete(handle);
@@ -2373,7 +2376,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailTimelapser : DisposableOpenCVObject
     {
-        internal DetailTimelapser(IntPtr handle) : base(handle) {}
+        internal DetailTimelapser(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_Timelapser_Delete(handle);
@@ -2437,7 +2440,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailTimelapserCrop : DetailTimelapser
     {
-        internal DetailTimelapserCrop(IntPtr handle) : base(handle) {}
+        internal DetailTimelapserCrop(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_TimelapserCrop_Delete(handle);
@@ -2450,7 +2453,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailVoronoiSeamFinder : DetailPairwiseSeamFinder
     {
-        internal DetailVoronoiSeamFinder(IntPtr handle) : base(handle) {}
+        internal DetailVoronoiSeamFinder(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_VoronoiSeamFinder_Delete(handle);

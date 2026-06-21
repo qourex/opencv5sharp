@@ -41,7 +41,7 @@ namespace OpenCV5Sharp
         /// <summary>PyrNormmask</summary>
         PyrNormmask = 8,
         /// <summary>NPyramids</summary>
-        NPyramids = unchecked((int)(8+1)),
+        NPyramids = unchecked((int)(8 + 1)),
     }
 
     /// <summary>

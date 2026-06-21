@@ -22,7 +22,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Aliked : Feature2D
     {
-        internal Aliked(IntPtr handle) : base(handle) {}
+        internal Aliked(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ALIKED_Delete(handle);
@@ -48,7 +48,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class AlikedParams : DisposableOpenCVObject
     {
-        internal AlikedParams(IntPtr handle) : base(handle) {}
+        internal AlikedParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ALIKED_Params_Delete(handle);
@@ -109,7 +109,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class ANNIndex : DisposableOpenCVObject
     {
-        internal ANNIndex(IntPtr handle) : base(handle) {}
+        internal ANNIndex(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ANNIndex_Delete(handle);
@@ -279,7 +279,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class AffineFeature : Feature2D
     {
-        internal AffineFeature(IntPtr handle) : base(handle) {}
+        internal AffineFeature(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.AffineFeature_Delete(handle);
@@ -354,7 +354,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class BFMatcher : DescriptorMatcher
     {
-        internal BFMatcher(IntPtr handle) : base(handle) {}
+        internal BFMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.BFMatcher_Delete(handle);
@@ -397,7 +397,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DescriptorMatcher : Algorithm
     {
-        internal DescriptorMatcher(IntPtr handle) : base(handle) {}
+        internal DescriptorMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.DescriptorMatcher_Delete(handle);
@@ -678,7 +678,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FastFeatureDetector : Feature2D
     {
-        internal FastFeatureDetector(IntPtr handle) : base(handle) {}
+        internal FastFeatureDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FastFeatureDetector_Delete(handle);
@@ -789,7 +789,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Feature2D : Algorithm
     {
-        internal Feature2D(IntPtr handle) : base(handle) {}
+        internal Feature2D(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Feature2D_Delete(handle);
@@ -988,7 +988,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class GFTTDetector : Feature2D
     {
-        internal GFTTDetector(IntPtr handle) : base(handle) {}
+        internal GFTTDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GFTTDetector_Delete(handle);
@@ -1221,7 +1221,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class LightGlueMatcher : DescriptorMatcher
     {
-        internal LightGlueMatcher(IntPtr handle) : base(handle) {}
+        internal LightGlueMatcher(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.LightGlueMatcher_Delete(handle);
@@ -1290,7 +1290,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Mser : Feature2D
     {
-        internal Mser(IntPtr handle) : base(handle) {}
+        internal Mser(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MSER_Delete(handle);
@@ -1589,7 +1589,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Orb : Feature2D
     {
-        internal Orb(IntPtr handle) : base(handle) {}
+        internal Orb(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ORB_Delete(handle);
@@ -1845,7 +1845,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Sift : Feature2D
     {
-        internal Sift(IntPtr handle) : base(handle) {}
+        internal Sift(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SIFT_Delete(handle);
@@ -2059,7 +2059,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class SimpleBlobDetector : Feature2D
     {
-        internal SimpleBlobDetector(IntPtr handle) : base(handle) {}
+        internal SimpleBlobDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SimpleBlobDetector_Delete(handle);
@@ -2143,7 +2143,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class SimpleBlobDetectorParams : DisposableOpenCVObject
     {
-        internal SimpleBlobDetectorParams(IntPtr handle) : base(handle) {}
+        internal SimpleBlobDetectorParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SimpleBlobDetector_Params_Delete(handle);

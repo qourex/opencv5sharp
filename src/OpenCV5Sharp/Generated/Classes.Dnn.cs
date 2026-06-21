@@ -20,7 +20,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnClassificationModel : DnnModel
     {
-        internal DnnClassificationModel(IntPtr handle) : base(handle) {}
+        internal DnnClassificationModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_ClassificationModel_Delete(handle);
@@ -121,7 +121,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDetectionModel : DnnModel
     {
-        internal DnnDetectionModel(IntPtr handle) : base(handle) {}
+        internal DnnDetectionModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_DetectionModel_Delete(handle);
@@ -222,7 +222,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDict : DisposableOpenCVObject
     {
-        internal DnnDict(IntPtr handle) : base(handle) {}
+        internal DnnDict(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Dict_Delete(handle);
@@ -245,7 +245,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDictValue : DisposableOpenCVObject
     {
-        internal DnnDictValue(IntPtr handle) : base(handle) {}
+        internal DnnDictValue(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_DictValue_Delete(handle);
@@ -375,7 +375,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnImage2BlobParams : DisposableOpenCVObject
     {
-        internal DnnImage2BlobParams(IntPtr handle) : base(handle) {}
+        internal DnnImage2BlobParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Image2BlobParams_Delete(handle);
@@ -507,7 +507,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnKeypointsModel : DnnModel
     {
-        internal DnnKeypointsModel(IntPtr handle) : base(handle) {}
+        internal DnnKeypointsModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_KeypointsModel_Delete(handle);
@@ -574,7 +574,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnLayer : Algorithm
     {
-        internal DnnLayer(IntPtr handle) : base(handle) {}
+        internal DnnLayer(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Layer_Delete(handle);
@@ -628,25 +628,29 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat[] Blobs
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_blobs_get(Handle);
                 ErrorHelper.CheckError();
                 if (res == IntPtr.Zero) return Array.Empty<Mat>();
                 int size = NativeMethods.cv_VectorMat_Size(res);
                 Mat[] data = new Mat[size];
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++)
+                {
                     IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);
                     data[i] = matPtr == IntPtr.Zero ? null : new Mat(matPtr);
                 }
                 NativeMethods.cv_VectorMat_Delete(res);
                 return data;
             }
-            set {
+            set
+            {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
-                for (int i = 0; i < value.Length; i++) {
+                for (int i = 0; i < value.Length; i++)
+                {
                     handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
@@ -659,7 +663,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Name
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_name_get(Handle);
                 ErrorHelper.CheckError();
@@ -674,7 +679,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Type
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_type_get(Handle);
                 ErrorHelper.CheckError();
@@ -700,7 +706,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnLayerParams : DisposableOpenCVObject
     {
-        internal DnnLayerParams(IntPtr handle) : base(handle) {}
+        internal DnnLayerParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_LayerParams_Delete(handle);
@@ -726,7 +732,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnModel : DisposableOpenCVObject
     {
-        internal DnnModel(IntPtr handle) : base(handle) {}
+        internal DnnModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Model_Delete(handle);
@@ -957,7 +963,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnNet : DisposableOpenCVObject
     {
-        internal DnnNet(IntPtr handle) : base(handle) {}
+        internal DnnNet(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Net_Delete(handle);
@@ -1759,7 +1765,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnSegmentationModel : DnnModel
     {
-        internal DnnSegmentationModel(IntPtr handle) : base(handle) {}
+        internal DnnSegmentationModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_SegmentationModel_Delete(handle);
@@ -1819,7 +1825,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModel : DnnModel
     {
-        internal DnnTextDetectionModel(IntPtr handle) : base(handle) {}
+        internal DnnTextDetectionModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_Delete(handle);
@@ -1926,7 +1932,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModelDb : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelDb(IntPtr handle) : base(handle) {}
+        internal DnnTextDetectionModelDb(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_DB_Delete(handle);
@@ -2074,7 +2080,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModelEast : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelEast(IntPtr handle) : base(handle) {}
+        internal DnnTextDetectionModelEast(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_EAST_Delete(handle);
@@ -2179,7 +2185,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextRecognitionModel : DnnModel
     {
-        internal DnnTextRecognitionModel(IntPtr handle) : base(handle) {}
+        internal DnnTextRecognitionModel(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextRecognitionModel_Delete(handle);
@@ -2364,7 +2370,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DnnTokenizer : DisposableOpenCVObject
     {
-        internal DnnTokenizer(IntPtr handle) : base(handle) {}
+        internal DnnTokenizer(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Tokenizer_Delete(handle);

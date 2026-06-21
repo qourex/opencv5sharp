@@ -16,7 +16,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Clahe : Algorithm
     {
-        internal Clahe(IntPtr handle) : base(handle) {}
+        internal Clahe(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CLAHE_Delete(handle);
@@ -123,7 +123,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Filter2DParams : DisposableOpenCVObject
     {
-        internal Filter2DParams(IntPtr handle) : base(handle) {}
+        internal Filter2DParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Filter2DParams_Delete(handle);
@@ -183,7 +183,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FontFace : DisposableOpenCVObject
     {
-        internal FontFace(IntPtr handle) : base(handle) {}
+        internal FontFace(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FontFace_Delete(handle);
@@ -269,7 +269,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class GeneralizedHough : Algorithm
     {
-        internal GeneralizedHough(IntPtr handle) : base(handle) {}
+        internal GeneralizedHough(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GeneralizedHough_Delete(handle);
@@ -462,7 +462,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class GeneralizedHoughBallard : GeneralizedHough
     {
-        internal GeneralizedHoughBallard(IntPtr handle) : base(handle) {}
+        internal GeneralizedHoughBallard(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GeneralizedHoughBallard_Delete(handle);
@@ -524,7 +524,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class GeneralizedHoughGuil : GeneralizedHough
     {
-        internal GeneralizedHoughGuil(IntPtr handle) : base(handle) {}
+        internal GeneralizedHoughGuil(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GeneralizedHoughGuil_Delete(handle);
@@ -818,7 +818,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class LineSegmentDetector : Algorithm
     {
-        internal LineSegmentDetector(IntPtr handle) : base(handle) {}
+        internal LineSegmentDetector(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.LineSegmentDetector_Delete(handle);

@@ -11,167 +11,167 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Returns backend API name or "UnknownVideoAPI(xxx)"
-            /// </summary>
-            /// <param name="api">backend ID (#VideoCaptureAPIs)</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? VideoioRegistryGetBackendName(VideoCaptureAPIs api)
-            {
-                IntPtr res = NativeMethods.cv_videoio_registry_getBackendName_0((int)api);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns list of all available backends
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr VideoioRegistryGetBackends()
-            {
-                var res = NativeMethods.cv_videoio_registry_getBackends_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns list of available backends which works via `cv::VideoCapture(int index)`
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr VideoioRegistryGetCameraBackends()
-            {
-                var res = NativeMethods.cv_videoio_registry_getCameraBackends_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns list of available backends which works via `cv::VideoCapture(filename)`
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr VideoioRegistryGetStreamBackends()
-            {
-                var res = NativeMethods.cv_videoio_registry_getStreamBackends_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns list of available backends which works via `cv::VideoCapture(buffer)`
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr VideoioRegistryGetStreamBufferedBackends()
-            {
-                var res = NativeMethods.cv_videoio_registry_getStreamBufferedBackends_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns list of available backends which works via `cv::VideoWriter()`
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr VideoioRegistryGetWriterBackends()
-            {
-                var res = NativeMethods.cv_videoio_registry_getWriterBackends_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns true if backend is available
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool VideoioRegistryHasBackend(VideoCaptureAPIs api)
-            {
-                var res = NativeMethods.cv_videoio_registry_hasBackend_0((int)api);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns true if backend is built in (false if backend is used as plugin)
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool VideoioRegistryIsBackendBuiltIn(VideoCaptureAPIs api)
-            {
-                var res = NativeMethods.cv_videoio_registry_isBackendBuiltIn_0((int)api);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// Returns description and ABI/API version of videoio plugin's camera interface
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <param name="version_ABI">The version_ABI parameter.</param>
-            /// <param name="version_API">The version_API parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? VideoioRegistryGetCameraBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
-            {
-                IntPtr res = NativeMethods.cv_videoio_registry_getCameraBackendPluginVersion_0((int)api, version_ABI, version_API);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns description and ABI/API version of videoio plugin's stream capture interface
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <param name="version_ABI">The version_ABI parameter.</param>
-            /// <param name="version_API">The version_API parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? VideoioRegistryGetStreamBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
-            {
-                IntPtr res = NativeMethods.cv_videoio_registry_getStreamBackendPluginVersion_0((int)api, version_ABI, version_API);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns description and ABI/API version of videoio plugin's buffer capture interface
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <param name="version_ABI">The version_ABI parameter.</param>
-            /// <param name="version_API">The version_API parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? VideoioRegistryGetStreamBufferedBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
-            {
-                IntPtr res = NativeMethods.cv_videoio_registry_getStreamBufferedBackendPluginVersion_0((int)api, version_ABI, version_API);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// Returns description and ABI/API version of videoio plugin's writer interface
-            /// </summary>
-            /// <param name="api">The api parameter.</param>
-            /// <param name="version_ABI">The version_ABI parameter.</param>
-            /// <param name="version_API">The version_API parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? VideoioRegistryGetWriterBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
-            {
-                IntPtr res = NativeMethods.cv_videoio_registry_getWriterBackendPluginVersion_0((int)api, version_ABI, version_API);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
+        /// <summary>
+        /// Returns backend API name or "UnknownVideoAPI(xxx)"
+        /// </summary>
+        /// <param name="api">backend ID (#VideoCaptureAPIs)</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? VideoioRegistryGetBackendName(VideoCaptureAPIs api)
+        {
+            IntPtr res = NativeMethods.cv_videoio_registry_getBackendName_0((int)api);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns list of all available backends
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr VideoioRegistryGetBackends()
+        {
+            var res = NativeMethods.cv_videoio_registry_getBackends_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns list of available backends which works via `cv::VideoCapture(int index)`
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr VideoioRegistryGetCameraBackends()
+        {
+            var res = NativeMethods.cv_videoio_registry_getCameraBackends_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns list of available backends which works via `cv::VideoCapture(filename)`
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr VideoioRegistryGetStreamBackends()
+        {
+            var res = NativeMethods.cv_videoio_registry_getStreamBackends_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns list of available backends which works via `cv::VideoCapture(buffer)`
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr VideoioRegistryGetStreamBufferedBackends()
+        {
+            var res = NativeMethods.cv_videoio_registry_getStreamBufferedBackends_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns list of available backends which works via `cv::VideoWriter()`
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr VideoioRegistryGetWriterBackends()
+        {
+            var res = NativeMethods.cv_videoio_registry_getWriterBackends_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns true if backend is available
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool VideoioRegistryHasBackend(VideoCaptureAPIs api)
+        {
+            var res = NativeMethods.cv_videoio_registry_hasBackend_0((int)api);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns true if backend is built in (false if backend is used as plugin)
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool VideoioRegistryIsBackendBuiltIn(VideoCaptureAPIs api)
+        {
+            var res = NativeMethods.cv_videoio_registry_isBackendBuiltIn_0((int)api);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Returns description and ABI/API version of videoio plugin's camera interface
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <param name="version_ABI">The version_ABI parameter.</param>
+        /// <param name="version_API">The version_API parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? VideoioRegistryGetCameraBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
+        {
+            IntPtr res = NativeMethods.cv_videoio_registry_getCameraBackendPluginVersion_0((int)api, version_ABI, version_API);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns description and ABI/API version of videoio plugin's stream capture interface
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <param name="version_ABI">The version_ABI parameter.</param>
+        /// <param name="version_API">The version_API parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? VideoioRegistryGetStreamBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
+        {
+            IntPtr res = NativeMethods.cv_videoio_registry_getStreamBackendPluginVersion_0((int)api, version_ABI, version_API);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns description and ABI/API version of videoio plugin's buffer capture interface
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <param name="version_ABI">The version_ABI parameter.</param>
+        /// <param name="version_API">The version_API parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? VideoioRegistryGetStreamBufferedBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
+        {
+            IntPtr res = NativeMethods.cv_videoio_registry_getStreamBufferedBackendPluginVersion_0((int)api, version_ABI, version_API);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// Returns description and ABI/API version of videoio plugin's writer interface
+        /// </summary>
+        /// <param name="api">The api parameter.</param>
+        /// <param name="version_ABI">The version_ABI parameter.</param>
+        /// <param name="version_API">The version_API parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? VideoioRegistryGetWriterBackendPluginVersion(VideoCaptureAPIs api, int version_ABI, int version_API)
+        {
+            IntPtr res = NativeMethods.cv_videoio_registry_getWriterBackendPluginVersion_0((int)api, version_ABI, version_API);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
     }
 }

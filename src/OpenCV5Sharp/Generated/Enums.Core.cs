@@ -12,15 +12,15 @@ namespace OpenCV5Sharp
     public enum AccessFlag : int
     {
         /// <summary>Read</summary>
-        Read = unchecked((int)(1<<24)),
+        Read = unchecked((int)(1 << 24)),
         /// <summary>Write</summary>
-        Write = unchecked((int)(1<<25)),
+        Write = unchecked((int)(1 << 25)),
         /// <summary>Rw</summary>
-        Rw = unchecked((int)(3<<24)),
+        Rw = unchecked((int)(3 << 24)),
         /// <summary>Mask</summary>
         Mask = unchecked((int)(Rw)),
         /// <summary>Fast</summary>
-        Fast = unchecked((int)(1<<26)),
+        Fast = unchecked((int)(1 << 26)),
     }
 
     /// <summary>
@@ -342,17 +342,17 @@ namespace OpenCV5Sharp
         /// <summary>Memory</summary>
         Memory = 4,
         /// <summary>FormatMask</summary>
-        FormatMask = unchecked((int)(7<<3)),
+        FormatMask = unchecked((int)(7 << 3)),
         /// <summary>FormatAuto</summary>
         FormatAuto = 0,
         /// <summary>FormatXml</summary>
-        FormatXml = unchecked((int)(1<<3)),
+        FormatXml = unchecked((int)(1 << 3)),
         /// <summary>FormatYaml</summary>
-        FormatYaml = unchecked((int)(2<<3)),
+        FormatYaml = unchecked((int)(2 << 3)),
         /// <summary>FormatJson</summary>
-        FormatJson = unchecked((int)(3<<3)),
+        FormatJson = unchecked((int)(3 << 3)),
         /// <summary>FormatYaml10</summary>
-        FormatYaml10 = unchecked((int)(4<<3)),
+        FormatYaml10 = unchecked((int)(4 << 3)),
         /// <summary>Base64</summary>
         Base64 = 64,
         /// <summary>WriteBase64</summary>
@@ -824,7 +824,7 @@ namespace OpenCV5Sharp
         /// <summary>_32u</summary>
         _32u = unchecked((int)(1 << 12)),
         /// <summary>All</summary>
-        All = unchecked((int)(1 << 13-1)),
+        All = unchecked((int)(1 << 13 - 1)),
         /// <summary>AllBut8s</summary>
         AllBut8s = unchecked((int)(All & ~_8s)),
         /// <summary>All16f</summary>
@@ -955,9 +955,9 @@ namespace OpenCV5Sharp
         /// <summary>Plain</summary>
         Plain = 0,
         /// <summary>Ipp</summary>
-        Ipp = unchecked((int)(0+1)),
+        Ipp = unchecked((int)(0 + 1)),
         /// <summary>Opencl</summary>
-        Opencl = unchecked((int)(0+2)),
+        Opencl = unchecked((int)(0 + 2)),
     }
 
     /// <summary>
@@ -968,11 +968,11 @@ namespace OpenCV5Sharp
         /// <summary>General</summary>
         General = 0,
         /// <summary>Marker</summary>
-        Marker = unchecked((int)(0+1)),
+        Marker = unchecked((int)(0 + 1)),
         /// <summary>Wrapper</summary>
-        Wrapper = unchecked((int)(0+2)),
+        Wrapper = unchecked((int)(0 + 2)),
         /// <summary>Fun</summary>
-        Fun = unchecked((int)(0+3)),
+        Fun = unchecked((int)(0 + 3)),
     }
 
     /// <summary>

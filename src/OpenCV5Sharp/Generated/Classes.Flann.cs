@@ -16,7 +16,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class FlannIndex : DisposableOpenCVObject
     {
-        internal FlannIndex(IntPtr handle) : base(handle) {}
+        internal FlannIndex(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.flann_Index_Delete(handle);
@@ -165,7 +165,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class FlannIndexParams : DisposableOpenCVObject
     {
-        internal FlannIndexParams(IntPtr handle) : base(handle) {}
+        internal FlannIndexParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.flann_IndexParams_Delete(handle);
@@ -187,7 +187,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class FlannSearchParams : DisposableOpenCVObject
     {
-        internal FlannSearchParams(IntPtr handle) : base(handle) {}
+        internal FlannSearchParams(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.flann_SearchParams_Delete(handle);

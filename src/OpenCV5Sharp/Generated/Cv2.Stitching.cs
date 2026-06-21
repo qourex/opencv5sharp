@@ -11,261 +11,261 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Tries to estimate focal lengths from the given homography under the assumption that the camera
-            /// undergoes rotations around its centre only.
-            /// </summary>
-            /// <param name="H">Homography.</param>
-            /// <param name="f0">Estimated focal length along X axis.</param>
-            /// <param name="f1">Estimated focal length along Y axis.</param>
-            /// <param name="f0_ok">True, if f0 was estimated successfully, false otherwise.</param>
-            /// <param name="f1_ok">True, if f1 was estimated successfully, false otherwise. See "Construction of Panoramic Image Mosaics with Global and Local Alignment" by Heung-Yeung Shum and Richard Szeliski.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailFocalsFromHomography(Mat H, double f0, double f1, bool f0_ok, bool f1_ok)
-            {
-                NativeMethods.cv_detail_focalsFromHomography_0(ValidationHelper.GetHandle(H, nameof(H), false), f0, f1, f0_ok, f1_ok);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Estimates focal lengths for each given camera.
-            /// </summary>
-            /// <param name="Hs">The Hs parameter.</param>
-            /// <param name="K">The K parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool DetailCalibrateRotatingCamera(IntPtr Hs, Mat K)
-            {
-                var res = NativeMethods.cv_detail_calibrateRotatingCamera_0(Hs, ValidationHelper.GetHandle(K, nameof(K), false));
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="weight">The weight parameter.</param>
-            /// <param name="src">Source matrix or image.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailNormalizeUsingWeightMap(Mat weight, Mat src)
-            {
-                NativeMethods.cv_detail_normalizeUsingWeightMap_0(ValidationHelper.GetHandle(weight, nameof(weight), false), ValidationHelper.GetHandle(src, nameof(src), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="mask">Optional operation mask.</param>
-            /// <param name="sharpness">The sharpness parameter.</param>
-            /// <param name="weight">The weight parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailCreateWeightMap(Mat mask, float sharpness, Mat weight)
-            {
-                NativeMethods.cv_detail_createWeightMap_0(ValidationHelper.GetHandle(mask, nameof(mask), false), sharpness, ValidationHelper.GetHandle(weight, nameof(weight), false));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="img">Input image.</param>
-            /// <param name="num_levels">The num_levels parameter.</param>
-            /// <param name="pyr">The pyr parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailCreateLaplacePyr(Mat img, int num_levels, IntPtr pyr)
-            {
-                NativeMethods.cv_detail_createLaplacePyr_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="img">Input image.</param>
-            /// <param name="num_levels">The num_levels parameter.</param>
-            /// <param name="pyr">The pyr parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailCreateLaplacePyrGpu(Mat img, int num_levels, IntPtr pyr)
-            {
-                NativeMethods.cv_detail_createLaplacePyrGpu_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="pyr">The pyr parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailRestoreImageFromLaplacePyr(IntPtr pyr)
-            {
-                NativeMethods.cv_detail_restoreImageFromLaplacePyr_0(pyr);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="pyr">The pyr parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailRestoreImageFromLaplacePyrGpu(IntPtr pyr)
-            {
-                NativeMethods.cv_detail_restoreImageFromLaplacePyrGpu_0(pyr);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="featuresFinder">The featuresFinder parameter.</param>
-            /// <param name="images">The images parameter.</param>
-            /// <param name="features">The features parameter.</param>
-            /// <param name="masks">The masks parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailComputeImageFeatures(Feature2D featuresFinder, IntPtr images, IntPtr features, IntPtr masks)
-            {
-                NativeMethods.cv_detail_computeImageFeatures_0(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), images, features, masks);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="featuresFinder">The featuresFinder parameter.</param>
-            /// <param name="image">Input image.</param>
-            /// <param name="features">The features parameter.</param>
-            /// <param name="mask">Optional operation mask.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailComputeImageFeatures(Feature2D featuresFinder, Mat image, DetailImageFeatures features, Mat? mask)
-            {
-                NativeMethods.cv_detail_computeImageFeatures_1(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(features, nameof(features), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Tries to make panorama more horizontal (or vertical).
-            /// </summary>
-            /// <param name="rmats">Camera rotation matrices.</param>
-            /// <param name="kind">Correction kind, see detail::WaveCorrectKind.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailWaveCorrect(IntPtr rmats, DetailWaveCorrectKind kind)
-            {
-                NativeMethods.cv_detail_waveCorrect_0(rmats, (int)kind);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="paths">The paths parameter.</param>
-            /// <param name="pairwise_matches">The pairwise_matches parameter.</param>
-            /// <param name="conf_threshold">The conf_threshold parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? DetailMatchesGraphAsString(IntPtr paths, IntPtr pairwise_matches, float conf_threshold)
-            {
-                IntPtr res = NativeMethods.cv_detail_matchesGraphAsString_0(paths, pairwise_matches, conf_threshold);
-                ErrorHelper.CheckError();
-                if (res == IntPtr.Zero) return null;
-                string strRes = Marshal.PtrToStringUTF8(res);
-                NativeMethods.cv_FreeString(res);
-                return strRes;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="features">The features parameter.</param>
-            /// <param name="pairwise_matches">The pairwise_matches parameter.</param>
-            /// <param name="conf_threshold">The conf_threshold parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr DetailLeaveBiggestComponent(IntPtr features, IntPtr pairwise_matches, float conf_threshold)
-            {
-                var res = NativeMethods.cv_detail_leaveBiggestComponent_0(features, pairwise_matches, conf_threshold);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="tl1">The tl1 parameter.</param>
-            /// <param name="tl2">The tl2 parameter.</param>
-            /// <param name="sz1">The sz1 parameter.</param>
-            /// <param name="sz2">The sz2 parameter.</param>
-            /// <param name="roi">The roi parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool DetailOverlapRoi(Point tl1, Point tl2, Size sz1, Size sz2, Rect roi)
-            {
-                var res = NativeMethods.cv_detail_overlapRoi_0(tl1, tl2, sz1, sz2, roi);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="images">The images parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static Rect DetailResultRoi(IntPtr corners, IntPtr images)
-            {
-                var res = NativeMethods.cv_detail_resultRoi_0(corners, images);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="sizes">The sizes parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static Rect DetailResultRoiIntersection(IntPtr corners, IntPtr sizes)
-            {
-                var res = NativeMethods.cv_detail_resultRoiIntersection_0(corners, sizes);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="corners">The corners parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static Point DetailResultTl(IntPtr corners)
-            {
-                var res = NativeMethods.cv_detail_resultTl_0(corners);
-                ErrorHelper.CheckError();
-                return res;
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="count">The count parameter.</param>
-            /// <param name="size">The size parameter.</param>
-            /// <param name="subset">The subset parameter.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DetailSelectRandomSubset(int count, int size, IntPtr subset)
-            {
-                NativeMethods.cv_detail_selectRandomSubset_0(count, size, subset);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static int DetailStitchingLogLevel()
-            {
-                var res = NativeMethods.cv_detail_stitchingLogLevel_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
+        /// <summary>
+        /// Tries to estimate focal lengths from the given homography under the assumption that the camera
+        /// undergoes rotations around its centre only.
+        /// </summary>
+        /// <param name="H">Homography.</param>
+        /// <param name="f0">Estimated focal length along X axis.</param>
+        /// <param name="f1">Estimated focal length along Y axis.</param>
+        /// <param name="f0_ok">True, if f0 was estimated successfully, false otherwise.</param>
+        /// <param name="f1_ok">True, if f1 was estimated successfully, false otherwise. See "Construction of Panoramic Image Mosaics with Global and Local Alignment" by Heung-Yeung Shum and Richard Szeliski.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailFocalsFromHomography(Mat H, double f0, double f1, bool f0_ok, bool f1_ok)
+        {
+            NativeMethods.cv_detail_focalsFromHomography_0(ValidationHelper.GetHandle(H, nameof(H), false), f0, f1, f0_ok, f1_ok);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Estimates focal lengths for each given camera.
+        /// </summary>
+        /// <param name="Hs">The Hs parameter.</param>
+        /// <param name="K">The K parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool DetailCalibrateRotatingCamera(IntPtr Hs, Mat K)
+        {
+            var res = NativeMethods.cv_detail_calibrateRotatingCamera_0(Hs, ValidationHelper.GetHandle(K, nameof(K), false));
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="weight">The weight parameter.</param>
+        /// <param name="src">Source matrix or image.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailNormalizeUsingWeightMap(Mat weight, Mat src)
+        {
+            NativeMethods.cv_detail_normalizeUsingWeightMap_0(ValidationHelper.GetHandle(weight, nameof(weight), false), ValidationHelper.GetHandle(src, nameof(src), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="mask">Optional operation mask.</param>
+        /// <param name="sharpness">The sharpness parameter.</param>
+        /// <param name="weight">The weight parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailCreateWeightMap(Mat mask, float sharpness, Mat weight)
+        {
+            NativeMethods.cv_detail_createWeightMap_0(ValidationHelper.GetHandle(mask, nameof(mask), false), sharpness, ValidationHelper.GetHandle(weight, nameof(weight), false));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="img">Input image.</param>
+        /// <param name="num_levels">The num_levels parameter.</param>
+        /// <param name="pyr">The pyr parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailCreateLaplacePyr(Mat img, int num_levels, IntPtr pyr)
+        {
+            NativeMethods.cv_detail_createLaplacePyr_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="img">Input image.</param>
+        /// <param name="num_levels">The num_levels parameter.</param>
+        /// <param name="pyr">The pyr parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailCreateLaplacePyrGpu(Mat img, int num_levels, IntPtr pyr)
+        {
+            NativeMethods.cv_detail_createLaplacePyrGpu_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="pyr">The pyr parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailRestoreImageFromLaplacePyr(IntPtr pyr)
+        {
+            NativeMethods.cv_detail_restoreImageFromLaplacePyr_0(pyr);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="pyr">The pyr parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailRestoreImageFromLaplacePyrGpu(IntPtr pyr)
+        {
+            NativeMethods.cv_detail_restoreImageFromLaplacePyrGpu_0(pyr);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="featuresFinder">The featuresFinder parameter.</param>
+        /// <param name="images">The images parameter.</param>
+        /// <param name="features">The features parameter.</param>
+        /// <param name="masks">The masks parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailComputeImageFeatures(Feature2D featuresFinder, IntPtr images, IntPtr features, IntPtr masks)
+        {
+            NativeMethods.cv_detail_computeImageFeatures_0(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), images, features, masks);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="featuresFinder">The featuresFinder parameter.</param>
+        /// <param name="image">Input image.</param>
+        /// <param name="features">The features parameter.</param>
+        /// <param name="mask">Optional operation mask.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailComputeImageFeatures(Feature2D featuresFinder, Mat image, DetailImageFeatures features, Mat? mask)
+        {
+            NativeMethods.cv_detail_computeImageFeatures_1(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(features, nameof(features), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Tries to make panorama more horizontal (or vertical).
+        /// </summary>
+        /// <param name="rmats">Camera rotation matrices.</param>
+        /// <param name="kind">Correction kind, see detail::WaveCorrectKind.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailWaveCorrect(IntPtr rmats, DetailWaveCorrectKind kind)
+        {
+            NativeMethods.cv_detail_waveCorrect_0(rmats, (int)kind);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="paths">The paths parameter.</param>
+        /// <param name="pairwise_matches">The pairwise_matches parameter.</param>
+        /// <param name="conf_threshold">The conf_threshold parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? DetailMatchesGraphAsString(IntPtr paths, IntPtr pairwise_matches, float conf_threshold)
+        {
+            IntPtr res = NativeMethods.cv_detail_matchesGraphAsString_0(paths, pairwise_matches, conf_threshold);
+            ErrorHelper.CheckError();
+            if (res == IntPtr.Zero) return null;
+            string strRes = Marshal.PtrToStringUTF8(res);
+            NativeMethods.cv_FreeString(res);
+            return strRes;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="features">The features parameter.</param>
+        /// <param name="pairwise_matches">The pairwise_matches parameter.</param>
+        /// <param name="conf_threshold">The conf_threshold parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr DetailLeaveBiggestComponent(IntPtr features, IntPtr pairwise_matches, float conf_threshold)
+        {
+            var res = NativeMethods.cv_detail_leaveBiggestComponent_0(features, pairwise_matches, conf_threshold);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="tl1">The tl1 parameter.</param>
+        /// <param name="tl2">The tl2 parameter.</param>
+        /// <param name="sz1">The sz1 parameter.</param>
+        /// <param name="sz2">The sz2 parameter.</param>
+        /// <param name="roi">The roi parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool DetailOverlapRoi(Point tl1, Point tl2, Size sz1, Size sz2, Rect roi)
+        {
+            var res = NativeMethods.cv_detail_overlapRoi_0(tl1, tl2, sz1, sz2, roi);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="images">The images parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static Rect DetailResultRoi(IntPtr corners, IntPtr images)
+        {
+            var res = NativeMethods.cv_detail_resultRoi_0(corners, images);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="sizes">The sizes parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static Rect DetailResultRoiIntersection(IntPtr corners, IntPtr sizes)
+        {
+            var res = NativeMethods.cv_detail_resultRoiIntersection_0(corners, sizes);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="corners">The corners parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static Point DetailResultTl(IntPtr corners)
+        {
+            var res = NativeMethods.cv_detail_resultTl_0(corners);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="count">The count parameter.</param>
+        /// <param name="size">The size parameter.</param>
+        /// <param name="subset">The subset parameter.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DetailSelectRandomSubset(int count, int size, IntPtr subset)
+        {
+            NativeMethods.cv_detail_selectRandomSubset_0(count, size, subset);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static int DetailStitchingLogLevel()
+        {
+            var res = NativeMethods.cv_detail_stitchingLogLevel_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
     }
 }

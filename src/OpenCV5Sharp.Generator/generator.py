@@ -954,6 +954,7 @@ class OpenCVWrapperGenerator:
                     val = re.sub(r'\b' + re.escape(raw) + r'\b', clean, val)
                     
                 if not re.match(r'^-?\d+$', val):
+                    val = re.sub(r'(\w+)\s*([\+\-\*/])\s*(\w+)', r'\1 \2 \3', val)
                     val = f"unchecked((int)({val}))"
                     
                 m_doc = m[5] if len(m) > 5 else ""

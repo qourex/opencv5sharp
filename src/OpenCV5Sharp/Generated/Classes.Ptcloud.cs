@@ -45,7 +45,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Octree : DisposableOpenCVObject
     {
-        internal Octree(IntPtr handle) : base(handle) {}
+        internal Octree(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Octree_Delete(handle);
@@ -367,7 +367,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Odometry : DisposableOpenCVObject
     {
-        internal Odometry(IntPtr handle) : base(handle) {}
+        internal Odometry(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Odometry_Delete(handle);
@@ -558,7 +558,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class OdometryFrame : DisposableOpenCVObject
     {
-        internal OdometryFrame(IntPtr handle) : base(handle) {}
+        internal OdometryFrame(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.OdometryFrame_Delete(handle);
@@ -734,7 +734,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class OdometrySettings : DisposableOpenCVObject
     {
-        internal OdometrySettings(IntPtr handle) : base(handle) {}
+        internal OdometrySettings(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.OdometrySettings_Delete(handle);
@@ -1143,7 +1143,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class RgbdNormals : DisposableOpenCVObject
     {
-        internal RgbdNormals(IntPtr handle) : base(handle) {}
+        internal RgbdNormals(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.RgbdNormals_Delete(handle);
@@ -1335,7 +1335,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class TriangleRasterizeSettings : DisposableOpenCVObject
     {
-        internal TriangleRasterizeSettings(IntPtr handle) : base(handle) {}
+        internal TriangleRasterizeSettings(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.TriangleRasterizeSettings_Delete(handle);
@@ -1387,7 +1387,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Volume : DisposableOpenCVObject
     {
-        internal Volume(IntPtr handle) : base(handle) {}
+        internal Volume(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Volume_Delete(handle);
@@ -1711,7 +1711,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class VolumeSettings : DisposableOpenCVObject
     {
-        internal VolumeSettings(IntPtr handle) : base(handle) {}
+        internal VolumeSettings(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.VolumeSettings_Delete(handle);
@@ -2132,7 +2132,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DetailPoseGraph : DisposableOpenCVObject
     {
-        internal DetailPoseGraph(IntPtr handle) : base(handle) {}
+        internal DetailPoseGraph(IntPtr handle) : base(handle) { }
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.detail_PoseGraph_Delete(handle);

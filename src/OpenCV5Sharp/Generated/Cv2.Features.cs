@@ -11,151 +11,151 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Determines strong corners on an image.
-            /// </summary>
-            /// <param name="image">Input 8-bit or floating-point 32-bit, single-channel image.</param>
-            /// <param name="corners">Output vector of detected corners.</param>
-            /// <param name="maxCorners">Maximum number of corners to return. If there are more corners than are found, the strongest of them is returned. `maxCorners &lt;= 0` implies that no limit on the maximum is set and all detected corners are returned.</param>
-            /// <param name="qualityLevel">Parameter characterizing the minimal accepted quality of image corners. The parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the quality measure less than the product are rejected. For example, if the best corner has the quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure less than 15 are rejected.</param>
-            /// <param name="minDistance">Minimum possible Euclidean distance between the returned corners.</param>
-            /// <param name="mask">Optional region of interest. If the image is not empty (it needs to have the type CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.</param>
-            /// <param name="blockSize">Size of an average block for computing a derivative covariation matrix over each pixel neighborhood. See cornerEigenValsAndVecs .</param>
-            /// <param name="useHarrisDetector">Parameter indicating whether to use a Harris detector (see #cornerHarris) or #cornerMinEigenVal.</param>
-            /// <param name="k">Free parameter of the Harris detector.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// The function finds the most prominent corners in the image or in the specified image region, as
-            /// described in @cite Shi94
-            /// -   Function calculates the corner quality measure at every source image pixel using the
-            /// #cornerMinEigenVal or #cornerHarris .
-            /// -   Function performs a non-maximum suppression (the local maximums in *3 x 3* neighborhood are
-            /// retained).
-            /// -   The corners with the minimal eigenvalue less than
-            /// [formula] are rejected.
-            /// -   The remaining corners are sorted by the quality measure in the descending order.
-            /// -   Function throws away each corner for which there is a stronger corner at a distance less than
-            /// maxDistance.
-            /// The function can be used to initialize a point-based tracker of an object.
-            /// @note If the function is called with different values A and B of the parameter qualityLevel , and
-            /// A \&gt; B, the vector of returned corners with qualityLevel=A will be the prefix of the output vector
-            /// with qualityLevel=B .
-            /// @sa  cornerMinEigenVal, cornerHarris, calcOpticalFlowPyrLK, estimateRigidTransform,
-            /// </remarks>
-            public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat? mask, int blockSize, bool useHarrisDetector, double k)
-            {
-                NativeMethods.cv_goodFeaturesToTrack_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), blockSize, useHarrisDetector, k);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// OpenCV type (see OpenCV documentation for details).
-            /// </summary>
-            /// <param name="image">Input image.</param>
-            /// <param name="corners">The corners parameter.</param>
-            /// <param name="maxCorners">The maxCorners parameter.</param>
-            /// <param name="qualityLevel">The qualityLevel parameter.</param>
-            /// <param name="minDistance">The minDistance parameter.</param>
-            /// <param name="mask">Optional operation mask.</param>
-            /// <param name="blockSize">The blockSize parameter.</param>
-            /// <param name="gradientSize">The gradientSize parameter.</param>
-            /// <param name="useHarrisDetector">The useHarrisDetector parameter.</param>
-            /// <param name="k">The k parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, int gradientSize, bool useHarrisDetector, double k)
-            {
-                NativeMethods.cv_goodFeaturesToTrack_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), blockSize, gradientSize, useHarrisDetector, k);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Same as above, but returns also quality measure of the detected corners.
-            /// </summary>
-            /// <param name="image">Input 8-bit or floating-point 32-bit, single-channel image.</param>
-            /// <param name="corners">Output vector of detected corners.</param>
-            /// <param name="maxCorners">Maximum number of corners to return. If there are more corners than are found, the strongest of them is returned. `maxCorners &lt;= 0` implies that no limit on the maximum is set and all detected corners are returned.</param>
-            /// <param name="qualityLevel">Parameter characterizing the minimal accepted quality of image corners. The parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the quality measure less than the product are rejected. For example, if the best corner has the quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure less than 15 are rejected.</param>
-            /// <param name="minDistance">Minimum possible Euclidean distance between the returned corners.</param>
-            /// <param name="mask">Region of interest. If the image is not empty (it needs to have the type CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.</param>
-            /// <param name="cornersQuality">Output vector of quality measure of the detected corners.</param>
-            /// <param name="blockSize">Size of an average block for computing a derivative covariation matrix over each pixel neighborhood. See cornerEigenValsAndVecs .</param>
-            /// <param name="gradientSize">Aperture parameter for the Sobel operator used for derivatives computation. See cornerEigenValsAndVecs .</param>
-            /// <param name="useHarrisDetector">Parameter indicating whether to use a Harris detector (see #cornerHarris) or #cornerMinEigenVal.</param>
-            /// <param name="k">Free parameter of the Harris detector.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize, bool useHarrisDetector, double k)
-            {
-                NativeMethods.cv_goodFeaturesToTrack_2(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(cornersQuality, nameof(cornersQuality), false), blockSize, gradientSize, useHarrisDetector, k);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Draws keypoints.
-            /// </summary>
-            /// <param name="image">Source image.</param>
-            /// <param name="keypoints">Keypoints from the source image.</param>
-            /// <param name="outImage">Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below.</param>
-            /// <param name="color">Color of keypoints.</param>
-            /// <param name="flags">Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags. See details above in drawMatches .</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// @note
-            /// For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT,
-            /// cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG,
-            /// cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS
-            /// </remarks>
-            public static void DrawKeypoints(Mat image, IntPtr keypoints, Mat outImage, Scalar color, DrawMatchesFlags flags)
-            {
-                NativeMethods.cv_drawKeypoints_0(ValidationHelper.GetHandle(image, nameof(image), false), keypoints, ValidationHelper.GetHandle(outImage, nameof(outImage), false), color, (int)flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Draws the found matches of keypoints from two images.
-            /// </summary>
-            /// <param name="img1">First source image.</param>
-            /// <param name="keypoints1">Keypoints from the first source image.</param>
-            /// <param name="img2">Second source image.</param>
-            /// <param name="keypoints2">Keypoints from the second source image.</param>
-            /// <param name="matches1to2">Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] .</param>
-            /// <param name="outImg">Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below.</param>
-            /// <param name="matchColor">Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly.</param>
-            /// <param name="singlePointColor">Color of single keypoints (circles), which means that keypoints do not have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly.</param>
-            /// <param name="matchesMask">Mask determining which matches are drawn. If the mask is empty, all matches are drawn.</param>
-            /// <param name="flags">Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags. This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
-            {
-                NativeMethods.cv_drawMatches_0(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchColor, singlePointColor, matchesMask, (int)flags);
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// This is an overloaded member function, provided for convenience.
-            /// </summary>
-            /// <param name="img1">The img1 parameter.</param>
-            /// <param name="keypoints1">The keypoints1 parameter.</param>
-            /// <param name="img2">The img2 parameter.</param>
-            /// <param name="keypoints2">The keypoints2 parameter.</param>
-            /// <param name="matches1to2">The matches1to2 parameter.</param>
-            /// <param name="outImg">The outImg parameter.</param>
-            /// <param name="matchesThickness">The matchesThickness parameter.</param>
-            /// <param name="matchColor">The matchColor parameter.</param>
-            /// <param name="singlePointColor">The singlePointColor parameter.</param>
-            /// <param name="matchesMask">The matchesMask parameter.</param>
-            /// <param name="flags">Operation flags.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
-            {
-                NativeMethods.cv_drawMatches_1(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchesThickness, matchColor, singlePointColor, matchesMask, (int)flags);
-                ErrorHelper.CheckError();
-            }
+        /// <summary>
+        /// Determines strong corners on an image.
+        /// </summary>
+        /// <param name="image">Input 8-bit or floating-point 32-bit, single-channel image.</param>
+        /// <param name="corners">Output vector of detected corners.</param>
+        /// <param name="maxCorners">Maximum number of corners to return. If there are more corners than are found, the strongest of them is returned. `maxCorners &lt;= 0` implies that no limit on the maximum is set and all detected corners are returned.</param>
+        /// <param name="qualityLevel">Parameter characterizing the minimal accepted quality of image corners. The parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the quality measure less than the product are rejected. For example, if the best corner has the quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure less than 15 are rejected.</param>
+        /// <param name="minDistance">Minimum possible Euclidean distance between the returned corners.</param>
+        /// <param name="mask">Optional region of interest. If the image is not empty (it needs to have the type CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.</param>
+        /// <param name="blockSize">Size of an average block for computing a derivative covariation matrix over each pixel neighborhood. See cornerEigenValsAndVecs .</param>
+        /// <param name="useHarrisDetector">Parameter indicating whether to use a Harris detector (see #cornerHarris) or #cornerMinEigenVal.</param>
+        /// <param name="k">Free parameter of the Harris detector.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// The function finds the most prominent corners in the image or in the specified image region, as
+        /// described in @cite Shi94
+        /// -   Function calculates the corner quality measure at every source image pixel using the
+        /// #cornerMinEigenVal or #cornerHarris .
+        /// -   Function performs a non-maximum suppression (the local maximums in *3 x 3* neighborhood are
+        /// retained).
+        /// -   The corners with the minimal eigenvalue less than
+        /// [formula] are rejected.
+        /// -   The remaining corners are sorted by the quality measure in the descending order.
+        /// -   Function throws away each corner for which there is a stronger corner at a distance less than
+        /// maxDistance.
+        /// The function can be used to initialize a point-based tracker of an object.
+        /// @note If the function is called with different values A and B of the parameter qualityLevel , and
+        /// A \&gt; B, the vector of returned corners with qualityLevel=A will be the prefix of the output vector
+        /// with qualityLevel=B .
+        /// @sa  cornerMinEigenVal, cornerHarris, calcOpticalFlowPyrLK, estimateRigidTransform,
+        /// </remarks>
+        public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat? mask, int blockSize, bool useHarrisDetector, double k)
+        {
+            NativeMethods.cv_goodFeaturesToTrack_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), blockSize, useHarrisDetector, k);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// OpenCV type (see OpenCV documentation for details).
+        /// </summary>
+        /// <param name="image">Input image.</param>
+        /// <param name="corners">The corners parameter.</param>
+        /// <param name="maxCorners">The maxCorners parameter.</param>
+        /// <param name="qualityLevel">The qualityLevel parameter.</param>
+        /// <param name="minDistance">The minDistance parameter.</param>
+        /// <param name="mask">Optional operation mask.</param>
+        /// <param name="blockSize">The blockSize parameter.</param>
+        /// <param name="gradientSize">The gradientSize parameter.</param>
+        /// <param name="useHarrisDetector">The useHarrisDetector parameter.</param>
+        /// <param name="k">The k parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, int gradientSize, bool useHarrisDetector, double k)
+        {
+            NativeMethods.cv_goodFeaturesToTrack_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), blockSize, gradientSize, useHarrisDetector, k);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Same as above, but returns also quality measure of the detected corners.
+        /// </summary>
+        /// <param name="image">Input 8-bit or floating-point 32-bit, single-channel image.</param>
+        /// <param name="corners">Output vector of detected corners.</param>
+        /// <param name="maxCorners">Maximum number of corners to return. If there are more corners than are found, the strongest of them is returned. `maxCorners &lt;= 0` implies that no limit on the maximum is set and all detected corners are returned.</param>
+        /// <param name="qualityLevel">Parameter characterizing the minimal accepted quality of image corners. The parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the quality measure less than the product are rejected. For example, if the best corner has the quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure less than 15 are rejected.</param>
+        /// <param name="minDistance">Minimum possible Euclidean distance between the returned corners.</param>
+        /// <param name="mask">Region of interest. If the image is not empty (it needs to have the type CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.</param>
+        /// <param name="cornersQuality">Output vector of quality measure of the detected corners.</param>
+        /// <param name="blockSize">Size of an average block for computing a derivative covariation matrix over each pixel neighborhood. See cornerEigenValsAndVecs .</param>
+        /// <param name="gradientSize">Aperture parameter for the Sobel operator used for derivatives computation. See cornerEigenValsAndVecs .</param>
+        /// <param name="useHarrisDetector">Parameter indicating whether to use a Harris detector (see #cornerHarris) or #cornerMinEigenVal.</param>
+        /// <param name="k">Free parameter of the Harris detector.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize, bool useHarrisDetector, double k)
+        {
+            NativeMethods.cv_goodFeaturesToTrack_2(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(cornersQuality, nameof(cornersQuality), false), blockSize, gradientSize, useHarrisDetector, k);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Draws keypoints.
+        /// </summary>
+        /// <param name="image">Source image.</param>
+        /// <param name="keypoints">Keypoints from the source image.</param>
+        /// <param name="outImage">Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below.</param>
+        /// <param name="color">Color of keypoints.</param>
+        /// <param name="flags">Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags. See details above in drawMatches .</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// @note
+        /// For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT,
+        /// cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG,
+        /// cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS
+        /// </remarks>
+        public static void DrawKeypoints(Mat image, IntPtr keypoints, Mat outImage, Scalar color, DrawMatchesFlags flags)
+        {
+            NativeMethods.cv_drawKeypoints_0(ValidationHelper.GetHandle(image, nameof(image), false), keypoints, ValidationHelper.GetHandle(outImage, nameof(outImage), false), color, (int)flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Draws the found matches of keypoints from two images.
+        /// </summary>
+        /// <param name="img1">First source image.</param>
+        /// <param name="keypoints1">Keypoints from the first source image.</param>
+        /// <param name="img2">Second source image.</param>
+        /// <param name="keypoints2">Keypoints from the second source image.</param>
+        /// <param name="matches1to2">Matches from the first image to the second one, which means that keypoints1[i] has a corresponding point in keypoints2[matches[i]] .</param>
+        /// <param name="outImg">Output image. Its content depends on the flags value defining what is drawn in the output image. See possible flags bit values below.</param>
+        /// <param name="matchColor">Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly.</param>
+        /// <param name="singlePointColor">Color of single keypoints (circles), which means that keypoints do not have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly.</param>
+        /// <param name="matchesMask">Mask determining which matches are drawn. If the mask is empty, all matches are drawn.</param>
+        /// <param name="flags">Flags setting drawing features. Possible flags bit values are defined by DrawMatchesFlags. This function draws matches of keypoints from two images in the output image. Match is a line connecting two keypoints (circles). See cv::DrawMatchesFlags.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
+        {
+            NativeMethods.cv_drawMatches_0(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchColor, singlePointColor, matchesMask, (int)flags);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// This is an overloaded member function, provided for convenience.
+        /// </summary>
+        /// <param name="img1">The img1 parameter.</param>
+        /// <param name="keypoints1">The keypoints1 parameter.</param>
+        /// <param name="img2">The img2 parameter.</param>
+        /// <param name="keypoints2">The keypoints2 parameter.</param>
+        /// <param name="matches1to2">The matches1to2 parameter.</param>
+        /// <param name="outImg">The outImg parameter.</param>
+        /// <param name="matchesThickness">The matchesThickness parameter.</param>
+        /// <param name="matchColor">The matchColor parameter.</param>
+        /// <param name="singlePointColor">The singlePointColor parameter.</param>
+        /// <param name="matchesMask">The matchesMask parameter.</param>
+        /// <param name="flags">Operation flags.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
+        {
+            NativeMethods.cv_drawMatches_1(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchesThickness, matchColor, singlePointColor, matchesMask, (int)flags);
+            ErrorHelper.CheckError();
+        }
     }
 }
