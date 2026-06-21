@@ -22,7 +22,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Aliked : Feature2D
     {
-        internal Aliked(IntPtr handle) : base(handle) { }
+        internal Aliked(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ALIKED_Delete(handle);
@@ -43,18 +43,18 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class AlikedParams : DisposableOpenCVObject
     {
-        internal AlikedParams(IntPtr handle) : base(handle) { }
+        internal AlikedParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ALIKED_Params_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public AlikedParams()
@@ -109,7 +109,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class ANNIndex : DisposableOpenCVObject
     {
-        internal ANNIndex(IntPtr handle) : base(handle) { }
+        internal ANNIndex(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ANNIndex_Delete(handle);
@@ -174,7 +174,7 @@ namespace OpenCV5Sharp
         /// *  @param prefault If prefault is set to true, it will pre-read the entire file into memory (using mmap
         /// *  with MAP_POPULATE). Default is false.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="prefault">The prefault parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public void Save(string filename, bool prefault)
@@ -190,7 +190,7 @@ namespace OpenCV5Sharp
         /// *  @param prefault If prefault is set to true, it will pre-read the entire file into memory (using mmap
         /// *  with MAP_POPULATE). Default is false.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="prefault">The prefault parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public void Load(string filename, bool prefault)
@@ -229,7 +229,7 @@ namespace OpenCV5Sharp
         /// *
         /// *  @param filename Filename of the index to be built.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public bool SetOnDiskBuild(string filename)
@@ -279,18 +279,18 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class AffineFeature : Feature2D
     {
-        internal AffineFeature(IntPtr handle) : base(handle) { }
+        internal AffineFeature(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.AffineFeature_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="backend">The detector/extractor you want to use as backend.</param>
         /// <param name="maxTilt">The highest power index of tilt factor. 5 is used in the paper as tilt sampling range n.</param>
         /// <param name="minTilt">The lowest power index of tilt factor. 0 is used in the paper.</param>
-        /// <param name="tiltStep">Tilt sampling step \f$\delta_t\f$ in Algorithm 1 in the paper.</param>
+        /// <param name="tiltStep">Tilt sampling step [formula] in Algorithm 1 in the paper.</param>
         /// <param name="rotateStepBase">Rotation sampling step factor b in Algorithm 1 in the paper.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -303,7 +303,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new AffineFeature(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="tilts">The tilts parameter.</param>
         /// <param name="rolls">The rolls parameter.</param>
@@ -315,7 +315,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="tilts">The tilts parameter.</param>
         /// <param name="rolls">The rolls parameter.</param>
@@ -327,7 +327,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -354,7 +354,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class BFMatcher : DescriptorMatcher
     {
-        internal BFMatcher(IntPtr handle) : base(handle) { }
+        internal BFMatcher(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.BFMatcher_Delete(handle);
@@ -397,7 +397,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DescriptorMatcher : Algorithm
     {
-        internal DescriptorMatcher(IntPtr handle) : base(handle) { }
+        internal DescriptorMatcher(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.DescriptorMatcher_Delete(handle);
@@ -532,7 +532,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="queryDescriptors">Query set of descriptors.</param>
         /// <param name="matches">Matches. If a query descriptor is masked out in mask , no match is added for this descriptor. So, matches size may be smaller than the query descriptors count.</param>
@@ -547,7 +547,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="queryDescriptors">Query set of descriptors.</param>
         /// <param name="matches">Matches. Each matches[i] is k or less matches for the same query descriptor.</param>
@@ -564,7 +564,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="queryDescriptors">Query set of descriptors.</param>
         /// <param name="matches">Found matches.</param>
@@ -581,7 +581,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fileName">The fileName parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -592,7 +592,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fileName">The fileName parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -603,7 +603,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="arg1">The arg1 parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -642,7 +642,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DescriptorMatcher(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="matcherType">The matcherType parameter.</param>
         /// <returns>The returned value.</returns>
@@ -654,7 +654,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DescriptorMatcher(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fs">The fs parameter.</param>
         /// <param name="name">The name parameter.</param>
@@ -678,13 +678,13 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FastFeatureDetector : Feature2D
     {
-        internal FastFeatureDetector(IntPtr handle) : base(handle) { }
+        internal FastFeatureDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FastFeatureDetector_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="threshold">The threshold parameter.</param>
         /// <param name="nonmaxSuppression">The nonmaxSuppression parameter.</param>
@@ -698,7 +698,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new FastFeatureDetector(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="threshold">The threshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -709,7 +709,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -721,7 +721,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="f">The f parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -732,7 +732,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -744,7 +744,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="type">The type parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -755,7 +755,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -767,7 +767,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -789,7 +789,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Feature2D : Algorithm
     {
-        internal Feature2D(IntPtr handle) : base(handle) { }
+        internal Feature2D(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.Feature2D_Delete(handle);
@@ -810,7 +810,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="images">Image set.</param>
         /// <param name="keypoints">The detected keypoints. In the second variant of the method keypoints[i] is a set of keypoints detected in images[i] .</param>
@@ -839,7 +839,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="images">Image set.</param>
         /// <param name="keypoints">Input collection of keypoints. Keypoints for which a descriptor cannot be computed are removed. Sometimes new keypoints can be added, for example: SIFT duplicates keypoint with several dominant orientations (for each orientation).</param>
@@ -854,8 +854,8 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Detects keypoints and computes the descriptors
         /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
+        /// <param name="image">Input image.</param>
+        /// <param name="mask">Optional operation mask.</param>
         /// <param name="keypoints">The keypoints parameter.</param>
         /// <param name="descriptors">The descriptors parameter.</param>
         /// <param name="useProvidedKeypoints">The useProvidedKeypoints parameter.</param>
@@ -869,7 +869,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -881,7 +881,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -893,7 +893,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -905,7 +905,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fileName">The fileName parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -916,7 +916,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fileName">The fileName parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -927,7 +927,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="arg1">The arg1 parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -940,7 +940,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -952,7 +952,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -967,7 +967,7 @@ namespace OpenCV5Sharp
             return strRes;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fs">The fs parameter.</param>
         /// <param name="name">The name parameter.</param>
@@ -988,13 +988,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class GFTTDetector : Feature2D
     {
-        internal GFTTDetector(IntPtr handle) : base(handle) { }
+        internal GFTTDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GFTTDetector_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxCorners">The maxCorners parameter.</param>
         /// <param name="qualityLevel">The qualityLevel parameter.</param>
@@ -1011,7 +1011,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new GFTTDetector(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxCorners">The maxCorners parameter.</param>
         /// <param name="qualityLevel">The qualityLevel parameter.</param>
@@ -1029,7 +1029,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new GFTTDetector(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxFeatures">The maxFeatures parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1040,7 +1040,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1052,7 +1052,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="qlevel">The qlevel parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1063,7 +1063,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1075,7 +1075,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="minDistance">The minDistance parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1086,7 +1086,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1098,7 +1098,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="blockSize">The blockSize parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1109,7 +1109,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1121,7 +1121,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="gradientSize_">The gradientSize_ parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1132,7 +1132,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1144,7 +1144,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="val">The val parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1155,7 +1155,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1167,7 +1167,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="k">The k parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1178,7 +1178,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1190,7 +1190,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1221,7 +1221,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class LightGlueMatcher : DescriptorMatcher
     {
-        internal LightGlueMatcher(IntPtr handle) : base(handle) { }
+        internal LightGlueMatcher(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.LightGlueMatcher_Delete(handle);
@@ -1290,7 +1290,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Mser : Feature2D
     {
-        internal Mser(IntPtr handle) : base(handle) { }
+        internal Mser(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.MSER_Delete(handle);
@@ -1298,7 +1298,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Full constructor for %MSER detector
         /// </summary>
-        /// <param name="delta">it compares \f$(size_{i}-size_{i-delta})/size_{i-delta}\f$</param>
+        /// <param name="delta">it compares [formula]</param>
         /// <param name="min_area">prune the area which smaller than minArea</param>
         /// <param name="max_area">prune the area which bigger than maxArea</param>
         /// <param name="max_variation">prune the area have similar size to its children</param>
@@ -1331,7 +1331,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="delta">The delta parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1342,7 +1342,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1354,7 +1354,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="minArea">The minArea parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1365,7 +1365,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1377,7 +1377,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxArea">The maxArea parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1388,7 +1388,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1400,7 +1400,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxVariation">The maxVariation parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1411,7 +1411,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1423,7 +1423,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="minDiversity">The minDiversity parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1434,7 +1434,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1446,7 +1446,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxEvolution">The maxEvolution parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1457,7 +1457,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1469,7 +1469,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="areaThreshold">The areaThreshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1480,7 +1480,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1492,7 +1492,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="min_margin">The min_margin parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1503,7 +1503,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1515,7 +1515,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="edge_blur_size">The edge_blur_size parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1526,7 +1526,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1538,7 +1538,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="f">The f parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1549,7 +1549,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1561,7 +1561,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1589,7 +1589,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class Orb : Feature2D
     {
-        internal Orb(IntPtr handle) : base(handle) { }
+        internal Orb(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.ORB_Delete(handle);
@@ -1615,7 +1615,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Orb(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxFeatures">The maxFeatures parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1626,7 +1626,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1638,7 +1638,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="scaleFactor">The scaleFactor parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1649,7 +1649,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1661,7 +1661,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="nlevels">The nlevels parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1672,7 +1672,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1684,7 +1684,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="edgeThreshold">The edgeThreshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1695,7 +1695,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1707,7 +1707,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="firstLevel">The firstLevel parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1718,7 +1718,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1730,7 +1730,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="wta_k">The wta_k parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1741,7 +1741,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1753,7 +1753,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="scoreType">The scoreType parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1764,7 +1764,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1776,7 +1776,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="patchSize">The patchSize parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1787,7 +1787,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1799,7 +1799,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="fastThreshold">The fastThreshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1810,7 +1810,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1822,7 +1822,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1845,20 +1845,20 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class Sift : Feature2D
     {
-        internal Sift(IntPtr handle) : base(handle) { }
+        internal Sift(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SIFT_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="nfeatures">The number of best features to retain. The features are ranked by their scores (measured in SIFT algorithm as the local contrast)</param>
         /// <param name="nOctaveLayers">The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.</param>
         /// <param name="contrastThreshold">The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.</param>
         /// <param name="edgeThreshold">The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</param>
         /// <param name="sigma">The sigma of the Gaussian applied to the input image at the octave \#0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</param>
-        /// <param name="enable_precise_upscale">Whether to enable precise upscaling in the scale pyramid, which maps index \f$\texttt{x}\f$ to \f$\texttt{2x}\f$. This prevents localization bias. The option is disabled by default.</param>
+        /// <param name="enable_precise_upscale">Whether to enable precise upscaling in the scale pyramid, which maps index [formula] to [formula]. This prevents localization bias. The option is disabled by default.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
@@ -1881,7 +1881,7 @@ namespace OpenCV5Sharp
         /// <param name="edgeThreshold">The threshold used to filter out edge-like features. Note that the its meaning is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).</param>
         /// <param name="sigma">The sigma of the Gaussian applied to the input image at the octave \#0. If your image is captured with a weak camera with soft lenses, you might want to reduce the number.</param>
         /// <param name="descriptorType">The type of descriptors. Only CV_32F and CV_8U are supported.</param>
-        /// <param name="enable_precise_upscale">Whether to enable precise upscaling in the scale pyramid, which maps index \f$\texttt{x}\f$ to \f$\texttt{2x}\f$. This prevents localization bias. The option is disabled by default.</param>
+        /// <param name="enable_precise_upscale">Whether to enable precise upscaling in the scale pyramid, which maps index [formula] to [formula]. This prevents localization bias. The option is disabled by default.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
@@ -1896,7 +1896,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Sift(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1911,7 +1911,7 @@ namespace OpenCV5Sharp
             return strRes;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxFeatures">The maxFeatures parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1922,7 +1922,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1934,7 +1934,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="nOctaveLayers">The nOctaveLayers parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1945,7 +1945,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1957,7 +1957,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="contrastThreshold">The contrastThreshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1968,7 +1968,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1980,7 +1980,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="edgeThreshold">The edgeThreshold parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1991,7 +1991,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2003,7 +2003,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="sigma">The sigma parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2014,7 +2014,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2049,7 +2049,7 @@ namespace OpenCV5Sharp
     /// and blobColor = 255 to extract light blobs.
     /// -   **By area**. Extracted blobs have an area between minArea (inclusive) and maxArea (exclusive).
     /// -   **By circularity**. Extracted blobs have circularity
-    /// (\f$\frac{4*\pi*Area}{perimeter * perimeter}\f$) between minCircularity (inclusive) and
+    /// ([formula]) between minCircularity (inclusive) and
     /// maxCircularity (exclusive).
     /// -   **By ratio of the minimum inertia to maximum inertia**. Extracted blobs have this ratio
     /// between minInertiaRatio (inclusive) and maxInertiaRatio (exclusive).
@@ -2059,7 +2059,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class SimpleBlobDetector : Feature2D
     {
-        internal SimpleBlobDetector(IntPtr handle) : base(handle) { }
+        internal SimpleBlobDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SimpleBlobDetector_Delete(handle);
@@ -2082,7 +2082,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new SimpleBlobDetector(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="params">The @params parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2093,7 +2093,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2105,7 +2105,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2138,18 +2138,18 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class SimpleBlobDetectorParams : DisposableOpenCVObject
     {
-        internal SimpleBlobDetectorParams(IntPtr handle) : base(handle) { }
+        internal SimpleBlobDetectorParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.SimpleBlobDetector_Params_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public SimpleBlobDetectorParams()

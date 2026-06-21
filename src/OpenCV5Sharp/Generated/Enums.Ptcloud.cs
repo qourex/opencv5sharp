@@ -7,9 +7,8 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OdometryAlgoType : int
     {
         /// <summary>Common</summary>
@@ -19,9 +18,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OdometryFramePyramidType : int
     {
         /// <summary>PyrImage</summary>
@@ -43,13 +41,12 @@ namespace OpenCV5Sharp
         /// <summary>PyrNormmask</summary>
         PyrNormmask = 8,
         /// <summary>NPyramids</summary>
-        NPyramids = unchecked((int)(8 + 1)),
+        NPyramids = unchecked((int)(8+1)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OdometryType : int
     {
         /// <summary>Depth</summary>
@@ -61,9 +58,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum RgbdNormalsRgbdNormalsMethod : int
     {
         /// <summary>Fals</summary>
@@ -77,9 +73,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum RgbdPlaneMethod : int
     {
         /// <summary>RgbdPlaneMethodDefault</summary>
@@ -87,9 +82,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum TriangleCullingMode : int
     {
         /// <summary>None</summary>
@@ -101,9 +95,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum TriangleGlCompatibleMode : int
     {
         /// <summary>Disabled</summary>
@@ -113,9 +106,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum TriangleShadingType : int
     {
         /// <summary>White</summary>
@@ -127,9 +119,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum VolumeBoundingBoxPrecision : int
     {
         /// <summary>VolumeUnit</summary>
@@ -139,9 +130,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum VolumeType : int
     {
         /// <summary>Tsdf</summary>

@@ -7,41 +7,39 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnActivationType : int
     {
         /// <summary>None</summary>
         None = 0,
         /// <summary>Mish</summary>
-        Mish = unchecked((int)(0 + 1)),
+        Mish = unchecked((int)(0+1)),
         /// <summary>Swish</summary>
-        Swish = unchecked((int)(0 + 2)),
+        Swish = unchecked((int)(0+2)),
         /// <summary>Sigmoid</summary>
-        Sigmoid = unchecked((int)(0 + 3)),
+        Sigmoid = unchecked((int)(0+3)),
         /// <summary>Tanh</summary>
-        Tanh = unchecked((int)(0 + 4)),
+        Tanh = unchecked((int)(0+4)),
         /// <summary>Elu</summary>
-        Elu = unchecked((int)(0 + 5)),
+        Elu = unchecked((int)(0+5)),
         /// <summary>Hardswish</summary>
-        Hardswish = unchecked((int)(0 + 6)),
+        Hardswish = unchecked((int)(0+6)),
         /// <summary>Hardsigmoid</summary>
-        Hardsigmoid = unchecked((int)(0 + 7)),
+        Hardsigmoid = unchecked((int)(0+7)),
         /// <summary>Gelu</summary>
-        Gelu = unchecked((int)(0 + 8)),
+        Gelu = unchecked((int)(0+8)),
         /// <summary>GeluApprox</summary>
-        GeluApprox = unchecked((int)(0 + 9)),
+        GeluApprox = unchecked((int)(0+9)),
         /// <summary>Relu</summary>
-        Relu = unchecked((int)(0 + 10)),
+        Relu = unchecked((int)(0+10)),
         /// <summary>Clip</summary>
-        Clip = unchecked((int)(0 + 11)),
+        Clip = unchecked((int)(0+11)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnArgKind : int
     {
         /// <summary>Empty</summary>
@@ -59,9 +57,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnAutoPadding : int
     {
         /// <summary>None</summary>
@@ -75,9 +72,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnBackend : int
     {
         /// <summary>Default</summary>
@@ -85,23 +81,22 @@ namespace OpenCV5Sharp
         /// <summary>InferenceEngine</summary>
         InferenceEngine = 2,
         /// <summary>Opencv</summary>
-        Opencv = unchecked((int)(2 + 1)),
+        Opencv = unchecked((int)(2+1)),
         /// <summary>Vkcom</summary>
-        Vkcom = unchecked((int)(2 + 2)),
+        Vkcom = unchecked((int)(2+2)),
         /// <summary>Cuda</summary>
-        Cuda = unchecked((int)(2 + 3)),
+        Cuda = unchecked((int)(2+3)),
         /// <summary>Webnn</summary>
-        Webnn = unchecked((int)(2 + 4)),
+        Webnn = unchecked((int)(2+4)),
         /// <summary>Timvx</summary>
-        Timvx = unchecked((int)(2 + 5)),
+        Timvx = unchecked((int)(2+5)),
         /// <summary>Cann</summary>
-        Cann = unchecked((int)(2 + 6)),
+        Cann = unchecked((int)(2+6)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnEngineType : int
     {
         /// <summary>Classic</summary>
@@ -115,9 +110,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnImagePaddingMode : int
     {
         /// <summary>Null</summary>
@@ -129,9 +123,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnLossReduction : int
     {
         /// <summary>None</summary>
@@ -143,9 +136,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnModelFormat : int
     {
         /// <summary>Generic</summary>
@@ -159,65 +151,63 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnNaryEltwiseLayerOperation : int
     {
         /// <summary>And</summary>
         And = 0,
         /// <summary>Equal</summary>
-        Equal = unchecked((int)(0 + 1)),
+        Equal = unchecked((int)(0+1)),
         /// <summary>Greater</summary>
-        Greater = unchecked((int)(0 + 2)),
+        Greater = unchecked((int)(0+2)),
         /// <summary>GreaterEqual</summary>
-        GreaterEqual = unchecked((int)(0 + 3)),
+        GreaterEqual = unchecked((int)(0+3)),
         /// <summary>Less</summary>
-        Less = unchecked((int)(0 + 4)),
+        Less = unchecked((int)(0+4)),
         /// <summary>LessEqual</summary>
-        LessEqual = unchecked((int)(0 + 5)),
+        LessEqual = unchecked((int)(0+5)),
         /// <summary>Or</summary>
-        Or = unchecked((int)(0 + 6)),
+        Or = unchecked((int)(0+6)),
         /// <summary>Pow</summary>
-        Pow = unchecked((int)(0 + 7)),
+        Pow = unchecked((int)(0+7)),
         /// <summary>Xor</summary>
-        Xor = unchecked((int)(0 + 8)),
+        Xor = unchecked((int)(0+8)),
         /// <summary>Bitshift</summary>
-        Bitshift = unchecked((int)(0 + 9)),
+        Bitshift = unchecked((int)(0+9)),
         /// <summary>Max</summary>
-        Max = unchecked((int)(0 + 10)),
+        Max = unchecked((int)(0+10)),
         /// <summary>Mean</summary>
-        Mean = unchecked((int)(0 + 11)),
+        Mean = unchecked((int)(0+11)),
         /// <summary>Min</summary>
-        Min = unchecked((int)(0 + 12)),
+        Min = unchecked((int)(0+12)),
         /// <summary>Mod</summary>
-        Mod = unchecked((int)(0 + 13)),
+        Mod = unchecked((int)(0+13)),
         /// <summary>Fmod</summary>
-        Fmod = unchecked((int)(0 + 14)),
+        Fmod = unchecked((int)(0+14)),
         /// <summary>Prod</summary>
-        Prod = unchecked((int)(0 + 15)),
+        Prod = unchecked((int)(0+15)),
         /// <summary>Sub</summary>
-        Sub = unchecked((int)(0 + 16)),
+        Sub = unchecked((int)(0+16)),
         /// <summary>Sum</summary>
-        Sum = unchecked((int)(0 + 17)),
+        Sum = unchecked((int)(0+17)),
         /// <summary>Add</summary>
-        Add = unchecked((int)(0 + 18)),
+        Add = unchecked((int)(0+18)),
         /// <summary>Div</summary>
-        Div = unchecked((int)(0 + 19)),
+        Div = unchecked((int)(0+19)),
         /// <summary>Where</summary>
-        Where = unchecked((int)(0 + 20)),
+        Where = unchecked((int)(0+20)),
         /// <summary>BitwiseAnd</summary>
-        BitwiseAnd = unchecked((int)(0 + 21)),
+        BitwiseAnd = unchecked((int)(0+21)),
         /// <summary>BitwiseOr</summary>
-        BitwiseOr = unchecked((int)(0 + 22)),
+        BitwiseOr = unchecked((int)(0+22)),
         /// <summary>BitwiseXor</summary>
-        BitwiseXor = unchecked((int)(0 + 23)),
+        BitwiseXor = unchecked((int)(0+23)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnProfilingMode : int
     {
         /// <summary>None</summary>
@@ -229,9 +219,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnReduce2LayerReduceType : int
     {
         /// <summary>Max</summary>
@@ -257,9 +246,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnSoftNMSMethod : int
     {
         /// <summary>Linear</summary>
@@ -269,39 +257,37 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnTarget : int
     {
         /// <summary>Cpu</summary>
         Cpu = 0,
         /// <summary>Opencl</summary>
-        Opencl = unchecked((int)(0 + 1)),
+        Opencl = unchecked((int)(0+1)),
         /// <summary>OpenclFp16</summary>
-        OpenclFp16 = unchecked((int)(0 + 2)),
+        OpenclFp16 = unchecked((int)(0+2)),
         /// <summary>Myriad</summary>
-        Myriad = unchecked((int)(0 + 3)),
+        Myriad = unchecked((int)(0+3)),
         /// <summary>Vulkan</summary>
-        Vulkan = unchecked((int)(0 + 4)),
+        Vulkan = unchecked((int)(0+4)),
         /// <summary>Fpga</summary>
-        Fpga = unchecked((int)(0 + 5)),
+        Fpga = unchecked((int)(0+5)),
         /// <summary>Cuda</summary>
-        Cuda = unchecked((int)(0 + 6)),
+        Cuda = unchecked((int)(0+6)),
         /// <summary>CudaFp16</summary>
-        CudaFp16 = unchecked((int)(0 + 7)),
+        CudaFp16 = unchecked((int)(0+7)),
         /// <summary>Hddl</summary>
-        Hddl = unchecked((int)(0 + 8)),
+        Hddl = unchecked((int)(0+8)),
         /// <summary>Npu</summary>
-        Npu = unchecked((int)(0 + 9)),
+        Npu = unchecked((int)(0+9)),
         /// <summary>CpuFp16</summary>
-        CpuFp16 = unchecked((int)(0 + 10)),
+        CpuFp16 = unchecked((int)(0+10)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DnnTracingMode : int
     {
         /// <summary>None</summary>

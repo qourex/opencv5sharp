@@ -7,9 +7,8 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum1DISOpticalFlow : int
     {
         /// <summary>Ultrafast</summary>
@@ -21,9 +20,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DetailTrackerSamplerCSCMode : int
     {
         /// <summary>InitPos</summary>

@@ -12,11 +12,5 @@
     <ProjectReference Include="..\..\src\OpenCV5Sharp\OpenCV5Sharp.csproj" />
   </ItemGroup>
 
-  <!-- Copy native runtimes to output folder so the application can run immediately -->
-  <ItemGroup>
-    <None Include="..\..\src\OpenCV5Sharp\runtimes\win-x64\native\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+  <Import Project="..\..\src\OpenCV5Sharp\build\OpenCV5Sharp.targets" />
 </Project>

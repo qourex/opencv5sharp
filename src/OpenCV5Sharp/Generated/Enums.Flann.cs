@@ -7,9 +7,8 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FlannFlannIndexType : int
     {
         /// <summary>FlannIndexType8u</summary>
@@ -27,11 +26,11 @@ namespace OpenCV5Sharp
         /// <summary>FlannIndexType64f</summary>
         FlannIndexType64f = 6,
         /// <summary>FlannIndexTypeString</summary>
-        FlannIndexTypeString = unchecked((int)(6 + 1)),
+        FlannIndexTypeString = unchecked((int)(6+1)),
         /// <summary>FlannIndexTypeBool</summary>
-        FlannIndexTypeBool = unchecked((int)(6 + 2)),
+        FlannIndexTypeBool = unchecked((int)(6+2)),
         /// <summary>FlannIndexTypeAlgorithm</summary>
-        FlannIndexTypeAlgorithm = unchecked((int)(6 + 3)),
+        FlannIndexTypeAlgorithm = unchecked((int)(6+3)),
         /// <summary>LastValueFlannIndexType</summary>
         LastValueFlannIndexType = unchecked((int)(FlannIndexTypeAlgorithm)),
     }

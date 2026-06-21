@@ -7,9 +7,8 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum ANNIndexDistance : int
     {
         /// <summary>Euclidean</summary>
@@ -25,9 +24,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DescriptorMatcherMatcherType : int
     {
         /// <summary>Flannbased</summary>
@@ -45,9 +43,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DrawMatchesFlags : int
     {
         /// <summary>Default</summary>
@@ -61,9 +58,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum2FastFeatureDetector : int
     {
         /// <summary>Threshold</summary>
@@ -75,9 +71,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FastFeatureDetectorDetectorType : int
     {
         /// <summary>_58</summary>
@@ -89,9 +84,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OrbScoreType : int
     {
         /// <summary>HarrisScore</summary>

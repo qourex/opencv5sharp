@@ -64,6 +64,7 @@ template class cv::Size_<double>;
 
 extern "C" __declspec(dllexport) const char* opencv5sharp_getLastError();
 extern "C" __declspec(dllexport) int opencv5sharp_getLastErrorCode();
+extern "C" __declspec(dllexport) void opencv5sharp_clearLastError();
 extern "C" __declspec(dllexport) void cv_FreeString(char* ptr);
 extern "C" __declspec(dllexport) void cv_VectorInt_Delete(void* ptr);
 extern "C" __declspec(dllexport) int cv_VectorInt_Size(void* ptr);

@@ -11,2310 +11,2310 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-        /// <summary>
-        /// Approximates a polygonal curve(s) with the specified precision.
-        /// *
-        /// T he function cv::approxPolyDP approximates a curve or a p*olygon with another curve/polygon with less
-        /// vertices so that the distance between them is less or equal to the specified precision. It uses the
-        /// Douglas-Peucker algorithm &lt;https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm&gt;
-        /// </summary>
-        /// <param name="curve">Input vector of a 2D point stored in std::vector or Mat</param>
-        /// <param name="approxCurve">Result of the approximation. The type should match the type of the input curve.</param>
-        /// <param name="epsilon">Parameter specifying the approximation accuracy. This is the maximum distance between the original curve and its approximation.</param>
-        /// <param name="closed">If true, the approximated curve is closed (its first and last vertices are connected). Otherwise, it is not closed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ApproxPolyDP(Mat curve, Mat approxCurve, double epsilon, bool closed)
-        {
-            NativeMethods.cv_approxPolyDP_0(ValidationHelper.GetHandle(curve, nameof(curve), false), ValidationHelper.GetHandle(approxCurve, nameof(approxCurve), false), epsilon, closed);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Approximates a polygon with a convex hull with a specified accuracy and number of sides.
-        /// *
-        /// T he cv::approxPolyN function approximates a polygon with *a convex hull
-        /// so that the difference between the contour area of the original contour and the new polygon is minimal.
-        /// It uses a greedy algorithm for contracting two vertices into one in such a way that the additional area is minimal.
-        /// Straight lines formed by each edge of the convex contour are drawn and the areas of the resulting triangles are considered.
-        /// Each vertex will lie either on the original contour or outside it.
-        /// </summary>
-        /// <param name="curve">Input vector of a 2D points stored in std::vector or Mat, points must be float or integer.</param>
-        /// <param name="approxCurve">Result of the approximation. The type is vector of a 2D point (Point2f or Point) in std::vector or Mat.</param>
-        /// <param name="nsides">The parameter defines the number of sides of the result polygon.</param>
-        /// <param name="epsilon_percentage">defines the percentage of the maximum of additional area. If it equals -1, it is not used. Otherwise algorithm stops if additional area is greater than contourArea(_curve) * percentage. If additional area exceeds the limit, algorithm returns as many vertices as there were at the moment the limit was exceeded.</param>
-        /// <param name="ensure_convex">If it is true, algorithm creates a convex hull of input contour. Otherwise input vector should be convex.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The algorithm based on the paper @cite LowIlie2003 .
-        /// </remarks>
-        public static void ApproxPolyN(Mat curve, Mat approxCurve, int nsides, float epsilon_percentage, bool ensure_convex)
-        {
-            NativeMethods.cv_approxPolyN_0(ValidationHelper.GetHandle(curve, nameof(curve), false), ValidationHelper.GetHandle(approxCurve, nameof(approxCurve), false), nsides, epsilon_percentage, ensure_convex);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds a rotated rectangle of the minimum area enclosing the input 2D point set.
-        /// *
-        /// * The function calculates and returns the minimum-area bounding rectangle (possibly rotated) for a
-        /// * specified point set. The angle of rotation represents the angle between the line connecting the starting
-        /// * and ending points (based on the clockwise order with greatest index for the corner with greatest \f$y\f$)
-        /// * and the horizontal axis. This angle always falls between \f$[-90, 0)\f$ because, if the object
-        /// * rotates more than a rect angle, the next edge is used to measure the angle. The starting and ending points change
-        /// * as the object rotates.Developer should keep in mind that the returned RotatedRect can contain negative
-        /// * indices when data is close to the containing Mat element boundary.
-        /// *
-        /// * @param points Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static RotatedRect? MinAreaRect(Mat points)
-        {
-            IntPtr res = NativeMethods.cv_minAreaRect_0(ValidationHelper.GetHandle(points, nameof(points), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new RotatedRect(res);
-        }
-        /// <summary>
-        /// Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
-        /// *
-        /// * The function finds the four vertices of a rotated rectangle. The four vertices are returned
-        /// * in clockwise order starting from the point with greatest \f$y\f$. If two points have the
-        /// * same \f$y\f$ coordinate the rightmost is the starting point. This function is useful to draw the
-        /// * rectangle. In C++, instead of using this function, you can directly use RotatedRect::points method. Please
-        /// * visit the @ref tutorial_bounding_rotated_ellipses "tutorial on Creating Bounding rotated boxes and ellipses
-        /// * for contours" for more information.
-        /// *
-        /// * @param box The input rotated rectangle. It may be the output of @ref minAreaRect.
-        /// * @param points The output array of four vertices of rectangles.
-        /// </summary>
-        /// <param name="box">The box parameter.</param>
-        /// <param name="points">The points parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void BoxPoints(RotatedRect box, Mat points)
-        {
-            NativeMethods.cv_boxPoints_0(ValidationHelper.GetHandle(box, nameof(box), false), ValidationHelper.GetHandle(points, nameof(points), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds a circle of the minimum area enclosing a 2D point set.
-        /// *
-        /// * The function finds the minimal enclosing circle of a 2D point set using an iterative algorithm.
-        /// *
-        /// * @param points Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
-        /// * @param center Output center of the circle.
-        /// * @param radius Output radius of the circle.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="center">The center parameter.</param>
-        /// <param name="radius">The radius parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void MinEnclosingCircle(Mat points, Point2F center, float radius)
-        {
-            NativeMethods.cv_minEnclosingCircle_0(ValidationHelper.GetHandle(points, nameof(points), false), center, radius);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds a triangle of minimum area enclosing a 2D point set and returns its area.
-        /// *
-        /// * The function finds a triangle of minimum area enclosing the given set of 2D points and returns its
-        /// * area. The output for a given 2D point set is shown in the image below. 2D points are depicted in
-        /// *red* and the enclosing triangle in *yellow*.
-        /// *
-        /// * ![Sample output of the minimum enclosing triangle function](pics/minenclosingtriangle.png)
-        /// *
-        /// * The implementation of the algorithm is based on O'Rourke's @cite ORourke86 and Klee and Laskowski's
-        /// * @cite KleeLaskowski85 papers. O'Rourke provides a \f$\theta(n)\f$ algorithm for finding the minimal
-        /// * enclosing triangle of a 2D convex polygon with n vertices. Since the #minEnclosingTriangle function
-        /// * takes a 2D point set as input an additional preprocessing step of computing the convex hull of the
-        /// * 2D point set is required. The complexity of the #convexHull function is \f$O(n log(n))\f$ which is higher
-        /// * than \f$\theta(n)\f$. Thus the overall complexity of the function is \f$O(n log(n))\f$.
-        /// *
-        /// * @param points Input vector of 2D points with depth CV_32S or CV_32F, stored in std::vector\&lt;\&gt; or Mat
-        /// * @param triangle Output vector of three 2D points defining the vertices of the triangle. The depth
-        /// * of the OutputArray must be CV_32F.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="triangle">The triangle parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double MinEnclosingTriangle(Mat points, Mat triangle)
-        {
-            var res = NativeMethods.cv_minEnclosingTriangle_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(triangle, nameof(triangle), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// * @brief Finds a convex polygon of minimum area enclosing a 2D point set and returns its area.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="polygon">The polygon parameter.</param>
-        /// <param name="k">The k parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// *
-        /// * This function takes a given set of 2D points and finds the enclosing polygon with k vertices and minimal
-        /// * area. It takes the set of points and the parameter k as input and returns the area of the minimal
-        /// * enclosing polygon.
-        /// *
-        /// * The Implementation is based on a paper by Aggarwal, Chang and Yap @cite Aggarwal1985. They
-        /// * provide a \f$\theta(n²log(n)log(k))\f$ algorithm for finding the minimal convex polygon with k
-        /// * vertices enclosing a 2D convex polygon with n vertices (k &lt; n). Since the #minEnclosingConvexPolygon
-        /// * function takes a 2D point set as input, an additional preprocessing step of computing the convex hull
-        /// * of the 2D point set is required. The complexity of the #convexHull function is \f$O(n log(n))\f$ which
-        /// * is lower than \f$\theta(n²log(n)log(k))\f$. Thus the overall complexity of the function is
-        /// * \f$O(n²log(n)log(k))\f$.
-        /// *
-        /// * @param points   Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
-        /// * @param polygon  Output vector of 2D points defining the vertices of the enclosing polygon
-        /// * @param k        Number of vertices of the output polygon
-        /// </remarks>
-        public static double MinEnclosingConvexPolygon(Mat points, Mat polygon, int k)
-        {
-            var res = NativeMethods.cv_minEnclosingConvexPolygon_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(polygon, nameof(polygon), false), k);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates all of the moments up to the third order of a polygon or rasterized shape.
-        /// *
-        /// * The function computes moments, up to the 3rd order, of a vector shape or a rasterized shape. The
-        /// * results are returned in the structure cv::Moments.
-        /// *
-        /// * @param array Single channel raster image (CV_8U, CV_16U, CV_16S, CV_32F, CV_64F) or an array (
-        /// * \f$1 \times N\f$ or \f$N \times 1\f$ ) of 2D points (Point or Point2f).
-        /// * @param binaryImage If it is true, all non-zero image pixels are treated as 1's. The parameter is
-        /// * used for images only.
-        /// * @returns moments.
-        /// *
-        /// * @note Only applicable to contour moments calculations from Python bindings: Note that the numpy
-        /// * type for the input array should be either np.int32 or np.float32.
-        /// *
-        /// * @note For contour-based moments, the zeroth-order moment \c m00 represents
-        /// * the contour area.
-        /// *
-        /// * If the input contour is degenerate (for example, a single point or all points
-        /// * are collinear), the area is zero and therefore \c m00 == 0.
-        /// *
-        /// * In this case, the centroid coordinates (\c m10/m00, \c m01/m00) are undefined
-        /// * and must be handled explicitly by the caller.
-        /// *
-        /// * A common workaround is to compute the center using cv::boundingRect() or by
-        /// * averaging the input points.
-        /// *
-        /// * @sa  contourArea, arcLength
-        /// </summary>
-        /// <param name="array">The array parameter.</param>
-        /// <param name="binaryImage">The binaryImage parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Moments? Moments(Mat array, bool binaryImage)
-        {
-            IntPtr res = NativeMethods.cv_moments_0(ValidationHelper.GetHandle(array, nameof(array), false), binaryImage);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Moments(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="m">The m parameter.</param>
-        /// <param name="hu">The hu parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void HuMoments(Moments m, Mat hu)
-        {
-            NativeMethods.cv_HuMoments_0(ValidationHelper.GetHandle(m, nameof(m), false), ValidationHelper.GetHandle(hu, nameof(hu), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Compares two shapes.
-        /// *
-        /// * The function compares two shapes. All three implemented methods use the Hu invariants (see #HuMoments)
-        /// *
-        /// * @param contour1 First contour or grayscale image.
-        /// * @param contour2 Second contour or grayscale image.
-        /// * @param method Comparison method, see #ShapeMatchModes
-        /// * @param parameter Method-specific parameter (not supported now).
-        /// </summary>
-        /// <param name="contour1">The contour1 parameter.</param>
-        /// <param name="contour2">The contour2 parameter.</param>
-        /// <param name="method">The method parameter.</param>
-        /// <param name="parameter">The parameter parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double MatchShapes(Mat contour1, Mat contour2, int method, double parameter)
-        {
-            var res = NativeMethods.cv_matchShapes_0(ValidationHelper.GetHandle(contour1, nameof(contour1), false), ValidationHelper.GetHandle(contour2, nameof(contour2), false), method, parameter);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds the convex hull of a point set.
-        /// *
-        /// * The function cv::convexHull finds the convex hull of a 2D point set using the Sklansky's algorithm @cite Sklansky82
-        /// * that has *O(N logN)* complexity in the current implementation.
-        /// *
-        /// * @param points Input 2D point set, stored in std::vector or Mat.
-        /// * @param hull Output convex hull. It is either an integer vector of indices or vector of points. In
-        /// * the first case, the hull elements are 0-based indices of the convex hull points in the original
-        /// * array (since the set of convex hull points is a subset of the original point set). In the second
-        /// * case, hull elements are the convex hull points themselves.
-        /// * @param clockwise Orientation flag. If it is true, the output convex hull is oriented clockwise.
-        /// * Otherwise, it is oriented counter-clockwise. The assumed coordinate system has its X axis pointing
-        /// * to the right, and its Y axis pointing upwards.
-        /// * @param returnPoints Operation flag. In case of a matrix, when the flag is true, the function
-        /// * returns convex hull points. Otherwise, it returns indices of the convex hull points. When the
-        /// * output array is std::vector, the flag is ignored, and the output depends on the type of the
-        /// * vector: std::vector\&lt;int\&gt; implies returnPoints=false, std::vector\&lt;Point\&gt; implies
-        /// * returnPoints=true.
-        /// *
-        /// * @note `points` and `hull` should be different arrays, inplace processing isn't supported.
-        /// *
-        /// * Check @ref tutorial_hull "the corresponding tutorial" for more details.
-        /// *
-        /// * useful links:
-        /// *
-        /// * https://www.learnopencv.com/convex-hull-using-opencv-in-python-and-c/
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="hull">The hull parameter.</param>
-        /// <param name="clockwise">The clockwise parameter.</param>
-        /// <param name="returnPoints">The returnPoints parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ConvexHull(Mat points, Mat hull, bool clockwise, bool returnPoints)
-        {
-            NativeMethods.cv_convexHull_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(hull, nameof(hull), false), clockwise, returnPoints);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds the convexity defects of a contour.
-        /// *
-        /// * The figure below displays convexity defects of a hand contour:
-        /// *
-        /// * ![image](pics/defects.png)
-        /// *
-        /// * @param contour Input contour.
-        /// * @param convexhull Convex hull obtained using convexHull that should contain indices of the contour
-        /// * points that make the hull.
-        /// * @param convexityDefects The output vector of convexity defects. In C++ and the new Python/Java
-        /// * interface each convexity defect is represented as 4-element integer vector (a.k.a. #Vec4i):
-        /// * (start_index, end_index, farthest_pt_index, fixpt_depth), where indices are 0-based indices
-        /// * in the original contour of the convexity defect beginning, end and the farthest point, and
-        /// * fixpt_depth is fixed-point approximation (with 8 fractional bits) of the distance between the
-        /// * farthest contour point and the hull. That is, to get the floating-point value of the depth will be
-        /// * fixpt_depth/256.0.
-        /// </summary>
-        /// <param name="contour">The contour parameter.</param>
-        /// <param name="convexhull">The convexhull parameter.</param>
-        /// <param name="convexityDefects">The convexityDefects parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ConvexityDefects(Mat contour, Mat convexhull, Mat convexityDefects)
-        {
-            NativeMethods.cv_convexityDefects_0(ValidationHelper.GetHandle(contour, nameof(contour), false), ValidationHelper.GetHandle(convexhull, nameof(convexhull), false), ValidationHelper.GetHandle(convexityDefects, nameof(convexityDefects), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Tests a contour convexity.
-        /// *
-        /// * The function tests whether the input contour is convex or not. The contour must be simple, that is,
-        /// * without self-intersections. Otherwise, the function output is undefined.
-        /// *
-        /// * @param contour Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
-        /// </summary>
-        /// <param name="contour">The contour parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool IsContourConvex(Mat contour)
-        {
-            var res = NativeMethods.cv_isContourConvex_0(ValidationHelper.GetHandle(contour, nameof(contour), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds intersection of two convex polygons
-        /// *
-        /// * @param p1 First polygon
-        /// * @param p2 Second polygon
-        /// * @param p12 Output polygon describing the intersecting area
-        /// * @param handleNested When true, an intersection is found if one of the polygons is fully enclosed in the other.
-        /// * When false, no intersection is found. If the polygons share a side or the vertex of one polygon lies on an edge
-        /// * of the other, they are not considered nested and an intersection will be found regardless of the value of handleNested.
-        /// *
-        /// * @returns Area of intersecting polygon. May be negative, if algorithm has not converged, e.g. non-convex input.
-        /// *
-        /// * @note intersectConvexConvex doesn't confirm that both polygons are convex and will return invalid results if they aren't.
-        /// </summary>
-        /// <param name="p1">The p1 parameter.</param>
-        /// <param name="p2">The p2 parameter.</param>
-        /// <param name="p12">The p12 parameter.</param>
-        /// <param name="handleNested">The handleNested parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static float IntersectConvexConvex(Mat p1, Mat p2, Mat p12, bool handleNested)
-        {
-            var res = NativeMethods.cv_intersectConvexConvex_0(ValidationHelper.GetHandle(p1, nameof(p1), false), ValidationHelper.GetHandle(p2, nameof(p2), false), ValidationHelper.GetHandle(p12, nameof(p12), false), handleNested);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Fits an ellipse around a set of 2D points.
-        /// *
-        /// * The function calculates the ellipse that fits (in a least-squares sense) a set of 2D points best of
-        /// * all. It returns the rotated rectangle in which the ellipse is inscribed. The first algorithm described by @cite Fitzgibbon95
-        /// * is used. Developer should keep in mind that it is possible that the returned
-        /// * ellipse/rotatedRect data contains negative indices, due to the data points being close to the
-        /// * border of the containing Mat element.
-        /// *
-        /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
-        /// *
-        /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
-        /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static RotatedRect? FitEllipse(Mat points)
-        {
-            IntPtr res = NativeMethods.cv_fitEllipse_0(ValidationHelper.GetHandle(points, nameof(points), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new RotatedRect(res);
-        }
-        /// <summary>
-        /// Fits an ellipse around a set of 2D points.
-        /// *
-        /// * The function calculates the ellipse that fits a set of 2D points.
-        /// * It returns the rotated rectangle in which the ellipse is inscribed.
-        /// * The Approximate Mean Square (AMS) proposed by @cite Taubin1991 is used.
-        /// *
-        /// * For an ellipse, this basis set is \f$ \chi= \left(x^2, x y, y^2, x, y, 1\right) \f$,
-        /// * which is a set of six free coefficients \f$ A^T=\left\{A_{\text{xx}},A_{\text{xy}},A_{\text{yy}},A_x,A_y,A_0\right\} \f$.
-        /// * However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths \f$ (a,b) \f$,
-        /// * the position \f$ (x_0,y_0) \f$, and the orientation \f$ \theta \f$. This is because the basis set includes lines,
-        /// * quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
-        /// * If the fit is found to be a parabolic or hyperbolic function then the standard #fitEllipse method is used.
-        /// * The AMS method restricts the fit to parabolic, hyperbolic and elliptical curves
-        /// * by imposing the condition that \f$ A^T ( D_x^T D_x  +   D_y^T D_y) A = 1 \f$ where
-        /// * the matrices \f$ Dx \f$ and \f$ Dy \f$ are the partial derivatives of the design matrix \f$ D \f$ with
-        /// * respect to x and y. The matrices are formed row by row applying the following to
-        /// * each of the points in the set:
-        /// * \f{align*}{
-        /// * D(i,:)&amp;=\left\{x_i^2, x_i y_i, y_i^2, x_i, y_i, 1\right\} &amp;
-        /// * D_x(i,:)&amp;=\left\{2 x_i,y_i,0,1,0,0\right\} &amp;
-        /// * D_y(i,:)&amp;=\left\{0,x_i,2 y_i,0,1,0\right\}
-        /// * \f}
-        /// * The AMS method minimizes the cost function
-        /// * \f{equation*}{
-        /// * \epsilon ^2=\frac{ A^T D^T D A }{ A^T (D_x^T D_x +  D_y^T D_y) A^T }
-        /// * \f}
-        /// *
-        /// * The minimum cost is found by solving the generalized eigenvalue problem.
-        /// *
-        /// * \f{equation*}{
-        /// * D^T D A = \lambda  \left( D_x^T D_x +  D_y^T D_y\right) A
-        /// * \f}
-        /// *
-        /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
-        /// *
-        /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
-        /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static RotatedRect? FitEllipseAMS(Mat points)
-        {
-            IntPtr res = NativeMethods.cv_fitEllipseAMS_0(ValidationHelper.GetHandle(points, nameof(points), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new RotatedRect(res);
-        }
-        /// <summary>
-        /// Fits an ellipse around a set of 2D points.
-        /// *
-        /// * The function calculates the ellipse that fits a set of 2D points.
-        /// * It returns the rotated rectangle in which the ellipse is inscribed.
-        /// * The Direct least square (Direct) method by @cite oy1998NumericallySD is used.
-        /// *
-        /// * For an ellipse, this basis set is \f$ \chi= \left(x^2, x y, y^2, x, y, 1\right) \f$,
-        /// * which is a set of six free coefficients \f$ A^T=\left\{A_{\text{xx}},A_{\text{xy}},A_{\text{yy}},A_x,A_y,A_0\right\} \f$.
-        /// * However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths \f$ (a,b) \f$,
-        /// * the position \f$ (x_0,y_0) \f$, and the orientation \f$ \theta \f$. This is because the basis set includes lines,
-        /// * quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
-        /// * The Direct method confines the fit to ellipses by ensuring that \f$ 4 A_{xx} A_{yy}- A_{xy}^2 &gt; 0 \f$.
-        /// * The condition imposed is that \f$ 4 A_{xx} A_{yy}- A_{xy}^2=1 \f$ which satisfies the inequality
-        /// * and as the coefficients can be arbitrarily scaled is not overly restrictive.
-        /// *
-        /// * \f{equation*}{
-        /// * \epsilon ^2= A^T D^T D A \quad \text{with} \quad A^T C A =1 \quad \text{and} \quad C=\left(\begin{matrix}
-        /// * 0 &amp; 0  &amp; 2  &amp; 0  &amp; 0  &amp;  0  \\
-        /// * 0 &amp; -1  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
-        /// * 2 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
-        /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
-        /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
-        /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0
-        /// * \end{matrix} \right)
-        /// * \f}
-        /// *
-        /// * The minimum cost is found by solving the generalized eigenvalue problem.
-        /// *
-        /// * \f{equation*}{
-        /// * D^T D A = \lambda  \left( C\right) A
-        /// * \f}
-        /// *
-        /// * The system produces only one positive eigenvalue \f$ \lambda\f$ which is chosen as the solution
-        /// * with its eigenvector \f$\mathbf{u}\f$. These are used to find the coefficients
-        /// *
-        /// * \f{equation*}{
-        /// * A = \sqrt{\frac{1}{\mathbf{u}^T C \mathbf{u}}}  \mathbf{u}
-        /// * \f}
-        /// * The scaling factor guarantees that  \f$A^T C A =1\f$.
-        /// *
-        /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
-        /// *
-        /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
-        /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static RotatedRect? FitEllipseDirect(Mat points)
-        {
-            IntPtr res = NativeMethods.cv_fitEllipseDirect_0(ValidationHelper.GetHandle(points, nameof(points), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new RotatedRect(res);
-        }
-        /// <summary>
-        /// Compute for each 2d point the nearest 2d point located on a given ellipse.
-        /// *
-        /// * The function computes the nearest 2d location on a given ellipse for a vector of 2d points and is based on @cite Chatfield2017 code.
-        /// * This function can be used to compute for instance the ellipse fitting error.
-        /// *
-        /// * @param ellipse_params Ellipse parameters
-        /// * @param points Input 2d points
-        /// * @param closest_pts For each 2d point, their corresponding closest 2d point located on a given ellipse
-        /// *
-        /// * @note Input point types are @ref Point2i or @ref Point2f
-        /// * @see fitEllipse, fitEllipseAMS, fitEllipseDirect
-        /// </summary>
-        /// <param name="ellipse_params">The ellipse_params parameter.</param>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="closest_pts">The closest_pts parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void GetClosestEllipsePoints(RotatedRect ellipse_params, Mat points, Mat closest_pts)
-        {
-            NativeMethods.cv_getClosestEllipsePoints_0(ValidationHelper.GetHandle(ellipse_params, nameof(ellipse_params), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(closest_pts, nameof(closest_pts), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Fits a line to a 2D or 3D point set.
-        /// *
-        /// * The function fitLine fits a line to a 2D or 3D point set by minimizing \f$\sum_i \rho(r_i)\f$ where
-        /// * \f$r_i\f$ is a distance between the \f$i^{th}\f$ point, the line and \f$\rho(r)\f$ is a distance function, one
-        /// * of the following:
-        /// * -  DIST_L2
-        /// * \f[\rho (r) = r^2/2  \quad \text{(the simplest and the fastest least-squares method)}\f]
-        /// * - DIST_L1
-        /// * \f[\rho (r) = r\f]
-        /// * - DIST_L12
-        /// * \f[\rho (r) = 2  \cdot ( \sqrt{1 + \frac{r^2}{2}} - 1)\f]
-        /// * - DIST_FAIR
-        /// * \f[\rho \left (r \right ) = C^2  \cdot \left (  \frac{r}{C} -  \log{\left(1 + \frac{r}{C}\right)} \right )  \quad \text{where} \quad C=1.3998\f]
-        /// * - DIST_WELSCH
-        /// * \f[\rho \left (r \right ) =  \frac{C^2}{2} \cdot \left ( 1 -  \exp{\left(-\left(\frac{r}{C}\right)^2\right)} \right )  \quad \text{where} \quad C=2.9846\f]
-        /// * - DIST_HUBER
-        /// * \f[\rho (r) =  \fork{r^2/2}{if \(r &lt; C\)}{C \cdot (r-C/2)}{otherwise} \quad \text{where} \quad C=1.345\f]
-        /// *
-        /// * The algorithm is based on the M-estimator ( &lt;https://en.wikipedia.org/wiki/M-estimator&gt; ) technique
-        /// * that iteratively fits the line using the weighted least-squares algorithm. After each iteration the
-        /// * weights \f$w_i\f$ are adjusted to be inversely proportional to \f$\rho(r_i)\f$ .
-        /// *
-        /// * @param points Input vector of 2D or 3D points, stored in std::vector\&lt;\&gt; or Mat.
-        /// * @param line Output line parameters. In case of 2D fitting, it should be a vector of 4 elements
-        /// * (like Vec4f) - (vx, vy, x0, y0), where (vx, vy) is a normalized vector collinear to the line and
-        /// * (x0, y0) is a point on the line. In case of 3D fitting, it should be a vector of 6 elements (like
-        /// * Vec6f) - (vx, vy, vz, x0, y0, z0), where (vx, vy, vz) is a normalized vector collinear to the line
-        /// * and (x0, y0, z0) is a point on the line.
-        /// * @param distType Distance used by the M-estimator, see #DistanceTypes
-        /// * @param param Numerical parameter ( C ) for some types of distances. If it is 0, an optimal value
-        /// * is chosen.
-        /// * @param reps Sufficient accuracy for the radius (distance between the coordinate origin and the line).
-        /// * @param aeps Sufficient accuracy for the angle. 0.01 would be a good default value for reps and aeps.
-        /// </summary>
-        /// <param name="points">The points parameter.</param>
-        /// <param name="line">The line parameter.</param>
-        /// <param name="distType">The distType parameter.</param>
-        /// <param name="param">The param parameter.</param>
-        /// <param name="reps">The reps parameter.</param>
-        /// <param name="aeps">The aeps parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FitLine(Mat points, Mat line, int distType, double param, double reps, double aeps)
-        {
-            NativeMethods.cv_fitLine_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(line, nameof(line), false), distType, param, reps, aeps);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Performs a point-in-contour test.
-        /// *
-        /// * The function determines whether the point is inside a contour, outside, or lies on an edge (or
-        /// * coincides with a vertex). It returns positive (inside), negative (outside), or zero (on an edge)
-        /// * value, correspondingly. When measureDist=false , the return value is +1, -1, and 0, respectively.
-        /// * Otherwise, the return value is a signed distance between the point and the nearest contour edge.
-        /// *
-        /// * See below a sample output of the function where each image pixel is tested against the contour:
-        /// *
-        /// * ![sample output](pics/pointpolygon.png)
-        /// *
-        /// * @param contour Input contour.
-        /// * @param pt Point tested against the contour.
-        /// * @param measureDist If true, the function estimates the signed distance from the point to the
-        /// * nearest contour edge. Otherwise, the function only checks if the point is inside a contour or not.
-        /// </summary>
-        /// <param name="contour">The contour parameter.</param>
-        /// <param name="pt">The pt parameter.</param>
-        /// <param name="measureDist">The measureDist parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double PointPolygonTest(Mat contour, Point2F pt, bool measureDist)
-        {
-            var res = NativeMethods.cv_pointPolygonTest_0(ValidationHelper.GetHandle(contour, nameof(contour), false), pt, measureDist);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds out if there is any intersection between two rotated rectangles.
-        /// *
-        /// * If there is then the vertices of the intersecting region are returned as well.
-        /// *
-        /// * Below are some examples of intersection configurations. The hatched pattern indicates the
-        /// * intersecting region and the red vertices are returned by the function.
-        /// *
-        /// * ![intersection examples](pics/intersection.png)
-        /// *
-        /// * @param rect1 First rectangle
-        /// * @param rect2 Second rectangle
-        /// * @param intersectingRegion The output array of the vertices of the intersecting region. It returns
-        /// * at most 8 vertices. Stored as std::vector\&lt;cv::Point2f\&gt; or cv::Mat as Mx1 of type CV_32FC2.
-        /// * @returns One of #RectanglesIntersectTypes
-        /// </summary>
-        /// <param name="rect1">The rect1 parameter.</param>
-        /// <param name="rect2">The rect2 parameter.</param>
-        /// <param name="intersectingRegion">The intersectingRegion parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int RotatedRectangleIntersection(RotatedRect rect1, RotatedRect rect2, Mat intersectingRegion)
-        {
-            var res = NativeMethods.cv_rotatedRectangleIntersection_0(ValidationHelper.GetHandle(rect1, nameof(rect1), false), ValidationHelper.GetHandle(rect2, nameof(rect2), false), ValidationHelper.GetHandle(intersectingRegion, nameof(intersectingRegion), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates a contour perimeter or a curve length.
-        /// *
-        /// * The function computes a curve length or a closed contour perimeter.
-        /// *
-        /// * @param curve Input vector of 2D points, stored in std::vector or Mat.
-        /// * @param closed Flag indicating whether the curve is closed or not.
-        /// </summary>
-        /// <param name="curve">The curve parameter.</param>
-        /// <param name="closed">The closed parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double ArcLength(Mat curve, bool closed)
-        {
-            var res = NativeMethods.cv_arcLength_0(ValidationHelper.GetHandle(curve, nameof(curve), false), closed);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates a contour area.
-        /// *
-        /// * The function computes a contour area. Similarly to moments , the area is computed using the Green
-        /// * formula. Thus, the returned area and the number of non-zero pixels, if you draw the contour using
-        /// * #drawContours or #fillPoly , can be different. Also, the function will most certainly give a wrong
-        /// * results for contours with self-intersections.
-        /// *
-        /// * Example:
-        /// * @code
-        /// *    vector&lt;Point&gt; contour;
-        /// *    contour.push_back(Point2f(0, 0));
-        /// *    contour.push_back(Point2f(10, 0));
-        /// *    contour.push_back(Point2f(10, 10));
-        /// *    contour.push_back(Point2f(5, 4));
-        /// *
-        /// *    double area0 = contourArea(contour);
-        /// *    vector&lt;Point&gt; approx;
-        /// *    approxPolyDP(contour, approx, 5, true);
-        /// *    double area1 = contourArea(approx);
-        /// *
-        /// *    cout &lt;&lt; "area0 =" &lt;&lt; area0 &lt;&lt; endl &lt;&lt;
-        /// *            "area1 =" &lt;&lt; area1 &lt;&lt; endl &lt;&lt;
-        /// *            "approx poly vertices" &lt;&lt; approx.size() &lt;&lt; endl;
-        /// * @endcode
-        /// * @param contour Input vector of 2D points (contour vertices), stored in std::vector or Mat.
-        /// * @param oriented Oriented area flag. If it is true, the function returns a signed area value,
-        /// * depending on the contour orientation (clockwise or counter-clockwise). Using this feature you can
-        /// * determine orientation of a contour by taking the sign of an area. By default, the parameter is
-        /// * false, which means that the absolute value is returned.
-        /// </summary>
-        /// <param name="contour">The contour parameter.</param>
-        /// <param name="oriented">The oriented parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double ContourArea(Mat contour, bool oriented)
-        {
-            var res = NativeMethods.cv_contourArea_0(ValidationHelper.GetHandle(contour, nameof(contour), false), oriented);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
-        /// *
-        /// * The function calculates and returns the minimal up-right bounding rectangle for the specified point set or
-        /// * non-zero pixels of gray-scale image.
-        /// *
-        /// * @param array Input gray-scale image or 2D point set, stored in std::vector or Mat.
-        /// </summary>
-        /// <param name="array">The array parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Rect BoundingRect(Mat array)
-        {
-            var res = NativeMethods.cv_boundingRect_0(ValidationHelper.GetHandle(array, nameof(array), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates an affine matrix of 2D rotation.
-        /// </summary>
-        /// <param name="center">Center of the rotation in the source image.</param>
-        /// <param name="angle">Rotation angle in degrees. Positive values mean counter-clockwise rotation (the coordinate origin is assumed to be the top-left corner).</param>
-        /// <param name="scale">Isotropic scale factor.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function calculates the following matrix:
-        /// \f[\begin{bmatrix} \alpha &amp;  \beta &amp; (1- \alpha )  \cdot \texttt{center.x} -  \beta \cdot \texttt{center.y} \\ - \beta &amp;  \alpha &amp;  \beta \cdot \texttt{center.x} + (1- \alpha )  \cdot \texttt{center.y} \end{bmatrix}\f]
-        /// where
-        /// \f[\begin{array}{l} \alpha =  \texttt{scale} \cdot \cos \texttt{angle} , \\ \beta =  \texttt{scale} \cdot \sin \texttt{angle} \end{array}\f]
-        /// The transformation maps the rotation center to itself. If this is not the target, adjust the shift.
-        /// @sa  getAffineTransform, warpAffine, transform
-        /// </remarks>
-        public static Mat? GetRotationMatrix2D(Point2F center, double angle, double scale)
-        {
-            IntPtr res = NativeMethods.cv_getRotationMatrix2D_0(center, angle, scale);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Inverts an affine transformation.
-        /// *
-        /// * The function computes an inverse affine transformation represented by \f$2 \times 3\f$ matrix M:
-        /// *
-        /// * \f[\begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1  \\ a_{21} &amp; a_{22} &amp; b_2 \end{bmatrix}\f]
-        /// *
-        /// * The result is also a \f$2 \times 3\f$ matrix of the same type as M.
-        /// *
-        /// * @param M Original affine transformation.
-        /// * @param iM Output reverse affine transformation.
-        /// </summary>
-        /// <param name="M">The M parameter.</param>
-        /// <param name="iM">The iM parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void InvertAffineTransform(Mat M, Mat iM)
-        {
-            NativeMethods.cv_invertAffineTransform_0(ValidationHelper.GetHandle(M, nameof(M), false), ValidationHelper.GetHandle(iM, nameof(iM), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates a perspective transform from four pairs of the corresponding points.
-        /// *
-        /// * The function calculates the \f$3 \times 3\f$ matrix of a perspective transform so that:
-        /// *
-        /// * \f[\begin{bmatrix} t_i x'_i \\ t_i y'_i \\ t_i \end{bmatrix} = \texttt{map_matrix} \cdot \begin{bmatrix} x_i \\ y_i \\ 1 \end{bmatrix}\f]
-        /// *
-        /// * where
-        /// *
-        /// * \f[dst(i)=(x'_i,y'_i), src(i)=(x_i, y_i), i=0,1,2,3\f]
-        /// *
-        /// * @param src Coordinates of quadrangle vertices in the source image.
-        /// * @param dst Coordinates of the corresponding quadrangle vertices in the destination image.
-        /// * @param solveMethod method passed to cv::solve (#DecompTypes)
-        /// *
-        /// * @sa  findHomography, warpPerspective, perspectiveTransform
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <param name="solveMethod">The solveMethod parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? GetPerspectiveTransform(Mat src, Mat dst, int solveMethod)
-        {
-            IntPtr res = NativeMethods.cv_getPerspectiveTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), solveMethod);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? GetAffineTransform(Mat src, Mat dst)
-        {
-            IntPtr res = NativeMethods.cv_getAffineTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Converts a rotation matrix to a rotation vector or vice versa.
-        /// </summary>
-        /// <param name="src">Input rotation vector (3x1 or 1x3) or rotation matrix (3x3).</param>
-        /// <param name="dst">Output rotation matrix (3x3) or rotation vector (3x1 or 1x3), respectively.</param>
-        /// <param name="jacobian">Optional output Jacobian matrix, 3x9 or 9x3, which is a matrix of partial derivatives of the output array components with respect to the input array components. \f[\begin{array}{l} \theta \leftarrow norm(r) \\ r  \leftarrow r/ \theta \\ R =  \cos(\theta) I + (1- \cos{\theta} ) r r^T +  \sin(\theta) \vecthreethree{0}{-r_z}{r_y}{r_z}{0}{-r_x}{-r_y}{r_x}{0} \end{array}\f] Inverse transformation can be also done easily, since \f[\sin ( \theta ) \vecthreethree{0}{-r_z}{r_y}{r_z}{0}{-r_x}{-r_y}{r_x}{0} = \frac{R - R^T}{2}\f] A rotation vector is a convenient and most compact representation of a rotation matrix (since any rotation matrix has just 3 degrees of freedom). The representation is used in the global 3D geometry optimization procedures like @ref calibrateCamera, @ref stereoCalibrate, or @ref solvePnP .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note More information about the computation of the derivative of a 3D rotation matrix with respect to its exponential coordinate
-        /// can be found in:
-        /// - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi @cite Gallego2014ACF
-        /// @note Useful information on SE(3) and Lie Groups can be found in:
-        /// - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco @cite blanco2010tutorial
-        /// - Lie Groups for 2D and 3D Transformation, Ethan Eade @cite Eade17
-        /// - A micro Lie theory for state estimation in robotics, Joan Solà, Jérémie Deray, Dinesh Atchuthan @cite Sol2018AML
-        /// </remarks>
-        public static void Rodrigues(Mat src, Mat dst, Mat? jacobian)
-        {
-            NativeMethods.cv_Rodrigues_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(jacobian, nameof(jacobian), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds a perspective transformation between two planes.
-        /// </summary>
-        /// <param name="srcPoints">Coordinates of the points in the original plane, a matrix of the type CV_32FC2 or vector\&lt;Point2f\&gt; .</param>
-        /// <param name="dstPoints">Coordinates of the points in the target plane, a matrix of the type CV_32FC2 or a vector\&lt;Point2f\&gt; .</param>
-        /// <param name="method">Method used to compute a homography matrix. The following methods are possible: -   **0** - a regular method using all the points, i.e., the least squares method -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method -   @ref RHO - PROSAC-based robust method</param>
-        /// <param name="ransacReprojThreshold">Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if \f[\| \texttt{dstPoints} _i -  \texttt{convertPointsHomogeneous} ( \texttt{H} \cdot \texttt{srcPoints} _i) \|_2  &gt;  \texttt{ransacReprojThreshold}\f] then the point \f$i\f$ is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10.</param>
-        /// <param name="mask">Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored.</param>
-        /// <param name="maxIters">The maximum number of RANSAC iterations.</param>
-        /// <param name="confidence">Confidence level, between 0 and 1. The function finds and returns the perspective transformation \f$H\f$ between the source and the destination planes: \f[s_i  \vecthree{x'_i}{y'_i}{1} \sim H  \vecthree{x_i}{y_i}{1}\f] so that the back-projection error \f[\sum _i \left ( x'_i- \frac{h_{11} x_i + h_{12} y_i + h_{13}}{h_{31} x_i + h_{32} y_i + h_{33}} \right )^2+ \left ( y'_i- \frac{h_{21} x_i + h_{22} y_i + h_{23}}{h_{31} x_i + h_{32} y_i + h_{33}} \right )^2\f] is minimized. If the parameter method is set to the default value 0, the function uses all the point pairs to compute an initial homography estimate with a simple least-squares scheme. However, if not all of the point pairs ( \f$srcPoints_i\f$, \f$dstPoints_i\f$ ) fit the rigid perspective transformation (that is, there are some outliers), this initial estimate will be poor. In this case, you can use one of the three robust methods. The methods RANSAC, LMeDS and RHO try many different random subsets of the corresponding point pairs (of four pairs each, collinear pairs are discarded), estimate the homography matrix using this subset and a simple least-squares algorithm, and then compute the quality/goodness of the computed homography (which is the number of inliers for RANSAC or the least median re-projection error for LMeDS). The best subset is then used to produce the initial estimate of the homography matrix and the mask of inliers/outliers. Regardless of the method, robust or not, the computed homography matrix is refined further (using inliers only in case of a robust method) with the Levenberg-Marquardt method to reduce the re-projection error even more. The methods RANSAC and RHO can handle practically any ratio of outliers but need a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but it works correctly only when there are more than 50% of inliers. Finally, if there are no outliers and the noise is rather small, use the default method (method=0). The function is used to find initial intrinsic and extrinsic matrices. Homography matrix is determined up to a scale. If \f$h_{33}\f$ is non-zero, the matrix is normalized so that \f$h_{33}=1\f$.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note Whenever an \f$H\f$ matrix cannot be estimated, an empty one will be returned.
-        /// @sa
-        /// getAffineTransform, estimateAffine2D, estimateAffinePartial2D, getPerspectiveTransform, warpPerspective,
-        /// perspectiveTransform
-        /// </remarks>
-        public static Mat? FindHomography(Mat srcPoints, Mat dstPoints, int method, double ransacReprojThreshold, Mat? mask, int maxIters, double confidence)
-        {
-            IntPtr res = NativeMethods.cv_findHomography_0(ValidationHelper.GetHandle(srcPoints, nameof(srcPoints), false), ValidationHelper.GetHandle(dstPoints, nameof(dstPoints), false), method, ransacReprojThreshold, ValidationHelper.GetHandle(mask, nameof(mask), true), maxIters, confidence);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="srcPoints">The srcPoints parameter.</param>
-        /// <param name="dstPoints">The dstPoints parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindHomography(Mat srcPoints, Mat dstPoints, Mat mask, UsacParams @params)
-        {
-            IntPtr res = NativeMethods.cv_findHomography_1(ValidationHelper.GetHandle(srcPoints, nameof(srcPoints), false), ValidationHelper.GetHandle(dstPoints, nameof(dstPoints), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Computes an RQ decomposition of 3x3 matrices.
-        /// </summary>
-        /// <param name="src">3x3 input matrix.</param>
-        /// <param name="mtxR">Output 3x3 upper-triangular matrix.</param>
-        /// <param name="mtxQ">Output 3x3 orthogonal matrix.</param>
-        /// <param name="Qx">Optional output 3x3 rotation matrix around x-axis.</param>
-        /// <param name="Qy">Optional output 3x3 rotation matrix around y-axis.</param>
-        /// <param name="Qz">Optional output 3x3 rotation matrix around z-axis. The function computes a RQ decomposition using the given rotations. This function is used in #decomposeProjectionMatrix to decompose the left 3x3 submatrix of a projection matrix into a camera and a rotation matrix. It optionally returns three rotation matrices, one for each axis, and the three Euler angles in degrees (as the return value) that could be used in OpenGL. Note, there is always more than one sequence of rotations about the three principal axes that results in the same orientation of an object, e.g. see @cite Slabaugh . Returned three rotation matrices and corresponding three Euler angles are only one of the possible solutions.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static IntPtr RQDecomp3x3(Mat src, Mat mtxR, Mat mtxQ, Mat? Qx, Mat? Qy, Mat? Qz)
-        {
-            var res = NativeMethods.cv_RQDecomp3x3_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mtxR, nameof(mtxR), false), ValidationHelper.GetHandle(mtxQ, nameof(mtxQ), false), ValidationHelper.GetHandle(Qx, nameof(Qx), true), ValidationHelper.GetHandle(Qy, nameof(Qy), true), ValidationHelper.GetHandle(Qz, nameof(Qz), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Decomposes a projection matrix into a rotation matrix and a camera intrinsic matrix.
-        /// </summary>
-        /// <param name="projMatrix">3x4 input projection matrix P.</param>
-        /// <param name="cameraMatrix">Output 3x3 camera intrinsic matrix \f$\cameramatrix{A}\f$.</param>
-        /// <param name="rotMatrix">Output 3x3 external rotation matrix R.</param>
-        /// <param name="transVect">Output 4x1 translation vector T.</param>
-        /// <param name="rotMatrixX">Optional 3x3 rotation matrix around x-axis.</param>
-        /// <param name="rotMatrixY">Optional 3x3 rotation matrix around y-axis.</param>
-        /// <param name="rotMatrixZ">Optional 3x3 rotation matrix around z-axis.</param>
-        /// <param name="eulerAngles">Optional three-element vector containing three Euler angles of rotation in degrees. The function computes a decomposition of a projection matrix into a calibration and a rotation matrix and the position of a camera. It optionally returns three rotation matrices, one for each axis, and three Euler angles that could be used in OpenGL. Note, there is always more than one sequence of rotations about the three principal axes that results in the same orientation of an object, e.g. see @cite Slabaugh . Returned three rotation matrices and corresponding three Euler angles are only one of the possible solutions. The function is based on #RQDecomp3x3 .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void DecomposeProjectionMatrix(Mat projMatrix, Mat cameraMatrix, Mat rotMatrix, Mat transVect, Mat? rotMatrixX, Mat? rotMatrixY, Mat? rotMatrixZ, Mat? eulerAngles)
-        {
-            NativeMethods.cv_decomposeProjectionMatrix_0(ValidationHelper.GetHandle(projMatrix, nameof(projMatrix), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(rotMatrix, nameof(rotMatrix), false), ValidationHelper.GetHandle(transVect, nameof(transVect), false), ValidationHelper.GetHandle(rotMatrixX, nameof(rotMatrixX), true), ValidationHelper.GetHandle(rotMatrixY, nameof(rotMatrixY), true), ValidationHelper.GetHandle(rotMatrixZ, nameof(rotMatrixZ), true), ValidationHelper.GetHandle(eulerAngles, nameof(eulerAngles), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes partial derivatives of the matrix product for each multiplied matrix.
-        /// </summary>
-        /// <param name="A">First multiplied matrix.</param>
-        /// <param name="B">Second multiplied matrix.</param>
-        /// <param name="dABdA">First output derivative matrix d(A\*B)/dA of size \f$\texttt{A.rows*B.cols} \times {A.rows*A.cols}\f$ .</param>
-        /// <param name="dABdB">Second output derivative matrix d(A\*B)/dB of size \f$\texttt{A.rows*B.cols} \times {B.rows*B.cols}\f$ . The function computes partial derivatives of the elements of the matrix product \f$A*B\f$ with regard to the elements of each of the two input matrices. The function is used to compute the Jacobian matrices in #stereoCalibrate but can also be used in any other similar optimization function.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void MatMulDeriv(Mat A, Mat B, Mat dABdA, Mat dABdB)
-        {
-            NativeMethods.cv_matMulDeriv_0(ValidationHelper.GetHandle(A, nameof(A), false), ValidationHelper.GetHandle(B, nameof(B), false), ValidationHelper.GetHandle(dABdA, nameof(dABdA), false), ValidationHelper.GetHandle(dABdB, nameof(dABdB), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Combines two rotation-and-shift transformations.
-        /// </summary>
-        /// <param name="rvec1">First rotation vector.</param>
-        /// <param name="tvec1">First translation vector.</param>
-        /// <param name="rvec2">Second rotation vector.</param>
-        /// <param name="tvec2">Second translation vector.</param>
-        /// <param name="rvec3">Output rotation vector of the superposition.</param>
-        /// <param name="tvec3">Output translation vector of the superposition.</param>
-        /// <param name="dr3dr1">Optional output derivative of rvec3 with regard to rvec1</param>
-        /// <param name="dr3dt1">Optional output derivative of rvec3 with regard to tvec1</param>
-        /// <param name="dr3dr2">Optional output derivative of rvec3 with regard to rvec2</param>
-        /// <param name="dr3dt2">Optional output derivative of rvec3 with regard to tvec2</param>
-        /// <param name="dt3dr1">Optional output derivative of tvec3 with regard to rvec1</param>
-        /// <param name="dt3dt1">Optional output derivative of tvec3 with regard to tvec1</param>
-        /// <param name="dt3dr2">Optional output derivative of tvec3 with regard to rvec2</param>
-        /// <param name="dt3dt2">Optional output derivative of tvec3 with regard to tvec2 The functions compute: \f[\begin{array}{l} \texttt{rvec3} =  \mathrm{rodrigues} ^{-1} \left ( \mathrm{rodrigues} ( \texttt{rvec2} )  \cdot \mathrm{rodrigues} ( \texttt{rvec1} ) \right )  \\ \texttt{tvec3} =  \mathrm{rodrigues} ( \texttt{rvec2} )  \cdot \texttt{tvec1} +  \texttt{tvec2} \end{array} ,\f] where \f$\mathrm{rodrigues}\f$ denotes a rotation vector to a rotation matrix transformation, and \f$\mathrm{rodrigues}^{-1}\f$ denotes the inverse transformation. See #Rodrigues for details. Also, the functions can compute the derivatives of the output vectors with regards to the input vectors (see #matMulDeriv ). The functions are used inside #stereoCalibrate but can also be used in your own code where Levenberg-Marquardt or another gradient-based solver is used to optimize a function that contains a matrix multiplication.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ComposeRT(Mat rvec1, Mat tvec1, Mat rvec2, Mat tvec2, Mat rvec3, Mat tvec3, Mat? dr3dr1, Mat? dr3dt1, Mat? dr3dr2, Mat? dr3dt2, Mat? dt3dr1, Mat? dt3dt1, Mat? dt3dr2, Mat? dt3dt2)
-        {
-            NativeMethods.cv_composeRT_0(ValidationHelper.GetHandle(rvec1, nameof(rvec1), false), ValidationHelper.GetHandle(tvec1, nameof(tvec1), false), ValidationHelper.GetHandle(rvec2, nameof(rvec2), false), ValidationHelper.GetHandle(tvec2, nameof(tvec2), false), ValidationHelper.GetHandle(rvec3, nameof(rvec3), false), ValidationHelper.GetHandle(tvec3, nameof(tvec3), false), ValidationHelper.GetHandle(dr3dr1, nameof(dr3dr1), true), ValidationHelper.GetHandle(dr3dt1, nameof(dr3dt1), true), ValidationHelper.GetHandle(dr3dr2, nameof(dr3dr2), true), ValidationHelper.GetHandle(dr3dt2, nameof(dr3dt2), true), ValidationHelper.GetHandle(dt3dr1, nameof(dt3dr1), true), ValidationHelper.GetHandle(dt3dt1, nameof(dt3dt1), true), ValidationHelper.GetHandle(dt3dr2, nameof(dt3dr2), true), ValidationHelper.GetHandle(dt3dt2, nameof(dt3dt2), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Projects 3D points to an image plane.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points expressed wrt. the world coordinate frame. A 3xN/Nx3 1-channel or 1xN/Nx1 3-channel (or vector\&lt;Point3f\&gt; ), where N is the number of points in the view.</param>
-        /// <param name="rvec">The rotation vector (@ref Rodrigues) that, together with tvec, performs a change of basis from world to camera coordinate system, see @ref calibrateCamera for details.</param>
-        /// <param name="tvec">The translation vector, see parameter description above.</param>
-        /// <param name="cameraMatrix">Camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$ . If the vector is empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="imagePoints">Output array of image points in **pixel coordinates**, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; .</param>
-        /// <param name="jacobian">Optional output 2Nx(10+\&lt;numDistCoeffs\&gt;) jacobian matrix of derivatives of image points with respect to components of the rotation vector, translation vector, focal lengths, coordinates of the principal point and the distortion coefficients. In the old interface different components of the jacobian are returned via different output parameters.</param>
-        /// <param name="aspectRatio">Optional "fixed aspect ratio" parameter. If the parameter is not 0, the function assumes that the aspect ratio (\f$f_x / f_y\f$) is fixed and correspondingly adjusts the jacobian matrix.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes the 2D projections of 3D points to the image plane, given intrinsic and
-        /// extrinsic camera parameters. Optionally, the function computes Jacobians -matrices of partial
-        /// derivatives of image points coordinates (as functions of all the input parameters) with respect to
-        /// the particular parameters, intrinsic and/or extrinsic. The Jacobians are used during the global
-        /// optimization in @ref calibrateCamera, @ref solvePnP, and @ref stereoCalibrate. The function itself
-        /// can also be used to compute a re-projection error, given the current intrinsic and extrinsic
-        /// parameters.
-        /// @note **Coordinate Systems:**
-        /// - **Input (`objectPoints`)**: 3D points in the **world coordinate frame**.
-        /// - **Output (`imagePoints`)**: 2D projections in **pixel coordinates** of the image plane, with distortion applied.
-        /// The coordinates \f$(u, v)\f$ are measured in pixels from the top-left corner of the image.
-        /// The transformation chain is: World coordinates → Camera coordinates (via rvec/tvec) → Normalized camera coordinates
-        /// → Distortion applied → Pixel coordinates (via cameraMatrix).
-        /// @note By setting rvec = tvec = \f$[0, 0, 0]\f$, or by setting cameraMatrix to a 3x3 identity matrix,
-        /// or by passing zero distortion coefficients, one can get various useful partial cases of the
-        /// function. This means, one can compute the distorted coordinates for a sparse set of points or apply
-        /// a perspective transformation (and also compute the derivatives) in the ideal zero-distortion setup.
-        /// </remarks>
-        public static void ProjectPoints(Mat objectPoints, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs, Mat imagePoints, Mat? jacobian, double aspectRatio)
-        {
-            NativeMethods.cv_projectPoints_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(jacobian, nameof(jacobian), true), aspectRatio);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="objectPoints">The objectPoints parameter.</param>
-        /// <param name="rvec">The rvec parameter.</param>
-        /// <param name="tvec">The tvec parameter.</param>
-        /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
-        /// <param name="distCoeffs">The distCoeffs parameter.</param>
-        /// <param name="imagePoints">The imagePoints parameter.</param>
-        /// <param name="dpdr">The dpdr parameter.</param>
-        /// <param name="dpdt">The dpdt parameter.</param>
-        /// <param name="dpdf">The dpdf parameter.</param>
-        /// <param name="dpdc">The dpdc parameter.</param>
-        /// <param name="dpdk">The dpdk parameter.</param>
-        /// <param name="dpdo">The dpdo parameter.</param>
-        /// <param name="aspectRatio">The aspectRatio parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ProjectPoints(Mat objectPoints, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs, Mat imagePoints, Mat dpdr, Mat dpdt, Mat? dpdf, Mat? dpdc, Mat? dpdk, Mat? dpdo, double aspectRatio)
-        {
-            NativeMethods.cv_projectPoints_1(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(dpdr, nameof(dpdr), false), ValidationHelper.GetHandle(dpdt, nameof(dpdt), false), ValidationHelper.GetHandle(dpdf, nameof(dpdf), true), ValidationHelper.GetHandle(dpdc, nameof(dpdc), true), ValidationHelper.GetHandle(dpdk, nameof(dpdk), true), ValidationHelper.GetHandle(dpdo, nameof(dpdo), true), aspectRatio);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds an object pose \f$ {}^{c}\mathbf{T}_o \f$ from 3D-2D point correspondences:
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
-        /// <param name="tvec">Output translation vector.</param>
-        /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
-        /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags More information about Perspective-n-Points is described in @ref calib3d_solvePnP</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
-        /// @see @ref calib3d_solvePnP
-        /// This function returns the rotation and the translation vectors that transform a 3D point expressed in the object
-        /// coordinate frame to the camera coordinate frame, using different methods:
-        /// - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): need 4 input points to return a unique solution.
-        /// - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar.
-        /// - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
-        /// Number of input points must be 4. Object points must be defined in the following order:
-        /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
-        /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
-        /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
-        /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
-        /// - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.
-        /// @note
-        /// -   An example of how to use solvePnP for planar augmented reality can be found at
-        /// opencv_source_code/samples/python/plane_ar.py
-        /// -   If you are using Python:
-        /// - Numpy array slices won't work as input because solvePnP requires contiguous
-        /// arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
-        /// modules/3d/src/solvepnp.cpp version 2.4.9)
-        /// - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
-        /// to its calling of #undistortPoints (around line 75 of modules/3d/src/solvepnp.cpp version 2.4.9)
-        /// which requires 2-channel information.
-        /// - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
-        /// it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
-        /// np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
-        /// -   The minimum number of points is 4 in the general case. In the case of @ref SOLVEPNP_P3P and @ref SOLVEPNP_AP3P
-        /// methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
-        /// of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
-        /// -   With @ref SOLVEPNP_ITERATIVE method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
-        /// are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
-        /// global solution to converge. The function returns true if some solution is found. User code is responsible for
-        /// solution quality assessment.
-        /// -   With @ref SOLVEPNP_IPPE input points must be &gt;= 4 and object points must be coplanar.
-        /// -   With @ref SOLVEPNP_IPPE_SQUARE this is a special case suitable for marker pose estimation.
-        /// Number of input points must be 4. Object points must be defined in the following order:
-        /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
-        /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
-        /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
-        /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
-        /// -  With @ref SOLVEPNP_SQPNP input points must be &gt;= 3
-        /// </remarks>
-        public static bool SolvePnP(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int flags)
-        {
-            var res = NativeMethods.cv_solvePnP_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds an object pose \f$ {}^{c}\mathbf{T}_o \f$ from 3D-2D point correspondences using the RANSAC scheme to deal with bad matches.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
-        /// <param name="tvec">Output translation vector.</param>
-        /// <param name="useExtrinsicGuess">Parameter used for @ref SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
-        /// <param name="iterationsCount">Number of iterations.</param>
-        /// <param name="reprojectionError">Inlier threshold value used by the RANSAC procedure. The parameter value is the maximum allowed distance between the observed and computed point projections to consider it an inlier.</param>
-        /// <param name="confidence">The probability that the algorithm produces a useful result.</param>
-        /// <param name="inliers">Output vector that contains indices of inliers in objectPoints and imagePoints .</param>
-        /// <param name="flags">Method for solving a PnP problem (see @ref solvePnP ). The function estimates an object pose given a set of object points, their corresponding image projections, as well as the camera intrinsic matrix and the distortion coefficients. This function finds such a pose that minimizes reprojection error, that is, the sum of squared distances between the observed projections imagePoints and the projected (using @ref projectPoints ) objectPoints. The use of RANSAC makes the function resistant to outliers.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
-        /// @see @ref calib3d_solvePnP
-        /// @note
-        /// -   An example of how to use solvePnPRansac for object detection can be found at
-        /// @ref tutorial_real_time_pose
-        /// -   The default method used to estimate the camera pose for the Minimal Sample Sets step
-        /// is #SOLVEPNP_EPNP. Exceptions are:
-        /// - if you choose #SOLVEPNP_P3P or #SOLVEPNP_AP3P, these methods will be used.
-        /// - if the number of input points is equal to 4, #SOLVEPNP_P3P is used.
-        /// -   The method used to estimate the camera pose using all the inliers is defined by the
-        /// flags parameters unless it is equal to #SOLVEPNP_P3P or #SOLVEPNP_AP3P. In this case,
-        /// the method #SOLVEPNP_EPNP will be used instead.
-        /// </remarks>
-        public static bool SolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, Mat? inliers, int flags)
-        {
-            var res = NativeMethods.cv_solvePnPRansac_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, iterationsCount, reprojectionError, confidence, ValidationHelper.GetHandle(inliers, nameof(inliers), true), flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="objectPoints">The objectPoints parameter.</param>
-        /// <param name="imagePoints">The imagePoints parameter.</param>
-        /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
-        /// <param name="distCoeffs">The distCoeffs parameter.</param>
-        /// <param name="rvec">The rvec parameter.</param>
-        /// <param name="tvec">The tvec parameter.</param>
-        /// <param name="inliers">The inliers parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool SolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, Mat inliers, UsacParams? @params)
-        {
-            var res = NativeMethods.cv_solvePnPRansac_1(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ValidationHelper.GetHandle(@params, nameof(@params), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds an object pose \f$ {}^{c}\mathbf{T}_o \f$ from **3** 3D-2D point correspondences.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, 3x3 1-channel or 1x3/3x1 3-channel. vector\&lt;Point3f\&gt; can be also passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, 3x2 1-channel or 1x3/3x1 2-channel. vector\&lt;Point2f\&gt; can be also passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvecs">Output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from the model coordinate system to the camera coordinate system. A P3P problem has up to 4 solutions.</param>
-        /// <param name="tvecs">Output translation vectors.</param>
-        /// <param name="flags">Method for solving a P3P problem: -   @ref SOLVEPNP_P3P Method is based on the paper of Ding, Y., Yang, J., Larsson, V., Olsson, C., &amp; Åstrom, K. "Revisiting the P3P Problem" (@cite ding2023revisiting). -   @ref SOLVEPNP_AP3P Method is based on the paper of T. Ke and S. Roumeliotis. "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17). The function estimates the object pose given 3 object points, their corresponding image projections, as well as the camera intrinsic matrix and the distortion coefficients.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
-        /// @see @ref calib3d_solvePnP
-        /// @note
-        /// The solutions are sorted by reprojection errors (lowest to highest).
-        /// </remarks>
-        public static int SolveP3P(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, int flags)
-        {
-            var res = NativeMethods.cv_solveP3P_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
-        /// to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvec">Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system. Input values are used as an initial solution.</param>
-        /// <param name="tvec">Input/Output translation vector. Input values are used as an initial solution.</param>
-        /// <param name="criteria">Criteria when to stop the Levenberg-Marquard iterative algorithm. The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, according to a Levenberg-Marquardt iterative minimization @cite Madsen04 @cite Eade13 process.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @see @ref calib3d_solvePnP
-        /// </remarks>
-        public static void SolvePnPRefineLM(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, TermCriteria criteria)
-        {
-            NativeMethods.cv_solvePnPRefineLM_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), criteria);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
-        /// to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvec">Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system. Input values are used as an initial solution.</param>
-        /// <param name="tvec">Input/Output translation vector. Input values are used as an initial solution.</param>
-        /// <param name="criteria">Criteria when to stop the Levenberg-Marquard iterative algorithm.</param>
-        /// <param name="VVSlambda">Gain for the virtual visual servoing control law, equivalent to the \f$\alpha\f$ gain in the Damped Gauss-Newton formulation. The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, using a virtual visual servoing (VVS) @cite Chaumette06 @cite Marchand16 scheme.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @see @ref calib3d_solvePnP
-        /// </remarks>
-        public static void SolvePnPRefineVVS(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, TermCriteria criteria, double VVSlambda)
-        {
-            NativeMethods.cv_solvePnPRefineVVS_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), criteria, VVSlambda);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds an object pose \f$ {}^{c}\mathbf{T}_o \f$ from 3D-2D point correspondences.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="rvecs">Vector of output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from the model coordinate system to the camera coordinate system.</param>
-        /// <param name="tvecs">Vector of output translation vectors.</param>
-        /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
-        /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags</param>
-        /// <param name="rvec">Rotation vector used to initialize an iterative PnP refinement algorithm, when flag is @ref SOLVEPNP_ITERATIVE and useExtrinsicGuess is set to true.</param>
-        /// <param name="tvec">Translation vector used to initialize an iterative PnP refinement algorithm, when flag is @ref SOLVEPNP_ITERATIVE and useExtrinsicGuess is set to true.</param>
-        /// <param name="reprojectionError">Optional vector of reprojection error, that is the RMS error (\f$ \text{RMSE} = \sqrt{\frac{\sum_{i}^{N} \left ( \hat{y_i} - y_i \right )^2}{N}} \f$) between the input image points and the 3D object points projected with the estimated pose. More information is described in @ref calib3d_solvePnP</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
-        /// @see @ref calib3d_solvePnP
-        /// This function returns a list of all the possible solutions (a solution is a &lt;rotation vector, translation vector&gt;
-        /// couple), depending on the number of input points and the chosen method:
-        /// - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): 3 or 4 input points. Number of returned solutions can be between 0 and 4 with 3 input points.
-        /// - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar. Returns 2 solutions.
-        /// - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
-        /// Number of input points must be 4 and 2 solutions are returned. Object points must be defined in the following order:
-        /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
-        /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
-        /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
-        /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
-        /// - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.
-        /// Only 1 solution is returned.
-        /// @note
-        /// -   An example of how to use solvePnP for planar augmented reality can be found at
-        /// opencv_source_code/samples/python/plane_ar.py
-        /// -   If you are using Python:
-        /// - Numpy array slices won't work as input because solvePnP requires contiguous
-        /// arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
-        /// modules/3d/src/solvepnp.cpp version 2.4.9)
-        /// - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
-        /// to its calling of #undistortPoints (around line 75 of modules/3d/src/solvepnp.cpp version 2.4.9)
-        /// which requires 2-channel information.
-        /// - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
-        /// it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
-        /// np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
-        /// -   The minimum number of points is 4 in the general case. In the case of @ref SOLVEPNP_P3P and @ref SOLVEPNP_AP3P
-        /// methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
-        /// of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
-        /// -   With @ref SOLVEPNP_ITERATIVE method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
-        /// are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
-        /// global solution to converge.
-        /// -   With @ref SOLVEPNP_IPPE input points must be &gt;= 4 and object points must be coplanar.
-        /// -   With @ref SOLVEPNP_IPPE_SQUARE this is a special case suitable for marker pose estimation.
-        /// Number of input points must be 4. Object points must be defined in the following order:
-        /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
-        /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
-        /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
-        /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
-        /// -   With @ref SOLVEPNP_SQPNP input points must be &gt;= 3
-        /// </remarks>
-        public static int SolvePnPGeneric(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, bool useExtrinsicGuess, int flags, Mat? rvec, Mat? tvec, Mat? reprojectionError)
-        {
-            var res = NativeMethods.cv_solvePnPGeneric_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, useExtrinsicGuess, flags, ValidationHelper.GetHandle(rvec, nameof(rvec), true), ValidationHelper.GetHandle(tvec, nameof(tvec), true), ValidationHelper.GetHandle(reprojectionError, nameof(reprojectionError), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Converts points from Euclidean to homogeneous space.
-        /// </summary>
-        /// <param name="src">Input vector of N-dimensional points.</param>
-        /// <param name="dst">Output vector of N+1-dimensional points.</param>
-        /// <param name="dtype">The desired output array depth (either CV_32F or CV_64F are currently supported). If it's -1, then it's set automatically to CV_32F or CV_64F, depending on the input depth. The function converts points from Euclidean to homogeneous space by appending 1's to the tuple of point coordinates. That is, each point (x1, x2, ..., xn) is converted to (x1, x2, ..., xn, 1).</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ConvertPointsToHomogeneous(Mat src, Mat dst, int dtype)
-        {
-            NativeMethods.cv_convertPointsToHomogeneous_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Converts points from homogeneous to Euclidean space.
-        /// </summary>
-        /// <param name="src">Input vector of N-dimensional points.</param>
-        /// <param name="dst">Output vector of N-1-dimensional points.</param>
-        /// <param name="dtype">The desired output array depth (either CV_32F or CV_64F are currently supported). If it's -1, then it's set automatically to CV_32F or CV_64F, depending on the input depth. The function converts points homogeneous to Euclidean space using perspective projection. That is, each point (x1, x2, ... x(n-1), xn) is converted to (x1/xn, x2/xn, ..., x(n-1)/xn). When xn=0, the output point coordinates will be (0,0,0,...).</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ConvertPointsFromHomogeneous(Mat src, Mat dst, int dtype)
-        {
-            NativeMethods.cv_convertPointsFromHomogeneous_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates a fundamental matrix from the corresponding points in two images.
-        /// </summary>
-        /// <param name="points1">Array of N points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
-        /// <param name="method">Method for computing a fundamental matrix. -   @ref FM_7POINT for a 7-point algorithm. \f$N = 7\f$ -   @ref FM_8POINT for an 8-point algorithm. \f$N \ge 8\f$ -   @ref FM_RANSAC for the RANSAC algorithm. \f$N \ge 8\f$ -   @ref FM_LMEDS for the LMedS algorithm. \f$N \ge 8\f$</param>
-        /// <param name="ransacReprojThreshold">Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
-        /// <param name="confidence">Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations. The epipolar geometry is described by the following equation: \f[[p_2; 1]^T F [p_1; 1] = 0\f] where \f$F\f$ is a fundamental matrix, \f$p_1\f$ and \f$p_2\f$ are corresponding points in the first and the second images, respectively. The function calculates the fundamental matrix using one of four methods listed above and returns the found fundamental matrix. Normally just one matrix is found. But in case of the 7-point algorithm, the function may return up to 3 solutions ( \f$9 \times 3\f$ matrix that stores all 3 matrices sequentially). The calculated fundamental matrix may be passed further to #computeCorrespondEpilines that finds the epipolar lines corresponding to the specified points. It can also be passed to #stereoRectifyUncalibrated to compute the rectification transformation. : @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } Mat fundamental_matrix = findFundamentalMat(points1, points2, FM_RANSAC, 3, 0.99); @endcode</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindFundamentalMat(Mat points1, Mat points2, int method, double ransacReprojThreshold, double confidence, int maxIters, Mat? mask)
-        {
-            IntPtr res = NativeMethods.cv_findFundamentalMat_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), method, ransacReprojThreshold, confidence, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="points1">The points1 parameter.</param>
-        /// <param name="points2">The points2 parameter.</param>
-        /// <param name="method">The method parameter.</param>
-        /// <param name="ransacReprojThreshold">The ransacReprojThreshold parameter.</param>
-        /// <param name="confidence">The confidence parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindFundamentalMat(Mat points1, Mat points2, int method, double ransacReprojThreshold, double confidence, Mat? mask)
-        {
-            IntPtr res = NativeMethods.cv_findFundamentalMat_1(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), method, ransacReprojThreshold, confidence, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="points1">The points1 parameter.</param>
-        /// <param name="points2">The points2 parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindFundamentalMat(Mat points1, Mat points2, Mat mask, UsacParams @params)
-        {
-            IntPtr res = NativeMethods.cv_findFundamentalMat_2(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Calculates an essential matrix from the corresponding points in two images.
-        /// </summary>
-        /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
-        /// <param name="cameraMatrix">Camera intrinsic matrix \f$\cameramatrix{A}\f$ . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix. If this assumption does not hold for your use case, use another function overload or #undistortPoints with `P = cv::NoArray()` for both cameras to transform image points to normalized image coordinates, which are valid for the identity camera intrinsic matrix. When passing these coordinates, pass the identity matrix for this parameter.</param>
-        /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
-        /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
-        /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations. This function estimates essential matrix based on the five-point algorithm solver in @cite Nister03 . @cite SteweniusCFS is also a related. The epipolar geometry is described by the following equation: \f[[p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0\f] where \f$E\f$ is an essential matrix, \f$p_1\f$ and \f$p_2\f$ are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras.</param>
-        /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix, int method, double prob, double threshold, int maxIters, Mat? mask)
-        {
-            IntPtr res = NativeMethods.cv_findEssentialMat_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), method, prob, threshold, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
-        /// <param name="focal">focal length of the camera. Note that this function assumes that points1 and points2 are feature points from cameras with same focal length and principal point.</param>
-        /// <param name="pp">principal point of the camera.</param>
-        /// <param name="method">Method for computing a fundamental matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
-        /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
-        /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations. This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point: \f[A = \begin{bmatrix} f &amp; 0 &amp; x_{pp}  \\ 0 &amp; f &amp; y_{pp}  \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\f]</param>
-        /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindEssentialMat(Mat points1, Mat points2, double focal, IntPtr pp, int method, double prob, double threshold, int maxIters, Mat? mask)
-        {
-            IntPtr res = NativeMethods.cv_findEssentialMat_1(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), focal, pp, method, prob, threshold, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Calculates an essential matrix from the corresponding points in two images from potentially two different cameras.
-        /// </summary>
-        /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
-        /// <param name="cameraMatrix1">Camera matrix for the first camera \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs1">Input vector of distortion coefficients for the first camera \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="cameraMatrix2">Camera matrix for the second camera \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs2">Input vector of distortion coefficients for the second camera \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
-        /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
-        /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
-        /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. This function estimates essential matrix based on the five-point algorithm solver in @cite Nister03 . @cite SteweniusCFS is also a related. The epipolar geometry is described by the following equation: \f[[p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0\f] where \f$E\f$ is an essential matrix, \f$p_1\f$ and \f$p_2\f$ are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or  #recoverPose to recover the relative pose between cameras.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, int method, double prob, double threshold, Mat? mask)
-        {
-            IntPtr res = NativeMethods.cv_findEssentialMat_2(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), method, prob, threshold, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="points1">The points1 parameter.</param>
-        /// <param name="points2">The points2 parameter.</param>
-        /// <param name="cameraMatrix1">The cameraMatrix1 parameter.</param>
-        /// <param name="cameraMatrix2">The cameraMatrix2 parameter.</param>
-        /// <param name="dist_coeff1">The dist_coeff1 parameter.</param>
-        /// <param name="dist_coeff2">The dist_coeff2 parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix1, Mat cameraMatrix2, Mat dist_coeff1, Mat dist_coeff2, Mat mask, UsacParams @params)
-        {
-            IntPtr res = NativeMethods.cv_findEssentialMat_3(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(dist_coeff1, nameof(dist_coeff1), false), ValidationHelper.GetHandle(dist_coeff2, nameof(dist_coeff2), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Decompose an essential matrix to possible rotations and translation.
-        /// </summary>
-        /// <param name="E">The input essential matrix.</param>
-        /// <param name="R1">One possible rotation matrix.</param>
-        /// <param name="R2">Another possible rotation matrix.</param>
-        /// <param name="t">One possible translation. This function decomposes the essential matrix E using svd decomposition @cite HartleyZ00. In general, four possible poses exist for the decomposition of E. They are \f$[R_1, t]\f$, \f$[R_1, -t]\f$, \f$[R_2, t]\f$, \f$[R_2, -t]\f$. If E gives the epipolar constraint \f$[p_2; 1]^T A^{-T} E A^{-1} [p_1; 1] = 0\f$ between the image points \f$p_1\f$ in the first image and \f$p_2\f$ in second image, then any of the tuples \f$[R_1, t]\f$, \f$[R_1, -t]\f$, \f$[R_2, t]\f$, \f$[R_2, -t]\f$ is a change of basis from the first camera's coordinate system to the second camera's coordinate system. However, by decomposing E, one can only get the direction of the translation. For this reason, the translation t is returned with unit length.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void DecomposeEssentialMat(Mat E, Mat R1, Mat R2, Mat t)
-        {
-            NativeMethods.cv_decomposeEssentialMat_0(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(t, nameof(t), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Recovers the relative camera rotation and the translation from corresponding points in two images from two different cameras, using chirality check. Returns the number of
-        /// inliers that pass the check.
-        /// </summary>
-        /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
-        /// <param name="cameraMatrix1">Input/output camera matrix for the first camera, the same as in @ref calibrateCamera. Furthermore, for the stereo case, additional flags may be used, see below.</param>
-        /// <param name="distCoeffs1">Input/output vector of distortion coefficients, the same as in @ref calibrateCamera.</param>
-        /// <param name="cameraMatrix2">Input/output camera matrix for the first camera, the same as in @ref calibrateCamera. Furthermore, for the stereo case, additional flags may be used, see below.</param>
-        /// <param name="distCoeffs2">Input/output vector of distortion coefficients, the same as in @ref calibrateCamera.</param>
-        /// <param name="E">The output essential matrix.</param>
-        /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter described below.</param>
-        /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
-        /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
-        /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
-        /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
-        /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function decomposes an essential matrix using @ref decomposeEssentialMat and then verifies possible pose hypotheses by doing chirality check. The chirality check means that the triangulated 3D points should have positive depth. Some details can be found in @cite Nister03. This function can be used to process the output E and mask from @ref findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } // Input: camera calibration of both cameras, for example using intrinsic chessboard calibration. Mat cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2; // Output: Essential matrix, relative rotation and relative translation. Mat E, R, t, mask; recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, mask); @endcode</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int RecoverPose(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Mat E, Mat R, Mat t, int method, double prob, double threshold, Mat? mask)
-        {
-            var res = NativeMethods.cv_recoverPose_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), method, prob, threshold, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Recovers the relative camera rotation and the translation from an estimated essential
-        /// matrix and the corresponding points in two images, using chirality check. Returns the number of
-        /// inliers that pass the check.
-        /// </summary>
-        /// <param name="E">The input essential matrix.</param>
-        /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
-        /// <param name="cameraMatrix">Camera intrinsic matrix \f$\cameramatrix{A}\f$ . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix.</param>
-        /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter described below.</param>
-        /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
-        /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function decomposes an essential matrix using @ref decomposeEssentialMat and then verifies possible pose hypotheses by doing chirality check. The chirality check means that the triangulated 3D points should have positive depth. Some details can be found in @cite Nister03. This function can be used to process the output E and mask from @ref findEssentialMat. In this scenario, points1 and points2 are the same input for #findEssentialMat : @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } // cametra matrix with both focal lengths = 1, and principal point = (0, 0) Mat cameraMatrix = Mat::eye(3, 3, CV_64F); Mat E, R, t, mask; E = findEssentialMat(points1, points2, cameraMatrix, RANSAC, 0.999, 1.0, mask); recoverPose(E, points1, points2, cameraMatrix, R, t, mask); @endcode</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat cameraMatrix, Mat R, Mat t, Mat? mask)
-        {
-            var res = NativeMethods.cv_recoverPose_1(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="E">The input essential matrix.</param>
-        /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
-        /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter description below.</param>
-        /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
-        /// <param name="focal">Focal length of the camera. Note that this function assumes that points1 and points2 are feature points from cameras with same focal length and principal point.</param>
-        /// <param name="pp">principal point of the camera.</param>
-        /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point: \f[A = \begin{bmatrix} f &amp; 0 &amp; x_{pp}  \\ 0 &amp; f &amp; y_{pp}  \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\f]</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat R, Mat t, double focal, IntPtr pp, Mat? mask)
-        {
-            var res = NativeMethods.cv_recoverPose_2(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), focal, pp, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="E">The input essential matrix.</param>
-        /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
-        /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
-        /// <param name="cameraMatrix">Camera intrinsic matrix \f$\cameramatrix{A}\f$ . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix.</param>
-        /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter description below.</param>
-        /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
-        /// <param name="distanceThresh">threshold distance which is used to filter out far away points (i.e. infinite points).</param>
-        /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check.</param>
-        /// <param name="triangulatedPoints">3D points which were reconstructed by triangulation. This function differs from the one above that it outputs the triangulated 3D point that are used for the chirality check.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat cameraMatrix, Mat R, Mat t, double distanceThresh, Mat? mask, Mat? triangulatedPoints)
-        {
-            var res = NativeMethods.cv_recoverPose_3(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), distanceThresh, ValidationHelper.GetHandle(mask, nameof(mask), true), ValidationHelper.GetHandle(triangulatedPoints, nameof(triangulatedPoints), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// For points in an image of a stereo pair, computes the corresponding epilines in the other image.
-        /// </summary>
-        /// <param name="points">Input points. \f$N \times 1\f$ or \f$1 \times N\f$ matrix of type CV_32FC2 or vector\&lt;Point2f\&gt; .</param>
-        /// <param name="whichImage">Index of the image (1 or 2) that contains the points .</param>
-        /// <param name="F">Fundamental matrix that can be estimated using #findFundamentalMat or #stereoRectify .</param>
-        /// <param name="lines">Output vector of the epipolar lines corresponding to the points in the other image. Each line \f$ax + by + c=0\f$ is encoded by 3 numbers \f$(a, b, c)\f$ . For every point in one of the two images of a stereo pair, the function finds the equation of the corresponding epipolar line in the other image. From the fundamental matrix definition (see #findFundamentalMat ), line \f$l^{(2)}_i\f$ in the second image for the point \f$p^{(1)}_i\f$ in the first image (when whichImage=1 ) is computed as: \f[l^{(2)}_i = F p^{(1)}_i\f] And vice versa, when whichImage=2, \f$l^{(1)}_i\f$ is computed from \f$p^{(2)}_i\f$ as: \f[l^{(1)}_i = F^T p^{(2)}_i\f] Line coefficients are defined up to a scale. They are normalized so that \f$a_i^2+b_i^2=1\f$ .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ComputeCorrespondEpilines(Mat points, int whichImage, Mat F, Mat lines)
-        {
-            NativeMethods.cv_computeCorrespondEpilines_0(ValidationHelper.GetHandle(points, nameof(points), false), whichImage, ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(lines, nameof(lines), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// This function reconstructs 3-dimensional points (in homogeneous coordinates) by using
-        /// their observations with a stereo camera.
-        /// </summary>
-        /// <param name="projMatr1">3x4 projection matrix of the first camera, i.e. this matrix projects 3D points given in the world's coordinate system into the first image.</param>
-        /// <param name="projMatr2">3x4 projection matrix of the second camera, i.e. this matrix projects 3D points given in the world's coordinate system into the second image.</param>
-        /// <param name="projPoints1">2xN array of feature points in the first image. In the case of the c++ version, it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.</param>
-        /// <param name="projPoints2">2xN array of corresponding points in the second image. In the case of the c++ version, it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.</param>
-        /// <param name="points4D">4xN array of reconstructed points in homogeneous coordinates. These points are returned in the world's coordinate system.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note
-        /// Keep in mind that all input data should be of float type in order for this function to work.
-        /// @note
-        /// If the projection matrices from @ref stereoRectify are used, then the returned points are
-        /// represented in the first camera's rectified coordinate system.
-        /// @sa
-        /// reprojectImageTo3D
-        /// </remarks>
-        public static void TriangulatePoints(Mat projMatr1, Mat projMatr2, Mat projPoints1, Mat projPoints2, Mat points4D)
-        {
-            NativeMethods.cv_triangulatePoints_0(ValidationHelper.GetHandle(projMatr1, nameof(projMatr1), false), ValidationHelper.GetHandle(projMatr2, nameof(projMatr2), false), ValidationHelper.GetHandle(projPoints1, nameof(projPoints1), false), ValidationHelper.GetHandle(projPoints2, nameof(projPoints2), false), ValidationHelper.GetHandle(points4D, nameof(points4D), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Refines coordinates of corresponding points.
-        /// </summary>
-        /// <param name="F">3x3 fundamental matrix.</param>
-        /// <param name="points1">1xN array containing the first set of points.</param>
-        /// <param name="points2">1xN array containing the second set of points.</param>
-        /// <param name="newPoints1">The optimized points1.</param>
-        /// <param name="newPoints2">The optimized points2. The function implements the Optimal Triangulation Method (see Multiple View Geometry @cite HartleyZ00 for details). For each given point correspondence points1[i] \&lt;-\&gt; points2[i], and a fundamental matrix F, it computes the corrected correspondences newPoints1[i] \&lt;-\&gt; newPoints2[i] that minimize the geometric error \f$d(points1[i], newPoints1[i])^2 + d(points2[i],newPoints2[i])^2\f$ (where \f$d(a,b)\f$ is the geometric distance between points \f$a\f$ and \f$b\f$ ) subject to the epipolar constraint \f$newPoints2^T \cdot F \cdot newPoints1 = 0\f$ .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void CorrectMatches(Mat F, Mat points1, Mat points2, Mat newPoints1, Mat newPoints2)
-        {
-            NativeMethods.cv_correctMatches_0(ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(newPoints1, nameof(newPoints1), false), ValidationHelper.GetHandle(newPoints2, nameof(newPoints2), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the Sampson Distance between two points.
-        /// </summary>
-        /// <param name="pt1">first homogeneous 2d point</param>
-        /// <param name="pt2">second homogeneous 2d point</param>
-        /// <param name="F">fundamental matrix</param>
-        /// <returns>The computed Sampson distance.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::sampsonDistance calculates and returns the first order approximation of the geometric error as:
-        /// \f[
-        /// sd( \texttt{pt1} , \texttt{pt2} )=
-        /// \frac{(\texttt{pt2}^t \cdot \texttt{F} \cdot \texttt{pt1})^2}
-        /// {((\texttt{F} \cdot \texttt{pt1})(0))^2 +
-        /// ((\texttt{F} \cdot \texttt{pt1})(1))^2 +
-        /// ((\texttt{F}^t \cdot \texttt{pt2})(0))^2 +
-        /// ((\texttt{F}^t \cdot \texttt{pt2})(1))^2}
-        /// \f]
-        /// The fundamental matrix may be calculated using the #findFundamentalMat function. See @cite HartleyZ00 11.4.3 for details.
-        /// </remarks>
-        public static double SampsonDistance(Mat pt1, Mat pt2, Mat F)
-        {
-            var res = NativeMethods.cv_sampsonDistance_0(ValidationHelper.GetHandle(pt1, nameof(pt1), false), ValidationHelper.GetHandle(pt2, nameof(pt2), false), ValidationHelper.GetHandle(F, nameof(F), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Computes an optimal affine transformation between two 3D point sets.
-        /// </summary>
-        /// <param name="src">First input 3D point set containing \f$(X,Y,Z)\f$.</param>
-        /// <param name="dst">Second input 3D point set containing \f$(x,y,z)\f$.</param>
-        /// <param name="out">Output 3D affine transformation matrix \f$3 \times 4\f$ of the form \f[ \begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} &amp; b_1\\ a_{21} &amp; a_{22} &amp; a_{23} &amp; b_2\\ a_{31} &amp; a_{32} &amp; a_{33} &amp; b_3\\ \end{bmatrix} \f]</param>
-        /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
-        /// <param name="ransacThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier.</param>
-        /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
-        /// <returns>Whether a solution was found. The function estimates an optimal 3D affine transformation between two 3D point sets using the RANSAC algorithm.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// It computes
-        /// \f[
-        /// \begin{bmatrix}
-        /// x\\
-        /// y\\
-        /// z\\
-        /// \end{bmatrix}
-        /// =
-        /// \begin{bmatrix}
-        /// a_{11} &amp; a_{12} &amp; a_{13}\\
-        /// a_{21} &amp; a_{22} &amp; a_{23}\\
-        /// a_{31} &amp; a_{32} &amp; a_{33}\\
-        /// \end{bmatrix}
-        /// \begin{bmatrix}
-        /// X\\
-        /// Y\\
-        /// Z\\
-        /// \end{bmatrix}
-        /// +
-        /// \begin{bmatrix}
-        /// b_1\\
-        /// b_2\\
-        /// b_3\\
-        /// \end{bmatrix}
-        /// \f]
-        /// </remarks>
-        public static bool EstimateAffine3D(Mat src, Mat dst, Mat @out, Mat inliers, double ransacThreshold, double confidence)
-        {
-            var res = NativeMethods.cv_estimateAffine3D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(@out, nameof(@out), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ransacThreshold, confidence);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Computes an optimal affine transformation between two 3D point sets.
-        /// </summary>
-        /// <param name="src">First input 3D point set.</param>
-        /// <param name="dst">Second input 3D point set.</param>
-        /// <param name="scale">If null is passed, the scale parameter c will be assumed to be 1.0. Else the pointed-to variable will be set to the optimal scale.</param>
-        /// <param name="force_rotation">If true, the returned rotation will never be a reflection. This might be unwanted, e.g. when optimizing a transform between a right- and a left-handed coordinate system.</param>
-        /// <returns>3D affine transformation matrix \f$3 \times 4\f$ of the form \f[T = \begin{bmatrix} R &amp; t\\ \end{bmatrix} \f]</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// It computes \f$R,s,t\f$ minimizing \f$\sum{i} dst_i - c \cdot R \cdot src_i \f$
-        /// where \f$R\f$ is a 3x3 rotation matrix, \f$t\f$ is a 3x1 translation vector and \f$s\f$ is a
-        /// scalar size value. This is an implementation of the algorithm by Umeyama \cite umeyama1991least .
-        /// The estimated affine transform has a homogeneous scale which is a subclass of affine
-        /// transformations with 7 degrees of freedom. The paired point sets need to comprise at least 3
-        /// points each.
-        /// </remarks>
-        public static Mat? EstimateAffine3D(Mat src, Mat dst, IntPtr scale, bool force_rotation)
-        {
-            IntPtr res = NativeMethods.cv_estimateAffine3D_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, force_rotation);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Computes an optimal translation between two 3D point sets.
-        /// *
-        /// * It computes
-        /// * \f[
-        /// * \begin{bmatrix}
-        /// * x\\
-        /// * y\\
-        /// * z\\
-        /// * \end{bmatrix}
-        /// * =
-        /// * \begin{bmatrix}
-        /// * X\\
-        /// * Y\\
-        /// * Z\\
-        /// * \end{bmatrix}
-        /// * +
-        /// * \begin{bmatrix}
-        /// * b_1\\
-        /// * b_2\\
-        /// * b_3\\
-        /// * \end{bmatrix}
-        /// * \f]
-        /// *
-        /// * @param src First input 3D point set containing \f$(X,Y,Z)\f$.
-        /// * @param dst Second input 3D point set containing \f$(x,y,z)\f$.
-        /// * @param out Output 3D translation vector \f$3 \times 1\f$ of the form
-        /// * \f[
-        /// * \begin{bmatrix}
-        /// * b_1 \\
-        /// * b_2 \\
-        /// * b_3 \\
-        /// * \end{bmatrix}
-        /// * \f]
-        /// * @param inliers Output vector indicating which points are inliers (1-inlier, 0-outlier).
-        /// * @param ransacThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as
-        /// * an inlier.
-        /// * @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
-        /// * between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
-        /// * significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
-        /// *
-        /// * @return Whether a translation was found.
-        /// *
-        /// * The function estimates an optimal 3D translation between two 3D point sets using the
-        /// * RANSAC algorithm.
-        /// *
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <param name="out">The @out parameter.</param>
-        /// <param name="inliers">The inliers parameter.</param>
-        /// <param name="ransacThreshold">The ransacThreshold parameter.</param>
-        /// <param name="confidence">The confidence parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool EstimateTranslation3D(Mat src, Mat dst, Mat @out, Mat inliers, double ransacThreshold, double confidence)
-        {
-            var res = NativeMethods.cv_estimateTranslation3D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(@out, nameof(@out), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ransacThreshold, confidence);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Computes an optimal affine transformation between two 2D point sets.
-        /// </summary>
-        /// <param name="from">First input 2D point set containing \f$(X,Y)\f$.</param>
-        /// <param name="to">Second input 2D point set containing \f$(x,y)\f$.</param>
-        /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
-        /// <param name="method">Robust method used to compute transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
-        /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations.</param>
-        /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
-        /// <param name="refineIters">Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</param>
-        /// <returns>Output 2D affine transformation matrix \f$2 \times 3\f$ or empty matrix if transformation could not be estimated. The returned matrix has the following form: \f[ \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\\ a_{21} &amp; a_{22} &amp; b_2\\ \end{bmatrix} \f] The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm. The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// It computes
-        /// \f[
-        /// \begin{bmatrix}
-        /// x\\
-        /// y\\
-        /// \end{bmatrix}
-        /// =
-        /// \begin{bmatrix}
-        /// a_{11} &amp; a_{12}\\
-        /// a_{21} &amp; a_{22}\\
-        /// \end{bmatrix}
-        /// \begin{bmatrix}
-        /// X\\
-        /// Y\\
-        /// \end{bmatrix}
-        /// +
-        /// \begin{bmatrix}
-        /// b_1\\
-        /// b_2\\
-        /// \end{bmatrix}
-        /// \f]
-        /// @note
-        /// The RANSAC method can handle practically any ratio of outliers but needs a threshold to
-        /// distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
-        /// correctly only when there are more than 50% of inliers.
-        /// @sa estimateAffinePartial2D, getAffineTransform
-        /// </remarks>
-        public static Mat? EstimateAffine2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
-        {
-            IntPtr res = NativeMethods.cv_estimateAffine2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="pts1">The pts1 parameter.</param>
-        /// <param name="pts2">The pts2 parameter.</param>
-        /// <param name="inliers">The inliers parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? EstimateAffine2D(Mat pts1, Mat pts2, Mat inliers, UsacParams @params)
-        {
-            IntPtr res = NativeMethods.cv_estimateAffine2D_1(ValidationHelper.GetHandle(pts1, nameof(pts1), false), ValidationHelper.GetHandle(pts2, nameof(pts2), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Computes an optimal limited affine transformation with 4 degrees of freedom between
-        /// two 2D point sets.
-        /// </summary>
-        /// <param name="from">First input 2D point set.</param>
-        /// <param name="to">Second input 2D point set.</param>
-        /// <param name="inliers">Output vector indicating which points are inliers.</param>
-        /// <param name="method">Robust method used to compute transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
-        /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations.</param>
-        /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
-        /// <param name="refineIters">Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</param>
-        /// <returns>Output 2D affine transformation (4 degrees of freedom) matrix \f$2 \times 3\f$ or empty matrix if transformation could not be estimated. The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation. The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more. Estimated transformation matrix is: \f[ \begin{bmatrix} \cos(\theta) \cdot s &amp; -\sin(\theta) \cdot s &amp; t_x \\ \sin(\theta) \cdot s &amp; \cos(\theta) \cdot s &amp; t_y \end{bmatrix} \f] Where \f$ \theta \f$ is the rotation angle, \f$ s \f$ the scaling factor and \f$ t_x, t_y \f$ are translations in \f$ x, y \f$ axes respectively.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note
-        /// The RANSAC method can handle practically any ratio of outliers but need a threshold to
-        /// distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
-        /// correctly only when there are more than 50% of inliers.
-        /// @sa estimateAffine2D, getAffineTransform
-        /// </remarks>
-        public static Mat? EstimateAffinePartial2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
-        {
-            IntPtr res = NativeMethods.cv_estimateAffinePartial2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Computes a pure 2D translation between two 2D point sets.
-        /// </summary>
-        /// <param name="from">First input 2D point set containing \f$(X,Y)\f$.</param>
-        /// <param name="to">Second input 2D point set containing \f$(x,y)\f$.</param>
-        /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
-        /// <param name="method">Robust method used to compute the transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
-        /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
-        /// <param name="maxIters">The maximum number of robust method iterations.</param>
-        /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8–0.9 can result in an incorrectly estimated transformation.</param>
-        /// <param name="refineIters">Maximum number of iterations of the refining algorithm. For pure translation the least-squares solution on inliers is closed-form, so passing 0 is recommended (no additional refine).</param>
-        /// <returns>A 2D translation vector \f$[t_x, t_y]^T\f$ as `cv::Vec2d`. If the translation could not be estimated, both components are set to NaN and, if @p inliers is provided, the mask is filled with zeros. \par Converting to a 2x3 transformation matrix: \f[ \begin{bmatrix} 1 &amp; 0 &amp; t_x\\ 0 &amp; 1 &amp; t_y \end{bmatrix} \f] @code{.cpp} cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers); cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]); @endcode The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// It computes
-        /// \f[
-        /// \begin{bmatrix}
-        /// x\\
-        /// y
-        /// \end{bmatrix}
-        /// =
-        /// \begin{bmatrix}
-        /// 1 &amp; 0\\
-        /// 0 &amp; 1
-        /// \end{bmatrix}
-        /// \begin{bmatrix}
-        /// X\\
-        /// Y
-        /// \end{bmatrix}
-        /// +
-        /// \begin{bmatrix}
-        /// t_x\\
-        /// t_y
-        /// \end{bmatrix}.
-        /// \f]
-        /// @note
-        /// The RANSAC method can handle practically any ratio of outliers but needs a threshold to
-        /// distinguish inliers from outliers. The method LMeDS does not need any threshold but works
-        /// correctly only when there are more than 50% inliers.
-        /// @sa estimateAffine2D, estimateAffinePartial2D, getAffineTransform
-        /// </remarks>
-        public static IntPtr EstimateTranslation2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
-        {
-            var res = NativeMethods.cv_estimateTranslation2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Decompose a homography matrix to rotation(s), translation(s) and plane normal(s).
-        /// </summary>
-        /// <param name="H">The input homography matrix between two images.</param>
-        /// <param name="K">The input camera intrinsic matrix.</param>
-        /// <param name="rotations">Array of rotation matrices.</param>
-        /// <param name="translations">Array of translation matrices.</param>
-        /// <param name="normals">Array of plane normal matrices. This function extracts relative camera motion between two views of a planar object and returns up to four mathematical solution tuples of rotation, translation, and plane normal. The decomposition of the homography matrix H is described in detail in @cite Malis2007. If the homography H, induced by the plane, gives the constraint \f[s_i \vecthree{x'_i}{y'_i}{1} \sim H \vecthree{x_i}{y_i}{1}\f] on the source image points \f$p_i\f$ and the destination image points \f$p'_i\f$, then the tuple of rotations[k] and translations[k] is a change of basis from the source camera's coordinate system to the destination camera's coordinate system. However, by decomposing H, one can only get the translation normalized by the (typically unknown) depth of the scene, i.e. its direction but with normalized length. If point correspondences are available, at least two solutions may further be invalidated, by applying positive depth constraint, i.e. all points must be in front of the camera.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int DecomposeHomographyMat(Mat H, Mat K, IntPtr rotations, IntPtr translations, IntPtr normals)
-        {
-            var res = NativeMethods.cv_decomposeHomographyMat_0(ValidationHelper.GetHandle(H, nameof(H), false), ValidationHelper.GetHandle(K, nameof(K), false), rotations, translations, normals);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Filters homography decompositions based on additional information.
-        /// </summary>
-        /// <param name="rotations">Vector of rotation matrices.</param>
-        /// <param name="normals">Vector of plane normal matrices.</param>
-        /// <param name="beforePoints">Vector of (rectified) visible reference points before the homography is applied</param>
-        /// <param name="afterPoints">Vector of (rectified) visible reference points after the homography is applied</param>
-        /// <param name="possibleSolutions">Vector of int indices representing the viable solution set after filtering</param>
-        /// <param name="pointsMask">optional Mat/Vector of CV_8U, CV_8S or CV_Bool type representing the mask for the inliers as given by the #findHomography function This function is intended to filter the output of the #decomposeHomographyMat based on additional information as described in @cite Malis2007 . The summary of the method: the #decomposeHomographyMat function returns 2 unique solutions and their "opposites" for a total of 4 solutions. If we have access to the sets of points visible in the camera frame before and after the homography transformation is applied, we can determine which are the true potential solutions and which are the opposites by verifying which homographies are consistent with all visible reference points being in front of the camera. The inputs are left unchanged; the filtered solution set is returned as indices into the existing one.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FilterHomographyDecompByVisibleRefpoints(IntPtr rotations, IntPtr normals, Mat beforePoints, Mat afterPoints, Mat possibleSolutions, Mat? pointsMask)
-        {
-            NativeMethods.cv_filterHomographyDecompByVisibleRefpoints_0(rotations, normals, ValidationHelper.GetHandle(beforePoints, nameof(beforePoints), false), ValidationHelper.GetHandle(afterPoints, nameof(afterPoints), false), ValidationHelper.GetHandle(possibleSolutions, nameof(possibleSolutions), false), ValidationHelper.GetHandle(pointsMask, nameof(pointsMask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes useful camera characteristics from the camera intrinsic matrix.
-        /// *
-        /// * @param cameraMatrix Input camera intrinsic matrix that can be estimated by #calibrateCamera or
-        /// * #stereoCalibrate .
-        /// * @param imageSize Input image size in pixels.
-        /// * @param apertureWidth Physical width in mm of the sensor.
-        /// * @param apertureHeight Physical height in mm of the sensor.
-        /// * @param fovx Output field of view in degrees along the horizontal sensor axis.
-        /// * @param fovy Output field of view in degrees along the vertical sensor axis.
-        /// * @param focalLength Focal length of the lens in mm.
-        /// * @param principalPoint Principal point in mm.
-        /// * @param aspectRatio \f$f_y/f_x\f$
-        /// *
-        /// * The function computes various useful camera characteristics from the previously estimated camera
-        /// * matrix.
-        /// *
-        /// * @note
-        /// *   Do keep in mind that the unity measure 'mm' stands for whatever unit of measure one chooses for
-        /// *    the chessboard pitch (it can thus be any value).
-        /// </summary>
-        /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
-        /// <param name="imageSize">The imageSize parameter.</param>
-        /// <param name="apertureWidth">The apertureWidth parameter.</param>
-        /// <param name="apertureHeight">The apertureHeight parameter.</param>
-        /// <param name="fovx">The fovx parameter.</param>
-        /// <param name="fovy">The fovy parameter.</param>
-        /// <param name="focalLength">The focalLength parameter.</param>
-        /// <param name="principalPoint">The principalPoint parameter.</param>
-        /// <param name="aspectRatio">The aspectRatio parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void CalibrationMatrixValues(Mat cameraMatrix, Size imageSize, double apertureWidth, double apertureHeight, double fovx, double fovy, double focalLength, IntPtr principalPoint, double aspectRatio)
-        {
-            NativeMethods.cv_calibrationMatrixValues_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectRatio);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Returns the default new camera matrix.
-        /// </summary>
-        /// <param name="cameraMatrix">Input camera matrix.</param>
-        /// <param name="imgsize">Camera view image size in pixels.</param>
-        /// <param name="centerPrincipalPoint">Location of the principal point in the new camera matrix. The parameter indicates whether this location should be at the image center or not.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
-        /// centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
-        /// In the latter case, the new camera matrix will be:
-        /// \f[\begin{bmatrix} f_x &amp;&amp; 0 &amp;&amp; ( \texttt{imgSize.width} -1)*0.5  \\ 0 &amp;&amp; f_y &amp;&amp; ( \texttt{imgSize.height} -1)*0.5  \\ 0 &amp;&amp; 0 &amp;&amp; 1 \end{bmatrix} ,\f]
-        /// where \f$f_x\f$ and \f$f_y\f$ are \f$(0,0)\f$ and \f$(1,1)\f$ elements of cameraMatrix, respectively.
-        /// By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
-        /// move the principal point. However, when you work with stereo, it is important to move the principal
-        /// points in both views to the same y-coordinate (which is required by most of stereo correspondence
-        /// algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
-        /// each view where the principal points are located at the center.
-        /// </remarks>
-        public static Mat? GetDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize, bool centerPrincipalPoint)
-        {
-            IntPtr res = NativeMethods.cv_getDefaultNewCameraMatrix_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), imgsize, centerPrincipalPoint);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Returns the new camera intrinsic matrix based on the free scaling parameter.
-        /// </summary>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix.</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$\distcoeffs\f$. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="imageSize">Original image size.</param>
-        /// <param name="alpha">Free scaling parameter between 0 (when all the pixels in the undistorted image are valid) and 1 (when all the source image pixels are retained in the undistorted image). See #stereoRectify for details.</param>
-        /// <param name="newImgSize">Image size after rectification. By default, it is set to imageSize .</param>
-        /// <param name="validPixROI">Optional output rectangle that outlines all-good-pixels region in the undistorted image. See roi1, roi2 description in #stereoRectify .</param>
-        /// <param name="centerPrincipalPoint">Optional flag that indicates whether in the new camera intrinsic matrix the principal point should be at the image center or not. By default, the principal point is chosen to best fit a subset of the source image (determined by alpha) to the corrected image.</param>
-        /// <returns>new_camera_matrix Output new camera intrinsic matrix. The function computes and returns the optimal new camera intrinsic matrix based on the free scaling parameter. By varying this parameter, you may retrieve only sensible pixels alpha=0 , keep all the original image pixels if there is valuable information in the corners alpha=1 , or get something in between. When alpha\&gt;0 , the undistorted result is likely to have some black pixels corresponding to "virtual" pixels outside of the captured distorted image. The original camera intrinsic matrix, distortion coefficients, the computed new camera intrinsic matrix, and newImageSize should be passed to #initUndistortRectifyMap to produce the maps for #remap .</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? GetOptimalNewCameraMatrix(Mat cameraMatrix, Mat distCoeffs, Size imageSize, double alpha, Size newImgSize, IntPtr validPixROI, bool centerPrincipalPoint)
-        {
-            IntPtr res = NativeMethods.cv_getOptimalNewCameraMatrix_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), imageSize, alpha, newImgSize, validPixROI, centerPrincipalPoint);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Computes the ideal point coordinates from the observed point coordinates.
-        /// </summary>
-        /// <param name="src">Observed point coordinates in **pixel coordinates** of the distorted image, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or vector\&lt;Point2f\&gt; ).</param>
-        /// <param name="dst">Output ideal point coordinates (1xN/Nx1 2-channel or vector\&lt;Point2f\&gt; ) after undistortion and reverse perspective transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.</param>
-        /// <param name="cameraMatrix">Camera matrix \f$\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="R">Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.</param>
-        /// <param name="P">New camera matrix (3x3) or new projection matrix (3x4) \f$\begin{bmatrix} {f'}_x &amp; 0 &amp; {c'}_x &amp; t_x \\ 0 &amp; {f'}_y &amp; {c'}_y &amp; t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \end{bmatrix}\f$. P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates.</param>
-        /// <param name="criteria">termination criteria for the iterative point undistortion algorithm</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
-        /// sparse set of points instead of a raster image. Also the function performs a reverse transformation
-        /// to  #projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
-        /// planar object, it does, up to a translation vector, if the proper R is specified.
-        /// For each observed point coordinate \f$(u, v)\f$ the function computes:
-        /// \f[
-        /// \begin{array}{l}
-        /// x^{"}  \leftarrow (u - c_x)/f_x  \\
-        /// y^{"}  \leftarrow (v - c_y)/f_y  \\
-        /// (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
-        /// {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
-        /// x  \leftarrow X/W  \\
-        /// y  \leftarrow Y/W  \\
-        /// \text{only performed if P is specified:} \\
-        /// u'  \leftarrow x {f'}_x + {c'}_x  \\
-        /// v'  \leftarrow y {f'}_y + {c'}_y
-        /// \end{array}
-        /// \f]
-        /// where *undistort* is an approximate iterative algorithm that estimates the normalized original
-        /// point coordinates out of the normalized distorted point coordinates ("normalized" means that the
-        /// coordinates do not depend on the camera matrix).
-        /// The function can be used for both a stereo camera head or a monocular camera (when R is empty).
-        /// @note **Coordinate Systems:**
-        /// - **Input (`src`)**: Points are expected in **pixel coordinates** of the distorted image, i.e.,
-        /// coordinates \f$(u, v)\f$ measured in pixels from the top-left corner of the image.
-        /// - **Output (`dst`)**: The coordinate system of output points depends on parameter `P`:
-        /// - If `P` is provided (not empty): Output points are in **pixel coordinates** of the rectified/undistorted image plane, using the camera matrix `P`.
-        /// - If `P` is empty or identity: Output points are in **normalized camera coordinates** (also called "normalized image coordinates"),
-        /// which are dimensionless coordinates \f$(x, y)\f$ in the camera's focal plane, related to pixel coordinates by:
-        /// \f$x = (u - c_x) / f_x\f$ and \f$y = (v - c_y) / f_y\f$. These normalized coordinates are independent of the camera's intrinsic parameters and are useful for 3D reconstruction or epipolar geometry.
-        /// </remarks>
-        public static void UndistortPoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat? R, Mat? P, TermCriteria criteria)
-        {
-            NativeMethods.cv_undistortPoints_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), true), ValidationHelper.GetHandle(P, nameof(P), true), criteria);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// * @brief Compute undistorted image points position
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
-        /// <param name="distCoeffs">The distCoeffs parameter.</param>
-        /// <param name="arg1">The arg1 parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// *
-        /// * @param src Observed points position, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or vector\&lt;Point2f\&gt; ).
-        /// * @param dst Output undistorted points position (1xN/Nx1 2-channel or vector\&lt;Point2f\&gt; ).
-        /// * @param cameraMatrix Camera matrix \f$\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
-        /// * @param distCoeffs Distortion coefficients
-        /// </remarks>
-        public static void UndistortImagePoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, TermCriteria arg1)
-        {
-            NativeMethods.cv_undistortImagePoints_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), arg1);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="objectPoints">The objectPoints parameter.</param>
-        /// <param name="imagePoints">The imagePoints parameter.</param>
-        /// <param name="rvec">The rvec parameter.</param>
-        /// <param name="tvec">The tvec parameter.</param>
-        /// <param name="K">The K parameter.</param>
-        /// <param name="D">The D parameter.</param>
-        /// <param name="alpha">The alpha parameter.</param>
-        /// <param name="jacobian">The jacobian parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeProjectPoints(Mat objectPoints, Mat imagePoints, Mat rvec, Mat tvec, Mat K, Mat D, double alpha, Mat? jacobian)
-        {
-            NativeMethods.cv_fisheye_projectPoints_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha, ValidationHelper.GetHandle(jacobian, nameof(jacobian), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Distorts 2D points using fisheye model.
-        /// </summary>
-        /// <param name="undistorted">Array of object points, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
-        /// <param name="distorted">Output array of image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; . Note that the function assumes the camera intrinsic matrix of the undistorted points to be identity. This means if you want to distort image points you have to multiply them with \f$K^{-1}\f$ or use another function overload.</param>
-        /// <param name="K">Camera intrinsic matrix \f$cameramatrix{K}\f$.</param>
-        /// <param name="D">Input vector of distortion coefficients \f$\distcoeffsfisheye\f$.</param>
-        /// <param name="alpha">The skew coefficient.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeDistortPoints(Mat undistorted, Mat distorted, Mat K, Mat D, double alpha)
-        {
-            NativeMethods.cv_fisheye_distortPoints_0(ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="undistorted">Array of object points, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
-        /// <param name="distorted">Output array of image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; .</param>
-        /// <param name="Kundistorted">Camera intrinsic matrix used as new camera matrix for undistortion.</param>
-        /// <param name="K">Camera intrinsic matrix \f$cameramatrix{K}\f$.</param>
-        /// <param name="D">Input vector of distortion coefficients \f$\distcoeffsfisheye\f$.</param>
-        /// <param name="alpha">The skew coefficient.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// Overload of distortPoints function to handle cases when undistorted points are got with non-identity
-        /// camera matrix, e.g. output of #estimateNewCameraMatrixForUndistortRectify.
-        /// @sa estimateNewCameraMatrixForUndistortRectify
-        /// </remarks>
-        public static void FisheyeDistortPoints(Mat undistorted, Mat distorted, Mat Kundistorted, Mat K, Mat D, double alpha)
-        {
-            NativeMethods.cv_fisheye_distortPoints_1(ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(Kundistorted, nameof(Kundistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Undistorts 2D points using fisheye camera model
-        /// </summary>
-        /// <param name="distorted">Array of distorted point coordinates in **pixel coordinates** of the fisheye image, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
-        /// <param name="undistorted">Output array of undistorted image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; . The coordinate system depends on parameter P (see above).</param>
-        /// <param name="K">Camera intrinsic matrix \f$\cameramatrix{K}\f$ of the fisheye camera.</param>
-        /// <param name="D">Input vector of fisheye distortion coefficients \f$\distcoeffsfisheye\f$ (must contain exactly 4 coefficients).</param>
-        /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel. If empty, the identity transformation is used.</param>
-        /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4). If empty or identity, output will be in normalized camera coordinates.</param>
-        /// <param name="criteria">Termination criteria for the iterative undistortion algorithm.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function performs undistortion for fisheye camera models, which use a different distortion model
-        /// compared to the standard pinhole camera model used by #undistortPoints. The fisheye model is suitable
-        /// for wide-angle cameras.
-        /// The function transforms points from the distorted fisheye image to undistorted coordinates, optionally
-        /// applying a rectification transformation (R) and projecting to a new image plane (P).
-        /// @note **Coordinate Systems:**
-        /// - **Input (`distorted`)**: Points are expected in **pixel coordinates** of the distorted fisheye image,
-        /// i.e., coordinates measured in pixels from the top-left corner of the image.
-        /// - **Output (`undistorted`)**: The coordinate system depends on parameter `P`:
-        /// - If `P` is provided (not empty): Output points are in **pixel coordinates** of the rectified/undistorted
-        /// image plane, using the camera matrix `P`.
-        /// - If `P` is empty or identity: Output points are in **normalized camera coordinates** (normalized image coordinates),
-        /// which are dimensionless coordinates in the camera's focal plane, independent of intrinsic parameters.
-        /// @note **Fisheye vs. Standard Model:**
-        /// Use this function (#cv::fisheye::undistortPoints) for fisheye cameras (wide-angle lenses).
-        /// For standard pinhole cameras, use #undistortPoints instead. The fisheye model uses a different distortion
-        /// parameterization (4 coefficients) compared to the standard model (4-14 coefficients).
-        /// </remarks>
-        public static void FisheyeUndistortPoints(Mat distorted, Mat undistorted, Mat K, Mat D, Mat? R, Mat? P, TermCriteria criteria)
-        {
-            NativeMethods.cv_fisheye_undistortPoints_0(ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(R, nameof(R), true), ValidationHelper.GetHandle(P, nameof(P), true), criteria);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Estimates new camera intrinsic matrix for undistortion or rectification.
-        /// </summary>
-        /// <param name="K">Camera intrinsic matrix \f$cameramatrix{K}\f$.</param>
-        /// <param name="D">Input vector of distortion coefficients \f$\distcoeffsfisheye\f$.</param>
-        /// <param name="image_size">Size of the image</param>
-        /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel</param>
-        /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4)</param>
-        /// <param name="balance">Sets the new focal length in range between the min focal length and the max focal length. Balance is in range of [0, 1].</param>
-        /// <param name="new_size">the new size</param>
-        /// <param name="fov_scale">Divisor for new focal length.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeEstimateNewCameraMatrixForUndistortRectify(Mat K, Mat D, Size image_size, Mat R, Mat P, double balance, Size new_size, double fov_scale)
-        {
-            NativeMethods.cv_fisheye_estimateNewCameraMatrixForUndistortRectify_0(ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), image_size, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(P, nameof(P), false), balance, new_size, fov_scale);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds an object pose from 3D-2D point correspondences for fisheye camera model.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients (4x1/1x4).</param>
-        /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
-        /// <param name="tvec">Output translation vector.</param>
-        /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
-        /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags This function returns the rotation and the translation vectors that transform a 3D point expressed in the object coordinate frame to the camera coordinate frame, using different methods: - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): need 4 input points to return a unique solution. - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar. - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation. Number of input points must be 4. Object points must be defined in the following order: - point 0: [-squareLength / 2,  squareLength / 2, 0] - point 1: [ squareLength / 2,  squareLength / 2, 0] - point 2: [ squareLength / 2, -squareLength / 2, 0] - point 3: [-squareLength / 2, -squareLength / 2, 0] - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.</param>
-        /// <param name="criteria">Termination criteria for internal undistortPoints call. The function internally undistorts points with @ref undistortPoints and call @ref cv::solvePnP, thus the input are very similar. Check there and Perspective-n-Points is described in @ref calib3d_solvePnP for more information.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool FisheyeSolvePnP(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int flags, TermCriteria criteria)
-        {
-            var res = NativeMethods.cv_fisheye_solvePnP_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, flags, criteria);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds an object pose from 3D-2D point correspondences using the RANSAC scheme for fisheye camera moodel.
-        /// </summary>
-        /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
-        /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
-        /// <param name="cameraMatrix">Input camera intrinsic matrix \f$\cameramatrix{A}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients (4x1/1x4).</param>
-        /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
-        /// <param name="tvec">Output translation vector.</param>
-        /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
-        /// <param name="iterationsCount">Number of iterations.</param>
-        /// <param name="reprojectionError">Inlier threshold value used by the RANSAC procedure. The parameter value is the maximum allowed distance between the observed and computed point projections to consider it an inlier.</param>
-        /// <param name="confidence">The probability that the algorithm produces a useful result.</param>
-        /// <param name="inliers">Output vector that contains indices of inliers in objectPoints and imagePoints .</param>
-        /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags</param>
-        /// <param name="criteria">Termination criteria for internal undistortPoints call. The function interally undistorts points with @ref undistortPoints and call @ref cv::solvePnP, thus the input are very similar. More information about Perspective-n-Points is described in @ref calib3d_solvePnP for more information.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool FisheyeSolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, Mat? inliers, int flags, TermCriteria criteria)
-        {
-            var res = NativeMethods.cv_fisheye_solvePnPRansac_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, iterationsCount, reprojectionError, confidence, ValidationHelper.GetHandle(inliers, nameof(inliers), true), flags, criteria);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// * @brief Builds a Minimum Spanning Tree (MST) using the specified algorithm (see @ref MSTAlgorithm).
-        /// </summary>
-        /// <param name="numNodes">The numNodes parameter.</param>
-        /// <param name="inputEdges">The inputEdges parameter.</param>
-        /// <param name="resultingEdges">The resultingEdges parameter.</param>
-        /// <param name="algorithm">The algorithm parameter.</param>
-        /// <param name="root">The root parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// *
-        /// * Supports graphs with negative edge weights. Self-loop edges (edges where source and target are the
-        /// * same) are ignored. If multiple edges exist between the same pair of nodes, only the one with the
-        /// * lowest weight is considered. If the graph is disconnected or input is invalid, the function
-        /// * returns false.
-        /// *
-        /// * @note The @p root parameter is ignored for algorithms that do not require a starting node.
-        /// * @note Additional MST algorithms may be supported in the future via the @p algorithm parameter
-        /// * (see @ref MSTAlgorithm).
-        /// *
-        /// * @param numNodes Number of nodes in the graph (must be greater than 0).
-        /// * @param inputEdges Input vector of edges representing the graph.
-        /// * @param[out] resultingEdges Output vector to store the edges of the resulting MST.
-        /// * @param algorithm Specifies which algorithm to use to compute the MST (see @ref MSTAlgorithm).
-        /// * @param root Starting node for the MST algorithm (only used for certain algorithms).
-        /// * @return true if a valid MST was successfully built; false otherwise.
-        /// * @throws cv::Error (StsBadArg) if an invalid algorithm is specified.
-        /// </remarks>
-        public static bool BuildMST(int numNodes, IntPtr inputEdges, IntPtr resultingEdges, MSTAlgorithm algorithm, int root)
-        {
-            var res = NativeMethods.cv_buildMST_0(numNodes, inputEdges, resultingEdges, (int)algorithm, root);
-            ErrorHelper.CheckError();
-            return res;
-        }
+            /// <summary>
+            /// Approximates a polygonal curve(s) with the specified precision.
+            /// *
+            /// T he function cv::approxPolyDP approximates a curve or a p*olygon with another curve/polygon with less
+            /// vertices so that the distance between them is less or equal to the specified precision. It uses the
+            /// Douglas-Peucker algorithm &lt;https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm&gt;
+            /// </summary>
+            /// <param name="curve">Input vector of a 2D point stored in std::vector or Mat</param>
+            /// <param name="approxCurve">Result of the approximation. The type should match the type of the input curve.</param>
+            /// <param name="epsilon">Parameter specifying the approximation accuracy. This is the maximum distance between the original curve and its approximation.</param>
+            /// <param name="closed">If true, the approximated curve is closed (its first and last vertices are connected). Otherwise, it is not closed.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ApproxPolyDP(Mat curve, Mat approxCurve, double epsilon, bool closed)
+            {
+                NativeMethods.cv_approxPolyDP_0(ValidationHelper.GetHandle(curve, nameof(curve), false), ValidationHelper.GetHandle(approxCurve, nameof(approxCurve), false), epsilon, closed);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Approximates a polygon with a convex hull with a specified accuracy and number of sides.
+            /// *
+            /// T he cv::approxPolyN function approximates a polygon with *a convex hull
+            /// so that the difference between the contour area of the original contour and the new polygon is minimal.
+            /// It uses a greedy algorithm for contracting two vertices into one in such a way that the additional area is minimal.
+            /// Straight lines formed by each edge of the convex contour are drawn and the areas of the resulting triangles are considered.
+            /// Each vertex will lie either on the original contour or outside it.
+            /// </summary>
+            /// <param name="curve">Input vector of a 2D points stored in std::vector or Mat, points must be float or integer.</param>
+            /// <param name="approxCurve">Result of the approximation. The type is vector of a 2D point (Point2f or Point) in std::vector or Mat.</param>
+            /// <param name="nsides">The parameter defines the number of sides of the result polygon.</param>
+            /// <param name="epsilon_percentage">defines the percentage of the maximum of additional area. If it equals -1, it is not used. Otherwise algorithm stops if additional area is greater than contourArea(_curve) * percentage. If additional area exceeds the limit, algorithm returns as many vertices as there were at the moment the limit was exceeded.</param>
+            /// <param name="ensure_convex">If it is true, algorithm creates a convex hull of input contour. Otherwise input vector should be convex.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The algorithm based on the paper @cite LowIlie2003 .
+            /// </remarks>
+            public static void ApproxPolyN(Mat curve, Mat approxCurve, int nsides, float epsilon_percentage, bool ensure_convex)
+            {
+                NativeMethods.cv_approxPolyN_0(ValidationHelper.GetHandle(curve, nameof(curve), false), ValidationHelper.GetHandle(approxCurve, nameof(approxCurve), false), nsides, epsilon_percentage, ensure_convex);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds a rotated rectangle of the minimum area enclosing the input 2D point set.
+            /// *
+            /// * The function calculates and returns the minimum-area bounding rectangle (possibly rotated) for a
+            /// * specified point set. The angle of rotation represents the angle between the line connecting the starting
+            /// * and ending points (based on the clockwise order with greatest index for the corner with greatest [formula])
+            /// * and the horizontal axis. This angle always falls between [formula] because, if the object
+            /// * rotates more than a rect angle, the next edge is used to measure the angle. The starting and ending points change
+            /// * as the object rotates.Developer should keep in mind that the returned RotatedRect can contain negative
+            /// * indices when data is close to the containing Mat element boundary.
+            /// *
+            /// * @param points Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static RotatedRect? MinAreaRect(Mat points)
+            {
+                IntPtr res = NativeMethods.cv_minAreaRect_0(ValidationHelper.GetHandle(points, nameof(points), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new RotatedRect(res);
+            }
+            /// <summary>
+            /// Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
+            /// *
+            /// * The function finds the four vertices of a rotated rectangle. The four vertices are returned
+            /// * in clockwise order starting from the point with greatest [formula]. If two points have the
+            /// * same [formula] coordinate the rightmost is the starting point. This function is useful to draw the
+            /// * rectangle. In C++, instead of using this function, you can directly use RotatedRect::points method. Please
+            /// * visit the @ref tutorial_bounding_rotated_ellipses "tutorial on Creating Bounding rotated boxes and ellipses
+            /// * for contours" for more information.
+            /// *
+            /// * @param box The input rotated rectangle. It may be the output of @ref minAreaRect.
+            /// * @param points The output array of four vertices of rectangles.
+            /// </summary>
+            /// <param name="box">The box parameter.</param>
+            /// <param name="points">The points parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void BoxPoints(RotatedRect box, Mat points)
+            {
+                NativeMethods.cv_boxPoints_0(ValidationHelper.GetHandle(box, nameof(box), false), ValidationHelper.GetHandle(points, nameof(points), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds a circle of the minimum area enclosing a 2D point set.
+            /// *
+            /// * The function finds the minimal enclosing circle of a 2D point set using an iterative algorithm.
+            /// *
+            /// * @param points Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
+            /// * @param center Output center of the circle.
+            /// * @param radius Output radius of the circle.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="center">The center parameter.</param>
+            /// <param name="radius">The radius parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void MinEnclosingCircle(Mat points, Point2F center, float radius)
+            {
+                NativeMethods.cv_minEnclosingCircle_0(ValidationHelper.GetHandle(points, nameof(points), false), center, radius);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds a triangle of minimum area enclosing a 2D point set and returns its area.
+            /// *
+            /// * The function finds a triangle of minimum area enclosing the given set of 2D points and returns its
+            /// * area. The output for a given 2D point set is shown in the image below. 2D points are depicted in
+            /// *red* and the enclosing triangle in *yellow*.
+            /// *
+            /// * ![Sample output of the minimum enclosing triangle function](pics/minenclosingtriangle.png)
+            /// *
+            /// * The implementation of the algorithm is based on O'Rourke's @cite ORourke86 and Klee and Laskowski's
+            /// * @cite KleeLaskowski85 papers. O'Rourke provides a [formula] algorithm for finding the minimal
+            /// * enclosing triangle of a 2D convex polygon with n vertices. Since the #minEnclosingTriangle function
+            /// * takes a 2D point set as input an additional preprocessing step of computing the convex hull of the
+            /// * 2D point set is required. The complexity of the #convexHull function is [formula] which is higher
+            /// * than [formula]. Thus the overall complexity of the function is [formula].
+            /// *
+            /// * @param points Input vector of 2D points with depth CV_32S or CV_32F, stored in std::vector\&lt;\&gt; or Mat
+            /// * @param triangle Output vector of three 2D points defining the vertices of the triangle. The depth
+            /// * of the OutputArray must be CV_32F.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="triangle">The triangle parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double MinEnclosingTriangle(Mat points, Mat triangle)
+            {
+                var res = NativeMethods.cv_minEnclosingTriangle_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(triangle, nameof(triangle), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// * @brief Finds a convex polygon of minimum area enclosing a 2D point set and returns its area.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="polygon">The polygon parameter.</param>
+            /// <param name="k">The k parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// *
+            /// * This function takes a given set of 2D points and finds the enclosing polygon with k vertices and minimal
+            /// * area. It takes the set of points and the parameter k as input and returns the area of the minimal
+            /// * enclosing polygon.
+            /// *
+            /// * The Implementation is based on a paper by Aggarwal, Chang and Yap @cite Aggarwal1985. They
+            /// * provide a [formula] algorithm for finding the minimal convex polygon with k
+            /// * vertices enclosing a 2D convex polygon with n vertices (k &lt; n). Since the #minEnclosingConvexPolygon
+            /// * function takes a 2D point set as input, an additional preprocessing step of computing the convex hull
+            /// * of the 2D point set is required. The complexity of the #convexHull function is [formula] which
+            /// * is lower than [formula]. Thus the overall complexity of the function is
+            /// * [formula].
+            /// *
+            /// * @param points   Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
+            /// * @param polygon  Output vector of 2D points defining the vertices of the enclosing polygon
+            /// * @param k        Number of vertices of the output polygon
+            /// </remarks>
+            public static double MinEnclosingConvexPolygon(Mat points, Mat polygon, int k)
+            {
+                var res = NativeMethods.cv_minEnclosingConvexPolygon_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(polygon, nameof(polygon), false), k);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates all of the moments up to the third order of a polygon or rasterized shape.
+            /// *
+            /// * The function computes moments, up to the 3rd order, of a vector shape or a rasterized shape. The
+            /// * results are returned in the structure cv::Moments.
+            /// *
+            /// * @param array Single channel raster image (CV_8U, CV_16U, CV_16S, CV_32F, CV_64F) or an array (
+            /// * [formula] or [formula] ) of 2D points (Point or Point2f).
+            /// * @param binaryImage If it is true, all non-zero image pixels are treated as 1's. The parameter is
+            /// * used for images only.
+            /// * @returns moments.
+            /// *
+            /// * @note Only applicable to contour moments calculations from Python bindings: Note that the numpy
+            /// * type for the input array should be either np.int32 or np.float32.
+            /// *
+            /// * @note For contour-based moments, the zeroth-order moment \c m00 represents
+            /// * the contour area.
+            /// *
+            /// * If the input contour is degenerate (for example, a single point or all points
+            /// * are collinear), the area is zero and therefore \c m00 == 0.
+            /// *
+            /// * In this case, the centroid coordinates (\c m10/m00, \c m01/m00) are undefined
+            /// * and must be handled explicitly by the caller.
+            /// *
+            /// * A common workaround is to compute the center using cv::boundingRect() or by
+            /// * averaging the input points.
+            /// *
+            /// * @sa  contourArea, arcLength
+            /// </summary>
+            /// <param name="array">The array parameter.</param>
+            /// <param name="binaryImage">The binaryImage parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Moments? Moments(Mat array, bool binaryImage)
+            {
+                IntPtr res = NativeMethods.cv_moments_0(ValidationHelper.GetHandle(array, nameof(array), false), binaryImage);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Moments(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="m">The m parameter.</param>
+            /// <param name="hu">The hu parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void HuMoments(Moments m, Mat hu)
+            {
+                NativeMethods.cv_HuMoments_0(ValidationHelper.GetHandle(m, nameof(m), false), ValidationHelper.GetHandle(hu, nameof(hu), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Compares two shapes.
+            /// *
+            /// * The function compares two shapes. All three implemented methods use the Hu invariants (see #HuMoments)
+            /// *
+            /// * @param contour1 First contour or grayscale image.
+            /// * @param contour2 Second contour or grayscale image.
+            /// * @param method Comparison method, see #ShapeMatchModes
+            /// * @param parameter Method-specific parameter (not supported now).
+            /// </summary>
+            /// <param name="contour1">The contour1 parameter.</param>
+            /// <param name="contour2">The contour2 parameter.</param>
+            /// <param name="method">The method parameter.</param>
+            /// <param name="parameter">The parameter parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double MatchShapes(Mat contour1, Mat contour2, int method, double parameter)
+            {
+                var res = NativeMethods.cv_matchShapes_0(ValidationHelper.GetHandle(contour1, nameof(contour1), false), ValidationHelper.GetHandle(contour2, nameof(contour2), false), method, parameter);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds the convex hull of a point set.
+            /// *
+            /// * The function cv::convexHull finds the convex hull of a 2D point set using the Sklansky's algorithm @cite Sklansky82
+            /// * that has *O(N logN)* complexity in the current implementation.
+            /// *
+            /// * @param points Input 2D point set, stored in std::vector or Mat.
+            /// * @param hull Output convex hull. It is either an integer vector of indices or vector of points. In
+            /// * the first case, the hull elements are 0-based indices of the convex hull points in the original
+            /// * array (since the set of convex hull points is a subset of the original point set). In the second
+            /// * case, hull elements are the convex hull points themselves.
+            /// * @param clockwise Orientation flag. If it is true, the output convex hull is oriented clockwise.
+            /// * Otherwise, it is oriented counter-clockwise. The assumed coordinate system has its X axis pointing
+            /// * to the right, and its Y axis pointing upwards.
+            /// * @param returnPoints Operation flag. In case of a matrix, when the flag is true, the function
+            /// * returns convex hull points. Otherwise, it returns indices of the convex hull points. When the
+            /// * output array is std::vector, the flag is ignored, and the output depends on the type of the
+            /// * vector: std::vector\&lt;int\&gt; implies returnPoints=false, std::vector\&lt;Point\&gt; implies
+            /// * returnPoints=true.
+            /// *
+            /// * @note `points` and `hull` should be different arrays, inplace processing isn't supported.
+            /// *
+            /// * Check @ref tutorial_hull "the corresponding tutorial" for more details.
+            /// *
+            /// * useful links:
+            /// *
+            /// * https://www.learnopencv.com/convex-hull-using-opencv-in-python-and-c/
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="hull">The hull parameter.</param>
+            /// <param name="clockwise">The clockwise parameter.</param>
+            /// <param name="returnPoints">The returnPoints parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ConvexHull(Mat points, Mat hull, bool clockwise, bool returnPoints)
+            {
+                NativeMethods.cv_convexHull_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(hull, nameof(hull), false), clockwise, returnPoints);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds the convexity defects of a contour.
+            /// *
+            /// * The figure below displays convexity defects of a hand contour:
+            /// *
+            /// * ![image](pics/defects.png)
+            /// *
+            /// * @param contour Input contour.
+            /// * @param convexhull Convex hull obtained using convexHull that should contain indices of the contour
+            /// * points that make the hull.
+            /// * @param convexityDefects The output vector of convexity defects. In C++ and the new Python/Java
+            /// * interface each convexity defect is represented as 4-element integer vector (a.k.a. #Vec4i):
+            /// * (start_index, end_index, farthest_pt_index, fixpt_depth), where indices are 0-based indices
+            /// * in the original contour of the convexity defect beginning, end and the farthest point, and
+            /// * fixpt_depth is fixed-point approximation (with 8 fractional bits) of the distance between the
+            /// * farthest contour point and the hull. That is, to get the floating-point value of the depth will be
+            /// * fixpt_depth/256.0.
+            /// </summary>
+            /// <param name="contour">The contour parameter.</param>
+            /// <param name="convexhull">The convexhull parameter.</param>
+            /// <param name="convexityDefects">The convexityDefects parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ConvexityDefects(Mat contour, Mat convexhull, Mat convexityDefects)
+            {
+                NativeMethods.cv_convexityDefects_0(ValidationHelper.GetHandle(contour, nameof(contour), false), ValidationHelper.GetHandle(convexhull, nameof(convexhull), false), ValidationHelper.GetHandle(convexityDefects, nameof(convexityDefects), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Tests a contour convexity.
+            /// *
+            /// * The function tests whether the input contour is convex or not. The contour must be simple, that is,
+            /// * without self-intersections. Otherwise, the function output is undefined.
+            /// *
+            /// * @param contour Input vector of 2D points, stored in std::vector\&lt;\&gt; or Mat
+            /// </summary>
+            /// <param name="contour">The contour parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool IsContourConvex(Mat contour)
+            {
+                var res = NativeMethods.cv_isContourConvex_0(ValidationHelper.GetHandle(contour, nameof(contour), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds intersection of two convex polygons
+            /// *
+            /// * @param p1 First polygon
+            /// * @param p2 Second polygon
+            /// * @param p12 Output polygon describing the intersecting area
+            /// * @param handleNested When true, an intersection is found if one of the polygons is fully enclosed in the other.
+            /// * When false, no intersection is found. If the polygons share a side or the vertex of one polygon lies on an edge
+            /// * of the other, they are not considered nested and an intersection will be found regardless of the value of handleNested.
+            /// *
+            /// * @returns Area of intersecting polygon. May be negative, if algorithm has not converged, e.g. non-convex input.
+            /// *
+            /// * @note intersectConvexConvex doesn't confirm that both polygons are convex and will return invalid results if they aren't.
+            /// </summary>
+            /// <param name="p1">The p1 parameter.</param>
+            /// <param name="p2">The p2 parameter.</param>
+            /// <param name="p12">The p12 parameter.</param>
+            /// <param name="handleNested">The handleNested parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static float IntersectConvexConvex(Mat p1, Mat p2, Mat p12, bool handleNested)
+            {
+                var res = NativeMethods.cv_intersectConvexConvex_0(ValidationHelper.GetHandle(p1, nameof(p1), false), ValidationHelper.GetHandle(p2, nameof(p2), false), ValidationHelper.GetHandle(p12, nameof(p12), false), handleNested);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Fits an ellipse around a set of 2D points.
+            /// *
+            /// * The function calculates the ellipse that fits (in a least-squares sense) a set of 2D points best of
+            /// * all. It returns the rotated rectangle in which the ellipse is inscribed. The first algorithm described by @cite Fitzgibbon95
+            /// * is used. Developer should keep in mind that it is possible that the returned
+            /// * ellipse/rotatedRect data contains negative indices, due to the data points being close to the
+            /// * border of the containing Mat element.
+            /// *
+            /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
+            /// *
+            /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
+            /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static RotatedRect? FitEllipse(Mat points)
+            {
+                IntPtr res = NativeMethods.cv_fitEllipse_0(ValidationHelper.GetHandle(points, nameof(points), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new RotatedRect(res);
+            }
+            /// <summary>
+            /// Fits an ellipse around a set of 2D points.
+            /// *
+            /// * The function calculates the ellipse that fits a set of 2D points.
+            /// * It returns the rotated rectangle in which the ellipse is inscribed.
+            /// * The Approximate Mean Square (AMS) proposed by @cite Taubin1991 is used.
+            /// *
+            /// * For an ellipse, this basis set is [formula],
+            /// * which is a set of six free coefficients [formula].
+            /// * However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths [formula],
+            /// * the position [formula], and the orientation [formula]. This is because the basis set includes lines,
+            /// * quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
+            /// * If the fit is found to be a parabolic or hyperbolic function then the standard #fitEllipse method is used.
+            /// * The AMS method restricts the fit to parabolic, hyperbolic and elliptical curves
+            /// * by imposing the condition that [formula] where
+            /// * the matrices [formula] and [formula] are the partial derivatives of the design matrix [formula] with
+            /// * respect to x and y. The matrices are formed row by row applying the following to
+            /// * each of the points in the set:
+            /// * \f{align*}{
+            /// * D(i,:)&amp;=\left\{x_i^2, x_i y_i, y_i^2, x_i, y_i, 1\right\} &amp;
+            /// * D_x(i,:)&amp;=\left\{2 x_i,y_i,0,1,0,0\right\} &amp;
+            /// * D_y(i,:)&amp;=\left\{0,x_i,2 y_i,0,1,0\right\}
+            /// * \f}
+            /// * The AMS method minimizes the cost function
+            /// * \f{equation*}{
+            /// * \epsilon ^2=\frac{ A^T D^T D A }{ A^T (D_x^T D_x +  D_y^T D_y) A^T }
+            /// * \f}
+            /// *
+            /// * The minimum cost is found by solving the generalized eigenvalue problem.
+            /// *
+            /// * \f{equation*}{
+            /// * D^T D A = \lambda  \left( D_x^T D_x +  D_y^T D_y\right) A
+            /// * \f}
+            /// *
+            /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
+            /// *
+            /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
+            /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static RotatedRect? FitEllipseAMS(Mat points)
+            {
+                IntPtr res = NativeMethods.cv_fitEllipseAMS_0(ValidationHelper.GetHandle(points, nameof(points), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new RotatedRect(res);
+            }
+            /// <summary>
+            /// Fits an ellipse around a set of 2D points.
+            /// *
+            /// * The function calculates the ellipse that fits a set of 2D points.
+            /// * It returns the rotated rectangle in which the ellipse is inscribed.
+            /// * The Direct least square (Direct) method by @cite oy1998NumericallySD is used.
+            /// *
+            /// * For an ellipse, this basis set is [formula],
+            /// * which is a set of six free coefficients [formula].
+            /// * However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths [formula],
+            /// * the position [formula], and the orientation [formula]. This is because the basis set includes lines,
+            /// * quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
+            /// * The Direct method confines the fit to ellipses by ensuring that [formula].
+            /// * The condition imposed is that [formula] which satisfies the inequality
+            /// * and as the coefficients can be arbitrarily scaled is not overly restrictive.
+            /// *
+            /// * \f{equation*}{
+            /// * \epsilon ^2= A^T D^T D A \quad \text{with} \quad A^T C A =1 \quad \text{and} \quad C=\left(\begin{matrix}
+            /// * 0 &amp; 0  &amp; 2  &amp; 0  &amp; 0  &amp;  0  \\
+            /// * 0 &amp; -1  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
+            /// * 2 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
+            /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
+            /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0 \\
+            /// * 0 &amp; 0  &amp; 0  &amp; 0  &amp; 0  &amp;  0
+            /// * \end{matrix} \right)
+            /// * \f}
+            /// *
+            /// * The minimum cost is found by solving the generalized eigenvalue problem.
+            /// *
+            /// * \f{equation*}{
+            /// * D^T D A = \lambda  \left( C\right) A
+            /// * \f}
+            /// *
+            /// * The system produces only one positive eigenvalue [formula] which is chosen as the solution
+            /// * with its eigenvector [formula]. These are used to find the coefficients
+            /// *
+            /// * \f{equation*}{
+            /// * A = \sqrt{\frac{1}{\mathbf{u}^T C \mathbf{u}}}  \mathbf{u}
+            /// * \f}
+            /// * The scaling factor guarantees that  [formula].
+            /// *
+            /// * @param points Input 2D point set, stored in std::vector\&lt;\&gt; or Mat
+            /// *
+            /// * @note Input point types are @ref Point2i or @ref Point2f and at least 5 points are required.
+            /// * @note @ref getClosestEllipsePoints function can be used to compute the ellipse fitting error.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static RotatedRect? FitEllipseDirect(Mat points)
+            {
+                IntPtr res = NativeMethods.cv_fitEllipseDirect_0(ValidationHelper.GetHandle(points, nameof(points), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new RotatedRect(res);
+            }
+            /// <summary>
+            /// Compute for each 2d point the nearest 2d point located on a given ellipse.
+            /// *
+            /// * The function computes the nearest 2d location on a given ellipse for a vector of 2d points and is based on @cite Chatfield2017 code.
+            /// * This function can be used to compute for instance the ellipse fitting error.
+            /// *
+            /// * @param ellipse_params Ellipse parameters
+            /// * @param points Input 2d points
+            /// * @param closest_pts For each 2d point, their corresponding closest 2d point located on a given ellipse
+            /// *
+            /// * @note Input point types are @ref Point2i or @ref Point2f
+            /// * @see fitEllipse, fitEllipseAMS, fitEllipseDirect
+            /// </summary>
+            /// <param name="ellipse_params">The ellipse_params parameter.</param>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="closest_pts">The closest_pts parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void GetClosestEllipsePoints(RotatedRect ellipse_params, Mat points, Mat closest_pts)
+            {
+                NativeMethods.cv_getClosestEllipsePoints_0(ValidationHelper.GetHandle(ellipse_params, nameof(ellipse_params), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(closest_pts, nameof(closest_pts), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Fits a line to a 2D or 3D point set.
+            /// *
+            /// * The function fitLine fits a line to a 2D or 3D point set by minimizing [formula] where
+            /// * [formula] is a distance between the [formula] point, the line and [formula] is a distance function, one
+            /// * of the following:
+            /// * -  DIST_L2
+            /// * [see mathematical formula in OpenCV docs]
+            /// * - DIST_L1
+            /// * [see mathematical formula in OpenCV docs]
+            /// * - DIST_L12
+            /// * [see mathematical formula in OpenCV docs]
+            /// * - DIST_FAIR
+            /// * [see mathematical formula in OpenCV docs]
+            /// * - DIST_WELSCH
+            /// * [see mathematical formula in OpenCV docs]
+            /// * - DIST_HUBER
+            /// * [see mathematical formula in OpenCV docs]
+            /// *
+            /// * The algorithm is based on the M-estimator ( &lt;https://en.wikipedia.org/wiki/M-estimator&gt; ) technique
+            /// * that iteratively fits the line using the weighted least-squares algorithm. After each iteration the
+            /// * weights [formula] are adjusted to be inversely proportional to [formula] .
+            /// *
+            /// * @param points Input vector of 2D or 3D points, stored in std::vector\&lt;\&gt; or Mat.
+            /// * @param line Output line parameters. In case of 2D fitting, it should be a vector of 4 elements
+            /// * (like Vec4f) - (vx, vy, x0, y0), where (vx, vy) is a normalized vector collinear to the line and
+            /// * (x0, y0) is a point on the line. In case of 3D fitting, it should be a vector of 6 elements (like
+            /// * Vec6f) - (vx, vy, vz, x0, y0, z0), where (vx, vy, vz) is a normalized vector collinear to the line
+            /// * and (x0, y0, z0) is a point on the line.
+            /// * @param distType Distance used by the M-estimator, see #DistanceTypes
+            /// * @param param Numerical parameter ( C ) for some types of distances. If it is 0, an optimal value
+            /// * is chosen.
+            /// * @param reps Sufficient accuracy for the radius (distance between the coordinate origin and the line).
+            /// * @param aeps Sufficient accuracy for the angle. 0.01 would be a good default value for reps and aeps.
+            /// </summary>
+            /// <param name="points">The points parameter.</param>
+            /// <param name="line">The line parameter.</param>
+            /// <param name="distType">The distType parameter.</param>
+            /// <param name="param">The param parameter.</param>
+            /// <param name="reps">The reps parameter.</param>
+            /// <param name="aeps">The aeps parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FitLine(Mat points, Mat line, int distType, double param, double reps, double aeps)
+            {
+                NativeMethods.cv_fitLine_0(ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(line, nameof(line), false), distType, param, reps, aeps);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Performs a point-in-contour test.
+            /// *
+            /// * The function determines whether the point is inside a contour, outside, or lies on an edge (or
+            /// * coincides with a vertex). It returns positive (inside), negative (outside), or zero (on an edge)
+            /// * value, correspondingly. When measureDist=false , the return value is +1, -1, and 0, respectively.
+            /// * Otherwise, the return value is a signed distance between the point and the nearest contour edge.
+            /// *
+            /// * See below a sample output of the function where each image pixel is tested against the contour:
+            /// *
+            /// * ![sample output](pics/pointpolygon.png)
+            /// *
+            /// * @param contour Input contour.
+            /// * @param pt Point tested against the contour.
+            /// * @param measureDist If true, the function estimates the signed distance from the point to the
+            /// * nearest contour edge. Otherwise, the function only checks if the point is inside a contour or not.
+            /// </summary>
+            /// <param name="contour">The contour parameter.</param>
+            /// <param name="pt">The pt parameter.</param>
+            /// <param name="measureDist">The measureDist parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double PointPolygonTest(Mat contour, Point2F pt, bool measureDist)
+            {
+                var res = NativeMethods.cv_pointPolygonTest_0(ValidationHelper.GetHandle(contour, nameof(contour), false), pt, measureDist);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds out if there is any intersection between two rotated rectangles.
+            /// *
+            /// * If there is then the vertices of the intersecting region are returned as well.
+            /// *
+            /// * Below are some examples of intersection configurations. The hatched pattern indicates the
+            /// * intersecting region and the red vertices are returned by the function.
+            /// *
+            /// * ![intersection examples](pics/intersection.png)
+            /// *
+            /// * @param rect1 First rectangle
+            /// * @param rect2 Second rectangle
+            /// * @param intersectingRegion The output array of the vertices of the intersecting region. It returns
+            /// * at most 8 vertices. Stored as std::vector\&lt;cv::Point2f\&gt; or cv::Mat as Mx1 of type CV_32FC2.
+            /// * @returns One of #RectanglesIntersectTypes
+            /// </summary>
+            /// <param name="rect1">The rect1 parameter.</param>
+            /// <param name="rect2">The rect2 parameter.</param>
+            /// <param name="intersectingRegion">The intersectingRegion parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int RotatedRectangleIntersection(RotatedRect rect1, RotatedRect rect2, Mat intersectingRegion)
+            {
+                var res = NativeMethods.cv_rotatedRectangleIntersection_0(ValidationHelper.GetHandle(rect1, nameof(rect1), false), ValidationHelper.GetHandle(rect2, nameof(rect2), false), ValidationHelper.GetHandle(intersectingRegion, nameof(intersectingRegion), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates a contour perimeter or a curve length.
+            /// *
+            /// * The function computes a curve length or a closed contour perimeter.
+            /// *
+            /// * @param curve Input vector of 2D points, stored in std::vector or Mat.
+            /// * @param closed Flag indicating whether the curve is closed or not.
+            /// </summary>
+            /// <param name="curve">The curve parameter.</param>
+            /// <param name="closed">The closed parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double ArcLength(Mat curve, bool closed)
+            {
+                var res = NativeMethods.cv_arcLength_0(ValidationHelper.GetHandle(curve, nameof(curve), false), closed);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates a contour area.
+            /// *
+            /// * The function computes a contour area. Similarly to moments , the area is computed using the Green
+            /// * formula. Thus, the returned area and the number of non-zero pixels, if you draw the contour using
+            /// * #drawContours or #fillPoly , can be different. Also, the function will most certainly give a wrong
+            /// * results for contours with self-intersections.
+            /// *
+            /// * Example:
+            /// * @code
+            /// *    vector&lt;Point&gt; contour;
+            /// *    contour.push_back(Point2f(0, 0));
+            /// *    contour.push_back(Point2f(10, 0));
+            /// *    contour.push_back(Point2f(10, 10));
+            /// *    contour.push_back(Point2f(5, 4));
+            /// *
+            /// *    double area0 = contourArea(contour);
+            /// *    vector&lt;Point&gt; approx;
+            /// *    approxPolyDP(contour, approx, 5, true);
+            /// *    double area1 = contourArea(approx);
+            /// *
+            /// *    cout &lt;&lt; "area0 =" &lt;&lt; area0 &lt;&lt; endl &lt;&lt;
+            /// *            "area1 =" &lt;&lt; area1 &lt;&lt; endl &lt;&lt;
+            /// *            "approx poly vertices" &lt;&lt; approx.size() &lt;&lt; endl;
+            /// * @endcode
+            /// * @param contour Input vector of 2D points (contour vertices), stored in std::vector or Mat.
+            /// * @param oriented Oriented area flag. If it is true, the function returns a signed area value,
+            /// * depending on the contour orientation (clockwise or counter-clockwise). Using this feature you can
+            /// * determine orientation of a contour by taking the sign of an area. By default, the parameter is
+            /// * false, which means that the absolute value is returned.
+            /// </summary>
+            /// <param name="contour">The contour parameter.</param>
+            /// <param name="oriented">The oriented parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double ContourArea(Mat contour, bool oriented)
+            {
+                var res = NativeMethods.cv_contourArea_0(ValidationHelper.GetHandle(contour, nameof(contour), false), oriented);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
+            /// *
+            /// * The function calculates and returns the minimal up-right bounding rectangle for the specified point set or
+            /// * non-zero pixels of gray-scale image.
+            /// *
+            /// * @param array Input gray-scale image or 2D point set, stored in std::vector or Mat.
+            /// </summary>
+            /// <param name="array">The array parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Rect BoundingRect(Mat array)
+            {
+                var res = NativeMethods.cv_boundingRect_0(ValidationHelper.GetHandle(array, nameof(array), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates an affine matrix of 2D rotation.
+            /// </summary>
+            /// <param name="center">Center of the rotation in the source image.</param>
+            /// <param name="angle">Rotation angle in degrees. Positive values mean counter-clockwise rotation (the coordinate origin is assumed to be the top-left corner).</param>
+            /// <param name="scale">Isotropic scale factor.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function calculates the following matrix:
+            /// [see mathematical formula in OpenCV docs]
+            /// where
+            /// [see mathematical formula in OpenCV docs]
+            /// The transformation maps the rotation center to itself. If this is not the target, adjust the shift.
+            /// @sa  getAffineTransform, warpAffine, transform
+            /// </remarks>
+            public static Mat? GetRotationMatrix2D(Point2F center, double angle, double scale)
+            {
+                IntPtr res = NativeMethods.cv_getRotationMatrix2D_0(center, angle, scale);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Inverts an affine transformation.
+            /// *
+            /// * The function computes an inverse affine transformation represented by [formula] matrix M:
+            /// *
+            /// * [see mathematical formula in OpenCV docs]
+            /// *
+            /// * The result is also a [formula] matrix of the same type as M.
+            /// *
+            /// * @param M Original affine transformation.
+            /// * @param iM Output reverse affine transformation.
+            /// </summary>
+            /// <param name="M">The M parameter.</param>
+            /// <param name="iM">The iM parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void InvertAffineTransform(Mat M, Mat iM)
+            {
+                NativeMethods.cv_invertAffineTransform_0(ValidationHelper.GetHandle(M, nameof(M), false), ValidationHelper.GetHandle(iM, nameof(iM), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates a perspective transform from four pairs of the corresponding points.
+            /// *
+            /// * The function calculates the [formula] matrix of a perspective transform so that:
+            /// *
+            /// * [see mathematical formula in OpenCV docs]
+            /// *
+            /// * where
+            /// *
+            /// * [see mathematical formula in OpenCV docs]
+            /// *
+            /// * @param src Coordinates of quadrangle vertices in the source image.
+            /// * @param dst Coordinates of the corresponding quadrangle vertices in the destination image.
+            /// * @param solveMethod method passed to cv::solve (#DecompTypes)
+            /// *
+            /// * @sa  findHomography, warpPerspective, perspectiveTransform
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <param name="solveMethod">The solveMethod parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? GetPerspectiveTransform(Mat src, Mat dst, int solveMethod)
+            {
+                IntPtr res = NativeMethods.cv_getPerspectiveTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), solveMethod);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? GetAffineTransform(Mat src, Mat dst)
+            {
+                IntPtr res = NativeMethods.cv_getAffineTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Converts a rotation matrix to a rotation vector or vice versa.
+            /// </summary>
+            /// <param name="src">Input rotation vector (3x1 or 1x3) or rotation matrix (3x3).</param>
+            /// <param name="dst">Output rotation matrix (3x3) or rotation vector (3x1 or 1x3), respectively.</param>
+            /// <param name="jacobian">Optional output Jacobian matrix, 3x9 or 9x3, which is a matrix of partial derivatives of the output array components with respect to the input array components. [see mathematical formula in OpenCV docs] Inverse transformation can be also done easily, since [see mathematical formula in OpenCV docs] A rotation vector is a convenient and most compact representation of a rotation matrix (since any rotation matrix has just 3 degrees of freedom). The representation is used in the global 3D geometry optimization procedures like @ref calibrateCamera, @ref stereoCalibrate, or @ref solvePnP .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note More information about the computation of the derivative of a 3D rotation matrix with respect to its exponential coordinate
+            /// can be found in:
+            /// - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi @cite Gallego2014ACF
+            /// @note Useful information on SE(3) and Lie Groups can be found in:
+            /// - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco @cite blanco2010tutorial
+            /// - Lie Groups for 2D and 3D Transformation, Ethan Eade @cite Eade17
+            /// - A micro Lie theory for state estimation in robotics, Joan Solà, Jérémie Deray, Dinesh Atchuthan @cite Sol2018AML
+            /// </remarks>
+            public static void Rodrigues(Mat src, Mat dst, Mat? jacobian)
+            {
+                NativeMethods.cv_Rodrigues_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(jacobian, nameof(jacobian), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds a perspective transformation between two planes.
+            /// </summary>
+            /// <param name="srcPoints">Coordinates of the points in the original plane, a matrix of the type CV_32FC2 or vector\&lt;Point2f\&gt; .</param>
+            /// <param name="dstPoints">Coordinates of the points in the target plane, a matrix of the type CV_32FC2 or a vector\&lt;Point2f\&gt; .</param>
+            /// <param name="method">Method used to compute a homography matrix. The following methods are possible: -   **0** - a regular method using all the points, i.e., the least squares method -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method -   @ref RHO - PROSAC-based robust method</param>
+            /// <param name="ransacReprojThreshold">Maximum allowed reprojection error to treat a point pair as an inlier (used in the RANSAC and RHO methods only). That is, if [see mathematical formula in OpenCV docs] then the point [formula] is considered as an outlier. If srcPoints and dstPoints are measured in pixels, it usually makes sense to set this parameter somewhere in the range of 1 to 10.</param>
+            /// <param name="mask">Optional output mask set by a robust method ( RANSAC or LMeDS ). Note that the input mask values are ignored.</param>
+            /// <param name="maxIters">The maximum number of RANSAC iterations.</param>
+            /// <param name="confidence">Confidence level, between 0 and 1. The function finds and returns the perspective transformation [formula] between the source and the destination planes: [see mathematical formula in OpenCV docs] so that the back-projection error [see mathematical formula in OpenCV docs] is minimized. If the parameter method is set to the default value 0, the function uses all the point pairs to compute an initial homography estimate with a simple least-squares scheme. However, if not all of the point pairs ( [formula], [formula] ) fit the rigid perspective transformation (that is, there are some outliers), this initial estimate will be poor. In this case, you can use one of the three robust methods. The methods RANSAC, LMeDS and RHO try many different random subsets of the corresponding point pairs (of four pairs each, collinear pairs are discarded), estimate the homography matrix using this subset and a simple least-squares algorithm, and then compute the quality/goodness of the computed homography (which is the number of inliers for RANSAC or the least median re-projection error for LMeDS). The best subset is then used to produce the initial estimate of the homography matrix and the mask of inliers/outliers. Regardless of the method, robust or not, the computed homography matrix is refined further (using inliers only in case of a robust method) with the Levenberg-Marquardt method to reduce the re-projection error even more. The methods RANSAC and RHO can handle practically any ratio of outliers but need a threshold to distinguish inliers from outliers. The method LMeDS does not need any threshold but it works correctly only when there are more than 50% of inliers. Finally, if there are no outliers and the noise is rather small, use the default method (method=0). The function is used to find initial intrinsic and extrinsic matrices. Homography matrix is determined up to a scale. If [formula] is non-zero, the matrix is normalized so that [formula].</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note Whenever an [formula] matrix cannot be estimated, an empty one will be returned.
+            /// @sa
+            /// getAffineTransform, estimateAffine2D, estimateAffinePartial2D, getPerspectiveTransform, warpPerspective,
+            /// perspectiveTransform
+            /// </remarks>
+            public static Mat? FindHomography(Mat srcPoints, Mat dstPoints, int method, double ransacReprojThreshold, Mat? mask, int maxIters, double confidence)
+            {
+                IntPtr res = NativeMethods.cv_findHomography_0(ValidationHelper.GetHandle(srcPoints, nameof(srcPoints), false), ValidationHelper.GetHandle(dstPoints, nameof(dstPoints), false), method, ransacReprojThreshold, ValidationHelper.GetHandle(mask, nameof(mask), true), maxIters, confidence);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="srcPoints">The srcPoints parameter.</param>
+            /// <param name="dstPoints">The dstPoints parameter.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindHomography(Mat srcPoints, Mat dstPoints, Mat mask, UsacParams @params)
+            {
+                IntPtr res = NativeMethods.cv_findHomography_1(ValidationHelper.GetHandle(srcPoints, nameof(srcPoints), false), ValidationHelper.GetHandle(dstPoints, nameof(dstPoints), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Computes an RQ decomposition of 3x3 matrices.
+            /// </summary>
+            /// <param name="src">3x3 input matrix.</param>
+            /// <param name="mtxR">Output 3x3 upper-triangular matrix.</param>
+            /// <param name="mtxQ">Output 3x3 orthogonal matrix.</param>
+            /// <param name="Qx">Optional output 3x3 rotation matrix around x-axis.</param>
+            /// <param name="Qy">Optional output 3x3 rotation matrix around y-axis.</param>
+            /// <param name="Qz">Optional output 3x3 rotation matrix around z-axis. The function computes a RQ decomposition using the given rotations. This function is used in #decomposeProjectionMatrix to decompose the left 3x3 submatrix of a projection matrix into a camera and a rotation matrix. It optionally returns three rotation matrices, one for each axis, and the three Euler angles in degrees (as the return value) that could be used in OpenGL. Note, there is always more than one sequence of rotations about the three principal axes that results in the same orientation of an object, e.g. see @cite Slabaugh . Returned three rotation matrices and corresponding three Euler angles are only one of the possible solutions.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static IntPtr RQDecomp3x3(Mat src, Mat mtxR, Mat mtxQ, Mat? Qx, Mat? Qy, Mat? Qz)
+            {
+                var res = NativeMethods.cv_RQDecomp3x3_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mtxR, nameof(mtxR), false), ValidationHelper.GetHandle(mtxQ, nameof(mtxQ), false), ValidationHelper.GetHandle(Qx, nameof(Qx), true), ValidationHelper.GetHandle(Qy, nameof(Qy), true), ValidationHelper.GetHandle(Qz, nameof(Qz), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Decomposes a projection matrix into a rotation matrix and a camera intrinsic matrix.
+            /// </summary>
+            /// <param name="projMatrix">3x4 input projection matrix P.</param>
+            /// <param name="cameraMatrix">Output 3x3 camera intrinsic matrix [formula].</param>
+            /// <param name="rotMatrix">Output 3x3 external rotation matrix R.</param>
+            /// <param name="transVect">Output 4x1 translation vector T.</param>
+            /// <param name="rotMatrixX">Optional 3x3 rotation matrix around x-axis.</param>
+            /// <param name="rotMatrixY">Optional 3x3 rotation matrix around y-axis.</param>
+            /// <param name="rotMatrixZ">Optional 3x3 rotation matrix around z-axis.</param>
+            /// <param name="eulerAngles">Optional three-element vector containing three Euler angles of rotation in degrees. The function computes a decomposition of a projection matrix into a calibration and a rotation matrix and the position of a camera. It optionally returns three rotation matrices, one for each axis, and three Euler angles that could be used in OpenGL. Note, there is always more than one sequence of rotations about the three principal axes that results in the same orientation of an object, e.g. see @cite Slabaugh . Returned three rotation matrices and corresponding three Euler angles are only one of the possible solutions. The function is based on #RQDecomp3x3 .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void DecomposeProjectionMatrix(Mat projMatrix, Mat cameraMatrix, Mat rotMatrix, Mat transVect, Mat? rotMatrixX, Mat? rotMatrixY, Mat? rotMatrixZ, Mat? eulerAngles)
+            {
+                NativeMethods.cv_decomposeProjectionMatrix_0(ValidationHelper.GetHandle(projMatrix, nameof(projMatrix), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(rotMatrix, nameof(rotMatrix), false), ValidationHelper.GetHandle(transVect, nameof(transVect), false), ValidationHelper.GetHandle(rotMatrixX, nameof(rotMatrixX), true), ValidationHelper.GetHandle(rotMatrixY, nameof(rotMatrixY), true), ValidationHelper.GetHandle(rotMatrixZ, nameof(rotMatrixZ), true), ValidationHelper.GetHandle(eulerAngles, nameof(eulerAngles), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes partial derivatives of the matrix product for each multiplied matrix.
+            /// </summary>
+            /// <param name="A">First multiplied matrix.</param>
+            /// <param name="B">Second multiplied matrix.</param>
+            /// <param name="dABdA">First output derivative matrix d(A\*B)/dA of size [formula] .</param>
+            /// <param name="dABdB">Second output derivative matrix d(A\*B)/dB of size [formula] . The function computes partial derivatives of the elements of the matrix product [formula] with regard to the elements of each of the two input matrices. The function is used to compute the Jacobian matrices in #stereoCalibrate but can also be used in any other similar optimization function.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void MatMulDeriv(Mat A, Mat B, Mat dABdA, Mat dABdB)
+            {
+                NativeMethods.cv_matMulDeriv_0(ValidationHelper.GetHandle(A, nameof(A), false), ValidationHelper.GetHandle(B, nameof(B), false), ValidationHelper.GetHandle(dABdA, nameof(dABdA), false), ValidationHelper.GetHandle(dABdB, nameof(dABdB), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Combines two rotation-and-shift transformations.
+            /// </summary>
+            /// <param name="rvec1">First rotation vector.</param>
+            /// <param name="tvec1">First translation vector.</param>
+            /// <param name="rvec2">Second rotation vector.</param>
+            /// <param name="tvec2">Second translation vector.</param>
+            /// <param name="rvec3">Output rotation vector of the superposition.</param>
+            /// <param name="tvec3">Output translation vector of the superposition.</param>
+            /// <param name="dr3dr1">Optional output derivative of rvec3 with regard to rvec1</param>
+            /// <param name="dr3dt1">Optional output derivative of rvec3 with regard to tvec1</param>
+            /// <param name="dr3dr2">Optional output derivative of rvec3 with regard to rvec2</param>
+            /// <param name="dr3dt2">Optional output derivative of rvec3 with regard to tvec2</param>
+            /// <param name="dt3dr1">Optional output derivative of tvec3 with regard to rvec1</param>
+            /// <param name="dt3dt1">Optional output derivative of tvec3 with regard to tvec1</param>
+            /// <param name="dt3dr2">Optional output derivative of tvec3 with regard to rvec2</param>
+            /// <param name="dt3dt2">Optional output derivative of tvec3 with regard to tvec2 The functions compute: [see mathematical formula in OpenCV docs] where [formula] denotes a rotation vector to a rotation matrix transformation, and [formula] denotes the inverse transformation. See #Rodrigues for details. Also, the functions can compute the derivatives of the output vectors with regards to the input vectors (see #matMulDeriv ). The functions are used inside #stereoCalibrate but can also be used in your own code where Levenberg-Marquardt or another gradient-based solver is used to optimize a function that contains a matrix multiplication.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ComposeRT(Mat rvec1, Mat tvec1, Mat rvec2, Mat tvec2, Mat rvec3, Mat tvec3, Mat? dr3dr1, Mat? dr3dt1, Mat? dr3dr2, Mat? dr3dt2, Mat? dt3dr1, Mat? dt3dt1, Mat? dt3dr2, Mat? dt3dt2)
+            {
+                NativeMethods.cv_composeRT_0(ValidationHelper.GetHandle(rvec1, nameof(rvec1), false), ValidationHelper.GetHandle(tvec1, nameof(tvec1), false), ValidationHelper.GetHandle(rvec2, nameof(rvec2), false), ValidationHelper.GetHandle(tvec2, nameof(tvec2), false), ValidationHelper.GetHandle(rvec3, nameof(rvec3), false), ValidationHelper.GetHandle(tvec3, nameof(tvec3), false), ValidationHelper.GetHandle(dr3dr1, nameof(dr3dr1), true), ValidationHelper.GetHandle(dr3dt1, nameof(dr3dt1), true), ValidationHelper.GetHandle(dr3dr2, nameof(dr3dr2), true), ValidationHelper.GetHandle(dr3dt2, nameof(dr3dt2), true), ValidationHelper.GetHandle(dt3dr1, nameof(dt3dr1), true), ValidationHelper.GetHandle(dt3dt1, nameof(dt3dt1), true), ValidationHelper.GetHandle(dt3dr2, nameof(dt3dr2), true), ValidationHelper.GetHandle(dt3dt2, nameof(dt3dt2), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Projects 3D points to an image plane.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points expressed wrt. the world coordinate frame. A 3xN/Nx3 1-channel or 1xN/Nx1 3-channel (or vector\&lt;Point3f\&gt; ), where N is the number of points in the view.</param>
+            /// <param name="rvec">The rotation vector (@ref Rodrigues) that, together with tvec, performs a change of basis from world to camera coordinate system, see @ref calibrateCamera for details.</param>
+            /// <param name="tvec">The translation vector, see parameter description above.</param>
+            /// <param name="cameraMatrix">Camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula] . If the vector is empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="imagePoints">Output array of image points in **pixel coordinates**, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; .</param>
+            /// <param name="jacobian">Optional output 2Nx(10+\&lt;numDistCoeffs\&gt;) jacobian matrix of derivatives of image points with respect to components of the rotation vector, translation vector, focal lengths, coordinates of the principal point and the distortion coefficients. In the old interface different components of the jacobian are returned via different output parameters.</param>
+            /// <param name="aspectRatio">Optional "fixed aspect ratio" parameter. If the parameter is not 0, the function assumes that the aspect ratio ([formula]) is fixed and correspondingly adjusts the jacobian matrix.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes the 2D projections of 3D points to the image plane, given intrinsic and
+            /// extrinsic camera parameters. Optionally, the function computes Jacobians -matrices of partial
+            /// derivatives of image points coordinates (as functions of all the input parameters) with respect to
+            /// the particular parameters, intrinsic and/or extrinsic. The Jacobians are used during the global
+            /// optimization in @ref calibrateCamera, @ref solvePnP, and @ref stereoCalibrate. The function itself
+            /// can also be used to compute a re-projection error, given the current intrinsic and extrinsic
+            /// parameters.
+            /// @note **Coordinate Systems:**
+            /// - **Input (`objectPoints`)**: 3D points in the **world coordinate frame**.
+            /// - **Output (`imagePoints`)**: 2D projections in **pixel coordinates** of the image plane, with distortion applied.
+            /// The coordinates [formula] are measured in pixels from the top-left corner of the image.
+            /// The transformation chain is: World coordinates → Camera coordinates (via rvec/tvec) → Normalized camera coordinates
+            /// → Distortion applied → Pixel coordinates (via cameraMatrix).
+            /// @note By setting rvec = tvec = [formula], or by setting cameraMatrix to a 3x3 identity matrix,
+            /// or by passing zero distortion coefficients, one can get various useful partial cases of the
+            /// function. This means, one can compute the distorted coordinates for a sparse set of points or apply
+            /// a perspective transformation (and also compute the derivatives) in the ideal zero-distortion setup.
+            /// </remarks>
+            public static void ProjectPoints(Mat objectPoints, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs, Mat imagePoints, Mat? jacobian, double aspectRatio)
+            {
+                NativeMethods.cv_projectPoints_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(jacobian, nameof(jacobian), true), aspectRatio);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="objectPoints">The objectPoints parameter.</param>
+            /// <param name="rvec">The rvec parameter.</param>
+            /// <param name="tvec">The tvec parameter.</param>
+            /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
+            /// <param name="distCoeffs">The distCoeffs parameter.</param>
+            /// <param name="imagePoints">The imagePoints parameter.</param>
+            /// <param name="dpdr">The dpdr parameter.</param>
+            /// <param name="dpdt">The dpdt parameter.</param>
+            /// <param name="dpdf">The dpdf parameter.</param>
+            /// <param name="dpdc">The dpdc parameter.</param>
+            /// <param name="dpdk">The dpdk parameter.</param>
+            /// <param name="dpdo">The dpdo parameter.</param>
+            /// <param name="aspectRatio">The aspectRatio parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ProjectPoints(Mat objectPoints, Mat rvec, Mat tvec, Mat cameraMatrix, Mat distCoeffs, Mat imagePoints, Mat dpdr, Mat dpdt, Mat? dpdf, Mat? dpdc, Mat? dpdk, Mat? dpdo, double aspectRatio)
+            {
+                NativeMethods.cv_projectPoints_1(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(dpdr, nameof(dpdr), false), ValidationHelper.GetHandle(dpdt, nameof(dpdt), false), ValidationHelper.GetHandle(dpdf, nameof(dpdf), true), ValidationHelper.GetHandle(dpdc, nameof(dpdc), true), ValidationHelper.GetHandle(dpdk, nameof(dpdk), true), ValidationHelper.GetHandle(dpdo, nameof(dpdo), true), aspectRatio);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds an object pose [formula] from 3D-2D point correspondences:
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
+            /// <param name="tvec">Output translation vector.</param>
+            /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
+            /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags More information about Perspective-n-Points is described in @ref calib3d_solvePnP</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
+            /// @see @ref calib3d_solvePnP
+            /// This function returns the rotation and the translation vectors that transform a 3D point expressed in the object
+            /// coordinate frame to the camera coordinate frame, using different methods:
+            /// - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): need 4 input points to return a unique solution.
+            /// - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar.
+            /// - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
+            /// Number of input points must be 4. Object points must be defined in the following order:
+            /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
+            /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
+            /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
+            /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
+            /// - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.
+            /// @note
+            /// -   An example of how to use solvePnP for planar augmented reality can be found at
+            /// opencv_source_code/samples/python/plane_ar.py
+            /// -   If you are using Python:
+            /// - Numpy array slices won't work as input because solvePnP requires contiguous
+            /// arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
+            /// modules/3d/src/solvepnp.cpp version 2.4.9)
+            /// - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
+            /// to its calling of #undistortPoints (around line 75 of modules/3d/src/solvepnp.cpp version 2.4.9)
+            /// which requires 2-channel information.
+            /// - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
+            /// it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
+            /// np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
+            /// -   The minimum number of points is 4 in the general case. In the case of @ref SOLVEPNP_P3P and @ref SOLVEPNP_AP3P
+            /// methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
+            /// of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
+            /// -   With @ref SOLVEPNP_ITERATIVE method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
+            /// are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
+            /// global solution to converge. The function returns true if some solution is found. User code is responsible for
+            /// solution quality assessment.
+            /// -   With @ref SOLVEPNP_IPPE input points must be &gt;= 4 and object points must be coplanar.
+            /// -   With @ref SOLVEPNP_IPPE_SQUARE this is a special case suitable for marker pose estimation.
+            /// Number of input points must be 4. Object points must be defined in the following order:
+            /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
+            /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
+            /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
+            /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
+            /// -  With @ref SOLVEPNP_SQPNP input points must be &gt;= 3
+            /// </remarks>
+            public static bool SolvePnP(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int flags)
+            {
+                var res = NativeMethods.cv_solvePnP_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds an object pose [formula] from 3D-2D point correspondences using the RANSAC scheme to deal with bad matches.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
+            /// <param name="tvec">Output translation vector.</param>
+            /// <param name="useExtrinsicGuess">Parameter used for @ref SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
+            /// <param name="iterationsCount">Number of iterations.</param>
+            /// <param name="reprojectionError">Inlier threshold value used by the RANSAC procedure. The parameter value is the maximum allowed distance between the observed and computed point projections to consider it an inlier.</param>
+            /// <param name="confidence">The probability that the algorithm produces a useful result.</param>
+            /// <param name="inliers">Output vector that contains indices of inliers in objectPoints and imagePoints .</param>
+            /// <param name="flags">Method for solving a PnP problem (see @ref solvePnP ). The function estimates an object pose given a set of object points, their corresponding image projections, as well as the camera intrinsic matrix and the distortion coefficients. This function finds such a pose that minimizes reprojection error, that is, the sum of squared distances between the observed projections imagePoints and the projected (using @ref projectPoints ) objectPoints. The use of RANSAC makes the function resistant to outliers.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
+            /// @see @ref calib3d_solvePnP
+            /// @note
+            /// -   An example of how to use solvePnPRansac for object detection can be found at
+            /// @ref tutorial_real_time_pose
+            /// -   The default method used to estimate the camera pose for the Minimal Sample Sets step
+            /// is #SOLVEPNP_EPNP. Exceptions are:
+            /// - if you choose #SOLVEPNP_P3P or #SOLVEPNP_AP3P, these methods will be used.
+            /// - if the number of input points is equal to 4, #SOLVEPNP_P3P is used.
+            /// -   The method used to estimate the camera pose using all the inliers is defined by the
+            /// flags parameters unless it is equal to #SOLVEPNP_P3P or #SOLVEPNP_AP3P. In this case,
+            /// the method #SOLVEPNP_EPNP will be used instead.
+            /// </remarks>
+            public static bool SolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, Mat? inliers, int flags)
+            {
+                var res = NativeMethods.cv_solvePnPRansac_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, iterationsCount, reprojectionError, confidence, ValidationHelper.GetHandle(inliers, nameof(inliers), true), flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="objectPoints">The objectPoints parameter.</param>
+            /// <param name="imagePoints">The imagePoints parameter.</param>
+            /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
+            /// <param name="distCoeffs">The distCoeffs parameter.</param>
+            /// <param name="rvec">The rvec parameter.</param>
+            /// <param name="tvec">The tvec parameter.</param>
+            /// <param name="inliers">The inliers parameter.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool SolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, Mat inliers, UsacParams? @params)
+            {
+                var res = NativeMethods.cv_solvePnPRansac_1(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ValidationHelper.GetHandle(@params, nameof(@params), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds an object pose [formula] from **3** 3D-2D point correspondences.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, 3x3 1-channel or 1x3/3x1 3-channel. vector\&lt;Point3f\&gt; can be also passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, 3x2 1-channel or 1x3/3x1 2-channel. vector\&lt;Point2f\&gt; can be also passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvecs">Output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from the model coordinate system to the camera coordinate system. A P3P problem has up to 4 solutions.</param>
+            /// <param name="tvecs">Output translation vectors.</param>
+            /// <param name="flags">Method for solving a P3P problem: -   @ref SOLVEPNP_P3P Method is based on the paper of Ding, Y., Yang, J., Larsson, V., Olsson, C., &amp; Åstrom, K. "Revisiting the P3P Problem" (@cite ding2023revisiting). -   @ref SOLVEPNP_AP3P Method is based on the paper of T. Ke and S. Roumeliotis. "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17). The function estimates the object pose given 3 object points, their corresponding image projections, as well as the camera intrinsic matrix and the distortion coefficients.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
+            /// @see @ref calib3d_solvePnP
+            /// @note
+            /// The solutions are sorted by reprojection errors (lowest to highest).
+            /// </remarks>
+            public static int SolveP3P(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, int flags)
+            {
+                var res = NativeMethods.cv_solveP3P_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
+            /// to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvec">Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system. Input values are used as an initial solution.</param>
+            /// <param name="tvec">Input/Output translation vector. Input values are used as an initial solution.</param>
+            /// <param name="criteria">Criteria when to stop the Levenberg-Marquard iterative algorithm. The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, according to a Levenberg-Marquardt iterative minimization @cite Madsen04 @cite Eade13 process.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @see @ref calib3d_solvePnP
+            /// </remarks>
+            public static void SolvePnPRefineLM(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, TermCriteria criteria)
+            {
+                NativeMethods.cv_solvePnPRefineLM_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), criteria);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
+            /// to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvec">Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system. Input values are used as an initial solution.</param>
+            /// <param name="tvec">Input/Output translation vector. Input values are used as an initial solution.</param>
+            /// <param name="criteria">Criteria when to stop the Levenberg-Marquard iterative algorithm.</param>
+            /// <param name="VVSlambda">Gain for the virtual visual servoing control law, equivalent to the [formula] gain in the Damped Gauss-Newton formulation. The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, using a virtual visual servoing (VVS) @cite Chaumette06 @cite Marchand16 scheme.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @see @ref calib3d_solvePnP
+            /// </remarks>
+            public static void SolvePnPRefineVVS(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, TermCriteria criteria, double VVSlambda)
+            {
+                NativeMethods.cv_solvePnPRefineVVS_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), criteria, VVSlambda);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds an object pose [formula] from 3D-2D point correspondences.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="rvecs">Vector of output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from the model coordinate system to the camera coordinate system.</param>
+            /// <param name="tvecs">Vector of output translation vectors.</param>
+            /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
+            /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags</param>
+            /// <param name="rvec">Rotation vector used to initialize an iterative PnP refinement algorithm, when flag is @ref SOLVEPNP_ITERATIVE and useExtrinsicGuess is set to true.</param>
+            /// <param name="tvec">Translation vector used to initialize an iterative PnP refinement algorithm, when flag is @ref SOLVEPNP_ITERATIVE and useExtrinsicGuess is set to true.</param>
+            /// <param name="reprojectionError">Optional vector of reprojection error, that is the RMS error ([formula]) between the input image points and the 3D object points projected with the estimated pose. More information is described in @ref calib3d_solvePnP</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// ![Perspective projection, from object to camera frame](pics/pinhole_homogeneous_transformation.jpg){ width=50% }
+            /// @see @ref calib3d_solvePnP
+            /// This function returns a list of all the possible solutions (a solution is a &lt;rotation vector, translation vector&gt;
+            /// couple), depending on the number of input points and the chosen method:
+            /// - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): 3 or 4 input points. Number of returned solutions can be between 0 and 4 with 3 input points.
+            /// - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar. Returns 2 solutions.
+            /// - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
+            /// Number of input points must be 4 and 2 solutions are returned. Object points must be defined in the following order:
+            /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
+            /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
+            /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
+            /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
+            /// - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.
+            /// Only 1 solution is returned.
+            /// @note
+            /// -   An example of how to use solvePnP for planar augmented reality can be found at
+            /// opencv_source_code/samples/python/plane_ar.py
+            /// -   If you are using Python:
+            /// - Numpy array slices won't work as input because solvePnP requires contiguous
+            /// arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
+            /// modules/3d/src/solvepnp.cpp version 2.4.9)
+            /// - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
+            /// to its calling of #undistortPoints (around line 75 of modules/3d/src/solvepnp.cpp version 2.4.9)
+            /// which requires 2-channel information.
+            /// - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
+            /// it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
+            /// np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
+            /// -   The minimum number of points is 4 in the general case. In the case of @ref SOLVEPNP_P3P and @ref SOLVEPNP_AP3P
+            /// methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
+            /// of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
+            /// -   With @ref SOLVEPNP_ITERATIVE method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
+            /// are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
+            /// global solution to converge.
+            /// -   With @ref SOLVEPNP_IPPE input points must be &gt;= 4 and object points must be coplanar.
+            /// -   With @ref SOLVEPNP_IPPE_SQUARE this is a special case suitable for marker pose estimation.
+            /// Number of input points must be 4. Object points must be defined in the following order:
+            /// - point 0: [-squareLength / 2,  squareLength / 2, 0]
+            /// - point 1: [ squareLength / 2,  squareLength / 2, 0]
+            /// - point 2: [ squareLength / 2, -squareLength / 2, 0]
+            /// - point 3: [-squareLength / 2, -squareLength / 2, 0]
+            /// -   With @ref SOLVEPNP_SQPNP input points must be &gt;= 3
+            /// </remarks>
+            public static int SolvePnPGeneric(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, bool useExtrinsicGuess, int flags, Mat? rvec, Mat? tvec, Mat? reprojectionError)
+            {
+                var res = NativeMethods.cv_solvePnPGeneric_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, useExtrinsicGuess, flags, ValidationHelper.GetHandle(rvec, nameof(rvec), true), ValidationHelper.GetHandle(tvec, nameof(tvec), true), ValidationHelper.GetHandle(reprojectionError, nameof(reprojectionError), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Converts points from Euclidean to homogeneous space.
+            /// </summary>
+            /// <param name="src">Input vector of N-dimensional points.</param>
+            /// <param name="dst">Output vector of N+1-dimensional points.</param>
+            /// <param name="dtype">The desired output array depth (either CV_32F or CV_64F are currently supported). If it's -1, then it's set automatically to CV_32F or CV_64F, depending on the input depth. The function converts points from Euclidean to homogeneous space by appending 1's to the tuple of point coordinates. That is, each point (x1, x2, ..., xn) is converted to (x1, x2, ..., xn, 1).</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ConvertPointsToHomogeneous(Mat src, Mat dst, int dtype)
+            {
+                NativeMethods.cv_convertPointsToHomogeneous_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Converts points from homogeneous to Euclidean space.
+            /// </summary>
+            /// <param name="src">Input vector of N-dimensional points.</param>
+            /// <param name="dst">Output vector of N-1-dimensional points.</param>
+            /// <param name="dtype">The desired output array depth (either CV_32F or CV_64F are currently supported). If it's -1, then it's set automatically to CV_32F or CV_64F, depending on the input depth. The function converts points homogeneous to Euclidean space using perspective projection. That is, each point (x1, x2, ... x(n-1), xn) is converted to (x1/xn, x2/xn, ..., x(n-1)/xn). When xn=0, the output point coordinates will be (0,0,0,...).</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ConvertPointsFromHomogeneous(Mat src, Mat dst, int dtype)
+            {
+                NativeMethods.cv_convertPointsFromHomogeneous_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates a fundamental matrix from the corresponding points in two images.
+            /// </summary>
+            /// <param name="points1">Array of N points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
+            /// <param name="method">Method for computing a fundamental matrix. -   @ref FM_7POINT for a 7-point algorithm. [formula] -   @ref FM_8POINT for an 8-point algorithm. [formula] -   @ref FM_RANSAC for the RANSAC algorithm. [formula] -   @ref FM_LMEDS for the LMedS algorithm. [formula]</param>
+            /// <param name="ransacReprojThreshold">Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
+            /// <param name="confidence">Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations. The epipolar geometry is described by the following equation: [see mathematical formula in OpenCV docs] where [formula] is a fundamental matrix, [formula] and [formula] are corresponding points in the first and the second images, respectively. The function calculates the fundamental matrix using one of four methods listed above and returns the found fundamental matrix. Normally just one matrix is found. But in case of the 7-point algorithm, the function may return up to 3 solutions ( [formula] matrix that stores all 3 matrices sequentially). The calculated fundamental matrix may be passed further to #computeCorrespondEpilines that finds the epipolar lines corresponding to the specified points. It can also be passed to #stereoRectifyUncalibrated to compute the rectification transformation. : @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } Mat fundamental_matrix = findFundamentalMat(points1, points2, FM_RANSAC, 3, 0.99); @endcode</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindFundamentalMat(Mat points1, Mat points2, int method, double ransacReprojThreshold, double confidence, int maxIters, Mat? mask)
+            {
+                IntPtr res = NativeMethods.cv_findFundamentalMat_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), method, ransacReprojThreshold, confidence, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="points1">The points1 parameter.</param>
+            /// <param name="points2">The points2 parameter.</param>
+            /// <param name="method">The method parameter.</param>
+            /// <param name="ransacReprojThreshold">The ransacReprojThreshold parameter.</param>
+            /// <param name="confidence">The confidence parameter.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindFundamentalMat(Mat points1, Mat points2, int method, double ransacReprojThreshold, double confidence, Mat? mask)
+            {
+                IntPtr res = NativeMethods.cv_findFundamentalMat_1(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), method, ransacReprojThreshold, confidence, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="points1">The points1 parameter.</param>
+            /// <param name="points2">The points2 parameter.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindFundamentalMat(Mat points1, Mat points2, Mat mask, UsacParams @params)
+            {
+                IntPtr res = NativeMethods.cv_findFundamentalMat_2(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Calculates an essential matrix from the corresponding points in two images.
+            /// </summary>
+            /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
+            /// <param name="cameraMatrix">Camera intrinsic matrix [formula] . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix. If this assumption does not hold for your use case, use another function overload or #undistortPoints with `P = cv::NoArray()` for both cameras to transform image points to normalized image coordinates, which are valid for the identity camera intrinsic matrix. When passing these coordinates, pass the identity matrix for this parameter.</param>
+            /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
+            /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
+            /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations. This function estimates essential matrix based on the five-point algorithm solver in @cite Nister03 . @cite SteweniusCFS is also a related. The epipolar geometry is described by the following equation: [see mathematical formula in OpenCV docs] where [formula] is an essential matrix, [formula] and [formula] are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or #recoverPose to recover the relative pose between cameras.</param>
+            /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix, int method, double prob, double threshold, int maxIters, Mat? mask)
+            {
+                IntPtr res = NativeMethods.cv_findEssentialMat_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), method, prob, threshold, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
+            /// <param name="focal">focal length of the camera. Note that this function assumes that points1 and points2 are feature points from cameras with same focal length and principal point.</param>
+            /// <param name="pp">principal point of the camera.</param>
+            /// <param name="method">Method for computing a fundamental matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
+            /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
+            /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations. This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point: \f[A = \begin{bmatrix} f &amp; 0 &amp; x_{pp}  \\ 0 &amp; f &amp; y_{pp}  \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\f]</param>
+            /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindEssentialMat(Mat points1, Mat points2, double focal, IntPtr pp, int method, double prob, double threshold, int maxIters, Mat? mask)
+            {
+                IntPtr res = NativeMethods.cv_findEssentialMat_1(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), focal, pp, method, prob, threshold, maxIters, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Calculates an essential matrix from the corresponding points in two images from potentially two different cameras.
+            /// </summary>
+            /// <param name="points1">Array of N (N \&gt;= 5) 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
+            /// <param name="cameraMatrix1">Camera matrix for the first camera [formula] .</param>
+            /// <param name="distCoeffs1">Input vector of distortion coefficients for the first camera [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="cameraMatrix2">Camera matrix for the second camera [formula] .</param>
+            /// <param name="distCoeffs2">Input vector of distortion coefficients for the second camera [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
+            /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
+            /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
+            /// <param name="mask">Output array of N elements, every element of which is set to 0 for outliers and to 1 for the other points. The array is computed only in the RANSAC and LMedS methods. This function estimates essential matrix based on the five-point algorithm solver in @cite Nister03 . @cite SteweniusCFS is also a related. The epipolar geometry is described by the following equation: [see mathematical formula in OpenCV docs] where [formula] is an essential matrix, [formula] and [formula] are corresponding points in the first and the second images, respectively. The result of this function may be passed further to #decomposeEssentialMat or  #recoverPose to recover the relative pose between cameras.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, int method, double prob, double threshold, Mat? mask)
+            {
+                IntPtr res = NativeMethods.cv_findEssentialMat_2(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), method, prob, threshold, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="points1">The points1 parameter.</param>
+            /// <param name="points2">The points2 parameter.</param>
+            /// <param name="cameraMatrix1">The cameraMatrix1 parameter.</param>
+            /// <param name="cameraMatrix2">The cameraMatrix2 parameter.</param>
+            /// <param name="dist_coeff1">The dist_coeff1 parameter.</param>
+            /// <param name="dist_coeff2">The dist_coeff2 parameter.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? FindEssentialMat(Mat points1, Mat points2, Mat cameraMatrix1, Mat cameraMatrix2, Mat dist_coeff1, Mat dist_coeff2, Mat mask, UsacParams @params)
+            {
+                IntPtr res = NativeMethods.cv_findEssentialMat_3(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(dist_coeff1, nameof(dist_coeff1), false), ValidationHelper.GetHandle(dist_coeff2, nameof(dist_coeff2), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Decompose an essential matrix to possible rotations and translation.
+            /// </summary>
+            /// <param name="E">The input essential matrix.</param>
+            /// <param name="R1">One possible rotation matrix.</param>
+            /// <param name="R2">Another possible rotation matrix.</param>
+            /// <param name="t">One possible translation. This function decomposes the essential matrix E using svd decomposition @cite HartleyZ00. In general, four possible poses exist for the decomposition of E. They are [formula], [formula], [formula], [formula]. If E gives the epipolar constraint [formula] between the image points [formula] in the first image and [formula] in second image, then any of the tuples [formula], [formula], [formula], [formula] is a change of basis from the first camera's coordinate system to the second camera's coordinate system. However, by decomposing E, one can only get the direction of the translation. For this reason, the translation t is returned with unit length.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void DecomposeEssentialMat(Mat E, Mat R1, Mat R2, Mat t)
+            {
+                NativeMethods.cv_decomposeEssentialMat_0(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(t, nameof(t), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Recovers the relative camera rotation and the translation from corresponding points in two images from two different cameras, using chirality check. Returns the number of
+            /// inliers that pass the check.
+            /// </summary>
+            /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
+            /// <param name="cameraMatrix1">Input/output camera matrix for the first camera, the same as in @ref calibrateCamera. Furthermore, for the stereo case, additional flags may be used, see below.</param>
+            /// <param name="distCoeffs1">Input/output vector of distortion coefficients, the same as in @ref calibrateCamera.</param>
+            /// <param name="cameraMatrix2">Input/output camera matrix for the first camera, the same as in @ref calibrateCamera. Furthermore, for the stereo case, additional flags may be used, see below.</param>
+            /// <param name="distCoeffs2">Input/output vector of distortion coefficients, the same as in @ref calibrateCamera.</param>
+            /// <param name="E">The output essential matrix.</param>
+            /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter described below.</param>
+            /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
+            /// <param name="method">Method for computing an essential matrix. -   @ref RANSAC for the RANSAC algorithm. -   @ref LMEDS for the LMedS algorithm.</param>
+            /// <param name="prob">Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of confidence (probability) that the estimated matrix is correct.</param>
+            /// <param name="threshold">Parameter used for RANSAC. It is the maximum distance from a point to an epipolar line in pixels, beyond which the point is considered an outlier and is not used for computing the final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the point localization, image resolution, and the image noise.</param>
+            /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function decomposes an essential matrix using @ref decomposeEssentialMat and then verifies possible pose hypotheses by doing chirality check. The chirality check means that the triangulated 3D points should have positive depth. Some details can be found in @cite Nister03. This function can be used to process the output E and mask from @ref findEssentialMat. In this scenario, points1 and points2 are the same input for findEssentialMat.: @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } // Input: camera calibration of both cameras, for example using intrinsic chessboard calibration. Mat cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2; // Output: Essential matrix, relative rotation and relative translation. Mat E, R, t, mask; recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, mask); @endcode</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int RecoverPose(Mat points1, Mat points2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Mat E, Mat R, Mat t, int method, double prob, double threshold, Mat? mask)
+            {
+                var res = NativeMethods.cv_recoverPose_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), method, prob, threshold, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Recovers the relative camera rotation and the translation from an estimated essential
+            /// matrix and the corresponding points in two images, using chirality check. Returns the number of
+            /// inliers that pass the check.
+            /// </summary>
+            /// <param name="E">The input essential matrix.</param>
+            /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
+            /// <param name="cameraMatrix">Camera intrinsic matrix [formula] . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix.</param>
+            /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter described below.</param>
+            /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
+            /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function decomposes an essential matrix using @ref decomposeEssentialMat and then verifies possible pose hypotheses by doing chirality check. The chirality check means that the triangulated 3D points should have positive depth. Some details can be found in @cite Nister03. This function can be used to process the output E and mask from @ref findEssentialMat. In this scenario, points1 and points2 are the same input for #findEssentialMat : @code // Example. Estimation of fundamental matrix using the RANSAC algorithm int point_count = 100; vector&lt;Point2f&gt; points1(point_count); vector&lt;Point2f&gt; points2(point_count); // initialize the points here ... for( int i = 0; i &lt; point_count; i++ ) { points1[i] = ...; points2[i] = ...; } // cametra matrix with both focal lengths = 1, and principal point = (0, 0) Mat cameraMatrix = Mat::eye(3, 3, CV_64F); Mat E, R, t, mask; E = findEssentialMat(points1, points2, cameraMatrix, RANSAC, 0.999, 1.0, mask); recoverPose(E, points1, points2, cameraMatrix, R, t, mask); @endcode</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat cameraMatrix, Mat R, Mat t, Mat? mask)
+            {
+                var res = NativeMethods.cv_recoverPose_1(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="E">The input essential matrix.</param>
+            /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1 .</param>
+            /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter description below.</param>
+            /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
+            /// <param name="focal">Focal length of the camera. Note that this function assumes that points1 and points2 are feature points from cameras with same focal length and principal point.</param>
+            /// <param name="pp">principal point of the camera.</param>
+            /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check. This function differs from the one above that it computes camera intrinsic matrix from focal length and principal point: \f[A = \begin{bmatrix} f &amp; 0 &amp; x_{pp}  \\ 0 &amp; f &amp; y_{pp}  \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\f]</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat R, Mat t, double focal, IntPtr pp, Mat? mask)
+            {
+                var res = NativeMethods.cv_recoverPose_2(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), focal, pp, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="E">The input essential matrix.</param>
+            /// <param name="points1">Array of N 2D points from the first image. The point coordinates should be floating-point (single or double precision).</param>
+            /// <param name="points2">Array of the second image points of the same size and format as points1.</param>
+            /// <param name="cameraMatrix">Camera intrinsic matrix [formula] . Note that this function assumes that points1 and points2 are feature points from cameras with the same camera intrinsic matrix.</param>
+            /// <param name="R">Output rotation matrix. Together with the translation vector, this matrix makes up a tuple that performs a change of basis from the first camera's coordinate system to the second camera's coordinate system. Note that, in general, t can not be used for this tuple, see the parameter description below.</param>
+            /// <param name="t">Output translation vector. This vector is obtained by @ref decomposeEssentialMat and therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit length.</param>
+            /// <param name="distanceThresh">threshold distance which is used to filter out far away points (i.e. infinite points).</param>
+            /// <param name="mask">Input/output mask for inliers in points1 and points2. If it is not empty, then it marks inliers in points1 and points2 for the given essential matrix E. Only these inliers will be used to recover pose. In the output mask only inliers which pass the chirality check.</param>
+            /// <param name="triangulatedPoints">3D points which were reconstructed by triangulation. This function differs from the one above that it outputs the triangulated 3D point that are used for the chirality check.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int RecoverPose(Mat E, Mat points1, Mat points2, Mat cameraMatrix, Mat R, Mat t, double distanceThresh, Mat? mask, Mat? triangulatedPoints)
+            {
+                var res = NativeMethods.cv_recoverPose_3(ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(t, nameof(t), false), distanceThresh, ValidationHelper.GetHandle(mask, nameof(mask), true), ValidationHelper.GetHandle(triangulatedPoints, nameof(triangulatedPoints), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// For points in an image of a stereo pair, computes the corresponding epilines in the other image.
+            /// </summary>
+            /// <param name="points">Input points. [formula] or [formula] matrix of type CV_32FC2 or vector\&lt;Point2f\&gt; .</param>
+            /// <param name="whichImage">Index of the image (1 or 2) that contains the points .</param>
+            /// <param name="F">Fundamental matrix that can be estimated using #findFundamentalMat or #stereoRectify .</param>
+            /// <param name="lines">Output vector of the epipolar lines corresponding to the points in the other image. Each line [formula] is encoded by 3 numbers [formula] . For every point in one of the two images of a stereo pair, the function finds the equation of the corresponding epipolar line in the other image. From the fundamental matrix definition (see #findFundamentalMat ), line [formula] in the second image for the point [formula] in the first image (when whichImage=1 ) is computed as: [see mathematical formula in OpenCV docs] And vice versa, when whichImage=2, [formula] is computed from [formula] as: [see mathematical formula in OpenCV docs] Line coefficients are defined up to a scale. They are normalized so that [formula] .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ComputeCorrespondEpilines(Mat points, int whichImage, Mat F, Mat lines)
+            {
+                NativeMethods.cv_computeCorrespondEpilines_0(ValidationHelper.GetHandle(points, nameof(points), false), whichImage, ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(lines, nameof(lines), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This function reconstructs 3-dimensional points (in homogeneous coordinates) by using
+            /// their observations with a stereo camera.
+            /// </summary>
+            /// <param name="projMatr1">3x4 projection matrix of the first camera, i.e. this matrix projects 3D points given in the world's coordinate system into the first image.</param>
+            /// <param name="projMatr2">3x4 projection matrix of the second camera, i.e. this matrix projects 3D points given in the world's coordinate system into the second image.</param>
+            /// <param name="projPoints1">2xN array of feature points in the first image. In the case of the c++ version, it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.</param>
+            /// <param name="projPoints2">2xN array of corresponding points in the second image. In the case of the c++ version, it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.</param>
+            /// <param name="points4D">4xN array of reconstructed points in homogeneous coordinates. These points are returned in the world's coordinate system.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note
+            /// Keep in mind that all input data should be of float type in order for this function to work.
+            /// @note
+            /// If the projection matrices from @ref stereoRectify are used, then the returned points are
+            /// represented in the first camera's rectified coordinate system.
+            /// @sa
+            /// reprojectImageTo3D
+            /// </remarks>
+            public static void TriangulatePoints(Mat projMatr1, Mat projMatr2, Mat projPoints1, Mat projPoints2, Mat points4D)
+            {
+                NativeMethods.cv_triangulatePoints_0(ValidationHelper.GetHandle(projMatr1, nameof(projMatr1), false), ValidationHelper.GetHandle(projMatr2, nameof(projMatr2), false), ValidationHelper.GetHandle(projPoints1, nameof(projPoints1), false), ValidationHelper.GetHandle(projPoints2, nameof(projPoints2), false), ValidationHelper.GetHandle(points4D, nameof(points4D), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Refines coordinates of corresponding points.
+            /// </summary>
+            /// <param name="F">3x3 fundamental matrix.</param>
+            /// <param name="points1">1xN array containing the first set of points.</param>
+            /// <param name="points2">1xN array containing the second set of points.</param>
+            /// <param name="newPoints1">The optimized points1.</param>
+            /// <param name="newPoints2">The optimized points2. The function implements the Optimal Triangulation Method (see Multiple View Geometry @cite HartleyZ00 for details). For each given point correspondence points1[i] \&lt;-\&gt; points2[i], and a fundamental matrix F, it computes the corrected correspondences newPoints1[i] \&lt;-\&gt; newPoints2[i] that minimize the geometric error [formula] (where [formula] is the geometric distance between points [formula] and [formula] ) subject to the epipolar constraint [formula] .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void CorrectMatches(Mat F, Mat points1, Mat points2, Mat newPoints1, Mat newPoints2)
+            {
+                NativeMethods.cv_correctMatches_0(ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(newPoints1, nameof(newPoints1), false), ValidationHelper.GetHandle(newPoints2, nameof(newPoints2), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the Sampson Distance between two points.
+            /// </summary>
+            /// <param name="pt1">first homogeneous 2d point</param>
+            /// <param name="pt2">second homogeneous 2d point</param>
+            /// <param name="F">fundamental matrix</param>
+            /// <returns>The computed Sampson distance.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::sampsonDistance calculates and returns the first order approximation of the geometric error as:
+            /// \f[
+            /// sd( \texttt{pt1} , \texttt{pt2} )=
+            /// \frac{(\texttt{pt2}^t \cdot \texttt{F} \cdot \texttt{pt1})^2}
+            /// {((\texttt{F} \cdot \texttt{pt1})(0))^2 +
+            /// ((\texttt{F} \cdot \texttt{pt1})(1))^2 +
+            /// ((\texttt{F}^t \cdot \texttt{pt2})(0))^2 +
+            /// ((\texttt{F}^t \cdot \texttt{pt2})(1))^2}
+            /// \f]
+            /// The fundamental matrix may be calculated using the #findFundamentalMat function. See @cite HartleyZ00 11.4.3 for details.
+            /// </remarks>
+            public static double SampsonDistance(Mat pt1, Mat pt2, Mat F)
+            {
+                var res = NativeMethods.cv_sampsonDistance_0(ValidationHelper.GetHandle(pt1, nameof(pt1), false), ValidationHelper.GetHandle(pt2, nameof(pt2), false), ValidationHelper.GetHandle(F, nameof(F), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Computes an optimal affine transformation between two 3D point sets.
+            /// </summary>
+            /// <param name="src">First input 3D point set containing [formula].</param>
+            /// <param name="dst">Second input 3D point set containing [formula].</param>
+            /// <param name="out">Output 3D affine transformation matrix [formula] of the form \f[ \begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} &amp; b_1\\ a_{21} &amp; a_{22} &amp; a_{23} &amp; b_2\\ a_{31} &amp; a_{32} &amp; a_{33} &amp; b_3\\ \end{bmatrix} \f]</param>
+            /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
+            /// <param name="ransacThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier.</param>
+            /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
+            /// <returns>Whether a solution was found. The function estimates an optimal 3D affine transformation between two 3D point sets using the RANSAC algorithm.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// It computes
+            /// \f[
+            /// \begin{bmatrix}
+            /// x\\
+            /// y\\
+            /// z\\
+            /// \end{bmatrix}
+            /// =
+            /// \begin{bmatrix}
+            /// a_{11} &amp; a_{12} &amp; a_{13}\\
+            /// a_{21} &amp; a_{22} &amp; a_{23}\\
+            /// a_{31} &amp; a_{32} &amp; a_{33}\\
+            /// \end{bmatrix}
+            /// \begin{bmatrix}
+            /// X\\
+            /// Y\\
+            /// Z\\
+            /// \end{bmatrix}
+            /// +
+            /// \begin{bmatrix}
+            /// b_1\\
+            /// b_2\\
+            /// b_3\\
+            /// \end{bmatrix}
+            /// \f]
+            /// </remarks>
+            public static bool EstimateAffine3D(Mat src, Mat dst, Mat @out, Mat inliers, double ransacThreshold, double confidence)
+            {
+                var res = NativeMethods.cv_estimateAffine3D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(@out, nameof(@out), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ransacThreshold, confidence);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Computes an optimal affine transformation between two 3D point sets.
+            /// </summary>
+            /// <param name="src">First input 3D point set.</param>
+            /// <param name="dst">Second input 3D point set.</param>
+            /// <param name="scale">If null is passed, the scale parameter c will be assumed to be 1.0. Else the pointed-to variable will be set to the optimal scale.</param>
+            /// <param name="force_rotation">If true, the returned rotation will never be a reflection. This might be unwanted, e.g. when optimizing a transform between a right- and a left-handed coordinate system.</param>
+            /// <returns>3D affine transformation matrix [formula] of the form \f[T = \begin{bmatrix} R &amp; t\\ \end{bmatrix} \f]</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// It computes [formula] minimizing [formula]
+            /// where [formula] is a 3x3 rotation matrix, [formula] is a 3x1 translation vector and [formula] is a
+            /// scalar size value. This is an implementation of the algorithm by Umeyama \cite umeyama1991least .
+            /// The estimated affine transform has a homogeneous scale which is a subclass of affine
+            /// transformations with 7 degrees of freedom. The paired point sets need to comprise at least 3
+            /// points each.
+            /// </remarks>
+            public static Mat? EstimateAffine3D(Mat src, Mat dst, IntPtr scale, bool force_rotation)
+            {
+                IntPtr res = NativeMethods.cv_estimateAffine3D_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, force_rotation);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Computes an optimal translation between two 3D point sets.
+            /// *
+            /// * It computes
+            /// * \f[
+            /// * \begin{bmatrix}
+            /// * x\\
+            /// * y\\
+            /// * z\\
+            /// * \end{bmatrix}
+            /// * =
+            /// * \begin{bmatrix}
+            /// * X\\
+            /// * Y\\
+            /// * Z\\
+            /// * \end{bmatrix}
+            /// * +
+            /// * \begin{bmatrix}
+            /// * b_1\\
+            /// * b_2\\
+            /// * b_3\\
+            /// * \end{bmatrix}
+            /// * \f]
+            /// *
+            /// * @param src First input 3D point set containing [formula].
+            /// * @param dst Second input 3D point set containing [formula].
+            /// * @param out Output 3D translation vector [formula] of the form
+            /// * \f[
+            /// * \begin{bmatrix}
+            /// * b_1 \\
+            /// * b_2 \\
+            /// * b_3 \\
+            /// * \end{bmatrix}
+            /// * \f]
+            /// * @param inliers Output vector indicating which points are inliers (1-inlier, 0-outlier).
+            /// * @param ransacThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as
+            /// * an inlier.
+            /// * @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
+            /// * between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
+            /// * significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
+            /// *
+            /// * @return Whether a translation was found.
+            /// *
+            /// * The function estimates an optimal 3D translation between two 3D point sets using the
+            /// * RANSAC algorithm.
+            /// *
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <param name="out">The @out parameter.</param>
+            /// <param name="inliers">The inliers parameter.</param>
+            /// <param name="ransacThreshold">The ransacThreshold parameter.</param>
+            /// <param name="confidence">The confidence parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool EstimateTranslation3D(Mat src, Mat dst, Mat @out, Mat inliers, double ransacThreshold, double confidence)
+            {
+                var res = NativeMethods.cv_estimateTranslation3D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(@out, nameof(@out), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ransacThreshold, confidence);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Computes an optimal affine transformation between two 2D point sets.
+            /// </summary>
+            /// <param name="from">First input 2D point set containing [formula].</param>
+            /// <param name="to">Second input 2D point set containing [formula].</param>
+            /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
+            /// <param name="method">Robust method used to compute transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
+            /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations.</param>
+            /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
+            /// <param name="refineIters">Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</param>
+            /// <returns>Output 2D affine transformation matrix [formula] or empty matrix if transformation could not be estimated. The returned matrix has the following form: \f[ \begin{bmatrix} a_{11} &amp; a_{12} &amp; b_1\\ a_{21} &amp; a_{22} &amp; b_2\\ \end{bmatrix} \f] The function estimates an optimal 2D affine transformation between two 2D point sets using the selected robust algorithm. The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// It computes
+            /// \f[
+            /// \begin{bmatrix}
+            /// x\\
+            /// y\\
+            /// \end{bmatrix}
+            /// =
+            /// \begin{bmatrix}
+            /// a_{11} &amp; a_{12}\\
+            /// a_{21} &amp; a_{22}\\
+            /// \end{bmatrix}
+            /// \begin{bmatrix}
+            /// X\\
+            /// Y\\
+            /// \end{bmatrix}
+            /// +
+            /// \begin{bmatrix}
+            /// b_1\\
+            /// b_2\\
+            /// \end{bmatrix}
+            /// \f]
+            /// @note
+            /// The RANSAC method can handle practically any ratio of outliers but needs a threshold to
+            /// distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+            /// correctly only when there are more than 50% of inliers.
+            /// @sa estimateAffinePartial2D, getAffineTransform
+            /// </remarks>
+            public static Mat? EstimateAffine2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
+            {
+                IntPtr res = NativeMethods.cv_estimateAffine2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="pts1">The pts1 parameter.</param>
+            /// <param name="pts2">The pts2 parameter.</param>
+            /// <param name="inliers">The inliers parameter.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? EstimateAffine2D(Mat pts1, Mat pts2, Mat inliers, UsacParams @params)
+            {
+                IntPtr res = NativeMethods.cv_estimateAffine2D_1(ValidationHelper.GetHandle(pts1, nameof(pts1), false), ValidationHelper.GetHandle(pts2, nameof(pts2), false), ValidationHelper.GetHandle(inliers, nameof(inliers), false), ValidationHelper.GetHandle(@params, nameof(@params), false));
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Computes an optimal limited affine transformation with 4 degrees of freedom between
+            /// two 2D point sets.
+            /// </summary>
+            /// <param name="from">First input 2D point set.</param>
+            /// <param name="to">Second input 2D point set.</param>
+            /// <param name="inliers">Output vector indicating which points are inliers.</param>
+            /// <param name="method">Robust method used to compute transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
+            /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations.</param>
+            /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.</param>
+            /// <param name="refineIters">Maximum number of iterations of refining algorithm (Levenberg-Marquardt). Passing 0 will disable refining, so the output matrix will be output of robust method.</param>
+            /// <returns>Output 2D affine transformation (4 degrees of freedom) matrix [formula] or empty matrix if transformation could not be estimated. The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust estimation. The computed transformation is then refined further (using only inliers) with the Levenberg-Marquardt method to reduce the re-projection error even more. Estimated transformation matrix is: \f[ \begin{bmatrix} \cos(\theta) \cdot s &amp; -\sin(\theta) \cdot s &amp; t_x \\ \sin(\theta) \cdot s &amp; \cos(\theta) \cdot s &amp; t_y \end{bmatrix} \f] Where [formula] is the rotation angle, [formula] the scaling factor and [formula] are translations in [formula] axes respectively.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note
+            /// The RANSAC method can handle practically any ratio of outliers but need a threshold to
+            /// distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+            /// correctly only when there are more than 50% of inliers.
+            /// @sa estimateAffine2D, getAffineTransform
+            /// </remarks>
+            public static Mat? EstimateAffinePartial2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
+            {
+                IntPtr res = NativeMethods.cv_estimateAffinePartial2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Computes a pure 2D translation between two 2D point sets.
+            /// </summary>
+            /// <param name="from">First input 2D point set containing [formula].</param>
+            /// <param name="to">Second input 2D point set containing [formula].</param>
+            /// <param name="inliers">Output vector indicating which points are inliers (1-inlier, 0-outlier).</param>
+            /// <param name="method">Robust method used to compute the transformation. The following methods are possible: -   @ref RANSAC - RANSAC-based robust method -   @ref LMEDS - Least-Median robust method RANSAC is the default method.</param>
+            /// <param name="ransacReprojThreshold">Maximum reprojection error in the RANSAC algorithm to consider a point as an inlier. Applies only to RANSAC.</param>
+            /// <param name="maxIters">The maximum number of robust method iterations.</param>
+            /// <param name="confidence">Confidence level, between 0 and 1, for the estimated transformation. Anything between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation significantly. Values lower than 0.8–0.9 can result in an incorrectly estimated transformation.</param>
+            /// <param name="refineIters">Maximum number of iterations of the refining algorithm. For pure translation the least-squares solution on inliers is closed-form, so passing 0 is recommended (no additional refine).</param>
+            /// <returns>A 2D translation vector [formula] as `cv::Vec2d`. If the translation could not be estimated, both components are set to NaN and, if @p inliers is provided, the mask is filled with zeros. \par Converting to a 2x3 transformation matrix: \f[ \begin{bmatrix} 1 &amp; 0 &amp; t_x\\ 0 &amp; 1 &amp; t_y \end{bmatrix} \f] @code{.cpp} cv::Vec2d t = cv::estimateTranslation2D(from, to, inliers); cv::Mat T = (cv::Mat_&lt;double&gt;(2,3) &lt;&lt; 1,0,t[0], 0,1,t[1]); @endcode The function estimates a pure 2D translation between two 2D point sets using the selected robust algorithm. Inliers are determined by the reprojection error threshold.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// It computes
+            /// \f[
+            /// \begin{bmatrix}
+            /// x\\
+            /// y
+            /// \end{bmatrix}
+            /// =
+            /// \begin{bmatrix}
+            /// 1 &amp; 0\\
+            /// 0 &amp; 1
+            /// \end{bmatrix}
+            /// \begin{bmatrix}
+            /// X\\
+            /// Y
+            /// \end{bmatrix}
+            /// +
+            /// \begin{bmatrix}
+            /// t_x\\
+            /// t_y
+            /// \end{bmatrix}.
+            /// \f]
+            /// @note
+            /// The RANSAC method can handle practically any ratio of outliers but needs a threshold to
+            /// distinguish inliers from outliers. The method LMeDS does not need any threshold but works
+            /// correctly only when there are more than 50% inliers.
+            /// @sa estimateAffine2D, estimateAffinePartial2D, getAffineTransform
+            /// </remarks>
+            public static IntPtr EstimateTranslation2D(Mat from, Mat to, Mat? inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters)
+            {
+                var res = NativeMethods.cv_estimateTranslation2D_0(ValidationHelper.GetHandle(from, nameof(from), false), ValidationHelper.GetHandle(to, nameof(to), false), ValidationHelper.GetHandle(inliers, nameof(inliers), true), method, ransacReprojThreshold, maxIters, confidence, refineIters);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Decompose a homography matrix to rotation(s), translation(s) and plane normal(s).
+            /// </summary>
+            /// <param name="H">The input homography matrix between two images.</param>
+            /// <param name="K">The input camera intrinsic matrix.</param>
+            /// <param name="rotations">Array of rotation matrices.</param>
+            /// <param name="translations">Array of translation matrices.</param>
+            /// <param name="normals">Array of plane normal matrices. This function extracts relative camera motion between two views of a planar object and returns up to four mathematical solution tuples of rotation, translation, and plane normal. The decomposition of the homography matrix H is described in detail in @cite Malis2007. If the homography H, induced by the plane, gives the constraint [see mathematical formula in OpenCV docs] on the source image points [formula] and the destination image points [formula], then the tuple of rotations[k] and translations[k] is a change of basis from the source camera's coordinate system to the destination camera's coordinate system. However, by decomposing H, one can only get the translation normalized by the (typically unknown) depth of the scene, i.e. its direction but with normalized length. If point correspondences are available, at least two solutions may further be invalidated, by applying positive depth constraint, i.e. all points must be in front of the camera.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int DecomposeHomographyMat(Mat H, Mat K, IntPtr rotations, IntPtr translations, IntPtr normals)
+            {
+                var res = NativeMethods.cv_decomposeHomographyMat_0(ValidationHelper.GetHandle(H, nameof(H), false), ValidationHelper.GetHandle(K, nameof(K), false), rotations, translations, normals);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Filters homography decompositions based on additional information.
+            /// </summary>
+            /// <param name="rotations">Vector of rotation matrices.</param>
+            /// <param name="normals">Vector of plane normal matrices.</param>
+            /// <param name="beforePoints">Vector of (rectified) visible reference points before the homography is applied</param>
+            /// <param name="afterPoints">Vector of (rectified) visible reference points after the homography is applied</param>
+            /// <param name="possibleSolutions">Vector of int indices representing the viable solution set after filtering</param>
+            /// <param name="pointsMask">optional Mat/Vector of CV_8U, CV_8S or CV_Bool type representing the mask for the inliers as given by the #findHomography function This function is intended to filter the output of the #decomposeHomographyMat based on additional information as described in @cite Malis2007 . The summary of the method: the #decomposeHomographyMat function returns 2 unique solutions and their "opposites" for a total of 4 solutions. If we have access to the sets of points visible in the camera frame before and after the homography transformation is applied, we can determine which are the true potential solutions and which are the opposites by verifying which homographies are consistent with all visible reference points being in front of the camera. The inputs are left unchanged; the filtered solution set is returned as indices into the existing one.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FilterHomographyDecompByVisibleRefpoints(IntPtr rotations, IntPtr normals, Mat beforePoints, Mat afterPoints, Mat possibleSolutions, Mat? pointsMask)
+            {
+                NativeMethods.cv_filterHomographyDecompByVisibleRefpoints_0(rotations, normals, ValidationHelper.GetHandle(beforePoints, nameof(beforePoints), false), ValidationHelper.GetHandle(afterPoints, nameof(afterPoints), false), ValidationHelper.GetHandle(possibleSolutions, nameof(possibleSolutions), false), ValidationHelper.GetHandle(pointsMask, nameof(pointsMask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes useful camera characteristics from the camera intrinsic matrix.
+            /// *
+            /// * @param cameraMatrix Input camera intrinsic matrix that can be estimated by #calibrateCamera or
+            /// * #stereoCalibrate .
+            /// * @param imageSize Input image size in pixels.
+            /// * @param apertureWidth Physical width in mm of the sensor.
+            /// * @param apertureHeight Physical height in mm of the sensor.
+            /// * @param fovx Output field of view in degrees along the horizontal sensor axis.
+            /// * @param fovy Output field of view in degrees along the vertical sensor axis.
+            /// * @param focalLength Focal length of the lens in mm.
+            /// * @param principalPoint Principal point in mm.
+            /// * @param aspectRatio [formula]
+            /// *
+            /// * The function computes various useful camera characteristics from the previously estimated camera
+            /// * matrix.
+            /// *
+            /// * @note
+            /// *   Do keep in mind that the unity measure 'mm' stands for whatever unit of measure one chooses for
+            /// *    the chessboard pitch (it can thus be any value).
+            /// </summary>
+            /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
+            /// <param name="imageSize">The imageSize parameter.</param>
+            /// <param name="apertureWidth">The apertureWidth parameter.</param>
+            /// <param name="apertureHeight">The apertureHeight parameter.</param>
+            /// <param name="fovx">The fovx parameter.</param>
+            /// <param name="fovy">The fovy parameter.</param>
+            /// <param name="focalLength">The focalLength parameter.</param>
+            /// <param name="principalPoint">The principalPoint parameter.</param>
+            /// <param name="aspectRatio">The aspectRatio parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void CalibrationMatrixValues(Mat cameraMatrix, Size imageSize, double apertureWidth, double apertureHeight, double fovx, double fovy, double focalLength, IntPtr principalPoint, double aspectRatio)
+            {
+                NativeMethods.cv_calibrationMatrixValues_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), imageSize, apertureWidth, apertureHeight, fovx, fovy, focalLength, principalPoint, aspectRatio);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Returns the default new camera matrix.
+            /// </summary>
+            /// <param name="cameraMatrix">Input camera matrix.</param>
+            /// <param name="imgsize">Camera view image size in pixels.</param>
+            /// <param name="centerPrincipalPoint">Location of the principal point in the new camera matrix. The parameter indicates whether this location should be at the image center or not.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
+            /// centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
+            /// In the latter case, the new camera matrix will be:
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] and [formula] are [formula] and [formula] elements of cameraMatrix, respectively.
+            /// By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
+            /// move the principal point. However, when you work with stereo, it is important to move the principal
+            /// points in both views to the same y-coordinate (which is required by most of stereo correspondence
+            /// algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
+            /// each view where the principal points are located at the center.
+            /// </remarks>
+            public static Mat? GetDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize, bool centerPrincipalPoint)
+            {
+                IntPtr res = NativeMethods.cv_getDefaultNewCameraMatrix_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), imgsize, centerPrincipalPoint);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Returns the new camera intrinsic matrix based on the free scaling parameter.
+            /// </summary>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix.</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula]. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="imageSize">Original image size.</param>
+            /// <param name="alpha">Free scaling parameter between 0 (when all the pixels in the undistorted image are valid) and 1 (when all the source image pixels are retained in the undistorted image). See #stereoRectify for details.</param>
+            /// <param name="newImgSize">Image size after rectification. By default, it is set to imageSize .</param>
+            /// <param name="validPixROI">Optional output rectangle that outlines all-good-pixels region in the undistorted image. See roi1, roi2 description in #stereoRectify .</param>
+            /// <param name="centerPrincipalPoint">Optional flag that indicates whether in the new camera intrinsic matrix the principal point should be at the image center or not. By default, the principal point is chosen to best fit a subset of the source image (determined by alpha) to the corrected image.</param>
+            /// <returns>new_camera_matrix Output new camera intrinsic matrix. The function computes and returns the optimal new camera intrinsic matrix based on the free scaling parameter. By varying this parameter, you may retrieve only sensible pixels alpha=0 , keep all the original image pixels if there is valuable information in the corners alpha=1 , or get something in between. When alpha\&gt;0 , the undistorted result is likely to have some black pixels corresponding to "virtual" pixels outside of the captured distorted image. The original camera intrinsic matrix, distortion coefficients, the computed new camera intrinsic matrix, and newImageSize should be passed to #initUndistortRectifyMap to produce the maps for #remap .</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? GetOptimalNewCameraMatrix(Mat cameraMatrix, Mat distCoeffs, Size imageSize, double alpha, Size newImgSize, IntPtr validPixROI, bool centerPrincipalPoint)
+            {
+                IntPtr res = NativeMethods.cv_getOptimalNewCameraMatrix_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), imageSize, alpha, newImgSize, validPixROI, centerPrincipalPoint);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Computes the ideal point coordinates from the observed point coordinates.
+            /// </summary>
+            /// <param name="src">Observed point coordinates in **pixel coordinates** of the distorted image, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or vector\&lt;Point2f\&gt; ).</param>
+            /// <param name="dst">Output ideal point coordinates (1xN/Nx1 2-channel or vector\&lt;Point2f\&gt; ) after undistortion and reverse perspective transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.</param>
+            /// <param name="cameraMatrix">Camera matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="R">Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.</param>
+            /// <param name="P">New camera matrix (3x3) or new projection matrix (3x4) [formula]. P1 or P2 computed by #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used and output will be in normalized coordinates.</param>
+            /// <param name="criteria">termination criteria for the iterative point undistortion algorithm</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
+            /// sparse set of points instead of a raster image. Also the function performs a reverse transformation
+            /// to  #projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
+            /// planar object, it does, up to a translation vector, if the proper R is specified.
+            /// For each observed point coordinate [formula] the function computes:
+            /// \f[
+            /// \begin{array}{l}
+            /// x^{"}  \leftarrow (u - c_x)/f_x  \\
+            /// y^{"}  \leftarrow (v - c_y)/f_y  \\
+            /// (x',y') = undistort(x^{"},y^{"}, \texttt{distCoeffs}) \\
+            /// {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
+            /// x  \leftarrow X/W  \\
+            /// y  \leftarrow Y/W  \\
+            /// \text{only performed if P is specified:} \\
+            /// u'  \leftarrow x {f'}_x + {c'}_x  \\
+            /// v'  \leftarrow y {f'}_y + {c'}_y
+            /// \end{array}
+            /// \f]
+            /// where *undistort* is an approximate iterative algorithm that estimates the normalized original
+            /// point coordinates out of the normalized distorted point coordinates ("normalized" means that the
+            /// coordinates do not depend on the camera matrix).
+            /// The function can be used for both a stereo camera head or a monocular camera (when R is empty).
+            /// @note **Coordinate Systems:**
+            /// - **Input (`src`)**: Points are expected in **pixel coordinates** of the distorted image, i.e.,
+            /// coordinates [formula] measured in pixels from the top-left corner of the image.
+            /// - **Output (`dst`)**: The coordinate system of output points depends on parameter `P`:
+            /// - If `P` is provided (not empty): Output points are in **pixel coordinates** of the rectified/undistorted image plane, using the camera matrix `P`.
+            /// - If `P` is empty or identity: Output points are in **normalized camera coordinates** (also called "normalized image coordinates"),
+            /// which are dimensionless coordinates [formula] in the camera's focal plane, related to pixel coordinates by:
+            /// [formula] and [formula]. These normalized coordinates are independent of the camera's intrinsic parameters and are useful for 3D reconstruction or epipolar geometry.
+            /// </remarks>
+            public static void UndistortPoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat? R, Mat? P, TermCriteria criteria)
+            {
+                NativeMethods.cv_undistortPoints_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), true), ValidationHelper.GetHandle(P, nameof(P), true), criteria);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// * @brief Compute undistorted image points position
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
+            /// <param name="distCoeffs">The distCoeffs parameter.</param>
+            /// <param name="arg1">The arg1 parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// *
+            /// * @param src Observed points position, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or vector\&lt;Point2f\&gt; ).
+            /// * @param dst Output undistorted points position (1xN/Nx1 2-channel or vector\&lt;Point2f\&gt; ).
+            /// * @param cameraMatrix Camera matrix [formula] .
+            /// * @param distCoeffs Distortion coefficients
+            /// </remarks>
+            public static void UndistortImagePoints(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, TermCriteria arg1)
+            {
+                NativeMethods.cv_undistortImagePoints_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), arg1);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="objectPoints">The objectPoints parameter.</param>
+            /// <param name="imagePoints">The imagePoints parameter.</param>
+            /// <param name="rvec">The rvec parameter.</param>
+            /// <param name="tvec">The tvec parameter.</param>
+            /// <param name="K">The K parameter.</param>
+            /// <param name="D">The D parameter.</param>
+            /// <param name="alpha">The alpha parameter.</param>
+            /// <param name="jacobian">The jacobian parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeProjectPoints(Mat objectPoints, Mat imagePoints, Mat rvec, Mat tvec, Mat K, Mat D, double alpha, Mat? jacobian)
+            {
+                NativeMethods.cv_fisheye_projectPoints_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha, ValidationHelper.GetHandle(jacobian, nameof(jacobian), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Distorts 2D points using fisheye model.
+            /// </summary>
+            /// <param name="undistorted">Array of object points, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
+            /// <param name="distorted">Output array of image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; . Note that the function assumes the camera intrinsic matrix of the undistorted points to be identity. This means if you want to distort image points you have to multiply them with [formula] or use another function overload.</param>
+            /// <param name="K">Camera intrinsic matrix [formula].</param>
+            /// <param name="D">Input vector of distortion coefficients [formula].</param>
+            /// <param name="alpha">The skew coefficient.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeDistortPoints(Mat undistorted, Mat distorted, Mat K, Mat D, double alpha)
+            {
+                NativeMethods.cv_fisheye_distortPoints_0(ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="undistorted">Array of object points, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
+            /// <param name="distorted">Output array of image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; .</param>
+            /// <param name="Kundistorted">Camera intrinsic matrix used as new camera matrix for undistortion.</param>
+            /// <param name="K">Camera intrinsic matrix [formula].</param>
+            /// <param name="D">Input vector of distortion coefficients [formula].</param>
+            /// <param name="alpha">The skew coefficient.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// Overload of distortPoints function to handle cases when undistorted points are got with non-identity
+            /// camera matrix, e.g. output of #estimateNewCameraMatrixForUndistortRectify.
+            /// @sa estimateNewCameraMatrixForUndistortRectify
+            /// </remarks>
+            public static void FisheyeDistortPoints(Mat undistorted, Mat distorted, Mat Kundistorted, Mat K, Mat D, double alpha)
+            {
+                NativeMethods.cv_fisheye_distortPoints_1(ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(Kundistorted, nameof(Kundistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), alpha);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Undistorts 2D points using fisheye camera model
+            /// </summary>
+            /// <param name="distorted">Array of distorted point coordinates in **pixel coordinates** of the fisheye image, 1xN/Nx1 2-channel (or vector\&lt;Point2f\&gt; ), where N is the number of points in the view.</param>
+            /// <param name="undistorted">Output array of undistorted image points, 1xN/Nx1 2-channel, or vector\&lt;Point2f\&gt; . The coordinate system depends on parameter P (see above).</param>
+            /// <param name="K">Camera intrinsic matrix [formula] of the fisheye camera.</param>
+            /// <param name="D">Input vector of fisheye distortion coefficients [formula] (must contain exactly 4 coefficients).</param>
+            /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel. If empty, the identity transformation is used.</param>
+            /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4). If empty or identity, output will be in normalized camera coordinates.</param>
+            /// <param name="criteria">Termination criteria for the iterative undistortion algorithm.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function performs undistortion for fisheye camera models, which use a different distortion model
+            /// compared to the standard pinhole camera model used by #undistortPoints. The fisheye model is suitable
+            /// for wide-angle cameras.
+            /// The function transforms points from the distorted fisheye image to undistorted coordinates, optionally
+            /// applying a rectification transformation (R) and projecting to a new image plane (P).
+            /// @note **Coordinate Systems:**
+            /// - **Input (`distorted`)**: Points are expected in **pixel coordinates** of the distorted fisheye image,
+            /// i.e., coordinates measured in pixels from the top-left corner of the image.
+            /// - **Output (`undistorted`)**: The coordinate system depends on parameter `P`:
+            /// - If `P` is provided (not empty): Output points are in **pixel coordinates** of the rectified/undistorted
+            /// image plane, using the camera matrix `P`.
+            /// - If `P` is empty or identity: Output points are in **normalized camera coordinates** (normalized image coordinates),
+            /// which are dimensionless coordinates in the camera's focal plane, independent of intrinsic parameters.
+            /// @note **Fisheye vs. Standard Model:**
+            /// Use this function (#cv::fisheye::undistortPoints) for fisheye cameras (wide-angle lenses).
+            /// For standard pinhole cameras, use #undistortPoints instead. The fisheye model uses a different distortion
+            /// parameterization (4 coefficients) compared to the standard model (4-14 coefficients).
+            /// </remarks>
+            public static void FisheyeUndistortPoints(Mat distorted, Mat undistorted, Mat K, Mat D, Mat? R, Mat? P, TermCriteria criteria)
+            {
+                NativeMethods.cv_fisheye_undistortPoints_0(ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(R, nameof(R), true), ValidationHelper.GetHandle(P, nameof(P), true), criteria);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Estimates new camera intrinsic matrix for undistortion or rectification.
+            /// </summary>
+            /// <param name="K">Camera intrinsic matrix [formula].</param>
+            /// <param name="D">Input vector of distortion coefficients [formula].</param>
+            /// <param name="image_size">Size of the image</param>
+            /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel</param>
+            /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4)</param>
+            /// <param name="balance">Sets the new focal length in range between the min focal length and the max focal length. Balance is in range of [0, 1].</param>
+            /// <param name="new_size">the new size</param>
+            /// <param name="fov_scale">Divisor for new focal length.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeEstimateNewCameraMatrixForUndistortRectify(Mat K, Mat D, Size image_size, Mat R, Mat P, double balance, Size new_size, double fov_scale)
+            {
+                NativeMethods.cv_fisheye_estimateNewCameraMatrixForUndistortRectify_0(ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), image_size, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(P, nameof(P), false), balance, new_size, fov_scale);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds an object pose from 3D-2D point correspondences for fisheye camera model.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can also be passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can also be passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients (4x1/1x4).</param>
+            /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
+            /// <param name="tvec">Output translation vector.</param>
+            /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
+            /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags This function returns the rotation and the translation vectors that transform a 3D point expressed in the object coordinate frame to the camera coordinate frame, using different methods: - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): need 4 input points to return a unique solution. - @ref SOLVEPNP_IPPE Input points must be &gt;= 4 and object points must be coplanar. - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation. Number of input points must be 4. Object points must be defined in the following order: - point 0: [-squareLength / 2,  squareLength / 2, 0] - point 1: [ squareLength / 2,  squareLength / 2, 0] - point 2: [ squareLength / 2, -squareLength / 2, 0] - point 3: [-squareLength / 2, -squareLength / 2, 0] - for all the other flags, number of input points must be &gt;= 4 and object points can be in any configuration.</param>
+            /// <param name="criteria">Termination criteria for internal undistortPoints call. The function internally undistorts points with @ref undistortPoints and call @ref cv::solvePnP, thus the input are very similar. Check there and Perspective-n-Points is described in @ref calib3d_solvePnP for more information.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool FisheyeSolvePnP(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int flags, TermCriteria criteria)
+            {
+                var res = NativeMethods.cv_fisheye_solvePnP_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, flags, criteria);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds an object pose from 3D-2D point correspondences using the RANSAC scheme for fisheye camera moodel.
+            /// </summary>
+            /// <param name="objectPoints">Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector\&lt;Point3d\&gt; can be also passed here.</param>
+            /// <param name="imagePoints">Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector\&lt;Point2d\&gt; can be also passed here.</param>
+            /// <param name="cameraMatrix">Input camera intrinsic matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients (4x1/1x4).</param>
+            /// <param name="rvec">Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from the model coordinate system to the camera coordinate system.</param>
+            /// <param name="tvec">Output translation vector.</param>
+            /// <param name="useExtrinsicGuess">Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses the provided rvec and tvec values as initial approximations of the rotation and translation vectors, respectively, and further optimizes them.</param>
+            /// <param name="iterationsCount">Number of iterations.</param>
+            /// <param name="reprojectionError">Inlier threshold value used by the RANSAC procedure. The parameter value is the maximum allowed distance between the observed and computed point projections to consider it an inlier.</param>
+            /// <param name="confidence">The probability that the algorithm produces a useful result.</param>
+            /// <param name="inliers">Output vector that contains indices of inliers in objectPoints and imagePoints .</param>
+            /// <param name="flags">Method for solving a PnP problem: see @ref calib3d_solvePnP_flags</param>
+            /// <param name="criteria">Termination criteria for internal undistortPoints call. The function interally undistorts points with @ref undistortPoints and call @ref cv::solvePnP, thus the input are very similar. More information about Perspective-n-Points is described in @ref calib3d_solvePnP for more information.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool FisheyeSolvePnPRansac(Mat objectPoints, Mat imagePoints, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, Mat? inliers, int flags, TermCriteria criteria)
+            {
+                var res = NativeMethods.cv_fisheye_solvePnPRansac_0(ValidationHelper.GetHandle(objectPoints, nameof(objectPoints), false), ValidationHelper.GetHandle(imagePoints, nameof(imagePoints), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), useExtrinsicGuess, iterationsCount, reprojectionError, confidence, ValidationHelper.GetHandle(inliers, nameof(inliers), true), flags, criteria);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// * @brief Builds a Minimum Spanning Tree (MST) using the specified algorithm (see @ref MSTAlgorithm).
+            /// </summary>
+            /// <param name="numNodes">The numNodes parameter.</param>
+            /// <param name="inputEdges">The inputEdges parameter.</param>
+            /// <param name="resultingEdges">The resultingEdges parameter.</param>
+            /// <param name="algorithm">The algorithm parameter.</param>
+            /// <param name="root">The root parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// *
+            /// * Supports graphs with negative edge weights. Self-loop edges (edges where source and target are the
+            /// * same) are ignored. If multiple edges exist between the same pair of nodes, only the one with the
+            /// * lowest weight is considered. If the graph is disconnected or input is invalid, the function
+            /// * returns false.
+            /// *
+            /// * @note The @p root parameter is ignored for algorithms that do not require a starting node.
+            /// * @note Additional MST algorithms may be supported in the future via the @p algorithm parameter
+            /// * (see @ref MSTAlgorithm).
+            /// *
+            /// * @param numNodes Number of nodes in the graph (must be greater than 0).
+            /// * @param inputEdges Input vector of edges representing the graph.
+            /// * @param[out] resultingEdges Output vector to store the edges of the resulting MST.
+            /// * @param algorithm Specifies which algorithm to use to compute the MST (see @ref MSTAlgorithm).
+            /// * @param root Starting node for the MST algorithm (only used for certain algorithms).
+            /// * @return true if a valid MST was successfully built; false otherwise.
+            /// * @throws cv::Error (StsBadArg) if an invalid algorithm is specified.
+            /// </remarks>
+            public static bool BuildMST(int numNodes, IntPtr inputEdges, IntPtr resultingEdges, MSTAlgorithm algorithm, int root)
+            {
+                var res = NativeMethods.cv_buildMST_0(numNodes, inputEdges, resultingEdges, (int)algorithm, root);
+                ErrorHelper.CheckError();
+                return res;
+            }
     }
 }

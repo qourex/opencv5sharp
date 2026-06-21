@@ -11,18 +11,18 @@ using System.Threading;
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class CirclesGridFinderParameters : DisposableOpenCVObject
     {
-        internal CirclesGridFinderParameters(IntPtr handle) : base(handle) { }
+        internal CirclesGridFinderParameters(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.CirclesGridFinderParameters_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CirclesGridFinderParameters()
@@ -153,7 +153,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FaceDetectorYN : DisposableOpenCVObject
     {
-        internal FaceDetectorYN(IntPtr handle) : base(handle) { }
+        internal FaceDetectorYN(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FaceDetectorYN_Delete(handle);
@@ -172,7 +172,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -197,7 +197,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -222,7 +222,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -247,7 +247,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -261,7 +261,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Detects faces in the input image. Following is an example output.
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="faces">The faces parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -316,7 +316,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new FaceDetectorYN(res);
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="framework">The framework parameter.</param>
         /// <param name="bufferModel">The bufferModel parameter.</param>
@@ -358,7 +358,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class FaceRecognizerSF : DisposableOpenCVObject
     {
-        internal FaceRecognizerSF(IntPtr handle) : base(handle) { }
+        internal FaceRecognizerSF(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.FaceRecognizerSF_Delete(handle);
@@ -464,12 +464,12 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class GraphicalCodeDetector : DisposableOpenCVObject
     {
-        internal GraphicalCodeDetector(IntPtr handle) : base(handle) { }
+        internal GraphicalCodeDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.GraphicalCodeDetector_Delete(handle);
@@ -593,13 +593,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetector : GraphicalCodeDetector
     {
-        internal QRCodeDetector(IntPtr handle) : base(handle) { }
+        internal QRCodeDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetector_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetector()
@@ -712,13 +712,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetectorAruco : GraphicalCodeDetector
     {
-        internal QRCodeDetectorAruco(IntPtr handle) : base(handle) { }
+        internal QRCodeDetectorAruco(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetectorAruco_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetectorAruco()
@@ -777,18 +777,18 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeDetectorArucoParams : DisposableOpenCVObject
     {
-        internal QRCodeDetectorArucoParams(IntPtr handle) : base(handle) { }
+        internal QRCodeDetectorArucoParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeDetectorAruco_Params_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetectorArucoParams()
@@ -853,7 +853,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeEncoder : DisposableOpenCVObject
     {
-        internal QRCodeEncoder(IntPtr handle) : base(handle) { }
+        internal QRCodeEncoder(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeEncoder_Delete(handle);
@@ -904,13 +904,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class QRCodeEncoderParams : DisposableOpenCVObject
     {
-        internal QRCodeEncoderParams(IntPtr handle) : base(handle) { }
+        internal QRCodeEncoderParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.QRCodeEncoder_Params_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeEncoderParams()
@@ -959,7 +959,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoArucoDetector : Algorithm
     {
-        internal ArucoArucoDetector(IntPtr handle) : base(handle) { }
+        internal ArucoArucoDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_ArucoDetector_Delete(handle);
@@ -1021,7 +1021,7 @@ namespace OpenCV5Sharp
         /// * input image with corresponding camera model, if camera parameters are known
         /// * @sa undistort, estimatePoseSingleMarkers,  estimatePoseBoard
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="corners">The corners parameter.</param>
         /// <param name="ids">The ids parameter.</param>
         /// <param name="rejectedImgPoints">The rejectedImgPoints parameter.</param>
@@ -1059,7 +1059,7 @@ namespace OpenCV5Sharp
         /// * input image with corresponding camera model, if camera parameters are known
         /// * @sa undistort, estimatePoseSingleMarkers,  estimatePoseBoard
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="corners">The corners parameter.</param>
         /// <param name="ids">The ids parameter.</param>
         /// <param name="markersConfidence">The markersConfidence parameter.</param>
@@ -1082,9 +1082,9 @@ namespace OpenCV5Sharp
         /// * @param detectedIds vector of already detected marker identifiers.
         /// * @param rejectedCorners vector of rejected candidates during the marker detection process.
         /// * @param cameraMatrix optional input 3x3 floating-point camera matrix
-        /// * \f$A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$
+        /// * [formula]
         /// * @param distCoeffs optional vector of distortion coefficients
-        /// * \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6],[s_1, s_2, s_3, s_4]])\f$ of 4, 5, 8 or 12 elements
+        /// * [formula] of 4, 5, 8 or 12 elements
         /// * @param recoveredIdxs Optional array to returns the indexes of the recovered candidates in the
         /// * original rejectedCorners array.
         /// *
@@ -1098,7 +1098,7 @@ namespace OpenCV5Sharp
         /// * @note This function assumes that the board only contains markers from one dictionary, so only the
         /// * first configured dictionary is used. It has to match the dictionary of the board to work properly.
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="board">The board parameter.</param>
         /// <param name="detectedCorners">The detectedCorners parameter.</param>
         /// <param name="detectedIds">The detectedIds parameter.</param>
@@ -1138,7 +1138,7 @@ namespace OpenCV5Sharp
         /// * input image with corresponding camera model, if camera parameters are known
         /// * @sa undistort, estimatePoseSingleMarkers,  estimatePoseBoard
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="corners">The corners parameter.</param>
         /// <param name="ids">The ids parameter.</param>
         /// <param name="rejectedImgPoints">The rejectedImgPoints parameter.</param>
@@ -1213,7 +1213,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1225,7 +1225,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoDetectorParameters(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="detectorParameters">The detectorParameters parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1238,7 +1238,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1250,7 +1250,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoRefineParameters(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="refineParameters">The refineParameters parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1304,7 +1304,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoBoard : DisposableOpenCVObject
     {
-        internal ArucoBoard(IntPtr handle) : base(handle) { }
+        internal ArucoBoard(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_Board_Delete(handle);
@@ -1428,7 +1428,7 @@ namespace OpenCV5Sharp
         /// * This function return the image of the board, ready to be printed.
         /// </summary>
         /// <param name="outSize">The outSize parameter.</param>
-        /// <param name="img">The img parameter.</param>
+        /// <param name="img">Input image.</param>
         /// <param name="marginSize">The marginSize parameter.</param>
         /// <param name="borderBits">The borderBits parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1453,7 +1453,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class ArucoCharucoBoard : ArucoBoard
     {
-        internal ArucoCharucoBoard(IntPtr handle) : base(handle) { }
+        internal ArucoCharucoBoard(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoBoard_Delete(handle);
@@ -1500,7 +1500,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1512,7 +1512,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1524,7 +1524,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1536,7 +1536,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1586,12 +1586,12 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoCharucoDetector : Algorithm
     {
-        internal ArucoCharucoDetector(IntPtr handle) : base(handle) { }
+        internal ArucoCharucoDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoDetector_Delete(handle);
@@ -1617,7 +1617,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1629,7 +1629,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoCharucoBoard(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="board">The board parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1642,7 +1642,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1654,7 +1654,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoCharucoParameters(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="charucoParameters">The charucoParameters parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1667,7 +1667,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1679,7 +1679,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoDetectorParameters(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="detectorParameters">The detectorParameters parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1692,7 +1692,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1704,7 +1704,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new ArucoRefineParameters(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="refineParameters">The refineParameters parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -1719,7 +1719,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// * @brief detect aruco markers and interpolate position of ChArUco board corners
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="charucoCorners">The charucoCorners parameter.</param>
         /// <param name="charucoIds">The charucoIds parameter.</param>
         /// <param name="markerCorners">The markerCorners parameter.</param>
@@ -1760,7 +1760,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// * @brief Detect ChArUco Diamond markers
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="diamondCorners">The diamondCorners parameter.</param>
         /// <param name="diamondIds">The diamondIds parameter.</param>
         /// <param name="markerCorners">The markerCorners parameter.</param>
@@ -1796,18 +1796,18 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoCharucoParameters : DisposableOpenCVObject
     {
-        internal ArucoCharucoParameters(IntPtr handle) : base(handle) { }
+        internal ArucoCharucoParameters(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_CharucoParameters_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoCharucoParameters()
@@ -1819,8 +1819,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? CameraMatrix
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_cameraMatrix_get(Handle);
                 ErrorHelper.CheckError();
@@ -1832,8 +1831,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? DistCoeffs
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_distCoeffs_get(Handle);
                 ErrorHelper.CheckError();
@@ -1870,13 +1868,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoDetectorParameters : DisposableOpenCVObject
     {
-        internal ArucoDetectorParameters(IntPtr handle) : base(handle) { }
+        internal ArucoDetectorParameters(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_DetectorParameters_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoDetectorParameters()
@@ -2179,13 +2177,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoDictionary : DisposableOpenCVObject
     {
-        internal ArucoDictionary(IntPtr handle) : base(handle) { }
+        internal ArucoDictionary(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_Dictionary_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoDictionary()
@@ -2372,8 +2370,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? BytesList
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_Dictionary_bytesList_get(Handle);
                 ErrorHelper.CheckError();
@@ -2406,7 +2403,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoGridBoard : ArucoBoard
     {
-        internal ArucoGridBoard(IntPtr handle) : base(handle) { }
+        internal ArucoGridBoard(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_GridBoard_Delete(handle);
@@ -2436,7 +2433,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2448,7 +2445,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2460,7 +2457,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2479,13 +2476,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class ArucoRefineParameters : DisposableOpenCVObject
     {
-        internal ArucoRefineParameters(IntPtr handle) : base(handle) { }
+        internal ArucoRefineParameters(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.aruco_RefineParameters_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="minRepDistance">The minRepDistance parameter.</param>
         /// <param name="errorCorrectionRate">The errorCorrectionRate parameter.</param>
@@ -2551,12 +2548,12 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class BarcodeBarcodeDetector : GraphicalCodeDetector
     {
-        internal BarcodeBarcodeDetector(IntPtr handle) : base(handle) { }
+        internal BarcodeBarcodeDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.barcode_BarcodeDetector_Delete(handle);
@@ -2600,7 +2597,7 @@ namespace OpenCV5Sharp
         /// * @param decoded_type vector strings, specifies the type of these barcodes
         /// * @return true if at least one valid barcode have been found
         /// </summary>
-        /// <param name="img">The img parameter.</param>
+        /// <param name="img">Input image.</param>
         /// <param name="points">The points parameter.</param>
         /// <param name="decoded_info">The decoded_info parameter.</param>
         /// <param name="decoded_type">The decoded_type parameter.</param>
@@ -2618,7 +2615,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Both detects and decodes barcode
         /// </summary>
-        /// <param name="img">The img parameter.</param>
+        /// <param name="img">Input image.</param>
         /// <param name="decoded_info">The decoded_info parameter.</param>
         /// <param name="decoded_type">The decoded_type parameter.</param>
         /// <param name="points">The points parameter.</param>
@@ -2752,7 +2749,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class MccCChecker : Algorithm
     {
-        internal MccCChecker(IntPtr handle) : base(handle) { }
+        internal MccCChecker(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_CChecker_Delete(handle);
@@ -2771,7 +2768,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new MccCChecker(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_target">The _target parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2782,7 +2779,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_box">The _box parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2793,7 +2790,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_chartsRGB">The _chartsRGB parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -2806,7 +2803,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_chartsYCbCr">The _chartsYCbCr parameter.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -2819,7 +2816,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_cost">The _cost parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2830,7 +2827,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="_center">The _center parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2841,7 +2838,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2853,7 +2850,7 @@ namespace OpenCV5Sharp
             return (MccColorChart)res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2881,7 +2878,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="getStats">The getStats parameter.</param>
         /// <returns>The returned value.</returns>
@@ -2894,7 +2891,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Mat(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2906,7 +2903,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Mat(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2918,7 +2915,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2937,7 +2934,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class MccCCheckerDetector : Algorithm
     {
-        internal MccCCheckerDetector(IntPtr handle) : base(handle) { }
+        internal MccCCheckerDetector(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_CCheckerDetector_Delete(handle);
@@ -2956,7 +2953,7 @@ namespace OpenCV5Sharp
         /// *           then keeping this number high helps.
         /// * @return true if atleast one chart is detected otherwise false
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="regionsOfInterest">The regionsOfInterest parameter.</param>
         /// <param name="nc">The nc parameter.</param>
         /// <returns>The returned value.</returns>
@@ -2985,7 +2982,7 @@ namespace OpenCV5Sharp
         /// *           then keeping this number high helps.
         /// * @return true if atleast one chart is detected otherwise false
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="nc">The nc parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -3048,9 +3045,9 @@ namespace OpenCV5Sharp
         /// *         drawn
         /// </summary>
         /// <param name="checkers">The checkers parameter.</param>
-        /// <param name="img">The img parameter.</param>
-        /// <param name="color">The color parameter.</param>
-        /// <param name="thickness">The thickness parameter.</param>
+        /// <param name="img">Input image.</param>
+        /// <param name="color">Color value (BGR or BGRA).</param>
+        /// <param name="thickness">Line thickness.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -3099,7 +3096,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -3111,7 +3108,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new MccDetectorParametersMCC(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -3130,13 +3127,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class MccDetectorParametersMCC : DisposableOpenCVObject
     {
-        internal MccDetectorParametersMCC(IntPtr handle) : base(handle) { }
+        internal MccDetectorParametersMCC(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.mcc_DetectorParametersMCC_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public MccDetectorParametersMCC()

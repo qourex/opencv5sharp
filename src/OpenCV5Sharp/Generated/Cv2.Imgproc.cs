@@ -11,2876 +11,2876 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-        /// <summary>
-        /// Creates a smart pointer to a LineSegmentDetector object and initializes it.
-        /// </summary>
-        /// <param name="refine">The way found lines will be refined, see #LineSegmentDetectorModes</param>
-        /// <param name="scale">The scale of the image that will be used to find the lines. Range (0..1].</param>
-        /// <param name="sigma_scale">Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.</param>
-        /// <param name="quant">Bound to the quantization error on the gradient norm.</param>
-        /// <param name="ang_th">Gradient angle tolerance in degrees.</param>
-        /// <param name="log_eps">Detection threshold: -log10(NFA) \&gt; log_eps. Used only when advance refinement is chosen.</param>
-        /// <param name="density_th">Minimal density of aligned region points in the enclosing rectangle.</param>
-        /// <param name="n_bins">Number of bins in pseudo-ordering of gradient modulus.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
-        /// to edit those, as to tailor it for their own application.
-        /// </remarks>
-        public static LineSegmentDetector? CreateLineSegmentDetector(LineSegmentDetectorModes refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th, int n_bins)
-        {
-            IntPtr res = NativeMethods.cv_createLineSegmentDetector_0((int)refine, scale, sigma_scale, quant, ang_th, log_eps, density_th, n_bins);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new LineSegmentDetector(res);
-        }
-        /// <summary>
-        /// Returns Gaussian filter coefficients.
-        /// </summary>
-        /// <param name="ksize">Aperture size. It should be odd ( \f$\texttt{ksize} \mod 2 = 1\f$ ) and positive.</param>
-        /// <param name="sigma">Gaussian standard deviation. If it is non-positive, it is computed from ksize as `sigma = 0.3*((ksize-1)*0.5 - 1) + 0.8`.</param>
-        /// <param name="ktype">Type of filter coefficients. It can be CV_32F or CV_64F .</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes and returns the \f$\texttt{ksize} \times 1\f$ matrix of Gaussian filter
-        /// coefficients:
-        /// \f[G_i= \alpha *e^{-(i-( \texttt{ksize} -1)/2)^2/(2* \texttt{sigma}^2)},\f]
-        /// where \f$i=0..\texttt{ksize}-1\f$ and \f$\alpha\f$ is the scale factor chosen so that \f$\sum_i G_i=1\f$.
-        /// Two of such generated kernels can be passed to sepFilter2D. Those functions automatically recognize
-        /// smoothing kernels (a symmetrical kernel with sum of weights equal to 1) and handle them accordingly.
-        /// You may also use the higher-level GaussianBlur.
-        /// @sa  sepFilter2D, getDerivKernels, getStructuringElement, GaussianBlur
-        /// </remarks>
-        public static Mat? GetGaussianKernel(int ksize, double sigma, int ktype)
-        {
-            IntPtr res = NativeMethods.cv_getGaussianKernel_0(ksize, sigma, ktype);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Returns filter coefficients for computing spatial image derivatives.
-        /// </summary>
-        /// <param name="kx">Output matrix of row filter coefficients. It has the type ktype .</param>
-        /// <param name="ky">Output matrix of column filter coefficients. It has the type ktype .</param>
-        /// <param name="dx">Derivative order in respect of x.</param>
-        /// <param name="dy">Derivative order in respect of y.</param>
-        /// <param name="ksize">Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.</param>
-        /// <param name="normalize">Flag indicating whether to normalize (scale down) the filter coefficients or not. Theoretically, the coefficients should have the denominator \f$=2^{ksize*2-dx-dy-2}\f$. If you are going to filter floating-point images, you are likely to use the normalized kernels. But if you compute derivatives of an 8-bit image, store the results in a 16-bit image, and wish to preserve all the fractional bits, you may want to set normalize=false .</param>
-        /// <param name="ktype">Type of filter coefficients. It can be CV_32f or CV_64F .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes and returns the filter coefficients for spatial image derivatives. When
-        /// `ksize=FILTER_SCHARR`, the Scharr \f$3 \times 3\f$ kernels are generated (see #Scharr). Otherwise, Sobel
-        /// kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
-        /// </remarks>
-        public static void GetDerivKernels(Mat kx, Mat ky, int dx, int dy, int ksize, bool normalize, int ktype)
-        {
-            NativeMethods.cv_getDerivKernels_0(ValidationHelper.GetHandle(kx, nameof(kx), false), ValidationHelper.GetHandle(ky, nameof(ky), false), dx, dy, ksize, normalize, ktype);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Returns Gabor filter coefficients.
-        /// </summary>
-        /// <param name="ksize">Size of the filter returned.</param>
-        /// <param name="sigma">Standard deviation of the gaussian envelope.</param>
-        /// <param name="theta">Orientation of the normal to the parallel stripes of a Gabor function.</param>
-        /// <param name="lambd">Wavelength of the sinusoidal factor.</param>
-        /// <param name="gamma">Spatial aspect ratio.</param>
-        /// <param name="psi">Phase offset.</param>
-        /// <param name="ktype">Type of filter coefficients. It can be CV_32F or CV_64F .</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// For more details about gabor filter equations and parameters, see: [Gabor
-        /// Filter](https://en.wikipedia.org/wiki/Gabor_filter).
-        /// </remarks>
-        public static Mat? GetGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma, double psi, int ktype)
-        {
-            IntPtr res = NativeMethods.cv_getGaborKernel_0(ksize, sigma, theta, lambd, gamma, psi, ktype);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Returns a structuring element of the specified size and shape for morphological operations.
-        /// </summary>
-        /// <param name="shape">Element shape that could be one of #MorphShapes</param>
-        /// <param name="ksize">Size of the structuring element.</param>
-        /// <param name="anchor">Anchor position within the element. The default value \f$(-1, -1)\f$ means that the anchor is at the center. Note that only the shape of a cross-shaped element depends on the anchor position. In other cases the anchor just regulates how much the result of the morphological operation is shifted.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function constructs and returns the structuring element that can be further passed to #erode,
-        /// #dilate or #morphologyEx. But you can also construct an arbitrary binary mask yourself and use it as
-        /// the structuring element.
-        /// </remarks>
-        public static Mat? GetStructuringElement(int shape, Size ksize, Point anchor)
-        {
-            IntPtr res = NativeMethods.cv_getStructuringElement_0(shape, ksize, anchor);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Blurs an image using the median filter.
-        /// </summary>
-        /// <param name="src">input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image depth should be CV_8U, CV_16U, or CV_32F, for larger aperture sizes, it can only be CV_8U.</param>
-        /// <param name="dst">destination array of the same size and type as src.</param>
-        /// <param name="ksize">aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function smoothes an image using the median filter with the \f$\texttt{ksize} \times
-        /// \texttt{ksize}\f$ aperture. Each channel of a multi-channel image is processed independently.
-        /// In-place operation is supported.
-        /// @note The median filter uses #BORDER_REPLICATE internally to cope with border pixels, see #BorderTypes
-        /// @sa  bilateralFilter, blur, boxFilter, GaussianBlur
-        /// </remarks>
-        public static void MedianBlur(Mat src, Mat dst, int ksize)
-        {
-            NativeMethods.cv_medianBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Blurs an image using a Gaussian filter.
-        /// </summary>
-        /// <param name="src">input image; the image can have any number of channels, which are processed independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="ksize">Gaussian kernel size. ksize.width and ksize.height can differ but they both must be positive and odd. Or, they can be zero's and then they are computed from sigma.</param>
-        /// <param name="sigmaX">Gaussian kernel standard deviation in X direction.</param>
-        /// <param name="sigmaY">Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height, respectively (see #getGaussianKernel for details); to fully control the result regardless of possible future modifications of all this semantics, it is recommended to specify all of ksize, sigmaX, and sigmaY.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function convolves the source image with the specified Gaussian kernel. In-place filtering is
-        /// supported.
-        /// @sa  sepFilter2D, filter2D, blur, boxFilter, bilateralFilter, medianBlur
-        /// </remarks>
-        public static void GaussianBlur(Mat src, Mat dst, Size ksize, double sigmaX, double sigmaY, int borderType, AlgorithmHint hint)
-        {
-            NativeMethods.cv_GaussianBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, sigmaX, sigmaY, borderType, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies the bilateral filter to an image.
-        /// </summary>
-        /// <param name="src">Source 8-bit or floating-point, 1-channel or 3-channel image.</param>
-        /// <param name="dst">Destination image of the same size and type as src .</param>
-        /// <param name="d">Diameter of each pixel neighborhood that is used during filtering. If it is non-positive, it is computed from sigmaSpace.</param>
-        /// <param name="sigmaColor">Filter sigma in the color space. A larger value of the parameter means that farther colors within the pixel neighborhood (see sigmaSpace) will be mixed together, resulting in larger areas of semi-equal color.</param>
-        /// <param name="sigmaSpace">Filter sigma in the coordinate space. A larger value of the parameter means that farther pixels will influence each other as long as their colors are close enough (see sigmaColor ). When d\&gt;0, it specifies the neighborhood size regardless of sigmaSpace. Otherwise, d is proportional to sigmaSpace.</param>
-        /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function applies bilateral filtering to the input image, as described in
-        /// https://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/MANDUCHI1/Bilateral_Filtering.html
-        /// bilateralFilter can reduce unwanted noise very well while keeping edges fairly sharp. However, it is
-        /// very slow compared to most filters.
-        /// _Sigma values_: For simplicity, you can set the 2 sigma values to be the same. If they are small (\&lt;
-        /// 10), the filter will not have much effect, whereas if they are large (\&gt; 150), they will have a very
-        /// strong effect, making the image look "cartoonish".
-        /// _Filter size_: Large filters (d \&gt; 5) are very slow, so it is recommended to use d=5 for real-time
-        /// applications, and perhaps d=9 for offline applications that need heavy noise filtering.
-        /// This filter does not work inplace.
-        /// </remarks>
-        public static void BilateralFilter(Mat src, Mat dst, int d, double sigmaColor, double sigmaSpace, int borderType)
-        {
-            NativeMethods.cv_bilateralFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), d, sigmaColor, sigmaSpace, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Blurs an image using the box filter.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="ddepth">the output image depth (-1 to use src.depth()).</param>
-        /// <param name="ksize">blurring kernel size.</param>
-        /// <param name="anchor">anchor point; default value Point(-1,-1) means that the anchor is at the kernel center.</param>
-        /// <param name="normalize">flag, specifying whether the kernel is normalized by its area or not.</param>
-        /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function smooths an image using the kernel:
-        /// \f[\texttt{K} =  \alpha \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1  \\ 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1  \\ \hdotsfor{6} \\ 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1 \end{bmatrix}\f]
-        /// where
-        /// \f[\alpha = \begin{cases} \frac{1}{\texttt{ksize.width*ksize.height}} &amp; \texttt{when } \texttt{normalize=true}  \\1 &amp; \texttt{otherwise}\end{cases}\f]
-        /// Unnormalized box filter is useful for computing various integral characteristics over each pixel
-        /// neighborhood, such as covariance matrices of image derivatives (used in dense optical flow
-        /// algorithms, and so on). If you need to compute pixel sums over variable-size windows, use #integral.
-        /// @sa  blur, bilateralFilter, GaussianBlur, medianBlur, integral
-        /// </remarks>
-        public static void BoxFilter(Mat src, Mat dst, int ddepth, Size ksize, Point anchor, bool normalize, int borderType)
-        {
-            NativeMethods.cv_boxFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, anchor, normalize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the normalized sum of squares of the pixel values overlapping the filter.
-        /// </summary>
-        /// <param name="src">input image</param>
-        /// <param name="dst">output image of the same size and type as src</param>
-        /// <param name="ddepth">the output image depth (-1 to use src.depth())</param>
-        /// <param name="ksize">kernel size</param>
-        /// <param name="anchor">kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel center.</param>
-        /// <param name="normalize">flag, specifying whether the kernel is to be normalized by it's area or not.</param>
-        /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// For every pixel \f$ (x, y) \f$ in the source image, the function calculates the sum of squares of those neighboring
-        /// pixel values which overlap the filter placed over the pixel \f$ (x, y) \f$.
-        /// The unnormalized square box filter can be useful in computing local image statistics such as the local
-        /// variance and standard deviation around the neighborhood of a pixel.
-        /// @sa boxFilter
-        /// </remarks>
-        public static void SqrBoxFilter(Mat src, Mat dst, int ddepth, Size ksize, Point anchor, bool normalize, int borderType)
-        {
-            NativeMethods.cv_sqrBoxFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, anchor, normalize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Blurs an image using the normalized box filter.
-        /// </summary>
-        /// <param name="src">input image; it can have any number of channels, which are processed independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="ksize">blurring kernel size.</param>
-        /// <param name="anchor">anchor point; default value Point(-1,-1) means that the anchor is at the kernel center.</param>
-        /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function smooths an image using the kernel:
-        /// \f[\texttt{K} =  \frac{1}{\texttt{ksize.width*ksize.height}} \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1  \\ 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1  \\ \hdotsfor{6} \\ 1 &amp; 1 &amp; 1 &amp;  \cdots &amp; 1 &amp; 1  \\ \end{bmatrix}\f]
-        /// The call `blur(src, dst, ksize, anchor, borderType)` is equivalent to `boxFilter(src, dst, src.type(), ksize,
-        /// anchor, true, borderType)`.
-        /// @sa  boxFilter, bilateralFilter, GaussianBlur, medianBlur
-        /// </remarks>
-        public static void Blur(Mat src, Mat dst, Size ksize, Point anchor, int borderType)
-        {
-            NativeMethods.cv_blur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, anchor, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Blurs an image using the stackBlur.
-        /// </summary>
-        /// <param name="src">input image. The number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S or CV_32F.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="ksize">stack-blurring kernel size. The ksize.width and ksize.height can differ but they both must be positive and odd.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function applies and stackBlur to an image.
-        /// stackBlur can generate similar results as Gaussian blur, and the time consumption does not increase with the increase of kernel size.
-        /// It creates a kind of moving stack of colors whilst scanning through the image. Thereby it just has to add one new block of color to the right side
-        /// of the stack and remove the leftmost color. The remaining colors on the topmost layer of the stack are either added on or reduced by one,
-        /// depending on if they are on the right or on the left side of the stack. The only supported borderType is BORDER_REPLICATE.
-        /// Original paper was proposed by Mario Klingemann, which can be found https://underdestruction.com/2004/02/25/stackblur-2004.
-        /// </remarks>
-        public static void StackBlur(Mat src, Mat dst, Size ksize)
-        {
-            NativeMethods.cv_stackBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Convolves an image with the kernel.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image of the same size and the same number of channels as src.</param>
-        /// <param name="ddepth">desired depth of the destination image, see @ref filter_depths "combinations"</param>
-        /// <param name="kernel">convolution kernel (or rather a correlation kernel), a single-channel floating point matrix; if you want to apply different kernels to different channels, split the image into separate color planes using split and process them individually.</param>
-        /// <param name="anchor">anchor of the kernel that indicates the relative position of a filtered point within the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor is at the kernel center.</param>
-        /// <param name="delta">optional value added to the filtered pixels before storing them in dst.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function applies an arbitrary linear filter to an image. In-place operation is supported. When
-        /// the aperture is partially outside the image, the function interpolates outlier pixel values
-        /// according to the specified border mode.
-        /// The function does actually compute correlation, not the convolution:
-        /// \f[\texttt{dst} (x,y) =  \sum _{ \substack{0\leq x' &lt; \texttt{kernel.cols}\\{0\leq y' &lt; \texttt{kernel.rows}}}}  \texttt{kernel} (x',y')* \texttt{src} (x+x'- \texttt{anchor.x} ,y+y'- \texttt{anchor.y} )\f]
-        /// That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
-        /// the kernel using #flip and set the new anchor to `(kernel.cols - anchor.x - 1, kernel.rows -
-        /// anchor.y - 1)`.
-        /// The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
-        /// larger) and the direct algorithm for small kernels.
-        /// @sa  sepFilter2D, dft, matchTemplate
-        /// </remarks>
-        public static void Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, Point anchor, double delta, int borderType)
-        {
-            NativeMethods.cv_filter2D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, delta, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <param name="kernel">The kernel parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void Filter2D(Mat src, Mat dst, Mat kernel, Filter2DParams? @params)
-        {
-            NativeMethods.cv_filter2D_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), ValidationHelper.GetHandle(@params, nameof(@params), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies a separable linear filter to an image.
-        /// </summary>
-        /// <param name="src">Source image.</param>
-        /// <param name="dst">Destination image of the same size and the same number of channels as src .</param>
-        /// <param name="ddepth">Destination image depth, see @ref filter_depths "combinations"</param>
-        /// <param name="kernelX">Coefficients for filtering each row.</param>
-        /// <param name="kernelY">Coefficients for filtering each column.</param>
-        /// <param name="anchor">Anchor position within the kernel. The default value \f$(-1,-1)\f$ means that the anchor is at the kernel center.</param>
-        /// <param name="delta">Value added to the filtered results before storing them.</param>
-        /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function applies a separable linear filter to the image. That is, first, every row of src is
-        /// filtered with the 1D kernel kernelX. Then, every column of the result is filtered with the 1D
-        /// kernel kernelY. The final result shifted by delta is stored in dst .
-        /// @sa  filter2D, Sobel, GaussianBlur, boxFilter, blur
-        /// </remarks>
-        public static void SepFilter2D(Mat src, Mat dst, int ddepth, Mat kernelX, Mat kernelY, Point anchor, double delta, int borderType)
-        {
-            NativeMethods.cv_sepFilter2D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ValidationHelper.GetHandle(kernelX, nameof(kernelX), false), ValidationHelper.GetHandle(kernelY, nameof(kernelY), false), anchor, delta, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image of the same size and the same number of channels as src .</param>
-        /// <param name="ddepth">output image depth, see @ref filter_depths "combinations"; in the case of 8-bit input images it will result in truncated derivatives.</param>
-        /// <param name="dx">order of the derivative x.</param>
-        /// <param name="dy">order of the derivative y.</param>
-        /// <param name="ksize">size of the extended Sobel kernel; it must be 1, 3, 5, or 7.</param>
-        /// <param name="scale">optional scale factor for the computed derivative values; by default, no scaling is applied (see #getDerivKernels for details).</param>
-        /// <param name="delta">optional delta value that is added to the results prior to storing them in dst.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// In all cases except one, the \f$\texttt{ksize} \times \texttt{ksize}\f$ separable kernel is used to
-        /// calculate the derivative. When \f$\texttt{ksize = 1}\f$, the \f$3 \times 1\f$ or \f$1 \times 3\f$
-        /// kernel is used (that is, no Gaussian smoothing is done). `ksize = 1` can only be used for the first
-        /// or the second x- or y- derivatives.
-        /// There is also the special value `ksize = #FILTER_SCHARR (-1)` that corresponds to the \f$3\times3\f$ Scharr
-        /// filter that may give more accurate results than the \f$3\times3\f$ Sobel. The Scharr aperture is
-        /// \f[\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}\f]
-        /// for the x-derivative, or transposed for the y-derivative.
-        /// The function calculates an image derivative by convolving the image with the appropriate kernel:
-        /// \f[\texttt{dst} =  \frac{\partial^{xorder+yorder} \texttt{src}}{\partial x^{xorder} \partial y^{yorder}}\f]
-        /// The Sobel operators combine Gaussian smoothing and differentiation, so the result is more or less
-        /// resistant to the noise. Most often, the function is called with ( xorder = 1, yorder = 0, ksize = 3)
-        /// or ( xorder = 0, yorder = 1, ksize = 3) to calculate the first x- or y- image derivative. The first
-        /// case corresponds to a kernel of:
-        /// \f[\vecthreethree{-1}{0}{1}{-2}{0}{2}{-1}{0}{1}\f]
-        /// The second case corresponds to a kernel of:
-        /// \f[\vecthreethree{-1}{-2}{-1}{0}{0}{0}{1}{2}{1}\f]
-        /// @sa  Scharr, Laplacian, sepFilter2D, filter2D, GaussianBlur, cartToPolar
-        /// </remarks>
-        public static void Sobel(Mat src, Mat dst, int ddepth, int dx, int dy, int ksize, double scale, double delta, int borderType)
-        {
-            NativeMethods.cv_Sobel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, dx, dy, ksize, scale, delta, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the first order image derivative in both x and y using a Sobel operator
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dx">output image with first-order derivative in x.</param>
-        /// <param name="dy">output image with first-order derivative in y.</param>
-        /// <param name="ksize">size of Sobel kernel. It must be 3.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. Only #BORDER_DEFAULT=#BORDER_REFLECT_101 and #BORDER_REPLICATE are supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// Equivalent to calling:
-        /// @code
-        /// Sobel( src, dx, CV_16SC1, 1, 0, 3 );
-        /// Sobel( src, dy, CV_16SC1, 0, 1, 3 );
-        /// @endcode
-        /// @sa Sobel
-        /// </remarks>
-        public static void SpatialGradient(Mat src, Mat dx, Mat dy, int ksize, int borderType)
-        {
-            NativeMethods.cv_spatialGradient_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), ksize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the first x- or y- image derivative using Scharr operator.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image of the same size and the same number of channels as src.</param>
-        /// <param name="ddepth">output image depth, see @ref filter_depths "combinations"</param>
-        /// <param name="dx">order of the derivative x.</param>
-        /// <param name="dy">order of the derivative y.</param>
-        /// <param name="scale">optional scale factor for the computed derivative values; by default, no scaling is applied (see #getDerivKernels for details).</param>
-        /// <param name="delta">optional delta value that is added to the results prior to storing them in dst.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes the first x- or y- spatial image derivative using the Scharr operator. The
-        /// call
-        /// \f[\texttt{Scharr(src, dst, ddepth, dx, dy, scale, delta, borderType)}\f]
-        /// is equivalent to
-        /// \f[\texttt{Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)} .\f]
-        /// @sa  cartToPolar
-        /// </remarks>
-        public static void Scharr(Mat src, Mat dst, int ddepth, int dx, int dy, double scale, double delta, int borderType)
-        {
-            NativeMethods.cv_Scharr_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, dx, dy, scale, delta, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the Laplacian of an image.
-        /// </summary>
-        /// <param name="src">Source image.</param>
-        /// <param name="dst">Destination image of the same size and the same number of channels as src .</param>
-        /// <param name="ddepth">Desired depth of the destination image, see @ref filter_depths "combinations".</param>
-        /// <param name="ksize">Aperture size used to compute the second-derivative filters. See #getDerivKernels for details. The size must be positive and odd.</param>
-        /// <param name="scale">Optional scale factor for the computed Laplacian values. By default, no scaling is applied. See #getDerivKernels for details.</param>
-        /// <param name="delta">Optional delta value that is added to the results prior to storing them in dst .</param>
-        /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function calculates the Laplacian of the source image by adding up the second x and y
-        /// derivatives calculated using the Sobel operator:
-        /// \f[\texttt{dst} =  \Delta \texttt{src} =  \frac{\partial^2 \texttt{src}}{\partial x^2} +  \frac{\partial^2 \texttt{src}}{\partial y^2}\f]
-        /// This is done when `ksize &gt; 1`. When `ksize == 1`, the Laplacian is computed by filtering the image
-        /// with the following \f$3 \times 3\f$ aperture:
-        /// \f[\vecthreethree {0}{1}{0}{1}{-4}{1}{0}{1}{0}\f]
-        /// @sa  Sobel, Scharr
-        /// </remarks>
-        public static void Laplacian(Mat src, Mat dst, int ddepth, int ksize, double scale, double delta, int borderType)
-        {
-            NativeMethods.cv_Laplacian_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, scale, delta, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds edges in an image using the Canny algorithm @cite Canny86 .
-        /// </summary>
-        /// <param name="image">8-bit input image.</param>
-        /// <param name="edges">output edge map; single channels 8-bit image, which has the same size as image .</param>
-        /// <param name="threshold1">first threshold for the hysteresis procedure.</param>
-        /// <param name="threshold2">second threshold for the hysteresis procedure.</param>
-        /// <param name="apertureSize">aperture size for the Sobel operator.</param>
-        /// <param name="L2gradient">a flag, indicating whether a more accurate \f$L_2\f$ norm \f$=\sqrt{(dI/dx)^2 + (dI/dy)^2}\f$ should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default \f$L_1\f$ norm \f$=|dI/dx|+|dI/dy|\f$ is enough ( L2gradient=false ).</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function finds edges in the input image and marks them in the output map edges using the
-        /// Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The
-        /// largest value is used to find initial segments of strong edges. See
-        /// &lt;https://en.wikipedia.org/wiki/Canny_edge_detector&gt;
-        /// </remarks>
-        public static void Canny(Mat image, Mat edges, double threshold1, double threshold2, int apertureSize, bool L2gradient)
-        {
-            NativeMethods.cv_Canny_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(edges, nameof(edges), false), threshold1, threshold2, apertureSize, L2gradient);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// \overload
-        /// </summary>
-        /// <param name="dx">16-bit x derivative of input image (CV_16SC1 or CV_16SC3).</param>
-        /// <param name="dy">16-bit y derivative of input image (same type as dx).</param>
-        /// <param name="edges">output edge map; single channels 8-bit image, which has the same size as image .</param>
-        /// <param name="threshold1">first threshold for the hysteresis procedure.</param>
-        /// <param name="threshold2">second threshold for the hysteresis procedure.</param>
-        /// <param name="L2gradient">a flag, indicating whether a more accurate \f$L_2\f$ norm \f$=\sqrt{(dI/dx)^2 + (dI/dy)^2}\f$ should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default \f$L_1\f$ norm \f$=|dI/dx|+|dI/dy|\f$ is enough ( L2gradient=false ).</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// Finds edges in an image using the Canny algorithm with custom image gradient.
-        /// </remarks>
-        public static void Canny(Mat dx, Mat dy, Mat edges, double threshold1, double threshold2, bool L2gradient)
-        {
-            NativeMethods.cv_Canny_1(ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), ValidationHelper.GetHandle(edges, nameof(edges), false), threshold1, threshold2, L2gradient);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the minimal eigenvalue of gradient matrices for corner detection.
-        /// </summary>
-        /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
-        /// <param name="dst">Image to store the minimal eigenvalues. It has the type CV_32FC1 and the same size as src .</param>
-        /// <param name="blockSize">Neighborhood size (see the details on #cornerEigenValsAndVecs ).</param>
-        /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
-        /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function is similar to cornerEigenValsAndVecs but it calculates and stores only the minimal
-        /// eigenvalue of the covariance matrix of derivatives, that is, \f$\min(\lambda_1, \lambda_2)\f$ in terms
-        /// of the formulae in the cornerEigenValsAndVecs description.
-        /// </remarks>
-        public static void CornerMinEigenVal(Mat src, Mat dst, int blockSize, int ksize, int borderType)
-        {
-            NativeMethods.cv_cornerMinEigenVal_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Harris corner detector.
-        /// </summary>
-        /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
-        /// <param name="dst">Image to store the Harris detector responses. It has the type CV_32FC1 and the same size as src .</param>
-        /// <param name="blockSize">Neighborhood size (see the details on #cornerEigenValsAndVecs ).</param>
-        /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
-        /// <param name="k">Harris detector free parameter. See the formula above.</param>
-        /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function runs the Harris corner detector on the image. Similarly to cornerMinEigenVal and
-        /// cornerEigenValsAndVecs , for each pixel \f$(x, y)\f$ it calculates a \f$2\times2\f$ gradient covariance
-        /// matrix \f$M^{(x,y)}\f$ over a \f$\texttt{blockSize} \times \texttt{blockSize}\f$ neighborhood. Then, it
-        /// computes the following characteristic:
-        /// \f[\texttt{dst} (x,y) =  \mathrm{det} M^{(x,y)} - k  \cdot \left ( \mathrm{tr} M^{(x,y)} \right )^2\f]
-        /// Corners in the image can be found as the local maxima of this response map.
-        /// </remarks>
-        public static void CornerHarris(Mat src, Mat dst, int blockSize, int ksize, double k, int borderType)
-        {
-            NativeMethods.cv_cornerHarris_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, k, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates eigenvalues and eigenvectors of image blocks for corner detection.
-        /// </summary>
-        /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
-        /// <param name="dst">Image to store the results. It has the same size as src and the type CV_32FC(6) .</param>
-        /// <param name="blockSize">Neighborhood size (see details below).</param>
-        /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
-        /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// For every pixel \f$p\f$ , the function cornerEigenValsAndVecs considers a blockSize \f$\times\f$ blockSize
-        /// neighborhood \f$S(p)\f$ . It calculates the covariation matrix of derivatives over the neighborhood as:
-        /// \f[M =  \begin{bmatrix} \sum _{S(p)}(dI/dx)^2 &amp;  \sum _{S(p)}dI/dx dI/dy  \\ \sum _{S(p)}dI/dx dI/dy &amp;  \sum _{S(p)}(dI/dy)^2 \end{bmatrix}\f]
-        /// where the derivatives are computed using the Sobel operator.
-        /// After that, it finds eigenvectors and eigenvalues of \f$M\f$ and stores them in the destination image as
-        /// \f$(\lambda_1, \lambda_2, x_1, y_1, x_2, y_2)\f$ where
-        /// -   \f$\lambda_1, \lambda_2\f$ are the non-sorted eigenvalues of \f$M\f$
-        /// -   \f$x_1, y_1\f$ are the eigenvectors corresponding to \f$\lambda_1\f$
-        /// -   \f$x_2, y_2\f$ are the eigenvectors corresponding to \f$\lambda_2\f$
-        /// The output of the function can be used for robust edge or corner detection.
-        /// @sa  cornerMinEigenVal, cornerHarris, preCornerDetect
-        /// </remarks>
-        public static void CornerEigenValsAndVecs(Mat src, Mat dst, int blockSize, int ksize, int borderType)
-        {
-            NativeMethods.cv_cornerEigenValsAndVecs_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates a feature map for corner detection.
-        /// </summary>
-        /// <param name="src">Source single-channel 8-bit of floating-point image.</param>
-        /// <param name="dst">Output image that has the type CV_32F and the same size as src .</param>
-        /// <param name="ksize">%Aperture size of the Sobel .</param>
-        /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function calculates the complex spatial derivative-based function of the source image
-        /// \f[\texttt{dst} = (D_x  \texttt{src} )^2  \cdot D_{yy}  \texttt{src} + (D_y  \texttt{src} )^2  \cdot D_{xx}  \texttt{src} - 2 D_x  \texttt{src} \cdot D_y  \texttt{src} \cdot D_{xy}  \texttt{src}\f]
-        /// where \f$D_x\f$,\f$D_y\f$ are the first image derivatives, \f$D_{xx}\f$,\f$D_{yy}\f$ are the second image
-        /// derivatives, and \f$D_{xy}\f$ is the mixed derivative.
-        /// The corners can be found as local maximums of the functions, as shown below:
-        /// @code
-        /// Mat corners, dilated_corners;
-        /// preCornerDetect(image, corners, 3);
-        /// // dilation with 3x3 rectangular structuring element
-        /// dilate(corners, dilated_corners, Mat(), 1);
-        /// Mat corner_mask = corners == dilated_corners;
-        /// @endcode
-        /// </remarks>
-        public static void PreCornerDetect(Mat src, Mat dst, int ksize, int borderType)
-        {
-            NativeMethods.cv_preCornerDetect_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Refines the corner locations.
-        /// </summary>
-        /// <param name="image">Input single-channel, 8-bit or float image.</param>
-        /// <param name="corners">Initial coordinates of the input corners and refined coordinates provided for output.</param>
-        /// <param name="winSize">Half of the side length of the search window. For example, if winSize=Size(5,5) , then a \f$(5*2+1) \times (5*2+1) = 11 \times 11\f$ search window is used.</param>
-        /// <param name="zeroZone">Half of the size of the dead region in the middle of the search zone over which the summation in the formula below is not done. It is used sometimes to avoid possible singularities of the autocorrelation matrix. The value of (-1,-1) indicates that there is no such a size.</param>
-        /// <param name="criteria">Criteria for termination of the iterative process of corner refinement. That is, the process of corner position refinement stops either after criteria.maxCount iterations or when the corner position moves by less than criteria.epsilon on some iteration.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function iterates to find the sub-pixel accurate location of corners or radial saddle
-        /// points as described in @cite forstner1987fast, and as shown on the figure below.
-        /// ![image](pics/cornersubpix.png)
-        /// Sub-pixel accurate corner locator is based on the observation that every vector from the center \f$q\f$
-        /// to a point \f$p\f$ located within a neighborhood of \f$q\f$ is orthogonal to the image gradient at \f$p\f$
-        /// subject to image and measurement noise. Consider the expression:
-        /// \f[\epsilon _i = {DI_{p_i}}^T  \cdot (q - p_i)\f]
-        /// where \f${DI_{p_i}}\f$ is an image gradient at one of the points \f$p_i\f$ in a neighborhood of \f$q\f$ . The
-        /// value of \f$q\f$ is to be found so that \f$\epsilon_i\f$ is minimized. A system of equations may be set up
-        /// with \f$\epsilon_i\f$ set to zero:
-        /// \f[\sum _i(DI_{p_i}  \cdot {DI_{p_i}}^T) \cdot q -  \sum _i(DI_{p_i}  \cdot {DI_{p_i}}^T  \cdot p_i)\f]
-        /// where the gradients are summed within a neighborhood ("search window") of \f$q\f$ . Calling the first
-        /// gradient term \f$G\f$ and the second gradient term \f$b\f$ gives:
-        /// \f[q = G^{-1}  \cdot b\f]
-        /// The algorithm sets the center of the neighborhood window at this new center \f$q\f$ and then iterates
-        /// until the center stays within a set threshold.
-        /// </remarks>
-        public static void CornerSubPix(Mat image, Mat corners, Size winSize, Size zeroZone, TermCriteria criteria)
-        {
-            NativeMethods.cv_cornerSubPix_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), winSize, zeroZone, criteria);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds lines in a binary image using the standard Hough transform.
-        /// </summary>
-        /// <param name="image">8-bit, single-channel binary source image. The image may be modified by the function.</param>
-        /// <param name="lines">Output vector of lines. Each line is represented by a 2 or 3 element vector \f$(\rho, \theta)\f$ or \f$(\rho, \theta, \textrm{votes})\f$, where \f$\rho\f$ is the distance from the coordinate origin \f$(0,0)\f$ (top-left corner of the image), \f$\theta\f$ is the line rotation angle in radians ( \f$0 \sim \textrm{vertical line}, \pi/2 \sim \textrm{horizontal line}\f$ ), and \f$\textrm{votes}\f$ is the value of accumulator.</param>
-        /// <param name="rho">Distance resolution of the accumulator in pixels.</param>
-        /// <param name="theta">Angle resolution of the accumulator in radians.</param>
-        /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( \f$&gt;\texttt{threshold}\f$ ).</param>
-        /// <param name="srn">For the multi-scale Hough transform, it is a divisor for the distance resolution rho. The coarse accumulator distance resolution is rho and the accurate accumulator resolution is rho/srn. If both srn=0 and stn=0, the classical Hough transform is used. Otherwise, both these parameters should be positive.</param>
-        /// <param name="stn">For the multi-scale Hough transform, it is a divisor for the distance resolution theta.</param>
-        /// <param name="min_theta">For standard and multi-scale Hough transform, minimum angle to check for lines. Must fall between 0 and max_theta.</param>
-        /// <param name="max_theta">For standard and multi-scale Hough transform, an upper bound for the angle. Must fall between min_theta and CV_PI. The actual maximum angle in the accumulator may be slightly less than max_theta, depending on the parameters min_theta and theta.</param>
-        /// <param name="use_edgeval">True if you want to use weighted Hough transform.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function implements the standard or standard multi-scale Hough transform algorithm for line
-        /// detection. See &lt;https://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm&gt; for a good explanation of Hough
-        /// transform.
-        /// </remarks>
-        public static void HoughLines(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta, bool use_edgeval)
-        {
-            NativeMethods.cv_HoughLines_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, srn, stn, min_theta, max_theta, use_edgeval);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds line segments in a binary image using the probabilistic Hough transform.
-        /// </summary>
-        /// <param name="image">8-bit, single-channel binary source image. The image may be modified by the function.</param>
-        /// <param name="lines">Output vector of lines. Each line is represented by a 4-element vector \f$(x_1, y_1, x_2, y_2)\f$ , where \f$(x_1,y_1)\f$ and \f$(x_2, y_2)\f$ are the ending points of each detected line segment.</param>
-        /// <param name="rho">Distance resolution of the accumulator in pixels.</param>
-        /// <param name="theta">Angle resolution of the accumulator in radians.</param>
-        /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( \f$&gt;\texttt{threshold}\f$ ).</param>
-        /// <param name="minLineLength">Minimum line length. Line segments shorter than that are rejected.</param>
-        /// <param name="maxLineGap">Maximum allowed gap between points on the same line to link them.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function implements the probabilistic Hough transform algorithm for line detection, described
-        /// in @cite Matas00
-        /// See the line detection example below:
-        /// @include snippets/imgproc_HoughLinesP.cpp
-        /// This is a sample picture the function parameters have been tuned for:
-        /// ![image](pics/building.jpg)
-        /// And this is the output of the above program in case of the probabilistic Hough transform:
-        /// ![image](pics/houghp.png)
-        /// @sa LineSegmentDetector
-        /// </remarks>
-        public static void HoughLinesP(Mat image, Mat lines, double rho, double theta, int threshold, double minLineLength, double maxLineGap)
-        {
-            NativeMethods.cv_HoughLinesP_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, minLineLength, maxLineGap);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds lines in a set of points using the standard Hough transform.
-        /// </summary>
-        /// <param name="point">Input vector of points. Each vector must be encoded as a Point vector \f$(x,y)\f$. Type must be CV_32FC2 or CV_32SC2.</param>
-        /// <param name="lines">Output vector of found lines. Each vector is encoded as a vector&lt;Vec3d&gt; \f$(votes, rho, theta)\f$. The larger the value of 'votes', the higher the reliability of the Hough line.</param>
-        /// <param name="lines_max">Max count of Hough lines.</param>
-        /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( \f$&gt;\texttt{threshold}\f$ ).</param>
-        /// <param name="min_rho">Minimum value for \f$\rho\f$ for the accumulator (Note: \f$\rho\f$ can be negative. The absolute value \f$|\rho|\f$ is the distance of a line to the origin.).</param>
-        /// <param name="max_rho">Maximum value for \f$\rho\f$ for the accumulator.</param>
-        /// <param name="rho_step">Distance resolution of the accumulator.</param>
-        /// <param name="min_theta">Minimum angle value of the accumulator in radians.</param>
-        /// <param name="max_theta">Upper bound for the angle value of the accumulator in radians. The actual maximum angle may be slightly less than max_theta, depending on the parameters min_theta and theta_step.</param>
-        /// <param name="theta_step">Angle resolution of the accumulator in radians.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function finds lines in a set of points using a modification of the Hough transform.
-        /// @include snippets/imgproc_HoughLinesPointSet.cpp
-        /// </remarks>
-        public static void HoughLinesPointSet(Mat point, Mat lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
-        {
-            NativeMethods.cv_HoughLinesPointSet_0(ValidationHelper.GetHandle(point, nameof(point), false), ValidationHelper.GetHandle(lines, nameof(lines), false), lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds circles in a grayscale image using the Hough transform.
-        /// </summary>
-        /// <param name="image">8-bit, single-channel, grayscale input image.</param>
-        /// <param name="circles">Output vector of found circles. Each vector is encoded as  3 or 4 element floating-point vector \f$(x, y, radius)\f$ or \f$(x, y, radius, votes)\f$ .</param>
-        /// <param name="method">Detection method, see #HoughModes. The available methods are #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT.</param>
-        /// <param name="dp">Inverse ratio of the accumulator resolution to the image resolution. For example, if dp=1 , the accumulator has the same resolution as the input image. If dp=2 , the accumulator has half as big width and height. For #HOUGH_GRADIENT_ALT the recommended value is dp=1.5, unless some small very circles need to be detected.</param>
-        /// <param name="minDist">Minimum distance between the centers of the detected circles. If the parameter is too small, multiple neighbor circles may be falsely detected in addition to a true one. If it is too large, some circles may be missed.</param>
-        /// <param name="param1">First method-specific parameter. In case of #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT, it is the higher threshold of the two passed to the Canny edge detector (the lower one is twice smaller). Note that #HOUGH_GRADIENT_ALT uses #Scharr algorithm to compute image derivatives, so the threshold value should normally be higher, such as 300 or normally exposed and contrasty images.</param>
-        /// <param name="param2">Second method-specific parameter. In case of #HOUGH_GRADIENT, it is the accumulator threshold for the circle centers at the detection stage. The smaller it is, the more false circles may be detected. Circles, corresponding to the larger accumulator values, will be returned first. In the case of #HOUGH_GRADIENT_ALT algorithm, this is the circle "perfectness" measure. The closer it to 1, the better shaped circles algorithm selects. In most cases 0.9 should be fine. If you want get better detection of small circles, you may decrease it to 0.85, 0.8 or even less. But then also try to limit the search range [minRadius, maxRadius] to avoid many false circles.</param>
-        /// <param name="minRadius">Minimum circle radius.</param>
-        /// <param name="maxRadius">Maximum circle radius. If &lt;= 0, uses the maximum image dimension. If &lt; 0, #HOUGH_GRADIENT returns centers without finding the radius. #HOUGH_GRADIENT_ALT always computes circle radiuses.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function finds circles in a grayscale image using a modification of the Hough transform.
-        /// Example: :
-        /// @include snippets/imgproc_HoughLinesCircles.cpp
-        /// @note Usually the function detects the centers of circles well. However, it may fail to find correct
-        /// radii. You can assist to the function by specifying the radius range ( minRadius and maxRadius ) if
-        /// you know it. Or, in the case of #HOUGH_GRADIENT method you may set maxRadius to a negative number
-        /// to return centers only without radius search, and find the correct radius using an additional procedure.
-        /// It also helps to smooth image a bit unless it's already soft. For example,
-        /// GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help.
-        /// @sa fitEllipse, minEnclosingCircle
-        /// </remarks>
-        public static void HoughCircles(Mat image, Mat circles, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius)
-        {
-            NativeMethods.cv_HoughCircles_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(circles, nameof(circles), false), method, dp, minDist, param1, param2, minRadius, maxRadius);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Erodes an image by using a specific structuring element.
-        /// </summary>
-        /// <param name="src">input image; the number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="kernel">structuring element used for erosion; if `kernel=Mat()`, a `3 x 3` rectangular structuring element is used. Kernel can be created using #getStructuringElement.</param>
-        /// <param name="anchor">position of the anchor within the element; default value (-1, -1) means that the anchor is at the element center.</param>
-        /// <param name="iterations">number of times erosion is applied.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <param name="borderValue">border value in case of a constant border</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function erodes the source image using the specified structuring element that determines the
-        /// shape of a pixel neighborhood over which the minimum is taken:
-        /// \f[\texttt{dst} (x,y) =  \min _{(x',y'):  \, \texttt{kernel} (x',y') \ne0 } \texttt{src} (x+x',y+y')\f]
-        /// The function supports the in-place mode. Erosion can be applied several ( iterations ) times. In
-        /// case of multi-channel images, each channel is processed independently.
-        /// @sa  dilate, morphologyEx, getStructuringElement
-        /// </remarks>
-        public static void Erode(Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
-        {
-            NativeMethods.cv_erode_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Dilates an image by using a specific structuring element.
-        /// </summary>
-        /// <param name="src">input image; the number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
-        /// <param name="dst">output image of the same size and type as src.</param>
-        /// <param name="kernel">structuring element used for dilation; if `kernel=Mat()`, a `3 x 3` rectangular structuring element is used. Kernel can be created using #getStructuringElement</param>
-        /// <param name="anchor">position of the anchor within the element; default value (-1, -1) means that the anchor is at the element center.</param>
-        /// <param name="iterations">number of times dilation is applied.</param>
-        /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <param name="borderValue">border value in case of a constant border</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function dilates the source image using the specified structuring element that determines the
-        /// shape of a pixel neighborhood over which the maximum is taken:
-        /// \f[\texttt{dst} (x,y) =  \max _{(x',y'):  \, \texttt{kernel} (x',y') \ne0 } \texttt{src} (x+x',y+y')\f]
-        /// The function supports the in-place mode. Dilation can be applied several ( iterations ) times. In
-        /// case of multi-channel images, each channel is processed independently.
-        /// @sa  erode, morphologyEx, getStructuringElement
-        /// </remarks>
-        public static void Dilate(Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
-        {
-            NativeMethods.cv_dilate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Performs advanced morphological transformations.
-        /// </summary>
-        /// <param name="src">Source image. The number of channels can be arbitrary. The depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
-        /// <param name="dst">Destination image of the same size and type as source image.</param>
-        /// <param name="op">Type of a morphological operation, see #MorphTypes</param>
-        /// <param name="kernel">Structuring element. It can be created using #getStructuringElement.</param>
-        /// <param name="anchor">Anchor position with the kernel. Negative values mean that the anchor is at the kernel center.</param>
-        /// <param name="iterations">Number of times erosion and dilation are applied.</param>
-        /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
-        /// <param name="borderValue">Border value in case of a constant border. The default value has a special meaning.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::morphologyEx can perform advanced morphological transformations using an erosion and dilation as
-        /// basic operations.
-        /// Any of the operations can be done in-place. In case of multi-channel images, each channel is
-        /// processed independently.
-        /// @sa  dilate, erode, getStructuringElement
-        /// @note The number of iterations is the number of times erosion or dilatation operation will be applied.
-        /// For instance, an opening operation (#MORPH_OPEN) with two iterations is equivalent to apply
-        /// successively: erode -&gt; erode -&gt; dilate -&gt; dilate (and not erode -&gt; dilate -&gt; erode -&gt; dilate).
-        /// </remarks>
-        public static void MorphologyEx(Mat src, Mat dst, int op, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
-        {
-            NativeMethods.cv_morphologyEx_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), op, ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Resizes an image.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image; it has the size dsize (when it is non-zero) or the size computed from src.size(), fx, and fy; the type of dst is the same as of src.</param>
-        /// <param name="dsize">output image size; if it equals zero (`None` in Python), it is computed as: \f[\texttt{dsize = Size(round(fx*src.cols), round(fy*src.rows))}\f] Either dsize or both fx and fy must be non-zero.</param>
-        /// <param name="fx">scale factor along the horizontal axis; when it equals 0, it is computed as \f[\texttt{(double)dsize.width/src.cols}\f]</param>
-        /// <param name="fy">scale factor along the vertical axis; when it equals 0, it is computed as \f[\texttt{(double)dsize.height/src.rows}\f]</param>
-        /// <param name="interpolation">interpolation method, see #InterpolationFlags</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function resize resizes the image src down to or up to the specified size. Note that the
-        /// initial dst type or size are not taken into account. Instead, the size and type are derived from
-        /// the `src`,`dsize`,`fx`, and `fy`. If you want to resize src so that it fits the pre-created dst,
-        /// you may call the function as follows:
-        /// @code
-        /// // explicitly specify dsize=dst.size(); fx and fy will be computed from that.
-        /// resize(src, dst, dst.size(), 0, 0, interpolation);
-        /// @endcode
-        /// If you want to decimate the image by factor of 2 in each direction, you can call the function this
-        /// way:
-        /// @code
-        /// // specify fx and fy and let the function compute the destination image size.
-        /// resize(src, dst, Size(), 0.5, 0.5, interpolation);
-        /// @endcode
-        /// To shrink an image, it will generally look best with #INTER_AREA interpolation, whereas to
-        /// enlarge an image, it will generally look best with #INTER_CUBIC (slow) or #INTER_LINEAR
-        /// (faster but still looks OK).
-        /// @sa  warpAffine, warpPerspective, remap
-        /// </remarks>
-        public static void Resize(Mat src, Mat dst, Size dsize, double fx, double fy, int interpolation)
-        {
-            NativeMethods.cv_resize_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dsize, fx, fy, interpolation);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies an affine transformation to an image.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image that has the size dsize and the same type as src .</param>
-        /// <param name="M">\f$2\times 3\f$ transformation matrix.</param>
-        /// <param name="dsize">size of the output image.</param>
-        /// <param name="flags">combination of interpolation methods (see #InterpolationFlags) and the optional flag #WARP_INVERSE_MAP that means that M is the inverse transformation ( \f$\texttt{dst}\rightarrow\texttt{src}\f$ ).</param>
-        /// <param name="borderMode">pixel extrapolation method (see #BorderTypes); when borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image corresponding to the "outliers" in the source image are not modified by the function.</param>
-        /// <param name="borderValue">value used in case of a constant border; by default, it is 0.</param>
-        /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function warpAffine transforms the source image using the specified matrix:
-        /// \f[\texttt{dst} (x,y) =  \texttt{src} ( \texttt{M} _{11} x +  \texttt{M} _{12} y +  \texttt{M} _{13}, \texttt{M} _{21} x +  \texttt{M} _{22} y +  \texttt{M} _{23})\f]
-        /// when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted
-        /// with #invertAffineTransform and then put in the formula above instead of M. The function cannot
-        /// operate in-place.
-        /// @sa  warpPerspective, resize, remap, getRectSubPix, transform
-        /// </remarks>
-        public static void WarpAffine(Mat src, Mat dst, Mat M, Size dsize, int flags, int borderMode, Scalar borderValue, AlgorithmHint hint)
-        {
-            NativeMethods.cv_warpAffine_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(M, nameof(M), false), dsize, flags, borderMode, borderValue, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies a perspective transformation to an image.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image that has the size dsize and the same type as src .</param>
-        /// <param name="M">\f$3\times 3\f$ transformation matrix.</param>
-        /// <param name="dsize">size of the output image.</param>
-        /// <param name="flags">combination of interpolation methods (#INTER_LINEAR or #INTER_NEAREST) and the optional flag #WARP_INVERSE_MAP, that sets M as the inverse transformation ( \f$\texttt{dst}\rightarrow\texttt{src}\f$ ).</param>
-        /// <param name="borderMode">pixel extrapolation method (#BORDER_CONSTANT or #BORDER_REPLICATE).</param>
-        /// <param name="borderValue">value used in case of a constant border; by default, it equals 0.</param>
-        /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function warpPerspective transforms the source image using the specified matrix:
-        /// \f[\texttt{dst} (x,y) =  \texttt{src} \left ( \frac{M_{11} x + M_{12} y + M_{13}}{M_{31} x + M_{32} y + M_{33}} ,
-        /// \frac{M_{21} x + M_{22} y + M_{23}}{M_{31} x + M_{32} y + M_{33}} \right )\f]
-        /// when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted with invert
-        /// and then put in the formula above instead of M. The function cannot operate in-place.
-        /// @sa  warpAffine, resize, remap, getRectSubPix, perspectiveTransform
-        /// </remarks>
-        public static void WarpPerspective(Mat src, Mat dst, Mat M, Size dsize, int flags, int borderMode, Scalar borderValue, AlgorithmHint hint)
-        {
-            NativeMethods.cv_warpPerspective_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(M, nameof(M), false), dsize, flags, borderMode, borderValue, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies a generic geometrical transformation to an image.
-        /// </summary>
-        /// <param name="src">Source image.</param>
-        /// <param name="dst">Destination image. It has the same size as map1 and the same type as src .</param>
-        /// <param name="map1">The first map of either (x,y) points or just x values having the type CV_16SC2 , CV_32FC1, or CV_32FC2. See #convertMaps for details on converting a floating point representation to fixed-point for speed.</param>
-        /// <param name="map2">The second map of y values having the type CV_16UC1, CV_32FC1, or none (empty map if map1 is (x,y) points), respectively.</param>
-        /// <param name="interpolation">Interpolation method (see #InterpolationFlags). The methods #INTER_AREA #INTER_LINEAR_EXACT and #INTER_NEAREST_EXACT are not supported by this function. The extra flag WARP_RELATIVE_MAP can be ORed to the interpolation method (e.g. INTER_LINEAR | WARP_RELATIVE_MAP)</param>
-        /// <param name="borderMode">Pixel extrapolation method (see #BorderTypes). When borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image that corresponds to the "outliers" in the source image are not modified by the function.</param>
-        /// <param name="borderValue">Value used in case of a constant border. By default, it is 0.</param>
-        /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function remap transforms the source image using the specified map:
-        /// \f[\texttt{dst} (x,y) =  \texttt{src} (map_x(x,y),map_y(x,y))\f]
-        /// with the WARP_RELATIVE_MAP flag :
-        /// \f[\texttt{dst} (x,y) =  \texttt{src} (x+map_x(x,y),y+map_y(x,y))\f]
-        /// where values of pixels with non-integer coordinates are computed using one of available
-        /// interpolation methods. \f$map_x\f$ and \f$map_y\f$ can be encoded as separate floating-point maps
-        /// in \f$map_1\f$ and \f$map_2\f$ respectively, or interleaved floating-point maps of \f$(x,y)\f$ in
-        /// \f$map_1\f$, or fixed-point maps created by using #convertMaps. The reason you might want to
-        /// convert from floating to fixed-point representations of a map is that they can yield much faster
-        /// (\~2x) remapping operations. In the converted case, \f$map_1\f$ contains pairs (cvFloor(x),
-        /// cvFloor(y)) and \f$map_2\f$ contains indices in a table of interpolation coefficients.
-        /// This function cannot operate in-place.
-        /// @note
-        /// Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
-        /// </remarks>
-        public static void Remap(Mat src, Mat dst, Mat map1, Mat map2, int interpolation, int borderMode, Scalar borderValue, AlgorithmHint hint)
-        {
-            NativeMethods.cv_remap_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false), interpolation, borderMode, borderValue, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Converts image transformation maps from one representation to another.
-        /// </summary>
-        /// <param name="map1">The first input map of type CV_16SC2, CV_32FC1, or CV_32FC2 .</param>
-        /// <param name="map2">The second input map of type CV_16UC1, CV_32FC1, or none (empty matrix), respectively.</param>
-        /// <param name="dstmap1">The first output map that has the type dstmap1type and the same size as src .</param>
-        /// <param name="dstmap2">The second output map.</param>
-        /// <param name="dstmap1type">Type of the first output map that should be CV_16SC2, CV_32FC1, or CV_32FC2 .</param>
-        /// <param name="nninterpolation">Flag indicating whether the fixed-point maps are used for the nearest-neighbor or for a more complex interpolation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function converts a pair of maps for remap from one representation to another. The following
-        /// options ( (map1.type(), map2.type()) \f$\rightarrow\f$ (dstmap1.type(), dstmap2.type()) ) are
-        /// supported:
-        /// - \f$\texttt{(CV_32FC1, CV_32FC1)} \rightarrow \texttt{(CV_16SC2, CV_16UC1)}\f$. This is the
-        /// most frequently used conversion operation, in which the original floating-point maps (see #remap)
-        /// are converted to a more compact and much faster fixed-point representation. The first output array
-        /// contains the rounded coordinates and the second array (created only when nninterpolation=false )
-        /// contains indices in the interpolation tables.
-        /// - \f$\texttt{(CV_32FC2)} \rightarrow \texttt{(CV_16SC2, CV_16UC1)}\f$. The same as above but
-        /// the original maps are stored in one 2-channel matrix.
-        /// - Reverse conversion. Obviously, the reconstructed floating-point maps will not be exactly the same
-        /// as the originals.
-        /// @sa  remap, undistort, initUndistortRectifyMap
-        /// </remarks>
-        public static void ConvertMaps(Mat map1, Mat map2, Mat dstmap1, Mat dstmap2, int dstmap1type, bool nninterpolation)
-        {
-            NativeMethods.cv_convertMaps_0(ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false), ValidationHelper.GetHandle(dstmap1, nameof(dstmap1), false), ValidationHelper.GetHandle(dstmap2, nameof(dstmap2), false), dstmap1type, nninterpolation);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Transforms an image to compensate for lens distortion.
-        /// </summary>
-        /// <param name="src">Input (distorted) image.</param>
-        /// <param name="dst">Output (corrected) image that has the same size and type as src .</param>
-        /// <param name="cameraMatrix">Input camera matrix \f$A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="newCameraMatrix">Camera matrix of the distorted image. By default, it is the same as cameraMatrix but you may additionally scale and shift the result by using a different matrix.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function transforms an image to compensate radial and tangential lens distortion.
-        /// The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
-        /// (with bilinear interpolation). See the former function for details of the transformation being
-        /// performed.
-        /// Those pixels in the destination image, for which there is no correspondent pixels in the source
-        /// image, are filled with zeros (black color).
-        /// A particular subset of the source image that will be visible in the corrected image can be regulated
-        /// by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
-        /// newCameraMatrix depending on your requirements.
-        /// The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
-        /// the resolution of images is different from the resolution used at the calibration stage, \f$f_x,
-        /// f_y, c_x\f$ and \f$c_y\f$ need to be scaled accordingly, while the distortion coefficients remain
-        /// the same.
-        /// </remarks>
-        public static void Undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat? newCameraMatrix)
-        {
-            NativeMethods.cv_undistort_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes the undistortion and rectification transformation map.
-        /// </summary>
-        /// <param name="cameraMatrix">Input camera matrix \f$A=\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="R">Optional rectification transformation in the object space (3x3 matrix). R1 or R2 , computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is assumed. In #initUndistortRectifyMap R assumed to be an identity matrix.</param>
-        /// <param name="newCameraMatrix">New camera matrix \f$A'=\vecthreethree{f_x'}{0}{c_x'}{0}{f_y'}{c_y'}{0}{0}{1}\f$.</param>
-        /// <param name="size">Undistorted image size.</param>
-        /// <param name="m1type">Type of the first output map that can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps</param>
-        /// <param name="map1">The first output map.</param>
-        /// <param name="map2">The second output map.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes the joint undistortion and rectification transformation and represents the
-        /// result in the form of maps for #remap. The undistorted image looks like original, as if it is
-        /// captured with a camera using the camera matrix =newCameraMatrix and zero distortion. In case of a
-        /// monocular camera, newCameraMatrix is usually equal to cameraMatrix, or it can be computed by
-        /// #getOptimalNewCameraMatrix for a better control over scaling. In case of a stereo camera,
-        /// newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
-        /// Also, this new camera is oriented differently in the coordinate space, according to R. That, for
-        /// example, helps to align two heads of a stereo camera so that the epipolar lines on both images
-        /// become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
-        /// The function actually builds the maps for the inverse mapping algorithm that is used by #remap. That
-        /// is, for each pixel \f$(u, v)\f$ in the destination (corrected and rectified) image, the function
-        /// computes the corresponding coordinates in the source image (that is, in the original image from
-        /// camera). The following process is applied:
-        /// \f[
-        /// \begin{array}{l}
-        /// x  \leftarrow (u - {c'}_x)/{f'}_x  \\
-        /// y  \leftarrow (v - {c'}_y)/{f'}_y  \\
-        /// {[X\,Y\,W]} ^T  \leftarrow R^{-1}*[x \, y \, 1]^T  \\
-        /// x'  \leftarrow X/W  \\
-        /// y'  \leftarrow Y/W  \\
-        /// r^2  \leftarrow x'^2 + y'^2 \\
-        /// x''  \leftarrow x' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
-        /// + 2p_1 x' y' + p_2(r^2 + 2 x'^2)  + s_1 r^2 + s_2 r^4\\
-        /// y''  \leftarrow y' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
-        /// + p_1 (r^2 + 2 y'^2) + 2 p_2 x' y' + s_3 r^2 + s_4 r^4 \\
-        /// s\vecthree{x'''}{y'''}{1} =
-        /// \vecthreethree{R_{33}(\tau_x, \tau_y)}{0}{-R_{13}((\tau_x, \tau_y)}
-        /// {0}{R_{33}(\tau_x, \tau_y)}{-R_{23}(\tau_x, \tau_y)}
-        /// {0}{0}{1} R(\tau_x, \tau_y) \vecthree{x''}{y''}{1}\\
-        /// map_x(u,v)  \leftarrow x''' f_x + c_x  \\
-        /// map_y(u,v)  \leftarrow y''' f_y + c_y
-        /// \end{array}
-        /// \f]
-        /// where \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$
-        /// are the distortion coefficients.
-        /// In case of a stereo camera, this function is called twice: once for each camera head, after
-        /// #stereoRectify, which in its turn is called after #stereoCalibrate. But if the stereo camera
-        /// was not calibrated, it is still possible to compute the rectification transformations directly from
-        /// the fundamental matrix using #stereoRectifyUncalibrated. For each camera, the function computes
-        /// homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
-        /// space. R can be computed from H as
-        /// \f[\texttt{R} = \texttt{cameraMatrix} ^{-1} \cdot \texttt{H} \cdot \texttt{cameraMatrix}\f]
-        /// where cameraMatrix can be chosen arbitrarily.
-        /// </remarks>
-        public static void InitUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2)
-        {
-            NativeMethods.cv_initUndistortRectifyMap_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes the projection and inverse-rectification transformation map. In essense, this is the inverse of
-        /// #initUndistortRectifyMap to accomodate stereo-rectification of projectors ('inverse-cameras') in projector-camera pairs.
-        /// </summary>
-        /// <param name="cameraMatrix">Input camera matrix \f$A=\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .</param>
-        /// <param name="distCoeffs">Input vector of distortion coefficients \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
-        /// <param name="R">Optional rectification transformation in the object space (3x3 matrix). R1 or R2, computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is assumed.</param>
-        /// <param name="newCameraMatrix">New camera matrix \f$A'=\vecthreethree{f_x'}{0}{c_x'}{0}{f_y'}{c_y'}{0}{0}{1}\f$.</param>
-        /// <param name="size">Distorted image size.</param>
-        /// <param name="m1type">Type of the first output map. Can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps</param>
-        /// <param name="map1">The first output map for #remap.</param>
-        /// <param name="map2">The second output map for #remap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes the joint projection and inverse rectification transformation and represents the
-        /// result in the form of maps for #remap. The projected image looks like a distorted version of the original which,
-        /// once projected by a projector, should visually match the original. In case of a monocular camera, newCameraMatrix
-        /// is usually equal to cameraMatrix, or it can be computed by
-        /// #getOptimalNewCameraMatrix for a better control over scaling. In case of a projector-camera pair,
-        /// newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
-        /// The projector is oriented differently in the coordinate space, according to R. In case of projector-camera pairs,
-        /// this helps align the projector (in the same manner as #initUndistortRectifyMap for the camera) to create a stereo-rectified pair. This
-        /// allows epipolar lines on both images to become horizontal and have the same y-coordinate (in case of a horizontally aligned projector-camera pair).
-        /// The function builds the maps for the inverse mapping algorithm that is used by #remap. That
-        /// is, for each pixel \f$(u, v)\f$ in the destination (projected and inverse-rectified) image, the function
-        /// computes the corresponding coordinates in the source image (that is, in the original digital image). The following process is applied:
-        /// \f[
-        /// \begin{array}{l}
-        /// \text{newCameraMatrix}\\
-        /// x  \leftarrow (u - {c'}_x)/{f'}_x  \\
-        /// y  \leftarrow (v - {c'}_y)/{f'}_y  \\
-        /// \\\text{Undistortion}
-        /// \\\scriptsize{\textit{though equation shown is for radial undistortion, function implements cv::undistortPoints()}}\\
-        /// r^2  \leftarrow x^2 + y^2 \\
-        /// \theta \leftarrow \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}\\
-        /// x' \leftarrow \frac{x}{\theta} \\
-        /// y'  \leftarrow \frac{y}{\theta} \\
-        /// \\\text{Rectification}\\
-        /// {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
-        /// x''  \leftarrow X/W  \\
-        /// y''  \leftarrow Y/W  \\
-        /// \\\text{cameraMatrix}\\
-        /// map_x(u,v)  \leftarrow x'' f_x + c_x  \\
-        /// map_y(u,v)  \leftarrow y'' f_y + c_y
-        /// \end{array}
-        /// \f]
-        /// where \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$
-        /// are the distortion coefficients vector distCoeffs.
-        /// In case of a stereo-rectified projector-camera pair, this function is called for the projector while #initUndistortRectifyMap is called for the camera head.
-        /// This is done after #stereoRectify, which in turn is called after #stereoCalibrate. If the projector-camera pair
-        /// is not calibrated, it is still possible to compute the rectification transformations directly from
-        /// the fundamental matrix using #stereoRectifyUncalibrated. For the projector and camera, the function computes
-        /// homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
-        /// space. R can be computed from H as
-        /// \f[\texttt{R} = \texttt{cameraMatrix} ^{-1} \cdot \texttt{H} \cdot \texttt{cameraMatrix}\f]
-        /// where cameraMatrix can be chosen arbitrarily.
-        /// </remarks>
-        public static void InitInverseRectificationMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2)
-        {
-            NativeMethods.cv_initInverseRectificationMap_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes undistortion and rectification maps for image transform by cv::remap(). If D is empty zero
-        /// distortion is used, if R or P is empty identity matrixes are used.
-        /// </summary>
-        /// <param name="K">Camera intrinsic matrix \f$cameramatrix{K}\f$.</param>
-        /// <param name="D">Input vector of distortion coefficients \f$\distcoeffsfisheye\f$.</param>
-        /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel</param>
-        /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4)</param>
-        /// <param name="size">Undistorted image size.</param>
-        /// <param name="m1type">Type of the first output map that can be CV_32FC1 or CV_16SC2 . See convertMaps() for details.</param>
-        /// <param name="map1">The first output map.</param>
-        /// <param name="map2">The second output map.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeInitUndistortRectifyMap(Mat K, Mat D, Mat R, Mat P, Size size, int m1type, Mat map1, Mat map2)
-        {
-            NativeMethods.cv_fisheye_initUndistortRectifyMap_0(ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(P, nameof(P), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Transforms an image to compensate for fisheye lens distortion.
-        /// </summary>
-        /// <param name="distorted">image with fisheye lens distortion.</param>
-        /// <param name="undistorted">Output image with compensated fisheye lens distortion.</param>
-        /// <param name="K">Camera intrinsic matrix \f$cameramatrix{K}\f$.</param>
-        /// <param name="D">Input vector of distortion coefficients \f$\distcoeffsfisheye\f$.</param>
-        /// <param name="Knew">Camera intrinsic matrix of the distorted image. By default, it is the identity matrix but you may additionally scale and shift the result by using a different matrix.</param>
-        /// <param name="new_size">the new size The function transforms an image to compensate radial and tangential lens distortion. The function is simply a combination of #cv::fisheye::initUndistortRectifyMap (with unity R ) and remap (with bilinear interpolation). See the former function for details of the transformation being performed. See below the results of undistortImage. -   a\) result of undistort of perspective camera model (all possible coefficients (k_1, k_2, k_3, k_4, k_5, k_6) of distortion were optimized under calibration) -   b\) result of #cv::fisheye::undistortImage of fisheye camera model (all possible coefficients (k_1, k_2, k_3, k_4) of fisheye distortion were optimized under calibration) -   c\) original image was captured with fisheye lens Pictures a) and b) almost the same. But if we consider points of image located far from the center of image, we can notice that on image a) these points are distorted. ![image](pics/fisheye_undistorted.jpg)</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeUndistortImage(Mat distorted, Mat undistorted, Mat K, Mat D, Mat? Knew, Size new_size)
-        {
-            NativeMethods.cv_fisheye_undistortImage_0(ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(Knew, nameof(Knew), true), new_size);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Retrieves a pixel rectangle from an image with sub-pixel accuracy.
-        /// </summary>
-        /// <param name="image">Source image.</param>
-        /// <param name="patchSize">Size of the extracted patch.</param>
-        /// <param name="center">Floating point coordinates of the center of the extracted rectangle within the source image. The center must be inside the image.</param>
-        /// <param name="patch">Extracted patch that has the size patchSize and the same number of channels as src .</param>
-        /// <param name="patchType">Depth of the extracted pixels. By default, they have the same depth as src .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function getRectSubPix extracts pixels from src:
-        /// \f[patch(x, y) = src(x +  \texttt{center.x} - ( \texttt{dst.cols} -1)*0.5, y +  \texttt{center.y} - ( \texttt{dst.rows} -1)*0.5)\f]
-        /// where the values of the pixels at non-integer coordinates are retrieved using bilinear
-        /// interpolation. Every channel of multi-channel images is processed independently. Also
-        /// the image should be a single channel or three channel image. While the center of the
-        /// rectangle must be inside the image, parts of the rectangle may be outside.
-        /// @sa  warpAffine, warpPerspective
-        /// </remarks>
-        public static void GetRectSubPix(Mat image, Size patchSize, Point2F center, Mat patch, int patchType)
-        {
-            NativeMethods.cv_getRectSubPix_0(ValidationHelper.GetHandle(image, nameof(image), false), patchSize, center, ValidationHelper.GetHandle(patch, nameof(patch), false), patchType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// \brief Remaps an image to polar or semilog-polar coordinates space
-        /// </summary>
-        /// <param name="src">Source image.</param>
-        /// <param name="dst">Destination image. It will have same type as src.</param>
-        /// <param name="dsize">The destination image size (see description for valid options).</param>
-        /// <param name="center">The transformation center.</param>
-        /// <param name="maxRadius">The radius of the bounding circle to transform. It determines the inverse magnitude scale parameter too.</param>
-        /// <param name="flags">A combination of interpolation methods, #InterpolationFlags + #WarpPolarMode. - Add #WARP_POLAR_LINEAR to select linear polar mapping (default) - Add #WARP_POLAR_LOG to select semilog polar mapping - Add #WARP_INVERSE_MAP for reverse mapping.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @anchor polar_remaps_reference_image
-        /// ![Polar remaps reference](pics/polar_remap_doc.png)
-        /// Transform the source image using the following transformation:
-        /// \f[
-        /// dst(\rho , \phi ) = src(x,y)
-        /// \f]
-        /// where
-        /// \f[
-        /// \begin{array}{l}
-        /// \vec{I} = (x - center.x, \;y - center.y) \\
-        /// \phi = Kangle \cdot \texttt{angle} (\vec{I}) \\
-        /// \rho = \left\{\begin{matrix}
-        /// Klin \cdot \texttt{magnitude} (\vec{I}) &amp; default \\
-        /// Klog \cdot log_e(\texttt{magnitude} (\vec{I})) &amp; if \; semilog \\
-        /// \end{matrix}\right.
-        /// \end{array}
-        /// \f]
-        /// and
-        /// \f[
-        /// \begin{array}{l}
-        /// Kangle = dsize.height / 2\Pi \\
-        /// Klin = dsize.width / maxRadius \\
-        /// Klog = dsize.width / log_e(maxRadius) \\
-        /// \end{array}
-        /// \f]
-        /// \par Linear vs semilog mapping
-        /// Polar mapping can be linear or semi-log. Add one of #WarpPolarMode to `flags` to specify the polar mapping mode.
-        /// Linear is the default mode.
-        /// The semilog mapping emulates the human "foveal" vision that permit very high acuity on the line of sight (central vision)
-        /// in contrast to peripheral vision where acuity is minor.
-        /// \par Option on `dsize`:
-        /// - if both values in `dsize &lt;=0 ` (default),
-        /// the destination image will have (almost) same area of source bounding circle:
-        /// \f[\begin{array}{l}
-        /// dsize.area  \leftarrow (maxRadius^2 \cdot \Pi) \\
-        /// dsize.width = \texttt{cvRound}(maxRadius) \\
-        /// dsize.height = \texttt{cvRound}(maxRadius \cdot \Pi) \\
-        /// \end{array}\f]
-        /// - if only `dsize.height &lt;= 0`,
-        /// the destination image area will be proportional to the bounding circle area but scaled by `Kx * Kx`:
-        /// \f[\begin{array}{l}
-        /// dsize.height = \texttt{cvRound}(dsize.width \cdot \Pi) \\
-        /// \end{array}
-        /// \f]
-        /// - if both values in `dsize &gt; 0 `,
-        /// the destination image will have the given size therefore the area of the bounding circle will be scaled to `dsize`.
-        /// \par Reverse mapping
-        /// You can get reverse mapping adding #WARP_INVERSE_MAP to `flags`
-        /// \snippet polar_transforms.cpp InverseMap
-        /// In addition, to calculate the original coordinate from a polar mapped coordinate \f$(rho, phi)-&gt;(x, y)\f$:
-        /// \snippet polar_transforms.cpp InverseCoordinate
-        /// @note
-        /// -  The function can not operate in-place.
-        /// -  To calculate magnitude and angle in degrees #cartToPolar is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
-        /// -  This function uses #remap. Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
-        /// @sa cv::remap
-        /// </remarks>
-        public static void WarpPolar(Mat src, Mat dst, Size dsize, Point2F center, double maxRadius, int flags)
-        {
-            NativeMethods.cv_warpPolar_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dsize, center, maxRadius, flags);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the integral of an image.
-        /// </summary>
-        /// <param name="src">input image as \f$W \times H\f$, 8-bit or floating-point (32f or 64f).</param>
-        /// <param name="sum">integral image as \f$(W+1)\times (H+1)\f$ , 32-bit integer or floating-point (32f or 64f).</param>
-        /// <param name="sqsum">integral image for squared pixel values; it is \f$(W+1)\times (H+1)\f$, double-precision floating-point (64f) array.</param>
-        /// <param name="tilted">integral for the image rotated by 45 degrees; it is \f$(W+1)\times (H+1)\f$ array with the same data type as sum.</param>
-        /// <param name="sdepth">desired depth of the integral and the tilted integral images, CV_32S, CV_32F, or CV_64F.</param>
-        /// <param name="sqdepth">desired depth of the integral image of squared pixel values, CV_32F or CV_64F.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function calculates one or more integral images for the source image as follows:
-        /// \f[\texttt{sum} (X,Y) =  \sum _{x&lt;X,y&lt;Y}  \texttt{image} (x,y)\f]
-        /// \f[\texttt{sqsum} (X,Y) =  \sum _{x&lt;X,y&lt;Y}  \texttt{image} (x,y)^2\f]
-        /// \f[\texttt{tilted} (X,Y) =  \sum _{y&lt;Y,abs(x-X+1) \leq Y-y-1}  \texttt{image} (x,y)\f]
-        /// Using these integral images, you can calculate sum, mean, and standard deviation over a specific
-        /// up-right or rotated rectangular region of the image in a constant time, for example:
-        /// \f[\sum _{x_1 \leq x &lt; x_2,  \, y_1  \leq y &lt; y_2}  \texttt{image} (x,y) =  \texttt{sum} (x_2,y_2)- \texttt{sum} (x_1,y_2)- \texttt{sum} (x_2,y_1)+ \texttt{sum} (x_1,y_1)\f]
-        /// It makes possible to do a fast blurring or fast block correlation with a variable window size, for
-        /// example. In case of multi-channel images, sums for each channel are accumulated independently.
-        /// As a practical example, the next figure shows the calculation of the integral of a straight
-        /// rectangle Rect(4,4,3,2) and of a tilted rectangle Rect(5,1,2,3) . The selected pixels in the
-        /// original image are shown, as well as the relative pixels in the integral images sum and tilted .
-        /// ![integral calculation example](pics/integral.png)
-        /// </remarks>
-        public static void Integral(Mat src, Mat sum, Mat sqsum, Mat tilted, int sdepth, int sqdepth)
-        {
-            NativeMethods.cv_integral_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), ValidationHelper.GetHandle(sqsum, nameof(sqsum), false), ValidationHelper.GetHandle(tilted, nameof(tilted), false), sdepth, sqdepth);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="sum">The sum parameter.</param>
-        /// <param name="sdepth">The sdepth parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void Integral(Mat src, Mat sum, int sdepth)
-        {
-            NativeMethods.cv_integral_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), sdepth);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="src">The src parameter.</param>
-        /// <param name="sum">The sum parameter.</param>
-        /// <param name="sqsum">The sqsum parameter.</param>
-        /// <param name="sdepth">The sdepth parameter.</param>
-        /// <param name="sqdepth">The sqdepth parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void Integral(Mat src, Mat sum, Mat sqsum, int sdepth, int sqdepth)
-        {
-            NativeMethods.cv_integral_2(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), ValidationHelper.GetHandle(sqsum, nameof(sqsum), false), sdepth, sqdepth);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Adds an image to the accumulator image.
-        /// </summary>
-        /// <param name="src">Input image of type CV_8UC(n), CV_16UC(n), CV_32FC(n) or CV_64FC(n), where n is a positive integer.</param>
-        /// <param name="dst">%Accumulator image with the same number of channels as input image, and a depth of CV_32F or CV_64F.</param>
-        /// <param name="mask">Optional operation mask.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function adds src or some of its elements to dst :
-        /// \f[\texttt{dst} (x,y)  \leftarrow \texttt{dst} (x,y) +  \texttt{src} (x,y)  \quad \text{if} \quad \texttt{mask} (x,y)  \ne 0\f]
-        /// The function supports multi-channel images. Each channel is processed independently.
-        /// The function cv::accumulate can be used, for example, to collect statistics of a scene background
-        /// viewed by a still camera and for the further foreground-background segmentation.
-        /// @sa  accumulateSquare, accumulateProduct, accumulateWeighted
-        /// </remarks>
-        public static void Accumulate(Mat src, Mat dst, Mat? mask)
-        {
-            NativeMethods.cv_accumulate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Adds the square of a source image to the accumulator image.
-        /// </summary>
-        /// <param name="src">Input image as 1- or 3-channel, 8-bit or 32-bit floating point.</param>
-        /// <param name="dst">%Accumulator image with the same number of channels as input image, 32-bit or 64-bit floating-point.</param>
-        /// <param name="mask">Optional operation mask.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function adds the input image src or its selected region, raised to a power of 2, to the
-        /// accumulator dst :
-        /// \f[\texttt{dst} (x,y)  \leftarrow \texttt{dst} (x,y) +  \texttt{src} (x,y)^2  \quad \text{if} \quad \texttt{mask} (x,y)  \ne 0\f]
-        /// The function supports multi-channel images. Each channel is processed independently.
-        /// @sa  accumulateSquare, accumulateProduct, accumulateWeighted
-        /// </remarks>
-        public static void AccumulateSquare(Mat src, Mat dst, Mat? mask)
-        {
-            NativeMethods.cv_accumulateSquare_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Adds the per-element product of two input images to the accumulator image.
-        /// </summary>
-        /// <param name="src1">First input image, 1- or 3-channel, 8-bit or 32-bit floating point.</param>
-        /// <param name="src2">Second input image of the same type and the same size as src1 .</param>
-        /// <param name="dst">%Accumulator image with the same number of channels as input images, 32-bit or 64-bit floating-point.</param>
-        /// <param name="mask">Optional operation mask.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function adds the product of two images or their selected regions to the accumulator dst :
-        /// \f[\texttt{dst} (x,y)  \leftarrow \texttt{dst} (x,y) +  \texttt{src1} (x,y)  \cdot \texttt{src2} (x,y)  \quad \text{if} \quad \texttt{mask} (x,y)  \ne 0\f]
-        /// The function supports multi-channel images. Each channel is processed independently.
-        /// @sa  accumulate, accumulateSquare, accumulateWeighted
-        /// </remarks>
-        public static void AccumulateProduct(Mat src1, Mat src2, Mat dst, Mat? mask)
-        {
-            NativeMethods.cv_accumulateProduct_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Updates a running average.
-        /// </summary>
-        /// <param name="src">Input image as 1- or 3-channel, 8-bit or 32-bit floating point.</param>
-        /// <param name="dst">%Accumulator image with the same number of channels as input image, 32-bit or 64-bit floating-point.</param>
-        /// <param name="alpha">Weight of the input image.</param>
-        /// <param name="mask">Optional operation mask.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function calculates the weighted sum of the input image src and the accumulator dst so that dst
-        /// becomes a running average of a frame sequence:
-        /// \f[\texttt{dst} (x,y)  \leftarrow (1- \texttt{alpha} )  \cdot \texttt{dst} (x,y) +  \texttt{alpha} \cdot \texttt{src} (x,y)  \quad \text{if} \quad \texttt{mask} (x,y)  \ne 0\f]
-        /// That is, alpha regulates the update speed (how fast the accumulator "forgets" about earlier images).
-        /// The function supports multi-channel images. Each channel is processed independently.
-        /// @sa  accumulate, accumulateSquare, accumulateProduct
-        /// </remarks>
-        public static void AccumulateWeighted(Mat src, Mat dst, double alpha, Mat? mask)
-        {
-            NativeMethods.cv_accumulateWeighted_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// The function is used to detect translational shifts that occur between two images.
-        /// </summary>
-        /// <param name="src1">Source floating point array (CV_32FC1 or CV_64FC1)</param>
-        /// <param name="src2">Source floating point array (CV_32FC1 or CV_64FC1)</param>
-        /// <param name="window">Floating point array with windowing coefficients to reduce edge effects (optional).</param>
-        /// <param name="response">Signal power within the 5x5 centroid around the peak, between 0 and 1 (optional).</param>
-        /// <returns>s detected phase shift (sub-pixel) between the two arrays.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The operation takes advantage of the Fourier shift theorem for detecting the translational shift in
-        /// the frequency domain. It can be used for fast image registration as well as motion estimation. For
-        /// more information please see &lt;https://en.wikipedia.org/wiki/Phase_correlation&gt;
-        /// Calculates the cross-power spectrum of two supplied source arrays. The arrays are padded if needed
-        /// with getOptimalDFTSize.
-        /// The function performs the following equations:
-        /// - First it applies a Hanning window to each image to remove possible edge effects, if it's provided
-        /// by user. See @ref createHanningWindow and &lt;https://en.wikipedia.org/wiki/Hann_function&gt;. This window may
-        /// be cached until the array size changes to speed up processing time.
-        /// - Next it computes the forward DFTs of each source array:
-        /// \f[\mathbf{G}_a = \mathcal{F}\{src_1\}, \; \mathbf{G}_b = \mathcal{F}\{src_2\}\f]
-        /// where \f$\mathcal{F}\f$ is the forward DFT.
-        /// - It then computes the cross-power spectrum of each frequency domain array:
-        /// \f[R = \frac{ \mathbf{G}_a \mathbf{G}_b^*}{|\mathbf{G}_a \mathbf{G}_b^*|}\f]
-        /// - Next the cross-correlation is converted back into the time domain via the inverse DFT:
-        /// \f[r = \mathcal{F}^{-1}\{R\}\f]
-        /// - Finally, it computes the peak location and computes a 5x5 weighted centroid around the peak to
-        /// achieve sub-pixel accuracy.
-        /// \f[(\Delta x, \Delta y) = \texttt{weightedCentroid} \{\arg \max_{(x, y)}\{r\}\}\f]
-        /// - If non-zero, the response parameter is computed as the sum of the elements of r within the 5x5
-        /// centroid around the peak location. It is normalized to a maximum of 1 (meaning there is a single
-        /// peak) and will be smaller when there are multiple peaks.
-        /// @sa dft, getOptimalDFTSize, idft, mulSpectrums createHanningWindow
-        /// </remarks>
-        public static IntPtr PhaseCorrelate(Mat src1, Mat src2, Mat? window, IntPtr response)
-        {
-            var res = NativeMethods.cv_phaseCorrelate_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(window, nameof(window), true), response);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Detects translational shifts between two images.
-        /// </summary>
-        /// <param name="src1">Source floating point array (CV_32FC1 or CV_64FC1)</param>
-        /// <param name="src2">Source floating point array (CV_32FC1 or CV_64FC1)</param>
-        /// <param name="L2size">The size of the correlation neighborhood used by the iterative shift refinement algorithm.</param>
-        /// <param name="maxIters">The maximum number of iterations the iterative refinement algorithm will run.</param>
-        /// <returns>s detected sub-pixel shift between the two arrays.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function extends the standard @ref phaseCorrelate method by improving sub-pixel accuracy
-        /// through iterative shift refinement in the phase-correlation space, as described in
-        /// @cite hrazdira2020iterative.
-        /// @sa phaseCorrelate, dft, idft, createHanningWindow
-        /// </remarks>
-        public static IntPtr PhaseCorrelateIterative(Mat src1, Mat src2, int L2size, int maxIters)
-        {
-            var res = NativeMethods.cv_phaseCorrelateIterative_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), L2size, maxIters);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// This function computes a Hanning window coefficients in two dimensions.
-        /// </summary>
-        /// <param name="dst">Destination array to place Hann coefficients in</param>
-        /// <param name="winSize">The window size specifications (both width and height must be &gt; 1)</param>
-        /// <param name="type">Created array type</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// See (https://en.wikipedia.org/wiki/Hann_function) and (https://en.wikipedia.org/wiki/Window_function)
-        /// for more information.
-        /// An example is shown below:
-        /// @code
-        /// // create hanning window of size 100x100 and type CV_32F
-        /// Mat hann;
-        /// createHanningWindow(hann, Size(100, 100), CV_32F);
-        /// @endcode
-        /// </remarks>
-        public static void CreateHanningWindow(Mat dst, Size winSize, int type)
-        {
-            NativeMethods.cv_createHanningWindow_0(ValidationHelper.GetHandle(dst, nameof(dst), false), winSize, type);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies a fixed-level threshold to each array element.
-        /// </summary>
-        /// <param name="src">input array (multiple-channel, CV_8U, CV_16S, CV_16U, CV_32F or CV_64F).</param>
-        /// <param name="dst">output array of the same size  and type and the same number of channels as src.</param>
-        /// <param name="thresh">threshold value.</param>
-        /// <param name="maxval">maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding types.</param>
-        /// <param name="type">thresholding type (see #ThresholdTypes).</param>
-        /// <returns>the computed threshold value if Otsu's or Triangle methods used.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function applies fixed-level thresholding to a multiple-channel array. The function is typically
-        /// used to get a bi-level (binary) image out of a grayscale image ( #compare could be also used for
-        /// this purpose) or for removing a noise, that is, filtering out pixels with too small or too large
-        /// values. There are several types of thresholding supported by the function. They are determined by
-        /// type parameter.
-        /// Also, the special values #THRESH_OTSU or #THRESH_TRIANGLE may be combined with one of the
-        /// above values. In these cases, the function determines the optimal threshold value using the Otsu's
-        /// or Triangle algorithm and uses it instead of the specified thresh.
-        /// @note Currently, the Otsu's method is implemented only for CV_8UC1 and CV_16UC1 images,
-        /// and the Triangle's method is implemented only for CV_8UC1 images.
-        /// @sa  thresholdWithMask, adaptiveThreshold, findContours, compare, min, max
-        /// </remarks>
-        public static double Threshold(Mat src, Mat dst, double thresh, double maxval, int type)
-        {
-            var res = NativeMethods.cv_threshold_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), thresh, maxval, type);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Same as #threshold, but with an optional mask
-        /// </summary>
-        /// <param name="src">input array (multiple-channel, 8-bit or 32-bit floating point).</param>
-        /// <param name="dst">output array of the same size  and type and the same number of channels as src.</param>
-        /// <param name="mask">optional mask (same size as src, 8-bit).</param>
-        /// <param name="thresh">threshold value.</param>
-        /// <param name="maxval">maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding types.</param>
-        /// <param name="type">thresholding type (see #ThresholdTypes).</param>
-        /// <returns>the computed threshold value if Otsu's or Triangle methods used.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note If the mask is empty, #thresholdWithMask is equivalent to #threshold.
-        /// If the mask is not empty, dst *must* be of the same size and type as src, so that
-        /// outliers pixels are left as-is
-        /// @sa  threshold, adaptiveThreshold, findContours, compare, min, max
-        /// </remarks>
-        public static double ThresholdWithMask(Mat src, Mat dst, Mat mask, double thresh, double maxval, int type)
-        {
-            var res = NativeMethods.cv_thresholdWithMask_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), thresh, maxval, type);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Applies an adaptive threshold to an array.
-        /// </summary>
-        /// <param name="src">Source 8-bit single-channel image.</param>
-        /// <param name="dst">Destination image of the same size and the same type as src.</param>
-        /// <param name="maxValue">Non-zero value assigned to the pixels for which the condition is satisfied</param>
-        /// <param name="adaptiveMethod">Adaptive thresholding algorithm to use, see #AdaptiveThresholdTypes. The #BORDER_REPLICATE | #BORDER_ISOLATED is used to process boundaries.</param>
-        /// <param name="thresholdType">Thresholding type that must be either #THRESH_BINARY or #THRESH_BINARY_INV, see #ThresholdTypes.</param>
-        /// <param name="blockSize">Size of a pixel neighborhood that is used to calculate a threshold value for the pixel: 3, 5, 7, and so on.</param>
-        /// <param name="C">Constant subtracted from the mean or weighted mean (see the details below). Normally, it is positive but may be zero or negative as well.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function transforms a grayscale image to a binary image according to the formulae:
-        /// -   **THRESH_BINARY**
-        /// \f[dst(x,y) =  \fork{\texttt{maxValue}}{if \(src(x,y) &gt; T(x,y)\)}{0}{otherwise}\f]
-        /// -   **THRESH_BINARY_INV**
-        /// \f[dst(x,y) =  \fork{0}{if \(src(x,y) &gt; T(x,y)\)}{\texttt{maxValue}}{otherwise}\f]
-        /// where \f$T(x,y)\f$ is a threshold calculated individually for each pixel (see adaptiveMethod parameter).
-        /// The function can process the image in-place.
-        /// @sa  threshold, blur, GaussianBlur
-        /// </remarks>
-        public static void AdaptiveThreshold(Mat src, Mat dst, double maxValue, int adaptiveMethod, int thresholdType, int blockSize, double C)
-        {
-            NativeMethods.cv_adaptiveThreshold_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), maxValue, adaptiveMethod, thresholdType, blockSize, C);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Blurs an image and downsamples it.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image; it has the specified size and the same type as src.</param>
-        /// <param name="dstsize">size of the output image.</param>
-        /// <param name="borderType">Pixel extrapolation method, see #BorderTypes (#BORDER_CONSTANT isn't supported)</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// By default, size of the output image is computed as `Size((src.cols+1)/2, (src.rows+1)/2)`, but in
-        /// any case, the following conditions should be satisfied:
-        /// \f[\begin{array}{l} | \texttt{dstsize.width} *2-src.cols| \leq 2 \\ | \texttt{dstsize.height} *2-src.rows| \leq 2 \end{array}\f]
-        /// The function performs the downsampling step of the Gaussian pyramid construction. First, it
-        /// convolves the source image with the kernel:
-        /// \f[\frac{1}{256} \begin{bmatrix} 1 &amp; 4 &amp; 6 &amp; 4 &amp; 1  \\ 4 &amp; 16 &amp; 24 &amp; 16 &amp; 4  \\ 6 &amp; 24 &amp; 36 &amp; 24 &amp; 6  \\ 4 &amp; 16 &amp; 24 &amp; 16 &amp; 4  \\ 1 &amp; 4 &amp; 6 &amp; 4 &amp; 1 \end{bmatrix}\f]
-        /// Then, it downsamples the image by rejecting even rows and columns.
-        /// </remarks>
-        public static void PyrDown(Mat src, Mat dst, Size dstsize, int borderType)
-        {
-            NativeMethods.cv_pyrDown_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dstsize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Upsamples an image and then blurs it.
-        /// </summary>
-        /// <param name="src">input image.</param>
-        /// <param name="dst">output image. It has the specified size and the same type as src .</param>
-        /// <param name="dstsize">size of the output image.</param>
-        /// <param name="borderType">Pixel extrapolation method, see #BorderTypes (only #BORDER_DEFAULT is supported)</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// By default, size of the output image is computed as `Size(src.cols\*2, (src.rows\*2)`, but in any
-        /// case, the following conditions should be satisfied:
-        /// \f[\begin{array}{l} | \texttt{dstsize.width} -src.cols*2| \leq  ( \texttt{dstsize.width}   \mod  2)  \\ | \texttt{dstsize.height} -src.rows*2| \leq  ( \texttt{dstsize.height}   \mod  2) \end{array}\f]
-        /// The function performs the upsampling step of the Gaussian pyramid construction, though it can
-        /// actually be used to construct the Laplacian pyramid. First, it upsamples the source image by
-        /// injecting even zero rows and columns and then convolves the result with the same kernel as in
-        /// pyrDown multiplied by 4.
-        /// </remarks>
-        public static void PyrUp(Mat src, Mat dst, Size dstsize, int borderType)
-        {
-            NativeMethods.cv_pyrUp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dstsize, borderType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="images">The images parameter.</param>
-        /// <param name="channels">The channels parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
-        /// <param name="hist">The hist parameter.</param>
-        /// <param name="histSize">The histSize parameter.</param>
-        /// <param name="ranges">The ranges parameter.</param>
-        /// <param name="accumulate">The accumulate parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// this variant supports only uniform histograms.
-        /// ranges argument is either empty vector or a flattened vector of histSize.size()*2 elements
-        /// (histSize.size() element pairs). The first and second elements of each pair specify the lower and
-        /// upper boundaries.
-        /// </remarks>
-        public static void CalcHist(IntPtr images, IntPtr channels, Mat mask, Mat hist, IntPtr histSize, IntPtr ranges, bool accumulate)
-        {
-            NativeMethods.cv_calcHist_0(images, channels, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(hist, nameof(hist), false), histSize, ranges, accumulate);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="images">The images parameter.</param>
-        /// <param name="channels">The channels parameter.</param>
-        /// <param name="hist">The hist parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <param name="ranges">The ranges parameter.</param>
-        /// <param name="scale">The scale parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void CalcBackProject(IntPtr images, IntPtr channels, Mat hist, Mat dst, IntPtr ranges, double scale)
-        {
-            NativeMethods.cv_calcBackProject_0(images, channels, ValidationHelper.GetHandle(hist, nameof(hist), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ranges, scale);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Compares two histograms.
-        /// </summary>
-        /// <param name="H1">First compared histogram.</param>
-        /// <param name="H2">Second compared histogram of the same size as H1 .</param>
-        /// <param name="method">Comparison method, see #HistCompMethods</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::compareHist compares two dense or two sparse histograms using the specified method.
-        /// The function returns \f$d(H_1, H_2)\f$ .
-        /// While the function works well with 1-, 2-, 3-dimensional dense histograms, it may not be suitable
-        /// for high-dimensional sparse histograms. In such histograms, because of aliasing and sampling
-        /// problems, the coordinates of non-zero histogram bins can slightly shift. To compare such histograms
-        /// or more general sparse configurations of weighted points, consider using the #EMD function.
-        /// </remarks>
-        public static double CompareHist(Mat H1, Mat H2, int method)
-        {
-            var res = NativeMethods.cv_compareHist_0(ValidationHelper.GetHandle(H1, nameof(H1), false), ValidationHelper.GetHandle(H2, nameof(H2), false), method);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Equalizes the histogram of a grayscale image.
-        /// </summary>
-        /// <param name="src">Source 8-bit single channel image.</param>
-        /// <param name="dst">Destination image of the same size and type as src .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function equalizes the histogram of the input image using the following algorithm:
-        /// - Calculate the histogram \f$H\f$ for src .
-        /// - Normalize the histogram so that the sum of histogram bins is 255.
-        /// - Compute the integral of the histogram:
-        /// \f[H'_i =  \sum _{0  \le j &lt; i} H(j)\f]
-        /// - Transform the image using \f$H'\f$ as a look-up table: \f$\texttt{dst}(x,y) = H'(\texttt{src}(x,y))\f$
-        /// The algorithm normalizes the brightness and increases the contrast of the image.
-        /// </remarks>
-        public static void EqualizeHist(Mat src, Mat dst)
-        {
-            NativeMethods.cv_equalizeHist_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Creates a smart pointer to a cv::CLAHE class and initializes it.
-        /// </summary>
-        /// <param name="clipLimit">Threshold for contrast limiting.</param>
-        /// <param name="tileGridSize">Size of grid for histogram equalization. Input image will be divided into equally sized rectangular tiles. tileGridSize defines the number of tiles in row and column.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Clahe? CreateCLAHE(double clipLimit, Size tileGridSize)
-        {
-            IntPtr res = NativeMethods.cv_createCLAHE_0(clipLimit, tileGridSize);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Clahe(res);
-        }
-        /// <summary>
-        /// Computes the "minimal work" distance between two weighted point configurations.
-        /// </summary>
-        /// <param name="signature1">First signature, a \f$\texttt{size1}\times \texttt{dims}+1\f$ floating-point matrix. Each row stores the point weight followed by the point coordinates. The matrix is allowed to have a single column (weights only) if the user-defined cost matrix is used. The weights must be non-negative and have at least one non-zero value.</param>
-        /// <param name="signature2">Second signature of the same format as signature1 , though the number of rows may be different. The total weights may be different. In this case an extra "dummy" point is added to either signature1 or signature2. The weights must be non-negative and have at least one non-zero value.</param>
-        /// <param name="distType">Used metric. See #DistanceTypes.</param>
-        /// <param name="cost">User-defined \f$\texttt{size1}\times \texttt{size2}\f$ cost matrix. Also, if a cost matrix is used, lower boundary lowerBound cannot be calculated because it needs a metric function.</param>
-        /// <param name="lowerBound">Optional input/output parameter: lower boundary of a distance between the two signatures that is a distance between mass centers. The lower boundary may not be calculated if the user-defined cost matrix is used, the total weights of point configurations are not equal, or if the signatures consist of weights only (the signature matrices have a single column). You **must** initialize \*lowerBound . If the calculated distance between mass centers is greater or equal to \*lowerBound (it means that the signatures are far enough), the function does not calculate EMD. In any case \*lowerBound is set to the calculated distance between mass centers on return. Thus, if you want to calculate both distance between mass centers and EMD, \*lowerBound should be set to 0.</param>
-        /// <param name="flow">Resultant \f$\texttt{size1} \times \texttt{size2}\f$ flow matrix: \f$\texttt{flow}_{i,j}\f$ is a flow from \f$i\f$ -th point of signature1 to \f$j\f$ -th point of signature2 .</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function computes the earth mover distance and/or a lower boundary of the distance between the
-        /// two weighted point configurations. One of the applications described in @cite RubnerSept98,
-        /// @cite Rubner2000 is multi-dimensional histogram comparison for image retrieval. EMD is a transportation
-        /// problem that is solved using some modification of a simplex algorithm, thus the complexity is
-        /// exponential in the worst case, though, on average it is much faster. In the case of a real metric
-        /// the lower boundary can be calculated even faster (using linear-time algorithm) and it can be used
-        /// to determine roughly whether the two signatures are far enough so that they cannot relate to the
-        /// same object.
-        /// </remarks>
-        public static float WrapperEMD(Mat signature1, Mat signature2, int distType, Mat? cost, IntPtr lowerBound, Mat? flow)
-        {
-            var res = NativeMethods.cv_wrapperEMD_0(ValidationHelper.GetHandle(signature1, nameof(signature1), false), ValidationHelper.GetHandle(signature2, nameof(signature2), false), distType, ValidationHelper.GetHandle(cost, nameof(cost), true), lowerBound, ValidationHelper.GetHandle(flow, nameof(flow), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Performs a marker-based image segmentation using the watershed algorithm.
-        /// </summary>
-        /// <param name="image">Input 8-bit 3-channel image.</param>
-        /// <param name="markers">Input/output 32-bit single-channel image (map) of markers. It should have the same size as image .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function implements one of the variants of watershed, non-parametric marker-based segmentation
-        /// algorithm, described in @cite Meyer92 .
-        /// Before passing the image to the function, you have to roughly outline the desired regions in the
-        /// image markers with positive (\&gt;0) indices. So, every region is represented as one or more connected
-        /// components with the pixel values 1, 2, 3, and so on. Such markers can be retrieved from a binary
-        /// mask using #findContours and #drawContours (see the watershed.cpp demo). The markers are "seeds" of
-        /// the future image regions. All the other pixels in markers , whose relation to the outlined regions
-        /// is not known and should be defined by the algorithm, should be set to 0's. In the function output,
-        /// each pixel in markers is set to a value of the "seed" components or to -1 at boundaries between the
-        /// regions.
-        /// @note Any two neighbor connected components are not necessarily separated by a watershed boundary
-        /// (-1's pixels); for example, they can touch each other in the initial marker image passed to the
-        /// function.
-        /// @sa findContours
-        /// </remarks>
-        public static void Watershed(Mat image, Mat markers)
-        {
-            NativeMethods.cv_watershed_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(markers, nameof(markers), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Performs initial step of meanshift segmentation of an image.
-        /// </summary>
-        /// <param name="src">The source 8-bit, 3-channel image.</param>
-        /// <param name="dst">The destination image of the same format and the same size as the source.</param>
-        /// <param name="sp">The spatial window radius.</param>
-        /// <param name="sr">The color window radius.</param>
-        /// <param name="maxLevel">Maximum level of the pyramid for the segmentation.</param>
-        /// <param name="termcrit">Termination criteria: when to stop meanshift iterations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function implements the filtering stage of meanshift segmentation, that is, the output of the
-        /// function is the filtered "posterized" image with color gradients and fine-grain texture flattened.
-        /// At every pixel (X,Y) of the input image (or down-sized input image, see below) the function executes
-        /// meanshift iterations, that is, the pixel (X,Y) neighborhood in the joint space-color hyperspace is
-        /// considered:
-        /// \f[(x,y): X- \texttt{sp} \le x  \le X+ \texttt{sp} , Y- \texttt{sp} \le y  \le Y+ \texttt{sp} , ||(R,G,B)-(r,g,b)||   \le \texttt{sr}\f]
-        /// where (R,G,B) and (r,g,b) are the vectors of color components at (X,Y) and (x,y), respectively
-        /// (though, the algorithm does not depend on the color space used, so any 3-component color space can
-        /// be used instead). Over the neighborhood the average spatial value (X',Y') and average color vector
-        /// (R',G',B') are found and they act as the neighborhood center on the next iteration:
-        /// \f[(X,Y)~(X',Y'), (R,G,B)~(R',G',B').\f]
-        /// After the iterations over, the color components of the initial pixel (that is, the pixel from where
-        /// the iterations started) are set to the final value (average color at the last iteration):
-        /// \f[I(X,Y) &lt;- (R*,G*,B*)\f]
-        /// When maxLevel \&gt; 0, the gaussian pyramid of maxLevel+1 levels is built, and the above procedure is
-        /// run on the smallest layer first. After that, the results are propagated to the larger layer and the
-        /// iterations are run again only on those pixels where the layer colors differ by more than sr from the
-        /// lower-resolution layer of the pyramid. That makes boundaries of color regions sharper. Note that the
-        /// results will be actually different from the ones obtained by running the meanshift procedure on the
-        /// whole original image (i.e. when maxLevel==0).
-        /// </remarks>
-        public static void PyrMeanShiftFiltering(Mat src, Mat dst, double sp, double sr, int maxLevel, TermCriteria termcrit)
-        {
-            NativeMethods.cv_pyrMeanShiftFiltering_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sp, sr, maxLevel, termcrit);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Runs the GrabCut algorithm.
-        /// </summary>
-        /// <param name="img">Input 8-bit 3-channel image.</param>
-        /// <param name="mask">Input/output 8-bit single-channel mask. The mask is initialized by the function when mode is set to #GC_INIT_WITH_RECT. Its elements may have one of the #GrabCutClasses.</param>
-        /// <param name="rect">ROI containing a segmented object. The pixels outside of the ROI are marked as "obvious background". The parameter is only used when mode==#GC_INIT_WITH_RECT .</param>
-        /// <param name="bgdModel">Temporary array for the background model. Do not modify it while you are processing the same image.</param>
-        /// <param name="fgdModel">Temporary arrays for the foreground model. Do not modify it while you are processing the same image.</param>
-        /// <param name="iterCount">Number of iterations the algorithm should make before returning the result. Note that the result can be refined with further calls with mode==#GC_INIT_WITH_MASK or mode==GC_EVAL .</param>
-        /// <param name="mode">Operation mode that could be one of the #GrabCutModes</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function implements the [GrabCut image segmentation algorithm](https://en.wikipedia.org/wiki/GrabCut).
-        /// </remarks>
-        public static void GrabCut(Mat img, Mat mask, Rect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode)
-        {
-            NativeMethods.cv_grabCut_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), rect, ValidationHelper.GetHandle(bgdModel, nameof(bgdModel), false), ValidationHelper.GetHandle(fgdModel, nameof(fgdModel), false), iterCount, mode);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the distance to the closest zero pixel for each pixel of the source image.
-        /// </summary>
-        /// <param name="src">8-bit, single-channel (binary) source image.</param>
-        /// <param name="dst">Output image with calculated distances. It is a 8-bit or 32-bit floating-point, single-channel image of the same size as src.</param>
-        /// <param name="labels">Output 2D array of labels (the discrete Voronoi diagram). It has the type CV_32SC1 and the same size as src.</param>
-        /// <param name="distanceType">Type of distance, see #DistanceTypes</param>
-        /// <param name="maskSize">Size of the distance transform mask, see #DistanceTransformMasks. #DIST_MASK_PRECISE is not supported by this variant. In case of the #DIST_L1 or #DIST_C distance type, the parameter is forced to 3 because a \f$3\times 3\f$ mask gives the same result as \f$5\times 5\f$ or any larger aperture.</param>
-        /// <param name="labelType">Type of the label array to build, see #DistanceTransformLabelTypes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::distanceTransform calculates the approximate or precise distance from every binary
-        /// image pixel to the nearest zero pixel. For zero image pixels, the distance will obviously be zero.
-        /// When maskSize == #DIST_MASK_PRECISE and distanceType == #DIST_L2 , the function runs the
-        /// algorithm described in @cite Felzenszwalb04 . This algorithm is parallelized with the TBB library.
-        /// In other cases, the algorithm @cite Borgefors86 is used. This means that for a pixel the function
-        /// finds the shortest path to the nearest zero pixel consisting of basic shifts: horizontal, vertical,
-        /// diagonal, or knight's move (the latest is available for a \f$5\times 5\f$ mask). The overall
-        /// distance is calculated as a sum of these basic distances. Since the distance function should be
-        /// symmetric, all of the horizontal and vertical shifts must have the same cost (denoted as a ), all
-        /// the diagonal shifts must have the same cost (denoted as `b`), and all knight's moves must have the
-        /// same cost (denoted as `c`). For the #DIST_C and #DIST_L1 types, the distance is calculated
-        /// precisely, whereas for #DIST_L2 (Euclidean distance) the distance can be calculated only with a
-        /// relative error (a \f$5\times 5\f$ mask gives more accurate results). For `a`,`b`, and `c`, OpenCV
-        /// uses the values suggested in the original paper:
-        /// - DIST_L1: `a = 1, b = 2`
-        /// - DIST_L2:
-        /// - `3 x 3`: `a=0.955, b=1.3693`
-        /// - `5 x 5`: `a=1, b=1.4, c=2.1969`
-        /// - DIST_C: `a = 1, b = 1`
-        /// Typically, for a fast, coarse distance estimation #DIST_L2, a \f$3\times 3\f$ mask is used. For a
-        /// more accurate distance estimation #DIST_L2, a \f$5\times 5\f$ mask or the precise algorithm is used.
-        /// Note that both the precise and the approximate algorithms are linear on the number of pixels.
-        /// This variant of the function does not only compute the minimum distance for each pixel \f$(x, y)\f$
-        /// but also identifies the nearest connected component consisting of zero pixels
-        /// (labelType==#DIST_LABEL_CCOMP) or the nearest zero pixel (labelType==#DIST_LABEL_PIXEL). Index of the
-        /// component/pixel is stored in `labels(x, y)`. When labelType==#DIST_LABEL_CCOMP, the function
-        /// automatically finds connected components of zero pixels in the input image and marks them with
-        /// distinct labels. When labelType==#DIST_LABEL_PIXEL, the function scans through the input image and
-        /// marks all the zero pixels with distinct labels.
-        /// In this mode, the complexity is still linear. That is, the function provides a very fast way to
-        /// compute the Voronoi diagram for a binary image. Currently, the second variant can use only the
-        /// approximate distance transform algorithm, i.e. maskSize=#DIST_MASK_PRECISE is not supported
-        /// yet.
-        /// </remarks>
-        public static void DistanceTransform(Mat src, Mat dst, Mat labels, int distanceType, int maskSize, int labelType)
-        {
-            NativeMethods.cv_distanceTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(labels, nameof(labels), false), distanceType, maskSize, labelType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="src">8-bit, single-channel (binary) source image.</param>
-        /// <param name="dst">Output image with calculated distances. It is a 8-bit or 32-bit floating-point, single-channel image of the same size as src .</param>
-        /// <param name="distanceType">Type of distance, see #DistanceTypes</param>
-        /// <param name="maskSize">Size of the distance transform mask, see #DistanceTransformMasks. In case of the #DIST_L1 or #DIST_C distance type, the parameter is forced to 3 because a \f$3\times 3\f$ mask gives the same result as \f$5\times 5\f$ or any larger aperture.</param>
-        /// <param name="dstType">Type of output image. It can be CV_8U or CV_32F. Type CV_8U can be used only for the first variant of the function and distanceType == #DIST_L1.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void DistanceTransform(Mat src, Mat dst, int distanceType, int maskSize, int dstType)
-        {
-            NativeMethods.cv_distanceTransform_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), distanceType, maskSize, dstType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Fills a connected component with the given color.
-        /// </summary>
-        /// <param name="image">Input/output 1- or 3-channel, 8-bit, or floating-point image. It is modified by the function unless the #FLOODFILL_MASK_ONLY flag is set in the second variant of the function. See the details below.</param>
-        /// <param name="mask">Operation mask that should be a single-channel 8-bit image, 2 pixels wider and 2 pixels taller than image. If an empty Mat is passed it will be created automatically. Since this is both an input and output parameter, you must take responsibility of initializing it. Flood-filling cannot go across non-zero pixels in the input mask. For example, an edge detector output can be used as a mask to stop filling at edges. On output, pixels in the mask corresponding to filled pixels in the image are set to 1 or to the specified value in flags as described below. Additionally, the function fills the border of the mask with ones to simplify internal processing. It is therefore possible to use the same mask in multiple calls to the function to make sure the filled areas do not overlap.</param>
-        /// <param name="seedPoint">Starting point.</param>
-        /// <param name="newVal">New value of the repainted domain pixels.</param>
-        /// <param name="rect">Optional output parameter set by the function to the minimum bounding rectangle of the repainted domain.</param>
-        /// <param name="loDiff">Maximal lower brightness/color difference between the currently observed pixel and one of its neighbors belonging to the component, or a seed pixel being added to the component.</param>
-        /// <param name="upDiff">Maximal upper brightness/color difference between the currently observed pixel and one of its neighbors belonging to the component, or a seed pixel being added to the component.</param>
-        /// <param name="flags">Operation flags. The first 8 bits contain a connectivity value. The default value of 4 means that only the four nearest neighbor pixels (those that share an edge) are considered. A connectivity value of 8 means that the eight nearest neighbor pixels (those that share a corner) will be considered. The next 8 bits (8-16) contain a value between 1 and 255 with which to fill the mask (the default value is 1). For example, 4 | ( 255 \&lt;\&lt; 8 ) will consider 4 nearest neighbours and fill the mask with a value of 255. The following additional options occupy higher bits and therefore may be further combined with the connectivity and mask fill values using bit-wise or (|), see #FloodFillFlags.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::floodFill fills a connected component starting from the seed point with the specified
-        /// color. The connectivity is determined by the color/brightness closeness of the neighbor pixels. The
-        /// pixel at \f$(x,y)\f$ is considered to belong to the repainted domain if:
-        /// - in case of a grayscale image and floating range
-        /// \f[\texttt{src} (x',y')- \texttt{loDiff} \leq \texttt{src} (x,y)  \leq \texttt{src} (x',y')+ \texttt{upDiff}\f]
-        /// - in case of a grayscale image and fixed range
-        /// \f[\texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)- \texttt{loDiff} \leq \texttt{src} (x,y)  \leq \texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)+ \texttt{upDiff}\f]
-        /// - in case of a color image and floating range
-        /// \f[\texttt{src} (x',y')_r- \texttt{loDiff} _r \leq \texttt{src} (x,y)_r \leq \texttt{src} (x',y')_r+ \texttt{upDiff} _r,\f]
-        /// \f[\texttt{src} (x',y')_g- \texttt{loDiff} _g \leq \texttt{src} (x,y)_g \leq \texttt{src} (x',y')_g+ \texttt{upDiff} _g\f]
-        /// and
-        /// \f[\texttt{src} (x',y')_b- \texttt{loDiff} _b \leq \texttt{src} (x,y)_b \leq \texttt{src} (x',y')_b+ \texttt{upDiff} _b\f]
-        /// - in case of a color image and fixed range
-        /// \f[\texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_r- \texttt{loDiff} _r \leq \texttt{src} (x,y)_r \leq \texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_r+ \texttt{upDiff} _r,\f]
-        /// \f[\texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_g- \texttt{loDiff} _g \leq \texttt{src} (x,y)_g \leq \texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_g+ \texttt{upDiff} _g\f]
-        /// and
-        /// \f[\texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_b- \texttt{loDiff} _b \leq \texttt{src} (x,y)_b \leq \texttt{src} ( \texttt{seedPoint} .x, \texttt{seedPoint} .y)_b+ \texttt{upDiff} _b\f]
-        /// where \f$src(x',y')\f$ is the value of one of pixel neighbors that is already known to belong to the
-        /// component. That is, to be added to the connected component, a color/brightness of the pixel should
-        /// be close enough to:
-        /// - Color/brightness of one of its neighbors that already belong to the connected component in case
-        /// of a floating range.
-        /// - Color/brightness of the seed point in case of a fixed range.
-        /// Use these functions to either mark a connected component with the specified color in-place, or build
-        /// a mask and then extract the contour, or copy the region to another image, and so on.
-        /// @note Since the mask is larger than the filled image, a pixel \f$(x, y)\f$ in image corresponds to the
-        /// pixel \f$(x+1, y+1)\f$ in the mask .
-        /// @sa findContours
-        /// </remarks>
-        public static int FloodFill(Mat image, Mat mask, Point seedPoint, Scalar newVal, IntPtr rect, Scalar loDiff, Scalar upDiff, int flags)
-        {
-            var res = NativeMethods.cv_floodFill_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false), seedPoint, newVal, rect, loDiff, upDiff, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="src1">The src1 parameter.</param>
-        /// <param name="src2">The src2 parameter.</param>
-        /// <param name="weights1">The weights1 parameter.</param>
-        /// <param name="weights2">The weights2 parameter.</param>
-        /// <param name="dst">The dst parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// variant without `mask` parameter
-        /// </remarks>
-        public static void BlendLinear(Mat src1, Mat src2, Mat weights1, Mat weights2, Mat dst)
-        {
-            NativeMethods.cv_blendLinear_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(weights1, nameof(weights1), false), ValidationHelper.GetHandle(weights2, nameof(weights2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Converts an image from one color space to another.
-        /// </summary>
-        /// <param name="src">input image: 8-bit unsigned, 16-bit unsigned ( CV_16UC... ), or single-precision floating-point.</param>
-        /// <param name="dst">output image of the same size and depth as src.</param>
-        /// <param name="code">color space conversion code (see #ColorConversionCodes).</param>
-        /// <param name="dstCn">number of channels in the destination image; if the parameter is 0, the number of the channels is derived automatically from src and code.</param>
-        /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function converts an input image from one color space to another. In case of a transformation
-        /// to-from RGB color space, the order of the channels should be specified explicitly (RGB or BGR). Note
-        /// that the default color format in OpenCV is often referred to as RGB but it is actually BGR (the
-        /// bytes are reversed). So the first byte in a standard (24-bit) color image will be an 8-bit Blue
-        /// component, the second byte will be Green, and the third byte will be Red. The fourth, fifth, and
-        /// sixth bytes would then be the second pixel (Blue, then Green, then Red), and so on.
-        /// The conventional ranges for R, G, and B channel values are:
-        /// -   0 to 255 for CV_8U images
-        /// -   0 to 65535 for CV_16U images
-        /// -   0 to 1 for CV_32F images
-        /// In case of linear transformations, the range does not matter. But in case of a non-linear
-        /// transformation, an input RGB image should be normalized to the proper value range to get the correct
-        /// results, for example, for RGB \f$\rightarrow\f$ L\*u\*v\* transformation. For example, if you have a
-        /// 32-bit floating-point image directly converted from an 8-bit image without any scaling, then it will
-        /// have the 0..255 value range instead of 0..1 assumed by the function. So, before calling #cvtColor ,
-        /// you need first to scale the image down:
-        /// @code
-        /// img *= 1./255;
-        /// cvtColor(img, img, COLOR_BGR2Luv);
-        /// @endcode
-        /// If you use #cvtColor with 8-bit images, the conversion will have some information lost. For many
-        /// applications, this will not be noticeable but it is recommended to use 32-bit images in applications
-        /// that need the full range of colors or that convert an image before an operation and then convert
-        /// back.
-        /// If conversion adds the alpha channel, its value will set to the maximum of corresponding channel
-        /// range: 255 for CV_8U, 65535 for CV_16U, 1 for CV_32F.
-        /// @note The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
-        /// @see @ref imgproc_color_conversions
-        /// </remarks>
-        public static void CvtColor(Mat src, Mat dst, int code, int dstCn, AlgorithmHint hint)
-        {
-            NativeMethods.cv_cvtColor_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, dstCn, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Converts an image from one color space to another where the source image is
-        /// stored in two planes.
-        /// </summary>
-        /// <param name="src1">8-bit image (#CV_8U) of the Y plane.</param>
-        /// <param name="src2">image containing interleaved U/V plane.</param>
-        /// <param name="dst">output image.</param>
-        /// <param name="code">Specifies the type of conversion. It can take any of the following values: - #COLOR_YUV2BGR_NV12 - #COLOR_YUV2RGB_NV12 - #COLOR_YUV2BGRA_NV12 - #COLOR_YUV2RGBA_NV12 - #COLOR_YUV2BGR_NV21 - #COLOR_YUV2RGB_NV21 - #COLOR_YUV2BGRA_NV21 - #COLOR_YUV2RGBA_NV21</param>
-        /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function only supports YUV420 to RGB conversion as of now.
-        /// </remarks>
-        public static void CvtColorTwoPlane(Mat src1, Mat src2, Mat dst, int code, AlgorithmHint hint)
-        {
-            NativeMethods.cv_cvtColorTwoPlane_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, (int)hint);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// main function for all demosaicing processes
-        /// </summary>
-        /// <param name="src">input image: 8-bit unsigned or 16-bit unsigned.</param>
-        /// <param name="dst">output image of the same size and depth as src.</param>
-        /// <param name="code">Color space conversion code (see the description below).</param>
-        /// <param name="dstCn">number of channels in the destination image; if the parameter is 0, the number of the channels is derived automatically from src and code. The function can do the following transformations: -   Demosaicing using bilinear interpolation #COLOR_BayerBG2BGR , #COLOR_BayerGB2BGR , #COLOR_BayerRG2BGR , #COLOR_BayerGR2BGR #COLOR_BayerBG2GRAY , #COLOR_BayerGB2GRAY , #COLOR_BayerRG2GRAY , #COLOR_BayerGR2GRAY -   Demosaicing using Variable Number of Gradients. #COLOR_BayerBG2BGR_VNG , #COLOR_BayerGB2BGR_VNG , #COLOR_BayerRG2BGR_VNG , #COLOR_BayerGR2BGR_VNG -   Edge-Aware Demosaicing. #COLOR_BayerBG2BGR_EA , #COLOR_BayerGB2BGR_EA , #COLOR_BayerRG2BGR_EA , #COLOR_BayerGR2BGR_EA -   Demosaicing with alpha channel #COLOR_BayerBG2BGRA , #COLOR_BayerGB2BGRA , #COLOR_BayerRG2BGRA , #COLOR_BayerGR2BGRA</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
-        /// @sa cvtColor
-        /// </remarks>
-        public static void Demosaicing(Mat src, Mat dst, int code, int dstCn)
-        {
-            NativeMethods.cv_demosaicing_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, dstCn);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Compares a template against overlapped image regions.
-        /// </summary>
-        /// <param name="image">Image where the search is running. It must be 8-bit or 32-bit floating-point.</param>
-        /// <param name="templ">Searched template. It must be not greater than the source image and have the same data type.</param>
-        /// <param name="result">Map of comparison results. It must be single-channel 32-bit floating-point. If image is \f$W \times H\f$ and templ is \f$w \times h\f$ , then result is \f$(W-w+1) \times (H-h+1)\f$ .</param>
-        /// <param name="method">Parameter specifying the comparison method, see #TemplateMatchModes</param>
-        /// <param name="mask">Optional mask. It must have the same size as templ. It must either have the same number of channels as template or only one channel, which is then used for all template and image channels. If the data type is #CV_8U, the mask is interpreted as a binary mask, meaning only elements where mask is nonzero are used and are kept unchanged independent of the actual mask value (weight equals 1). For data type #CV_32F, the mask values are used as weights. The exact formulas are documented in #TemplateMatchModes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function slides through image , compares the overlapped patches of size \f$w \times h\f$ against
-        /// templ using the specified method and stores the comparison results in result . #TemplateMatchModes
-        /// describes the formulae for the available comparison methods ( \f$I\f$ denotes image, \f$T\f$
-        /// template, \f$R\f$ result, \f$M\f$ the optional mask ). The summation is done over template and/or
-        /// the image patch: \f$x' = 0...w-1, y' = 0...h-1\f$
-        /// After the function finishes the comparison, the best matches can be found as global minimums (when
-        /// #TM_SQDIFF was used) or maximums (when #TM_CCORR or #TM_CCOEFF was used) using the
-        /// #minMaxLoc function. In case of a color image, template summation in the numerator and each sum in
-        /// the denominator is done over all of the channels and separate mean values are used for each channel.
-        /// That is, the function can take a color template and a color image. The result will still be a
-        /// single-channel image, which is easier to analyze.
-        /// </remarks>
-        public static void MatchTemplate(Mat image, Mat templ, Mat result, int method, Mat? mask)
-        {
-            NativeMethods.cv_matchTemplate_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(templ, nameof(templ), false), ValidationHelper.GetHandle(result, nameof(result), false), method, ValidationHelper.GetHandle(mask, nameof(mask), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// computes the connected components labeled image of boolean image
-        /// </summary>
-        /// <param name="image">the 8-bit single-channel image to be labeled</param>
-        /// <param name="labels">destination labeled image</param>
-        /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
-        /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
-        /// <param name="ccltype">connected components algorithm type (see the #ConnectedComponentsAlgorithmsTypes).</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
-        /// represents the background label. ltype specifies the output label image type, an important
-        /// consideration based on the total number of labels or alternatively the total number of pixels in
-        /// the source image. ccltype specifies the connected components labeling algorithm to use, currently
-        /// Bolelli (Spaghetti) @cite Bolelli2019, Grana (BBDT) @cite Grana2010 and Wu's (SAUF) @cite Wu2009 algorithms
-        /// are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
-        /// a row major ordering of labels while Spaghetti and BBDT do not.
-        /// This function uses parallel version of the algorithms if at least one allowed
-        /// parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
-        /// </remarks>
-        public static int ConnectedComponents(Mat image, Mat labels, int connectivity, int ltype, int ccltype)
-        {
-            var res = NativeMethods.cv_connectedComponents_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), connectivity, ltype, ccltype);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="image">the 8-bit single-channel image to be labeled</param>
-        /// <param name="labels">destination labeled image</param>
-        /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
-        /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int ConnectedComponents(Mat image, Mat labels, int connectivity, int ltype)
-        {
-            var res = NativeMethods.cv_connectedComponents_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), connectivity, ltype);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// computes the connected components labeled image of boolean image and also produces a statistics output for each label
-        /// </summary>
-        /// <param name="image">the 8-bit single-channel image to be labeled</param>
-        /// <param name="labels">destination labeled image</param>
-        /// <param name="stats">statistics output for each label, including the background label. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.</param>
-        /// <param name="centroids">centroid output for each label, including the background label. Centroids are accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.</param>
-        /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
-        /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
-        /// <param name="ccltype">connected components algorithm type (see #ConnectedComponentsAlgorithmsTypes).</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
-        /// represents the background label. ltype specifies the output label image type, an important
-        /// consideration based on the total number of labels or alternatively the total number of pixels in
-        /// the source image. ccltype specifies the connected components labeling algorithm to use, currently
-        /// Bolelli (Spaghetti) @cite Bolelli2019, Grana (BBDT) @cite Grana2010 and Wu's (SAUF) @cite Wu2009 algorithms
-        /// are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
-        /// a row major ordering of labels while Spaghetti and BBDT do not.
-        /// This function uses parallel version of the algorithms (statistics included) if at least one allowed
-        /// parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
-        /// </remarks>
-        public static int ConnectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype, int ccltype)
-        {
-            var res = NativeMethods.cv_connectedComponentsWithStats_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), ValidationHelper.GetHandle(stats, nameof(stats), false), ValidationHelper.GetHandle(centroids, nameof(centroids), false), connectivity, ltype, ccltype);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="image">the 8-bit single-channel image to be labeled</param>
-        /// <param name="labels">destination labeled image</param>
-        /// <param name="stats">statistics output for each label, including the background label. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.</param>
-        /// <param name="centroids">centroid output for each label, including the background label. Centroids are accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.</param>
-        /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
-        /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int ConnectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype)
-        {
-            var res = NativeMethods.cv_connectedComponentsWithStats_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), ValidationHelper.GetHandle(stats, nameof(stats), false), ValidationHelper.GetHandle(centroids, nameof(centroids), false), connectivity, ltype);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds contours in a binary image.
-        /// </summary>
-        /// <param name="image">Source, an 8-bit single-channel image. Non-zero pixels are treated as 1's. Zero pixels remain 0's, so the image is treated as binary . You can use #compare, #inRange, #threshold , #adaptiveThreshold, #Canny, and others to create a binary image out of a grayscale or color one. If mode equals to #RETR_CCOMP or #RETR_FLOODFILL, the input can also be a 32-bit integer image of labels (CV_32SC1).</param>
-        /// <param name="contours">Detected contours. Each contour is stored as a vector of points (e.g. std::vector&lt;std::vector&lt;cv::Point&gt; &gt;).</param>
-        /// <param name="hierarchy">Optional output vector (e.g. std::vector&lt;cv::Vec4i&gt;), containing information about the image topology. It has as many elements as the number of contours. For each i-th contour contours[i], the elements hierarchy[i][0] , hierarchy[i][1] , hierarchy[i][2] , and hierarchy[i][3] are set to 0-based indices in contours of the next and previous contours at the same hierarchical level, the first child contour and the parent contour, respectively. If for the contour i there are no next, previous, parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.</param>
-        /// <param name="mode">Contour retrieval mode, see #RetrievalModes</param>
-        /// <param name="method">Contour approximation method, see #ContourApproximationModes</param>
-        /// <param name="offset">Optional offset by which every contour point is shifted. This is useful if the contours are extracted from the image ROI and then they should be analyzed in the whole image context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function retrieves contours from the binary image. The contours
-        /// are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the
-        /// OpenCV sample directory.
-        /// @note Since OpenCV 4.14, when mode is #RETR_LIST and no hierarchy is requested, this function
-        /// automatically uses the TRUCO parallel algorithm @cite TRUCO2026, a scalable lock-free method for
-        /// contour extraction. In all other cases, the sequential @cite Suzuki85 algorithm is used.
-        /// @note Since opencv 3.2 source image is not modified by this function.
-        /// @note In Python, hierarchy is nested inside a top level array. Use hierarchy[0][i] to access hierarchical elements of i-th contour.
-        /// </remarks>
-        public static void FindContours(Mat image, IntPtr contours, Mat hierarchy, int mode, int method, Point offset)
-        {
-            NativeMethods.cv_findContours_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), false), mode, method, offset);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="contours">The contours parameter.</param>
-        /// <param name="hierarchy">The hierarchy parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FindContoursLinkRuns(Mat image, IntPtr contours, Mat hierarchy)
-        {
-            NativeMethods.cv_findContoursLinkRuns_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="contours">The contours parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FindContoursLinkRuns(Mat image, IntPtr contours)
-        {
-            NativeMethods.cv_findContoursLinkRuns_1(ValidationHelper.GetHandle(image, nameof(image), false), contours);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Creates a smart pointer to a cv::GeneralizedHoughBallard class and initializes it.
-        /// </summary>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static GeneralizedHoughBallard? CreateGeneralizedHoughBallard()
-        {
-            IntPtr res = NativeMethods.cv_createGeneralizedHoughBallard_0();
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new GeneralizedHoughBallard(res);
-        }
-        /// <summary>
-        /// Creates a smart pointer to a cv::GeneralizedHoughGuil class and initializes it.
-        /// </summary>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static GeneralizedHoughGuil? CreateGeneralizedHoughGuil()
-        {
-            IntPtr res = NativeMethods.cv_createGeneralizedHoughGuil_0();
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new GeneralizedHoughGuil(res);
-        }
-        /// <summary>
-        /// Applies a GNU Octave/MATLAB equivalent colormap on a given image.
-        /// </summary>
-        /// <param name="src">The source image, grayscale or colored of type CV_8UC1 or CV_8UC3. If CV_8UC3, then the CV_8UC1 image is generated internally using cv::COLOR_BGR2GRAY.</param>
-        /// <param name="dst">The result is the colormapped source image. Note: Mat::create is called on dst.</param>
-        /// <param name="colormap">The colormap to apply, see #ColormapTypes</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ApplyColorMap(Mat src, Mat dst, int colormap)
-        {
-            NativeMethods.cv_applyColorMap_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), colormap);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Applies a user colormap on a given image.
-        /// </summary>
-        /// <param name="src">The source image, grayscale or colored of type CV_8UC1 or CV_8UC3. If CV_8UC3, then the CV_8UC1 image is generated internally using cv::COLOR_BGR2GRAY.</param>
-        /// <param name="dst">The result is the colormapped source image of the same number of channels as userColor. Note: Mat::create is called on dst.</param>
-        /// <param name="userColor">The colormap to apply of type CV_8UC1 or CV_8UC3 and size 256</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ApplyColorMap(Mat src, Mat dst, Mat userColor)
-        {
-            NativeMethods.cv_applyColorMap_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(userColor, nameof(userColor), false));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a line segment connecting two points.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="pt1">First point of the line segment.</param>
-        /// <param name="pt2">Second point of the line segment.</param>
-        /// <param name="color">Line color.</param>
-        /// <param name="thickness">Line thickness.</param>
-        /// <param name="lineType">Type of the line. See #LineTypes.</param>
-        /// <param name="shift">Number of fractional bits in the point coordinates.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function line draws the line segment between pt1 and pt2 points in the image. The line is
-        /// clipped by the image boundaries. For non-antialiased lines with integer coordinates, the 8-connected
-        /// or 4-connected Bresenham algorithm is used. Thick lines are drawn with rounding endings. Antialiased
-        /// lines are drawn using Gaussian filtering.
-        /// </remarks>
-        public static void Line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_line_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws an arrow segment pointing from the first point to the second one.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="pt1">The point the arrow starts from.</param>
-        /// <param name="pt2">The point the arrow points to.</param>
-        /// <param name="color">Line color.</param>
-        /// <param name="thickness">Line thickness.</param>
-        /// <param name="line_type">Type of the line. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the point coordinates.</param>
-        /// <param name="tipLength">The length of the arrow tip in relation to the arrow length</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
-        /// </remarks>
-        public static void ArrowedLine(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int line_type, int shift, double tipLength)
-        {
-            NativeMethods.cv_arrowedLine_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, line_type, shift, tipLength);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draw axes of the world/object coordinate system from pose estimation. @sa solvePnP
-        /// *
-        /// * @param image Input/output image. It must have 1 or 3 channels. The number of channels is not altered.
-        /// * @param cameraMatrix Input 3x3 floating-point matrix of camera intrinsic parameters.
-        /// * \f$\cameramatrix{A}\f$
-        /// * @param distCoeffs Input vector of distortion coefficients
-        /// * \f$\distcoeffs\f$. If the vector is empty, the zero distortion coefficients are assumed.
-        /// * @param rvec Rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
-        /// * the model coordinate system to the camera coordinate system.
-        /// * @param tvec Translation vector.
-        /// * @param length Length of the painted axes in the same unit than tvec (usually in meters).
-        /// * @param thickness Line thickness of the painted axes.
-        /// *
-        /// * This function draws the axes of the world/object coordinate system w.r.t. to the camera frame.
-        /// * OX is drawn in red, OY in green and OZ in blue.
-        /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
-        /// <param name="distCoeffs">The distCoeffs parameter.</param>
-        /// <param name="rvec">The rvec parameter.</param>
-        /// <param name="tvec">The tvec parameter.</param>
-        /// <param name="length">The length parameter.</param>
-        /// <param name="thickness">The thickness parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void DrawFrameAxes(Mat image, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, float length, int thickness)
-        {
-            NativeMethods.cv_drawFrameAxes_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), length, thickness);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a simple, thick, or filled up-right rectangle.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="pt1">Vertex of the rectangle.</param>
-        /// <param name="pt2">Vertex of the rectangle opposite to pt1 .</param>
-        /// <param name="color">Rectangle color or brightness (grayscale image).</param>
-        /// <param name="thickness">Thickness of lines that make up the rectangle. Negative values, like #FILLED, mean that the function has to draw a filled rectangle.</param>
-        /// <param name="lineType">Type of the line. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the point coordinates.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::rectangle draws a rectangle outline or a filled rectangle whose two opposite corners
-        /// are pt1 and pt2.
-        /// </remarks>
-        public static void Rectangle(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_rectangle_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="img">The img parameter.</param>
-        /// <param name="rec">The rec parameter.</param>
-        /// <param name="color">The color parameter.</param>
-        /// <param name="thickness">The thickness parameter.</param>
-        /// <param name="lineType">The lineType parameter.</param>
-        /// <param name="shift">The shift parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// use `rec` parameter as alternative specification of the drawn rectangle: `r.tl() and
-        /// r.br()-Point(1,1)` are opposite corners
-        /// </remarks>
-        public static void Rectangle(Mat img, Rect rec, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_rectangle_1(ValidationHelper.GetHandle(img, nameof(img), false), rec, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a circle.
-        /// </summary>
-        /// <param name="img">Image where the circle is drawn.</param>
-        /// <param name="center">Center of the circle.</param>
-        /// <param name="radius">Radius of the circle.</param>
-        /// <param name="color">Circle color.</param>
-        /// <param name="thickness">Thickness of the circle outline, if positive. Negative values, like #FILLED, mean that a filled circle is to be drawn.</param>
-        /// <param name="lineType">Type of the circle boundary. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the coordinates of the center and in the radius value.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::circle draws a simple or filled circle with a given center and radius.
-        /// </remarks>
-        public static void Circle(Mat img, Point center, int radius, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_circle_0(ValidationHelper.GetHandle(img, nameof(img), false), center, radius, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a simple or thick elliptic arc or fills an ellipse sector.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="center">Center of the ellipse.</param>
-        /// <param name="axes">Half of the size of the ellipse main axes.</param>
-        /// <param name="angle">Ellipse rotation angle in degrees.</param>
-        /// <param name="startAngle">Starting angle of the elliptic arc in degrees.</param>
-        /// <param name="endAngle">Ending angle of the elliptic arc in degrees.</param>
-        /// <param name="color">Ellipse color.</param>
-        /// <param name="thickness">Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that a filled ellipse sector is to be drawn.</param>
-        /// <param name="lineType">Type of the ellipse boundary. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the coordinates of the center and values of axes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::ellipse with more parameters draws an ellipse outline, a filled ellipse, an elliptic
-        /// arc, or a filled ellipse sector. The drawing code uses general parametric form.
-        /// A piecewise-linear curve is used to approximate the elliptic arc
-        /// boundary. If you need more control of the ellipse rendering, you can retrieve the curve using
-        /// #ellipse2Poly and then render it with #polylines or fill it with #fillPoly. If you use the first
-        /// variant of the function and want to draw the whole ellipse, not an arc, pass `startAngle=0` and
-        /// `endAngle=360`. If `startAngle` is greater than `endAngle`, they are swapped. The figure below explains
-        /// the meaning of the parameters to draw the blue arc.
-        /// ![Parameters of Elliptic Arc](pics/ellipse.svg)
-        /// </remarks>
-        public static void Ellipse(Mat img, Point center, Size axes, double angle, double startAngle, double endAngle, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_ellipse_0(ValidationHelper.GetHandle(img, nameof(img), false), center, axes, angle, startAngle, endAngle, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="box">Alternative ellipse representation via RotatedRect. This means that the function draws an ellipse inscribed in the rotated rectangle.</param>
-        /// <param name="color">Ellipse color.</param>
-        /// <param name="thickness">Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that a filled ellipse sector is to be drawn.</param>
-        /// <param name="lineType">Type of the ellipse boundary. See #LineTypes</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void Ellipse(Mat img, RotatedRect box, Scalar color, int thickness, int lineType)
-        {
-            NativeMethods.cv_ellipse_1(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(box, nameof(box), false), color, thickness, lineType);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a marker on a predefined position in an image.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="position">The point where the crosshair is positioned.</param>
-        /// <param name="color">Line color.</param>
-        /// <param name="markerType">The specific type of marker you want to use, see #MarkerTypes</param>
-        /// <param name="markerSize">The length of the marker axis [default = 20 pixels]</param>
-        /// <param name="thickness">Line thickness.</param>
-        /// <param name="line_type">Type of the line, See #LineTypes</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::drawMarker draws a marker on a given position in the image. For the moment several
-        /// marker types are supported, see #MarkerTypes for more information.
-        /// </remarks>
-        public static void DrawMarker(Mat img, Point position, Scalar color, int markerType, int markerSize, int thickness, int line_type)
-        {
-            NativeMethods.cv_drawMarker_0(ValidationHelper.GetHandle(img, nameof(img), false), position, color, markerType, markerSize, thickness, line_type);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Fills a convex polygon.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="points">Polygon vertices.</param>
-        /// <param name="color">Polygon color.</param>
-        /// <param name="lineType">Type of the polygon boundaries. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the vertex coordinates.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::fillConvexPoly draws a filled convex polygon. This function is much faster than the
-        /// function #fillPoly . It can fill not only convex polygons but any monotonic polygon without
-        /// self-intersections, that is, a polygon whose contour intersects every horizontal line (scan line)
-        /// twice at the most (though, its top-most and/or the bottom edge could be horizontal).
-        /// </remarks>
-        public static void FillConvexPoly(Mat img, Mat points, Scalar color, int lineType, int shift)
-        {
-            NativeMethods.cv_fillConvexPoly_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), color, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Fills the area bounded by one or more polygons.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="pts">Array of polygons where each polygon is represented as an array of points.</param>
-        /// <param name="color">Polygon color.</param>
-        /// <param name="lineType">Type of the polygon boundaries. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the vertex coordinates.</param>
-        /// <param name="offset">Optional offset of all points of the contours.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::fillPoly fills an area bounded by several polygonal contours. The function can fill
-        /// complex areas, for example, areas with holes, contours with self-intersections (some of their
-        /// parts), and so forth.
-        /// </remarks>
-        public static void FillPoly(Mat img, IntPtr pts, Scalar color, int lineType, int shift, Point offset)
-        {
-            NativeMethods.cv_fillPoly_0(ValidationHelper.GetHandle(img, nameof(img), false), pts, color, lineType, shift, offset);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws several polygonal curves.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="pts">Array of polygonal curves.</param>
-        /// <param name="isClosed">Flag indicating whether the drawn polylines are closed or not. If they are closed, the function draws a line from the last vertex of each curve to its first vertex.</param>
-        /// <param name="color">Polyline color.</param>
-        /// <param name="thickness">Thickness of the polyline edges.</param>
-        /// <param name="lineType">Type of the line segments. See #LineTypes</param>
-        /// <param name="shift">Number of fractional bits in the vertex coordinates. The function cv::polylines draws one or more polygonal curves.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void Polylines(Mat img, IntPtr pts, bool isClosed, Scalar color, int thickness, int lineType, int shift)
-        {
-            NativeMethods.cv_polylines_0(ValidationHelper.GetHandle(img, nameof(img), false), pts, isClosed, color, thickness, lineType, shift);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws contours outlines or filled contours.
-        /// </summary>
-        /// <param name="image">Destination image.</param>
-        /// <param name="contours">All the input contours. Each contour is stored as a point vector.</param>
-        /// <param name="contourIdx">Parameter indicating a contour to draw. If it is negative, all the contours are drawn.</param>
-        /// <param name="color">Color of the contours.</param>
-        /// <param name="thickness">Thickness of lines the contours are drawn with. If it is negative (for example, thickness=#FILLED ), the contour interiors are drawn.</param>
-        /// <param name="lineType">Line connectivity. See #LineTypes</param>
-        /// <param name="hierarchy">Optional information about hierarchy. It is only needed if you want to draw only some of the contours (see maxLevel ).</param>
-        /// <param name="maxLevel">Maximal level for drawn contours. If it is 0, only the specified contour is drawn. If it is 1, the function draws the contour(s) and all the nested contours. If it is 2, the function draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This parameter is only taken into account when there is hierarchy available.</param>
-        /// <param name="offset">Optional contour shift parameter. Shift all the drawn contours by the specified \f$\texttt{offset}=(dx,dy)\f$ .</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function draws contour outlines in the image if \f$\texttt{thickness} \ge 0\f$ or fills the area
-        /// bounded by the contours if \f$\texttt{thickness}&lt;0\f$ . The example below shows how to retrieve
-        /// connected components from the binary image and label them: :
-        /// @include snippets/imgproc_drawContours.cpp
-        /// @note When thickness=#FILLED, the function is designed to handle connected components with holes correctly
-        /// even when no hierarchy data is provided. This is done by analyzing all the outlines together
-        /// using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
-        /// contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
-        /// of contours, or iterate over the collection using contourIdx parameter.
-        /// </remarks>
-        public static void DrawContours(Mat image, IntPtr contours, int contourIdx, Scalar color, int thickness, int lineType, Mat? hierarchy, int maxLevel, Point offset)
-        {
-            NativeMethods.cv_drawContours_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, contourIdx, color, thickness, lineType, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), true), maxLevel, offset);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="imgRect">Image rectangle.</param>
-        /// <param name="pt1">First line point.</param>
-        /// <param name="pt2">Second line point.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool ClipLine(Rect imgRect, Point pt1, Point pt2)
-        {
-            var res = NativeMethods.cv_clipLine_0(imgRect, pt1, pt2);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Approximates an elliptic arc with a polyline.
-        /// </summary>
-        /// <param name="center">Center of the arc.</param>
-        /// <param name="axes">Half of the size of the ellipse main axes. See #ellipse for details.</param>
-        /// <param name="angle">Rotation angle of the ellipse in degrees. See #ellipse for details.</param>
-        /// <param name="arcStart">Starting angle of the elliptic arc in degrees.</param>
-        /// <param name="arcEnd">Ending angle of the elliptic arc in degrees.</param>
-        /// <param name="delta">Angle between the subsequent polyline vertices. It defines the approximation accuracy.</param>
-        /// <param name="pts">Output vector of polyline vertices.</param>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function ellipse2Poly computes the vertices of a polyline that approximates the specified
-        /// elliptic arc. It is used by #ellipse. If `arcStart` is greater than `arcEnd`, they are swapped.
-        /// </remarks>
-        public static void Ellipse2Poly(Point center, Size axes, int angle, int arcStart, int arcEnd, int delta, IntPtr pts)
-        {
-            NativeMethods.cv_ellipse2Poly_0(center, axes, angle, arcStart, arcEnd, delta, pts);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Draws a text string.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="text">Text string to be drawn.</param>
-        /// <param name="org">Bottom-left corner of the text string in the image.</param>
-        /// <param name="fontFace">Font type, see #HersheyFonts.</param>
-        /// <param name="fontScale">Font scale factor that is multiplied by the font-specific base size.</param>
-        /// <param name="color">Text color.</param>
-        /// <param name="thickness">Thickness of the lines used to draw a text.</param>
-        /// <param name="lineType">Line type. See #LineTypes</param>
-        /// <param name="bottomLeftOrigin">When true, the image data origin is at the bottom-left corner. Otherwise, it is at the top-left corner.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::putText renders the specified text string in the image. Symbols that cannot be rendered
-        /// using the specified font are replaced by question marks. See #getTextSize for a text rendering code
-        /// example.
-        /// The `fontScale` parameter is a scale factor that is multiplied by the base font size:
-        /// - When scale &gt; 1, the text is magnified.
-        /// - When 0 &lt; scale &lt; 1, the text is minimized.
-        /// - When scale &lt; 0, the text is mirrored or reversed.
-        /// </remarks>
-        public static void PutText(Mat img, string text, Point org, int fontFace, double fontScale, Scalar color, int thickness, int lineType, bool bottomLeftOrigin)
-        {
-            NativeMethods.cv_putText_0(ValidationHelper.GetHandle(img, nameof(img), false), text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Calculates the width and height of a text string.
-        /// </summary>
-        /// <param name="text">Input text string.</param>
-        /// <param name="fontFace">Font to use, see #HersheyFonts.</param>
-        /// <param name="fontScale">Font scale factor that is multiplied by the font-specific base size.</param>
-        /// <param name="thickness">Thickness of lines used to render the text. See #putText for details.</param>
-        /// <param name="baseLine">The baseLine parameter.</param>
-        /// <returns>The size of a box that contains the specified text.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::getTextSize calculates and returns the size of a box that contains the specified text.
-        /// That is, the following code renders some text, the tight box surrounding it, and the baseline: :
-        /// @code
-        /// String text = "Funny text inside the box";
-        /// int fontFace = FONT_HERSHEY_SCRIPT_SIMPLEX;
-        /// double fontScale = 2;
-        /// int thickness = 3;
-        /// Mat img(600, 800, CV_8UC3, Scalar::all(0));
-        /// int baseline=0;
-        /// Size textSize = getTextSize(text, fontFace,
-        /// fontScale, thickness, &amp;baseline);
-        /// baseline += thickness;
-        /// // center the text
-        /// Point textOrg((img.cols - textSize.width)/2,
-        /// (img.rows + textSize.height)/2);
-        /// // draw the box
-        /// rectangle(img, textOrg + Point(0, baseline),
-        /// textOrg + Point(textSize.width, -textSize.height),
-        /// Scalar(0,0,255));
-        /// // ... and the baseline first
-        /// line(img, textOrg + Point(0, thickness),
-        /// textOrg + Point(textSize.width, thickness),
-        /// Scalar(0, 0, 255));
-        /// // then put the text itself
-        /// putText(img, text, textOrg, fontFace, fontScale,
-        /// Scalar::all(255), thickness, 8);
-        /// @endcode
-        /// @see putText
-        /// </remarks>
-        public static Size GetTextSize(string text, int fontFace, double fontScale, int thickness, IntPtr baseLine)
-        {
-            var res = NativeMethods.cv_getTextSize_0(text, fontFace, fontScale, thickness, baseLine);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates the font-specific size to use to achieve a given height in pixels.
-        /// </summary>
-        /// <param name="fontFace">Font to use, see cv::HersheyFonts.</param>
-        /// <param name="pixelHeight">Pixel height to compute the fontScale for</param>
-        /// <param name="thickness">Thickness of lines used to render the text.See putText for details.</param>
-        /// <returns>The fontSize to use for cv::putText</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @see cv::putText
-        /// </remarks>
-        public static double GetFontScaleFromHeight(int fontFace, int pixelHeight, int thickness)
-        {
-            var res = NativeMethods.cv_getFontScaleFromHeight_0(fontFace, pixelHeight, thickness);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Draws a text string using specified font.
-        /// </summary>
-        /// <param name="img">Image.</param>
-        /// <param name="text">Text string to be drawn.</param>
-        /// <param name="org">Bottom-left corner of the first character of the printed text (see PUT_TEXT_ALIGN_... though)</param>
-        /// <param name="color">Text color.</param>
-        /// <param name="fface">The font to use for the text</param>
-        /// <param name="size">Font size in pixels (by default) or pts</param>
-        /// <param name="weight">Font weight, 100..1000, where 100 is "thin" font, 400 is "regular", 600 is "semibold", 800 is "bold" and beyond that is "black". The parameter is ignored if the font is not a variable font or if it does not provide variation along 'wght' axis. If the weight is 0, then the weight, currently set via setInstance(), is used.</param>
-        /// <param name="flags">Various flags, see PUT_TEXT_...</param>
-        /// <param name="wrap">The optional text wrapping range: In the case of left-to-right (LTR) text if the printed character would cross wrap.end boundary, the "cursor" is set to wrap.start. In the case of right-to-left (RTL) text it's vice versa. If the parameters is not set, [org.x, img.cols] is used for LTR text and [0, org.x] is for RTL one.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::putText renders the specified text string in the image. Symbols that cannot be rendered
-        /// using the specified font are replaced by question marks. See #getTextSize for a text rendering code
-        /// example. The function returns the coordinates in pixels from where the text can be continued.
-        /// </remarks>
-        public static Point PutText(Mat img, string text, Point org, Scalar color, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
-        {
-            var res = NativeMethods.cv_putText_1(ValidationHelper.GetHandle(img, nameof(img), false), text, org, color, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates the bounding rect for the text
-        /// </summary>
-        /// <param name="imgsize">Size of the target image, can be empty</param>
-        /// <param name="text">Text string to be drawn.</param>
-        /// <param name="org">Bottom-left corner of the first character of the printed text (see PUT_TEXT_ALIGN_... though)</param>
-        /// <param name="fface">The font to use for the text</param>
-        /// <param name="size">Font size in pixels (by default) or pts</param>
-        /// <param name="weight">Font weight, 100..1000, where 100 is "thin" font, 400 is "regular", 600 is "semibold", 800 is "bold" and beyond that is "black". The default weight means "400" for variable-weight fonts or whatever "default" weight the used font provides.</param>
-        /// <param name="flags">Various flags, see PUT_TEXT_...</param>
-        /// <param name="wrap">The optional text wrapping range; see #putText.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function cv::getTextSize calculates and returns the size of a box that contains the specified text.
-        /// That is, the following code renders some text, the tight box surrounding it, and the baseline: :
-        /// </remarks>
-        public static Rect GetTextSize(Size imgsize, string text, Point org, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
-        {
-            var res = NativeMethods.cv_getTextSize_1(imgsize, text, org, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds lines in a binary image using the standard Hough transform and get accumulator.
-        /// *
-        /// * @note This function is for bindings use only. Use original function in C++ code
-        /// *
-        /// * @sa HoughLines
-        /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="lines">The lines parameter.</param>
-        /// <param name="rho">The rho parameter.</param>
-        /// <param name="theta">The theta parameter.</param>
-        /// <param name="threshold">The threshold parameter.</param>
-        /// <param name="srn">The srn parameter.</param>
-        /// <param name="stn">The stn parameter.</param>
-        /// <param name="min_theta">The min_theta parameter.</param>
-        /// <param name="max_theta">The max_theta parameter.</param>
-        /// <param name="use_edgeval">The use_edgeval parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta, bool use_edgeval)
-        {
-            NativeMethods.cv_HoughLinesWithAccumulator_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, srn, stn, min_theta, max_theta, use_edgeval);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Finds circles in a grayscale image using the Hough transform and get accumulator.
-        /// *
-        /// * @note This function is for bindings use only. Use original function in C++ code
-        /// *
-        /// * @sa HoughCircles
-        /// </summary>
-        /// <param name="image">The image parameter.</param>
-        /// <param name="circles">The circles parameter.</param>
-        /// <param name="method">The method parameter.</param>
-        /// <param name="dp">The dp parameter.</param>
-        /// <param name="minDist">The minDist parameter.</param>
-        /// <param name="param1">The param1 parameter.</param>
-        /// <param name="param2">The param2 parameter.</param>
-        /// <param name="minRadius">The minRadius parameter.</param>
-        /// <param name="maxRadius">The maxRadius parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void HoughCirclesWithAccumulator(Mat image, Mat circles, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius)
-        {
-            NativeMethods.cv_HoughCirclesWithAccumulator_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(circles, nameof(circles), false), method, dp, minDist, param1, param2, minRadius, maxRadius);
-            ErrorHelper.CheckError();
-        }
+            /// <summary>
+            /// Creates a smart pointer to a LineSegmentDetector object and initializes it.
+            /// </summary>
+            /// <param name="refine">The way found lines will be refined, see #LineSegmentDetectorModes</param>
+            /// <param name="scale">The scale of the image that will be used to find the lines. Range (0..1].</param>
+            /// <param name="sigma_scale">Sigma for Gaussian filter. It is computed as sigma = sigma_scale/scale.</param>
+            /// <param name="quant">Bound to the quantization error on the gradient norm.</param>
+            /// <param name="ang_th">Gradient angle tolerance in degrees.</param>
+            /// <param name="log_eps">Detection threshold: -log10(NFA) \&gt; log_eps. Used only when advance refinement is chosen.</param>
+            /// <param name="density_th">Minimal density of aligned region points in the enclosing rectangle.</param>
+            /// <param name="n_bins">Number of bins in pseudo-ordering of gradient modulus.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
+            /// to edit those, as to tailor it for their own application.
+            /// </remarks>
+            public static LineSegmentDetector? CreateLineSegmentDetector(LineSegmentDetectorModes refine, double scale, double sigma_scale, double quant, double ang_th, double log_eps, double density_th, int n_bins)
+            {
+                IntPtr res = NativeMethods.cv_createLineSegmentDetector_0((int)refine, scale, sigma_scale, quant, ang_th, log_eps, density_th, n_bins);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new LineSegmentDetector(res);
+            }
+            /// <summary>
+            /// Returns Gaussian filter coefficients.
+            /// </summary>
+            /// <param name="ksize">Aperture size. It should be odd ( [formula] ) and positive.</param>
+            /// <param name="sigma">Gaussian standard deviation. If it is non-positive, it is computed from ksize as `sigma = 0.3*((ksize-1)*0.5 - 1) + 0.8`.</param>
+            /// <param name="ktype">Type of filter coefficients. It can be CV_32F or CV_64F .</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes and returns the [formula] matrix of Gaussian filter
+            /// coefficients:
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] and [formula] is the scale factor chosen so that [formula].
+            /// Two of such generated kernels can be passed to sepFilter2D. Those functions automatically recognize
+            /// smoothing kernels (a symmetrical kernel with sum of weights equal to 1) and handle them accordingly.
+            /// You may also use the higher-level GaussianBlur.
+            /// @sa  sepFilter2D, getDerivKernels, getStructuringElement, GaussianBlur
+            /// </remarks>
+            public static Mat? GetGaussianKernel(int ksize, double sigma, int ktype)
+            {
+                IntPtr res = NativeMethods.cv_getGaussianKernel_0(ksize, sigma, ktype);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Returns filter coefficients for computing spatial image derivatives.
+            /// </summary>
+            /// <param name="kx">Output matrix of row filter coefficients. It has the type ktype .</param>
+            /// <param name="ky">Output matrix of column filter coefficients. It has the type ktype .</param>
+            /// <param name="dx">Derivative order in respect of x.</param>
+            /// <param name="dy">Derivative order in respect of y.</param>
+            /// <param name="ksize">Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.</param>
+            /// <param name="normalize">Flag indicating whether to normalize (scale down) the filter coefficients or not. Theoretically, the coefficients should have the denominator [formula]. If you are going to filter floating-point images, you are likely to use the normalized kernels. But if you compute derivatives of an 8-bit image, store the results in a 16-bit image, and wish to preserve all the fractional bits, you may want to set normalize=false .</param>
+            /// <param name="ktype">Type of filter coefficients. It can be CV_32f or CV_64F .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes and returns the filter coefficients for spatial image derivatives. When
+            /// `ksize=FILTER_SCHARR`, the Scharr [formula] kernels are generated (see #Scharr). Otherwise, Sobel
+            /// kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
+            /// </remarks>
+            public static void GetDerivKernels(Mat kx, Mat ky, int dx, int dy, int ksize, bool normalize, int ktype)
+            {
+                NativeMethods.cv_getDerivKernels_0(ValidationHelper.GetHandle(kx, nameof(kx), false), ValidationHelper.GetHandle(ky, nameof(ky), false), dx, dy, ksize, normalize, ktype);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Returns Gabor filter coefficients.
+            /// </summary>
+            /// <param name="ksize">Size of the filter returned.</param>
+            /// <param name="sigma">Standard deviation of the gaussian envelope.</param>
+            /// <param name="theta">Orientation of the normal to the parallel stripes of a Gabor function.</param>
+            /// <param name="lambd">Wavelength of the sinusoidal factor.</param>
+            /// <param name="gamma">Spatial aspect ratio.</param>
+            /// <param name="psi">Phase offset.</param>
+            /// <param name="ktype">Type of filter coefficients. It can be CV_32F or CV_64F .</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// For more details about gabor filter equations and parameters, see: [Gabor
+            /// Filter](https://en.wikipedia.org/wiki/Gabor_filter).
+            /// </remarks>
+            public static Mat? GetGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma, double psi, int ktype)
+            {
+                IntPtr res = NativeMethods.cv_getGaborKernel_0(ksize, sigma, theta, lambd, gamma, psi, ktype);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Returns a structuring element of the specified size and shape for morphological operations.
+            /// </summary>
+            /// <param name="shape">Element shape that could be one of #MorphShapes</param>
+            /// <param name="ksize">Size of the structuring element.</param>
+            /// <param name="anchor">Anchor position within the element. The default value [formula] means that the anchor is at the center. Note that only the shape of a cross-shaped element depends on the anchor position. In other cases the anchor just regulates how much the result of the morphological operation is shifted.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function constructs and returns the structuring element that can be further passed to #erode,
+            /// #dilate or #morphologyEx. But you can also construct an arbitrary binary mask yourself and use it as
+            /// the structuring element.
+            /// </remarks>
+            public static Mat? GetStructuringElement(int shape, Size ksize, Point anchor)
+            {
+                IntPtr res = NativeMethods.cv_getStructuringElement_0(shape, ksize, anchor);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Blurs an image using the median filter.
+            /// </summary>
+            /// <param name="src">input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image depth should be CV_8U, CV_16U, or CV_32F, for larger aperture sizes, it can only be CV_8U.</param>
+            /// <param name="dst">destination array of the same size and type as src.</param>
+            /// <param name="ksize">aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function smoothes an image using the median filter with the \f$\texttt{ksize} \times
+            /// \texttt{ksize}\f$ aperture. Each channel of a multi-channel image is processed independently.
+            /// In-place operation is supported.
+            /// @note The median filter uses #BORDER_REPLICATE internally to cope with border pixels, see #BorderTypes
+            /// @sa  bilateralFilter, blur, boxFilter, GaussianBlur
+            /// </remarks>
+            public static void MedianBlur(Mat src, Mat dst, int ksize)
+            {
+                NativeMethods.cv_medianBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Blurs an image using a Gaussian filter.
+            /// </summary>
+            /// <param name="src">input image; the image can have any number of channels, which are processed independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="ksize">Gaussian kernel size. ksize.width and ksize.height can differ but they both must be positive and odd. Or, they can be zero's and then they are computed from sigma.</param>
+            /// <param name="sigmaX">Gaussian kernel standard deviation in X direction.</param>
+            /// <param name="sigmaY">Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height, respectively (see #getGaussianKernel for details); to fully control the result regardless of possible future modifications of all this semantics, it is recommended to specify all of ksize, sigmaX, and sigmaY.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function convolves the source image with the specified Gaussian kernel. In-place filtering is
+            /// supported.
+            /// @sa  sepFilter2D, filter2D, blur, boxFilter, bilateralFilter, medianBlur
+            /// </remarks>
+            public static void GaussianBlur(Mat src, Mat dst, Size ksize, double sigmaX, double sigmaY, int borderType, AlgorithmHint hint)
+            {
+                NativeMethods.cv_GaussianBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, sigmaX, sigmaY, borderType, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies the bilateral filter to an image.
+            /// </summary>
+            /// <param name="src">Source 8-bit or floating-point, 1-channel or 3-channel image.</param>
+            /// <param name="dst">Destination image of the same size and type as src .</param>
+            /// <param name="d">Diameter of each pixel neighborhood that is used during filtering. If it is non-positive, it is computed from sigmaSpace.</param>
+            /// <param name="sigmaColor">Filter sigma in the color space. A larger value of the parameter means that farther colors within the pixel neighborhood (see sigmaSpace) will be mixed together, resulting in larger areas of semi-equal color.</param>
+            /// <param name="sigmaSpace">Filter sigma in the coordinate space. A larger value of the parameter means that farther pixels will influence each other as long as their colors are close enough (see sigmaColor ). When d\&gt;0, it specifies the neighborhood size regardless of sigmaSpace. Otherwise, d is proportional to sigmaSpace.</param>
+            /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function applies bilateral filtering to the input image, as described in
+            /// https://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/MANDUCHI1/Bilateral_Filtering.html
+            /// bilateralFilter can reduce unwanted noise very well while keeping edges fairly sharp. However, it is
+            /// very slow compared to most filters.
+            /// _Sigma values_: For simplicity, you can set the 2 sigma values to be the same. If they are small (\&lt;
+            /// 10), the filter will not have much effect, whereas if they are large (\&gt; 150), they will have a very
+            /// strong effect, making the image look "cartoonish".
+            /// _Filter size_: Large filters (d \&gt; 5) are very slow, so it is recommended to use d=5 for real-time
+            /// applications, and perhaps d=9 for offline applications that need heavy noise filtering.
+            /// This filter does not work inplace.
+            /// </remarks>
+            public static void BilateralFilter(Mat src, Mat dst, int d, double sigmaColor, double sigmaSpace, int borderType)
+            {
+                NativeMethods.cv_bilateralFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), d, sigmaColor, sigmaSpace, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Blurs an image using the box filter.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="ddepth">the output image depth (-1 to use src.depth()).</param>
+            /// <param name="ksize">blurring kernel size.</param>
+            /// <param name="anchor">anchor point; default value Point(-1,-1) means that the anchor is at the kernel center.</param>
+            /// <param name="normalize">flag, specifying whether the kernel is normalized by its area or not.</param>
+            /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function smooths an image using the kernel:
+            /// [see mathematical formula in OpenCV docs]
+            /// where
+            /// [see mathematical formula in OpenCV docs]
+            /// Unnormalized box filter is useful for computing various integral characteristics over each pixel
+            /// neighborhood, such as covariance matrices of image derivatives (used in dense optical flow
+            /// algorithms, and so on). If you need to compute pixel sums over variable-size windows, use #integral.
+            /// @sa  blur, bilateralFilter, GaussianBlur, medianBlur, integral
+            /// </remarks>
+            public static void BoxFilter(Mat src, Mat dst, int ddepth, Size ksize, Point anchor, bool normalize, int borderType)
+            {
+                NativeMethods.cv_boxFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, anchor, normalize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the normalized sum of squares of the pixel values overlapping the filter.
+            /// </summary>
+            /// <param name="src">input image</param>
+            /// <param name="dst">output image of the same size and type as src</param>
+            /// <param name="ddepth">the output image depth (-1 to use src.depth())</param>
+            /// <param name="ksize">kernel size</param>
+            /// <param name="anchor">kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel center.</param>
+            /// <param name="normalize">flag, specifying whether the kernel is to be normalized by it's area or not.</param>
+            /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// For every pixel [formula] in the source image, the function calculates the sum of squares of those neighboring
+            /// pixel values which overlap the filter placed over the pixel [formula].
+            /// The unnormalized square box filter can be useful in computing local image statistics such as the local
+            /// variance and standard deviation around the neighborhood of a pixel.
+            /// @sa boxFilter
+            /// </remarks>
+            public static void SqrBoxFilter(Mat src, Mat dst, int ddepth, Size ksize, Point anchor, bool normalize, int borderType)
+            {
+                NativeMethods.cv_sqrBoxFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, anchor, normalize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Blurs an image using the normalized box filter.
+            /// </summary>
+            /// <param name="src">input image; it can have any number of channels, which are processed independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="ksize">blurring kernel size.</param>
+            /// <param name="anchor">anchor point; default value Point(-1,-1) means that the anchor is at the kernel center.</param>
+            /// <param name="borderType">border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function smooths an image using the kernel:
+            /// [see mathematical formula in OpenCV docs]
+            /// The call `blur(src, dst, ksize, anchor, borderType)` is equivalent to `boxFilter(src, dst, src.type(), ksize,
+            /// anchor, true, borderType)`.
+            /// @sa  boxFilter, bilateralFilter, GaussianBlur, medianBlur
+            /// </remarks>
+            public static void Blur(Mat src, Mat dst, Size ksize, Point anchor, int borderType)
+            {
+                NativeMethods.cv_blur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, anchor, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Blurs an image using the stackBlur.
+            /// </summary>
+            /// <param name="src">input image. The number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S or CV_32F.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="ksize">stack-blurring kernel size. The ksize.width and ksize.height can differ but they both must be positive and odd.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function applies and stackBlur to an image.
+            /// stackBlur can generate similar results as Gaussian blur, and the time consumption does not increase with the increase of kernel size.
+            /// It creates a kind of moving stack of colors whilst scanning through the image. Thereby it just has to add one new block of color to the right side
+            /// of the stack and remove the leftmost color. The remaining colors on the topmost layer of the stack are either added on or reduced by one,
+            /// depending on if they are on the right or on the left side of the stack. The only supported borderType is BORDER_REPLICATE.
+            /// Original paper was proposed by Mario Klingemann, which can be found https://underdestruction.com/2004/02/25/stackblur-2004.
+            /// </remarks>
+            public static void StackBlur(Mat src, Mat dst, Size ksize)
+            {
+                NativeMethods.cv_stackBlur_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Convolves an image with the kernel.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image of the same size and the same number of channels as src.</param>
+            /// <param name="ddepth">desired depth of the destination image, see @ref filter_depths "combinations"</param>
+            /// <param name="kernel">convolution kernel (or rather a correlation kernel), a single-channel floating point matrix; if you want to apply different kernels to different channels, split the image into separate color planes using split and process them individually.</param>
+            /// <param name="anchor">anchor of the kernel that indicates the relative position of a filtered point within the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor is at the kernel center.</param>
+            /// <param name="delta">optional value added to the filtered pixels before storing them in dst.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function applies an arbitrary linear filter to an image. In-place operation is supported. When
+            /// the aperture is partially outside the image, the function interpolates outlier pixel values
+            /// according to the specified border mode.
+            /// The function does actually compute correlation, not the convolution:
+            /// [see mathematical formula in OpenCV docs]
+            /// That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
+            /// the kernel using #flip and set the new anchor to `(kernel.cols - anchor.x - 1, kernel.rows -
+            /// anchor.y - 1)`.
+            /// The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
+            /// larger) and the direct algorithm for small kernels.
+            /// @sa  sepFilter2D, dft, matchTemplate
+            /// </remarks>
+            public static void Filter2D(Mat src, Mat dst, int ddepth, Mat kernel, Point anchor, double delta, int borderType)
+            {
+                NativeMethods.cv_filter2D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, delta, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <param name="kernel">The kernel parameter.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void Filter2D(Mat src, Mat dst, Mat kernel, Filter2DParams? @params)
+            {
+                NativeMethods.cv_filter2D_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), ValidationHelper.GetHandle(@params, nameof(@params), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies a separable linear filter to an image.
+            /// </summary>
+            /// <param name="src">Source image.</param>
+            /// <param name="dst">Destination image of the same size and the same number of channels as src .</param>
+            /// <param name="ddepth">Destination image depth, see @ref filter_depths "combinations"</param>
+            /// <param name="kernelX">Coefficients for filtering each row.</param>
+            /// <param name="kernelY">Coefficients for filtering each column.</param>
+            /// <param name="anchor">Anchor position within the kernel. The default value [formula] means that the anchor is at the kernel center.</param>
+            /// <param name="delta">Value added to the filtered results before storing them.</param>
+            /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function applies a separable linear filter to the image. That is, first, every row of src is
+            /// filtered with the 1D kernel kernelX. Then, every column of the result is filtered with the 1D
+            /// kernel kernelY. The final result shifted by delta is stored in dst .
+            /// @sa  filter2D, Sobel, GaussianBlur, boxFilter, blur
+            /// </remarks>
+            public static void SepFilter2D(Mat src, Mat dst, int ddepth, Mat kernelX, Mat kernelY, Point anchor, double delta, int borderType)
+            {
+                NativeMethods.cv_sepFilter2D_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ValidationHelper.GetHandle(kernelX, nameof(kernelX), false), ValidationHelper.GetHandle(kernelY, nameof(kernelY), false), anchor, delta, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image of the same size and the same number of channels as src .</param>
+            /// <param name="ddepth">output image depth, see @ref filter_depths "combinations"; in the case of 8-bit input images it will result in truncated derivatives.</param>
+            /// <param name="dx">order of the derivative x.</param>
+            /// <param name="dy">order of the derivative y.</param>
+            /// <param name="ksize">size of the extended Sobel kernel; it must be 1, 3, 5, or 7.</param>
+            /// <param name="scale">optional scale factor for the computed derivative values; by default, no scaling is applied (see #getDerivKernels for details).</param>
+            /// <param name="delta">optional delta value that is added to the results prior to storing them in dst.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// In all cases except one, the [formula] separable kernel is used to
+            /// calculate the derivative. When [formula], the [formula] or [formula]
+            /// kernel is used (that is, no Gaussian smoothing is done). `ksize = 1` can only be used for the first
+            /// or the second x- or y- derivatives.
+            /// There is also the special value `ksize = #FILTER_SCHARR (-1)` that corresponds to the [formula] Scharr
+            /// filter that may give more accurate results than the [formula] Sobel. The Scharr aperture is
+            /// [see mathematical formula in OpenCV docs]
+            /// for the x-derivative, or transposed for the y-derivative.
+            /// The function calculates an image derivative by convolving the image with the appropriate kernel:
+            /// [see mathematical formula in OpenCV docs]
+            /// The Sobel operators combine Gaussian smoothing and differentiation, so the result is more or less
+            /// resistant to the noise. Most often, the function is called with ( xorder = 1, yorder = 0, ksize = 3)
+            /// or ( xorder = 0, yorder = 1, ksize = 3) to calculate the first x- or y- image derivative. The first
+            /// case corresponds to a kernel of:
+            /// [see mathematical formula in OpenCV docs]
+            /// The second case corresponds to a kernel of:
+            /// [see mathematical formula in OpenCV docs]
+            /// @sa  Scharr, Laplacian, sepFilter2D, filter2D, GaussianBlur, cartToPolar
+            /// </remarks>
+            public static void Sobel(Mat src, Mat dst, int ddepth, int dx, int dy, int ksize, double scale, double delta, int borderType)
+            {
+                NativeMethods.cv_Sobel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, dx, dy, ksize, scale, delta, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the first order image derivative in both x and y using a Sobel operator
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dx">output image with first-order derivative in x.</param>
+            /// <param name="dy">output image with first-order derivative in y.</param>
+            /// <param name="ksize">size of Sobel kernel. It must be 3.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. Only #BORDER_DEFAULT=#BORDER_REFLECT_101 and #BORDER_REPLICATE are supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// Equivalent to calling:
+            /// @code
+            /// Sobel( src, dx, CV_16SC1, 1, 0, 3 );
+            /// Sobel( src, dy, CV_16SC1, 0, 1, 3 );
+            /// @endcode
+            /// @sa Sobel
+            /// </remarks>
+            public static void SpatialGradient(Mat src, Mat dx, Mat dy, int ksize, int borderType)
+            {
+                NativeMethods.cv_spatialGradient_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), ksize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the first x- or y- image derivative using Scharr operator.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image of the same size and the same number of channels as src.</param>
+            /// <param name="ddepth">output image depth, see @ref filter_depths "combinations"</param>
+            /// <param name="dx">order of the derivative x.</param>
+            /// <param name="dy">order of the derivative y.</param>
+            /// <param name="scale">optional scale factor for the computed derivative values; by default, no scaling is applied (see #getDerivKernels for details).</param>
+            /// <param name="delta">optional delta value that is added to the results prior to storing them in dst.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes the first x- or y- spatial image derivative using the Scharr operator. The
+            /// call
+            /// [see mathematical formula in OpenCV docs]
+            /// is equivalent to
+            /// [see mathematical formula in OpenCV docs]
+            /// @sa  cartToPolar
+            /// </remarks>
+            public static void Scharr(Mat src, Mat dst, int ddepth, int dx, int dy, double scale, double delta, int borderType)
+            {
+                NativeMethods.cv_Scharr_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, dx, dy, scale, delta, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the Laplacian of an image.
+            /// </summary>
+            /// <param name="src">Source image.</param>
+            /// <param name="dst">Destination image of the same size and the same number of channels as src .</param>
+            /// <param name="ddepth">Desired depth of the destination image, see @ref filter_depths "combinations".</param>
+            /// <param name="ksize">Aperture size used to compute the second-derivative filters. See #getDerivKernels for details. The size must be positive and odd.</param>
+            /// <param name="scale">Optional scale factor for the computed Laplacian values. By default, no scaling is applied. See #getDerivKernels for details.</param>
+            /// <param name="delta">Optional delta value that is added to the results prior to storing them in dst .</param>
+            /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function calculates the Laplacian of the source image by adding up the second x and y
+            /// derivatives calculated using the Sobel operator:
+            /// [see mathematical formula in OpenCV docs]
+            /// This is done when `ksize &gt; 1`. When `ksize == 1`, the Laplacian is computed by filtering the image
+            /// with the following [formula] aperture:
+            /// [see mathematical formula in OpenCV docs]
+            /// @sa  Sobel, Scharr
+            /// </remarks>
+            public static void Laplacian(Mat src, Mat dst, int ddepth, int ksize, double scale, double delta, int borderType)
+            {
+                NativeMethods.cv_Laplacian_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ddepth, ksize, scale, delta, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds edges in an image using the Canny algorithm @cite Canny86 .
+            /// </summary>
+            /// <param name="image">8-bit input image.</param>
+            /// <param name="edges">output edge map; single channels 8-bit image, which has the same size as image .</param>
+            /// <param name="threshold1">first threshold for the hysteresis procedure.</param>
+            /// <param name="threshold2">second threshold for the hysteresis procedure.</param>
+            /// <param name="apertureSize">aperture size for the Sobel operator.</param>
+            /// <param name="L2gradient">a flag, indicating whether a more accurate [formula] norm [formula] should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default [formula] norm [formula] is enough ( L2gradient=false ).</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function finds edges in the input image and marks them in the output map edges using the
+            /// Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The
+            /// largest value is used to find initial segments of strong edges. See
+            /// &lt;https://en.wikipedia.org/wiki/Canny_edge_detector&gt;
+            /// </remarks>
+            public static void Canny(Mat image, Mat edges, double threshold1, double threshold2, int apertureSize, bool L2gradient)
+            {
+                NativeMethods.cv_Canny_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(edges, nameof(edges), false), threshold1, threshold2, apertureSize, L2gradient);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// \overload
+            /// </summary>
+            /// <param name="dx">16-bit x derivative of input image (CV_16SC1 or CV_16SC3).</param>
+            /// <param name="dy">16-bit y derivative of input image (same type as dx).</param>
+            /// <param name="edges">output edge map; single channels 8-bit image, which has the same size as image .</param>
+            /// <param name="threshold1">first threshold for the hysteresis procedure.</param>
+            /// <param name="threshold2">second threshold for the hysteresis procedure.</param>
+            /// <param name="L2gradient">a flag, indicating whether a more accurate [formula] norm [formula] should be used to calculate the image gradient magnitude ( L2gradient=true ), or whether the default [formula] norm [formula] is enough ( L2gradient=false ).</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// Finds edges in an image using the Canny algorithm with custom image gradient.
+            /// </remarks>
+            public static void Canny(Mat dx, Mat dy, Mat edges, double threshold1, double threshold2, bool L2gradient)
+            {
+                NativeMethods.cv_Canny_1(ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), ValidationHelper.GetHandle(edges, nameof(edges), false), threshold1, threshold2, L2gradient);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the minimal eigenvalue of gradient matrices for corner detection.
+            /// </summary>
+            /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
+            /// <param name="dst">Image to store the minimal eigenvalues. It has the type CV_32FC1 and the same size as src .</param>
+            /// <param name="blockSize">Neighborhood size (see the details on #cornerEigenValsAndVecs ).</param>
+            /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
+            /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function is similar to cornerEigenValsAndVecs but it calculates and stores only the minimal
+            /// eigenvalue of the covariance matrix of derivatives, that is, [formula] in terms
+            /// of the formulae in the cornerEigenValsAndVecs description.
+            /// </remarks>
+            public static void CornerMinEigenVal(Mat src, Mat dst, int blockSize, int ksize, int borderType)
+            {
+                NativeMethods.cv_cornerMinEigenVal_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Harris corner detector.
+            /// </summary>
+            /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
+            /// <param name="dst">Image to store the Harris detector responses. It has the type CV_32FC1 and the same size as src .</param>
+            /// <param name="blockSize">Neighborhood size (see the details on #cornerEigenValsAndVecs ).</param>
+            /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
+            /// <param name="k">Harris detector free parameter. See the formula above.</param>
+            /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function runs the Harris corner detector on the image. Similarly to cornerMinEigenVal and
+            /// cornerEigenValsAndVecs , for each pixel [formula] it calculates a [formula] gradient covariance
+            /// matrix [formula] over a [formula] neighborhood. Then, it
+            /// computes the following characteristic:
+            /// [see mathematical formula in OpenCV docs]
+            /// Corners in the image can be found as the local maxima of this response map.
+            /// </remarks>
+            public static void CornerHarris(Mat src, Mat dst, int blockSize, int ksize, double k, int borderType)
+            {
+                NativeMethods.cv_cornerHarris_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, k, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates eigenvalues and eigenvectors of image blocks for corner detection.
+            /// </summary>
+            /// <param name="src">Input single-channel 8-bit or floating-point image.</param>
+            /// <param name="dst">Image to store the results. It has the same size as src and the type CV_32FC(6) .</param>
+            /// <param name="blockSize">Neighborhood size (see details below).</param>
+            /// <param name="ksize">Aperture parameter for the Sobel operator.</param>
+            /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// For every pixel [formula] , the function cornerEigenValsAndVecs considers a blockSize [formula] blockSize
+            /// neighborhood [formula] . It calculates the covariation matrix of derivatives over the neighborhood as:
+            /// [see mathematical formula in OpenCV docs]
+            /// where the derivatives are computed using the Sobel operator.
+            /// After that, it finds eigenvectors and eigenvalues of [formula] and stores them in the destination image as
+            /// [formula] where
+            /// -   [formula] are the non-sorted eigenvalues of [formula]
+            /// -   [formula] are the eigenvectors corresponding to [formula]
+            /// -   [formula] are the eigenvectors corresponding to [formula]
+            /// The output of the function can be used for robust edge or corner detection.
+            /// @sa  cornerMinEigenVal, cornerHarris, preCornerDetect
+            /// </remarks>
+            public static void CornerEigenValsAndVecs(Mat src, Mat dst, int blockSize, int ksize, int borderType)
+            {
+                NativeMethods.cv_cornerEigenValsAndVecs_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), blockSize, ksize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates a feature map for corner detection.
+            /// </summary>
+            /// <param name="src">Source single-channel 8-bit of floating-point image.</param>
+            /// <param name="dst">Output image that has the type CV_32F and the same size as src .</param>
+            /// <param name="ksize">%Aperture size of the Sobel .</param>
+            /// <param name="borderType">Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function calculates the complex spatial derivative-based function of the source image
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula],[formula] are the first image derivatives, [formula],[formula] are the second image
+            /// derivatives, and [formula] is the mixed derivative.
+            /// The corners can be found as local maximums of the functions, as shown below:
+            /// @code
+            /// Mat corners, dilated_corners;
+            /// preCornerDetect(image, corners, 3);
+            /// // dilation with 3x3 rectangular structuring element
+            /// dilate(corners, dilated_corners, Mat(), 1);
+            /// Mat corner_mask = corners == dilated_corners;
+            /// @endcode
+            /// </remarks>
+            public static void PreCornerDetect(Mat src, Mat dst, int ksize, int borderType)
+            {
+                NativeMethods.cv_preCornerDetect_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ksize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Refines the corner locations.
+            /// </summary>
+            /// <param name="image">Input single-channel, 8-bit or float image.</param>
+            /// <param name="corners">Initial coordinates of the input corners and refined coordinates provided for output.</param>
+            /// <param name="winSize">Half of the side length of the search window. For example, if winSize=Size(5,5) , then a [formula] search window is used.</param>
+            /// <param name="zeroZone">Half of the size of the dead region in the middle of the search zone over which the summation in the formula below is not done. It is used sometimes to avoid possible singularities of the autocorrelation matrix. The value of (-1,-1) indicates that there is no such a size.</param>
+            /// <param name="criteria">Criteria for termination of the iterative process of corner refinement. That is, the process of corner position refinement stops either after criteria.maxCount iterations or when the corner position moves by less than criteria.epsilon on some iteration.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function iterates to find the sub-pixel accurate location of corners or radial saddle
+            /// points as described in @cite forstner1987fast, and as shown on the figure below.
+            /// ![image](pics/cornersubpix.png)
+            /// Sub-pixel accurate corner locator is based on the observation that every vector from the center [formula]
+            /// to a point [formula] located within a neighborhood of [formula] is orthogonal to the image gradient at [formula]
+            /// subject to image and measurement noise. Consider the expression:
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] is an image gradient at one of the points [formula] in a neighborhood of [formula] . The
+            /// value of [formula] is to be found so that [formula] is minimized. A system of equations may be set up
+            /// with [formula] set to zero:
+            /// [see mathematical formula in OpenCV docs]
+            /// where the gradients are summed within a neighborhood ("search window") of [formula] . Calling the first
+            /// gradient term [formula] and the second gradient term [formula] gives:
+            /// [see mathematical formula in OpenCV docs]
+            /// The algorithm sets the center of the neighborhood window at this new center [formula] and then iterates
+            /// until the center stays within a set threshold.
+            /// </remarks>
+            public static void CornerSubPix(Mat image, Mat corners, Size winSize, Size zeroZone, TermCriteria criteria)
+            {
+                NativeMethods.cv_cornerSubPix_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), winSize, zeroZone, criteria);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds lines in a binary image using the standard Hough transform.
+            /// </summary>
+            /// <param name="image">8-bit, single-channel binary source image. The image may be modified by the function.</param>
+            /// <param name="lines">Output vector of lines. Each line is represented by a 2 or 3 element vector [formula] or [formula], where [formula] is the distance from the coordinate origin [formula] (top-left corner of the image), [formula] is the line rotation angle in radians ( [formula] ), and [formula] is the value of accumulator.</param>
+            /// <param name="rho">Distance resolution of the accumulator in pixels.</param>
+            /// <param name="theta">Angle resolution of the accumulator in radians.</param>
+            /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( [formula] ).</param>
+            /// <param name="srn">For the multi-scale Hough transform, it is a divisor for the distance resolution rho. The coarse accumulator distance resolution is rho and the accurate accumulator resolution is rho/srn. If both srn=0 and stn=0, the classical Hough transform is used. Otherwise, both these parameters should be positive.</param>
+            /// <param name="stn">For the multi-scale Hough transform, it is a divisor for the distance resolution theta.</param>
+            /// <param name="min_theta">For standard and multi-scale Hough transform, minimum angle to check for lines. Must fall between 0 and max_theta.</param>
+            /// <param name="max_theta">For standard and multi-scale Hough transform, an upper bound for the angle. Must fall between min_theta and CV_PI. The actual maximum angle in the accumulator may be slightly less than max_theta, depending on the parameters min_theta and theta.</param>
+            /// <param name="use_edgeval">True if you want to use weighted Hough transform.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function implements the standard or standard multi-scale Hough transform algorithm for line
+            /// detection. See &lt;https://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm&gt; for a good explanation of Hough
+            /// transform.
+            /// </remarks>
+            public static void HoughLines(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta, bool use_edgeval)
+            {
+                NativeMethods.cv_HoughLines_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, srn, stn, min_theta, max_theta, use_edgeval);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds line segments in a binary image using the probabilistic Hough transform.
+            /// </summary>
+            /// <param name="image">8-bit, single-channel binary source image. The image may be modified by the function.</param>
+            /// <param name="lines">Output vector of lines. Each line is represented by a 4-element vector [formula] , where [formula] and [formula] are the ending points of each detected line segment.</param>
+            /// <param name="rho">Distance resolution of the accumulator in pixels.</param>
+            /// <param name="theta">Angle resolution of the accumulator in radians.</param>
+            /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( [formula] ).</param>
+            /// <param name="minLineLength">Minimum line length. Line segments shorter than that are rejected.</param>
+            /// <param name="maxLineGap">Maximum allowed gap between points on the same line to link them.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function implements the probabilistic Hough transform algorithm for line detection, described
+            /// in @cite Matas00
+            /// See the line detection example below:
+            /// @include snippets/imgproc_HoughLinesP.cpp
+            /// This is a sample picture the function parameters have been tuned for:
+            /// ![image](pics/building.jpg)
+            /// And this is the output of the above program in case of the probabilistic Hough transform:
+            /// ![image](pics/houghp.png)
+            /// @sa LineSegmentDetector
+            /// </remarks>
+            public static void HoughLinesP(Mat image, Mat lines, double rho, double theta, int threshold, double minLineLength, double maxLineGap)
+            {
+                NativeMethods.cv_HoughLinesP_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, minLineLength, maxLineGap);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds lines in a set of points using the standard Hough transform.
+            /// </summary>
+            /// <param name="point">Input vector of points. Each vector must be encoded as a Point vector [formula]. Type must be CV_32FC2 or CV_32SC2.</param>
+            /// <param name="lines">Output vector of found lines. Each vector is encoded as a vector&lt;Vec3d&gt; [formula]. The larger the value of 'votes', the higher the reliability of the Hough line.</param>
+            /// <param name="lines_max">Max count of Hough lines.</param>
+            /// <param name="threshold">%Accumulator threshold parameter. Only those lines are returned that get enough votes ( [formula] ).</param>
+            /// <param name="min_rho">Minimum value for [formula] for the accumulator (Note: [formula] can be negative. The absolute value [formula] is the distance of a line to the origin.).</param>
+            /// <param name="max_rho">Maximum value for [formula] for the accumulator.</param>
+            /// <param name="rho_step">Distance resolution of the accumulator.</param>
+            /// <param name="min_theta">Minimum angle value of the accumulator in radians.</param>
+            /// <param name="max_theta">Upper bound for the angle value of the accumulator in radians. The actual maximum angle may be slightly less than max_theta, depending on the parameters min_theta and theta_step.</param>
+            /// <param name="theta_step">Angle resolution of the accumulator in radians.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function finds lines in a set of points using a modification of the Hough transform.
+            /// @include snippets/imgproc_HoughLinesPointSet.cpp
+            /// </remarks>
+            public static void HoughLinesPointSet(Mat point, Mat lines, int lines_max, int threshold, double min_rho, double max_rho, double rho_step, double min_theta, double max_theta, double theta_step)
+            {
+                NativeMethods.cv_HoughLinesPointSet_0(ValidationHelper.GetHandle(point, nameof(point), false), ValidationHelper.GetHandle(lines, nameof(lines), false), lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds circles in a grayscale image using the Hough transform.
+            /// </summary>
+            /// <param name="image">8-bit, single-channel, grayscale input image.</param>
+            /// <param name="circles">Output vector of found circles. Each vector is encoded as  3 or 4 element floating-point vector [formula] or [formula] .</param>
+            /// <param name="method">Detection method, see #HoughModes. The available methods are #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT.</param>
+            /// <param name="dp">Inverse ratio of the accumulator resolution to the image resolution. For example, if dp=1 , the accumulator has the same resolution as the input image. If dp=2 , the accumulator has half as big width and height. For #HOUGH_GRADIENT_ALT the recommended value is dp=1.5, unless some small very circles need to be detected.</param>
+            /// <param name="minDist">Minimum distance between the centers of the detected circles. If the parameter is too small, multiple neighbor circles may be falsely detected in addition to a true one. If it is too large, some circles may be missed.</param>
+            /// <param name="param1">First method-specific parameter. In case of #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT, it is the higher threshold of the two passed to the Canny edge detector (the lower one is twice smaller). Note that #HOUGH_GRADIENT_ALT uses #Scharr algorithm to compute image derivatives, so the threshold value should normally be higher, such as 300 or normally exposed and contrasty images.</param>
+            /// <param name="param2">Second method-specific parameter. In case of #HOUGH_GRADIENT, it is the accumulator threshold for the circle centers at the detection stage. The smaller it is, the more false circles may be detected. Circles, corresponding to the larger accumulator values, will be returned first. In the case of #HOUGH_GRADIENT_ALT algorithm, this is the circle "perfectness" measure. The closer it to 1, the better shaped circles algorithm selects. In most cases 0.9 should be fine. If you want get better detection of small circles, you may decrease it to 0.85, 0.8 or even less. But then also try to limit the search range [minRadius, maxRadius] to avoid many false circles.</param>
+            /// <param name="minRadius">Minimum circle radius.</param>
+            /// <param name="maxRadius">Maximum circle radius. If &lt;= 0, uses the maximum image dimension. If &lt; 0, #HOUGH_GRADIENT returns centers without finding the radius. #HOUGH_GRADIENT_ALT always computes circle radiuses.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function finds circles in a grayscale image using a modification of the Hough transform.
+            /// Example: :
+            /// @include snippets/imgproc_HoughLinesCircles.cpp
+            /// @note Usually the function detects the centers of circles well. However, it may fail to find correct
+            /// radii. You can assist to the function by specifying the radius range ( minRadius and maxRadius ) if
+            /// you know it. Or, in the case of #HOUGH_GRADIENT method you may set maxRadius to a negative number
+            /// to return centers only without radius search, and find the correct radius using an additional procedure.
+            /// It also helps to smooth image a bit unless it's already soft. For example,
+            /// GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help.
+            /// @sa fitEllipse, minEnclosingCircle
+            /// </remarks>
+            public static void HoughCircles(Mat image, Mat circles, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius)
+            {
+                NativeMethods.cv_HoughCircles_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(circles, nameof(circles), false), method, dp, minDist, param1, param2, minRadius, maxRadius);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Erodes an image by using a specific structuring element.
+            /// </summary>
+            /// <param name="src">input image; the number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="kernel">structuring element used for erosion; if `kernel=Mat()`, a `3 x 3` rectangular structuring element is used. Kernel can be created using #getStructuringElement.</param>
+            /// <param name="anchor">position of the anchor within the element; default value (-1, -1) means that the anchor is at the element center.</param>
+            /// <param name="iterations">number of times erosion is applied.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <param name="borderValue">border value in case of a constant border</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function erodes the source image using the specified structuring element that determines the
+            /// shape of a pixel neighborhood over which the minimum is taken:
+            /// [see mathematical formula in OpenCV docs]
+            /// The function supports the in-place mode. Erosion can be applied several ( iterations ) times. In
+            /// case of multi-channel images, each channel is processed independently.
+            /// @sa  dilate, morphologyEx, getStructuringElement
+            /// </remarks>
+            public static void Erode(Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
+            {
+                NativeMethods.cv_erode_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Dilates an image by using a specific structuring element.
+            /// </summary>
+            /// <param name="src">input image; the number of channels can be arbitrary, but the depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
+            /// <param name="dst">output image of the same size and type as src.</param>
+            /// <param name="kernel">structuring element used for dilation; if `kernel=Mat()`, a `3 x 3` rectangular structuring element is used. Kernel can be created using #getStructuringElement</param>
+            /// <param name="anchor">position of the anchor within the element; default value (-1, -1) means that the anchor is at the element center.</param>
+            /// <param name="iterations">number of times dilation is applied.</param>
+            /// <param name="borderType">pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <param name="borderValue">border value in case of a constant border</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function dilates the source image using the specified structuring element that determines the
+            /// shape of a pixel neighborhood over which the maximum is taken:
+            /// [see mathematical formula in OpenCV docs]
+            /// The function supports the in-place mode. Dilation can be applied several ( iterations ) times. In
+            /// case of multi-channel images, each channel is processed independently.
+            /// @sa  erode, morphologyEx, getStructuringElement
+            /// </remarks>
+            public static void Dilate(Mat src, Mat dst, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
+            {
+                NativeMethods.cv_dilate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Performs advanced morphological transformations.
+            /// </summary>
+            /// <param name="src">Source image. The number of channels can be arbitrary. The depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.</param>
+            /// <param name="dst">Destination image of the same size and type as source image.</param>
+            /// <param name="op">Type of a morphological operation, see #MorphTypes</param>
+            /// <param name="kernel">Structuring element. It can be created using #getStructuringElement.</param>
+            /// <param name="anchor">Anchor position with the kernel. Negative values mean that the anchor is at the kernel center.</param>
+            /// <param name="iterations">Number of times erosion and dilation are applied.</param>
+            /// <param name="borderType">Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.</param>
+            /// <param name="borderValue">Border value in case of a constant border. The default value has a special meaning.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::morphologyEx can perform advanced morphological transformations using an erosion and dilation as
+            /// basic operations.
+            /// Any of the operations can be done in-place. In case of multi-channel images, each channel is
+            /// processed independently.
+            /// @sa  dilate, erode, getStructuringElement
+            /// @note The number of iterations is the number of times erosion or dilatation operation will be applied.
+            /// For instance, an opening operation (#MORPH_OPEN) with two iterations is equivalent to apply
+            /// successively: erode -&gt; erode -&gt; dilate -&gt; dilate (and not erode -&gt; dilate -&gt; erode -&gt; dilate).
+            /// </remarks>
+            public static void MorphologyEx(Mat src, Mat dst, int op, Mat kernel, Point anchor, int iterations, int borderType, Scalar borderValue)
+            {
+                NativeMethods.cv_morphologyEx_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), op, ValidationHelper.GetHandle(kernel, nameof(kernel), false), anchor, iterations, borderType, borderValue);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Resizes an image.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image; it has the size dsize (when it is non-zero) or the size computed from src.size(), fx, and fy; the type of dst is the same as of src.</param>
+            /// <param name="dsize">output image size; if it equals zero (`None` in Python), it is computed as: [see mathematical formula in OpenCV docs] Either dsize or both fx and fy must be non-zero.</param>
+            /// <param name="fx">scale factor along the horizontal axis; when it equals 0, it is computed as [see mathematical formula in OpenCV docs]</param>
+            /// <param name="fy">scale factor along the vertical axis; when it equals 0, it is computed as [see mathematical formula in OpenCV docs]</param>
+            /// <param name="interpolation">interpolation method, see #InterpolationFlags</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function resize resizes the image src down to or up to the specified size. Note that the
+            /// initial dst type or size are not taken into account. Instead, the size and type are derived from
+            /// the `src`,`dsize`,`fx`, and `fy`. If you want to resize src so that it fits the pre-created dst,
+            /// you may call the function as follows:
+            /// @code
+            /// // explicitly specify dsize=dst.size(); fx and fy will be computed from that.
+            /// resize(src, dst, dst.size(), 0, 0, interpolation);
+            /// @endcode
+            /// If you want to decimate the image by factor of 2 in each direction, you can call the function this
+            /// way:
+            /// @code
+            /// // specify fx and fy and let the function compute the destination image size.
+            /// resize(src, dst, Size(), 0.5, 0.5, interpolation);
+            /// @endcode
+            /// To shrink an image, it will generally look best with #INTER_AREA interpolation, whereas to
+            /// enlarge an image, it will generally look best with #INTER_CUBIC (slow) or #INTER_LINEAR
+            /// (faster but still looks OK).
+            /// @sa  warpAffine, warpPerspective, remap
+            /// </remarks>
+            public static void Resize(Mat src, Mat dst, Size dsize, double fx, double fy, int interpolation)
+            {
+                NativeMethods.cv_resize_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dsize, fx, fy, interpolation);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies an affine transformation to an image.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image that has the size dsize and the same type as src .</param>
+            /// <param name="M">[formula] transformation matrix.</param>
+            /// <param name="dsize">size of the output image.</param>
+            /// <param name="flags">combination of interpolation methods (see #InterpolationFlags) and the optional flag #WARP_INVERSE_MAP that means that M is the inverse transformation ( [formula] ).</param>
+            /// <param name="borderMode">pixel extrapolation method (see #BorderTypes); when borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image corresponding to the "outliers" in the source image are not modified by the function.</param>
+            /// <param name="borderValue">value used in case of a constant border; by default, it is 0.</param>
+            /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function warpAffine transforms the source image using the specified matrix:
+            /// [see mathematical formula in OpenCV docs]
+            /// when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted
+            /// with #invertAffineTransform and then put in the formula above instead of M. The function cannot
+            /// operate in-place.
+            /// @sa  warpPerspective, resize, remap, getRectSubPix, transform
+            /// </remarks>
+            public static void WarpAffine(Mat src, Mat dst, Mat M, Size dsize, int flags, int borderMode, Scalar borderValue, AlgorithmHint hint)
+            {
+                NativeMethods.cv_warpAffine_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(M, nameof(M), false), dsize, flags, borderMode, borderValue, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies a perspective transformation to an image.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image that has the size dsize and the same type as src .</param>
+            /// <param name="M">[formula] transformation matrix.</param>
+            /// <param name="dsize">size of the output image.</param>
+            /// <param name="flags">combination of interpolation methods (#INTER_LINEAR or #INTER_NEAREST) and the optional flag #WARP_INVERSE_MAP, that sets M as the inverse transformation ( [formula] ).</param>
+            /// <param name="borderMode">pixel extrapolation method (#BORDER_CONSTANT or #BORDER_REPLICATE).</param>
+            /// <param name="borderValue">value used in case of a constant border; by default, it equals 0.</param>
+            /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function warpPerspective transforms the source image using the specified matrix:
+            /// \f[\texttt{dst} (x,y) =  \texttt{src} \left ( \frac{M_{11} x + M_{12} y + M_{13}}{M_{31} x + M_{32} y + M_{33}} ,
+            /// \frac{M_{21} x + M_{22} y + M_{23}}{M_{31} x + M_{32} y + M_{33}} \right )\f]
+            /// when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted with invert
+            /// and then put in the formula above instead of M. The function cannot operate in-place.
+            /// @sa  warpAffine, resize, remap, getRectSubPix, perspectiveTransform
+            /// </remarks>
+            public static void WarpPerspective(Mat src, Mat dst, Mat M, Size dsize, int flags, int borderMode, Scalar borderValue, AlgorithmHint hint)
+            {
+                NativeMethods.cv_warpPerspective_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(M, nameof(M), false), dsize, flags, borderMode, borderValue, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies a generic geometrical transformation to an image.
+            /// </summary>
+            /// <param name="src">Source image.</param>
+            /// <param name="dst">Destination image. It has the same size as map1 and the same type as src .</param>
+            /// <param name="map1">The first map of either (x,y) points or just x values having the type CV_16SC2 , CV_32FC1, or CV_32FC2. See #convertMaps for details on converting a floating point representation to fixed-point for speed.</param>
+            /// <param name="map2">The second map of y values having the type CV_16UC1, CV_32FC1, or none (empty map if map1 is (x,y) points), respectively.</param>
+            /// <param name="interpolation">Interpolation method (see #InterpolationFlags). The methods #INTER_AREA #INTER_LINEAR_EXACT and #INTER_NEAREST_EXACT are not supported by this function. The extra flag WARP_RELATIVE_MAP can be ORed to the interpolation method (e.g. INTER_LINEAR | WARP_RELATIVE_MAP)</param>
+            /// <param name="borderMode">Pixel extrapolation method (see #BorderTypes). When borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image that corresponds to the "outliers" in the source image are not modified by the function.</param>
+            /// <param name="borderValue">Value used in case of a constant border. By default, it is 0.</param>
+            /// <param name="hint">Implementation modification flags. Set #ALGO_HINT_APPROX to use FP16 precision (if available) for linear calculation for faster speed. See #AlgorithmHint.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function remap transforms the source image using the specified map:
+            /// [see mathematical formula in OpenCV docs]
+            /// with the WARP_RELATIVE_MAP flag :
+            /// [see mathematical formula in OpenCV docs]
+            /// where values of pixels with non-integer coordinates are computed using one of available
+            /// interpolation methods. [formula] and [formula] can be encoded as separate floating-point maps
+            /// in [formula] and [formula] respectively, or interleaved floating-point maps of [formula] in
+            /// [formula], or fixed-point maps created by using #convertMaps. The reason you might want to
+            /// convert from floating to fixed-point representations of a map is that they can yield much faster
+            /// (\~2x) remapping operations. In the converted case, [formula] contains pairs (cvFloor(x),
+            /// cvFloor(y)) and [formula] contains indices in a table of interpolation coefficients.
+            /// This function cannot operate in-place.
+            /// @note
+            /// Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
+            /// </remarks>
+            public static void Remap(Mat src, Mat dst, Mat map1, Mat map2, int interpolation, int borderMode, Scalar borderValue, AlgorithmHint hint)
+            {
+                NativeMethods.cv_remap_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false), interpolation, borderMode, borderValue, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Converts image transformation maps from one representation to another.
+            /// </summary>
+            /// <param name="map1">The first input map of type CV_16SC2, CV_32FC1, or CV_32FC2 .</param>
+            /// <param name="map2">The second input map of type CV_16UC1, CV_32FC1, or none (empty matrix), respectively.</param>
+            /// <param name="dstmap1">The first output map that has the type dstmap1type and the same size as src .</param>
+            /// <param name="dstmap2">The second output map.</param>
+            /// <param name="dstmap1type">Type of the first output map that should be CV_16SC2, CV_32FC1, or CV_32FC2 .</param>
+            /// <param name="nninterpolation">Flag indicating whether the fixed-point maps are used for the nearest-neighbor or for a more complex interpolation.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function converts a pair of maps for remap from one representation to another. The following
+            /// options ( (map1.type(), map2.type()) [formula] (dstmap1.type(), dstmap2.type()) ) are
+            /// supported:
+            /// - [formula]. This is the
+            /// most frequently used conversion operation, in which the original floating-point maps (see #remap)
+            /// are converted to a more compact and much faster fixed-point representation. The first output array
+            /// contains the rounded coordinates and the second array (created only when nninterpolation=false )
+            /// contains indices in the interpolation tables.
+            /// - [formula]. The same as above but
+            /// the original maps are stored in one 2-channel matrix.
+            /// - Reverse conversion. Obviously, the reconstructed floating-point maps will not be exactly the same
+            /// as the originals.
+            /// @sa  remap, undistort, initUndistortRectifyMap
+            /// </remarks>
+            public static void ConvertMaps(Mat map1, Mat map2, Mat dstmap1, Mat dstmap2, int dstmap1type, bool nninterpolation)
+            {
+                NativeMethods.cv_convertMaps_0(ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false), ValidationHelper.GetHandle(dstmap1, nameof(dstmap1), false), ValidationHelper.GetHandle(dstmap2, nameof(dstmap2), false), dstmap1type, nninterpolation);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Transforms an image to compensate for lens distortion.
+            /// </summary>
+            /// <param name="src">Input (distorted) image.</param>
+            /// <param name="dst">Output (corrected) image that has the same size and type as src .</param>
+            /// <param name="cameraMatrix">Input camera matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="newCameraMatrix">Camera matrix of the distorted image. By default, it is the same as cameraMatrix but you may additionally scale and shift the result by using a different matrix.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function transforms an image to compensate radial and tangential lens distortion.
+            /// The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
+            /// (with bilinear interpolation). See the former function for details of the transformation being
+            /// performed.
+            /// Those pixels in the destination image, for which there is no correspondent pixels in the source
+            /// image, are filled with zeros (black color).
+            /// A particular subset of the source image that will be visible in the corrected image can be regulated
+            /// by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
+            /// newCameraMatrix depending on your requirements.
+            /// The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
+            /// the resolution of images is different from the resolution used at the calibration stage, \f$f_x,
+            /// f_y, c_x[formula]c_y\f$ need to be scaled accordingly, while the distortion coefficients remain
+            /// the same.
+            /// </remarks>
+            public static void Undistort(Mat src, Mat dst, Mat cameraMatrix, Mat distCoeffs, Mat? newCameraMatrix)
+            {
+                NativeMethods.cv_undistort_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes the undistortion and rectification transformation map.
+            /// </summary>
+            /// <param name="cameraMatrix">Input camera matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="R">Optional rectification transformation in the object space (3x3 matrix). R1 or R2 , computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is assumed. In #initUndistortRectifyMap R assumed to be an identity matrix.</param>
+            /// <param name="newCameraMatrix">New camera matrix [formula].</param>
+            /// <param name="size">Undistorted image size.</param>
+            /// <param name="m1type">Type of the first output map that can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps</param>
+            /// <param name="map1">The first output map.</param>
+            /// <param name="map2">The second output map.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes the joint undistortion and rectification transformation and represents the
+            /// result in the form of maps for #remap. The undistorted image looks like original, as if it is
+            /// captured with a camera using the camera matrix =newCameraMatrix and zero distortion. In case of a
+            /// monocular camera, newCameraMatrix is usually equal to cameraMatrix, or it can be computed by
+            /// #getOptimalNewCameraMatrix for a better control over scaling. In case of a stereo camera,
+            /// newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
+            /// Also, this new camera is oriented differently in the coordinate space, according to R. That, for
+            /// example, helps to align two heads of a stereo camera so that the epipolar lines on both images
+            /// become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
+            /// The function actually builds the maps for the inverse mapping algorithm that is used by #remap. That
+            /// is, for each pixel [formula] in the destination (corrected and rectified) image, the function
+            /// computes the corresponding coordinates in the source image (that is, in the original image from
+            /// camera). The following process is applied:
+            /// \f[
+            /// \begin{array}{l}
+            /// x  \leftarrow (u - {c'}_x)/{f'}_x  \\
+            /// y  \leftarrow (v - {c'}_y)/{f'}_y  \\
+            /// {[X\,Y\,W]} ^T  \leftarrow R^{-1}*[x \, y \, 1]^T  \\
+            /// x'  \leftarrow X/W  \\
+            /// y'  \leftarrow Y/W  \\
+            /// r^2  \leftarrow x'^2 + y'^2 \\
+            /// x''  \leftarrow x' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+            /// + 2p_1 x' y' + p_2(r^2 + 2 x'^2)  + s_1 r^2 + s_2 r^4\\
+            /// y''  \leftarrow y' \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+            /// + p_1 (r^2 + 2 y'^2) + 2 p_2 x' y' + s_3 r^2 + s_4 r^4 \\
+            /// s\vecthree{x'''}{y'''}{1} =
+            /// \vecthreethree{R_{33}(\tau_x, \tau_y)}{0}{-R_{13}((\tau_x, \tau_y)}
+            /// {0}{R_{33}(\tau_x, \tau_y)}{-R_{23}(\tau_x, \tau_y)}
+            /// {0}{0}{1} R(\tau_x, \tau_y) \vecthree{x''}{y''}{1}\\
+            /// map_x(u,v)  \leftarrow x''' f_x + c_x  \\
+            /// map_y(u,v)  \leftarrow y''' f_y + c_y
+            /// \end{array}
+            /// \f]
+            /// where [formula]
+            /// are the distortion coefficients.
+            /// In case of a stereo camera, this function is called twice: once for each camera head, after
+            /// #stereoRectify, which in its turn is called after #stereoCalibrate. But if the stereo camera
+            /// was not calibrated, it is still possible to compute the rectification transformations directly from
+            /// the fundamental matrix using #stereoRectifyUncalibrated. For each camera, the function computes
+            /// homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
+            /// space. R can be computed from H as
+            /// [see mathematical formula in OpenCV docs]
+            /// where cameraMatrix can be chosen arbitrarily.
+            /// </remarks>
+            public static void InitUndistortRectifyMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2)
+            {
+                NativeMethods.cv_initUndistortRectifyMap_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes the projection and inverse-rectification transformation map. In essense, this is the inverse of
+            /// #initUndistortRectifyMap to accomodate stereo-rectification of projectors ('inverse-cameras') in projector-camera pairs.
+            /// </summary>
+            /// <param name="cameraMatrix">Input camera matrix [formula] .</param>
+            /// <param name="distCoeffs">Input vector of distortion coefficients [formula] of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.</param>
+            /// <param name="R">Optional rectification transformation in the object space (3x3 matrix). R1 or R2, computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation is assumed.</param>
+            /// <param name="newCameraMatrix">New camera matrix [formula].</param>
+            /// <param name="size">Distorted image size.</param>
+            /// <param name="m1type">Type of the first output map. Can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps</param>
+            /// <param name="map1">The first output map for #remap.</param>
+            /// <param name="map2">The second output map for #remap.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes the joint projection and inverse rectification transformation and represents the
+            /// result in the form of maps for #remap. The projected image looks like a distorted version of the original which,
+            /// once projected by a projector, should visually match the original. In case of a monocular camera, newCameraMatrix
+            /// is usually equal to cameraMatrix, or it can be computed by
+            /// #getOptimalNewCameraMatrix for a better control over scaling. In case of a projector-camera pair,
+            /// newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
+            /// The projector is oriented differently in the coordinate space, according to R. In case of projector-camera pairs,
+            /// this helps align the projector (in the same manner as #initUndistortRectifyMap for the camera) to create a stereo-rectified pair. This
+            /// allows epipolar lines on both images to become horizontal and have the same y-coordinate (in case of a horizontally aligned projector-camera pair).
+            /// The function builds the maps for the inverse mapping algorithm that is used by #remap. That
+            /// is, for each pixel [formula] in the destination (projected and inverse-rectified) image, the function
+            /// computes the corresponding coordinates in the source image (that is, in the original digital image). The following process is applied:
+            /// \f[
+            /// \begin{array}{l}
+            /// \text{newCameraMatrix}\\
+            /// x  \leftarrow (u - {c'}_x)/{f'}_x  \\
+            /// y  \leftarrow (v - {c'}_y)/{f'}_y  \\
+            /// \\\text{Undistortion}
+            /// \\\scriptsize{\textit{though equation shown is for radial undistortion, function implements cv::undistortPoints()}}\\
+            /// r^2  \leftarrow x^2 + y^2 \\
+            /// \theta \leftarrow \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}\\
+            /// x' \leftarrow \frac{x}{\theta} \\
+            /// y'  \leftarrow \frac{y}{\theta} \\
+            /// \\\text{Rectification}\\
+            /// {[X\,Y\,W]} ^T  \leftarrow R*[x' \, y' \, 1]^T  \\
+            /// x''  \leftarrow X/W  \\
+            /// y''  \leftarrow Y/W  \\
+            /// \\\text{cameraMatrix}\\
+            /// map_x(u,v)  \leftarrow x'' f_x + c_x  \\
+            /// map_y(u,v)  \leftarrow y'' f_y + c_y
+            /// \end{array}
+            /// \f]
+            /// where [formula]
+            /// are the distortion coefficients vector distCoeffs.
+            /// In case of a stereo-rectified projector-camera pair, this function is called for the projector while #initUndistortRectifyMap is called for the camera head.
+            /// This is done after #stereoRectify, which in turn is called after #stereoCalibrate. If the projector-camera pair
+            /// is not calibrated, it is still possible to compute the rectification transformations directly from
+            /// the fundamental matrix using #stereoRectifyUncalibrated. For the projector and camera, the function computes
+            /// homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
+            /// space. R can be computed from H as
+            /// [see mathematical formula in OpenCV docs]
+            /// where cameraMatrix can be chosen arbitrarily.
+            /// </remarks>
+            public static void InitInverseRectificationMap(Mat cameraMatrix, Mat distCoeffs, Mat R, Mat newCameraMatrix, Size size, int m1type, Mat map1, Mat map2)
+            {
+                NativeMethods.cv_initInverseRectificationMap_0(ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(newCameraMatrix, nameof(newCameraMatrix), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes undistortion and rectification maps for image transform by cv::remap(). If D is empty zero
+            /// distortion is used, if R or P is empty identity matrixes are used.
+            /// </summary>
+            /// <param name="K">Camera intrinsic matrix [formula].</param>
+            /// <param name="D">Input vector of distortion coefficients [formula].</param>
+            /// <param name="R">Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3 1-channel or 1x1 3-channel</param>
+            /// <param name="P">New camera intrinsic matrix (3x3) or new projection matrix (3x4)</param>
+            /// <param name="size">Undistorted image size.</param>
+            /// <param name="m1type">Type of the first output map that can be CV_32FC1 or CV_16SC2 . See convertMaps() for details.</param>
+            /// <param name="map1">The first output map.</param>
+            /// <param name="map2">The second output map.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeInitUndistortRectifyMap(Mat K, Mat D, Mat R, Mat P, Size size, int m1type, Mat map1, Mat map2)
+            {
+                NativeMethods.cv_fisheye_initUndistortRectifyMap_0(ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(P, nameof(P), false), size, m1type, ValidationHelper.GetHandle(map1, nameof(map1), false), ValidationHelper.GetHandle(map2, nameof(map2), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Transforms an image to compensate for fisheye lens distortion.
+            /// </summary>
+            /// <param name="distorted">image with fisheye lens distortion.</param>
+            /// <param name="undistorted">Output image with compensated fisheye lens distortion.</param>
+            /// <param name="K">Camera intrinsic matrix [formula].</param>
+            /// <param name="D">Input vector of distortion coefficients [formula].</param>
+            /// <param name="Knew">Camera intrinsic matrix of the distorted image. By default, it is the identity matrix but you may additionally scale and shift the result by using a different matrix.</param>
+            /// <param name="new_size">the new size The function transforms an image to compensate radial and tangential lens distortion. The function is simply a combination of #cv::fisheye::initUndistortRectifyMap (with unity R ) and remap (with bilinear interpolation). See the former function for details of the transformation being performed. See below the results of undistortImage. -   a\) result of undistort of perspective camera model (all possible coefficients (k_1, k_2, k_3, k_4, k_5, k_6) of distortion were optimized under calibration) -   b\) result of #cv::fisheye::undistortImage of fisheye camera model (all possible coefficients (k_1, k_2, k_3, k_4) of fisheye distortion were optimized under calibration) -   c\) original image was captured with fisheye lens Pictures a) and b) almost the same. But if we consider points of image located far from the center of image, we can notice that on image a) these points are distorted. ![image](pics/fisheye_undistorted.jpg)</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeUndistortImage(Mat distorted, Mat undistorted, Mat K, Mat D, Mat? Knew, Size new_size)
+            {
+                NativeMethods.cv_fisheye_undistortImage_0(ValidationHelper.GetHandle(distorted, nameof(distorted), false), ValidationHelper.GetHandle(undistorted, nameof(undistorted), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), ValidationHelper.GetHandle(Knew, nameof(Knew), true), new_size);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Retrieves a pixel rectangle from an image with sub-pixel accuracy.
+            /// </summary>
+            /// <param name="image">Source image.</param>
+            /// <param name="patchSize">Size of the extracted patch.</param>
+            /// <param name="center">Floating point coordinates of the center of the extracted rectangle within the source image. The center must be inside the image.</param>
+            /// <param name="patch">Extracted patch that has the size patchSize and the same number of channels as src .</param>
+            /// <param name="patchType">Depth of the extracted pixels. By default, they have the same depth as src .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function getRectSubPix extracts pixels from src:
+            /// [see mathematical formula in OpenCV docs]
+            /// where the values of the pixels at non-integer coordinates are retrieved using bilinear
+            /// interpolation. Every channel of multi-channel images is processed independently. Also
+            /// the image should be a single channel or three channel image. While the center of the
+            /// rectangle must be inside the image, parts of the rectangle may be outside.
+            /// @sa  warpAffine, warpPerspective
+            /// </remarks>
+            public static void GetRectSubPix(Mat image, Size patchSize, Point2F center, Mat patch, int patchType)
+            {
+                NativeMethods.cv_getRectSubPix_0(ValidationHelper.GetHandle(image, nameof(image), false), patchSize, center, ValidationHelper.GetHandle(patch, nameof(patch), false), patchType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// \brief Remaps an image to polar or semilog-polar coordinates space
+            /// </summary>
+            /// <param name="src">Source image.</param>
+            /// <param name="dst">Destination image. It will have same type as src.</param>
+            /// <param name="dsize">The destination image size (see description for valid options).</param>
+            /// <param name="center">The transformation center.</param>
+            /// <param name="maxRadius">The radius of the bounding circle to transform. It determines the inverse magnitude scale parameter too.</param>
+            /// <param name="flags">A combination of interpolation methods, #InterpolationFlags + #WarpPolarMode. - Add #WARP_POLAR_LINEAR to select linear polar mapping (default) - Add #WARP_POLAR_LOG to select semilog polar mapping - Add #WARP_INVERSE_MAP for reverse mapping.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @anchor polar_remaps_reference_image
+            /// ![Polar remaps reference](pics/polar_remap_doc.png)
+            /// Transform the source image using the following transformation:
+            /// \f[
+            /// dst(\rho , \phi ) = src(x,y)
+            /// \f]
+            /// where
+            /// \f[
+            /// \begin{array}{l}
+            /// \vec{I} = (x - center.x, \;y - center.y) \\
+            /// \phi = Kangle \cdot \texttt{angle} (\vec{I}) \\
+            /// \rho = \left\{\begin{matrix}
+            /// Klin \cdot \texttt{magnitude} (\vec{I}) &amp; default \\
+            /// Klog \cdot log_e(\texttt{magnitude} (\vec{I})) &amp; if \; semilog \\
+            /// \end{matrix}\right.
+            /// \end{array}
+            /// \f]
+            /// and
+            /// \f[
+            /// \begin{array}{l}
+            /// Kangle = dsize.height / 2\Pi \\
+            /// Klin = dsize.width / maxRadius \\
+            /// Klog = dsize.width / log_e(maxRadius) \\
+            /// \end{array}
+            /// \f]
+            /// \par Linear vs semilog mapping
+            /// Polar mapping can be linear or semi-log. Add one of #WarpPolarMode to `flags` to specify the polar mapping mode.
+            /// Linear is the default mode.
+            /// The semilog mapping emulates the human "foveal" vision that permit very high acuity on the line of sight (central vision)
+            /// in contrast to peripheral vision where acuity is minor.
+            /// \par Option on `dsize`:
+            /// - if both values in `dsize &lt;=0 ` (default),
+            /// the destination image will have (almost) same area of source bounding circle:
+            /// \f[\begin{array}{l}
+            /// dsize.area  \leftarrow (maxRadius^2 \cdot \Pi) \\
+            /// dsize.width = \texttt{cvRound}(maxRadius) \\
+            /// dsize.height = \texttt{cvRound}(maxRadius \cdot \Pi) \\
+            /// \end{array}\f]
+            /// - if only `dsize.height &lt;= 0`,
+            /// the destination image area will be proportional to the bounding circle area but scaled by `Kx * Kx`:
+            /// \f[\begin{array}{l}
+            /// dsize.height = \texttt{cvRound}(dsize.width \cdot \Pi) \\
+            /// \end{array}
+            /// \f]
+            /// - if both values in `dsize &gt; 0 `,
+            /// the destination image will have the given size therefore the area of the bounding circle will be scaled to `dsize`.
+            /// \par Reverse mapping
+            /// You can get reverse mapping adding #WARP_INVERSE_MAP to `flags`
+            /// \snippet polar_transforms.cpp InverseMap
+            /// In addition, to calculate the original coordinate from a polar mapped coordinate [formula]:
+            /// \snippet polar_transforms.cpp InverseCoordinate
+            /// @note
+            /// -  The function can not operate in-place.
+            /// -  To calculate magnitude and angle in degrees #cartToPolar is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
+            /// -  This function uses #remap. Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
+            /// @sa cv::remap
+            /// </remarks>
+            public static void WarpPolar(Mat src, Mat dst, Size dsize, Point2F center, double maxRadius, int flags)
+            {
+                NativeMethods.cv_warpPolar_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dsize, center, maxRadius, flags);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the integral of an image.
+            /// </summary>
+            /// <param name="src">input image as [formula], 8-bit or floating-point (32f or 64f).</param>
+            /// <param name="sum">integral image as [formula] , 32-bit integer or floating-point (32f or 64f).</param>
+            /// <param name="sqsum">integral image for squared pixel values; it is [formula], double-precision floating-point (64f) array.</param>
+            /// <param name="tilted">integral for the image rotated by 45 degrees; it is [formula] array with the same data type as sum.</param>
+            /// <param name="sdepth">desired depth of the integral and the tilted integral images, CV_32S, CV_32F, or CV_64F.</param>
+            /// <param name="sqdepth">desired depth of the integral image of squared pixel values, CV_32F or CV_64F.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function calculates one or more integral images for the source image as follows:
+            /// [see mathematical formula in OpenCV docs]
+            /// [see mathematical formula in OpenCV docs]
+            /// [see mathematical formula in OpenCV docs]
+            /// Using these integral images, you can calculate sum, mean, and standard deviation over a specific
+            /// up-right or rotated rectangular region of the image in a constant time, for example:
+            /// [see mathematical formula in OpenCV docs]
+            /// It makes possible to do a fast blurring or fast block correlation with a variable window size, for
+            /// example. In case of multi-channel images, sums for each channel are accumulated independently.
+            /// As a practical example, the next figure shows the calculation of the integral of a straight
+            /// rectangle Rect(4,4,3,2) and of a tilted rectangle Rect(5,1,2,3) . The selected pixels in the
+            /// original image are shown, as well as the relative pixels in the integral images sum and tilted .
+            /// ![integral calculation example](pics/integral.png)
+            /// </remarks>
+            public static void Integral(Mat src, Mat sum, Mat sqsum, Mat tilted, int sdepth, int sqdepth)
+            {
+                NativeMethods.cv_integral_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), ValidationHelper.GetHandle(sqsum, nameof(sqsum), false), ValidationHelper.GetHandle(tilted, nameof(tilted), false), sdepth, sqdepth);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="sum">The sum parameter.</param>
+            /// <param name="sdepth">The sdepth parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void Integral(Mat src, Mat sum, int sdepth)
+            {
+                NativeMethods.cv_integral_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), sdepth);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="src">Source matrix or image.</param>
+            /// <param name="sum">The sum parameter.</param>
+            /// <param name="sqsum">The sqsum parameter.</param>
+            /// <param name="sdepth">The sdepth parameter.</param>
+            /// <param name="sqdepth">The sqdepth parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void Integral(Mat src, Mat sum, Mat sqsum, int sdepth, int sqdepth)
+            {
+                NativeMethods.cv_integral_2(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(sum, nameof(sum), false), ValidationHelper.GetHandle(sqsum, nameof(sqsum), false), sdepth, sqdepth);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Adds an image to the accumulator image.
+            /// </summary>
+            /// <param name="src">Input image of type CV_8UC(n), CV_16UC(n), CV_32FC(n) or CV_64FC(n), where n is a positive integer.</param>
+            /// <param name="dst">%Accumulator image with the same number of channels as input image, and a depth of CV_32F or CV_64F.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function adds src or some of its elements to dst :
+            /// [see mathematical formula in OpenCV docs]
+            /// The function supports multi-channel images. Each channel is processed independently.
+            /// The function cv::accumulate can be used, for example, to collect statistics of a scene background
+            /// viewed by a still camera and for the further foreground-background segmentation.
+            /// @sa  accumulateSquare, accumulateProduct, accumulateWeighted
+            /// </remarks>
+            public static void Accumulate(Mat src, Mat dst, Mat? mask)
+            {
+                NativeMethods.cv_accumulate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Adds the square of a source image to the accumulator image.
+            /// </summary>
+            /// <param name="src">Input image as 1- or 3-channel, 8-bit or 32-bit floating point.</param>
+            /// <param name="dst">%Accumulator image with the same number of channels as input image, 32-bit or 64-bit floating-point.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function adds the input image src or its selected region, raised to a power of 2, to the
+            /// accumulator dst :
+            /// [see mathematical formula in OpenCV docs]
+            /// The function supports multi-channel images. Each channel is processed independently.
+            /// @sa  accumulateSquare, accumulateProduct, accumulateWeighted
+            /// </remarks>
+            public static void AccumulateSquare(Mat src, Mat dst, Mat? mask)
+            {
+                NativeMethods.cv_accumulateSquare_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Adds the per-element product of two input images to the accumulator image.
+            /// </summary>
+            /// <param name="src1">First input image, 1- or 3-channel, 8-bit or 32-bit floating point.</param>
+            /// <param name="src2">Second input image of the same type and the same size as src1 .</param>
+            /// <param name="dst">%Accumulator image with the same number of channels as input images, 32-bit or 64-bit floating-point.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function adds the product of two images or their selected regions to the accumulator dst :
+            /// [see mathematical formula in OpenCV docs]
+            /// The function supports multi-channel images. Each channel is processed independently.
+            /// @sa  accumulate, accumulateSquare, accumulateWeighted
+            /// </remarks>
+            public static void AccumulateProduct(Mat src1, Mat src2, Mat dst, Mat? mask)
+            {
+                NativeMethods.cv_accumulateProduct_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Updates a running average.
+            /// </summary>
+            /// <param name="src">Input image as 1- or 3-channel, 8-bit or 32-bit floating point.</param>
+            /// <param name="dst">%Accumulator image with the same number of channels as input image, 32-bit or 64-bit floating-point.</param>
+            /// <param name="alpha">Weight of the input image.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function calculates the weighted sum of the input image src and the accumulator dst so that dst
+            /// becomes a running average of a frame sequence:
+            /// [see mathematical formula in OpenCV docs]
+            /// That is, alpha regulates the update speed (how fast the accumulator "forgets" about earlier images).
+            /// The function supports multi-channel images. Each channel is processed independently.
+            /// @sa  accumulate, accumulateSquare, accumulateProduct
+            /// </remarks>
+            public static void AccumulateWeighted(Mat src, Mat dst, double alpha, Mat? mask)
+            {
+                NativeMethods.cv_accumulateWeighted_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// The function is used to detect translational shifts that occur between two images.
+            /// </summary>
+            /// <param name="src1">Source floating point array (CV_32FC1 or CV_64FC1)</param>
+            /// <param name="src2">Source floating point array (CV_32FC1 or CV_64FC1)</param>
+            /// <param name="window">Floating point array with windowing coefficients to reduce edge effects (optional).</param>
+            /// <param name="response">Signal power within the 5x5 centroid around the peak, between 0 and 1 (optional).</param>
+            /// <returns>s detected phase shift (sub-pixel) between the two arrays.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The operation takes advantage of the Fourier shift theorem for detecting the translational shift in
+            /// the frequency domain. It can be used for fast image registration as well as motion estimation. For
+            /// more information please see &lt;https://en.wikipedia.org/wiki/Phase_correlation&gt;
+            /// Calculates the cross-power spectrum of two supplied source arrays. The arrays are padded if needed
+            /// with getOptimalDFTSize.
+            /// The function performs the following equations:
+            /// - First it applies a Hanning window to each image to remove possible edge effects, if it's provided
+            /// by user. See @ref createHanningWindow and &lt;https://en.wikipedia.org/wiki/Hann_function&gt;. This window may
+            /// be cached until the array size changes to speed up processing time.
+            /// - Next it computes the forward DFTs of each source array:
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] is the forward DFT.
+            /// - It then computes the cross-power spectrum of each frequency domain array:
+            /// [see mathematical formula in OpenCV docs]
+            /// - Next the cross-correlation is converted back into the time domain via the inverse DFT:
+            /// [see mathematical formula in OpenCV docs]
+            /// - Finally, it computes the peak location and computes a 5x5 weighted centroid around the peak to
+            /// achieve sub-pixel accuracy.
+            /// [see mathematical formula in OpenCV docs]
+            /// - If non-zero, the response parameter is computed as the sum of the elements of r within the 5x5
+            /// centroid around the peak location. It is normalized to a maximum of 1 (meaning there is a single
+            /// peak) and will be smaller when there are multiple peaks.
+            /// @sa dft, getOptimalDFTSize, idft, mulSpectrums createHanningWindow
+            /// </remarks>
+            public static IntPtr PhaseCorrelate(Mat src1, Mat src2, Mat? window, IntPtr response)
+            {
+                var res = NativeMethods.cv_phaseCorrelate_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(window, nameof(window), true), response);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Detects translational shifts between two images.
+            /// </summary>
+            /// <param name="src1">Source floating point array (CV_32FC1 or CV_64FC1)</param>
+            /// <param name="src2">Source floating point array (CV_32FC1 or CV_64FC1)</param>
+            /// <param name="L2size">The size of the correlation neighborhood used by the iterative shift refinement algorithm.</param>
+            /// <param name="maxIters">The maximum number of iterations the iterative refinement algorithm will run.</param>
+            /// <returns>s detected sub-pixel shift between the two arrays.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function extends the standard @ref phaseCorrelate method by improving sub-pixel accuracy
+            /// through iterative shift refinement in the phase-correlation space, as described in
+            /// @cite hrazdira2020iterative.
+            /// @sa phaseCorrelate, dft, idft, createHanningWindow
+            /// </remarks>
+            public static IntPtr PhaseCorrelateIterative(Mat src1, Mat src2, int L2size, int maxIters)
+            {
+                var res = NativeMethods.cv_phaseCorrelateIterative_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), L2size, maxIters);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This function computes a Hanning window coefficients in two dimensions.
+            /// </summary>
+            /// <param name="dst">Destination array to place Hann coefficients in</param>
+            /// <param name="winSize">The window size specifications (both width and height must be &gt; 1)</param>
+            /// <param name="type">Created array type</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// See (https://en.wikipedia.org/wiki/Hann_function) and (https://en.wikipedia.org/wiki/Window_function)
+            /// for more information.
+            /// An example is shown below:
+            /// @code
+            /// // create hanning window of size 100x100 and type CV_32F
+            /// Mat hann;
+            /// createHanningWindow(hann, Size(100, 100), CV_32F);
+            /// @endcode
+            /// </remarks>
+            public static void CreateHanningWindow(Mat dst, Size winSize, int type)
+            {
+                NativeMethods.cv_createHanningWindow_0(ValidationHelper.GetHandle(dst, nameof(dst), false), winSize, type);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies a fixed-level threshold to each array element.
+            /// </summary>
+            /// <param name="src">input array (multiple-channel, CV_8U, CV_16S, CV_16U, CV_32F or CV_64F).</param>
+            /// <param name="dst">output array of the same size  and type and the same number of channels as src.</param>
+            /// <param name="thresh">threshold value.</param>
+            /// <param name="maxval">maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding types.</param>
+            /// <param name="type">thresholding type (see #ThresholdTypes).</param>
+            /// <returns>the computed threshold value if Otsu's or Triangle methods used.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function applies fixed-level thresholding to a multiple-channel array. The function is typically
+            /// used to get a bi-level (binary) image out of a grayscale image ( #compare could be also used for
+            /// this purpose) or for removing a noise, that is, filtering out pixels with too small or too large
+            /// values. There are several types of thresholding supported by the function. They are determined by
+            /// type parameter.
+            /// Also, the special values #THRESH_OTSU or #THRESH_TRIANGLE may be combined with one of the
+            /// above values. In these cases, the function determines the optimal threshold value using the Otsu's
+            /// or Triangle algorithm and uses it instead of the specified thresh.
+            /// @note Currently, the Otsu's method is implemented only for CV_8UC1 and CV_16UC1 images,
+            /// and the Triangle's method is implemented only for CV_8UC1 images.
+            /// @sa  thresholdWithMask, adaptiveThreshold, findContours, compare, min, max
+            /// </remarks>
+            public static double Threshold(Mat src, Mat dst, double thresh, double maxval, int type)
+            {
+                var res = NativeMethods.cv_threshold_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), thresh, maxval, type);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Same as #threshold, but with an optional mask
+            /// </summary>
+            /// <param name="src">input array (multiple-channel, 8-bit or 32-bit floating point).</param>
+            /// <param name="dst">output array of the same size  and type and the same number of channels as src.</param>
+            /// <param name="mask">optional mask (same size as src, 8-bit).</param>
+            /// <param name="thresh">threshold value.</param>
+            /// <param name="maxval">maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding types.</param>
+            /// <param name="type">thresholding type (see #ThresholdTypes).</param>
+            /// <returns>the computed threshold value if Otsu's or Triangle methods used.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note If the mask is empty, #thresholdWithMask is equivalent to #threshold.
+            /// If the mask is not empty, dst *must* be of the same size and type as src, so that
+            /// outliers pixels are left as-is
+            /// @sa  threshold, adaptiveThreshold, findContours, compare, min, max
+            /// </remarks>
+            public static double ThresholdWithMask(Mat src, Mat dst, Mat mask, double thresh, double maxval, int type)
+            {
+                var res = NativeMethods.cv_thresholdWithMask_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), thresh, maxval, type);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Applies an adaptive threshold to an array.
+            /// </summary>
+            /// <param name="src">Source 8-bit single-channel image.</param>
+            /// <param name="dst">Destination image of the same size and the same type as src.</param>
+            /// <param name="maxValue">Non-zero value assigned to the pixels for which the condition is satisfied</param>
+            /// <param name="adaptiveMethod">Adaptive thresholding algorithm to use, see #AdaptiveThresholdTypes. The #BORDER_REPLICATE | #BORDER_ISOLATED is used to process boundaries.</param>
+            /// <param name="thresholdType">Thresholding type that must be either #THRESH_BINARY or #THRESH_BINARY_INV, see #ThresholdTypes.</param>
+            /// <param name="blockSize">Size of a pixel neighborhood that is used to calculate a threshold value for the pixel: 3, 5, 7, and so on.</param>
+            /// <param name="C">Constant subtracted from the mean or weighted mean (see the details below). Normally, it is positive but may be zero or negative as well.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function transforms a grayscale image to a binary image according to the formulae:
+            /// -   **THRESH_BINARY**
+            /// [see mathematical formula in OpenCV docs]
+            /// -   **THRESH_BINARY_INV**
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] is a threshold calculated individually for each pixel (see adaptiveMethod parameter).
+            /// The function can process the image in-place.
+            /// @sa  threshold, blur, GaussianBlur
+            /// </remarks>
+            public static void AdaptiveThreshold(Mat src, Mat dst, double maxValue, int adaptiveMethod, int thresholdType, int blockSize, double C)
+            {
+                NativeMethods.cv_adaptiveThreshold_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), maxValue, adaptiveMethod, thresholdType, blockSize, C);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Blurs an image and downsamples it.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image; it has the specified size and the same type as src.</param>
+            /// <param name="dstsize">size of the output image.</param>
+            /// <param name="borderType">Pixel extrapolation method, see #BorderTypes (#BORDER_CONSTANT isn't supported)</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// By default, size of the output image is computed as `Size((src.cols+1)/2, (src.rows+1)/2)`, but in
+            /// any case, the following conditions should be satisfied:
+            /// [see mathematical formula in OpenCV docs]
+            /// The function performs the downsampling step of the Gaussian pyramid construction. First, it
+            /// convolves the source image with the kernel:
+            /// [see mathematical formula in OpenCV docs]
+            /// Then, it downsamples the image by rejecting even rows and columns.
+            /// </remarks>
+            public static void PyrDown(Mat src, Mat dst, Size dstsize, int borderType)
+            {
+                NativeMethods.cv_pyrDown_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dstsize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Upsamples an image and then blurs it.
+            /// </summary>
+            /// <param name="src">input image.</param>
+            /// <param name="dst">output image. It has the specified size and the same type as src .</param>
+            /// <param name="dstsize">size of the output image.</param>
+            /// <param name="borderType">Pixel extrapolation method, see #BorderTypes (only #BORDER_DEFAULT is supported)</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// By default, size of the output image is computed as `Size(src.cols\*2, (src.rows\*2)`, but in any
+            /// case, the following conditions should be satisfied:
+            /// [see mathematical formula in OpenCV docs]
+            /// The function performs the upsampling step of the Gaussian pyramid construction, though it can
+            /// actually be used to construct the Laplacian pyramid. First, it upsamples the source image by
+            /// injecting even zero rows and columns and then convolves the result with the same kernel as in
+            /// pyrDown multiplied by 4.
+            /// </remarks>
+            public static void PyrUp(Mat src, Mat dst, Size dstsize, int borderType)
+            {
+                NativeMethods.cv_pyrUp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dstsize, borderType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="images">The images parameter.</param>
+            /// <param name="channels">The channels parameter.</param>
+            /// <param name="mask">Optional operation mask.</param>
+            /// <param name="hist">The hist parameter.</param>
+            /// <param name="histSize">The histSize parameter.</param>
+            /// <param name="ranges">The ranges parameter.</param>
+            /// <param name="accumulate">The accumulate parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// this variant supports only uniform histograms.
+            /// ranges argument is either empty vector or a flattened vector of histSize.size()*2 elements
+            /// (histSize.size() element pairs). The first and second elements of each pair specify the lower and
+            /// upper boundaries.
+            /// </remarks>
+            public static void CalcHist(IntPtr images, IntPtr channels, Mat mask, Mat hist, IntPtr histSize, IntPtr ranges, bool accumulate)
+            {
+                NativeMethods.cv_calcHist_0(images, channels, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(hist, nameof(hist), false), histSize, ranges, accumulate);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="images">The images parameter.</param>
+            /// <param name="channels">The channels parameter.</param>
+            /// <param name="hist">The hist parameter.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <param name="ranges">The ranges parameter.</param>
+            /// <param name="scale">The scale parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void CalcBackProject(IntPtr images, IntPtr channels, Mat hist, Mat dst, IntPtr ranges, double scale)
+            {
+                NativeMethods.cv_calcBackProject_0(images, channels, ValidationHelper.GetHandle(hist, nameof(hist), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ranges, scale);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Compares two histograms.
+            /// </summary>
+            /// <param name="H1">First compared histogram.</param>
+            /// <param name="H2">Second compared histogram of the same size as H1 .</param>
+            /// <param name="method">Comparison method, see #HistCompMethods</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::compareHist compares two dense or two sparse histograms using the specified method.
+            /// The function returns [formula] .
+            /// While the function works well with 1-, 2-, 3-dimensional dense histograms, it may not be suitable
+            /// for high-dimensional sparse histograms. In such histograms, because of aliasing and sampling
+            /// problems, the coordinates of non-zero histogram bins can slightly shift. To compare such histograms
+            /// or more general sparse configurations of weighted points, consider using the #EMD function.
+            /// </remarks>
+            public static double CompareHist(Mat H1, Mat H2, int method)
+            {
+                var res = NativeMethods.cv_compareHist_0(ValidationHelper.GetHandle(H1, nameof(H1), false), ValidationHelper.GetHandle(H2, nameof(H2), false), method);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Equalizes the histogram of a grayscale image.
+            /// </summary>
+            /// <param name="src">Source 8-bit single channel image.</param>
+            /// <param name="dst">Destination image of the same size and type as src .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function equalizes the histogram of the input image using the following algorithm:
+            /// - Calculate the histogram [formula] for src .
+            /// - Normalize the histogram so that the sum of histogram bins is 255.
+            /// - Compute the integral of the histogram:
+            /// [see mathematical formula in OpenCV docs]
+            /// - Transform the image using [formula] as a look-up table: [formula]
+            /// The algorithm normalizes the brightness and increases the contrast of the image.
+            /// </remarks>
+            public static void EqualizeHist(Mat src, Mat dst)
+            {
+                NativeMethods.cv_equalizeHist_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Creates a smart pointer to a cv::CLAHE class and initializes it.
+            /// </summary>
+            /// <param name="clipLimit">Threshold for contrast limiting.</param>
+            /// <param name="tileGridSize">Size of grid for histogram equalization. Input image will be divided into equally sized rectangular tiles. tileGridSize defines the number of tiles in row and column.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Clahe? CreateCLAHE(double clipLimit, Size tileGridSize)
+            {
+                IntPtr res = NativeMethods.cv_createCLAHE_0(clipLimit, tileGridSize);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Clahe(res);
+            }
+            /// <summary>
+            /// Computes the "minimal work" distance between two weighted point configurations.
+            /// </summary>
+            /// <param name="signature1">First signature, a [formula] floating-point matrix. Each row stores the point weight followed by the point coordinates. The matrix is allowed to have a single column (weights only) if the user-defined cost matrix is used. The weights must be non-negative and have at least one non-zero value.</param>
+            /// <param name="signature2">Second signature of the same format as signature1 , though the number of rows may be different. The total weights may be different. In this case an extra "dummy" point is added to either signature1 or signature2. The weights must be non-negative and have at least one non-zero value.</param>
+            /// <param name="distType">Used metric. See #DistanceTypes.</param>
+            /// <param name="cost">User-defined [formula] cost matrix. Also, if a cost matrix is used, lower boundary lowerBound cannot be calculated because it needs a metric function.</param>
+            /// <param name="lowerBound">Optional input/output parameter: lower boundary of a distance between the two signatures that is a distance between mass centers. The lower boundary may not be calculated if the user-defined cost matrix is used, the total weights of point configurations are not equal, or if the signatures consist of weights only (the signature matrices have a single column). You **must** initialize \*lowerBound . If the calculated distance between mass centers is greater or equal to \*lowerBound (it means that the signatures are far enough), the function does not calculate EMD. In any case \*lowerBound is set to the calculated distance between mass centers on return. Thus, if you want to calculate both distance between mass centers and EMD, \*lowerBound should be set to 0.</param>
+            /// <param name="flow">Resultant [formula] flow matrix: [formula] is a flow from [formula] -th point of signature1 to [formula] -th point of signature2 .</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function computes the earth mover distance and/or a lower boundary of the distance between the
+            /// two weighted point configurations. One of the applications described in @cite RubnerSept98,
+            /// @cite Rubner2000 is multi-dimensional histogram comparison for image retrieval. EMD is a transportation
+            /// problem that is solved using some modification of a simplex algorithm, thus the complexity is
+            /// exponential in the worst case, though, on average it is much faster. In the case of a real metric
+            /// the lower boundary can be calculated even faster (using linear-time algorithm) and it can be used
+            /// to determine roughly whether the two signatures are far enough so that they cannot relate to the
+            /// same object.
+            /// </remarks>
+            public static float WrapperEMD(Mat signature1, Mat signature2, int distType, Mat? cost, IntPtr lowerBound, Mat? flow)
+            {
+                var res = NativeMethods.cv_wrapperEMD_0(ValidationHelper.GetHandle(signature1, nameof(signature1), false), ValidationHelper.GetHandle(signature2, nameof(signature2), false), distType, ValidationHelper.GetHandle(cost, nameof(cost), true), lowerBound, ValidationHelper.GetHandle(flow, nameof(flow), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Performs a marker-based image segmentation using the watershed algorithm.
+            /// </summary>
+            /// <param name="image">Input 8-bit 3-channel image.</param>
+            /// <param name="markers">Input/output 32-bit single-channel image (map) of markers. It should have the same size as image .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function implements one of the variants of watershed, non-parametric marker-based segmentation
+            /// algorithm, described in @cite Meyer92 .
+            /// Before passing the image to the function, you have to roughly outline the desired regions in the
+            /// image markers with positive (\&gt;0) indices. So, every region is represented as one or more connected
+            /// components with the pixel values 1, 2, 3, and so on. Such markers can be retrieved from a binary
+            /// mask using #findContours and #drawContours (see the watershed.cpp demo). The markers are "seeds" of
+            /// the future image regions. All the other pixels in markers , whose relation to the outlined regions
+            /// is not known and should be defined by the algorithm, should be set to 0's. In the function output,
+            /// each pixel in markers is set to a value of the "seed" components or to -1 at boundaries between the
+            /// regions.
+            /// @note Any two neighbor connected components are not necessarily separated by a watershed boundary
+            /// (-1's pixels); for example, they can touch each other in the initial marker image passed to the
+            /// function.
+            /// @sa findContours
+            /// </remarks>
+            public static void Watershed(Mat image, Mat markers)
+            {
+                NativeMethods.cv_watershed_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(markers, nameof(markers), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Performs initial step of meanshift segmentation of an image.
+            /// </summary>
+            /// <param name="src">The source 8-bit, 3-channel image.</param>
+            /// <param name="dst">The destination image of the same format and the same size as the source.</param>
+            /// <param name="sp">The spatial window radius.</param>
+            /// <param name="sr">The color window radius.</param>
+            /// <param name="maxLevel">Maximum level of the pyramid for the segmentation.</param>
+            /// <param name="termcrit">Termination criteria: when to stop meanshift iterations.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function implements the filtering stage of meanshift segmentation, that is, the output of the
+            /// function is the filtered "posterized" image with color gradients and fine-grain texture flattened.
+            /// At every pixel (X,Y) of the input image (or down-sized input image, see below) the function executes
+            /// meanshift iterations, that is, the pixel (X,Y) neighborhood in the joint space-color hyperspace is
+            /// considered:
+            /// [see mathematical formula in OpenCV docs]
+            /// where (R,G,B) and (r,g,b) are the vectors of color components at (X,Y) and (x,y), respectively
+            /// (though, the algorithm does not depend on the color space used, so any 3-component color space can
+            /// be used instead). Over the neighborhood the average spatial value (X',Y') and average color vector
+            /// (R',G',B') are found and they act as the neighborhood center on the next iteration:
+            /// [see mathematical formula in OpenCV docs]
+            /// After the iterations over, the color components of the initial pixel (that is, the pixel from where
+            /// the iterations started) are set to the final value (average color at the last iteration):
+            /// [see mathematical formula in OpenCV docs]
+            /// When maxLevel \&gt; 0, the gaussian pyramid of maxLevel+1 levels is built, and the above procedure is
+            /// run on the smallest layer first. After that, the results are propagated to the larger layer and the
+            /// iterations are run again only on those pixels where the layer colors differ by more than sr from the
+            /// lower-resolution layer of the pyramid. That makes boundaries of color regions sharper. Note that the
+            /// results will be actually different from the ones obtained by running the meanshift procedure on the
+            /// whole original image (i.e. when maxLevel==0).
+            /// </remarks>
+            public static void PyrMeanShiftFiltering(Mat src, Mat dst, double sp, double sr, int maxLevel, TermCriteria termcrit)
+            {
+                NativeMethods.cv_pyrMeanShiftFiltering_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sp, sr, maxLevel, termcrit);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Runs the GrabCut algorithm.
+            /// </summary>
+            /// <param name="img">Input 8-bit 3-channel image.</param>
+            /// <param name="mask">Input/output 8-bit single-channel mask. The mask is initialized by the function when mode is set to #GC_INIT_WITH_RECT. Its elements may have one of the #GrabCutClasses.</param>
+            /// <param name="rect">ROI containing a segmented object. The pixels outside of the ROI are marked as "obvious background". The parameter is only used when mode==#GC_INIT_WITH_RECT .</param>
+            /// <param name="bgdModel">Temporary array for the background model. Do not modify it while you are processing the same image.</param>
+            /// <param name="fgdModel">Temporary arrays for the foreground model. Do not modify it while you are processing the same image.</param>
+            /// <param name="iterCount">Number of iterations the algorithm should make before returning the result. Note that the result can be refined with further calls with mode==#GC_INIT_WITH_MASK or mode==GC_EVAL .</param>
+            /// <param name="mode">Operation mode that could be one of the #GrabCutModes</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function implements the [GrabCut image segmentation algorithm](https://en.wikipedia.org/wiki/GrabCut).
+            /// </remarks>
+            public static void GrabCut(Mat img, Mat mask, Rect rect, Mat bgdModel, Mat fgdModel, int iterCount, int mode)
+            {
+                NativeMethods.cv_grabCut_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), rect, ValidationHelper.GetHandle(bgdModel, nameof(bgdModel), false), ValidationHelper.GetHandle(fgdModel, nameof(fgdModel), false), iterCount, mode);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the distance to the closest zero pixel for each pixel of the source image.
+            /// </summary>
+            /// <param name="src">8-bit, single-channel (binary) source image.</param>
+            /// <param name="dst">Output image with calculated distances. It is a 8-bit or 32-bit floating-point, single-channel image of the same size as src.</param>
+            /// <param name="labels">Output 2D array of labels (the discrete Voronoi diagram). It has the type CV_32SC1 and the same size as src.</param>
+            /// <param name="distanceType">Type of distance, see #DistanceTypes</param>
+            /// <param name="maskSize">Size of the distance transform mask, see #DistanceTransformMasks. #DIST_MASK_PRECISE is not supported by this variant. In case of the #DIST_L1 or #DIST_C distance type, the parameter is forced to 3 because a [formula] mask gives the same result as \f$5\times 5\f$ or any larger aperture.</param>
+            /// <param name="labelType">Type of the label array to build, see #DistanceTransformLabelTypes.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::distanceTransform calculates the approximate or precise distance from every binary
+            /// image pixel to the nearest zero pixel. For zero image pixels, the distance will obviously be zero.
+            /// When maskSize == #DIST_MASK_PRECISE and distanceType == #DIST_L2 , the function runs the
+            /// algorithm described in @cite Felzenszwalb04 . This algorithm is parallelized with the TBB library.
+            /// In other cases, the algorithm @cite Borgefors86 is used. This means that for a pixel the function
+            /// finds the shortest path to the nearest zero pixel consisting of basic shifts: horizontal, vertical,
+            /// diagonal, or knight's move (the latest is available for a [formula] mask). The overall
+            /// distance is calculated as a sum of these basic distances. Since the distance function should be
+            /// symmetric, all of the horizontal and vertical shifts must have the same cost (denoted as a ), all
+            /// the diagonal shifts must have the same cost (denoted as `b`), and all knight's moves must have the
+            /// same cost (denoted as `c`). For the #DIST_C and #DIST_L1 types, the distance is calculated
+            /// precisely, whereas for #DIST_L2 (Euclidean distance) the distance can be calculated only with a
+            /// relative error (a [formula] mask gives more accurate results). For `a`,`b`, and `c`, OpenCV
+            /// uses the values suggested in the original paper:
+            /// - DIST_L1: `a = 1, b = 2`
+            /// - DIST_L2:
+            /// - `3 x 3`: `a=0.955, b=1.3693`
+            /// - `5 x 5`: `a=1, b=1.4, c=2.1969`
+            /// - DIST_C: `a = 1, b = 1`
+            /// Typically, for a fast, coarse distance estimation #DIST_L2, a [formula] mask is used. For a
+            /// more accurate distance estimation #DIST_L2, a [formula] mask or the precise algorithm is used.
+            /// Note that both the precise and the approximate algorithms are linear on the number of pixels.
+            /// This variant of the function does not only compute the minimum distance for each pixel [formula]
+            /// but also identifies the nearest connected component consisting of zero pixels
+            /// (labelType==#DIST_LABEL_CCOMP) or the nearest zero pixel (labelType==#DIST_LABEL_PIXEL). Index of the
+            /// component/pixel is stored in `labels(x, y)`. When labelType==#DIST_LABEL_CCOMP, the function
+            /// automatically finds connected components of zero pixels in the input image and marks them with
+            /// distinct labels. When labelType==#DIST_LABEL_PIXEL, the function scans through the input image and
+            /// marks all the zero pixels with distinct labels.
+            /// In this mode, the complexity is still linear. That is, the function provides a very fast way to
+            /// compute the Voronoi diagram for a binary image. Currently, the second variant can use only the
+            /// approximate distance transform algorithm, i.e. maskSize=#DIST_MASK_PRECISE is not supported
+            /// yet.
+            /// </remarks>
+            public static void DistanceTransform(Mat src, Mat dst, Mat labels, int distanceType, int maskSize, int labelType)
+            {
+                NativeMethods.cv_distanceTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(labels, nameof(labels), false), distanceType, maskSize, labelType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="src">8-bit, single-channel (binary) source image.</param>
+            /// <param name="dst">Output image with calculated distances. It is a 8-bit or 32-bit floating-point, single-channel image of the same size as src .</param>
+            /// <param name="distanceType">Type of distance, see #DistanceTypes</param>
+            /// <param name="maskSize">Size of the distance transform mask, see #DistanceTransformMasks. In case of the #DIST_L1 or #DIST_C distance type, the parameter is forced to 3 because a [formula] mask gives the same result as [formula] or any larger aperture.</param>
+            /// <param name="dstType">Type of output image. It can be CV_8U or CV_32F. Type CV_8U can be used only for the first variant of the function and distanceType == #DIST_L1.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void DistanceTransform(Mat src, Mat dst, int distanceType, int maskSize, int dstType)
+            {
+                NativeMethods.cv_distanceTransform_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), distanceType, maskSize, dstType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Fills a connected component with the given color.
+            /// </summary>
+            /// <param name="image">Input/output 1- or 3-channel, 8-bit, or floating-point image. It is modified by the function unless the #FLOODFILL_MASK_ONLY flag is set in the second variant of the function. See the details below.</param>
+            /// <param name="mask">Operation mask that should be a single-channel 8-bit image, 2 pixels wider and 2 pixels taller than image. If an empty Mat is passed it will be created automatically. Since this is both an input and output parameter, you must take responsibility of initializing it. Flood-filling cannot go across non-zero pixels in the input mask. For example, an edge detector output can be used as a mask to stop filling at edges. On output, pixels in the mask corresponding to filled pixels in the image are set to 1 or to the specified value in flags as described below. Additionally, the function fills the border of the mask with ones to simplify internal processing. It is therefore possible to use the same mask in multiple calls to the function to make sure the filled areas do not overlap.</param>
+            /// <param name="seedPoint">Starting point.</param>
+            /// <param name="newVal">New value of the repainted domain pixels.</param>
+            /// <param name="rect">Optional output parameter set by the function to the minimum bounding rectangle of the repainted domain.</param>
+            /// <param name="loDiff">Maximal lower brightness/color difference between the currently observed pixel and one of its neighbors belonging to the component, or a seed pixel being added to the component.</param>
+            /// <param name="upDiff">Maximal upper brightness/color difference between the currently observed pixel and one of its neighbors belonging to the component, or a seed pixel being added to the component.</param>
+            /// <param name="flags">Operation flags. The first 8 bits contain a connectivity value. The default value of 4 means that only the four nearest neighbor pixels (those that share an edge) are considered. A connectivity value of 8 means that the eight nearest neighbor pixels (those that share a corner) will be considered. The next 8 bits (8-16) contain a value between 1 and 255 with which to fill the mask (the default value is 1). For example, 4 | ( 255 \&lt;\&lt; 8 ) will consider 4 nearest neighbours and fill the mask with a value of 255. The following additional options occupy higher bits and therefore may be further combined with the connectivity and mask fill values using bit-wise or (|), see #FloodFillFlags.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::floodFill fills a connected component starting from the seed point with the specified
+            /// color. The connectivity is determined by the color/brightness closeness of the neighbor pixels. The
+            /// pixel at [formula] is considered to belong to the repainted domain if:
+            /// - in case of a grayscale image and floating range
+            /// [see mathematical formula in OpenCV docs]
+            /// - in case of a grayscale image and fixed range
+            /// [see mathematical formula in OpenCV docs]
+            /// - in case of a color image and floating range
+            /// [see mathematical formula in OpenCV docs]
+            /// [see mathematical formula in OpenCV docs]
+            /// and
+            /// [see mathematical formula in OpenCV docs]
+            /// - in case of a color image and fixed range
+            /// [see mathematical formula in OpenCV docs]
+            /// [see mathematical formula in OpenCV docs]
+            /// and
+            /// [see mathematical formula in OpenCV docs]
+            /// where [formula] is the value of one of pixel neighbors that is already known to belong to the
+            /// component. That is, to be added to the connected component, a color/brightness of the pixel should
+            /// be close enough to:
+            /// - Color/brightness of one of its neighbors that already belong to the connected component in case
+            /// of a floating range.
+            /// - Color/brightness of the seed point in case of a fixed range.
+            /// Use these functions to either mark a connected component with the specified color in-place, or build
+            /// a mask and then extract the contour, or copy the region to another image, and so on.
+            /// @note Since the mask is larger than the filled image, a pixel [formula] in image corresponds to the
+            /// pixel [formula] in the mask .
+            /// @sa findContours
+            /// </remarks>
+            public static int FloodFill(Mat image, Mat mask, Point seedPoint, Scalar newVal, IntPtr rect, Scalar loDiff, Scalar upDiff, int flags)
+            {
+                var res = NativeMethods.cv_floodFill_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false), seedPoint, newVal, rect, loDiff, upDiff, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="src1">The src1 parameter.</param>
+            /// <param name="src2">The src2 parameter.</param>
+            /// <param name="weights1">The weights1 parameter.</param>
+            /// <param name="weights2">The weights2 parameter.</param>
+            /// <param name="dst">Destination matrix or image (output).</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// variant without `mask` parameter
+            /// </remarks>
+            public static void BlendLinear(Mat src1, Mat src2, Mat weights1, Mat weights2, Mat dst)
+            {
+                NativeMethods.cv_blendLinear_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(weights1, nameof(weights1), false), ValidationHelper.GetHandle(weights2, nameof(weights2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Converts an image from one color space to another.
+            /// </summary>
+            /// <param name="src">input image: 8-bit unsigned, 16-bit unsigned ( CV_16UC... ), or single-precision floating-point.</param>
+            /// <param name="dst">output image of the same size and depth as src.</param>
+            /// <param name="code">color space conversion code (see #ColorConversionCodes).</param>
+            /// <param name="dstCn">number of channels in the destination image; if the parameter is 0, the number of the channels is derived automatically from src and code.</param>
+            /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function converts an input image from one color space to another. In case of a transformation
+            /// to-from RGB color space, the order of the channels should be specified explicitly (RGB or BGR). Note
+            /// that the default color format in OpenCV is often referred to as RGB but it is actually BGR (the
+            /// bytes are reversed). So the first byte in a standard (24-bit) color image will be an 8-bit Blue
+            /// component, the second byte will be Green, and the third byte will be Red. The fourth, fifth, and
+            /// sixth bytes would then be the second pixel (Blue, then Green, then Red), and so on.
+            /// The conventional ranges for R, G, and B channel values are:
+            /// -   0 to 255 for CV_8U images
+            /// -   0 to 65535 for CV_16U images
+            /// -   0 to 1 for CV_32F images
+            /// In case of linear transformations, the range does not matter. But in case of a non-linear
+            /// transformation, an input RGB image should be normalized to the proper value range to get the correct
+            /// results, for example, for RGB [formula] L\*u\*v\* transformation. For example, if you have a
+            /// 32-bit floating-point image directly converted from an 8-bit image without any scaling, then it will
+            /// have the 0..255 value range instead of 0..1 assumed by the function. So, before calling #cvtColor ,
+            /// you need first to scale the image down:
+            /// @code
+            /// img *= 1./255;
+            /// cvtColor(img, img, COLOR_BGR2Luv);
+            /// @endcode
+            /// If you use #cvtColor with 8-bit images, the conversion will have some information lost. For many
+            /// applications, this will not be noticeable but it is recommended to use 32-bit images in applications
+            /// that need the full range of colors or that convert an image before an operation and then convert
+            /// back.
+            /// If conversion adds the alpha channel, its value will set to the maximum of corresponding channel
+            /// range: 255 for CV_8U, 65535 for CV_16U, 1 for CV_32F.
+            /// @note The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
+            /// @see @ref imgproc_color_conversions
+            /// </remarks>
+            public static void CvtColor(Mat src, Mat dst, int code, int dstCn, AlgorithmHint hint)
+            {
+                NativeMethods.cv_cvtColor_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, dstCn, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Converts an image from one color space to another where the source image is
+            /// stored in two planes.
+            /// </summary>
+            /// <param name="src1">8-bit image (#CV_8U) of the Y plane.</param>
+            /// <param name="src2">image containing interleaved U/V plane.</param>
+            /// <param name="dst">output image.</param>
+            /// <param name="code">Specifies the type of conversion. It can take any of the following values: - #COLOR_YUV2BGR_NV12 - #COLOR_YUV2RGB_NV12 - #COLOR_YUV2BGRA_NV12 - #COLOR_YUV2RGBA_NV12 - #COLOR_YUV2BGR_NV21 - #COLOR_YUV2RGB_NV21 - #COLOR_YUV2BGRA_NV21 - #COLOR_YUV2RGBA_NV21</param>
+            /// <param name="hint">Implementation modification flags. See #AlgorithmHint</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function only supports YUV420 to RGB conversion as of now.
+            /// </remarks>
+            public static void CvtColorTwoPlane(Mat src1, Mat src2, Mat dst, int code, AlgorithmHint hint)
+            {
+                NativeMethods.cv_cvtColorTwoPlane_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, (int)hint);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// main function for all demosaicing processes
+            /// </summary>
+            /// <param name="src">input image: 8-bit unsigned or 16-bit unsigned.</param>
+            /// <param name="dst">output image of the same size and depth as src.</param>
+            /// <param name="code">Color space conversion code (see the description below).</param>
+            /// <param name="dstCn">number of channels in the destination image; if the parameter is 0, the number of the channels is derived automatically from src and code. The function can do the following transformations: -   Demosaicing using bilinear interpolation #COLOR_BayerBG2BGR , #COLOR_BayerGB2BGR , #COLOR_BayerRG2BGR , #COLOR_BayerGR2BGR #COLOR_BayerBG2GRAY , #COLOR_BayerGB2GRAY , #COLOR_BayerRG2GRAY , #COLOR_BayerGR2GRAY -   Demosaicing using Variable Number of Gradients. #COLOR_BayerBG2BGR_VNG , #COLOR_BayerGB2BGR_VNG , #COLOR_BayerRG2BGR_VNG , #COLOR_BayerGR2BGR_VNG -   Edge-Aware Demosaicing. #COLOR_BayerBG2BGR_EA , #COLOR_BayerGB2BGR_EA , #COLOR_BayerRG2BGR_EA , #COLOR_BayerGR2BGR_EA -   Demosaicing with alpha channel #COLOR_BayerBG2BGRA , #COLOR_BayerGB2BGRA , #COLOR_BayerRG2BGRA , #COLOR_BayerGR2BGRA</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
+            /// @sa cvtColor
+            /// </remarks>
+            public static void Demosaicing(Mat src, Mat dst, int code, int dstCn)
+            {
+                NativeMethods.cv_demosaicing_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), code, dstCn);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Compares a template against overlapped image regions.
+            /// </summary>
+            /// <param name="image">Image where the search is running. It must be 8-bit or 32-bit floating-point.</param>
+            /// <param name="templ">Searched template. It must be not greater than the source image and have the same data type.</param>
+            /// <param name="result">Map of comparison results. It must be single-channel 32-bit floating-point. If image is [formula] and templ is [formula] , then result is [formula] .</param>
+            /// <param name="method">Parameter specifying the comparison method, see #TemplateMatchModes</param>
+            /// <param name="mask">Optional mask. It must have the same size as templ. It must either have the same number of channels as template or only one channel, which is then used for all template and image channels. If the data type is #CV_8U, the mask is interpreted as a binary mask, meaning only elements where mask is nonzero are used and are kept unchanged independent of the actual mask value (weight equals 1). For data type #CV_32F, the mask values are used as weights. The exact formulas are documented in #TemplateMatchModes.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function slides through image , compares the overlapped patches of size [formula] against
+            /// templ using the specified method and stores the comparison results in result . #TemplateMatchModes
+            /// describes the formulae for the available comparison methods ( [formula] denotes image, [formula]
+            /// template, [formula] result, [formula] the optional mask ). The summation is done over template and/or
+            /// the image patch: [formula]
+            /// After the function finishes the comparison, the best matches can be found as global minimums (when
+            /// #TM_SQDIFF was used) or maximums (when #TM_CCORR or #TM_CCOEFF was used) using the
+            /// #minMaxLoc function. In case of a color image, template summation in the numerator and each sum in
+            /// the denominator is done over all of the channels and separate mean values are used for each channel.
+            /// That is, the function can take a color template and a color image. The result will still be a
+            /// single-channel image, which is easier to analyze.
+            /// </remarks>
+            public static void MatchTemplate(Mat image, Mat templ, Mat result, int method, Mat? mask)
+            {
+                NativeMethods.cv_matchTemplate_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(templ, nameof(templ), false), ValidationHelper.GetHandle(result, nameof(result), false), method, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// computes the connected components labeled image of boolean image
+            /// </summary>
+            /// <param name="image">the 8-bit single-channel image to be labeled</param>
+            /// <param name="labels">destination labeled image</param>
+            /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
+            /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
+            /// <param name="ccltype">connected components algorithm type (see the #ConnectedComponentsAlgorithmsTypes).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
+            /// represents the background label. ltype specifies the output label image type, an important
+            /// consideration based on the total number of labels or alternatively the total number of pixels in
+            /// the source image. ccltype specifies the connected components labeling algorithm to use, currently
+            /// Bolelli (Spaghetti) @cite Bolelli2019, Grana (BBDT) @cite Grana2010 and Wu's (SAUF) @cite Wu2009 algorithms
+            /// are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
+            /// a row major ordering of labels while Spaghetti and BBDT do not.
+            /// This function uses parallel version of the algorithms if at least one allowed
+            /// parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
+            /// </remarks>
+            public static int ConnectedComponents(Mat image, Mat labels, int connectivity, int ltype, int ccltype)
+            {
+                var res = NativeMethods.cv_connectedComponents_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), connectivity, ltype, ccltype);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="image">the 8-bit single-channel image to be labeled</param>
+            /// <param name="labels">destination labeled image</param>
+            /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
+            /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int ConnectedComponents(Mat image, Mat labels, int connectivity, int ltype)
+            {
+                var res = NativeMethods.cv_connectedComponents_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), connectivity, ltype);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// computes the connected components labeled image of boolean image and also produces a statistics output for each label
+            /// </summary>
+            /// <param name="image">the 8-bit single-channel image to be labeled</param>
+            /// <param name="labels">destination labeled image</param>
+            /// <param name="stats">statistics output for each label, including the background label. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.</param>
+            /// <param name="centroids">centroid output for each label, including the background label. Centroids are accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.</param>
+            /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
+            /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
+            /// <param name="ccltype">connected components algorithm type (see #ConnectedComponentsAlgorithmsTypes).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
+            /// represents the background label. ltype specifies the output label image type, an important
+            /// consideration based on the total number of labels or alternatively the total number of pixels in
+            /// the source image. ccltype specifies the connected components labeling algorithm to use, currently
+            /// Bolelli (Spaghetti) @cite Bolelli2019, Grana (BBDT) @cite Grana2010 and Wu's (SAUF) @cite Wu2009 algorithms
+            /// are supported, see the #ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces
+            /// a row major ordering of labels while Spaghetti and BBDT do not.
+            /// This function uses parallel version of the algorithms (statistics included) if at least one allowed
+            /// parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
+            /// </remarks>
+            public static int ConnectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype, int ccltype)
+            {
+                var res = NativeMethods.cv_connectedComponentsWithStats_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), ValidationHelper.GetHandle(stats, nameof(stats), false), ValidationHelper.GetHandle(centroids, nameof(centroids), false), connectivity, ltype, ccltype);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="image">the 8-bit single-channel image to be labeled</param>
+            /// <param name="labels">destination labeled image</param>
+            /// <param name="stats">statistics output for each label, including the background label. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.</param>
+            /// <param name="centroids">centroid output for each label, including the background label. Centroids are accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.</param>
+            /// <param name="connectivity">8 or 4 for 8-way or 4-way connectivity respectively</param>
+            /// <param name="ltype">output image label type. Currently CV_32S and CV_16U are supported.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int ConnectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype)
+            {
+                var res = NativeMethods.cv_connectedComponentsWithStats_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(labels, nameof(labels), false), ValidationHelper.GetHandle(stats, nameof(stats), false), ValidationHelper.GetHandle(centroids, nameof(centroids), false), connectivity, ltype);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds contours in a binary image.
+            /// </summary>
+            /// <param name="image">Source, an 8-bit single-channel image. Non-zero pixels are treated as 1's. Zero pixels remain 0's, so the image is treated as binary . You can use #compare, #inRange, #threshold , #adaptiveThreshold, #Canny, and others to create a binary image out of a grayscale or color one. If mode equals to #RETR_CCOMP or #RETR_FLOODFILL, the input can also be a 32-bit integer image of labels (CV_32SC1).</param>
+            /// <param name="contours">Detected contours. Each contour is stored as a vector of points (e.g. std::vector&lt;std::vector&lt;cv::Point&gt; &gt;).</param>
+            /// <param name="hierarchy">Optional output vector (e.g. std::vector&lt;cv::Vec4i&gt;), containing information about the image topology. It has as many elements as the number of contours. For each i-th contour contours[i], the elements hierarchy[i][0] , hierarchy[i][1] , hierarchy[i][2] , and hierarchy[i][3] are set to 0-based indices in contours of the next and previous contours at the same hierarchical level, the first child contour and the parent contour, respectively. If for the contour i there are no next, previous, parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.</param>
+            /// <param name="mode">Contour retrieval mode, see #RetrievalModes</param>
+            /// <param name="method">Contour approximation method, see #ContourApproximationModes</param>
+            /// <param name="offset">Optional offset by which every contour point is shifted. This is useful if the contours are extracted from the image ROI and then they should be analyzed in the whole image context.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function retrieves contours from the binary image. The contours
+            /// are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the
+            /// OpenCV sample directory.
+            /// @note Since OpenCV 4.14, when mode is #RETR_LIST and no hierarchy is requested, this function
+            /// automatically uses the TRUCO parallel algorithm @cite TRUCO2026, a scalable lock-free method for
+            /// contour extraction. In all other cases, the sequential @cite Suzuki85 algorithm is used.
+            /// @note Since opencv 3.2 source image is not modified by this function.
+            /// @note In Python, hierarchy is nested inside a top level array. Use hierarchy[0][i] to access hierarchical elements of i-th contour.
+            /// </remarks>
+            public static void FindContours(Mat image, IntPtr contours, Mat hierarchy, int mode, int method, Point offset)
+            {
+                NativeMethods.cv_findContours_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), false), mode, method, offset);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="image">Input image.</param>
+            /// <param name="contours">The contours parameter.</param>
+            /// <param name="hierarchy">The hierarchy parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FindContoursLinkRuns(Mat image, IntPtr contours, Mat hierarchy)
+            {
+                NativeMethods.cv_findContoursLinkRuns_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="image">Input image.</param>
+            /// <param name="contours">The contours parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FindContoursLinkRuns(Mat image, IntPtr contours)
+            {
+                NativeMethods.cv_findContoursLinkRuns_1(ValidationHelper.GetHandle(image, nameof(image), false), contours);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Creates a smart pointer to a cv::GeneralizedHoughBallard class and initializes it.
+            /// </summary>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static GeneralizedHoughBallard? CreateGeneralizedHoughBallard()
+            {
+                IntPtr res = NativeMethods.cv_createGeneralizedHoughBallard_0();
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new GeneralizedHoughBallard(res);
+            }
+            /// <summary>
+            /// Creates a smart pointer to a cv::GeneralizedHoughGuil class and initializes it.
+            /// </summary>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static GeneralizedHoughGuil? CreateGeneralizedHoughGuil()
+            {
+                IntPtr res = NativeMethods.cv_createGeneralizedHoughGuil_0();
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new GeneralizedHoughGuil(res);
+            }
+            /// <summary>
+            /// Applies a GNU Octave/MATLAB equivalent colormap on a given image.
+            /// </summary>
+            /// <param name="src">The source image, grayscale or colored of type CV_8UC1 or CV_8UC3. If CV_8UC3, then the CV_8UC1 image is generated internally using cv::COLOR_BGR2GRAY.</param>
+            /// <param name="dst">The result is the colormapped source image. Note: Mat::create is called on dst.</param>
+            /// <param name="colormap">The colormap to apply, see #ColormapTypes</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ApplyColorMap(Mat src, Mat dst, int colormap)
+            {
+                NativeMethods.cv_applyColorMap_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), colormap);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Applies a user colormap on a given image.
+            /// </summary>
+            /// <param name="src">The source image, grayscale or colored of type CV_8UC1 or CV_8UC3. If CV_8UC3, then the CV_8UC1 image is generated internally using cv::COLOR_BGR2GRAY.</param>
+            /// <param name="dst">The result is the colormapped source image of the same number of channels as userColor. Note: Mat::create is called on dst.</param>
+            /// <param name="userColor">The colormap to apply of type CV_8UC1 or CV_8UC3 and size 256</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ApplyColorMap(Mat src, Mat dst, Mat userColor)
+            {
+                NativeMethods.cv_applyColorMap_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(userColor, nameof(userColor), false));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a line segment connecting two points.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="pt1">First point of the line segment.</param>
+            /// <param name="pt2">Second point of the line segment.</param>
+            /// <param name="color">Line color.</param>
+            /// <param name="thickness">Line thickness.</param>
+            /// <param name="lineType">Type of the line. See #LineTypes.</param>
+            /// <param name="shift">Number of fractional bits in the point coordinates.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function line draws the line segment between pt1 and pt2 points in the image. The line is
+            /// clipped by the image boundaries. For non-antialiased lines with integer coordinates, the 8-connected
+            /// or 4-connected Bresenham algorithm is used. Thick lines are drawn with rounding endings. Antialiased
+            /// lines are drawn using Gaussian filtering.
+            /// </remarks>
+            public static void Line(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_line_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws an arrow segment pointing from the first point to the second one.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="pt1">The point the arrow starts from.</param>
+            /// <param name="pt2">The point the arrow points to.</param>
+            /// <param name="color">Line color.</param>
+            /// <param name="thickness">Line thickness.</param>
+            /// <param name="line_type">Type of the line. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the point coordinates.</param>
+            /// <param name="tipLength">The length of the arrow tip in relation to the arrow length</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
+            /// </remarks>
+            public static void ArrowedLine(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int line_type, int shift, double tipLength)
+            {
+                NativeMethods.cv_arrowedLine_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, line_type, shift, tipLength);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draw axes of the world/object coordinate system from pose estimation. @sa solvePnP
+            /// *
+            /// * @param image Input/output image. It must have 1 or 3 channels. The number of channels is not altered.
+            /// * @param cameraMatrix Input 3x3 floating-point matrix of camera intrinsic parameters.
+            /// * [formula]
+            /// * @param distCoeffs Input vector of distortion coefficients
+            /// * [formula]. If the vector is empty, the zero distortion coefficients are assumed.
+            /// * @param rvec Rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+            /// * the model coordinate system to the camera coordinate system.
+            /// * @param tvec Translation vector.
+            /// * @param length Length of the painted axes in the same unit than tvec (usually in meters).
+            /// * @param thickness Line thickness of the painted axes.
+            /// *
+            /// * This function draws the axes of the world/object coordinate system w.r.t. to the camera frame.
+            /// * OX is drawn in red, OY in green and OZ in blue.
+            /// </summary>
+            /// <param name="image">Input image.</param>
+            /// <param name="cameraMatrix">The cameraMatrix parameter.</param>
+            /// <param name="distCoeffs">The distCoeffs parameter.</param>
+            /// <param name="rvec">The rvec parameter.</param>
+            /// <param name="tvec">The tvec parameter.</param>
+            /// <param name="length">The length parameter.</param>
+            /// <param name="thickness">Line thickness.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void DrawFrameAxes(Mat image, Mat cameraMatrix, Mat distCoeffs, Mat rvec, Mat tvec, float length, int thickness)
+            {
+                NativeMethods.cv_drawFrameAxes_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), ValidationHelper.GetHandle(rvec, nameof(rvec), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), length, thickness);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a simple, thick, or filled up-right rectangle.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="pt1">Vertex of the rectangle.</param>
+            /// <param name="pt2">Vertex of the rectangle opposite to pt1 .</param>
+            /// <param name="color">Rectangle color or brightness (grayscale image).</param>
+            /// <param name="thickness">Thickness of lines that make up the rectangle. Negative values, like #FILLED, mean that the function has to draw a filled rectangle.</param>
+            /// <param name="lineType">Type of the line. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the point coordinates.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::rectangle draws a rectangle outline or a filled rectangle whose two opposite corners
+            /// are pt1 and pt2.
+            /// </remarks>
+            public static void Rectangle(Mat img, Point pt1, Point pt2, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_rectangle_0(ValidationHelper.GetHandle(img, nameof(img), false), pt1, pt2, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="img">Input image.</param>
+            /// <param name="rec">The rec parameter.</param>
+            /// <param name="color">Color value (BGR or BGRA).</param>
+            /// <param name="thickness">Line thickness.</param>
+            /// <param name="lineType">Type of the line (see LineTypes).</param>
+            /// <param name="shift">Number of fractional bits in coordinates.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// use `rec` parameter as alternative specification of the drawn rectangle: `r.tl() and
+            /// r.br()-Point(1,1)` are opposite corners
+            /// </remarks>
+            public static void Rectangle(Mat img, Rect rec, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_rectangle_1(ValidationHelper.GetHandle(img, nameof(img), false), rec, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a circle.
+            /// </summary>
+            /// <param name="img">Image where the circle is drawn.</param>
+            /// <param name="center">Center of the circle.</param>
+            /// <param name="radius">Radius of the circle.</param>
+            /// <param name="color">Circle color.</param>
+            /// <param name="thickness">Thickness of the circle outline, if positive. Negative values, like #FILLED, mean that a filled circle is to be drawn.</param>
+            /// <param name="lineType">Type of the circle boundary. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the coordinates of the center and in the radius value.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::circle draws a simple or filled circle with a given center and radius.
+            /// </remarks>
+            public static void Circle(Mat img, Point center, int radius, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_circle_0(ValidationHelper.GetHandle(img, nameof(img), false), center, radius, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a simple or thick elliptic arc or fills an ellipse sector.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="center">Center of the ellipse.</param>
+            /// <param name="axes">Half of the size of the ellipse main axes.</param>
+            /// <param name="angle">Ellipse rotation angle in degrees.</param>
+            /// <param name="startAngle">Starting angle of the elliptic arc in degrees.</param>
+            /// <param name="endAngle">Ending angle of the elliptic arc in degrees.</param>
+            /// <param name="color">Ellipse color.</param>
+            /// <param name="thickness">Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that a filled ellipse sector is to be drawn.</param>
+            /// <param name="lineType">Type of the ellipse boundary. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the coordinates of the center and values of axes.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::ellipse with more parameters draws an ellipse outline, a filled ellipse, an elliptic
+            /// arc, or a filled ellipse sector. The drawing code uses general parametric form.
+            /// A piecewise-linear curve is used to approximate the elliptic arc
+            /// boundary. If you need more control of the ellipse rendering, you can retrieve the curve using
+            /// #ellipse2Poly and then render it with #polylines or fill it with #fillPoly. If you use the first
+            /// variant of the function and want to draw the whole ellipse, not an arc, pass `startAngle=0` and
+            /// `endAngle=360`. If `startAngle` is greater than `endAngle`, they are swapped. The figure below explains
+            /// the meaning of the parameters to draw the blue arc.
+            /// ![Parameters of Elliptic Arc](pics/ellipse.svg)
+            /// </remarks>
+            public static void Ellipse(Mat img, Point center, Size axes, double angle, double startAngle, double endAngle, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_ellipse_0(ValidationHelper.GetHandle(img, nameof(img), false), center, axes, angle, startAngle, endAngle, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="box">Alternative ellipse representation via RotatedRect. This means that the function draws an ellipse inscribed in the rotated rectangle.</param>
+            /// <param name="color">Ellipse color.</param>
+            /// <param name="thickness">Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that a filled ellipse sector is to be drawn.</param>
+            /// <param name="lineType">Type of the ellipse boundary. See #LineTypes</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void Ellipse(Mat img, RotatedRect box, Scalar color, int thickness, int lineType)
+            {
+                NativeMethods.cv_ellipse_1(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(box, nameof(box), false), color, thickness, lineType);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a marker on a predefined position in an image.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="position">The point where the crosshair is positioned.</param>
+            /// <param name="color">Line color.</param>
+            /// <param name="markerType">The specific type of marker you want to use, see #MarkerTypes</param>
+            /// <param name="markerSize">The length of the marker axis [default = 20 pixels]</param>
+            /// <param name="thickness">Line thickness.</param>
+            /// <param name="line_type">Type of the line, See #LineTypes</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::drawMarker draws a marker on a given position in the image. For the moment several
+            /// marker types are supported, see #MarkerTypes for more information.
+            /// </remarks>
+            public static void DrawMarker(Mat img, Point position, Scalar color, int markerType, int markerSize, int thickness, int line_type)
+            {
+                NativeMethods.cv_drawMarker_0(ValidationHelper.GetHandle(img, nameof(img), false), position, color, markerType, markerSize, thickness, line_type);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Fills a convex polygon.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="points">Polygon vertices.</param>
+            /// <param name="color">Polygon color.</param>
+            /// <param name="lineType">Type of the polygon boundaries. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the vertex coordinates.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::fillConvexPoly draws a filled convex polygon. This function is much faster than the
+            /// function #fillPoly . It can fill not only convex polygons but any monotonic polygon without
+            /// self-intersections, that is, a polygon whose contour intersects every horizontal line (scan line)
+            /// twice at the most (though, its top-most and/or the bottom edge could be horizontal).
+            /// </remarks>
+            public static void FillConvexPoly(Mat img, Mat points, Scalar color, int lineType, int shift)
+            {
+                NativeMethods.cv_fillConvexPoly_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), color, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Fills the area bounded by one or more polygons.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="pts">Array of polygons where each polygon is represented as an array of points.</param>
+            /// <param name="color">Polygon color.</param>
+            /// <param name="lineType">Type of the polygon boundaries. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the vertex coordinates.</param>
+            /// <param name="offset">Optional offset of all points of the contours.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::fillPoly fills an area bounded by several polygonal contours. The function can fill
+            /// complex areas, for example, areas with holes, contours with self-intersections (some of their
+            /// parts), and so forth.
+            /// </remarks>
+            public static void FillPoly(Mat img, IntPtr pts, Scalar color, int lineType, int shift, Point offset)
+            {
+                NativeMethods.cv_fillPoly_0(ValidationHelper.GetHandle(img, nameof(img), false), pts, color, lineType, shift, offset);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws several polygonal curves.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="pts">Array of polygonal curves.</param>
+            /// <param name="isClosed">Flag indicating whether the drawn polylines are closed or not. If they are closed, the function draws a line from the last vertex of each curve to its first vertex.</param>
+            /// <param name="color">Polyline color.</param>
+            /// <param name="thickness">Thickness of the polyline edges.</param>
+            /// <param name="lineType">Type of the line segments. See #LineTypes</param>
+            /// <param name="shift">Number of fractional bits in the vertex coordinates. The function cv::polylines draws one or more polygonal curves.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void Polylines(Mat img, IntPtr pts, bool isClosed, Scalar color, int thickness, int lineType, int shift)
+            {
+                NativeMethods.cv_polylines_0(ValidationHelper.GetHandle(img, nameof(img), false), pts, isClosed, color, thickness, lineType, shift);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws contours outlines or filled contours.
+            /// </summary>
+            /// <param name="image">Destination image.</param>
+            /// <param name="contours">All the input contours. Each contour is stored as a point vector.</param>
+            /// <param name="contourIdx">Parameter indicating a contour to draw. If it is negative, all the contours are drawn.</param>
+            /// <param name="color">Color of the contours.</param>
+            /// <param name="thickness">Thickness of lines the contours are drawn with. If it is negative (for example, thickness=#FILLED ), the contour interiors are drawn.</param>
+            /// <param name="lineType">Line connectivity. See #LineTypes</param>
+            /// <param name="hierarchy">Optional information about hierarchy. It is only needed if you want to draw only some of the contours (see maxLevel ).</param>
+            /// <param name="maxLevel">Maximal level for drawn contours. If it is 0, only the specified contour is drawn. If it is 1, the function draws the contour(s) and all the nested contours. If it is 2, the function draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This parameter is only taken into account when there is hierarchy available.</param>
+            /// <param name="offset">Optional contour shift parameter. Shift all the drawn contours by the specified [formula] .</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function draws contour outlines in the image if [formula] or fills the area
+            /// bounded by the contours if [formula] . The example below shows how to retrieve
+            /// connected components from the binary image and label them: :
+            /// @include snippets/imgproc_drawContours.cpp
+            /// @note When thickness=#FILLED, the function is designed to handle connected components with holes correctly
+            /// even when no hierarchy data is provided. This is done by analyzing all the outlines together
+            /// using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
+            /// contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
+            /// of contours, or iterate over the collection using contourIdx parameter.
+            /// </remarks>
+            public static void DrawContours(Mat image, IntPtr contours, int contourIdx, Scalar color, int thickness, int lineType, Mat? hierarchy, int maxLevel, Point offset)
+            {
+                NativeMethods.cv_drawContours_0(ValidationHelper.GetHandle(image, nameof(image), false), contours, contourIdx, color, thickness, lineType, ValidationHelper.GetHandle(hierarchy, nameof(hierarchy), true), maxLevel, offset);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="imgRect">Image rectangle.</param>
+            /// <param name="pt1">First line point.</param>
+            /// <param name="pt2">Second line point.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool ClipLine(Rect imgRect, Point pt1, Point pt2)
+            {
+                var res = NativeMethods.cv_clipLine_0(imgRect, pt1, pt2);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Approximates an elliptic arc with a polyline.
+            /// </summary>
+            /// <param name="center">Center of the arc.</param>
+            /// <param name="axes">Half of the size of the ellipse main axes. See #ellipse for details.</param>
+            /// <param name="angle">Rotation angle of the ellipse in degrees. See #ellipse for details.</param>
+            /// <param name="arcStart">Starting angle of the elliptic arc in degrees.</param>
+            /// <param name="arcEnd">Ending angle of the elliptic arc in degrees.</param>
+            /// <param name="delta">Angle between the subsequent polyline vertices. It defines the approximation accuracy.</param>
+            /// <param name="pts">Output vector of polyline vertices.</param>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function ellipse2Poly computes the vertices of a polyline that approximates the specified
+            /// elliptic arc. It is used by #ellipse. If `arcStart` is greater than `arcEnd`, they are swapped.
+            /// </remarks>
+            public static void Ellipse2Poly(Point center, Size axes, int angle, int arcStart, int arcEnd, int delta, IntPtr pts)
+            {
+                NativeMethods.cv_ellipse2Poly_0(center, axes, angle, arcStart, arcEnd, delta, pts);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Draws a text string.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="text">Text string to be drawn.</param>
+            /// <param name="org">Bottom-left corner of the text string in the image.</param>
+            /// <param name="fontFace">Font type, see #HersheyFonts.</param>
+            /// <param name="fontScale">Font scale factor that is multiplied by the font-specific base size.</param>
+            /// <param name="color">Text color.</param>
+            /// <param name="thickness">Thickness of the lines used to draw a text.</param>
+            /// <param name="lineType">Line type. See #LineTypes</param>
+            /// <param name="bottomLeftOrigin">When true, the image data origin is at the bottom-left corner. Otherwise, it is at the top-left corner.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::putText renders the specified text string in the image. Symbols that cannot be rendered
+            /// using the specified font are replaced by question marks. See #getTextSize for a text rendering code
+            /// example.
+            /// The `fontScale` parameter is a scale factor that is multiplied by the base font size:
+            /// - When scale &gt; 1, the text is magnified.
+            /// - When 0 &lt; scale &lt; 1, the text is minimized.
+            /// - When scale &lt; 0, the text is mirrored or reversed.
+            /// </remarks>
+            public static void PutText(Mat img, string text, Point org, int fontFace, double fontScale, Scalar color, int thickness, int lineType, bool bottomLeftOrigin)
+            {
+                NativeMethods.cv_putText_0(ValidationHelper.GetHandle(img, nameof(img), false), text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Calculates the width and height of a text string.
+            /// </summary>
+            /// <param name="text">Input text string.</param>
+            /// <param name="fontFace">Font to use, see #HersheyFonts.</param>
+            /// <param name="fontScale">Font scale factor that is multiplied by the font-specific base size.</param>
+            /// <param name="thickness">Thickness of lines used to render the text. See #putText for details.</param>
+            /// <param name="baseLine">The baseLine parameter.</param>
+            /// <returns>The size of a box that contains the specified text.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::getTextSize calculates and returns the size of a box that contains the specified text.
+            /// That is, the following code renders some text, the tight box surrounding it, and the baseline: :
+            /// @code
+            /// String text = "Funny text inside the box";
+            /// int fontFace = FONT_HERSHEY_SCRIPT_SIMPLEX;
+            /// double fontScale = 2;
+            /// int thickness = 3;
+            /// Mat img(600, 800, CV_8UC3, Scalar::all(0));
+            /// int baseline=0;
+            /// Size textSize = getTextSize(text, fontFace,
+            /// fontScale, thickness, &amp;baseline);
+            /// baseline += thickness;
+            /// // center the text
+            /// Point textOrg((img.cols - textSize.width)/2,
+            /// (img.rows + textSize.height)/2);
+            /// // draw the box
+            /// rectangle(img, textOrg + Point(0, baseline),
+            /// textOrg + Point(textSize.width, -textSize.height),
+            /// Scalar(0,0,255));
+            /// // ... and the baseline first
+            /// line(img, textOrg + Point(0, thickness),
+            /// textOrg + Point(textSize.width, thickness),
+            /// Scalar(0, 0, 255));
+            /// // then put the text itself
+            /// putText(img, text, textOrg, fontFace, fontScale,
+            /// Scalar::all(255), thickness, 8);
+            /// @endcode
+            /// @see putText
+            /// </remarks>
+            public static Size GetTextSize(string text, int fontFace, double fontScale, int thickness, IntPtr baseLine)
+            {
+                var res = NativeMethods.cv_getTextSize_0(text, fontFace, fontScale, thickness, baseLine);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates the font-specific size to use to achieve a given height in pixels.
+            /// </summary>
+            /// <param name="fontFace">Font to use, see cv::HersheyFonts.</param>
+            /// <param name="pixelHeight">Pixel height to compute the fontScale for</param>
+            /// <param name="thickness">Thickness of lines used to render the text.See putText for details.</param>
+            /// <returns>The fontSize to use for cv::putText</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @see cv::putText
+            /// </remarks>
+            public static double GetFontScaleFromHeight(int fontFace, int pixelHeight, int thickness)
+            {
+                var res = NativeMethods.cv_getFontScaleFromHeight_0(fontFace, pixelHeight, thickness);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Draws a text string using specified font.
+            /// </summary>
+            /// <param name="img">Image.</param>
+            /// <param name="text">Text string to be drawn.</param>
+            /// <param name="org">Bottom-left corner of the first character of the printed text (see PUT_TEXT_ALIGN_... though)</param>
+            /// <param name="color">Text color.</param>
+            /// <param name="fface">The font to use for the text</param>
+            /// <param name="size">Font size in pixels (by default) or pts</param>
+            /// <param name="weight">Font weight, 100..1000, where 100 is "thin" font, 400 is "regular", 600 is "semibold", 800 is "bold" and beyond that is "black". The parameter is ignored if the font is not a variable font or if it does not provide variation along 'wght' axis. If the weight is 0, then the weight, currently set via setInstance(), is used.</param>
+            /// <param name="flags">Various flags, see PUT_TEXT_...</param>
+            /// <param name="wrap">The optional text wrapping range: In the case of left-to-right (LTR) text if the printed character would cross wrap.end boundary, the "cursor" is set to wrap.start. In the case of right-to-left (RTL) text it's vice versa. If the parameters is not set, [org.x, img.cols] is used for LTR text and [0, org.x] is for RTL one.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::putText renders the specified text string in the image. Symbols that cannot be rendered
+            /// using the specified font are replaced by question marks. See #getTextSize for a text rendering code
+            /// example. The function returns the coordinates in pixels from where the text can be continued.
+            /// </remarks>
+            public static Point PutText(Mat img, string text, Point org, Scalar color, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
+            {
+                var res = NativeMethods.cv_putText_1(ValidationHelper.GetHandle(img, nameof(img), false), text, org, color, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates the bounding rect for the text
+            /// </summary>
+            /// <param name="imgsize">Size of the target image, can be empty</param>
+            /// <param name="text">Text string to be drawn.</param>
+            /// <param name="org">Bottom-left corner of the first character of the printed text (see PUT_TEXT_ALIGN_... though)</param>
+            /// <param name="fface">The font to use for the text</param>
+            /// <param name="size">Font size in pixels (by default) or pts</param>
+            /// <param name="weight">Font weight, 100..1000, where 100 is "thin" font, 400 is "regular", 600 is "semibold", 800 is "bold" and beyond that is "black". The default weight means "400" for variable-weight fonts or whatever "default" weight the used font provides.</param>
+            /// <param name="flags">Various flags, see PUT_TEXT_...</param>
+            /// <param name="wrap">The optional text wrapping range; see #putText.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function cv::getTextSize calculates and returns the size of a box that contains the specified text.
+            /// That is, the following code renders some text, the tight box surrounding it, and the baseline: :
+            /// </remarks>
+            public static Rect GetTextSize(Size imgsize, string text, Point org, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
+            {
+                var res = NativeMethods.cv_getTextSize_1(imgsize, text, org, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds lines in a binary image using the standard Hough transform and get accumulator.
+            /// *
+            /// * @note This function is for bindings use only. Use original function in C++ code
+            /// *
+            /// * @sa HoughLines
+            /// </summary>
+            /// <param name="image">Input image.</param>
+            /// <param name="lines">The lines parameter.</param>
+            /// <param name="rho">The rho parameter.</param>
+            /// <param name="theta">The theta parameter.</param>
+            /// <param name="threshold">The threshold parameter.</param>
+            /// <param name="srn">The srn parameter.</param>
+            /// <param name="stn">The stn parameter.</param>
+            /// <param name="min_theta">The min_theta parameter.</param>
+            /// <param name="max_theta">The max_theta parameter.</param>
+            /// <param name="use_edgeval">The use_edgeval parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void HoughLinesWithAccumulator(Mat image, Mat lines, double rho, double theta, int threshold, double srn, double stn, double min_theta, double max_theta, bool use_edgeval)
+            {
+                NativeMethods.cv_HoughLinesWithAccumulator_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), rho, theta, threshold, srn, stn, min_theta, max_theta, use_edgeval);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Finds circles in a grayscale image using the Hough transform and get accumulator.
+            /// *
+            /// * @note This function is for bindings use only. Use original function in C++ code
+            /// *
+            /// * @sa HoughCircles
+            /// </summary>
+            /// <param name="image">Input image.</param>
+            /// <param name="circles">The circles parameter.</param>
+            /// <param name="method">The method parameter.</param>
+            /// <param name="dp">The dp parameter.</param>
+            /// <param name="minDist">The minDist parameter.</param>
+            /// <param name="param1">The param1 parameter.</param>
+            /// <param name="param2">The param2 parameter.</param>
+            /// <param name="minRadius">The minRadius parameter.</param>
+            /// <param name="maxRadius">The maxRadius parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void HoughCirclesWithAccumulator(Mat image, Mat circles, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius)
+            {
+                NativeMethods.cv_HoughCirclesWithAccumulator_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(circles, nameof(circles), false), method, dp, minDist, param1, param2, minRadius, maxRadius);
+                ErrorHelper.CheckError();
+            }
     }
 }

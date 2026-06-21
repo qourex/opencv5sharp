@@ -11,516 +11,516 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-        /// <summary>
-        /// Loads an image from a file.
-        /// </summary>
-        /// <param name="filename">Name of the file to be loaded.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @anchor imread
-        /// The `imread` function loads an image from the specified file and returns OpenCV matrix. If the image cannot be
-        /// read (because of a missing file, improper permissions, or unsupported/invalid format), the function
-        /// returns an empty matrix.
-        /// Currently, the following file formats are supported:
-        /// -   Windows bitmaps - \*.bmp, \*.dib (always supported)
-        /// -   GIF files - \*.gif (always supported)
-        /// -   JPEG files - \*.jpeg, \*.jpg, \*.jpe (see the *Note* section)
-        /// -   JPEG 2000 files - \*.jp2 (see the *Note* section)
-        /// -   Portable Network Graphics - \*.png (see the *Note* section)
-        /// -   WebP - \*.webp (see the *Note* section)
-        /// -   AVIF - \*.avif (see the *Note* section)
-        /// -   Portable image format - \*.pbm, \*.pgm, \*.ppm, \*.pxm, \*.pnm (always supported)
-        /// -   PFM files - \*.pfm (see the *Note* section)
-        /// -   Sun rasters - \*.sr, \*.ras (always supported)
-        /// -   TIFF files - \*.tiff, \*.tif (see the *Note* section)
-        /// -   OpenEXR Image files - \*.exr (see the *Note* section)
-        /// -   Radiance HDR - \*.hdr, \*.pic (always supported)
-        /// -   Raster and Vector geospatial data supported by GDAL (see the *Note* section)
-        /// @note
-        /// -   The function determines the type of an image by its content, not by the file extension.
-        /// -   In the case of color images, the decoded images will have the channels stored in **B G R** order.
-        /// -   When using IMREAD_GRAYSCALE, the codec's internal grayscale conversion will be used, if available.
-        /// Results may differ from the output of cvtColor().
-        /// -   On Microsoft Windows\* and Mac OS\*, the codecs shipped with OpenCV (libjpeg, libpng, libtiff,
-        /// and libjasper) are used by default. So, OpenCV can always read JPEGs, PNGs, and TIFFs. On Mac OS,
-        /// there is also an option to use native Mac OS image readers. However, beware that currently these
-        /// native image loaders give images with different pixel values because of the color management embedded
-        /// into Mac OS.
-        /// -   On Linux\*, BSD flavors, and other Unix-like open-source operating systems, OpenCV looks for
-        /// codecs supplied with the OS. Ensure the relevant packages are installed (including development
-        /// files, such as "libjpeg-dev" in Debian\* and Ubuntu\*) to get codec support, or turn
-        /// on the OPENCV_BUILD_3RDPARTY_LIBS flag in CMake.
-        /// -   If the *WITH_GDAL* flag is set to true in CMake and @ref IMREAD_LOAD_GDAL is used to load the image,
-        /// the [GDAL](http://www.gdal.org) driver will be used to decode the image, supporting
-        /// [Raster](http://www.gdal.org/formats_list.html) and [Vector](http://www.gdal.org/ogr_formats.html) formats.
-        /// -   If EXIF information is embedded in the image file, the EXIF orientation will be taken into account,
-        /// and thus the image will be rotated accordingly unless the flags @ref IMREAD_IGNORE_ORIENTATION
-        /// or @ref IMREAD_UNCHANGED are passed.
-        /// -   Use the IMREAD_UNCHANGED flag to preserve the floating-point values from PFM images.
-        /// -   By default, the number of pixels must be less than 2^30. This limit can be changed by setting
-        /// the environment variable `OPENCV_IO_MAX_IMAGE_PIXELS`. See @ref tutorial_env_reference.
-        /// </remarks>
-        public static Mat? Imread(string filename, int flags)
-        {
-            IntPtr res = NativeMethods.cv_imread_0(filename, flags);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Loads an image from a file.
-        /// </summary>
-        /// <param name="filename">Name of file to be loaded.</param>
-        /// <param name="dst">object in which the image will be loaded.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts and the return value.
-        /// @note
-        /// The image passing through the img parameter can be pre-allocated. The memory is reused if the shape and the type match with the load image.
-        /// </remarks>
-        public static void Imread(string filename, Mat dst, int flags)
-        {
-            NativeMethods.cv_imread_1(filename, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Reads an image from a file along with associated metadata.
-        /// </summary>
-        /// <param name="filename">Name of the file to be loaded.</param>
-        /// <param name="metadataTypes">Output vector with types of metadata chunks returned in metadata, see ImageMetadataType.</param>
-        /// <param name="metadata">Output vector of vectors or vector of matrices to store the retrieved metadata.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
-        /// <returns>The loaded image as a cv::Mat object. If the image cannot be read, the function returns an empty matrix.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function behaves similarly to cv::imread(), loading an image from the specified file.
-        /// In addition to the image pixel data, it also attempts to extract any available metadata
-        /// embedded in the file (such as EXIF, XMP, etc.), depending on file format support.
-        /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
-        /// </remarks>
-        public static Mat? ImreadWithMetadata(string filename, IntPtr metadataTypes, IntPtr metadata, int flags)
-        {
-            IntPtr res = NativeMethods.cv_imreadWithMetadata_0(filename, metadataTypes, metadata, flags);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Loads a multi-page image from a file.
-        /// </summary>
-        /// <param name="filename">Name of file to be loaded.</param>
-        /// <param name="mats">A vector of Mat objects holding each page.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects.
-        /// @note The default flags value was changed from cv::IMREAD_ANYCOLOR to cv::IMREAD_COLOR_BGR for unification.
-        /// @sa cv::imread
-        /// </remarks>
-        public static bool Imreadmulti(string filename, IntPtr mats, int flags)
-        {
-            var res = NativeMethods.cv_imreadmulti_0(filename, mats, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Loads images of a multi-page image from a file.
-        /// </summary>
-        /// <param name="filename">Name of file to be loaded.</param>
-        /// <param name="mats">A vector of Mat objects holding each page.</param>
-        /// <param name="start">Start index of the image to load</param>
-        /// <param name="count">Count number of images to load</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects.
-        /// @sa cv::imread
-        /// </remarks>
-        public static bool Imreadmulti(string filename, IntPtr mats, int start, int count, int flags)
-        {
-            var res = NativeMethods.cv_imreadmulti_1(filename, mats, start, count, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Loads frames from an animated image file into an Animation structure.
-        /// </summary>
-        /// <param name="filename">A string containing the path to the file.</param>
-        /// <param name="animation">A reference to an Animation structure where the loaded frames will be stored. It should be initialized before the function is called.</param>
-        /// <param name="start">The index of the first frame to load. This is optional and defaults to 0.</param>
-        /// <param name="count">The number of frames to load. This is optional and defaults to 32767.</param>
-        /// <returns>Returns true if the file was successfully loaded and frames were extracted; returns false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imreadanimation loads frames from an animated image file (e.g., GIF, AVIF, APNG, WEBP) into the provided Animation struct.
-        /// </remarks>
-        public static bool Imreadanimation(string filename, Animation animation, int start, int count)
-        {
-            var res = NativeMethods.cv_imreadanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Loads frames from an animated image buffer into an Animation structure.
-        /// </summary>
-        /// <param name="buf">A reference to an InputArray containing the image buffer.</param>
-        /// <param name="animation">A reference to an Animation structure where the loaded frames will be stored. It should be initialized before the function is called.</param>
-        /// <param name="start">The index of the first frame to load. This is optional and defaults to 0.</param>
-        /// <param name="count">The number of frames to load. This is optional and defaults to 32767.</param>
-        /// <returns>Returns true if the buffer was successfully loaded and frames were extracted; returns false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imdecodeanimation loads frames from an animated image buffer (e.g., GIF, AVIF, APNG, WEBP) into the provided Animation struct.
-        /// </remarks>
-        public static bool Imdecodeanimation(Mat buf, Animation animation, int start, int count)
-        {
-            var res = NativeMethods.cv_imdecodeanimation_0(ValidationHelper.GetHandle(buf, nameof(buf), false), ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Saves an Animation to a specified file.
-        /// </summary>
-        /// <param name="filename">The name of the file where the animation will be saved. The file extension determines the format.</param>
-        /// <param name="animation">A constant reference to an Animation struct containing the frames and metadata to be saved.</param>
-        /// <param name="params">Optional format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ...). These parameters are used to specify additional options for the encoding process. Refer to `cv::ImwriteFlags` for details on possible parameters.</param>
-        /// <returns>Returns true if the animation was successfully saved; returns false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imwriteanimation saves the provided Animation data to the specified file in an animated format.
-        /// Supported formats depend on the implementation and may include formats like GIF, AVIF, APNG, or WEBP.
-        /// </remarks>
-        public static bool Imwriteanimation(string filename, Animation animation, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imwriteanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Encodes an Animation to a memory buffer.
-        /// </summary>
-        /// <param name="ext">The file extension that determines the format of the encoded data.</param>
-        /// <param name="animation">A constant reference to an Animation struct containing the frames and metadata to be encoded.</param>
-        /// <param name="buf">A reference to a vector of unsigned chars where the encoded data will be stored.</param>
-        /// <param name="params">Optional format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ...). These parameters are used to specify additional options for the encoding process. Refer to `cv::ImwriteFlags` for details on possible parameters.</param>
-        /// <returns>Returns true if the animation was successfully encoded; returns false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imencodeanimation encodes the provided Animation data into a memory
-        /// buffer in an animated format. Supported formats depend on the implementation and
-        /// may include formats like GIF, AVIF, APNG, or WEBP.
-        /// </remarks>
-        public static bool Imencodeanimation(string ext, Animation animation, IntPtr buf, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imencodeanimation_0(ext, ValidationHelper.GetHandle(animation, nameof(animation), false), buf, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Returns the number of images inside the given file
-        /// </summary>
-        /// <param name="filename">Name of file to be loaded.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imcount returns the number of pages in a multi-page image (e.g. TIFF), the number of frames in an animation (e.g. AVIF), and 1 otherwise.
-        /// If the image cannot be decoded, 0 is returned.
-        /// @note The default flags value was changed from cv::IMREAD_ANYCOLOR to cv::IMREAD_COLOR_BGR for unification.
-        /// @todo when cv::IMREAD_LOAD_GDAL flag used the return value will be 0 or 1 because OpenCV's GDAL decoder doesn't support multi-page reading yet.
-        /// </remarks>
-        public static long Imcount(string filename, int flags)
-        {
-            var res = NativeMethods.cv_imcount_0(filename, flags);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Saves an image to a specified file.
-        /// </summary>
-        /// <param name="filename">Name of the file.</param>
-        /// <param name="img">(Mat or vector of Mat) Image or Images to be saved.</param>
-        /// <param name="params">Format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ... .) see cv::ImwriteFlags</param>
-        /// <returns>true if the image is successfully written to the specified file; false otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imwrite saves the image to the specified file. The image format is chosen based on the
-        /// filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U)
-        /// single-channel or 3-channel (with 'BGR' channel order) images
-        /// can be saved using this function, with these exceptions:
-        /// - With BMP encoder, 8-bit unsigned (CV_8U) images can be saved.
-        /// - BMP images with an alpha channel can be saved using this function.
-        /// To achieve this, create an 8-bit 4-channel (CV_8UC4) BGRA image, ensuring the alpha channel is the last component.
-        /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255.
-        /// OpenCV v4.13.0 or later use BI_BITFIELDS compression as default. See IMWRITE_BMP_COMPRESSION.
-        /// - With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved. More than 4 channels can be saved. (imread can load it then.)
-        /// - 8-bit unsigned (CV_8U) images are not supported.
-        /// - With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved.
-        /// - All images will be converted to 32-bit float (CV_32F).
-        /// - With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
-        /// - With JPEG XL encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U) and 32-bit float(CV_32F) images can be saved.
-        /// - JPEG XL images with an alpha channel can be saved using this function.
-        /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) / 32-bit float 4-channel (CV_32FC4) BGRA image, ensuring the alpha channel is the last component.
-        /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255/65535/1.0.
-        /// - With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
-        /// - With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
-        /// - PNG images with an alpha channel can be saved using this function.
-        /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component.
-        /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255/65535(see the code sample below).
-        /// - With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
-        /// - With TIFF encoder, 8-bit unsigned (CV_8U), 8-bit signed (CV_8S),
-        /// 16-bit unsigned (CV_16U), 16-bit signed (CV_16S),
-        /// 32-bit unsigned (CV_32U), 32-bit signed (CV_32S),
-        /// 64-bit unsigned (CV_64U), 64-bit signed (CV_64S),
-        /// 32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved.
-        /// - Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
-        /// - 32-bit float 3-channel (CV_32FC3) TIFF images can be saved
-        /// using the LogLuv high dynamic range encoding (4 bytes per pixel) through TIFF_COMPRESSION_SGILOG or
-        /// (3 bytes per pixel) through TIFF_COMPRESSION_SGILOG24.
-        /// - Other compression schemes (LZW...) are supported as well for 32F depth, but the efficiency might not
-        /// be very good for the floating-point representation bit patterns.
-        /// - With GIF encoder, 8-bit unsigned (CV_8U) images can be saved.
-        /// - GIF images with an alpha channel can be saved using this function.
-        /// To achieve this, create an 8-bit 4-channel (CV_8UC4) BGRA image, ensuring the alpha channel is the last component.
-        /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255.
-        /// - 8-bit single-channel images (CV_8UC1) are not supported due to GIF's limitation to indexed color formats.
-        /// - With AVIF encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
-        /// - CV_16U images can be saved as only 10-bit or 12-bit (not 16-bit). See IMWRITE_AVIF_DEPTH.
-        /// - AVIF images with an alpha channel can be saved using this function.
-        /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component.
-        /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) (see the code sample below).
-        /// If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.
-        /// If the format, depth or channel order is different, use
-        /// Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O
-        /// functions to save the image to XML or YAML format.
-        /// The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file.
-        /// It also demonstrates how to save multiple images in a TIFF file:
-        /// @include snippets/imgcodecs_imwrite.cpp
-        /// </remarks>
-        public static bool Imwrite(string filename, Mat img, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imwrite_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Saves an image to a specified file with metadata
-        /// </summary>
-        /// <param name="filename">Name of the file. As with imwrite, image format is determined by the file extension.</param>
-        /// <param name="img">(Mat or vector of Mat) Image or Images to be saved.</param>
-        /// <param name="metadataTypes">Vector with types of metadata chucks stored in metadata to write, see ImageMetadataType.</param>
-        /// <param name="metadata">Vector of vectors or vector of matrices with chunks of metadata to store into the file</param>
-        /// <param name="params">Format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ... .) see cv::ImwriteFlags</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imwriteWithMetadata saves the image to the specified file. It does the same thing as imwrite, but additionally writes metadata if the corresponding format supports it.
-        /// </remarks>
-        public static bool ImwriteWithMetadata(string filename, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imwriteWithMetadata_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="filename">The filename parameter.</param>
-        /// <param name="img">The img parameter.</param>
-        /// <param name="params">The @params parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool Imwritemulti(string filename, IntPtr img, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imwritemulti_0(filename, img, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Reads an image from a buffer in memory.
-        /// </summary>
-        /// <param name="buf">Input array or vector of bytes.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imdecode reads an image from the specified buffer in the memory. If the buffer is too short or
-        /// contains invalid data, the function returns an empty matrix ( Mat::data==NULL ).
-        /// See cv::imread for the list of supported formats and flags description.
-        /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
-        /// </remarks>
-        public static Mat? Imdecode(Mat buf, int flags)
-        {
-            IntPtr res = NativeMethods.cv_imdecode_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Reads an image from a memory buffer and extracts associated metadata.
-        /// </summary>
-        /// <param name="buf">Input array or vector of bytes containing the encoded image data.</param>
-        /// <param name="metadataTypes">Output vector with types of metadata chucks returned in metadata, see cv::ImageMetadataType</param>
-        /// <param name="metadata">Output vector of vectors or vector of matrices to store the retrieved metadata</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
-        /// <returns>The decoded image as a cv::Mat object. If decoding fails, the function returns an empty matrix.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function decodes an image from the specified memory buffer. If the buffer is too short or
-        /// contains invalid data, the function returns an empty matrix ( Mat::data==NULL ).
-        /// See cv::imread for the list of supported formats and flags description.
-        /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
-        /// </remarks>
-        public static Mat? ImdecodeWithMetadata(Mat buf, IntPtr metadataTypes, IntPtr metadata, int flags)
-        {
-            IntPtr res = NativeMethods.cv_imdecodeWithMetadata_0(ValidationHelper.GetHandle(buf, nameof(buf), false), metadataTypes, metadata, flags);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Reads a multi-page image from a buffer in memory.
-        /// </summary>
-        /// <param name="buf">Input array or vector of bytes.</param>
-        /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
-        /// <param name="mats">A vector of Mat objects holding each page, if more than one.</param>
-        /// <param name="range">A continuous selection of pages.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imdecodemulti reads a multi-page image from the specified buffer in the memory. If the buffer is too short or
-        /// contains invalid data, the function returns false.
-        /// See cv::imreadmulti for the list of supported formats and flags description.
-        /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
-        /// </remarks>
-        public static bool Imdecodemulti(Mat buf, int flags, IntPtr mats, Range range)
-        {
-            var res = NativeMethods.cv_imdecodemulti_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags, mats, range);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Encodes an image into a memory buffer.
-        /// </summary>
-        /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
-        /// <param name="img">Image to be compressed.</param>
-        /// <param name="buf">Output buffer resized to fit the compressed image.</param>
-        /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imencode compresses the image and stores it in the memory buffer that is resized to fit the
-        /// result. See cv::imwrite for the list of supported formats and flags description.
-        /// </remarks>
-        public static bool Imencode(string ext, Mat img, IntPtr buf, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imencode_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), buf, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Encodes an image into a memory buffer.
-        /// </summary>
-        /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
-        /// <param name="img">Image to be compressed.</param>
-        /// <param name="metadataTypes">Vector with types of metadata chucks stored in metadata to write, see ImageMetadataType.</param>
-        /// <param name="metadata">Vector of vectors or vector of matrices with chunks of metadata to store into the file</param>
-        /// <param name="buf">Output buffer resized to fit the compressed image.</param>
-        /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function imencode compresses the image and stores it in the memory buffer that is resized to fit the
-        /// result. See cv::imwrite for the list of supported formats and flags description.
-        /// </remarks>
-        public static bool ImencodeWithMetadata(string ext, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imencodeWithMetadata_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, buf, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Encodes array of images into a memory buffer.
-        /// </summary>
-        /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
-        /// <param name="imgs">Vector of images to be written.</param>
-        /// <param name="buf">Output buffer resized to fit the compressed data.</param>
-        /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function is analog to cv::imencode for in-memory multi-page image compression.
-        /// See cv::imwrite for the list of supported formats and flags description.
-        /// </remarks>
-        public static bool Imencodemulti(string ext, IntPtr imgs, IntPtr buf, IntPtr @params)
-        {
-            var res = NativeMethods.cv_imencodemulti_0(ext, imgs, buf, @params);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Checks if the specified image file can be decoded by OpenCV.
-        /// </summary>
-        /// <param name="filename">The name of the file to be checked.</param>
-        /// <returns>true if an image reader for the specified file is available and the file can be opened, false otherwise.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function haveImageReader checks if OpenCV is capable of reading the specified file.
-        /// This can be useful for verifying support for a given image format before attempting to load an image.
-        /// @note The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
-        /// It does not load the image codec implementation and decode data, but uses signature check.
-        /// If the file cannot be opened or the format is unsupported, the function will return false.
-        /// @sa cv::haveImageWriter, cv::imread, cv::imdecode
-        /// </remarks>
-        public static bool HaveImageReader(string filename)
-        {
-            var res = NativeMethods.cv_haveImageReader_0(filename);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Checks if the specified image file or specified file extension can be encoded by OpenCV.
-        /// </summary>
-        /// <param name="filename">The name of the file or the file extension (e.g., ".jpg", ".png"). It is recommended to provide the file extension rather than the full file name.</param>
-        /// <returns>true if an image writer for the specified extension is available, false otherwise.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The function haveImageWriter checks if OpenCV is capable of writing images with the specified file extension.
-        /// This can be useful for verifying support for a given image format before attempting to save an image.
-        /// @note The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
-        /// It does not check for the actual existence of the file but rather the ability to write files of the given type.
-        /// @sa cv::haveImageReader, cv::imwrite, cv::imencode
-        /// </remarks>
-        public static bool HaveImageWriter(string filename)
-        {
-            var res = NativeMethods.cv_haveImageWriter_0(filename);
-            ErrorHelper.CheckError();
-            return res;
-        }
+            /// <summary>
+            /// Loads an image from a file.
+            /// </summary>
+            /// <param name="filename">Name of the file to be loaded.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @anchor imread
+            /// The `imread` function loads an image from the specified file and returns OpenCV matrix. If the image cannot be
+            /// read (because of a missing file, improper permissions, or unsupported/invalid format), the function
+            /// returns an empty matrix.
+            /// Currently, the following file formats are supported:
+            /// -   Windows bitmaps - \*.bmp, \*.dib (always supported)
+            /// -   GIF files - \*.gif (always supported)
+            /// -   JPEG files - \*.jpeg, \*.jpg, \*.jpe (see the *Note* section)
+            /// -   JPEG 2000 files - \*.jp2 (see the *Note* section)
+            /// -   Portable Network Graphics - \*.png (see the *Note* section)
+            /// -   WebP - \*.webp (see the *Note* section)
+            /// -   AVIF - \*.avif (see the *Note* section)
+            /// -   Portable image format - \*.pbm, \*.pgm, \*.ppm, \*.pxm, \*.pnm (always supported)
+            /// -   PFM files - \*.pfm (see the *Note* section)
+            /// -   Sun rasters - \*.sr, \*.ras (always supported)
+            /// -   TIFF files - \*.tiff, \*.tif (see the *Note* section)
+            /// -   OpenEXR Image files - \*.exr (see the *Note* section)
+            /// -   Radiance HDR - \*.hdr, \*.pic (always supported)
+            /// -   Raster and Vector geospatial data supported by GDAL (see the *Note* section)
+            /// @note
+            /// -   The function determines the type of an image by its content, not by the file extension.
+            /// -   In the case of color images, the decoded images will have the channels stored in **B G R** order.
+            /// -   When using IMREAD_GRAYSCALE, the codec's internal grayscale conversion will be used, if available.
+            /// Results may differ from the output of cvtColor().
+            /// -   On Microsoft Windows\* and Mac OS\*, the codecs shipped with OpenCV (libjpeg, libpng, libtiff,
+            /// and libjasper) are used by default. So, OpenCV can always read JPEGs, PNGs, and TIFFs. On Mac OS,
+            /// there is also an option to use native Mac OS image readers. However, beware that currently these
+            /// native image loaders give images with different pixel values because of the color management embedded
+            /// into Mac OS.
+            /// -   On Linux\*, BSD flavors, and other Unix-like open-source operating systems, OpenCV looks for
+            /// codecs supplied with the OS. Ensure the relevant packages are installed (including development
+            /// files, such as "libjpeg-dev" in Debian\* and Ubuntu\*) to get codec support, or turn
+            /// on the OPENCV_BUILD_3RDPARTY_LIBS flag in CMake.
+            /// -   If the *WITH_GDAL* flag is set to true in CMake and @ref IMREAD_LOAD_GDAL is used to load the image,
+            /// the [GDAL](http://www.gdal.org) driver will be used to decode the image, supporting
+            /// [Raster](http://www.gdal.org/formats_list.html) and [Vector](http://www.gdal.org/ogr_formats.html) formats.
+            /// -   If EXIF information is embedded in the image file, the EXIF orientation will be taken into account,
+            /// and thus the image will be rotated accordingly unless the flags @ref IMREAD_IGNORE_ORIENTATION
+            /// or @ref IMREAD_UNCHANGED are passed.
+            /// -   Use the IMREAD_UNCHANGED flag to preserve the floating-point values from PFM images.
+            /// -   By default, the number of pixels must be less than 2^30. This limit can be changed by setting
+            /// the environment variable `OPENCV_IO_MAX_IMAGE_PIXELS`. See @ref tutorial_env_reference.
+            /// </remarks>
+            public static Mat? Imread(string filename, int flags)
+            {
+                IntPtr res = NativeMethods.cv_imread_0(filename, flags);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Loads an image from a file.
+            /// </summary>
+            /// <param name="filename">Name of file to be loaded.</param>
+            /// <param name="dst">object in which the image will be loaded.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts and the return value.
+            /// @note
+            /// The image passing through the img parameter can be pre-allocated. The memory is reused if the shape and the type match with the load image.
+            /// </remarks>
+            public static void Imread(string filename, Mat dst, int flags)
+            {
+                NativeMethods.cv_imread_1(filename, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Reads an image from a file along with associated metadata.
+            /// </summary>
+            /// <param name="filename">Name of the file to be loaded.</param>
+            /// <param name="metadataTypes">Output vector with types of metadata chunks returned in metadata, see ImageMetadataType.</param>
+            /// <param name="metadata">Output vector of vectors or vector of matrices to store the retrieved metadata.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
+            /// <returns>The loaded image as a cv::Mat object. If the image cannot be read, the function returns an empty matrix.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function behaves similarly to cv::imread(), loading an image from the specified file.
+            /// In addition to the image pixel data, it also attempts to extract any available metadata
+            /// embedded in the file (such as EXIF, XMP, etc.), depending on file format support.
+            /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
+            /// </remarks>
+            public static Mat? ImreadWithMetadata(string filename, IntPtr metadataTypes, IntPtr metadata, int flags)
+            {
+                IntPtr res = NativeMethods.cv_imreadWithMetadata_0(filename, metadataTypes, metadata, flags);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Loads a multi-page image from a file.
+            /// </summary>
+            /// <param name="filename">Name of file to be loaded.</param>
+            /// <param name="mats">A vector of Mat objects holding each page.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects.
+            /// @note The default flags value was changed from cv::IMREAD_ANYCOLOR to cv::IMREAD_COLOR_BGR for unification.
+            /// @sa cv::imread
+            /// </remarks>
+            public static bool Imreadmulti(string filename, IntPtr mats, int flags)
+            {
+                var res = NativeMethods.cv_imreadmulti_0(filename, mats, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Loads images of a multi-page image from a file.
+            /// </summary>
+            /// <param name="filename">Name of file to be loaded.</param>
+            /// <param name="mats">A vector of Mat objects holding each page.</param>
+            /// <param name="start">Start index of the image to load</param>
+            /// <param name="count">Count number of images to load</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imreadmulti loads a specified range from a multi-page image from the specified file into a vector of Mat objects.
+            /// @sa cv::imread
+            /// </remarks>
+            public static bool Imreadmulti(string filename, IntPtr mats, int start, int count, int flags)
+            {
+                var res = NativeMethods.cv_imreadmulti_1(filename, mats, start, count, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Loads frames from an animated image file into an Animation structure.
+            /// </summary>
+            /// <param name="filename">A string containing the path to the file.</param>
+            /// <param name="animation">A reference to an Animation structure where the loaded frames will be stored. It should be initialized before the function is called.</param>
+            /// <param name="start">The index of the first frame to load. This is optional and defaults to 0.</param>
+            /// <param name="count">The number of frames to load. This is optional and defaults to 32767.</param>
+            /// <returns>Returns true if the file was successfully loaded and frames were extracted; returns false otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imreadanimation loads frames from an animated image file (e.g., GIF, AVIF, APNG, WEBP) into the provided Animation struct.
+            /// </remarks>
+            public static bool Imreadanimation(string filename, Animation animation, int start, int count)
+            {
+                var res = NativeMethods.cv_imreadanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Loads frames from an animated image buffer into an Animation structure.
+            /// </summary>
+            /// <param name="buf">A reference to an InputArray containing the image buffer.</param>
+            /// <param name="animation">A reference to an Animation structure where the loaded frames will be stored. It should be initialized before the function is called.</param>
+            /// <param name="start">The index of the first frame to load. This is optional and defaults to 0.</param>
+            /// <param name="count">The number of frames to load. This is optional and defaults to 32767.</param>
+            /// <returns>Returns true if the buffer was successfully loaded and frames were extracted; returns false otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imdecodeanimation loads frames from an animated image buffer (e.g., GIF, AVIF, APNG, WEBP) into the provided Animation struct.
+            /// </remarks>
+            public static bool Imdecodeanimation(Mat buf, Animation animation, int start, int count)
+            {
+                var res = NativeMethods.cv_imdecodeanimation_0(ValidationHelper.GetHandle(buf, nameof(buf), false), ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Saves an Animation to a specified file.
+            /// </summary>
+            /// <param name="filename">The name of the file where the animation will be saved. The file extension determines the format.</param>
+            /// <param name="animation">A constant reference to an Animation struct containing the frames and metadata to be saved.</param>
+            /// <param name="params">Optional format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ...). These parameters are used to specify additional options for the encoding process. Refer to `cv::ImwriteFlags` for details on possible parameters.</param>
+            /// <returns>Returns true if the animation was successfully saved; returns false otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imwriteanimation saves the provided Animation data to the specified file in an animated format.
+            /// Supported formats depend on the implementation and may include formats like GIF, AVIF, APNG, or WEBP.
+            /// </remarks>
+            public static bool Imwriteanimation(string filename, Animation animation, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imwriteanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Encodes an Animation to a memory buffer.
+            /// </summary>
+            /// <param name="ext">The file extension that determines the format of the encoded data.</param>
+            /// <param name="animation">A constant reference to an Animation struct containing the frames and metadata to be encoded.</param>
+            /// <param name="buf">A reference to a vector of unsigned chars where the encoded data will be stored.</param>
+            /// <param name="params">Optional format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ...). These parameters are used to specify additional options for the encoding process. Refer to `cv::ImwriteFlags` for details on possible parameters.</param>
+            /// <returns>Returns true if the animation was successfully encoded; returns false otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imencodeanimation encodes the provided Animation data into a memory
+            /// buffer in an animated format. Supported formats depend on the implementation and
+            /// may include formats like GIF, AVIF, APNG, or WEBP.
+            /// </remarks>
+            public static bool Imencodeanimation(string ext, Animation animation, IntPtr buf, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imencodeanimation_0(ext, ValidationHelper.GetHandle(animation, nameof(animation), false), buf, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Returns the number of images inside the given file
+            /// </summary>
+            /// <param name="filename">Name of file to be loaded.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes, default with cv::IMREAD_COLOR_BGR.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imcount returns the number of pages in a multi-page image (e.g. TIFF), the number of frames in an animation (e.g. AVIF), and 1 otherwise.
+            /// If the image cannot be decoded, 0 is returned.
+            /// @note The default flags value was changed from cv::IMREAD_ANYCOLOR to cv::IMREAD_COLOR_BGR for unification.
+            /// @todo when cv::IMREAD_LOAD_GDAL flag used the return value will be 0 or 1 because OpenCV's GDAL decoder doesn't support multi-page reading yet.
+            /// </remarks>
+            public static long Imcount(string filename, int flags)
+            {
+                var res = NativeMethods.cv_imcount_0(filename, flags);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Saves an image to a specified file.
+            /// </summary>
+            /// <param name="filename">Name of the file.</param>
+            /// <param name="img">(Mat or vector of Mat) Image or Images to be saved.</param>
+            /// <param name="params">Format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ... .) see cv::ImwriteFlags</param>
+            /// <returns>true if the image is successfully written to the specified file; false otherwise.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imwrite saves the image to the specified file. The image format is chosen based on the
+            /// filename extension (see cv::imread for the list of extensions). In general, only 8-bit unsigned (CV_8U)
+            /// single-channel or 3-channel (with 'BGR' channel order) images
+            /// can be saved using this function, with these exceptions:
+            /// - With BMP encoder, 8-bit unsigned (CV_8U) images can be saved.
+            /// - BMP images with an alpha channel can be saved using this function.
+            /// To achieve this, create an 8-bit 4-channel (CV_8UC4) BGRA image, ensuring the alpha channel is the last component.
+            /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255.
+            /// OpenCV v4.13.0 or later use BI_BITFIELDS compression as default. See IMWRITE_BMP_COMPRESSION.
+            /// - With OpenEXR encoder, only 32-bit float (CV_32F) images can be saved. More than 4 channels can be saved. (imread can load it then.)
+            /// - 8-bit unsigned (CV_8U) images are not supported.
+            /// - With Radiance HDR encoder, non 64-bit float (CV_64F) images can be saved.
+            /// - All images will be converted to 32-bit float (CV_32F).
+            /// - With JPEG 2000 encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+            /// - With JPEG XL encoder, 8-bit unsigned (CV_8U), 16-bit unsigned (CV_16U) and 32-bit float(CV_32F) images can be saved.
+            /// - JPEG XL images with an alpha channel can be saved using this function.
+            /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) / 32-bit float 4-channel (CV_32FC4) BGRA image, ensuring the alpha channel is the last component.
+            /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255/65535/1.0.
+            /// - With PAM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+            /// - With PNG encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+            /// - PNG images with an alpha channel can be saved using this function.
+            /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component.
+            /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255/65535(see the code sample below).
+            /// - With PGM/PPM encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+            /// - With TIFF encoder, 8-bit unsigned (CV_8U), 8-bit signed (CV_8S),
+            /// 16-bit unsigned (CV_16U), 16-bit signed (CV_16S),
+            /// 32-bit unsigned (CV_32U), 32-bit signed (CV_32S),
+            /// 64-bit unsigned (CV_64U), 64-bit signed (CV_64S),
+            /// 32-bit float (CV_32F) and 64-bit float (CV_64F) images can be saved.
+            /// - Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
+            /// - 32-bit float 3-channel (CV_32FC3) TIFF images can be saved
+            /// using the LogLuv high dynamic range encoding (4 bytes per pixel) through TIFF_COMPRESSION_SGILOG or
+            /// (3 bytes per pixel) through TIFF_COMPRESSION_SGILOG24.
+            /// - Other compression schemes (LZW...) are supported as well for 32F depth, but the efficiency might not
+            /// be very good for the floating-point representation bit patterns.
+            /// - With GIF encoder, 8-bit unsigned (CV_8U) images can be saved.
+            /// - GIF images with an alpha channel can be saved using this function.
+            /// To achieve this, create an 8-bit 4-channel (CV_8UC4) BGRA image, ensuring the alpha channel is the last component.
+            /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255.
+            /// - 8-bit single-channel images (CV_8UC1) are not supported due to GIF's limitation to indexed color formats.
+            /// - With AVIF encoder, 8-bit unsigned (CV_8U) and 16-bit unsigned (CV_16U) images can be saved.
+            /// - CV_16U images can be saved as only 10-bit or 12-bit (not 16-bit). See IMWRITE_AVIF_DEPTH.
+            /// - AVIF images with an alpha channel can be saved using this function.
+            /// To achieve this, create an 8-bit 4-channel (CV_8UC4) / 16-bit 4-channel (CV_16UC4) BGRA image, ensuring the alpha channel is the last component.
+            /// Fully transparent pixels should have an alpha value of 0, while fully opaque pixels should have an alpha value of 255 (8-bit) / 1023 (10-bit) / 4095 (12-bit) (see the code sample below).
+            /// If the image format is not supported, the image will be converted to 8-bit unsigned (CV_8U) and saved that way.
+            /// If the format, depth or channel order is different, use
+            /// Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O
+            /// functions to save the image to XML or YAML format.
+            /// The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file.
+            /// It also demonstrates how to save multiple images in a TIFF file:
+            /// @include snippets/imgcodecs_imwrite.cpp
+            /// </remarks>
+            public static bool Imwrite(string filename, Mat img, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imwrite_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Saves an image to a specified file with metadata
+            /// </summary>
+            /// <param name="filename">Name of the file. As with imwrite, image format is determined by the file extension.</param>
+            /// <param name="img">(Mat or vector of Mat) Image or Images to be saved.</param>
+            /// <param name="metadataTypes">Vector with types of metadata chucks stored in metadata to write, see ImageMetadataType.</param>
+            /// <param name="metadata">Vector of vectors or vector of matrices with chunks of metadata to store into the file</param>
+            /// <param name="params">Format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ... .) see cv::ImwriteFlags</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imwriteWithMetadata saves the image to the specified file. It does the same thing as imwrite, but additionally writes metadata if the corresponding format supports it.
+            /// </remarks>
+            public static bool ImwriteWithMetadata(string filename, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imwriteWithMetadata_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="filename">Path to the file.</param>
+            /// <param name="img">Input image.</param>
+            /// <param name="params">The @params parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool Imwritemulti(string filename, IntPtr img, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imwritemulti_0(filename, img, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Reads an image from a buffer in memory.
+            /// </summary>
+            /// <param name="buf">Input array or vector of bytes.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imdecode reads an image from the specified buffer in the memory. If the buffer is too short or
+            /// contains invalid data, the function returns an empty matrix ( Mat::data==NULL ).
+            /// See cv::imread for the list of supported formats and flags description.
+            /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
+            /// </remarks>
+            public static Mat? Imdecode(Mat buf, int flags)
+            {
+                IntPtr res = NativeMethods.cv_imdecode_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Reads an image from a memory buffer and extracts associated metadata.
+            /// </summary>
+            /// <param name="buf">Input array or vector of bytes containing the encoded image data.</param>
+            /// <param name="metadataTypes">Output vector with types of metadata chucks returned in metadata, see cv::ImageMetadataType</param>
+            /// <param name="metadata">Output vector of vectors or vector of matrices to store the retrieved metadata</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
+            /// <returns>The decoded image as a cv::Mat object. If decoding fails, the function returns an empty matrix.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function decodes an image from the specified memory buffer. If the buffer is too short or
+            /// contains invalid data, the function returns an empty matrix ( Mat::data==NULL ).
+            /// See cv::imread for the list of supported formats and flags description.
+            /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
+            /// </remarks>
+            public static Mat? ImdecodeWithMetadata(Mat buf, IntPtr metadataTypes, IntPtr metadata, int flags)
+            {
+                IntPtr res = NativeMethods.cv_imdecodeWithMetadata_0(ValidationHelper.GetHandle(buf, nameof(buf), false), metadataTypes, metadata, flags);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Reads a multi-page image from a buffer in memory.
+            /// </summary>
+            /// <param name="buf">Input array or vector of bytes.</param>
+            /// <param name="flags">Flag that can take values of cv::ImreadModes.</param>
+            /// <param name="mats">A vector of Mat objects holding each page, if more than one.</param>
+            /// <param name="range">A continuous selection of pages.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imdecodemulti reads a multi-page image from the specified buffer in the memory. If the buffer is too short or
+            /// contains invalid data, the function returns false.
+            /// See cv::imreadmulti for the list of supported formats and flags description.
+            /// @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
+            /// </remarks>
+            public static bool Imdecodemulti(Mat buf, int flags, IntPtr mats, Range range)
+            {
+                var res = NativeMethods.cv_imdecodemulti_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags, mats, range);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Encodes an image into a memory buffer.
+            /// </summary>
+            /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
+            /// <param name="img">Image to be compressed.</param>
+            /// <param name="buf">Output buffer resized to fit the compressed image.</param>
+            /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imencode compresses the image and stores it in the memory buffer that is resized to fit the
+            /// result. See cv::imwrite for the list of supported formats and flags description.
+            /// </remarks>
+            public static bool Imencode(string ext, Mat img, IntPtr buf, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imencode_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), buf, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Encodes an image into a memory buffer.
+            /// </summary>
+            /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
+            /// <param name="img">Image to be compressed.</param>
+            /// <param name="metadataTypes">Vector with types of metadata chucks stored in metadata to write, see ImageMetadataType.</param>
+            /// <param name="metadata">Vector of vectors or vector of matrices with chunks of metadata to store into the file</param>
+            /// <param name="buf">Output buffer resized to fit the compressed image.</param>
+            /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function imencode compresses the image and stores it in the memory buffer that is resized to fit the
+            /// result. See cv::imwrite for the list of supported formats and flags description.
+            /// </remarks>
+            public static bool ImencodeWithMetadata(string ext, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imencodeWithMetadata_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, buf, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Encodes array of images into a memory buffer.
+            /// </summary>
+            /// <param name="ext">File extension that defines the output format. Must include a leading period.</param>
+            /// <param name="imgs">Vector of images to be written.</param>
+            /// <param name="buf">Output buffer resized to fit the compressed data.</param>
+            /// <param name="params">Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function is analog to cv::imencode for in-memory multi-page image compression.
+            /// See cv::imwrite for the list of supported formats and flags description.
+            /// </remarks>
+            public static bool Imencodemulti(string ext, IntPtr imgs, IntPtr buf, IntPtr @params)
+            {
+                var res = NativeMethods.cv_imencodemulti_0(ext, imgs, buf, @params);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Checks if the specified image file can be decoded by OpenCV.
+            /// </summary>
+            /// <param name="filename">The name of the file to be checked.</param>
+            /// <returns>true if an image reader for the specified file is available and the file can be opened, false otherwise.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function haveImageReader checks if OpenCV is capable of reading the specified file.
+            /// This can be useful for verifying support for a given image format before attempting to load an image.
+            /// @note The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
+            /// It does not load the image codec implementation and decode data, but uses signature check.
+            /// If the file cannot be opened or the format is unsupported, the function will return false.
+            /// @sa cv::haveImageWriter, cv::imread, cv::imdecode
+            /// </remarks>
+            public static bool HaveImageReader(string filename)
+            {
+                var res = NativeMethods.cv_haveImageReader_0(filename);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Checks if the specified image file or specified file extension can be encoded by OpenCV.
+            /// </summary>
+            /// <param name="filename">The name of the file or the file extension (e.g., ".jpg", ".png"). It is recommended to provide the file extension rather than the full file name.</param>
+            /// <returns>true if an image writer for the specified extension is available, false otherwise.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The function haveImageWriter checks if OpenCV is capable of writing images with the specified file extension.
+            /// This can be useful for verifying support for a given image format before attempting to save an image.
+            /// @note The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
+            /// It does not check for the actual existence of the file but rather the ability to write files of the given type.
+            /// @sa cv::haveImageReader, cv::imwrite, cv::imencode
+            /// </remarks>
+            public static bool HaveImageWriter(string filename)
+            {
+                var res = NativeMethods.cv_haveImageWriter_0(filename);
+                ErrorHelper.CheckError();
+                return res;
+            }
     }
 }

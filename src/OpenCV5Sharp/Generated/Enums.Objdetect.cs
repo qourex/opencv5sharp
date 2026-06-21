@@ -7,9 +7,8 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CirclesGridFinderParametersGridType : int
     {
         /// <summary>SymmetricGrid</summary>
@@ -19,9 +18,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FaceRecognizerSFDisType : int
     {
         /// <summary>Cosine</summary>
@@ -31,9 +29,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum QRCodeEncoderCorrectionLevel : int
     {
         /// <summary>L</summary>
@@ -47,9 +44,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum QRCodeEncoderECIEncodings : int
     {
         /// <summary>ShiftJis</summary>
@@ -59,9 +55,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum QRCodeEncoderEncodeMode : int
     {
         /// <summary>Auto</summary>
@@ -81,9 +76,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum ArucoCornerRefineMethod : int
     {
         /// <summary>None</summary>
@@ -97,69 +91,67 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum ArucoPredefinedDictionaryType : int
     {
         /// <summary>_4x450</summary>
         _4x450 = 0,
         /// <summary>_4x4100</summary>
-        _4x4100 = unchecked((int)(0 + 1)),
+        _4x4100 = unchecked((int)(0+1)),
         /// <summary>_4x4250</summary>
-        _4x4250 = unchecked((int)(0 + 2)),
+        _4x4250 = unchecked((int)(0+2)),
         /// <summary>_4x41000</summary>
-        _4x41000 = unchecked((int)(0 + 3)),
+        _4x41000 = unchecked((int)(0+3)),
         /// <summary>_5x550</summary>
-        _5x550 = unchecked((int)(0 + 4)),
+        _5x550 = unchecked((int)(0+4)),
         /// <summary>_5x5100</summary>
-        _5x5100 = unchecked((int)(0 + 5)),
+        _5x5100 = unchecked((int)(0+5)),
         /// <summary>_5x5250</summary>
-        _5x5250 = unchecked((int)(0 + 6)),
+        _5x5250 = unchecked((int)(0+6)),
         /// <summary>_5x51000</summary>
-        _5x51000 = unchecked((int)(0 + 7)),
+        _5x51000 = unchecked((int)(0+7)),
         /// <summary>_6x650</summary>
-        _6x650 = unchecked((int)(0 + 8)),
+        _6x650 = unchecked((int)(0+8)),
         /// <summary>_6x6100</summary>
-        _6x6100 = unchecked((int)(0 + 9)),
+        _6x6100 = unchecked((int)(0+9)),
         /// <summary>_6x6250</summary>
-        _6x6250 = unchecked((int)(0 + 10)),
+        _6x6250 = unchecked((int)(0+10)),
         /// <summary>_6x61000</summary>
-        _6x61000 = unchecked((int)(0 + 11)),
+        _6x61000 = unchecked((int)(0+11)),
         /// <summary>_7x750</summary>
-        _7x750 = unchecked((int)(0 + 12)),
+        _7x750 = unchecked((int)(0+12)),
         /// <summary>_7x7100</summary>
-        _7x7100 = unchecked((int)(0 + 13)),
+        _7x7100 = unchecked((int)(0+13)),
         /// <summary>_7x7250</summary>
-        _7x7250 = unchecked((int)(0 + 14)),
+        _7x7250 = unchecked((int)(0+14)),
         /// <summary>_7x71000</summary>
-        _7x71000 = unchecked((int)(0 + 15)),
+        _7x71000 = unchecked((int)(0+15)),
         /// <summary>ArucoOriginal</summary>
-        ArucoOriginal = unchecked((int)(0 + 16)),
+        ArucoOriginal = unchecked((int)(0+16)),
         /// <summary>APRILTAG16h5</summary>
-        APRILTAG16h5 = unchecked((int)(0 + 17)),
+        APRILTAG16h5 = unchecked((int)(0+17)),
         /// <summary>APRILTAG25h9</summary>
-        APRILTAG25h9 = unchecked((int)(0 + 18)),
+        APRILTAG25h9 = unchecked((int)(0+18)),
         /// <summary>APRILTAG36h10</summary>
-        APRILTAG36h10 = unchecked((int)(0 + 19)),
+        APRILTAG36h10 = unchecked((int)(0+19)),
         /// <summary>APRILTAG36h11</summary>
-        APRILTAG36h11 = unchecked((int)(0 + 20)),
+        APRILTAG36h11 = unchecked((int)(0+20)),
         /// <summary>ARUCOMIP36h12</summary>
-        ARUCOMIP36h12 = unchecked((int)(0 + 21)),
+        ARUCOMIP36h12 = unchecked((int)(0+21)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum MccColorChart : int
     {
         /// <summary>Mcc24</summary>
         Mcc24 = 0,
         /// <summary>Sg140</summary>
-        Sg140 = unchecked((int)(0 + 1)),
+        Sg140 = unchecked((int)(0+1)),
         /// <summary>Vinyl18</summary>
-        Vinyl18 = unchecked((int)(0 + 2)),
+        Vinyl18 = unchecked((int)(0+2)),
     }
 
 }

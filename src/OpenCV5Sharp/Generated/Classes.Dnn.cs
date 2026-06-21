@@ -20,7 +20,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnClassificationModel : DnnModel
     {
-        internal DnnClassificationModel(IntPtr handle) : base(handle) { }
+        internal DnnClassificationModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_ClassificationModel_Delete(handle);
@@ -94,7 +94,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="frame">The frame parameter.</param>
         /// <param name="classId">The classId parameter.</param>
@@ -121,7 +121,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDetectionModel : DnnModel
     {
-        internal DnnDetectionModel(IntPtr handle) : base(handle) { }
+        internal DnnDetectionModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_DetectionModel_Delete(handle);
@@ -222,13 +222,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDict : DisposableOpenCVObject
     {
-        internal DnnDict(IntPtr handle) : base(handle) { }
+        internal DnnDict(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Dict_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDict()
@@ -245,13 +245,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnDictValue : DisposableOpenCVObject
     {
-        internal DnnDictValue(IntPtr handle) : base(handle) { }
+        internal DnnDictValue(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_DictValue_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="i">The i parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -261,7 +261,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="p">The p parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -271,7 +271,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="s">The s parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -281,7 +281,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -293,7 +293,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -305,7 +305,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -317,7 +317,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="idx">The idx parameter.</param>
         /// <returns>The returned value.</returns>
@@ -330,7 +330,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="idx">The idx parameter.</param>
         /// <returns>The returned value.</returns>
@@ -343,7 +343,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="idx">The idx parameter.</param>
         /// <returns>The returned value.</returns>
@@ -375,13 +375,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnImage2BlobParams : DisposableOpenCVObject
     {
-        internal DnnImage2BlobParams(IntPtr handle) : base(handle) { }
+        internal DnnImage2BlobParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Image2BlobParams_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnImage2BlobParams()
@@ -390,7 +390,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="scalefactor">The scalefactor parameter.</param>
         /// <param name="size">The size parameter.</param>
@@ -507,7 +507,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnKeypointsModel : DnnModel
     {
-        internal DnnKeypointsModel(IntPtr handle) : base(handle) { }
+        internal DnnKeypointsModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_KeypointsModel_Delete(handle);
@@ -574,7 +574,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnLayer : Algorithm
     {
-        internal DnnLayer(IntPtr handle) : base(handle) { }
+        internal DnnLayer(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Layer_Delete(handle);
@@ -628,29 +628,25 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat[] Blobs
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_blobs_get(Handle);
                 ErrorHelper.CheckError();
                 if (res == IntPtr.Zero) return Array.Empty<Mat>();
                 int size = NativeMethods.cv_VectorMat_Size(res);
                 Mat[] data = new Mat[size];
-                for (int i = 0; i < size; i++)
-                {
+                for (int i = 0; i < size; i++) {
                     IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);
                     data[i] = matPtr == IntPtr.Zero ? null : new Mat(matPtr);
                 }
                 NativeMethods.cv_VectorMat_Delete(res);
                 return data;
             }
-            set
-            {
+            set {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
-                for (int i = 0; i < value.Length; i++)
-                {
+                for (int i = 0; i < value.Length; i++) {
                     handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
@@ -663,8 +659,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Name
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_name_get(Handle);
                 ErrorHelper.CheckError();
@@ -679,8 +674,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Type
         {
-            get
-            {
+            get {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_type_get(Handle);
                 ErrorHelper.CheckError();
@@ -706,13 +700,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnLayerParams : DisposableOpenCVObject
     {
-        internal DnnLayerParams(IntPtr handle) : base(handle) { }
+        internal DnnLayerParams(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_LayerParams_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnLayerParams()
@@ -732,7 +726,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnModel : DisposableOpenCVObject
     {
-        internal DnnModel(IntPtr handle) : base(handle) { }
+        internal DnnModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Model_Delete(handle);
@@ -784,7 +778,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnModel(res);
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="width">The width parameter.</param>
         /// <param name="height">The height parameter.</param>
@@ -909,7 +903,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="backendId">The backendId parameter.</param>
         /// <returns>The returned value.</returns>
@@ -922,7 +916,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnModel(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="targetId">The targetId parameter.</param>
         /// <returns>The returned value.</returns>
@@ -935,7 +929,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnModel(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="useWinograd">The useWinograd parameter.</param>
         /// <returns>The returned value.</returns>
@@ -963,13 +957,13 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnNet : DisposableOpenCVObject
     {
-        internal DnnNet(IntPtr handle) : base(handle) { }
+        internal DnnNet(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Net_Delete(handle);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnNet()
@@ -1124,7 +1118,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1149,7 +1143,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnLayer(res);
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="layerName">The layerName parameter.</param>
         /// <returns>The returned value.</returns>
@@ -1165,7 +1159,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnLayer(res);
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="layerId">The layerId parameter.</param>
         /// <returns>The returned value.</returns>
@@ -1454,7 +1448,7 @@ namespace OpenCV5Sharp
         /// *
         /// *  If scale or mean values are specified, a final input blob is computed
         /// *  as:
-        /// * \f[input(n,c,h,w) = scalefactor \times (blob(n,c,h,w) - mean_c)\f]
+        /// * [see mathematical formula in OpenCV docs]
         /// </summary>
         /// <param name="blob">The blob parameter.</param>
         /// <param name="name">The name parameter.</param>
@@ -1526,7 +1520,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Mat(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="layerName">The layerName parameter.</param>
         /// <param name="numParam">The numParam parameter.</param>
@@ -1568,7 +1562,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="netInputShapes">The netInputShapes parameter.</param>
         /// <param name="netInputTypes">The netInputTypes parameter.</param>
@@ -1765,7 +1759,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnSegmentationModel : DnnModel
     {
-        internal DnnSegmentationModel(IntPtr handle) : base(handle) { }
+        internal DnnSegmentationModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_SegmentationModel_Delete(handle);
@@ -1807,7 +1801,7 @@ namespace OpenCV5Sharp
         /// *  @param[out] mask Allocated class prediction for each pixel
         /// </summary>
         /// <param name="frame">The frame parameter.</param>
-        /// <param name="mask">The mask parameter.</param>
+        /// <param name="mask">Optional operation mask.</param>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1825,7 +1819,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModel : DnnModel
     {
-        internal DnnTextDetectionModel(IntPtr handle) : base(handle) { }
+        internal DnnTextDetectionModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_Delete(handle);
@@ -1862,7 +1856,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="frame">The frame parameter.</param>
         /// <param name="detections">The detections parameter.</param>
@@ -1901,7 +1895,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="frame">The frame parameter.</param>
         /// <param name="detections">The detections parameter.</param>
@@ -1932,7 +1926,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModelDb : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelDb(IntPtr handle) : base(handle) { }
+        internal DnnTextDetectionModelDb(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_DB_Delete(handle);
@@ -1969,7 +1963,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="binaryThreshold">The binaryThreshold parameter.</param>
         /// <returns>The returned value.</returns>
@@ -1982,7 +1976,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnTextDetectionModelDb(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1994,7 +1988,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="polygonThreshold">The polygonThreshold parameter.</param>
         /// <returns>The returned value.</returns>
@@ -2007,7 +2001,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnTextDetectionModelDb(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2019,7 +2013,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="unclipRatio">The unclipRatio parameter.</param>
         /// <returns>The returned value.</returns>
@@ -2032,7 +2026,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnTextDetectionModelDb(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2044,7 +2038,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="maxCandidates">The maxCandidates parameter.</param>
         /// <returns>The returned value.</returns>
@@ -2057,7 +2051,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new DnnTextDetectionModelDb(res);
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2080,7 +2074,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextDetectionModelEast : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelEast(IntPtr handle) : base(handle) { }
+        internal DnnTextDetectionModelEast(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextDetectionModel_EAST_Delete(handle);
@@ -2185,7 +2179,7 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public class DnnTextRecognitionModel : DnnModel
     {
-        internal DnnTextRecognitionModel(IntPtr handle) : base(handle) { }
+        internal DnnTextRecognitionModel(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_TextRecognitionModel_Delete(handle);
@@ -2370,7 +2364,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class DnnTokenizer : DisposableOpenCVObject
     {
-        internal DnnTokenizer(IntPtr handle) : base(handle) { }
+        internal DnnTokenizer(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.dnn_Tokenizer_Delete(handle);
@@ -2421,7 +2415,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <param name="tokens">The tokens parameter.</param>
         /// <returns>The returned value.</returns>

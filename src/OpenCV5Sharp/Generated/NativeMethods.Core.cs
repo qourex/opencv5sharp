@@ -16,6 +16,8 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern int opencv5sharp_getLastErrorCode();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void opencv5sharp_clearLastError();
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_FreeString(IntPtr ptr);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_VectorInt_Delete(IntPtr ptr);

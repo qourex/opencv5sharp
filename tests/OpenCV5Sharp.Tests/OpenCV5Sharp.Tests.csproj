@@ -24,4 +24,5 @@
     <ProjectReference Include="..\..\src\OpenCV5Sharp\OpenCV5Sharp.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\src\OpenCV5Sharp\build\OpenCV5Sharp.targets" />
 </Project>

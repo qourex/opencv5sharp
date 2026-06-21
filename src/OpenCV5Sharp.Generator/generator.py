@@ -823,6 +823,7 @@ class OpenCVWrapperGenerator:
         # Add global error handling support with thread-local error buffer
         cpp_decls.append('extern "C" __declspec(dllexport) const char* opencv5sharp_getLastError();')
         cpp_decls.append('extern "C" __declspec(dllexport) int opencv5sharp_getLastErrorCode();')
+        cpp_decls.append('extern "C" __declspec(dllexport) void opencv5sharp_clearLastError();')
         cpp_impls.append('static thread_local char _lastError[4096] = {0};')
         cpp_impls.append('static thread_local int _lastErrorCode = 0;')
         cpp_impls.append('static void _setError(int code, const char* msg) {')
@@ -833,6 +834,7 @@ class OpenCVWrapperGenerator:
         cpp_impls.append('static void _clearError() { _lastError[0] = 0; _lastErrorCode = 0; }')
         cpp_impls.append('extern "C" __declspec(dllexport) const char* opencv5sharp_getLastError() { return _lastError; }')
         cpp_impls.append('extern "C" __declspec(dllexport) int opencv5sharp_getLastErrorCode() { return _lastErrorCode; }')
+        cpp_impls.append('extern "C" __declspec(dllexport) void opencv5sharp_clearLastError() { _clearError(); }')
 
         # String free function
         cpp_decls.append('extern "C" __declspec(dllexport) void cv_FreeString(char* ptr);')
@@ -865,6 +867,8 @@ class OpenCVWrapperGenerator:
             'public static extern IntPtr opencv5sharp_getLastError();',
             '[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]',
             'public static extern int opencv5sharp_getLastErrorCode();',
+            '[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]',
+            'public static extern void opencv5sharp_clearLastError();',
             '[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]',
             'public static extern void cv_FreeString(IntPtr ptr);',
             '[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]',
@@ -1157,13 +1161,13 @@ class OpenCVWrapperGenerator:
                         has_rows_cols = any(a[1] == "rows" for a in args) and any(a[1] == "cols" for a in args)
                         has_size = any(a[1] == "size" for a in args)
                         if has_rows_cols:
-                            validation_expr = "MatValidation.CheckDimensions(rows, cols) == 0 ? "
+                            validation_expr = "CheckDimensions(rows, cols"
                         elif has_size:
-                            validation_expr = "MatValidation.CheckSize(size) == 0 ? "
+                            validation_expr = "CheckSize(size"
 
                     native_call = f"NativeMethods.{flat_name}({', '.join(call_args)})"
                     if validation_expr:
-                        base_call = f"{validation_expr}{native_call} : IntPtr.Zero"
+                        base_call = f"MatValidation.{validation_expr}, () => {native_call})"
                     else:
                         base_call = native_call
                     cs_class_methods.append(f'        : base({base_call})')

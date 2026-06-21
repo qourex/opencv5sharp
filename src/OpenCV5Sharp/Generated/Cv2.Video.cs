@@ -11,313 +11,313 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-        /// <summary>
-        /// Creates MOG2 Background Subtractor
-        /// </summary>
-        /// <param name="history">Length of the history.</param>
-        /// <param name="varThreshold">Threshold on the squared Mahalanobis distance between the pixel and the model to decide whether a pixel is well described by the background model. This parameter does not affect the background update.</param>
-        /// <param name="detectShadows">If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static BackgroundSubtractorMOG2? CreateBackgroundSubtractorMOG2(int history, double varThreshold, bool detectShadows)
-        {
-            IntPtr res = NativeMethods.cv_createBackgroundSubtractorMOG2_0(history, varThreshold, detectShadows);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new BackgroundSubtractorMOG2(res);
-        }
-        /// <summary>
-        /// Creates KNN Background Subtractor
-        /// </summary>
-        /// <param name="history">Length of the history.</param>
-        /// <param name="dist2Threshold">Threshold on the squared distance between the pixel and the sample to decide whether a pixel is close to that sample. This parameter does not affect the background update.</param>
-        /// <param name="detectShadows">If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static BackgroundSubtractorKNN? CreateBackgroundSubtractorKNN(int history, double dist2Threshold, bool detectShadows)
-        {
-            IntPtr res = NativeMethods.cv_createBackgroundSubtractorKNN_0(history, dist2Threshold, detectShadows);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new BackgroundSubtractorKNN(res);
-        }
-        /// <summary>
-        /// Finds an object center, size, and orientation.
-        /// </summary>
-        /// <param name="probImage">Back projection of the object histogram. See calcBackProject.</param>
-        /// <param name="window">Initial search window.</param>
-        /// <param name="criteria">Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm @cite Bradski98 . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect() See the OpenCV sample camshiftdemo.c that tracks colored objects.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note
-        /// -   (Python) A sample explaining the camshift tracking algorithm can be found at
-        /// opencv_source_code/samples/python/snippets/camshift.py
-        /// </remarks>
-        public static RotatedRect? CamShift(Mat probImage, Rect window, TermCriteria criteria)
-        {
-            IntPtr res = NativeMethods.cv_CamShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new RotatedRect(res);
-        }
-        /// <summary>
-        /// Finds an object on a back projection image.
-        /// </summary>
-        /// <param name="probImage">Back projection of the object histogram. See calcBackProject for details.</param>
-        /// <param name="window">Initial search window.</param>
-        /// <param name="criteria">Stop criteria for the iterative search algorithm. returns :   Number of iterations CAMSHIFT took to converge. The function implements the iterative object search algorithm. It takes the input back projection of an object and the initial position. The mass center in window of the back projection image is computed and the search window center shifts to the mass center. The procedure is repeated until the specified number of iterations criteria.maxCount is done or until the window center shifts by less than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search window size or orientation do not change during the search. You can simply pass the output of calcBackProject to this function. But better results can be obtained if you pre-filter the back projection and remove the noise. For example, you can do this by retrieving connected components with findContours , throwing away contours with small area ( contourArea ), and rendering the remaining contours with drawContours.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int MeanShift(Mat probImage, Rect window, TermCriteria criteria)
-        {
-            var res = NativeMethods.cv_meanShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
-        /// </summary>
-        /// <param name="img">8-bit input image.</param>
-        /// <param name="pyramid">output pyramid.</param>
-        /// <param name="winSize">window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels.</param>
-        /// <param name="maxLevel">0-based maximal pyramid level number.</param>
-        /// <param name="withDerivatives">set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally.</param>
-        /// <param name="pyrBorder">the border mode for pyramid layers.</param>
-        /// <param name="derivBorder">the border mode for gradients.</param>
-        /// <param name="tryReuseInputImage">put ROI of input image into the pyramid if possible. You can pass false to force data copying.</param>
-        /// <returns>number of levels in constructed pyramid. Can be less than maxLevel.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static int BuildOpticalFlowPyramid(Mat img, IntPtr pyramid, Size winSize, int maxLevel, bool withDerivatives, int pyrBorder, int derivBorder, bool tryReuseInputImage)
-        {
-            var res = NativeMethods.cv_buildOpticalFlowPyramid_0(ValidationHelper.GetHandle(img, nameof(img), false), pyramid, winSize, maxLevel, withDerivatives, pyrBorder, derivBorder, tryReuseInputImage);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with
-        /// pyramids.
-        /// </summary>
-        /// <param name="prevImg">first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid.</param>
-        /// <param name="nextImg">second input image or pyramid of the same size and the same type as prevImg.</param>
-        /// <param name="prevPts">vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers.</param>
-        /// <param name="nextPts">output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input.</param>
-        /// <param name="status">output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.</param>
-        /// <param name="err">output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases).</param>
-        /// <param name="winSize">size of the search window at each pyramid level.</param>
-        /// <param name="maxLevel">0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel.</param>
-        /// <param name="criteria">parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon.</param>
-        /// <param name="flags">operation flags: -   **OPTFLOW_USE_INITIAL_FLOW** uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate. -   **OPTFLOW_LK_GET_MIN_EIGENVALS** use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure.</param>
-        /// <param name="minEigThreshold">the algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical flow equations (this matrix is called a spatial gradient matrix in @cite Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost. The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See @cite Bouguet00 . The function is parallelized with the TBB library.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note Some examples:
-        /// -   An example using the Lucas-Kanade optical flow algorithm can be found at
-        /// opencv_source_code/samples/cpp/lkdemo.cpp
-        /// -   (Python) An example using the Lucas-Kanade optical flow algorithm can be found at
-        /// opencv_source_code/samples/python/lk_track.py
-        /// -   (Python) An example using the Lucas-Kanade tracker for homography matching can be found at
-        /// opencv_source_code/samples/python/lk_homography.py
-        /// </remarks>
-        public static void CalcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, Mat prevPts, Mat nextPts, Mat status, Mat err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold)
-        {
-            NativeMethods.cv_calcOpticalFlowPyrLK_0(ValidationHelper.GetHandle(prevImg, nameof(prevImg), false), ValidationHelper.GetHandle(nextImg, nameof(nextImg), false), ValidationHelper.GetHandle(prevPts, nameof(prevPts), false), ValidationHelper.GetHandle(nextPts, nameof(nextPts), false), ValidationHelper.GetHandle(status, nameof(status), false), ValidationHelper.GetHandle(err, nameof(err), false), winSize, maxLevel, criteria, flags, minEigThreshold);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes a dense optical flow using the Gunnar Farneback's algorithm.
-        /// </summary>
-        /// <param name="prev">first 8-bit single-channel input image.</param>
-        /// <param name="next">second input image of the same size and the same type as prev.</param>
-        /// <param name="flow">computed flow image that has the same size as prev and type CV_32FC2.</param>
-        /// <param name="pyr_scale">parameter, specifying the image scale (\&lt;1) to build pyramids for each image; pyr_scale=0.5 means a classical pyramid, where each next layer is twice smaller than the previous one.</param>
-        /// <param name="levels">number of pyramid layers including the initial image; levels=1 means that no extra layers are created and only the original images are used.</param>
-        /// <param name="winsize">averaging window size; larger values increase the algorithm robustness to image noise and give more chances for fast motion detection, but yield more blurred motion field.</param>
-        /// <param name="iterations">number of iterations the algorithm does at each pyramid level.</param>
-        /// <param name="poly_n">size of the pixel neighborhood used to find polynomial expansion in each pixel; larger values mean that the image will be approximated with smoother surfaces, yielding more robust algorithm and more blurred motion field, typically poly_n =5 or 7.</param>
-        /// <param name="poly_sigma">standard deviation of the Gaussian that is used to smooth derivatives used as a basis for the polynomial expansion; for poly_n=5, you can set poly_sigma=1.1, for poly_n=7, a good value would be poly_sigma=1.5.</param>
-        /// <param name="flags">operation flags that can be a combination of the following: -   **OPTFLOW_USE_INITIAL_FLOW** uses the input flow as an initial flow approximation. -   **OPTFLOW_FARNEBACK_GAUSSIAN** uses the Gaussian \f$\texttt{winsize}\times\texttt{winsize}\f$ filter instead of a box filter of the same size for optical flow estimation; usually, this option gives z more accurate flow than with a box filter, at the cost of lower speed; normally, winsize for a Gaussian window should be set to a larger value to achieve the same level of robustness. The function finds an optical flow for each prev pixel using the @cite Farneback2003 algorithm so that \f[\texttt{prev} (y,x)  \sim \texttt{next} ( y + \texttt{flow} (y,x)[1],  x + \texttt{flow} (y,x)[0])\f]</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note Some examples:
-        /// -   An example using the optical flow algorithm described by Gunnar Farneback can be found at
-        /// opencv_source_code/samples/cpp/fback.cpp
-        /// -   (Python) An example using the optical flow algorithm described by Gunnar Farneback can be
-        /// found at opencv_source_code/samples/python/opt_flow.py
-        /// </remarks>
-        public static void CalcOpticalFlowFarneback(Mat prev, Mat next, Mat flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags)
-        {
-            NativeMethods.cv_calcOpticalFlowFarneback_0(ValidationHelper.GetHandle(prev, nameof(prev), false), ValidationHelper.GetHandle(next, nameof(next), false), ValidationHelper.GetHandle(flow, nameof(flow), false), pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes the Enhanced Correlation Coefficient (ECC) value between two images
-        /// </summary>
-        /// <param name="templateImage">Input template image; must have either 1 or 3 channels and be of type CV_8U, CV_16U, CV_32F, or CV_64F.</param>
-        /// <param name="inputImage">Input image to be compared with the template; must have the same type and number of channels as templateImage.</param>
-        /// <param name="inputMask">Optional single-channel mask to specify the valid region of interest in inputImage and templateImage.</param>
-        /// <returns>The ECC similarity coefficient in the range [-1, 1].</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// The Enhanced Correlation Coefficient (ECC) is a normalized measure of similarity between two images @cite EP08.
-        /// The result lies in the range [-1, 1], where 1 corresponds to perfect similarity (modulo affine shift and scale),
-        /// 0 indicates no correlation, and -1 indicates perfect negative correlation.
-        /// For single-channel images, the ECC is defined as:
-        /// \f[
-        /// \mathrm{ECC}(I, T) = \frac{\sum_{x} (I(x) - \mu_I)(T(x) - \mu_T)}
-        /// {\sqrt{\sum_{x} (I(x) - \mu_I)^2} \cdot \sqrt{\sum_{x} (T(x) - \mu_T)^2}}
-        /// \f]
-        /// For multi-channel images (e.g., 3-channel RGB), the formula generalizes to:
-        /// \f[
-        /// \mathrm{ECC}(I, T) =
-        /// \frac{\sum_{x} \sum_{c=1}^{C} (I_c(x) - \mu_{I_c})(T_c(x) - \mu_{T_c})}
-        /// {\sqrt{\sum_{x} \sum_{c=1}^{C} (I_c(x) - \mu_{I_c})^2} \cdot
-        /// \sqrt{\sum_{x} \sum_{c=1}^{C} (T_c(x) - \mu_{T_c})^2}}
-        /// \f]
-        /// Where:
-        /// - \f$I_c(x), T_c(x)\f$ are the values of channel \f$c\f$ at spatial location \f$x\f$,
-        /// - \f$\mu_{I_c}, \mu_{T_c}\f$ are the mean values of channel \f$c\f$ over the masked region (if provided),
-        /// - \f$C\f$ is the number of channels (only 1 and 3 are currently supported),
-        /// - The sums run over all pixels \f$x\f$ in the image domain (optionally restricted by mask).
-        /// @sa findTransformECC
-        /// </remarks>
-        public static double ComputeECC(Mat templateImage, Mat inputImage, Mat? inputMask)
-        {
-            var res = NativeMethods.cv_computeECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08 .
-        /// </summary>
-        /// <param name="templateImage">1 or 3 channel template image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
-        /// <param name="inputImage">input image which should be warped with the final warpMatrix in order to provide an image similar to templateImage, same type as templateImage.</param>
-        /// <param name="warpMatrix">floating-point \f$2\times 3\f$ or \f$3\times 3\f$ mapping matrix (warp).</param>
-        /// <param name="motionType">parameter, specifying the type of motion: -   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is \f$2\times 3\f$ with the first \f$2\times 2\f$ part being the unity matrix and the rest two parameters being estimated. -   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three parameters are estimated; warpMatrix is \f$2\times 3\f$. -   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated; warpMatrix is \f$2\times 3\f$. -   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are estimated;\`warpMatrix\` is \f$3\times 3\f$.</param>
-        /// <param name="criteria">parameter, specifying the termination criteria of the ECC algorithm; criteria.epsilon defines the threshold of the increment in the correlation coefficient between two iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion). Default values are shown in the declaration above.</param>
-        /// <param name="inputMask">An optional single channel mask to indicate valid values of inputImage.</param>
-        /// <param name="gaussFiltSize">An optional value indicating size of gaussian blur filter; (DEFAULT: 5) The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (@cite EP08), that is \f[\texttt{warpMatrix} = \arg\max_{W} \texttt{ECC}(\texttt{templateImage}(x,y),\texttt{inputImage}(x',y'))\f] where \f[\begin{bmatrix} x' \\ y' \end{bmatrix} = W \cdot \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}\f] (the equation holds with homogeneous coordinates for homography). It returns the final enhanced correlation coefficient, that is the correlation coefficient between the template image and the final warped input image. When a \f$3\times 3\f$ matrix is given with motionType =0, 1 or 2, the third row is ignored. Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an area-based alignment that builds on intensity similarities. In essence, the function updates the initial transformation that roughly aligns the images. If this information is missing, the identity warp (unity matrix) is used as an initialization. Note that if images undergo strong displacements/rotations, an initial transformation that roughly aligns the images is necessary (e.g., a simple euclidean/similarity transform that allows for the images showing the same image content approximately). Use inverse warping in the second image to take an image close to the first one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws an exception if algorithm does not converges.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @sa
-        /// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
-        /// </remarks>
-        public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat inputMask, int gaussFiltSize)
-        {
-            var res = NativeMethods.cv_findTransformECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), gaussFiltSize);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// @overload
-        /// </summary>
-        /// <param name="templateImage">The templateImage parameter.</param>
-        /// <param name="inputImage">The inputImage parameter.</param>
-        /// <param name="warpMatrix">The warpMatrix parameter.</param>
-        /// <param name="motionType">The motionType parameter.</param>
-        /// <param name="criteria">The criteria parameter.</param>
-        /// <param name="inputMask">The inputMask parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat? inputMask)
-        {
-            var res = NativeMethods.cv_findTransformECC_1(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08
-        /// using validity masks for both the template and the input images.
-        /// </summary>
-        /// <param name="templateImage">1 or 3 channel template image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
-        /// <param name="inputImage">input image which should be warped with the final warpMatrix in order to provide an image similar to templateImage, same type as templateImage.</param>
-        /// <param name="templateMask">single-channel 8-bit mask for templateImage indicating valid pixels to be used in the alignment. Must have the same size as templateImage.</param>
-        /// <param name="inputMask">single-channel 8-bit mask for inputImage indicating valid pixels before warping. Must have the same size as inputImage.</param>
-        /// <param name="warpMatrix">floating-point \f$2\times 3\f$ or \f$3\times 3\f$ mapping matrix (warp).</param>
-        /// <param name="motionType">parameter, specifying the type of motion: -   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is \f$2\times 3\f$ with the first \f$2\times 2\f$ part being the unity matrix and the rest two parameters being estimated. -   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three parameters are estimated; warpMatrix is \f$2\times 3\f$. -   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated; warpMatrix is \f$2\times 3\f$. -   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are estimated; warpMatrix is \f$3\times 3\f$.</param>
-        /// <param name="criteria">parameter, specifying the termination criteria of the ECC algorithm; criteria.epsilon defines the threshold of the increment in the correlation coefficient between two iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion). Default values are shown in the declaration above.</param>
-        /// <param name="gaussFiltSize">size of the Gaussian blur filter used for smoothing images and masks before computing the alignment (DEFAULT: 5).</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// This function extends findTransformECC() by adding a mask for the template image.
-        /// The Enhanced Correlation Coefficient is evaluated only over pixels that are valid in both images:
-        /// on each iteration inputMask is warped into the template frame and combined with templateMask, and
-        /// only the intersection of these masks contributes to the objective function.
-        /// @sa
-        /// findTransformECC, computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
-        /// </remarks>
-        public static double FindTransformECCWithMask(Mat templateImage, Mat inputImage, Mat templateMask, Mat inputMask, Mat warpMatrix, int motionType, TermCriteria criteria, int gaussFiltSize)
-        {
-            var res = NativeMethods.cv_findTransformECCWithMask_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(templateMask, nameof(templateMask), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, gaussFiltSize);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08. Uses pyramids.
-        /// </summary>
-        /// <param name="reference">Single channel reference image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
-        /// <param name="sample">sample image which should be warped with the final warpMatrix in order to provide an image similar to reference, same type as reference.</param>
-        /// <param name="warpMatrix">floating-point \f$2\times 3\f$ or \f$3\times 3\f$ mapping matrix (warp).</param>
-        /// <param name="eccParams">List of the algorithm parameters. See ECCParameters for details.</param>
-        /// <param name="referenceMask">An optional single channel mask to indicate valid values of reference.</param>
-        /// <param name="sampleMask">An optional single channel mask to indicate valid values of sample. The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (@cite EP08), that is \f[\texttt{warpMatrix} = \arg\max_{W} \texttt{ECC}(\texttt{templateImage}(x,y),\texttt{inputImage}(x',y'))\f] where \f[\begin{bmatrix} x' \\ y' \end{bmatrix} = W \cdot \begin{bmatrix} x \\ y \\ 1 \end{bmatrix}\f] (the equation holds with homogeneous coordinates for homography). It returns the final enhanced correlation coefficient, that is the correlation coefficient between the template image and the final warped input image. When a \f$3\times 3\f$ matrix is given with motionType =0, 1 or 2, the third row is ignored. Unlike findHomography and estimateRigidTransform, the function findTransformECCMultiScale implements an area-based alignment that builds on intensity similarities. In essence, the function updates the initial transformation that roughly aligns the images. If this information is missing, the identity warp (unity matrix) is used as an initialization. Note that if images undergo strong displacements/rotations, an initial transformation that roughly aligns the images is necessary (e.g., a simple euclidean/similarity transform that allows for the images showing the same image content approximately). Use inverse warping in the second image to take an image close to the first one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws an exception if algorithm does not converges. Unlike findTransformECC, the findTransformECCMultiScale uses pyramids, making function more stable and able to handle correctly more sophisticated cases.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @sa
-        /// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
-        /// </remarks>
-        public static double FindTransformECCMultiScale(Mat reference, Mat sample, Mat warpMatrix, ECCParameters? eccParams, Mat? referenceMask, Mat? sampleMask)
-        {
-            var res = NativeMethods.cv_findTransformECCMultiScale_0(ValidationHelper.GetHandle(reference, nameof(reference), false), ValidationHelper.GetHandle(sample, nameof(sample), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), ValidationHelper.GetHandle(eccParams, nameof(eccParams), true), ValidationHelper.GetHandle(referenceMask, nameof(referenceMask), true), ValidationHelper.GetHandle(sampleMask, nameof(sampleMask), true));
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Read a .flo file
-        /// </summary>
-        /// <param name="path">Path to the file to be loaded The function readOpticalFlow loads a flow field from a file and returns it as a single matrix. Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the flow in the horizontal direction (u), second - vertical (v).</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Mat? ReadOpticalFlow(string path)
-        {
-            IntPtr res = NativeMethods.cv_readOpticalFlow_0(path);
-            ErrorHelper.CheckError();
-            return res == IntPtr.Zero ? null : new Mat(res);
-        }
-        /// <summary>
-        /// Write a .flo to disk
-        /// </summary>
-        /// <param name="path">Path to the file to be written</param>
-        /// <param name="flow">Flow field to be stored The function stores a flow field in a file, returns true on success, false otherwise. The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds to the flow in the horizontal direction (u), second - vertical (v).</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static bool WriteOpticalFlow(string path, Mat flow)
-        {
-            var res = NativeMethods.cv_writeOpticalFlow_0(path, ValidationHelper.GetHandle(flow, nameof(flow), false));
-            ErrorHelper.CheckError();
-            return res;
-        }
+            /// <summary>
+            /// Creates MOG2 Background Subtractor
+            /// </summary>
+            /// <param name="history">Length of the history.</param>
+            /// <param name="varThreshold">Threshold on the squared Mahalanobis distance between the pixel and the model to decide whether a pixel is well described by the background model. This parameter does not affect the background update.</param>
+            /// <param name="detectShadows">If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static BackgroundSubtractorMOG2? CreateBackgroundSubtractorMOG2(int history, double varThreshold, bool detectShadows)
+            {
+                IntPtr res = NativeMethods.cv_createBackgroundSubtractorMOG2_0(history, varThreshold, detectShadows);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new BackgroundSubtractorMOG2(res);
+            }
+            /// <summary>
+            /// Creates KNN Background Subtractor
+            /// </summary>
+            /// <param name="history">Length of the history.</param>
+            /// <param name="dist2Threshold">Threshold on the squared distance between the pixel and the sample to decide whether a pixel is close to that sample. This parameter does not affect the background update.</param>
+            /// <param name="detectShadows">If true, the algorithm will detect shadows and mark them. It decreases the speed a bit, so if you do not need this feature, set the parameter to false.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static BackgroundSubtractorKNN? CreateBackgroundSubtractorKNN(int history, double dist2Threshold, bool detectShadows)
+            {
+                IntPtr res = NativeMethods.cv_createBackgroundSubtractorKNN_0(history, dist2Threshold, detectShadows);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new BackgroundSubtractorKNN(res);
+            }
+            /// <summary>
+            /// Finds an object center, size, and orientation.
+            /// </summary>
+            /// <param name="probImage">Back projection of the object histogram. See calcBackProject.</param>
+            /// <param name="window">Initial search window.</param>
+            /// <param name="criteria">Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm @cite Bradski98 . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect() See the OpenCV sample camshiftdemo.c that tracks colored objects.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note
+            /// -   (Python) A sample explaining the camshift tracking algorithm can be found at
+            /// opencv_source_code/samples/python/snippets/camshift.py
+            /// </remarks>
+            public static RotatedRect? CamShift(Mat probImage, Rect window, TermCriteria criteria)
+            {
+                IntPtr res = NativeMethods.cv_CamShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new RotatedRect(res);
+            }
+            /// <summary>
+            /// Finds an object on a back projection image.
+            /// </summary>
+            /// <param name="probImage">Back projection of the object histogram. See calcBackProject for details.</param>
+            /// <param name="window">Initial search window.</param>
+            /// <param name="criteria">Stop criteria for the iterative search algorithm. returns :   Number of iterations CAMSHIFT took to converge. The function implements the iterative object search algorithm. It takes the input back projection of an object and the initial position. The mass center in window of the back projection image is computed and the search window center shifts to the mass center. The procedure is repeated until the specified number of iterations criteria.maxCount is done or until the window center shifts by less than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search window size or orientation do not change during the search. You can simply pass the output of calcBackProject to this function. But better results can be obtained if you pre-filter the back projection and remove the noise. For example, you can do this by retrieving connected components with findContours , throwing away contours with small area ( contourArea ), and rendering the remaining contours with drawContours.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int MeanShift(Mat probImage, Rect window, TermCriteria criteria)
+            {
+                var res = NativeMethods.cv_meanShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
+            /// </summary>
+            /// <param name="img">8-bit input image.</param>
+            /// <param name="pyramid">output pyramid.</param>
+            /// <param name="winSize">window size of optical flow algorithm. Must be not less than winSize argument of calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels.</param>
+            /// <param name="maxLevel">0-based maximal pyramid level number.</param>
+            /// <param name="withDerivatives">set to precompute gradients for the every pyramid level. If pyramid is constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally.</param>
+            /// <param name="pyrBorder">the border mode for pyramid layers.</param>
+            /// <param name="derivBorder">the border mode for gradients.</param>
+            /// <param name="tryReuseInputImage">put ROI of input image into the pyramid if possible. You can pass false to force data copying.</param>
+            /// <returns>number of levels in constructed pyramid. Can be less than maxLevel.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static int BuildOpticalFlowPyramid(Mat img, IntPtr pyramid, Size winSize, int maxLevel, bool withDerivatives, int pyrBorder, int derivBorder, bool tryReuseInputImage)
+            {
+                var res = NativeMethods.cv_buildOpticalFlowPyramid_0(ValidationHelper.GetHandle(img, nameof(img), false), pyramid, winSize, maxLevel, withDerivatives, pyrBorder, derivBorder, tryReuseInputImage);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with
+            /// pyramids.
+            /// </summary>
+            /// <param name="prevImg">first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid.</param>
+            /// <param name="nextImg">second input image or pyramid of the same size and the same type as prevImg.</param>
+            /// <param name="prevPts">vector of 2D points for which the flow needs to be found; point coordinates must be single-precision floating-point numbers.</param>
+            /// <param name="nextPts">output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input.</param>
+            /// <param name="status">output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0.</param>
+            /// <param name="err">output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases).</param>
+            /// <param name="winSize">size of the search window at each pyramid level.</param>
+            /// <param name="maxLevel">0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel.</param>
+            /// <param name="criteria">parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon.</param>
+            /// <param name="flags">operation flags: -   **OPTFLOW_USE_INITIAL_FLOW** uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate. -   **OPTFLOW_LK_GET_MIN_EIGENVALS** use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure.</param>
+            /// <param name="minEigThreshold">the algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical flow equations (this matrix is called a spatial gradient matrix in @cite Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost. The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See @cite Bouguet00 . The function is parallelized with the TBB library.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note Some examples:
+            /// -   An example using the Lucas-Kanade optical flow algorithm can be found at
+            /// opencv_source_code/samples/cpp/lkdemo.cpp
+            /// -   (Python) An example using the Lucas-Kanade optical flow algorithm can be found at
+            /// opencv_source_code/samples/python/lk_track.py
+            /// -   (Python) An example using the Lucas-Kanade tracker for homography matching can be found at
+            /// opencv_source_code/samples/python/lk_homography.py
+            /// </remarks>
+            public static void CalcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, Mat prevPts, Mat nextPts, Mat status, Mat err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold)
+            {
+                NativeMethods.cv_calcOpticalFlowPyrLK_0(ValidationHelper.GetHandle(prevImg, nameof(prevImg), false), ValidationHelper.GetHandle(nextImg, nameof(nextImg), false), ValidationHelper.GetHandle(prevPts, nameof(prevPts), false), ValidationHelper.GetHandle(nextPts, nameof(nextPts), false), ValidationHelper.GetHandle(status, nameof(status), false), ValidationHelper.GetHandle(err, nameof(err), false), winSize, maxLevel, criteria, flags, minEigThreshold);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes a dense optical flow using the Gunnar Farneback's algorithm.
+            /// </summary>
+            /// <param name="prev">first 8-bit single-channel input image.</param>
+            /// <param name="next">second input image of the same size and the same type as prev.</param>
+            /// <param name="flow">computed flow image that has the same size as prev and type CV_32FC2.</param>
+            /// <param name="pyr_scale">parameter, specifying the image scale (\&lt;1) to build pyramids for each image; pyr_scale=0.5 means a classical pyramid, where each next layer is twice smaller than the previous one.</param>
+            /// <param name="levels">number of pyramid layers including the initial image; levels=1 means that no extra layers are created and only the original images are used.</param>
+            /// <param name="winsize">averaging window size; larger values increase the algorithm robustness to image noise and give more chances for fast motion detection, but yield more blurred motion field.</param>
+            /// <param name="iterations">number of iterations the algorithm does at each pyramid level.</param>
+            /// <param name="poly_n">size of the pixel neighborhood used to find polynomial expansion in each pixel; larger values mean that the image will be approximated with smoother surfaces, yielding more robust algorithm and more blurred motion field, typically poly_n =5 or 7.</param>
+            /// <param name="poly_sigma">standard deviation of the Gaussian that is used to smooth derivatives used as a basis for the polynomial expansion; for poly_n=5, you can set poly_sigma=1.1, for poly_n=7, a good value would be poly_sigma=1.5.</param>
+            /// <param name="flags">operation flags that can be a combination of the following: -   **OPTFLOW_USE_INITIAL_FLOW** uses the input flow as an initial flow approximation. -   **OPTFLOW_FARNEBACK_GAUSSIAN** uses the Gaussian [formula] filter instead of a box filter of the same size for optical flow estimation; usually, this option gives z more accurate flow than with a box filter, at the cost of lower speed; normally, winsize for a Gaussian window should be set to a larger value to achieve the same level of robustness. The function finds an optical flow for each prev pixel using the @cite Farneback2003 algorithm so that [see mathematical formula in OpenCV docs]</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note Some examples:
+            /// -   An example using the optical flow algorithm described by Gunnar Farneback can be found at
+            /// opencv_source_code/samples/cpp/fback.cpp
+            /// -   (Python) An example using the optical flow algorithm described by Gunnar Farneback can be
+            /// found at opencv_source_code/samples/python/opt_flow.py
+            /// </remarks>
+            public static void CalcOpticalFlowFarneback(Mat prev, Mat next, Mat flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags)
+            {
+                NativeMethods.cv_calcOpticalFlowFarneback_0(ValidationHelper.GetHandle(prev, nameof(prev), false), ValidationHelper.GetHandle(next, nameof(next), false), ValidationHelper.GetHandle(flow, nameof(flow), false), pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes the Enhanced Correlation Coefficient (ECC) value between two images
+            /// </summary>
+            /// <param name="templateImage">Input template image; must have either 1 or 3 channels and be of type CV_8U, CV_16U, CV_32F, or CV_64F.</param>
+            /// <param name="inputImage">Input image to be compared with the template; must have the same type and number of channels as templateImage.</param>
+            /// <param name="inputMask">Optional single-channel mask to specify the valid region of interest in inputImage and templateImage.</param>
+            /// <returns>The ECC similarity coefficient in the range [-1, 1].</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// The Enhanced Correlation Coefficient (ECC) is a normalized measure of similarity between two images @cite EP08.
+            /// The result lies in the range [-1, 1], where 1 corresponds to perfect similarity (modulo affine shift and scale),
+            /// 0 indicates no correlation, and -1 indicates perfect negative correlation.
+            /// For single-channel images, the ECC is defined as:
+            /// \f[
+            /// \mathrm{ECC}(I, T) = \frac{\sum_{x} (I(x) - \mu_I)(T(x) - \mu_T)}
+            /// {\sqrt{\sum_{x} (I(x) - \mu_I)^2} \cdot \sqrt{\sum_{x} (T(x) - \mu_T)^2}}
+            /// \f]
+            /// For multi-channel images (e.g., 3-channel RGB), the formula generalizes to:
+            /// \f[
+            /// \mathrm{ECC}(I, T) =
+            /// \frac{\sum_{x} \sum_{c=1}^{C} (I_c(x) - \mu_{I_c})(T_c(x) - \mu_{T_c})}
+            /// {\sqrt{\sum_{x} \sum_{c=1}^{C} (I_c(x) - \mu_{I_c})^2} \cdot
+            /// \sqrt{\sum_{x} \sum_{c=1}^{C} (T_c(x) - \mu_{T_c})^2}}
+            /// \f]
+            /// Where:
+            /// - [formula] are the values of channel [formula] at spatial location [formula],
+            /// - [formula] are the mean values of channel [formula] over the masked region (if provided),
+            /// - [formula] is the number of channels (only 1 and 3 are currently supported),
+            /// - The sums run over all pixels [formula] in the image domain (optionally restricted by mask).
+            /// @sa findTransformECC
+            /// </remarks>
+            public static double ComputeECC(Mat templateImage, Mat inputImage, Mat? inputMask)
+            {
+                var res = NativeMethods.cv_computeECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08 .
+            /// </summary>
+            /// <param name="templateImage">1 or 3 channel template image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
+            /// <param name="inputImage">input image which should be warped with the final warpMatrix in order to provide an image similar to templateImage, same type as templateImage.</param>
+            /// <param name="warpMatrix">floating-point [formula] or [formula] mapping matrix (warp).</param>
+            /// <param name="motionType">parameter, specifying the type of motion: -   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is [formula] with the first [formula] part being the unity matrix and the rest two parameters being estimated. -   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three parameters are estimated; warpMatrix is [formula]. -   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated; warpMatrix is [formula]. -   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are estimated;\`warpMatrix\` is [formula].</param>
+            /// <param name="criteria">parameter, specifying the termination criteria of the ECC algorithm; criteria.epsilon defines the threshold of the increment in the correlation coefficient between two iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion). Default values are shown in the declaration above.</param>
+            /// <param name="inputMask">An optional single channel mask to indicate valid values of inputImage.</param>
+            /// <param name="gaussFiltSize">An optional value indicating size of gaussian blur filter; (DEFAULT: 5) The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (@cite EP08), that is [see mathematical formula in OpenCV docs] where [see mathematical formula in OpenCV docs] (the equation holds with homogeneous coordinates for homography). It returns the final enhanced correlation coefficient, that is the correlation coefficient between the template image and the final warped input image. When a [formula] matrix is given with motionType =0, 1 or 2, the third row is ignored. Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an area-based alignment that builds on intensity similarities. In essence, the function updates the initial transformation that roughly aligns the images. If this information is missing, the identity warp (unity matrix) is used as an initialization. Note that if images undergo strong displacements/rotations, an initial transformation that roughly aligns the images is necessary (e.g., a simple euclidean/similarity transform that allows for the images showing the same image content approximately). Use inverse warping in the second image to take an image close to the first one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws an exception if algorithm does not converges.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @sa
+            /// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
+            /// </remarks>
+            public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat inputMask, int gaussFiltSize)
+            {
+                var res = NativeMethods.cv_findTransformECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), gaussFiltSize);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// This is an overloaded member function, provided for convenience.
+            /// </summary>
+            /// <param name="templateImage">The templateImage parameter.</param>
+            /// <param name="inputImage">The inputImage parameter.</param>
+            /// <param name="warpMatrix">The warpMatrix parameter.</param>
+            /// <param name="motionType">The motionType parameter.</param>
+            /// <param name="criteria">The criteria parameter.</param>
+            /// <param name="inputMask">The inputMask parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat? inputMask)
+            {
+                var res = NativeMethods.cv_findTransformECC_1(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08
+            /// using validity masks for both the template and the input images.
+            /// </summary>
+            /// <param name="templateImage">1 or 3 channel template image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
+            /// <param name="inputImage">input image which should be warped with the final warpMatrix in order to provide an image similar to templateImage, same type as templateImage.</param>
+            /// <param name="templateMask">single-channel 8-bit mask for templateImage indicating valid pixels to be used in the alignment. Must have the same size as templateImage.</param>
+            /// <param name="inputMask">single-channel 8-bit mask for inputImage indicating valid pixels before warping. Must have the same size as inputImage.</param>
+            /// <param name="warpMatrix">floating-point [formula] or [formula] mapping matrix (warp).</param>
+            /// <param name="motionType">parameter, specifying the type of motion: -   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is [formula] with the first [formula] part being the unity matrix and the rest two parameters being estimated. -   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three parameters are estimated; warpMatrix is [formula]. -   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated; warpMatrix is [formula]. -   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are estimated; warpMatrix is [formula].</param>
+            /// <param name="criteria">parameter, specifying the termination criteria of the ECC algorithm; criteria.epsilon defines the threshold of the increment in the correlation coefficient between two iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion). Default values are shown in the declaration above.</param>
+            /// <param name="gaussFiltSize">size of the Gaussian blur filter used for smoothing images and masks before computing the alignment (DEFAULT: 5).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// This function extends findTransformECC() by adding a mask for the template image.
+            /// The Enhanced Correlation Coefficient is evaluated only over pixels that are valid in both images:
+            /// on each iteration inputMask is warped into the template frame and combined with templateMask, and
+            /// only the intersection of these masks contributes to the objective function.
+            /// @sa
+            /// findTransformECC, computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
+            /// </remarks>
+            public static double FindTransformECCWithMask(Mat templateImage, Mat inputImage, Mat templateMask, Mat inputMask, Mat warpMatrix, int motionType, TermCriteria criteria, int gaussFiltSize)
+            {
+                var res = NativeMethods.cv_findTransformECCWithMask_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(templateMask, nameof(templateMask), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, gaussFiltSize);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08. Uses pyramids.
+            /// </summary>
+            /// <param name="reference">Single channel reference image; CV_8U, CV_16U, CV_32F, CV_64F type.</param>
+            /// <param name="sample">sample image which should be warped with the final warpMatrix in order to provide an image similar to reference, same type as reference.</param>
+            /// <param name="warpMatrix">floating-point [formula] or [formula] mapping matrix (warp).</param>
+            /// <param name="eccParams">List of the algorithm parameters. See ECCParameters for details.</param>
+            /// <param name="referenceMask">An optional single channel mask to indicate valid values of reference.</param>
+            /// <param name="sampleMask">An optional single channel mask to indicate valid values of sample. The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (@cite EP08), that is [see mathematical formula in OpenCV docs] where [see mathematical formula in OpenCV docs] (the equation holds with homogeneous coordinates for homography). It returns the final enhanced correlation coefficient, that is the correlation coefficient between the template image and the final warped input image. When a [formula] matrix is given with motionType =0, 1 or 2, the third row is ignored. Unlike findHomography and estimateRigidTransform, the function findTransformECCMultiScale implements an area-based alignment that builds on intensity similarities. In essence, the function updates the initial transformation that roughly aligns the images. If this information is missing, the identity warp (unity matrix) is used as an initialization. Note that if images undergo strong displacements/rotations, an initial transformation that roughly aligns the images is necessary (e.g., a simple euclidean/similarity transform that allows for the images showing the same image content approximately). Use inverse warping in the second image to take an image close to the first one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws an exception if algorithm does not converges. Unlike findTransformECC, the findTransformECCMultiScale uses pyramids, making function more stable and able to handle correctly more sophisticated cases.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @sa
+            /// computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
+            /// </remarks>
+            public static double FindTransformECCMultiScale(Mat reference, Mat sample, Mat warpMatrix, ECCParameters? eccParams, Mat? referenceMask, Mat? sampleMask)
+            {
+                var res = NativeMethods.cv_findTransformECCMultiScale_0(ValidationHelper.GetHandle(reference, nameof(reference), false), ValidationHelper.GetHandle(sample, nameof(sample), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), ValidationHelper.GetHandle(eccParams, nameof(eccParams), true), ValidationHelper.GetHandle(referenceMask, nameof(referenceMask), true), ValidationHelper.GetHandle(sampleMask, nameof(sampleMask), true));
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Read a .flo file
+            /// </summary>
+            /// <param name="path">Path to the file to be loaded The function readOpticalFlow loads a flow field from a file and returns it as a single matrix. Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the flow in the horizontal direction (u), second - vertical (v).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Mat? ReadOpticalFlow(string path)
+            {
+                IntPtr res = NativeMethods.cv_readOpticalFlow_0(path);
+                ErrorHelper.CheckError();
+                return res == IntPtr.Zero ? null : new Mat(res);
+            }
+            /// <summary>
+            /// Write a .flo to disk
+            /// </summary>
+            /// <param name="path">Path to the file to be written</param>
+            /// <param name="flow">Flow field to be stored The function stores a flow field in a file, returns true on success, false otherwise. The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds to the flow in the horizontal direction (u), second - vertical (v).</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static bool WriteOpticalFlow(string path, Mat flow)
+            {
+                var res = NativeMethods.cv_writeOpticalFlow_0(path, ValidationHelper.GetHandle(flow, nameof(flow), false));
+                ErrorHelper.CheckError();
+                return res;
+            }
     }
 }

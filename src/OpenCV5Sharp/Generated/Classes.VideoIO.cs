@@ -30,7 +30,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class VideoCapture : DisposableOpenCVObject
     {
-        internal VideoCapture(IntPtr handle) : base(handle) { }
+        internal VideoCapture(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.VideoCapture_Delete(handle);
@@ -45,7 +45,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// Opens a video file or a capturing device or an IP video stream for video capturing with API Preference
         /// </summary>
         /// <param name="filename">it can be: - name of video file (eg. `video.avi`) - or image sequence (eg. `img_%02d.jpg`, which will read samples like `img_00.jpg, img_01.jpg, img_02.jpg, ...`) - or URL of video stream (eg. `protocol://host:port/script_name?script_params|auth`) - or GStreamer pipeline string in gst-launch tool format in case if GStreamer is used as backend Note that each video stream or IP camera feed has its own URL scheme. Please refer to the documentation of source stream to know the right URL.</param>
@@ -60,10 +60,10 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// Opens a video file or a capturing device or an IP video stream for video capturing with API Preference and parameters
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="params">The @params parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -77,7 +77,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// Opens a camera for video capturing
         /// </summary>
         /// <param name="index">id of the video capturing device to open. To open default camera using default backend just pass 0. (to backward compatibility usage of camera_id + domain_offset (CAP_*) is valid when apiPreference is CAP_ANY)</param>
@@ -92,7 +92,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// Opens a camera for video capturing with API Preference and parameters
         /// </summary>
         /// <param name="index">The index parameter.</param>
@@ -110,13 +110,13 @@ namespace OpenCV5Sharp
         }
         /// <summary>
         /// Opens a video file or a capturing device or an IP video stream for video capturing.
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <returns>`true` if the file has been successfully opened The method first calls VideoCapture::release to close the already opened file or camera.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
-        /// @overload
         /// Parameters are same as the constructor VideoCapture(const String&amp; filename, int apiPreference = CAP_ANY)
         /// </remarks>
         public bool Open(string filename, int apiPreference)
@@ -128,14 +128,14 @@ namespace OpenCV5Sharp
         }
         /// <summary>
         /// Opens a video file or a capturing device or an IP video stream for video capturing with API Preference and parameters
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="params">The @params parameter.</param>
         /// <returns>`true` if the file has been successfully opened The method first calls VideoCapture::release to close the already opened file or camera.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
-        /// @overload
         /// The `params` parameter allows to specify extra parameters encoded as pairs `(paramId_1, paramValue_1, paramId_2, paramValue_2, ...)`.
         /// See cv::VideoCaptureProperties
         /// </remarks>
@@ -148,13 +148,13 @@ namespace OpenCV5Sharp
         }
         /// <summary>
         /// Opens a camera for video capturing
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="index">The index parameter.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <returns>`true` if the camera has been successfully opened. The method first calls VideoCapture::release to close the already opened file or camera.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
-        /// @overload
         /// Parameters are same as the constructor VideoCapture(int index, int apiPreference = CAP_ANY)
         /// </remarks>
         public bool Open(int index, int apiPreference)
@@ -166,6 +166,7 @@ namespace OpenCV5Sharp
         }
         /// <summary>
         /// Opens a camera for video capturing with API Preference and parameters
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="index">The index parameter.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
@@ -173,7 +174,6 @@ namespace OpenCV5Sharp
         /// <returns>`true` if the camera has been successfully opened. The method first calls VideoCapture::release to close the already opened file or camera.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
-        /// @overload
         /// The `params` parameter allows to specify extra parameters encoded as pairs `(paramId_1, paramValue_1, paramId_2, paramValue_2, ...)`.
         /// See cv::VideoCaptureProperties
         /// </remarks>
@@ -230,7 +230,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Decodes and returns the grabbed video frame.
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <param name="flag">it could be a frame index or a driver specific flag</param>
         /// <returns>`false` if no frames has been grabbed The method decodes and returns the just grabbed frame. If no frames has been grabbed (camera has been disconnected, or there are no more frames in video file), the method returns false and the function returns an empty image (with %cv::Mat, test it with Mat::empty()).</returns>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
@@ -249,7 +249,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Grabs, decodes and returns the next video frame.
         /// </summary>
-        /// <param name="image">The image parameter.</param>
+        /// <param name="image">Input image.</param>
         /// <returns>`false` if no frames has been grabbed The method/function combines VideoCapture::grab() and VideoCapture::retrieve() in one call. This is the most convenient method for reading video files or capturing data from decode and returns the just grabbed frame. If no frames has been grabbed (camera has been disconnected, or there are no more frames in video file), the method returns false and the function returns empty image (with %cv::Mat, test it with Mat::empty()).</returns>
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
@@ -336,7 +336,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// No description available.
+        /// OpenCV type (see OpenCV documentation for details).
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -372,7 +372,7 @@ namespace OpenCV5Sharp
     /// </remarks>
     public class VideoWriter : DisposableOpenCVObject
     {
-        internal VideoWriter(IntPtr handle) : base(handle) { }
+        internal VideoWriter(IntPtr handle) : base(handle) {}
         protected override void DisposeUnmanaged(IntPtr handle)
         {
             NativeMethods.VideoWriter_Delete(handle);
@@ -393,7 +393,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
         /// <param name="filename">Name of the output video file.</param>
         /// <param name="fourcc">4-character code of codec used to compress the frames. For example, VideoWriter::fourcc('P','I','M','1') is a MPEG-1 codec, VideoWriter::fourcc('M','J','P','G') is a motion-jpeg codec etc. List of codes can be obtained at [MSDN](https://docs.microsoft.com/en-us/windows/win32/medfound/video-fourccs) page or with this [page](https://fourcc.org/codecs.php) of the fourcc site for a more complete list). FFMPEG backend with MP4 container natively uses other values as fourcc code: see [ObjectType](http://mp4ra.org/#/codecs), so you may receive a warning message from OpenCV about fourcc code conversion.</param>
@@ -407,9 +407,9 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
@@ -426,9 +426,9 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
         /// <param name="frameSize">The frameSize parameter.</param>
@@ -444,9 +444,9 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
@@ -461,7 +461,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes or reinitializes video writer.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
         /// <param name="frameSize">The frameSize parameter.</param>
@@ -480,9 +480,9 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
@@ -498,9 +498,9 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>
         /// <param name="frameSize">The frameSize parameter.</param>
@@ -515,9 +515,9 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// @overload
+        /// This is an overloaded member function, provided for convenience.
         /// </summary>
-        /// <param name="filename">The filename parameter.</param>
+        /// <param name="filename">Path to the file.</param>
         /// <param name="apiPreference">The apiPreference parameter.</param>
         /// <param name="fourcc">The fourcc parameter.</param>
         /// <param name="fps">The fps parameter.</param>

@@ -11,157 +11,157 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-        /// <summary>
-        /// Computes rectification transforms for each head of a calibrated stereo camera.
-        /// </summary>
-        /// <param name="cameraMatrix1">First camera intrinsic matrix.</param>
-        /// <param name="distCoeffs1">First camera distortion parameters.</param>
-        /// <param name="cameraMatrix2">Second camera intrinsic matrix.</param>
-        /// <param name="distCoeffs2">Second camera distortion parameters.</param>
-        /// <param name="imageSize">Size of the image used for stereo calibration.</param>
-        /// <param name="R">Rotation matrix from the coordinate system of the first camera to the second camera, see @ref stereoCalibrate.</param>
-        /// <param name="T">Translation vector from the coordinate system of the first camera to the second camera, see @ref stereoCalibrate.</param>
-        /// <param name="R1">Output 3x3 rectification transform (rotation matrix) for the first camera. This matrix brings points given in the unrectified first camera's coordinate system to points in the rectified first camera's coordinate system. In more technical terms, it performs a change of basis from the unrectified first camera's coordinate system to the rectified first camera's coordinate system.</param>
-        /// <param name="R2">Output 3x3 rectification transform (rotation matrix) for the second camera. This matrix brings points given in the unrectified second camera's coordinate system to points in the rectified second camera's coordinate system. In more technical terms, it performs a change of basis from the unrectified second camera's coordinate system to the rectified second camera's coordinate system.</param>
-        /// <param name="P1">Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera, i.e. it projects points given in the rectified first camera coordinate system into the rectified first camera's image.</param>
-        /// <param name="P2">Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera, i.e. it projects points given in the rectified first camera coordinate system into the rectified second camera's image.</param>
-        /// <param name="Q">Output \f$4 \times 4\f$ disparity-to-depth mapping matrix (see @ref reprojectImageTo3D).</param>
-        /// <param name="flags">Operation flags that may be zero or @ref STEREO_ZERO_DISPARITY . If the flag is set, the function makes the principal points of each camera have the same pixel coordinates in the rectified views. And if the flag is not set, the function may still shift the images in the horizontal or vertical direction (depending on the orientation of epipolar lines) to maximize the useful image area.</param>
-        /// <param name="alpha">Free scaling parameter. If it is -1 or absent, the function performs the default scaling. Otherwise, the parameter should be between 0 and 1. alpha=0 means that the rectified images are zoomed and shifted so that only valid pixels are visible (no black areas after rectification). alpha=1 means that the rectified image is decimated and shifted so that all the pixels from the original images from the cameras are retained in the rectified images (no source image pixels are lost). Any intermediate value yields an intermediate result between those two extreme cases.</param>
-        /// <param name="newImageSize">New image resolution after rectification. The same size should be passed to #initUndistortRectifyMap (see the stereo_calib.cpp sample in OpenCV samples directory). When (0,0) is passed (default), it is set to the original imageSize . Setting it to a larger value can help you preserve details in the original image, especially when there is a big radial distortion.</param>
-        /// <param name="validPixROI1">Optional output rectangles inside the rectified images where all the pixels are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller (see the picture below).</param>
-        /// <param name="validPixROI2">Optional output rectangles inside the rectified images where all the pixels are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller (see the picture below). The function computes the rotation matrices for each camera that (virtually) make both camera image planes the same plane. Consequently, this makes all the epipolar lines parallel and thus simplifies the dense stereo correspondence problem. The function takes the matrices computed by #stereoCalibrate as input. As output, it provides two rotation matrices and also two projection matrices in the new coordinates. The function distinguishes the following two cases: -   **Horizontal stereo**: the first and the second camera views are shifted relative to each other mainly along the x-axis (with possible small vertical shift). In the rectified images, the corresponding epipolar lines in the left and right cameras are horizontal and have the same y-coordinate. P1 and P2 look like: \f[\texttt{P1} = \begin{bmatrix} f &amp; 0 &amp; cx_1 &amp; 0 \\ 0 &amp; f &amp; cy &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix}\f] \f[\texttt{P2} = \begin{bmatrix} f &amp; 0 &amp; cx_2 &amp; T_x \cdot f \\ 0 &amp; f &amp; cy &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix} ,\f] \f[\texttt{Q} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -cx_1 \\ 0 &amp; 1 &amp; 0 &amp; -cy \\ 0 &amp; 0 &amp; 0 &amp; f \\ 0 &amp; 0 &amp; -\frac{1}{T_x} &amp; \frac{cx_1 - cx_2}{T_x} \end{bmatrix} \f] where \f$T_x\f$ is a horizontal shift between the cameras and \f$cx_1=cx_2\f$ if @ref STEREO_ZERO_DISPARITY is set. -   **Vertical stereo**: the first and the second camera views are shifted relative to each other mainly in the vertical direction (and probably a bit in the horizontal direction too). The epipolar lines in the rectified images are vertical and have the same x-coordinate. P1 and P2 look like: \f[\texttt{P1} = \begin{bmatrix} f &amp; 0 &amp; cx &amp; 0 \\ 0 &amp; f &amp; cy_1 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix}\f] \f[\texttt{P2} = \begin{bmatrix} f &amp; 0 &amp; cx &amp; 0 \\ 0 &amp; f &amp; cy_2 &amp; T_y \cdot f \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix},\f] \f[\texttt{Q} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -cx \\ 0 &amp; 1 &amp; 0 &amp; -cy_1 \\ 0 &amp; 0 &amp; 0 &amp; f \\ 0 &amp; 0 &amp; -\frac{1}{T_y} &amp; \frac{cy_1 - cy_2}{T_y} \end{bmatrix} \f] where \f$T_y\f$ is a vertical shift between the cameras and \f$cy_1=cy_2\f$ if @ref STEREO_ZERO_DISPARITY is set. As you can see, the first three columns of P1 and P2 will effectively be the new "rectified" camera matrices. The matrices, together with R1 and R2 , can then be passed to #initUndistortRectifyMap to initialize the rectification map for each camera. See below the screenshot from the stereo_calib.cpp sample. Some red horizontal lines pass through the corresponding image regions. This means that the images are well rectified, which is what most stereo correspondence algorithms rely on. The green rectangles are roi1 and roi2 . You see that their interiors are all valid pixels. ![image](pics/stereo_undistort.jpg)</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void StereoRectify(Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, double alpha, Size newImageSize, IntPtr validPixROI1, IntPtr validPixROI2)
-        {
-            NativeMethods.cv_stereoRectify_0(ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, alpha, newImageSize, validPixROI1, validPixROI2);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Computes a rectification transform for an uncalibrated stereo camera.
-        /// </summary>
-        /// <param name="points1">Array of feature points in the first image.</param>
-        /// <param name="points2">The corresponding points in the second image. The same formats as in #findFundamentalMat are supported.</param>
-        /// <param name="F">Input fundamental matrix. It can be computed from the same set of point pairs using #findFundamentalMat .</param>
-        /// <param name="imgSize">Size of the image.</param>
-        /// <param name="H1">Output rectification homography matrix for the first image.</param>
-        /// <param name="H2">Output rectification homography matrix for the second image.</param>
-        /// <param name="threshold">Optional threshold used to filter out the outliers. If the parameter is greater than zero, all the point pairs that do not comply with the epipolar geometry (that is, the points for which \f$|\texttt{points2[i]}^T \cdot \texttt{F} \cdot \texttt{points1[i]}|&gt;\texttt{threshold}\f$ ) are rejected prior to computing the homographies. Otherwise, all the points are considered inliers. The function computes the rectification transformations without knowing intrinsic parameters of the cameras and their relative position in the space, which explains the suffix "uncalibrated". Another related difference from #stereoRectify is that the function outputs not the rectification transformations in the object (3D) space, but the planar perspective transformations encoded by the homography matrices H1 and H2 . The function implements the algorithm @cite Hartley99 .</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @note
-        /// While the algorithm does not need to know the intrinsic parameters of the cameras, it heavily
-        /// depends on the epipolar geometry. Therefore, if the camera lenses have a significant distortion,
-        /// it would be better to correct it before computing the fundamental matrix and calling this
-        /// function. For example, distortion coefficients can be estimated for each head of stereo camera
-        /// separately by using #calibrateCamera . Then, the images can be corrected using #undistort , or
-        /// just the point coordinates can be corrected with #undistortPoints .
-        /// </remarks>
-        public static bool StereoRectifyUncalibrated(Mat points1, Mat points2, Mat F, Size imgSize, Mat H1, Mat H2, double threshold)
-        {
-            var res = NativeMethods.cv_stereoRectifyUncalibrated_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(F, nameof(F), false), imgSize, ValidationHelper.GetHandle(H1, nameof(H1), false), ValidationHelper.GetHandle(H2, nameof(H2), false), threshold);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// Stereo rectification for fisheye camera model
-        /// </summary>
-        /// <param name="K1">First camera intrinsic matrix.</param>
-        /// <param name="D1">First camera distortion parameters.</param>
-        /// <param name="K2">Second camera intrinsic matrix.</param>
-        /// <param name="D2">Second camera distortion parameters.</param>
-        /// <param name="imageSize">Size of the image used for stereo calibration.</param>
-        /// <param name="R">Rotation matrix between the coordinate systems of the first and the second cameras.</param>
-        /// <param name="tvec">Translation vector between coordinate systems of the cameras.</param>
-        /// <param name="R1">Output 3x3 rectification transform (rotation matrix) for the first camera.</param>
-        /// <param name="R2">Output 3x3 rectification transform (rotation matrix) for the second camera.</param>
-        /// <param name="P1">Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera.</param>
-        /// <param name="P2">Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.</param>
-        /// <param name="Q">Output \f$4 \times 4\f$ disparity-to-depth mapping matrix (see reprojectImageTo3D ).</param>
-        /// <param name="flags">Operation flags that may be zero or @ref cv::CALIB_ZERO_DISPARITY . If the flag is set, the function makes the principal points of each camera have the same pixel coordinates in the rectified views. And if the flag is not set, the function may still shift the images in the horizontal or vertical direction (depending on the orientation of epipolar lines) to maximize the useful image area.</param>
-        /// <param name="newImageSize">New image resolution after rectification. The same size should be passed to #initUndistortRectifyMap (see the stereo_calib.cpp sample in OpenCV samples directory). When (0,0) is passed (default), it is set to the original imageSize . Setting it to larger value can help you preserve details in the original image, especially when there is a big radial distortion.</param>
-        /// <param name="balance">Sets the new focal length in range between the min focal length and the max focal length. Balance is in range of [0, 1].</param>
-        /// <param name="fov_scale">Divisor for new focal length.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FisheyeStereoRectify(Mat K1, Mat D1, Mat K2, Mat D2, Size imageSize, Mat R, Mat tvec, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, Size newImageSize, double balance, double fov_scale)
-        {
-            NativeMethods.cv_fisheye_stereoRectify_0(ValidationHelper.GetHandle(K1, nameof(K1), false), ValidationHelper.GetHandle(D1, nameof(D1), false), ValidationHelper.GetHandle(K2, nameof(K2), false), ValidationHelper.GetHandle(D2, nameof(D2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, newImageSize, balance, fov_scale);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Filters off small noise blobs (speckles) in the disparity map
-        /// </summary>
-        /// <param name="img">The input 16-bit signed disparity image</param>
-        /// <param name="newVal">The disparity value used to paint-off the speckles</param>
-        /// <param name="maxSpeckleSize">The maximum speckle size to consider it a speckle. Larger blobs are not affected by the algorithm</param>
-        /// <param name="maxDiff">Maximum difference between neighbor disparity pixels to put them into the same blob. Note that since StereoBM, StereoSGBM and may be other algorithms return a fixed-point disparity map, where disparity values are multiplied by 16, this scale factor should be taken into account when specifying this parameter value.</param>
-        /// <param name="buf">The optional temporary buffer to avoid memory allocation within the function.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void FilterSpeckles(Mat img, double newVal, int maxSpeckleSize, double maxDiff, Mat? buf)
-        {
-            NativeMethods.cv_filterSpeckles_0(ValidationHelper.GetHandle(img, nameof(img), false), newVal, maxSpeckleSize, maxDiff, ValidationHelper.GetHandle(buf, nameof(buf), true));
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="roi1">The roi1 parameter.</param>
-        /// <param name="roi2">The roi2 parameter.</param>
-        /// <param name="minDisparity">The minDisparity parameter.</param>
-        /// <param name="numberOfDisparities">The numberOfDisparities parameter.</param>
-        /// <param name="blockSize">The blockSize parameter.</param>
-        /// <returns>The returned value.</returns>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Rect GetValidDisparityROI(Rect roi1, Rect roi2, int minDisparity, int numberOfDisparities, int blockSize)
-        {
-            var res = NativeMethods.cv_getValidDisparityROI_0(roi1, roi2, minDisparity, numberOfDisparities, blockSize);
-            ErrorHelper.CheckError();
-            return res;
-        }
-        /// <summary>
-        /// No description available.
-        /// </summary>
-        /// <param name="disparity">The disparity parameter.</param>
-        /// <param name="cost">The cost parameter.</param>
-        /// <param name="minDisparity">The minDisparity parameter.</param>
-        /// <param name="numberOfDisparities">The numberOfDisparities parameter.</param>
-        /// <param name="disp12MaxDisp">The disp12MaxDisp parameter.</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static void ValidateDisparity(Mat disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp)
-        {
-            NativeMethods.cv_validateDisparity_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(cost, nameof(cost), false), minDisparity, numberOfDisparities, disp12MaxDisp);
-            ErrorHelper.CheckError();
-        }
-        /// <summary>
-        /// Reprojects a disparity image to 3D space.
-        /// </summary>
-        /// <param name="disparity">Input single-channel 8-bit unsigned, 16-bit signed, 32-bit signed or 32-bit floating-point disparity image. The values of 8-bit / 16-bit signed formats are assumed to have no fractional bits. If the disparity is 16-bit signed format, as computed by @ref StereoBM or @ref StereoSGBM and maybe other algorithms, it should be divided by 16 (and scaled to float) before being used here.</param>
-        /// <param name="_3dImage">Output 3-channel floating-point image of the same size as disparity. Each element of _3dImage(x,y) contains 3D coordinates of the point (x,y) computed from the disparity map. If one uses Q obtained by @ref stereoRectify, then the returned points are represented in the first camera's rectified coordinate system.</param>
-        /// <param name="Q">\f$4 \times 4\f$ perspective transformation matrix that can be obtained with @ref stereoRectify.</param>
-        /// <param name="handleMissingValues">Indicates, whether the function should handle missing values (i.e. points where the disparity was not computed). If handleMissingValues=true, then pixels with the minimal disparity that corresponds to the outliers (see StereoMatcher::compute ) are transformed to 3D points with a very large Z value (currently set to 10000).</param>
-        /// <param name="ddepth">The optional output array depth. If it is -1, the output image will have CV_32F depth. ddepth can also be set to CV_16S, CV_32S or CV_32F. The function transforms a single-channel disparity map to a 3-channel image representing a 3D surface. That is, for each pixel (x,y) and the corresponding disparity d=disparity(x,y) , it computes: \f[\begin{bmatrix} X \\ Y \\ Z \\ W \end{bmatrix} = Q \begin{bmatrix} x \\ y \\ \texttt{disparity} (x,y) \\ 1 \end{bmatrix}.\f]</param>
-        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        /// <remarks>
-        /// @sa
-        /// To reproject a sparse set of points {(x,y,d),...} to 3D space, use perspectiveTransform.
-        /// </remarks>
-        public static void ReprojectImageTo3D(Mat disparity, Mat _3dImage, Mat Q, bool handleMissingValues, int ddepth)
-        {
-            NativeMethods.cv_reprojectImageTo3D_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(_3dImage, nameof(_3dImage), false), ValidationHelper.GetHandle(Q, nameof(Q), false), handleMissingValues, ddepth);
-            ErrorHelper.CheckError();
-        }
+            /// <summary>
+            /// Computes rectification transforms for each head of a calibrated stereo camera.
+            /// </summary>
+            /// <param name="cameraMatrix1">First camera intrinsic matrix.</param>
+            /// <param name="distCoeffs1">First camera distortion parameters.</param>
+            /// <param name="cameraMatrix2">Second camera intrinsic matrix.</param>
+            /// <param name="distCoeffs2">Second camera distortion parameters.</param>
+            /// <param name="imageSize">Size of the image used for stereo calibration.</param>
+            /// <param name="R">Rotation matrix from the coordinate system of the first camera to the second camera, see @ref stereoCalibrate.</param>
+            /// <param name="T">Translation vector from the coordinate system of the first camera to the second camera, see @ref stereoCalibrate.</param>
+            /// <param name="R1">Output 3x3 rectification transform (rotation matrix) for the first camera. This matrix brings points given in the unrectified first camera's coordinate system to points in the rectified first camera's coordinate system. In more technical terms, it performs a change of basis from the unrectified first camera's coordinate system to the rectified first camera's coordinate system.</param>
+            /// <param name="R2">Output 3x3 rectification transform (rotation matrix) for the second camera. This matrix brings points given in the unrectified second camera's coordinate system to points in the rectified second camera's coordinate system. In more technical terms, it performs a change of basis from the unrectified second camera's coordinate system to the rectified second camera's coordinate system.</param>
+            /// <param name="P1">Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera, i.e. it projects points given in the rectified first camera coordinate system into the rectified first camera's image.</param>
+            /// <param name="P2">Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera, i.e. it projects points given in the rectified first camera coordinate system into the rectified second camera's image.</param>
+            /// <param name="Q">Output [formula] disparity-to-depth mapping matrix (see @ref reprojectImageTo3D).</param>
+            /// <param name="flags">Operation flags that may be zero or @ref STEREO_ZERO_DISPARITY . If the flag is set, the function makes the principal points of each camera have the same pixel coordinates in the rectified views. And if the flag is not set, the function may still shift the images in the horizontal or vertical direction (depending on the orientation of epipolar lines) to maximize the useful image area.</param>
+            /// <param name="alpha">Free scaling parameter. If it is -1 or absent, the function performs the default scaling. Otherwise, the parameter should be between 0 and 1. alpha=0 means that the rectified images are zoomed and shifted so that only valid pixels are visible (no black areas after rectification). alpha=1 means that the rectified image is decimated and shifted so that all the pixels from the original images from the cameras are retained in the rectified images (no source image pixels are lost). Any intermediate value yields an intermediate result between those two extreme cases.</param>
+            /// <param name="newImageSize">New image resolution after rectification. The same size should be passed to #initUndistortRectifyMap (see the stereo_calib.cpp sample in OpenCV samples directory). When (0,0) is passed (default), it is set to the original imageSize . Setting it to a larger value can help you preserve details in the original image, especially when there is a big radial distortion.</param>
+            /// <param name="validPixROI1">Optional output rectangles inside the rectified images where all the pixels are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller (see the picture below).</param>
+            /// <param name="validPixROI2">Optional output rectangles inside the rectified images where all the pixels are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller (see the picture below). The function computes the rotation matrices for each camera that (virtually) make both camera image planes the same plane. Consequently, this makes all the epipolar lines parallel and thus simplifies the dense stereo correspondence problem. The function takes the matrices computed by #stereoCalibrate as input. As output, it provides two rotation matrices and also two projection matrices in the new coordinates. The function distinguishes the following two cases: -   **Horizontal stereo**: the first and the second camera views are shifted relative to each other mainly along the x-axis (with possible small vertical shift). In the rectified images, the corresponding epipolar lines in the left and right cameras are horizontal and have the same y-coordinate. P1 and P2 look like: \f[\texttt{P1} = \begin{bmatrix} f &amp; 0 &amp; cx_1 &amp; 0 \\ 0 &amp; f &amp; cy &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix}\f] \f[\texttt{P2} = \begin{bmatrix} f &amp; 0 &amp; cx_2 &amp; T_x \cdot f \\ 0 &amp; f &amp; cy &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix} ,\f] \f[\texttt{Q} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -cx_1 \\ 0 &amp; 1 &amp; 0 &amp; -cy \\ 0 &amp; 0 &amp; 0 &amp; f \\ 0 &amp; 0 &amp; -\frac{1}{T_x} &amp; \frac{cx_1 - cx_2}{T_x} \end{bmatrix} \f] where [formula] is a horizontal shift between the cameras and [formula] if @ref STEREO_ZERO_DISPARITY is set. -   **Vertical stereo**: the first and the second camera views are shifted relative to each other mainly in the vertical direction (and probably a bit in the horizontal direction too). The epipolar lines in the rectified images are vertical and have the same x-coordinate. P1 and P2 look like: \f[\texttt{P1} = \begin{bmatrix} f &amp; 0 &amp; cx &amp; 0 \\ 0 &amp; f &amp; cy_1 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix}\f] \f[\texttt{P2} = \begin{bmatrix} f &amp; 0 &amp; cx &amp; 0 \\ 0 &amp; f &amp; cy_2 &amp; T_y \cdot f \\ 0 &amp; 0 &amp; 1 &amp; 0 \end{bmatrix},\f] \f[\texttt{Q} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; -cx \\ 0 &amp; 1 &amp; 0 &amp; -cy_1 \\ 0 &amp; 0 &amp; 0 &amp; f \\ 0 &amp; 0 &amp; -\frac{1}{T_y} &amp; \frac{cy_1 - cy_2}{T_y} \end{bmatrix} \f] where [formula] is a vertical shift between the cameras and [formula] if @ref STEREO_ZERO_DISPARITY is set. As you can see, the first three columns of P1 and P2 will effectively be the new "rectified" camera matrices. The matrices, together with R1 and R2 , can then be passed to #initUndistortRectifyMap to initialize the rectification map for each camera. See below the screenshot from the stereo_calib.cpp sample. Some red horizontal lines pass through the corresponding image regions. This means that the images are well rectified, which is what most stereo correspondence algorithms rely on. The green rectangles are roi1 and roi2 . You see that their interiors are all valid pixels. ![image](pics/stereo_undistort.jpg)</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void StereoRectify(Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, double alpha, Size newImageSize, IntPtr validPixROI1, IntPtr validPixROI2)
+            {
+                NativeMethods.cv_stereoRectify_0(ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, alpha, newImageSize, validPixROI1, validPixROI2);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Computes a rectification transform for an uncalibrated stereo camera.
+            /// </summary>
+            /// <param name="points1">Array of feature points in the first image.</param>
+            /// <param name="points2">The corresponding points in the second image. The same formats as in #findFundamentalMat are supported.</param>
+            /// <param name="F">Input fundamental matrix. It can be computed from the same set of point pairs using #findFundamentalMat .</param>
+            /// <param name="imgSize">Size of the image.</param>
+            /// <param name="H1">Output rectification homography matrix for the first image.</param>
+            /// <param name="H2">Output rectification homography matrix for the second image.</param>
+            /// <param name="threshold">Optional threshold used to filter out the outliers. If the parameter is greater than zero, all the point pairs that do not comply with the epipolar geometry (that is, the points for which [formula] ) are rejected prior to computing the homographies. Otherwise, all the points are considered inliers. The function computes the rectification transformations without knowing intrinsic parameters of the cameras and their relative position in the space, which explains the suffix "uncalibrated". Another related difference from #stereoRectify is that the function outputs not the rectification transformations in the object (3D) space, but the planar perspective transformations encoded by the homography matrices H1 and H2 . The function implements the algorithm @cite Hartley99 .</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @note
+            /// While the algorithm does not need to know the intrinsic parameters of the cameras, it heavily
+            /// depends on the epipolar geometry. Therefore, if the camera lenses have a significant distortion,
+            /// it would be better to correct it before computing the fundamental matrix and calling this
+            /// function. For example, distortion coefficients can be estimated for each head of stereo camera
+            /// separately by using #calibrateCamera . Then, the images can be corrected using #undistort , or
+            /// just the point coordinates can be corrected with #undistortPoints .
+            /// </remarks>
+            public static bool StereoRectifyUncalibrated(Mat points1, Mat points2, Mat F, Size imgSize, Mat H1, Mat H2, double threshold)
+            {
+                var res = NativeMethods.cv_stereoRectifyUncalibrated_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(F, nameof(F), false), imgSize, ValidationHelper.GetHandle(H1, nameof(H1), false), ValidationHelper.GetHandle(H2, nameof(H2), false), threshold);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// Stereo rectification for fisheye camera model
+            /// </summary>
+            /// <param name="K1">First camera intrinsic matrix.</param>
+            /// <param name="D1">First camera distortion parameters.</param>
+            /// <param name="K2">Second camera intrinsic matrix.</param>
+            /// <param name="D2">Second camera distortion parameters.</param>
+            /// <param name="imageSize">Size of the image used for stereo calibration.</param>
+            /// <param name="R">Rotation matrix between the coordinate systems of the first and the second cameras.</param>
+            /// <param name="tvec">Translation vector between coordinate systems of the cameras.</param>
+            /// <param name="R1">Output 3x3 rectification transform (rotation matrix) for the first camera.</param>
+            /// <param name="R2">Output 3x3 rectification transform (rotation matrix) for the second camera.</param>
+            /// <param name="P1">Output 3x4 projection matrix in the new (rectified) coordinate systems for the first camera.</param>
+            /// <param name="P2">Output 3x4 projection matrix in the new (rectified) coordinate systems for the second camera.</param>
+            /// <param name="Q">Output [formula] disparity-to-depth mapping matrix (see reprojectImageTo3D ).</param>
+            /// <param name="flags">Operation flags that may be zero or @ref cv::CALIB_ZERO_DISPARITY . If the flag is set, the function makes the principal points of each camera have the same pixel coordinates in the rectified views. And if the flag is not set, the function may still shift the images in the horizontal or vertical direction (depending on the orientation of epipolar lines) to maximize the useful image area.</param>
+            /// <param name="newImageSize">New image resolution after rectification. The same size should be passed to #initUndistortRectifyMap (see the stereo_calib.cpp sample in OpenCV samples directory). When (0,0) is passed (default), it is set to the original imageSize . Setting it to larger value can help you preserve details in the original image, especially when there is a big radial distortion.</param>
+            /// <param name="balance">Sets the new focal length in range between the min focal length and the max focal length. Balance is in range of [0, 1].</param>
+            /// <param name="fov_scale">Divisor for new focal length.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FisheyeStereoRectify(Mat K1, Mat D1, Mat K2, Mat D2, Size imageSize, Mat R, Mat tvec, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, Size newImageSize, double balance, double fov_scale)
+            {
+                NativeMethods.cv_fisheye_stereoRectify_0(ValidationHelper.GetHandle(K1, nameof(K1), false), ValidationHelper.GetHandle(D1, nameof(D1), false), ValidationHelper.GetHandle(K2, nameof(K2), false), ValidationHelper.GetHandle(D2, nameof(D2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, newImageSize, balance, fov_scale);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Filters off small noise blobs (speckles) in the disparity map
+            /// </summary>
+            /// <param name="img">The input 16-bit signed disparity image</param>
+            /// <param name="newVal">The disparity value used to paint-off the speckles</param>
+            /// <param name="maxSpeckleSize">The maximum speckle size to consider it a speckle. Larger blobs are not affected by the algorithm</param>
+            /// <param name="maxDiff">Maximum difference between neighbor disparity pixels to put them into the same blob. Note that since StereoBM, StereoSGBM and may be other algorithms return a fixed-point disparity map, where disparity values are multiplied by 16, this scale factor should be taken into account when specifying this parameter value.</param>
+            /// <param name="buf">The optional temporary buffer to avoid memory allocation within the function.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void FilterSpeckles(Mat img, double newVal, int maxSpeckleSize, double maxDiff, Mat? buf)
+            {
+                NativeMethods.cv_filterSpeckles_0(ValidationHelper.GetHandle(img, nameof(img), false), newVal, maxSpeckleSize, maxDiff, ValidationHelper.GetHandle(buf, nameof(buf), true));
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="roi1">The roi1 parameter.</param>
+            /// <param name="roi2">The roi2 parameter.</param>
+            /// <param name="minDisparity">The minDisparity parameter.</param>
+            /// <param name="numberOfDisparities">The numberOfDisparities parameter.</param>
+            /// <param name="blockSize">The blockSize parameter.</param>
+            /// <returns>The returned value.</returns>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static Rect GetValidDisparityROI(Rect roi1, Rect roi2, int minDisparity, int numberOfDisparities, int blockSize)
+            {
+                var res = NativeMethods.cv_getValidDisparityROI_0(roi1, roi2, minDisparity, numberOfDisparities, blockSize);
+                ErrorHelper.CheckError();
+                return res;
+            }
+            /// <summary>
+            /// OpenCV type (see OpenCV documentation for details).
+            /// </summary>
+            /// <param name="disparity">The disparity parameter.</param>
+            /// <param name="cost">The cost parameter.</param>
+            /// <param name="minDisparity">The minDisparity parameter.</param>
+            /// <param name="numberOfDisparities">The numberOfDisparities parameter.</param>
+            /// <param name="disp12MaxDisp">The disp12MaxDisp parameter.</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            public static void ValidateDisparity(Mat disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp)
+            {
+                NativeMethods.cv_validateDisparity_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(cost, nameof(cost), false), minDisparity, numberOfDisparities, disp12MaxDisp);
+                ErrorHelper.CheckError();
+            }
+            /// <summary>
+            /// Reprojects a disparity image to 3D space.
+            /// </summary>
+            /// <param name="disparity">Input single-channel 8-bit unsigned, 16-bit signed, 32-bit signed or 32-bit floating-point disparity image. The values of 8-bit / 16-bit signed formats are assumed to have no fractional bits. If the disparity is 16-bit signed format, as computed by @ref StereoBM or @ref StereoSGBM and maybe other algorithms, it should be divided by 16 (and scaled to float) before being used here.</param>
+            /// <param name="_3dImage">Output 3-channel floating-point image of the same size as disparity. Each element of _3dImage(x,y) contains 3D coordinates of the point (x,y) computed from the disparity map. If one uses Q obtained by @ref stereoRectify, then the returned points are represented in the first camera's rectified coordinate system.</param>
+            /// <param name="Q">[formula] perspective transformation matrix that can be obtained with @ref stereoRectify.</param>
+            /// <param name="handleMissingValues">Indicates, whether the function should handle missing values (i.e. points where the disparity was not computed). If handleMissingValues=true, then pixels with the minimal disparity that corresponds to the outliers (see StereoMatcher::compute ) are transformed to 3D points with a very large Z value (currently set to 10000).</param>
+            /// <param name="ddepth">The optional output array depth. If it is -1, the output image will have CV_32F depth. ddepth can also be set to CV_16S, CV_32S or CV_32F. The function transforms a single-channel disparity map to a 3-channel image representing a 3D surface. That is, for each pixel (x,y) and the corresponding disparity d=disparity(x,y) , it computes: \f[\begin{bmatrix} X \\ Y \\ Z \\ W \end{bmatrix} = Q \begin{bmatrix} x \\ y \\ \texttt{disparity} (x,y) \\ 1 \end{bmatrix}.\f]</param>
+            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+            /// <remarks>
+            /// @sa
+            /// To reproject a sparse set of points {(x,y,d),...} to 3D space, use perspectiveTransform.
+            /// </remarks>
+            public static void ReprojectImageTo3D(Mat disparity, Mat _3dImage, Mat Q, bool handleMissingValues, int ddepth)
+            {
+                NativeMethods.cv_reprojectImageTo3D_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(_3dImage, nameof(_3dImage), false), ValidationHelper.GetHandle(Q, nameof(Q), false), handleMissingValues, ddepth);
+                ErrorHelper.CheckError();
+            }
     }
 }

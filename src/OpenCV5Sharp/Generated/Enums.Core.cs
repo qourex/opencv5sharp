@@ -7,27 +7,25 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum AccessFlag : int
     {
         /// <summary>Read</summary>
-        Read = unchecked((int)(1 << 24)),
+        Read = unchecked((int)(1<<24)),
         /// <summary>Write</summary>
-        Write = unchecked((int)(1 << 25)),
+        Write = unchecked((int)(1<<25)),
         /// <summary>Rw</summary>
-        Rw = unchecked((int)(3 << 24)),
+        Rw = unchecked((int)(3<<24)),
         /// <summary>Mask</summary>
         Mask = unchecked((int)(Rw)),
         /// <summary>Fast</summary>
-        Fast = unchecked((int)(1 << 26)),
+        Fast = unchecked((int)(1<<26)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum AlgorithmHint : int
     {
         /// <summary>Default</summary>
@@ -39,9 +37,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum BorderTypes : int
     {
         /// <summary>Constant</summary>
@@ -63,9 +60,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CmpTypes : int
     {
         /// <summary>Eq</summary>
@@ -83,9 +79,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CovarFlags : int
     {
         /// <summary>Scrambled</summary>
@@ -103,9 +98,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DataLayout : int
     {
         /// <summary>DataLayoutUnknown</summary>
@@ -143,9 +137,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DecompTypes : int
     {
         /// <summary>Lu</summary>
@@ -163,9 +156,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DftFlags : int
     {
         /// <summary>DftInverse</summary>
@@ -187,9 +179,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum ErrorCode : int
     {
         /// <summary>StsOk</summary>
@@ -305,9 +296,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum3FileNode : int
     {
         /// <summary>None</summary>
@@ -339,9 +329,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FileStorageMode : int
     {
         /// <summary>Read</summary>
@@ -353,17 +342,17 @@ namespace OpenCV5Sharp
         /// <summary>Memory</summary>
         Memory = 4,
         /// <summary>FormatMask</summary>
-        FormatMask = unchecked((int)(7 << 3)),
+        FormatMask = unchecked((int)(7<<3)),
         /// <summary>FormatAuto</summary>
         FormatAuto = 0,
         /// <summary>FormatXml</summary>
-        FormatXml = unchecked((int)(1 << 3)),
+        FormatXml = unchecked((int)(1<<3)),
         /// <summary>FormatYaml</summary>
-        FormatYaml = unchecked((int)(2 << 3)),
+        FormatYaml = unchecked((int)(2<<3)),
         /// <summary>FormatJson</summary>
-        FormatJson = unchecked((int)(3 << 3)),
+        FormatJson = unchecked((int)(3<<3)),
         /// <summary>FormatYaml10</summary>
-        FormatYaml10 = unchecked((int)(4 << 3)),
+        FormatYaml10 = unchecked((int)(4<<3)),
         /// <summary>Base64</summary>
         Base64 = 64,
         /// <summary>WriteBase64</summary>
@@ -371,9 +360,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FileStorageState : int
     {
         /// <summary>Undefined</summary>
@@ -387,9 +375,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum FormatterFormatType : int
     {
         /// <summary>Default</summary>
@@ -407,9 +394,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum GemmFlags : int
     {
         /// <summary>_1T</summary>
@@ -421,9 +407,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum KmeansFlags : int
     {
         /// <summary>RandomCenters</summary>
@@ -435,9 +420,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum4Mat : int
     {
         /// <summary>MagicMask</summary>
@@ -449,9 +433,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum5MatShape : int
     {
         /// <summary>MaxDims</summary>
@@ -459,9 +442,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum NormTypes : int
     {
         /// <summary>Inf</summary>
@@ -485,9 +467,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum PcaFlags : int
     {
         /// <summary>DataAsRow</summary>
@@ -499,9 +480,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum Param : int
     {
         /// <summary>Int</summary>
@@ -531,9 +511,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum QuatAssumeType : int
     {
         /// <summary>NotUnit</summary>
@@ -543,9 +522,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum QuatEnumEulerAnglesType : int
     {
         /// <summary>IntXyz</summary>
@@ -601,9 +579,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum6Rng : int
     {
         /// <summary>Uniform</summary>
@@ -613,9 +590,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum ReduceTypes : int
     {
         /// <summary>Sum</summary>
@@ -631,9 +607,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum RotateFlags : int
     {
         /// <summary>_90Clockwise</summary>
@@ -645,9 +620,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum SvdFlags : int
     {
         /// <summary>ModifyA</summary>
@@ -659,9 +633,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum SolveLPResult : int
     {
         /// <summary>Lost</summary>
@@ -677,9 +650,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum SortFlags : int
     {
         /// <summary>EveryRow</summary>
@@ -693,9 +665,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum7SparseMat : int
     {
         /// <summary>MagicVal</summary>
@@ -709,9 +680,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum TermCriteriaType : int
     {
         /// <summary>Count</summary>
@@ -723,9 +693,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum12UMat : int
     {
         /// <summary>MagicMask</summary>
@@ -737,9 +706,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UMatDataMemoryFlag : int
     {
         /// <summary>CopyOnMap</summary>
@@ -761,9 +729,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UMatUsageFlags : int
     {
         /// <summary>UsageDefault</summary>
@@ -779,9 +746,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum InputArrayKindFlag : int
     {
         /// <summary>KindShift</summary>
@@ -827,9 +793,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OutputArrayDepthMask : int
     {
         /// <summary>_8u</summary>
@@ -859,7 +824,7 @@ namespace OpenCV5Sharp
         /// <summary>_32u</summary>
         _32u = unchecked((int)(1 << 12)),
         /// <summary>All</summary>
-        All = unchecked((int)(1 << 13 - 1)),
+        All = unchecked((int)(1 << 13-1)),
         /// <summary>AllBut8s</summary>
         AllBut8s = unchecked((int)(All & ~_8s)),
         /// <summary>All16f</summary>
@@ -869,9 +834,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CudaDeviceInfoComputeMode : int
     {
         /// <summary>ComputeModeDefault</summary>
@@ -885,9 +849,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CudaEventCreateFlags : int
     {
         /// <summary>Default</summary>
@@ -901,9 +864,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CudaFeatureSet : int
     {
         /// <summary>FeatureSetCompute10</summary>
@@ -939,9 +901,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum CudaHostMemAllocType : int
     {
         /// <summary>PageLocked</summary>
@@ -953,9 +914,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum DetailTestOp : int
     {
         /// <summary>Custom</summary>
@@ -975,9 +935,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum InstrFlags : int
     {
         /// <summary>None</summary>
@@ -989,39 +948,36 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum InstrImpl : int
     {
         /// <summary>Plain</summary>
         Plain = 0,
         /// <summary>Ipp</summary>
-        Ipp = unchecked((int)(0 + 1)),
+        Ipp = unchecked((int)(0+1)),
         /// <summary>Opencl</summary>
-        Opencl = unchecked((int)(0 + 2)),
+        Opencl = unchecked((int)(0+2)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum InstrType : int
     {
         /// <summary>General</summary>
         General = 0,
         /// <summary>Marker</summary>
-        Marker = unchecked((int)(0 + 1)),
+        Marker = unchecked((int)(0+1)),
         /// <summary>Wrapper</summary>
-        Wrapper = unchecked((int)(0 + 2)),
+        Wrapper = unchecked((int)(0+2)),
         /// <summary>Fun</summary>
-        Fun = unchecked((int)(0 + 3)),
+        Fun = unchecked((int)(0+3)),
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum17OclDevice : int
     {
         /// <summary>UnknownVendor</summary>
@@ -1035,9 +991,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UnnamedEnum18OclKernelArg : int
     {
         /// <summary>Local</summary>
@@ -1057,9 +1012,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OclOclVectorStrategy : int
     {
         /// <summary>Own</summary>
@@ -1071,9 +1025,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OglBufferAccess : int
     {
         /// <summary>ReadOnly</summary>
@@ -1085,9 +1038,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OglBufferTarget : int
     {
         /// <summary>ArrayBuffer</summary>
@@ -1101,9 +1053,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OglRenderModes : int
     {
         /// <summary>Points</summary>
@@ -1129,9 +1080,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum OglTexture2DFormat : int
     {
         /// <summary>None</summary>
@@ -1145,9 +1095,8 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// No description available.
+    /// OpenCV type (see OpenCV documentation for details).
     /// </summary>
-    /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public enum UtilsLoggingLogLevel : int
     {
         /// <summary>LogLevelSilent</summary>

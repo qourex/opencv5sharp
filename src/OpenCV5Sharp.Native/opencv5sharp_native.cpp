@@ -14,6 +14,7 @@ static void _setError(int code, const char* msg) {
 static void _clearError() { _lastError[0] = 0; _lastErrorCode = 0; }
 extern "C" __declspec(dllexport) const char* opencv5sharp_getLastError() { return _lastError; }
 extern "C" __declspec(dllexport) int opencv5sharp_getLastErrorCode() { return _lastErrorCode; }
+extern "C" __declspec(dllexport) void opencv5sharp_clearLastError() { _clearError(); }
 extern "C" __declspec(dllexport) void cv_FreeString(char* ptr) { free(ptr); }
 extern "C" __declspec(dllexport) void cv_VectorInt_Delete(void* ptr) { delete (std::vector<int>*)ptr; }
 extern "C" __declspec(dllexport) int cv_VectorInt_Size(void* ptr) { return ptr ? (int)((std::vector<int>*)ptr)->size() : 0; }

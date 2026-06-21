@@ -71,6 +71,7 @@ namespace OpenCV5Sharp
                 {
                     message = System.Runtime.InteropServices.Marshal.PtrToStringUTF8(errPtr) ?? "Unknown native error";
                 }
+                NativeMethods.opencv5sharp_clearLastError();
                 throw new OpenCVException(message, code);
             }
         }
