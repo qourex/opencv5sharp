@@ -7,7 +7,7 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum UnnamedEnum19CvtestTs : int
     {
@@ -34,7 +34,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum CvtestTsFailureCode : int
     {
@@ -75,7 +75,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum PerfPerfStrategy : int
     {

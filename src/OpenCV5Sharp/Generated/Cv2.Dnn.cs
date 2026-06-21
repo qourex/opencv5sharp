@@ -12,7 +12,7 @@ namespace OpenCV5Sharp
     public static partial class Cv2
     {
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="be">The be parameter.</param>
         /// <returns>The returned value.</returns>

@@ -7,7 +7,7 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum OdometryAlgoType : int
     {
@@ -18,7 +18,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum OdometryFramePyramidType : int
     {
@@ -45,7 +45,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum OdometryType : int
     {
@@ -58,7 +58,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum RgbdNormalsRgbdNormalsMethod : int
     {
@@ -73,7 +73,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum RgbdPlaneMethod : int
     {
@@ -82,7 +82,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum TriangleCullingMode : int
     {
@@ -95,7 +95,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum TriangleGlCompatibleMode : int
     {
@@ -106,7 +106,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum TriangleShadingType : int
     {
@@ -119,7 +119,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum VolumeBoundingBoxPrecision : int
     {
@@ -130,7 +130,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum VolumeType : int
     {

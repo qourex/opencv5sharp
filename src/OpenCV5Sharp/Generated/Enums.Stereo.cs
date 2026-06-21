@@ -7,7 +7,7 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum UnnamedEnum8StereoBM : int
     {
@@ -18,7 +18,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum UnnamedEnum9StereoMatcher : int
     {
@@ -29,7 +29,7 @@ namespace OpenCV5Sharp
     }
 
     /// <summary>
-    /// OpenCV type (see OpenCV documentation for details).
+    /// Wrapper for OpenCV's native functionality.
     /// </summary>
     public enum UnnamedEnum10StereoSGBM : int
     {

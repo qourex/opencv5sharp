@@ -27,39 +27,22 @@ If you discover a security vulnerability in OpenCV5Sharp, please report it respo
 
 ### Response Timeline
 
-- **Acknowledgment**: Within 48 hours
-- **Initial assessment**: Within 5 business days
-- **Fix timeline**: Depends on severity
-  - Critical: 7 days
-  - High: 14 days
-  - Medium: 30 days
-  - Low: Next release
+We are a small open-source team. We aim to acknowledge vulnerability reports within 48 hours and will work as quickly as we can to release patches for confirmed issues.
 
 ### Scope
 
-Security issues in scope include:
+We actively track security concerns related to:
+- Memory safety in the C# wrapper and unmanaged boundaries
+- DLL loading hazards (DLL hijacking risks)
+- Native integration buffer overflows or resource leaks
 
-- Memory safety vulnerabilities in the managed wrapper
-- DLL hijacking or loading vulnerabilities
-- Native code buffer overflows or crashes
-- Input validation bypasses
-- Denial of service through resource exhaustion
-
-### Out of Scope
-
-- Vulnerabilities in upstream OpenCV (report to [OpenCV](https://github.com/opencv/opencv/security))
-- Vulnerabilities in upstream FFmpeg (report to [FFmpeg](https://ffmpeg.org/security.html))
-
-### Recognition
-
-We acknowledge security researchers who responsibly disclose vulnerabilities in our release notes.
+Issues in upstream OpenCV or FFmpeg should be reported directly to their respective security channels.
 
 ## Security Best Practices
 
-When using OpenCV5Sharp in your application:
+To keep your applications secure when using OpenCV5Sharp:
+1. **Manage resource lifecycles**: Always call `Dispose()` or use C# `using` blocks on `Mat` and other disposable types to prevent memory leaks and resource exhaustion.
+2. **Validate input data**: Ensure image sizes, file paths, and stream inputs are validated before passing them to the API.
+3. **Keep package updated**: Apply updates regularly to receive the latest security fixes.
+4. **DLL Hijacking Mitigation**: The library restricts P/Invoke searches to prevent loading arbitrary DLLs from untrusted paths (mitigating CWE-426).
 
-1. **Always dispose** `Mat` and other `IDisposable` objects to prevent memory leaks
-2. **Validate inputs** before passing to OpenCV methods (image dimensions, file paths)
-3. **Keep updated** to the latest version for security patches
-4. The library uses `DefaultDllImportSearchPaths` to prevent DLL hijacking (CWE-426)
-5. Native binaries include ASLR (`/DYNAMICBASE`), DEP (`/NXCOMPAT`), and CFG (`/guard:cf`) protections

@@ -50,7 +50,7 @@ namespace OpenCV5Sharp
             ErrorHelper.CheckError();
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="image">Input image.</param>
         /// <param name="corners">The corners parameter.</param>

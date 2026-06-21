@@ -1127,7 +1127,7 @@ namespace OpenCV5Sharp
             return res;
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="objectPoints">The objectPoints parameter.</param>
         /// <param name="imagePoints">The imagePoints parameter.</param>
@@ -1436,7 +1436,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Mat(res);
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="points1">The points1 parameter.</param>
         /// <param name="points2">The points2 parameter.</param>
@@ -1832,7 +1832,7 @@ namespace OpenCV5Sharp
             return res == IntPtr.Zero ? null : new Mat(res);
         }
         /// <summary>
-        /// OpenCV type (see OpenCV documentation for details).
+        /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="pts1">The pts1 parameter.</param>
         /// <param name="pts2">The pts2 parameter.</param>
