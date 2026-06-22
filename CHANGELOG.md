@@ -7,16 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added 15 advanced computer vision example modules to the suite, including: QR code, background subtraction (MOG2), DNN SqueezeNet, face/landmark detection (YuNet), hand tracking, corner detection, ArUco markers, stitching, inpainting, Lucas-Kanade optical flow, StereoBM depth, Kalman filter tracking, perspective warping, CamShift, and Hough transform.
+
 ### Changed
-- Fixed Qourex branding consistency across all copyright headers and metadata.
-- Improved XML documentation for generated APIs, structs, and enums.
-- Pinned test dependency versions for reproducible builds.
-- Enhanced CI/CD workflows with NuGet caching and concurrency controls.
-- Added community infrastructure (SECURITY.md, issue/PR templates, CODEOWNERS).
+- Formatted the codebase to CRLF line endings to comply with project `.editorconfig` rules.
 
 ### Fixed
-- Removed incorrect `<exception>` tags from enum XML documentation.
-- Fixed clone URL in CONTRIBUTING.md.
+- Resolved a critical `StereoBM` access violation crash on x64 by replacing struct return-by-value for `getROI1` and `getROI2` with out pointer parameters.
+- Fixed the CycloneDX SBOM generation command in `release.yml` by removing the deprecated `-j` flag.
+- Improved XML documentation for generated APIs, structs, and enums.
 - Fixed `MatValidation.CheckDimensions` return type (void instead of int).
 - Added `OpenCVException.ToString()` override for better diagnostics.
 
