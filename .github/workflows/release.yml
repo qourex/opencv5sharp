@@ -46,10 +46,17 @@ jobs:
         run: |
           if ("${{ github.event_name }}" -eq "workflow_dispatch") {
             $version = "${{ github.event.inputs.version }}"
+            $tag = $version
+            if ($version -match '^[0-9]') {
+              $tag = "v$version"
+            }
+            $version = $version -replace '^v', ''
           } else {
             $version = "${{ github.ref_name }}" -replace '^v', ''
+            $tag = "${{ github.ref_name }}"
           }
           echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "TAG=$tag" >> $env:GITHUB_OUTPUT
 
       - name: Verify DLL integrity checksums
         run: powershell -ExecutionPolicy Bypass -File scripts/VerifyChecksums.ps1
@@ -85,6 +92,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.TAG }}
           generate_release_notes: true
           files: |
             **/*.nupkg
