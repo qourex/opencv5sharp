@@ -80,7 +80,7 @@ jobs:
       - name: Generate SBOM
         run: |
           dotnet tool install --global CycloneDX
-          dotnet CycloneDX src/OpenCV5Sharp/OpenCV5Sharp.csproj -o . -f sbom.json
+          dotnet CycloneDX src/OpenCV5Sharp/OpenCV5Sharp.csproj -o . -fn sbom.json -j
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
