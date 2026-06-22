@@ -22,7 +22,7 @@ Before running the examples, ensure you have the following installed:
    dotnet run --project samples/OpenCV5Sharp.Samples/OpenCV5Sharp.Samples.csproj --framework net8.0
    ```
 
-When run, you will see an interactive CLI menu allowing you to select and execute any of the four detailed sample modules:
+When run, you will see an interactive CLI menu allowing you to select and execute any of the detailed sample modules:
 ```text
 ==================================================
        OpenCV5Sharp Example Applications Suite    
@@ -31,7 +31,22 @@ When run, you will see an interactive CLI menu allowing you to select and execut
 2. Image Processing Pipeline & Drawing
 3. VideoIO & Camera Stream
 4. Deep Neural Network (DNN) Inference
-5. Exit
+5. QR Code Encoding & Decoding
+6. Live Video Background Segmentation (MOG2)
+7. DNN Image Classification (SqueezeNet ONNX)
+8. DNN Face & Landmark Detection (YuNet ONNX)
+9. Classic Hand & Finger Tracker
+10. Corner & Feature Detection
+11. ArUco Marker Detection & Generation
+12. Panoramic Image Stitching
+13. Image Inpainting & Restoration
+14. Sparse Optical Flow (Lucas-Kanade)
+15. Stereo Depth Estimation (StereoBM)
+16. Trajectory Prediction & Tracking (Kalman Filter)
+17. Perspective Warp & Homography Correction
+18. Object Tracking via CamShift
+19. Hough Line & Circle Detection
+20. Exit
 ==================================================
 ```
 
@@ -147,6 +162,293 @@ Verifying DNN APIs link successfully in native DLL...
    DNN API linkage verification passed.
 
 DNN Inference sample completed.
+```
+
+### 2.5 QR Code Encoding & Decoding
+Illustrates generating a QR Code matrix from a string using `QRCodeEncoder` and detecting and decoding the generated QR Code using `QRCodeDetector`.
+**Expected Output:**
+```text
+--- [5] QR Code Encoding & Decoding ---
+
+1. Encoding text to QR Code: "https://github.com/qourex/opencv5sharp"
+   QR Code matrix generated. Size: 41x41, Channels: 1
+   Saved QR Code image to: sample_qrcode.png
+
+2. Loading and decoding the QR Code from disk...
+   Running QRCodeDetector.DetectAndDecode...
+   Decoded Text: "https://github.com/qourex/opencv5sharp"
+   [SUCCESS] Decoded text matches the original!
+   Detected corners matrix size: 4x1
+
+Temporary QR Code image file cleaned up.
+
+QR Code sample completed.
+```
+
+### 2.6 Live Video Background Segmentation (MOG2)
+Illustrates running real-time foreground/background segmentation using the MOG2 background subtractor.
+**Expected Output (Fallback Mode):**
+```text
+--- [6] Live Video Background Segmentation (MOG2) ---
+   MOG2 Background Subtractor created successfully.
+
+[INFO] Webcam not detected. Running fallback segmentation on synthetic moving frames...
+   Synthetic Frame [1/10]: Box X=20, Foreground Pixels=2500
+   Synthetic Frame [2/10]: Box X=40, Foreground Pixels=2642
+   ...
+   Synthetic Frame [10/10]: Box X=200, Foreground Pixels=2550
+
+Background segmentation sample completed.
+```
+
+### 2.7 DNN Image Classification (SqueezeNet ONNX)
+Demonstrates downloading and loading a pre-trained SqueezeNet ONNX model, running a forward inference pass, and retrieving the top classification class index using unmanaged pointer/marshalling with `MinMaxLoc`.
+**Expected Output:**
+```text
+--- [7] DNN Image Classification (SqueezeNet ONNX) ---
+   Found SqueezeNet model at: squeezenet.onnx
+
+1. Loading ONNX network...
+   Network loaded successfully.
+
+2. Preprocessing input image...
+   Blob shape size: 224x224, Channels: 3
+
+3. Running network forward inference pass...
+   Output probability matrix size: 1000x1, Channels: 1
+
+[RESULT] Top Class ID: 812
+[RESULT] Confidence: 84.50%
+
+DNN classification sample completed.
+```
+
+### 2.8 DNN Face & Landmark Detection (YuNet ONNX)
+Showcases high-speed DNN face detection using the built-in `FaceDetectorYN` class. It detects faces and retrieves 5 landmark points (eyes, nose, mouth corners) with confidence values.
+**Expected Output (Fallback Mode):**
+```text
+--- [8] DNN Face & Landmark Detection (YuNet ONNX) ---
+   Found YuNet model at: face_detection_yunet.onnx
+
+[INFO] Webcam not detected. Running fallback face detection on a synthetic face pattern...
+   [Synthetic Image] Detected 1 face(s):
+      Face [0]: Rect=[x:118.0, y:92.0, w:94.0, h:86.0], Confidence=92.3%
+         Landmarks: RightEye=[120.0, 100.0], LeftEye=[200.0, 100.0], Nose=[160.0, 130.0]
+
+Face detection sample completed.
+```
+
+### 2.9 Classic Hand & Finger Tracker
+Illustrates skin color segmentation in YCrCb color space, calculating hand centroids using `Moments`, and counting fingers by tracking peaks in horizontal slices of the hand binary mask.
+**Expected Output (Fallback Mode):**
+```text
+--- [9] Classic Hand & Finger Tracker ---
+
+[INFO] Webcam not detected. Running fallback verification on synthetic hand drawings...
+   [Synthetic drawing: 1 fingers] Hand Centroid: (160.0, 140.0), Bounding Box: [125, 70, 70x115], Fingers Counted: 1
+   [Synthetic drawing: 3 fingers] Hand Centroid: (160.0, 132.0), Bounding Box: [125, 70, 70x115], Fingers Counted: 3
+   [Synthetic drawing: 5 fingers] Hand Centroid: (160.0, 126.0), Bounding Box: [125, 70, 70x115], Fingers Counted: 5
+
+Hand tracker sample completed.
+```
+
+### 2.10 Corner & Feature Detection
+Demonstrates classic corner detection algorithms: Shi-Tomasi corners via `GoodFeaturesToTrack` and Harris corners via `CornerHarris`. Features are extracted, and their coordinates are mapped to draw visual indicators.
+**Expected Output:**
+```text
+--- [10] Corner & Feature Detection ---
+
+[INFO] Webcam not detected. Skipping live feed.
+
+Running corner detection on synthetic geometric image...
+   [Synthetic] Shi-Tomasi: Found 12 corners.
+   [Synthetic] Harris: Visualized 45 potential corner pixels.
+
+Corner detection sample completed.
+```
+
+### 2.11 ArUco Marker Detection & Generation
+Exposes generating ArUco markers using `ArucoDictionary.GenerateImageMarker` and detecting them in simulated scenes or live webcam streams using `ArucoArucoDetector`.
+**Expected Output:**
+```text
+--- [11] ArUco Marker Detection & Generation ---
+
+1. Generating ArUco marker (ID: 24, Size: 200x200 pixels)...
+   Saved generated marker to: aruco_marker_24.png
+
+2. Simulating a test scene with the generated marker...
+   Saved simulated scene to: aruco_test_scene.png
+
+3. Detecting markers in the simulated scene...
+   Markers detected: 1
+   - Marker Index 0: ID = 24
+     Corner 0 (Top-Left):  (100.0, 100.0)
+     Corner 1 (Top-Right): (299.0, 100.0)
+     Corner 2 (Bottom-Right): (299.0, 299.0)
+     Corner 3 (Bottom-Left):  (100.0, 299.0)
+   Saved visual detection results to: aruco_detected_output.png
+
+[INFO] Webcam not detected. Skipping live ArUco detection.
+
+ArUco sample completed.
+```
+
+### 2.12 Panoramic Image Stitching
+Combines multiple overlapping images into a single wide-angle panorama using the OpenCV 5 `Stitcher` module, passing an array of mats wrapped into a `std::vector<cv::Mat>` pointer via `cv_VectorMat_New`.
+**Expected Output:**
+```text
+--- [12] Panoramic Image Stitching ---
+Found local Lena image at opencv_prebuilt/opencv/sources/doc/js_tutorials/js_assets/lena.jpg. Copied to output.
+
+1. Slicing test image into overlapping left and right halves...
+   Source Image: 512x512
+   Left Sub-image ROI: 332x512
+   Right Sub-image ROI: 333x512
+
+2. Stitching sub-images using Stitcher...
+   Running Stitcher.Stitch (this may take a few seconds)...
+   Stitcher completed with Status: Ok
+   Success! Panoramic image generated. Size: 512x512
+   Saved stitched panorama to: stitched_panorama.png
+
+Stitching sample completed.
+```
+
+### 2.13 Image Inpainting & Restoration
+Demonstrates restoring corrupted areas (scratches/text overlays) in a photo using the `Cv2.Inpaint` API with Navier-Stokes (`INPAINT_NS`) and Telea's algorithms.
+**Expected Output:**
+```text
+--- [13] Image Inpainting & Restoration ---
+
+1. Simulating image corruption (adding artificial scratches and text)...
+   Saved corrupted image to: inpaint_corrupted.png
+   Saved corruption mask to: inpaint_mask.png
+
+2. Restoring image using Cv2.Inpaint...
+   Saved Navier-Stokes restored image to: inpaint_restored_ns.png
+   Saved Telea restored image to: inpaint_restored_telea.png
+
+Inpainting sample completed.
+```
+
+### 2.14 Sparse Optical Flow (Lucas-Kanade)
+Showcases tracking feature points across frames using sparse Lucas-Kanade optical flow (`Cv2.CalcOpticalFlowPyrLK`). It runs on simulated frames with a displaced white dot and supports real-time camera tracking.
+**Expected Output:**
+```text
+--- [14] Sparse Optical Flow (Lucas-Kanade) ---
+
+[INFO] Webcam not detected. Skipping live feed.
+
+Running verification on synthetic moving dot frames...
+   Tracking Status: 1 (1 = Success)
+   Start Position:  (80.0, 80.0)
+   End Position:    (85.0, 83.0)
+   Measured Offset: dx=5.0, dy=3.0 (Expected: dx=5.0, dy=3.0)
+
+Optical Flow sample completed.
+```
+
+### 2.15 Stereo Depth Estimation (StereoBM)
+Demonstrates binocular disparity calculation from a stereo left/right image pair using `StereoBM`. The sample creates a simulated scene where a checkerboard square is shifted horizontally to simulate depth.
+**Expected Output:**
+```text
+--- [15] Stereo Depth Estimation (StereoBM) ---
+
+1. Generating synthetic stereo left and right image pair...
+   Saved stereo left frame to: stereo_left.png
+   Saved stereo right frame to: stereo_right.png
+
+2. Computing disparity map via StereoBM...
+   Testing StereoBM ROI methods...
+   Initial ROI1: (0, 0, 0, 0)
+   Initial ROI2: (0, 0, 0, 0)
+   Updated ROI1: (10, 20, 100, 200)
+   Disparity map computed. Size: 320x240, Type: 3
+   Disparity non-zero count: 76743/76800
+   Non-zero disparity range: [-1.00, 10.38] px
+   Raw disparity value at (155, 115): -16
+   Decoded disparity in pixels: -1.00 px (Expected close to 10.0 px)
+   Saved colorized disparity map to: stereo_disparity.png
+
+Stereo Depth sample completed.
+```
+
+### 2.16 Trajectory Prediction & Tracking (Kalman Filter)
+Illustrates setting up a linear `KalmanFilter` to smooth and track a noisy state (position and velocity). The filter updates and predicts position dynamically to smooth out sensor noise.
+**Expected Output:**
+```text
+--- [16] Trajectory Prediction & Tracking (Kalman Filter) ---
+
+1. Initializing Kalman Filter (State dimension: 2, Measurement dimension: 1)...
+
+2. Simulating 20 steps of tracking (True Velocity = 2.5)...
+   Step   | True Pos   | Measured Pos    | Filtered Pos    | Est Velocity   
+   ----------------------------------------------------------------------
+   1      | 2.5        | 2.16            | 1.96            | 1.96           
+   2      | 5.0        | 5.06            | 3.86            | 2.18           
+   3      | 7.5        | 7.22            | 5.86            | 2.29           
+   ...
+   20     | 50.0       | 49.32           | 49.77           | 2.50           
+
+Kalman Filter sample completed.
+```
+
+### 2.17 Perspective Warp & Homography Correction
+Demonstrates calculating and applying perspective projection matrices via `Cv2.GetPerspectiveTransform` and `Cv2.WarpPerspective`. A flat square image is projected into a skewed card layout and then de-warped back to its original layout.
+**Expected Output:**
+```text
+--- [17] Perspective Warp & Homography Correction ---
+
+1. Defining perspective warp target coordinate transformation...
+
+2. Computing perspective warp matrix (M)...
+   M = [0.812, -0.052, 60.000]
+       [0.088, 0.771, 40.000]
+       [0.000, 0.000, 1.000]
+   Saved skewed/warped image to: perspective_warped.png
+
+3. Computing inverse perspective matrix and restoring image...
+   Saved de-warped/restored flat image to: perspective_restored.png
+
+Perspective Warp sample completed.
+```
+
+### 2.18 Object Tracking via CamShift
+Demonstrates colored object tracking using back-projection matrices and the CAMSHIFT algorithm (`Cv2.CamShift`). It tracks the center, size, and orientation of a diagonally moving object in a simulated sequence.
+**Expected Output:**
+```text
+--- [18] Object Tracking via CamShift ---
+
+1. Running CamShift tracking simulation (10 frames)...
+   Initial Search Window: [x: 20, y: 20, w: 45, h: 45]
+   [Frame 1/10] Object Center: (55.0, 40.0), Size: 40.0x40.0, Angle: 90.0°
+   [Frame 2/10] Object Center: (70.0, 50.0), Size: 40.0x40.0, Angle: 90.0°
+   ...
+   [Frame 10/10] Object Center: (190.0, 130.0), Size: 40.0x40.0, Angle: 90.0°
+
+CamShift sample completed.
+```
+
+### 2.19 Hough Line & Circle Detection
+Demonstrates classic feature extraction algorithms: circle detection via `Cv2.HoughCircles` and line detection via `Cv2.HoughLines`. The sample creates a synthetic image with a circle and a line, runs the detectors, and verifies the parameters of the detected shapes.
+**Expected Output:**
+```text
+--- [19] Hough Line & Circle Detection ---
+
+1. Generating synthetic image with a circle and a line...
+   Saved synthetic input image to: hough_input.png
+
+2. Running Cv2.HoughCircles...
+   Detected circles count: 1
+   - Circle 0: Center = (150.0, 150.0), Radius = 45.0 (Expected: Center=(150.0, 150.0), Radius=45.0)
+
+3. Running Cv2.HoughLines...
+   Detected lines count: 3
+   - Line 0: rho = 0.0, theta = 2.356 (135.0°)
+   - Line 1: rho = -1.0, theta = 2.356 (135.0°)
+   - Line 2: rho = 1.0, theta = 2.356 (135.0°)
+
+Hough Transform sample completed.
 ```
 
 ---

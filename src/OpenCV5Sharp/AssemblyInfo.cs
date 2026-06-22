@@ -7,3 +7,4 @@ using System.Runtime.InteropServices;
 // This ensures opencv5sharp_native.dll and opencv_world500.dll are loaded only from
 // the application's own directory, not from untrusted locations in the system PATH.
 [assembly: DefaultDllImportSearchPaths(DllImportSearchPath.AssemblyDirectory | DllImportSearchPath.UseDllDirectoryForDependencies)]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("OpenCV5Sharp.Samples")]

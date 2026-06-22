@@ -38,11 +38,11 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void StereoBM_setSmallerBlockSize_0(IntPtr self, int blockSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect StereoBM_getROI1_0(IntPtr self);
+        public static extern void StereoBM_getROI1_0(IntPtr self, out Rect val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void StereoBM_setROI1_0(IntPtr self, Rect roi1);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect StereoBM_getROI2_0(IntPtr self);
+        public static extern void StereoBM_getROI2_0(IntPtr self, out Rect val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void StereoBM_setROI2_0(IntPtr self, Rect roi2);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]

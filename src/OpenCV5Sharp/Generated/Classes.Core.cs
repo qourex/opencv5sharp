@@ -1787,7 +1787,8 @@ namespace OpenCV5Sharp
         public Rect BoundingRect()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.RotatedRect_boundingRect_0(Handle);
+            Rect res;
+            NativeMethods.RotatedRect_boundingRect_0(Handle, out res);
             ErrorHelper.CheckError();
             return res;
         }
@@ -1799,7 +1800,8 @@ namespace OpenCV5Sharp
         public Rect2F BoundingRect2f()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.RotatedRect_boundingRect2f_0(Handle);
+            Rect2F res;
+            NativeMethods.RotatedRect_boundingRect2f_0(Handle, out res);
             ErrorHelper.CheckError();
             return res;
         }
@@ -1807,14 +1809,14 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Point2F Center
         {
-            get { ThrowIfDisposed(); var res = NativeMethods.RotatedRect_center_get(Handle); ErrorHelper.CheckError(); return res; }
+            get { ThrowIfDisposed(); Point2F res; NativeMethods.RotatedRect_center_get(Handle, out res); ErrorHelper.CheckError(); return res; }
             set { ThrowIfDisposed(); NativeMethods.RotatedRect_center_set(Handle, value); ErrorHelper.CheckError(); }
         }
         /// <summary>Gets or sets the size property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Size2F Size
         {
-            get { ThrowIfDisposed(); var res = NativeMethods.RotatedRect_size_get(Handle); ErrorHelper.CheckError(); return res; }
+            get { ThrowIfDisposed(); Size2F res; NativeMethods.RotatedRect_size_get(Handle, out res); ErrorHelper.CheckError(); return res; }
             set { ThrowIfDisposed(); NativeMethods.RotatedRect_size_set(Handle, value); ErrorHelper.CheckError(); }
         }
         /// <summary>Gets or sets the angle property.</summary>

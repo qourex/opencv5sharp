@@ -400,15 +400,15 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void RotatedRect_points_0(IntPtr self, IntPtr pts);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect RotatedRect_boundingRect_0(IntPtr self);
+        public static extern void RotatedRect_boundingRect_0(IntPtr self, out Rect val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect2F RotatedRect_boundingRect2f_0(IntPtr self);
+        public static extern void RotatedRect_boundingRect2f_0(IntPtr self, out Rect2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Point2F RotatedRect_center_get(IntPtr self);
+        public static extern void RotatedRect_center_get(IntPtr self, out Point2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void RotatedRect_center_set(IntPtr self, Point2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size2F RotatedRect_size_get(IntPtr self);
+        public static extern void RotatedRect_size_get(IntPtr self, out Size2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void RotatedRect_size_set(IntPtr self, Size2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
