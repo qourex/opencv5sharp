@@ -168,7 +168,8 @@ namespace OpenCV5Sharp
         public Rect GetROI1()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.StereoBM_getROI1_0(Handle);
+            Rect res;
+            NativeMethods.StereoBM_getROI1_0(Handle, out res);
             ErrorHelper.CheckError();
             return res;
         }
@@ -191,7 +192,8 @@ namespace OpenCV5Sharp
         public Rect GetROI2()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.StereoBM_getROI2_0(Handle);
+            Rect res;
+            NativeMethods.StereoBM_getROI2_0(Handle, out res);
             ErrorHelper.CheckError();
             return res;
         }

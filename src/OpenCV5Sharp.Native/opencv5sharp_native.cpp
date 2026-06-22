@@ -10987,11 +10987,12 @@ extern "C" __declspec(dllexport) void RotatedRect_points_0(void* self, void* pts
         _setError(-3, "Unknown native exception");
     }
 }
-extern "C" __declspec(dllexport) cv::Rect RotatedRect_boundingRect_0(void* self) {
+extern "C" __declspec(dllexport) void RotatedRect_boundingRect_0(void* self, cv::Rect* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return ((cv::RotatedRect*)self)->boundingRect();
+        *outVal = ((cv::RotatedRect*)self)->boundingRect();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -10999,13 +11000,13 @@ extern "C" __declspec(dllexport) cv::Rect RotatedRect_boundingRect_0(void* self)
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
-extern "C" __declspec(dllexport) cv::Rect2f RotatedRect_boundingRect2f_0(void* self) {
+extern "C" __declspec(dllexport) void RotatedRect_boundingRect2f_0(void* self, cv::Rect2f* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return ((cv::RotatedRect*)self)->boundingRect2f();
+        *outVal = ((cv::RotatedRect*)self)->boundingRect2f();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -11013,13 +11014,13 @@ extern "C" __declspec(dllexport) cv::Rect2f RotatedRect_boundingRect2f_0(void* s
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
-extern "C" __declspec(dllexport) cv::Point2f RotatedRect_center_get(void* self) {
+extern "C" __declspec(dllexport) void RotatedRect_center_get(void* self, cv::Point2f* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return ((cv::RotatedRect*)self)->center;
+        *outVal = ((cv::RotatedRect*)self)->center;
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -11027,7 +11028,6 @@ extern "C" __declspec(dllexport) cv::Point2f RotatedRect_center_get(void* self) 
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
 extern "C" __declspec(dllexport) void RotatedRect_center_set(void* self, cv::Point2f val) {
     _clearError();
@@ -11042,11 +11042,12 @@ extern "C" __declspec(dllexport) void RotatedRect_center_set(void* self, cv::Poi
         _setError(-3, "Unknown native exception");
     }
 }
-extern "C" __declspec(dllexport) cv::Size2f RotatedRect_size_get(void* self) {
+extern "C" __declspec(dllexport) void RotatedRect_size_get(void* self, cv::Size2f* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return ((cv::RotatedRect*)self)->size;
+        *outVal = ((cv::RotatedRect*)self)->size;
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -11054,7 +11055,6 @@ extern "C" __declspec(dllexport) cv::Size2f RotatedRect_size_get(void* self) {
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
 extern "C" __declspec(dllexport) void RotatedRect_size_set(void* self, cv::Size2f val) {
     _clearError();
@@ -12297,11 +12297,12 @@ extern "C" __declspec(dllexport) void StereoBM_setSmallerBlockSize_0(void* self,
         _setError(-3, "Unknown native exception");
     }
 }
-extern "C" __declspec(dllexport) cv::Rect StereoBM_getROI1_0(void* self) {
+extern "C" __declspec(dllexport) void StereoBM_getROI1_0(void* self, cv::Rect* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return (*((cv::Ptr<cv::StereoBM>*)self))->getROI1();
+        *outVal = (*((cv::Ptr<cv::StereoBM>*)self))->getROI1();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12309,7 +12310,6 @@ extern "C" __declspec(dllexport) cv::Rect StereoBM_getROI1_0(void* self) {
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
 extern "C" __declspec(dllexport) void StereoBM_setROI1_0(void* self, cv::Rect roi1) {
     _clearError();
@@ -12324,11 +12324,12 @@ extern "C" __declspec(dllexport) void StereoBM_setROI1_0(void* self, cv::Rect ro
         _setError(-3, "Unknown native exception");
     }
 }
-extern "C" __declspec(dllexport) cv::Rect StereoBM_getROI2_0(void* self) {
+extern "C" __declspec(dllexport) void StereoBM_getROI2_0(void* self, cv::Rect* outVal) {
     _clearError();
-    if (!self) { _setError(-1, "Null pointer: self"); return {}; }
+    if (!self) { _setError(-1, "Null pointer: self"); return; }
+    if (!outVal) { _setError(-1, "Null pointer: outVal"); return; }
     try {
-        return (*((cv::Ptr<cv::StereoBM>*)self))->getROI2();
+        *outVal = (*((cv::Ptr<cv::StereoBM>*)self))->getROI2();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12336,7 +12337,6 @@ extern "C" __declspec(dllexport) cv::Rect StereoBM_getROI2_0(void* self) {
     } catch (...) {
         _setError(-3, "Unknown native exception");
     }
-    return {};
 }
 extern "C" __declspec(dllexport) void StereoBM_setROI2_0(void* self, cv::Rect roi2) {
     _clearError();
@@ -12367,7 +12367,7 @@ extern "C" __declspec(dllexport) void* StereoBM_create_0(int numDisparities, int
 extern "C" __declspec(dllexport) void StereoMatcher_Delete(void* self) {
     if (!self) return;
     try {
-        delete (cv::StereoMatcher*)self;
+        delete (cv::Ptr<cv::StereoMatcher>*)self;
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12383,7 +12383,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_compute_0(void* self, void* 
     if (!right) { _setError(-1, "Null pointer: right"); return; }
     if (!disparity) { _setError(-1, "Null pointer: disparity"); return; }
     try {
-        ((cv::StereoMatcher*)self)->compute(*(cv::Mat*)left, *(cv::Mat*)right, *(cv::Mat*)disparity);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->compute(*(cv::Mat*)left, *(cv::Mat*)right, *(cv::Mat*)disparity);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12396,7 +12396,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getMinDisparity_0(void* self)
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getMinDisparity();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getMinDisparity();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12410,7 +12410,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setMinDisparity_0(void* self
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setMinDisparity(minDisparity);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setMinDisparity(minDisparity);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12423,7 +12423,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getNumDisparities_0(void* sel
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getNumDisparities();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getNumDisparities();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12437,7 +12437,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setNumDisparities_0(void* se
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setNumDisparities(numDisparities);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setNumDisparities(numDisparities);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12450,7 +12450,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getBlockSize_0(void* self) {
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getBlockSize();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getBlockSize();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12464,7 +12464,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setBlockSize_0(void* self, i
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setBlockSize(blockSize);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setBlockSize(blockSize);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12477,7 +12477,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getSpeckleWindowSize_0(void* 
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getSpeckleWindowSize();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getSpeckleWindowSize();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12491,7 +12491,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setSpeckleWindowSize_0(void*
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setSpeckleWindowSize(speckleWindowSize);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setSpeckleWindowSize(speckleWindowSize);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12504,7 +12504,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getSpeckleRange_0(void* self)
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getSpeckleRange();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getSpeckleRange();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12518,7 +12518,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setSpeckleRange_0(void* self
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setSpeckleRange(speckleRange);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setSpeckleRange(speckleRange);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12531,7 +12531,7 @@ extern "C" __declspec(dllexport) int StereoMatcher_getDisp12MaxDiff_0(void* self
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return {}; }
     try {
-        return ((cv::StereoMatcher*)self)->getDisp12MaxDiff();
+        return (*((cv::Ptr<cv::StereoMatcher>*)self))->getDisp12MaxDiff();
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
@@ -12545,7 +12545,7 @@ extern "C" __declspec(dllexport) void StereoMatcher_setDisp12MaxDiff_0(void* sel
     _clearError();
     if (!self) { _setError(-1, "Null pointer: self"); return; }
     try {
-        ((cv::StereoMatcher*)self)->setDisp12MaxDiff(disp12MaxDiff);
+        (*((cv::Ptr<cv::StereoMatcher>*)self))->setDisp12MaxDiff(disp12MaxDiff);
     } catch (const cv::Exception& e) {
         _setError(e.code, e.what());
     } catch (const std::exception& e) {
