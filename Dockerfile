@@ -5,7 +5,7 @@
 # To run (mounts your workspace and builds Linux CUDA binaries):
 #   docker run --gpus all -it --rm -v $(pwd):/workspace opencv5sharp-cuda-builder
 
-FROM nvidia/cuda:12.8.0-devel-ubuntu22.04
+FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04
 
 # Avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
