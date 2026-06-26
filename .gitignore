@@ -44,7 +44,8 @@ Thumbs.db
 *.snupkg
 
 # Native build artifacts (specific to OpenCV5Sharp.Native)
-src/OpenCV5Sharp.Native/build/
+src/OpenCV5Sharp.Native/build*/
+build_opencv_cuda*/
 src/OpenCV5Sharp.Native/*.obj
 src/OpenCV5Sharp.Native/*.lib
 src/OpenCV5Sharp.Native/*.exp

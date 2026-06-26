@@ -34,8 +34,8 @@ Write-Host "==================================================" -ForegroundColor
 # 1. Paths Setup
 $RootDir = Get-Location
 $NativeDir = Join-Path $RootDir "src\OpenCV5Sharp.Native"
-$BuildCpuDir = Join-Path $NativeDir "build_cpu"
-$BuildGpuDir = Join-Path $NativeDir "build_gpu"
+$BuildCpuDir = Join-Path $NativeDir "build_cpu_win"
+$BuildGpuDir = Join-Path $NativeDir "build_gpu_win"
 $CSharpCpuDir = Join-Path $RootDir "src\OpenCV5Sharp"
 $CSharpGpuDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu"
 
@@ -103,7 +103,7 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
     $opencvPath = $env:OpenCV_DIR
     if (-not $opencvPath) {
         if ($cudaEnabled) {
-            $opencvPath = Join-Path $RootDir "build_opencv_cuda\install"
+            $opencvPath = Join-Path $RootDir "build_opencv_cuda_win\install"
             if (-not (Test-Path $opencvPath)) {
                 # OpenCV CUDA install does not exist, let's clone and compile it from source!
                 $contribDir = Join-Path $RootDir "opencv_contrib"
@@ -143,7 +143,7 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
                     }
                 }
                 
-                $opencvBuildDir = Join-Path $RootDir "build_opencv_cuda"
+                $opencvBuildDir = Join-Path $RootDir "build_opencv_cuda_win"
                 Write-Host "`n[CUDA Build] Configuring and compiling OpenCV 5 with CUDA from source (all kernels)..." -ForegroundColor Yellow
                 if (Test-Path $opencvBuildDir) {
                     $buildNinja = Join-Path $opencvBuildDir "build.ninja"

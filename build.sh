@@ -54,8 +54,8 @@ echo -e "\e[36m==================================================\e[0m"
 # 1. Paths Setup
 ROOT_DIR="$(pwd)"
 NATIVE_DIR="$ROOT_DIR/src/OpenCV5Sharp.Native"
-BUILD_CPU_DIR="$NATIVE_DIR/build_cpu"
-BUILD_GPU_DIR="$NATIVE_DIR/build_gpu"
+BUILD_CPU_DIR="$NATIVE_DIR/build_cpu_linux"
+BUILD_GPU_DIR="$NATIVE_DIR/build_gpu_linux"
 CSHARP_CPU_DIR="$ROOT_DIR/src/OpenCV5Sharp"
 CSHARP_GPU_DIR="$ROOT_DIR/src/OpenCV5Sharp.Gpu"
 
@@ -83,7 +83,7 @@ build_native_and_stage() {
   local opencvPath="$OPENCV_DIR"
   if [ -z "$opencvPath" ]; then
     if [ "$cuda_enabled" = true ]; then
-      opencvPath="$ROOT_DIR/build_opencv_cuda/install"
+      opencvPath="$ROOT_DIR/build_opencv_cuda_linux/install"
       if [ ! -d "$opencvPath" ]; then
         # OpenCV CUDA install does not exist, let's clone and compile it from source!
         contribDir="$ROOT_DIR/opencv_contrib"
@@ -92,7 +92,7 @@ build_native_and_stage() {
           git clone --branch 5.x --depth 1 https://github.com/opencv/opencv_contrib.git "$contribDir"
         fi
 
-        opencvBuildDir="$ROOT_DIR/build_opencv_cuda"
+        opencvBuildDir="$ROOT_DIR/build_opencv_cuda_linux"
         echo -e "\n\e[32m[CUDA Build] Configuring and compiling OpenCV 5 with CUDA from source (all kernels)...\e[0m"
         
         needs_clean=false
