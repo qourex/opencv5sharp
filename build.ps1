@@ -147,8 +147,25 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
                 Write-Host "`n[CUDA Build] Configuring and compiling OpenCV 5 with CUDA from source (all kernels)..." -ForegroundColor Yellow
                 if (Test-Path $opencvBuildDir) {
                     $buildNinja = Join-Path $opencvBuildDir "build.ninja"
+                    $cacheFile = Join-Path $opencvBuildDir "CMakeCache.txt"
+                    $needsClean = $false
+                    
                     if ($NinjaFound -and -not (Test-Path $buildNinja)) {
-                        Write-Host "Cleaning existing non-Ninja build directory: $opencvBuildDir"
+                        Write-Host "Non-Ninja generator detected." -ForegroundColor Yellow
+                        $needsClean = $true
+                    }
+                    
+                    if (Test-Path $cacheFile) {
+                        $cacheContent = Get-Content $cacheFile -Raw
+                        $normalizedRoot = $RootDir.ToString().Replace('\', '/')
+                        if ($cacheContent -notmatch [regex]::Escape($normalizedRoot)) {
+                            Write-Host "Detected path mismatch in CMake cache (moved folder). Wiping build directory for a clean configure..." -ForegroundColor Yellow
+                            $needsClean = $true
+                        }
+                    }
+                    
+                    if ($needsClean) {
+                        Write-Host "Cleaning existing build directory: $opencvBuildDir"
                         Remove-Item -Path $opencvBuildDir -Recurse -Force -ErrorAction SilentlyContinue
                         New-Item -ItemType Directory -Path $opencvBuildDir | Out-Null
                     }
