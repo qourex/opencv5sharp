@@ -94,7 +94,20 @@ build_native_and_stage() {
 
         opencvBuildDir="$ROOT_DIR/build_opencv_cuda"
         echo -e "\n\e[32m[CUDA Build] Configuring and compiling OpenCV 5 with CUDA from source (all kernels)...\e[0m"
+        
+        needs_clean=false
         if [ -d "$opencvBuildDir" ]; then
+          cache_file="$opencvBuildDir/CMakeCache.txt"
+          if [ -f "$cache_file" ]; then
+            normalized_root="${ROOT_DIR//\\//}"
+            if ! grep -q "$normalized_root" "$cache_file"; then
+              echo "Detected path mismatch in CMake cache (moved folder or docker mount change). Wiping build directory for a clean configure..."
+              needs_clean=true
+            fi
+          fi
+        fi
+
+        if [ "$needs_clean" = true ]; then
           echo "Cleaning existing OpenCV build directory: $opencvBuildDir"
           rm -rf "$opencvBuildDir"
         fi
