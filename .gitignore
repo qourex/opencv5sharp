@@ -23,9 +23,13 @@ x64/
 *.ilk
 *.aps
 
-# Keep native dlls that are packaged under runtimes/
+# Keep native dlls and so libraries that are packaged under runtimes/
 *.dll
+*.so
 !src/OpenCV5Sharp/runtimes/**/*.dll
+!src/OpenCV5Sharp/runtimes/**/*.so
+!src/OpenCV5Sharp.Gpu/runtimes/**/*.dll
+!src/OpenCV5Sharp.Gpu/runtimes/**/*.so
 
 # Large binaries at root
 opencv-5.0.0-windows.exe
