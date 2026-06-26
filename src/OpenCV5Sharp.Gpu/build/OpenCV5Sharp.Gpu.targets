@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2026 Qourex. Licensed under Apache-2.0. -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    This .targets file is included automatically by NuGet consumers.
+    It copies the native GPU binaries to the output directory at build time.
+  -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64' OR ('$(RuntimeIdentifier)' == '' AND '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)' == 'X64')">
+    <None Include="$(MSBuildThisFileDirectory)...runtimes\win-x64\native\opencv5sharp_native.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv5sharp_native.dll" />
+    <None Include="$(MSBuildThisFileDirectory)...runtimes\win-x64\native\opencv_world500.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv_world500.dll" />
+    <None Include="$(MSBuildThisFileDirectory)...runtimes\win-x64\native\opencv_videoio_ffmpeg500_64.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="opencv_videoio_ffmpeg500_64.dll" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' OR ('$(RuntimeIdentifier)' == '' AND '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' AND '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)' == 'X64')">
+    <None Include="$(MSBuildThisFileDirectory)...runtimes\linux-x64\native\libopencv5sharp_native.so"
+          CopyToOutputDirectory="PreserveNewest" Link="libopencv5sharp_native.so" />
+    <None Include="$(MSBuildThisFileDirectory)...runtimes\linux-x64\native\libopencv_world500.so"
+          CopyToOutputDirectory="PreserveNewest" Link="libopencv_world500.so" />
+  </ItemGroup>
+</Project>

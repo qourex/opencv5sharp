@@ -1,11 +1,7 @@
 # OpenCV5Sharp
 
 <p align="center">
-  <img src="logo.png" alt="Qourex Logo" width="120" />
-</p>
-
-<p align="center">
-  <strong>by <a href="https://qourex.com">Qourex</a></strong> — Bringing computer vision to .NET
+  <img src="social_card.png" alt="OpenCV5Sharp Banner" />
 </p>
 
 <p align="center">
@@ -18,9 +14,13 @@
 
 ---
 
-**OpenCV5Sharp** is an automatic, clean C# wrapper for **OpenCV 5.0.0** on Windows x64.
+**OpenCV5Sharp** is an automatic, clean C# wrapper for **OpenCV 5.0.0**.
 It parses OpenCV headers using the official OpenCV parser and generates flat C++ exports
 along with managed C# P/Invoke wrappers covering **2,600+ API methods**.
+
+The project offers two main packages:
+- **OpenCV5Sharp** — CPU execution on Windows, Linux, macOS, Android, and iOS.
+- **OpenCV5Sharp.Gpu** — GPU-accelerated execution with NVIDIA CUDA & cuDNN on Windows and Linux.
 
 ## Why OpenCV5Sharp?
 
@@ -38,14 +38,26 @@ We built **OpenCV5Sharp** because we wanted a modern, lightweight, and zero-conf
 
 ## 📦 Installation
 
+For standard CPU execution:
+
 ```bash
 dotnet add package OpenCV5Sharp
+```
+
+For GPU-accelerated execution (CUDA):
+
+```bash
+dotnet add package OpenCV5Sharp.Gpu
 ```
 
 Or via the NuGet Package Manager Console:
 
 ```powershell
+# CPU package
 Install-Package OpenCV5Sharp
+
+# GPU package (CUDA)
+Install-Package OpenCV5Sharp.Gpu
 ```
 
 ## 🚀 Quick Start
@@ -74,16 +86,18 @@ Cv2.Imwrite("output.jpg", dst, IntPtr.Zero);
 
 ## 💻 Supported Platforms
 
-| OS | Architecture | Status |
+| OS | Architecture | Status / Package |
 |:---|:---|:---|
-| Windows 10/11 | x64 | ✅ Supported |
-| Linux | x64 | 🔜 Planned (v1.1) |
-| macOS | ARM64 / x64 | 🔜 Planned (v1.1) |
+| **Windows 10/11** | x64 / x86 | ✅ CPU (`OpenCV5Sharp`) / GPU (`OpenCV5Sharp.Gpu`) |
+| **Linux** | x64 / ARM64 | ✅ CPU (`OpenCV5Sharp`) / GPU (`OpenCV5Sharp.Gpu`) |
+| **macOS** | ARM64 / x64 | ✅ CPU (`OpenCV5Sharp`) |
+| **Android** | ARM64 / ARM32 / x64 / x86 | ✅ CPU (`OpenCV5Sharp`) |
+| **iOS** | ARM64 / ARM32 | ✅ CPU (`OpenCV5Sharp`) |
 
 ## Prerequisites
 
 - **.NET 8.0** or **.NET 9.0** SDK
-- **Windows x64** (Linux/macOS support planned for v1.1)
+- For GPU acceleration: NVIDIA GPU + CUDA Toolkit and cuDNN.
 
 For building from source:
 - **Python 3.8+** (for the binding generator)
@@ -94,7 +108,8 @@ For building from source:
 
 | Directory | Description |
 |:---|:---|
-| `src/OpenCV5Sharp/` | Managed C# library (NuGet package) with generated wrappers and bundled native DLLs |
+| `src/OpenCV5Sharp/` | Managed C# library (CPU NuGet package) with generated wrappers and bundled native DLLs |
+| `src/OpenCV5Sharp.Gpu/` | Managed C# library (GPU NuGet package) with CUDA/GPU acceleration |
 | `src/OpenCV5Sharp.Generator/` | Python binding generator (`generator.py`) and shadow templates |
 | `src/OpenCV5Sharp.Native/` | C-linkage C++ wrapper code and build scripts |
 | `tests/OpenCV5Sharp.Tests/` | Test suite: core properties, pixel manipulation, exceptions, threading, Python parity |

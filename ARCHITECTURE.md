@@ -21,14 +21,14 @@ OpenCV 5 C++ library and managed .NET code:
 │  └──────────┘  └─────────────┘  └────────────────┘         │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 2: Native C++ Flat Exports (extern "C")              │
-│  opencv5sharp_native.dll                                    │
+│  opencv5sharp_native.dll / .so / .dylib                     │
 │  - Flattens C++ classes to C functions                      │
 │  - Translates cv::Ptr<T> to void*                           │
 │  - Wraps all calls in try/catch                             │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 1: OpenCV 5 C++ Library                              │
-│  opencv_world500.dll + opencv_videoio_ffmpeg500_64.dll      │
-│  - Official OpenCV binary distribution                      │
+│  opencv_world500.dll / .so / .dylib + ffmpeg plugins        │
+│  - Bundled OpenCV binaries (CPU & GPU/CUDA editions)        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -115,24 +115,23 @@ Throws OpenCVException with message and code
 
 ```
 OpenCV5/
+├── .github/workflows/
+│   └── release.yml                  # CI/CD: cross-platform native compiler + NuGet packager
 ├── src/
-│   ├── OpenCV5Sharp/                 # Managed C# library (NuGet package)
+│   ├── OpenCV5Sharp/                 # Managed C# CPU library
 │   │   ├── Generated/               # Generated: split module classes, enums, P/Invokes
 │   │   ├── OpenCVException.cs       # Hand-written: custom exception
-│   │   ├── AssemblyInfo.cs          # Hand-written: assembly attributes
 │   │   ├── PlatformGuard.cs         # Hand-written: platform validation
-│   │   └── runtimes/win-x64/native/ # Bundled native DLLs
+│   │   └── runtimes/                # Staged cross-platform CPU binaries
+│   ├── OpenCV5Sharp.Gpu/             # Managed C# GPU (CUDA) library
+│   │   └── runtimes/                # Staged CUDA-enabled native binaries
 │   ├── OpenCV5Sharp.Generator/      # Python code generator
-│   │   ├── generator.py             # Main generator script
-│   │   └── shadow_mat.hpp           # Shadow header for Mat extensions
 │   └── OpenCV5Sharp.Native/         # C++ native wrapper
-│       ├── opencv5sharp_native.cpp  # Generated: flat C exports
-│       ├── opencv5sharp_native.h    # Generated: C export declarations
-│       ├── CMakeLists.txt           # CMake build config
-│       ├── compile.ps1              # PowerShell build script
-│       └── build.bat                # Batch build script
 ├── tests/OpenCV5Sharp.Tests/        # Test suite
 ├── samples/OpenCV5Sharp.Samples/    # Example applications
+├── build.ps1                        # Windows: unified PowerShell build/pack orchestrator
+├── build.sh                         # Linux/macOS: unified bash build/pack orchestrator
+├── Dockerfile                       # WSL/Docker: builder environment for Linux CUDA compiling
 ├── opencv/                          # OpenCV 5 source (for header parsing)
 └── opencv_prebuilt/                 # Pre-built OpenCV binaries
 ```

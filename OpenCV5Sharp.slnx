@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/OpenCV5Sharp/OpenCV5Sharp.csproj" />
+    <Project Path="src/OpenCV5Sharp.Gpu/OpenCV5Sharp.Gpu.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/OpenCV5Sharp.Tests/OpenCV5Sharp.Tests.csproj" />

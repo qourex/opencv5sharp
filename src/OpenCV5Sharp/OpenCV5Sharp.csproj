@@ -42,6 +42,19 @@
     <None Include="runtimes\win-x64\native\opencv_world500.dll" Pack="true" PackagePath="runtimes\win-x64\native\" CopyToOutputDirectory="PreserveNewest" />
     <None Include="runtimes\win-x64\native\opencv_videoio_ffmpeg500_64.dll" Pack="true" PackagePath="runtimes\win-x64\native\" CopyToOutputDirectory="PreserveNewest" />
 
+    <!-- Linux x64 Native Binaries -->
+    <None Include="runtimes\linux-x64\native\*.so*" Pack="true" PackagePath="runtimes\linux-x64\native\" CopyToOutputDirectory="PreserveNewest" />
+
+    <!-- macOS x64 and Arm64 Native Binaries -->
+    <None Include="runtimes\osx-x64\native\*.dylib" Pack="true" PackagePath="runtimes\osx-x64\native\" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="runtimes\osx-arm64\native\*.dylib" Pack="true" PackagePath="runtimes\osx-arm64\native\" CopyToOutputDirectory="PreserveNewest" />
+
+    <!-- Android Arm64 Native Binaries -->
+    <None Include="runtimes\android-arm64\native\*.so" Pack="true" PackagePath="runtimes\android-arm64\native\" CopyToOutputDirectory="PreserveNewest" />
+
+    <!-- iOS Arm64 Native Binaries -->
+    <None Include="runtimes\ios-arm64\native\*.dylib" Pack="true" PackagePath="runtimes\ios-arm64\native\" CopyToOutputDirectory="PreserveNewest" />
+
     <!-- Include MSBuild targets file for consumers -->
     <None Include="build\OpenCV5Sharp.targets" Pack="true" PackagePath="build\" />
 

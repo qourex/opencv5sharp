@@ -40,6 +40,6 @@ target_compile_definitions(opencv5sharp_native PRIVATE "CVAPI_EXPORTS")
 
 # Security hardening flags (MSVC)
 if(MSVC)
-    target_compile_options(opencv5sharp_native PRIVATE /GS /sdl /W4)
+    target_compile_options(opencv5sharp_native PRIVATE /GS /sdl /W4 /wd4996 /bigobj)
     target_link_options(opencv5sharp_native PRIVATE /DYNAMICBASE /NXCOMPAT /guard:cf)
 endif()
