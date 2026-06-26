@@ -123,7 +123,7 @@ build_native_and_stage() {
           -DWITH_CUDNN=ON \
           -DCUDA_FAST_MATH=ON \
           -DOPENCV_DNN_CUDA=ON \
-          -DCUDA_ARCH_BIN="5.0 5.2 5.3 6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.7 8.9 9.0 10.0 10.1" \
+          -DCUDA_ARCH_BIN="5.0 5.2 6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0 10.0 10.1" \
           -DCUDA_ARCH_PTX="10.0 10.1" \
           -DCMAKE_CUDA_FLAGS="--threads 0" \
           -DOPENCV_EXTRA_MODULES_PATH="$contribDir/modules" \
@@ -161,7 +161,7 @@ build_native_and_stage() {
 
   cmake_flags=""
   if [ "$cuda_enabled" = true ]; then
-    cmake_flags="-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=\"50;52;53;60;61;62;70;72;75;80;86;87;89;90;100;101;101+PTX\""
+    cmake_flags="-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=\"50;52;60;61;70;75;80;86;89;90;100;101;101+PTX\""
   else
     cmake_flags="-DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
   fi
