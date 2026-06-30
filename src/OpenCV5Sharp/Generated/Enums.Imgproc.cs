@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies adaptive thresholding algorithms.
     /// </summary>
     public enum AdaptiveThresholdTypes : int
@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
         GaussianC = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies color space conversion codes.
     /// </summary>
     public enum ColorConversionCodes : int
@@ -564,7 +564,7 @@ namespace OpenCV5Sharp
         ColorcvtMax = 155,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Colormap Types.
     /// </summary>
     public enum ColormapTypes : int
@@ -615,7 +615,7 @@ namespace OpenCV5Sharp
         Deepgreen = 21,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Connected Components Algorithms Types.
     /// </summary>
     public enum ConnectedComponentsAlgorithmsTypes : int
@@ -636,7 +636,7 @@ namespace OpenCV5Sharp
         Spaghetti = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Connected Components Types.
     /// </summary>
     public enum ConnectedComponentsTypes : int
@@ -655,7 +655,7 @@ namespace OpenCV5Sharp
         Max = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies contour approximation algorithms.
     /// </summary>
     public enum ContourApproximationModes : int
@@ -674,7 +674,7 @@ namespace OpenCV5Sharp
         LinkRuns = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Distance Transform Label Types.
     /// </summary>
     public enum DistanceTransformLabelTypes : int
@@ -685,7 +685,7 @@ namespace OpenCV5Sharp
         Pixel = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies mask sizes for distance transform operations.
     /// </summary>
     public enum DistanceTransformMasks : int
@@ -698,7 +698,7 @@ namespace OpenCV5Sharp
         Precise = 0,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Flood Fill Flags.
     /// </summary>
     public enum FloodFillFlags : int
@@ -709,7 +709,7 @@ namespace OpenCV5Sharp
         MaskOnly = unchecked((int)(1 << 17)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies GrabCut segmentation classes.
     /// </summary>
     public enum GrabCutClasses : int
@@ -724,7 +724,7 @@ namespace OpenCV5Sharp
         PrFgd = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies GrabCut segmentation operational modes.
     /// </summary>
     public enum GrabCutModes : int
@@ -739,7 +739,7 @@ namespace OpenCV5Sharp
         EvalFreezeModel = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies Hershey font face options.
     /// </summary>
     public enum HersheyFonts : int
@@ -764,7 +764,7 @@ namespace OpenCV5Sharp
         Italic = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies histogram comparison methods.
     /// </summary>
     public enum HistCompMethods : int
@@ -785,7 +785,7 @@ namespace OpenCV5Sharp
         KlDiv = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies Hough transform variants.
     /// </summary>
     public enum HoughModes : int
@@ -802,7 +802,7 @@ namespace OpenCV5Sharp
         GradientAlt = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies interpolation methods for image resizing and warping.
     /// </summary>
     public enum InterpolationFlags : int
@@ -831,7 +831,7 @@ namespace OpenCV5Sharp
         WarpRelativeMap = 32,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Interpolation Masks.
     /// </summary>
     public enum InterpolationMasks : int
@@ -846,7 +846,7 @@ namespace OpenCV5Sharp
         TabSize2 = unchecked((int)(TabSize * TabSize)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Line Segment Detector Modes.
     /// </summary>
     public enum LineSegmentDetectorModes : int
@@ -859,7 +859,7 @@ namespace OpenCV5Sharp
         Adv = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies drawing line types.
     /// </summary>
     public enum LineTypes : int
@@ -874,7 +874,7 @@ namespace OpenCV5Sharp
         LineAa = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies marker shapes for drawing.
     /// </summary>
     public enum MarkerTypes : int
@@ -895,7 +895,7 @@ namespace OpenCV5Sharp
         TriangleDown = 6,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies structural element shapes for morphological operations.
     /// </summary>
     public enum MorphShapes : int
@@ -910,7 +910,7 @@ namespace OpenCV5Sharp
         Diamond = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies morphological operation types.
     /// </summary>
     public enum MorphTypes : int
@@ -933,7 +933,7 @@ namespace OpenCV5Sharp
         Hitmiss = 7,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Put Text Flags.
     /// </summary>
     public enum PutTextFlags : int
@@ -954,7 +954,7 @@ namespace OpenCV5Sharp
         Wrap = 128,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies contour retrieval modes.
     /// </summary>
     public enum RetrievalModes : int
@@ -971,7 +971,7 @@ namespace OpenCV5Sharp
         Floodfill = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Shape Match Modes.
     /// </summary>
     public enum ShapeMatchModes : int
@@ -984,7 +984,7 @@ namespace OpenCV5Sharp
         I3 = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Special Filter.
     /// </summary>
     public enum SpecialFilter : int
@@ -993,7 +993,7 @@ namespace OpenCV5Sharp
         FilterScharr = -1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies template matching metrics.
     /// </summary>
     public enum TemplateMatchModes : int
@@ -1012,7 +1012,7 @@ namespace OpenCV5Sharp
         CcoeffNormed = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies thresholding operation types.
     /// </summary>
     public enum ThresholdTypes : int
@@ -1037,7 +1037,7 @@ namespace OpenCV5Sharp
         Dryrun = 128,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Undistort Types.
     /// </summary>
     public enum UndistortTypes : int
@@ -1048,7 +1048,7 @@ namespace OpenCV5Sharp
         Eqrect = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Warp Polar Mode.
     /// </summary>
     public enum WarpPolarMode : int

@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Flann Flann Index Type.
     /// </summary>
     public enum FlannFlannIndexType : int

@@ -247,6 +247,12 @@ jobs:
     - name: Push to NuGet
       run: Get-ChildItem -Path artifacts/*.nupkg | ForEach-Object { dotnet nuget push $_.FullName --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate }
 
+    - name: Push to GitHub Packages
+      run: |
+        Get-ChildItem -Path artifacts/*.nupkg | ForEach-Object {
+          dotnet nuget push $_.FullName --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --skip-duplicate
+        }
+
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:

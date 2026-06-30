@@ -38,7 +38,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void LoadPointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.cv_loadPointCloud_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
             ErrorHelper.CheckError();
         }
@@ -62,7 +62,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void SavePointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.cv_savePointCloud_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
             ErrorHelper.CheckError();
         }
@@ -97,7 +97,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void LoadMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.cv_loadMesh_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
             ErrorHelper.CheckError();
         }
@@ -125,7 +125,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void SaveMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.cv_saveMesh_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
             ErrorHelper.CheckError();
         }

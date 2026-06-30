@@ -3,15 +3,15 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Graphics;
-using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Hosting;
 using OpenCV5Sharp;
-using System.Runtime.InteropServices;
 
 namespace OpenCV5Sharp.Samples.Maui.Cpu
 {
@@ -441,7 +441,7 @@ namespace OpenCV5Sharp.Samples.Maui.Cpu
             {
                 var center = new Point2F(adjusted.Cols / 2f, adjusted.Rows / 2f);
                 using var rotationMatrix = Cv2.GetRotationMatrix2D(center, _rotation, 1.0);
-                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0,0,0), AlgorithmHint.Default);
+                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0, 0, 0), AlgorithmHint.Default);
             }
             else
             {

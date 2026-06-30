@@ -124,7 +124,7 @@ namespace OpenCV5Sharp.Samples
                         Console.WriteLine($"   GPU Kernel Execution Time: {swGpuKernel.ElapsedMilliseconds} ms");
                         Console.WriteLine($"   GPU Download Time: {swGpuDownload.ElapsedMilliseconds} ms");
                         Console.WriteLine($"   GPU Total Time (including I/O): {swGpuTotal.ElapsedMilliseconds} ms");
-                        
+
                         Cv2.Imwrite("gpu_output_cuda.png", gpuResult, IntPtr.Zero);
                         Console.WriteLine("   CUDA denoised output saved to: gpu_output_cuda.png");
                     }

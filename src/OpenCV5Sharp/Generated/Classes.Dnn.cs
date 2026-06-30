@@ -39,7 +39,7 @@ namespace OpenCV5Sharp
         public DnnClassificationModel(string model, string? config)
             : base(NativeMethods.dnn_ClassificationModel_New_0(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -141,7 +141,7 @@ namespace OpenCV5Sharp
         public DnnDetectionModel(string model, string? config)
             : base(NativeMethods.dnn_DetectionModel_New_0(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -280,7 +280,7 @@ namespace OpenCV5Sharp
         public DnnDictValue(string s)
             : base(NativeMethods.dnn_DictValue_New_2(s))
         {
-                if (s == null) throw new ArgumentNullException(nameof(s));
+            if (s == null) throw new ArgumentNullException(nameof(s));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -529,7 +529,7 @@ namespace OpenCV5Sharp
         public DnnKeypointsModel(string model, string? config)
             : base(NativeMethods.dnn_KeypointsModel_New_0(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -624,7 +624,7 @@ namespace OpenCV5Sharp
         public int OutputNameToIndex(string outputName)
         {
             ThrowIfDisposed();
-                if (outputName == null) throw new ArgumentNullException(nameof(outputName));
+            if (outputName == null) throw new ArgumentNullException(nameof(outputName));
             var res = NativeMethods.dnn_Layer_outputNameToIndex_0(Handle, outputName);
             ErrorHelper.CheckError();
             return res;
@@ -756,7 +756,7 @@ namespace OpenCV5Sharp
         public DnnModel(string model, string? config)
             : base(NativeMethods.dnn_Model_New_0(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -996,8 +996,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static DnnNet? ReadFromModelOptimizer(string xml, string bin)
         {
-                if (xml == null) throw new ArgumentNullException(nameof(xml));
-                if (bin == null) throw new ArgumentNullException(nameof(bin));
+            if (xml == null) throw new ArgumentNullException(nameof(xml));
+            if (bin == null) throw new ArgumentNullException(nameof(bin));
             IntPtr res = NativeMethods.dnn_Net_readFromModelOptimizer_0(xml, bin);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DnnNet(res);
@@ -1057,7 +1057,7 @@ namespace OpenCV5Sharp
         public void DumpToFile(string path)
         {
             ThrowIfDisposed();
-                if (path == null) throw new ArgumentNullException(nameof(path));
+            if (path == null) throw new ArgumentNullException(nameof(path));
             NativeMethods.dnn_Net_dumpToFile_0(Handle, path);
             ErrorHelper.CheckError();
         }
@@ -1073,7 +1073,7 @@ namespace OpenCV5Sharp
         public void DumpToPbtxt(string path)
         {
             ThrowIfDisposed();
-                if (path == null) throw new ArgumentNullException(nameof(path));
+            if (path == null) throw new ArgumentNullException(nameof(path));
             NativeMethods.dnn_Net_dumpToPbtxt_0(Handle, path);
             ErrorHelper.CheckError();
         }
@@ -1096,8 +1096,8 @@ namespace OpenCV5Sharp
         public int AddLayer(string name, string type, int dtype, DnnLayerParams @params)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
-                if (type == null) throw new ArgumentNullException(nameof(type));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            if (type == null) throw new ArgumentNullException(nameof(type));
             var res = NativeMethods.dnn_Net_addLayer_0(Handle, name, type, dtype, ValidationHelper.GetHandle(@params, nameof(@params), false));
             ErrorHelper.CheckError();
             return res;
@@ -1117,8 +1117,8 @@ namespace OpenCV5Sharp
         public int AddLayerToPrev(string name, string type, int dtype, DnnLayerParams @params)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
-                if (type == null) throw new ArgumentNullException(nameof(type));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            if (type == null) throw new ArgumentNullException(nameof(type));
             var res = NativeMethods.dnn_Net_addLayerToPrev_0(Handle, name, type, dtype, ValidationHelper.GetHandle(@params, nameof(@params), false));
             ErrorHelper.CheckError();
             return res;
@@ -1133,7 +1133,7 @@ namespace OpenCV5Sharp
         public int GetLayerId(string layer)
         {
             ThrowIfDisposed();
-                if (layer == null) throw new ArgumentNullException(nameof(layer));
+            if (layer == null) throw new ArgumentNullException(nameof(layer));
             var res = NativeMethods.dnn_Net_getLayerId_0(Handle, layer);
             ErrorHelper.CheckError();
             return res;
@@ -1175,7 +1175,7 @@ namespace OpenCV5Sharp
         public DnnLayer? GetLayer(string layerName)
         {
             ThrowIfDisposed();
-                if (layerName == null) throw new ArgumentNullException(nameof(layerName));
+            if (layerName == null) throw new ArgumentNullException(nameof(layerName));
             IntPtr res = NativeMethods.dnn_Net_getLayer_1(Handle, layerName);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DnnLayer(res);
@@ -1216,8 +1216,8 @@ namespace OpenCV5Sharp
         public void Connect(string outPin, string inpPin)
         {
             ThrowIfDisposed();
-                if (outPin == null) throw new ArgumentNullException(nameof(outPin));
-                if (inpPin == null) throw new ArgumentNullException(nameof(inpPin));
+            if (outPin == null) throw new ArgumentNullException(nameof(outPin));
+            if (inpPin == null) throw new ArgumentNullException(nameof(inpPin));
             NativeMethods.dnn_Net_connect_0(Handle, outPin, inpPin);
             ErrorHelper.CheckError();
         }
@@ -1240,7 +1240,7 @@ namespace OpenCV5Sharp
         public int RegisterOutput(string outputName, int layerId, int outputPort)
         {
             ThrowIfDisposed();
-                if (outputName == null) throw new ArgumentNullException(nameof(outputName));
+            if (outputName == null) throw new ArgumentNullException(nameof(outputName));
             var res = NativeMethods.dnn_Net_registerOutput_0(Handle, outputName, layerId, outputPort);
             ErrorHelper.CheckError();
             return res;
@@ -1272,7 +1272,7 @@ namespace OpenCV5Sharp
         public void SetInputShape(string inputName, MatShape shape)
         {
             ThrowIfDisposed();
-                if (inputName == null) throw new ArgumentNullException(nameof(inputName));
+            if (inputName == null) throw new ArgumentNullException(nameof(inputName));
             NativeMethods.dnn_Net_setInputShape_0(Handle, inputName, ValidationHelper.GetHandle(shape, nameof(shape), false));
             ErrorHelper.CheckError();
         }
@@ -1525,7 +1525,7 @@ namespace OpenCV5Sharp
         public void SetParam(string layerName, int numParam, Mat blob)
         {
             ThrowIfDisposed();
-                if (layerName == null) throw new ArgumentNullException(nameof(layerName));
+            if (layerName == null) throw new ArgumentNullException(nameof(layerName));
             NativeMethods.dnn_Net_setParam_1(Handle, layerName, numParam, ValidationHelper.GetHandle(blob, nameof(blob), false));
             ErrorHelper.CheckError();
         }
@@ -1556,7 +1556,7 @@ namespace OpenCV5Sharp
         public Mat? GetParam(string layerName, int numParam)
         {
             ThrowIfDisposed();
-                if (layerName == null) throw new ArgumentNullException(nameof(layerName));
+            if (layerName == null) throw new ArgumentNullException(nameof(layerName));
             IntPtr res = NativeMethods.dnn_Net_getParam_1(Handle, layerName, numParam);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new Mat(res);
@@ -1648,7 +1648,7 @@ namespace OpenCV5Sharp
         public int GetLayersCount(string layerType)
         {
             ThrowIfDisposed();
-                if (layerType == null) throw new ArgumentNullException(nameof(layerType));
+            if (layerType == null) throw new ArgumentNullException(nameof(layerType));
             var res = NativeMethods.dnn_Net_getLayersCount_0(Handle, layerType);
             ErrorHelper.CheckError();
             return res;
@@ -1807,7 +1807,7 @@ namespace OpenCV5Sharp
         public DnnSegmentationModel(string model, string? config)
             : base(NativeMethods.dnn_SegmentationModel_New_0(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -1990,7 +1990,7 @@ namespace OpenCV5Sharp
         public DnnTextDetectionModelDb(string model, string? config)
             : base(NativeMethods.dnn_TextDetectionModel_DB_New_1(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -2139,7 +2139,7 @@ namespace OpenCV5Sharp
         public DnnTextDetectionModelEast(string model, string? config)
             : base(NativeMethods.dnn_TextDetectionModel_EAST_New_1(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -2246,7 +2246,7 @@ namespace OpenCV5Sharp
         public DnnTextRecognitionModel(string model, string? config)
             : base(NativeMethods.dnn_TextRecognitionModel_New_1(model, config ?? ""))
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
+            if (model == null) throw new ArgumentNullException(nameof(model));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -2263,7 +2263,7 @@ namespace OpenCV5Sharp
         public DnnTextRecognitionModel? SetDecodeType(string decodeType)
         {
             ThrowIfDisposed();
-                if (decodeType == null) throw new ArgumentNullException(nameof(decodeType));
+            if (decodeType == null) throw new ArgumentNullException(nameof(decodeType));
             IntPtr res = NativeMethods.dnn_TextRecognitionModel_setDecodeType_0(Handle, decodeType);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DnnTextRecognitionModel(res);
@@ -2424,7 +2424,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static DnnTokenizer? Load(string model_config)
         {
-                if (model_config == null) throw new ArgumentNullException(nameof(model_config));
+            if (model_config == null) throw new ArgumentNullException(nameof(model_config));
             IntPtr res = NativeMethods.dnn_Tokenizer_load_0(model_config);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DnnTokenizer(res);
@@ -2445,7 +2445,7 @@ namespace OpenCV5Sharp
         public IntPtr Encode(string text)
         {
             ThrowIfDisposed();
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             var res = NativeMethods.dnn_Tokenizer_encode_0(Handle, text);
             ErrorHelper.CheckError();
             return res;

@@ -36,7 +36,7 @@ namespace OpenCV5Sharp.Tests
             GC.WaitForPendingFinalizers();
             GC.Collect();
             long endMemory = GC.GetTotalMemory(true);
-            
+
             long diff = endMemory - startMemory;
             // Strict threshold of 500 KB (accounting for transient heap / JIT metadata variations)
             Assert.True(diff / 1024 < 500, $"Memory difference too high: {diff / 1024} KB");

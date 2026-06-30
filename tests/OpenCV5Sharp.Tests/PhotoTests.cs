@@ -52,7 +52,7 @@ namespace OpenCV5Sharp.Tests
                 // Verify that the corrupted pixels are no longer black
                 byte[] dstData = new byte[50 * 50 * 3];
                 Marshal.Copy(dst.Data, dstData, 0, dstData.Length);
-                
+
                 int middlePixelIdx = (24 * 50 + 24) * 3;
                 Assert.True(dstData[middlePixelIdx] > 100); // Should be restored to near-white
             }

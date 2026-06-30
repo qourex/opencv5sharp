@@ -145,7 +145,7 @@ namespace OpenCV5Sharp
                 var input = inputs[i];
                 if (input == null)
                     throw new ArgumentNullException($"Matrix at index {i} in the inputs list is null.");
-                
+
                 input.ThrowIfDisposed();
 
                 results[i] = processor(input);

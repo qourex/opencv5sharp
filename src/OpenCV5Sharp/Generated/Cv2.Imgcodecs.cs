@@ -64,7 +64,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Mat? Imread(string filename, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             IntPtr res = NativeMethods.cv_imread_0(filename, flags);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new Mat(res);
@@ -85,7 +85,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void Imread(string filename, Mat dst, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.cv_imread_1(filename, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
             ErrorHelper.CheckError();
         }
@@ -106,7 +106,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Mat? ImreadWithMetadata(string filename, IntPtr metadataTypes, IntPtr metadata, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             IntPtr res = NativeMethods.cv_imreadWithMetadata_0(filename, metadataTypes, metadata, flags);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new Mat(res);
@@ -126,7 +126,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imreadmulti(string filename, IntPtr mats, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imreadmulti_0(filename, mats, flags);
             ErrorHelper.CheckError();
             return res;
@@ -147,7 +147,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imreadmulti(string filename, IntPtr mats, int start, int count, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imreadmulti_1(filename, mats, start, count, flags);
             ErrorHelper.CheckError();
             return res;
@@ -168,7 +168,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imreadanimation(string filename, Animation animation, int start, int count)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imreadanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
             ErrorHelper.CheckError();
             return res;
@@ -209,7 +209,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imwriteanimation(string filename, Animation animation, IntPtr @params)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imwriteanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), @params);
             ErrorHelper.CheckError();
             return res;
@@ -232,7 +232,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imencodeanimation(string ext, Animation animation, IntPtr buf, IntPtr @params)
         {
-                if (ext == null) throw new ArgumentNullException(nameof(ext));
+            if (ext == null) throw new ArgumentNullException(nameof(ext));
             var res = NativeMethods.cv_imencodeanimation_0(ext, ValidationHelper.GetHandle(animation, nameof(animation), false), buf, @params);
             ErrorHelper.CheckError();
             return res;
@@ -252,7 +252,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static long Imcount(string filename, int flags)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imcount_0(filename, flags);
             ErrorHelper.CheckError();
             return res;
@@ -323,7 +323,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imwrite(string filename, Mat img, IntPtr @params)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imwrite_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), @params);
             ErrorHelper.CheckError();
             return res;
@@ -345,7 +345,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool ImwriteWithMetadata(string filename, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imwriteWithMetadata_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, @params);
             ErrorHelper.CheckError();
             return res;
@@ -360,7 +360,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static bool Imwritemulti(string filename, IntPtr img, IntPtr @params)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_imwritemulti_0(filename, img, @params);
             ErrorHelper.CheckError();
             return res;
@@ -449,7 +449,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imencode(string ext, Mat img, IntPtr buf, IntPtr @params)
         {
-                if (ext == null) throw new ArgumentNullException(nameof(ext));
+            if (ext == null) throw new ArgumentNullException(nameof(ext));
             var res = NativeMethods.cv_imencode_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), buf, @params);
             ErrorHelper.CheckError();
             return res;
@@ -473,7 +473,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool ImencodeWithMetadata(string ext, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params)
         {
-                if (ext == null) throw new ArgumentNullException(nameof(ext));
+            if (ext == null) throw new ArgumentNullException(nameof(ext));
             var res = NativeMethods.cv_imencodeWithMetadata_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, buf, @params);
             ErrorHelper.CheckError();
             return res;
@@ -493,7 +493,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool Imencodemulti(string ext, IntPtr imgs, IntPtr buf, IntPtr @params)
         {
-                if (ext == null) throw new ArgumentNullException(nameof(ext));
+            if (ext == null) throw new ArgumentNullException(nameof(ext));
             var res = NativeMethods.cv_imencodemulti_0(ext, imgs, buf, @params);
             ErrorHelper.CheckError();
             return res;
@@ -514,7 +514,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool HaveImageReader(string filename)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_haveImageReader_0(filename);
             ErrorHelper.CheckError();
             return res;
@@ -534,7 +534,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static bool HaveImageWriter(string filename)
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.cv_haveImageWriter_0(filename);
             ErrorHelper.CheckError();
             return res;

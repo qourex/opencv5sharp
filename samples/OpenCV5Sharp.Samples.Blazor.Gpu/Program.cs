@@ -15,7 +15,7 @@ namespace OpenCV5Sharp.Samples.Blazor.Gpu
 
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            
+
             // Register GPU inference singleton service
             builder.Services.AddSingleton<GpuInferenceService>();
 

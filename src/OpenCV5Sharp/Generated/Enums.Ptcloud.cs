@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Odometry Algo Type.
     /// </summary>
     public enum OdometryAlgoType : int
@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
         Fast = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Odometry Frame Pyramid Type.
     /// </summary>
     public enum OdometryFramePyramidType : int
@@ -44,7 +44,7 @@ namespace OpenCV5Sharp
         NPyramids = unchecked((int)(8 + 1)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Odometry Type.
     /// </summary>
     public enum OdometryType : int
@@ -57,7 +57,7 @@ namespace OpenCV5Sharp
         RgbDepth = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Rgbd Normals Rgbd Normals Method.
     /// </summary>
     public enum RgbdNormalsRgbdNormalsMethod : int
@@ -72,7 +72,7 @@ namespace OpenCV5Sharp
         CrossProduct = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Rgbd Plane Method.
     /// </summary>
     public enum RgbdPlaneMethod : int
@@ -81,7 +81,7 @@ namespace OpenCV5Sharp
         RgbdPlaneMethodDefault = 0,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Triangle Culling Mode.
     /// </summary>
     public enum TriangleCullingMode : int
@@ -94,7 +94,7 @@ namespace OpenCV5Sharp
         Ccw = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Triangle Gl Compatible Mode.
     /// </summary>
     public enum TriangleGlCompatibleMode : int
@@ -105,7 +105,7 @@ namespace OpenCV5Sharp
         Invdepth = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Triangle Shading Type.
     /// </summary>
     public enum TriangleShadingType : int
@@ -118,7 +118,7 @@ namespace OpenCV5Sharp
         Shaded = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Volume Bounding Box Precision.
     /// </summary>
     public enum VolumeBoundingBoxPrecision : int
@@ -129,7 +129,7 @@ namespace OpenCV5Sharp
         Voxel = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Volume Type.
     /// </summary>
     public enum VolumeType : int

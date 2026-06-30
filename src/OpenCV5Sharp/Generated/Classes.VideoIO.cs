@@ -57,7 +57,7 @@ namespace OpenCV5Sharp
         public VideoCapture(string filename, int apiPreference)
             : base(NativeMethods.VideoCapture_New_1(filename, apiPreference))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -75,7 +75,7 @@ namespace OpenCV5Sharp
         public VideoCapture(string filename, int apiPreference, IntPtr @params)
             : base(NativeMethods.VideoCapture_New_2(filename, apiPreference, @params))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -124,7 +124,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int apiPreference)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoCapture_open_0(Handle, filename, apiPreference);
             ErrorHelper.CheckError();
             return res;
@@ -145,7 +145,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int apiPreference, IntPtr @params)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoCapture_open_1(Handle, filename, apiPreference, @params);
             ErrorHelper.CheckError();
             return res;
@@ -408,7 +408,7 @@ namespace OpenCV5Sharp
         public VideoWriter(string filename, int fourcc, double fps, Size frameSize, bool isColor)
             : base(NativeMethods.VideoWriter_New_1(filename, fourcc, fps, frameSize, isColor))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -428,7 +428,7 @@ namespace OpenCV5Sharp
         public VideoWriter(string filename, int apiPreference, int fourcc, double fps, Size frameSize, bool isColor)
             : base(NativeMethods.VideoWriter_New_2(filename, apiPreference, fourcc, fps, frameSize, isColor))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -447,7 +447,7 @@ namespace OpenCV5Sharp
         public VideoWriter(string filename, int fourcc, double fps, Size frameSize, IntPtr @params)
             : base(NativeMethods.VideoWriter_New_3(filename, fourcc, fps, frameSize, @params))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -463,7 +463,7 @@ namespace OpenCV5Sharp
         public VideoWriter(string filename, int apiPreference, int fourcc, double fps, Size frameSize, IntPtr @params)
             : base(NativeMethods.VideoWriter_New_4(filename, apiPreference, fourcc, fps, frameSize, @params))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -483,7 +483,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int fourcc, double fps, Size frameSize, bool isColor)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoWriter_open_0(Handle, filename, fourcc, fps, frameSize, isColor);
             ErrorHelper.CheckError();
             return res;
@@ -502,7 +502,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int apiPreference, int fourcc, double fps, Size frameSize, bool isColor)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoWriter_open_1(Handle, filename, apiPreference, fourcc, fps, frameSize, isColor);
             ErrorHelper.CheckError();
             return res;
@@ -520,7 +520,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int fourcc, double fps, Size frameSize, IntPtr @params)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoWriter_open_2(Handle, filename, fourcc, fps, frameSize, @params);
             ErrorHelper.CheckError();
             return res;
@@ -539,7 +539,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int apiPreference, int fourcc, double fps, Size frameSize, IntPtr @params)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.VideoWriter_open_3(Handle, filename, apiPreference, fourcc, fps, frameSize, @params);
             ErrorHelper.CheckError();
             return res;

@@ -49,7 +49,7 @@ namespace OpenCV5Sharp.Tests
             {
                 Assert.NotNull(parameters);
                 Assert.NotEqual(IntPtr.Zero, parameters.Handle);
-                
+
                 // Read adaptiveThreshWinSizeMin
                 int winSize = parameters.AdaptiveThreshWinSizeMin;
                 Assert.True(winSize > 0);

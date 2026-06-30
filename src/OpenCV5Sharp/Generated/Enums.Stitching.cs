@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Stitcher Mode.
     /// </summary>
     public enum StitcherMode : int
@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
         Scans = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Stitcher Status.
     /// </summary>
     public enum StitcherStatus : int
@@ -32,7 +32,7 @@ namespace OpenCV5Sharp
         ErrCameraParamsAdjustFail = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum13 Detail Blender.
     /// </summary>
     public enum UnnamedEnum13DetailBlender : int
@@ -45,7 +45,7 @@ namespace OpenCV5Sharp
         MultiBand = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Detail Dp Seam Finder Cost Function.
     /// </summary>
     public enum DetailDpSeamFinderCostFunction : int
@@ -56,7 +56,7 @@ namespace OpenCV5Sharp
         ColorGrad = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum14 Detail Exposure Compensator.
     /// </summary>
     public enum UnnamedEnum14DetailExposureCompensator : int
@@ -73,7 +73,7 @@ namespace OpenCV5Sharp
         ChannelsBlocks = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Detail Graph Cut Seam Finder Base Cost Type.
     /// </summary>
     public enum DetailGraphCutSeamFinderBaseCostType : int
@@ -84,7 +84,7 @@ namespace OpenCV5Sharp
         ColorGrad = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum15 Detail Seam Finder.
     /// </summary>
     public enum UnnamedEnum15DetailSeamFinder : int
@@ -97,7 +97,7 @@ namespace OpenCV5Sharp
         DpSeam = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum16 Detail Timelapser.
     /// </summary>
     public enum UnnamedEnum16DetailTimelapser : int
@@ -108,7 +108,7 @@ namespace OpenCV5Sharp
         Crop = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Detail Wave Correct Kind.
     /// </summary>
     public enum DetailWaveCorrectKind : int

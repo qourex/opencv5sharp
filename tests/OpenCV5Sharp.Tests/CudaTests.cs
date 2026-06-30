@@ -30,7 +30,7 @@ namespace OpenCV5Sharp.Tests
             {
                 Assert.NotNull(info);
                 Assert.NotEqual(IntPtr.Zero, info!.Handle);
-                
+
                 int id = info.DeviceID();
                 Assert.Equal(0, id);
 

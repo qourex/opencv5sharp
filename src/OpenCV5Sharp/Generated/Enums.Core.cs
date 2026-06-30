@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies unmanaged memory access flags for matrix allocation.
     /// </summary>
     public enum AccessFlag : int
@@ -23,7 +23,7 @@ namespace OpenCV5Sharp
         Fast = unchecked((int)(1 << 26)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Provides optimization hints to underlying OpenCV algorithms.
     /// </summary>
     public enum AlgorithmHint : int
@@ -36,7 +36,7 @@ namespace OpenCV5Sharp
         Approx = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies pixel extrapolation methods used by image boundaries.
     /// </summary>
     public enum BorderTypes : int
@@ -59,7 +59,7 @@ namespace OpenCV5Sharp
         Isolated = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies comparison operators for element-wise array comparisons.
     /// </summary>
     public enum CmpTypes : int
@@ -78,7 +78,7 @@ namespace OpenCV5Sharp
         Ne = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for calculating covariances of a set of vectors.
     /// </summary>
     public enum CovarFlags : int
@@ -97,7 +97,7 @@ namespace OpenCV5Sharp
         Cols = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies data layout parameters.
     /// </summary>
     public enum DataLayout : int
@@ -136,7 +136,7 @@ namespace OpenCV5Sharp
         DnnLayoutBlock = 7,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies matrix decomposition methods for solving linear systems.
     /// </summary>
     public enum DecompTypes : int
@@ -155,7 +155,7 @@ namespace OpenCV5Sharp
         Normal = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for performing Discrete Fourier Transforms.
     /// </summary>
     public enum DftFlags : int
@@ -178,7 +178,7 @@ namespace OpenCV5Sharp
         DctRows = unchecked((int)(DftRows)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Represents status and error codes returned by OpenCV native operations.
     /// </summary>
     public enum ErrorCode : int
@@ -295,7 +295,7 @@ namespace OpenCV5Sharp
         OpenCLNoAMDBlasFft = -223,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum3 File Node.
     /// </summary>
     public enum UnnamedEnum3FileNode : int
@@ -328,7 +328,7 @@ namespace OpenCV5Sharp
         Named = 32,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies the mode for opening a FileStorage object.
     /// </summary>
     public enum FileStorageMode : int
@@ -359,7 +359,7 @@ namespace OpenCV5Sharp
         WriteBase64 = unchecked((int)(Base64 | Write)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Represents the state of a FileStorage object.
     /// </summary>
     public enum FileStorageState : int
@@ -374,7 +374,7 @@ namespace OpenCV5Sharp
         InsideMap = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies formatting options for outputting matrices.
     /// </summary>
     public enum FormatterFormatType : int
@@ -393,7 +393,7 @@ namespace OpenCV5Sharp
         C = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for General Matrix Multiplication operations.
     /// </summary>
     public enum GemmFlags : int
@@ -406,7 +406,7 @@ namespace OpenCV5Sharp
         _3T = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for K-Means clustering algorithm initialization.
     /// </summary>
     public enum KmeansFlags : int
@@ -419,7 +419,7 @@ namespace OpenCV5Sharp
         UseInitialLabels = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum4 Mat.
     /// </summary>
     public enum UnnamedEnum4Mat : int
@@ -432,7 +432,7 @@ namespace OpenCV5Sharp
         DepthMask = 7,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum5 Mat Shape.
     /// </summary>
     public enum UnnamedEnum5MatShape : int
@@ -441,7 +441,7 @@ namespace OpenCV5Sharp
         MaxDims = 10,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies normalization and distance metric types.
     /// </summary>
     public enum NormTypes : int
@@ -466,7 +466,7 @@ namespace OpenCV5Sharp
         Minmax = 32,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for Principal Component Analysis.
     /// </summary>
     public enum PcaFlags : int
@@ -479,7 +479,7 @@ namespace OpenCV5Sharp
         UseAvg = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies type flags for algorithm parameters.
     /// </summary>
     public enum Param : int
@@ -510,7 +510,7 @@ namespace OpenCV5Sharp
         Scalar = 12,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies quaternion assumption types.
     /// </summary>
     public enum QuatAssumeType : int
@@ -521,7 +521,7 @@ namespace OpenCV5Sharp
         Unit = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies Euler angle convention types.
     /// </summary>
     public enum QuatEnumEulerAnglesType : int
@@ -578,7 +578,7 @@ namespace OpenCV5Sharp
         EulerAnglesMaxValue = 24,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum6 Rng.
     /// </summary>
     public enum UnnamedEnum6Rng : int
@@ -589,7 +589,7 @@ namespace OpenCV5Sharp
         Normal = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies reduction operation types for reducing a matrix to a vector.
     /// </summary>
     public enum ReduceTypes : int
@@ -606,7 +606,7 @@ namespace OpenCV5Sharp
         Sum2 = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies rotation angles for 90-degree matrix rotations.
     /// </summary>
     public enum RotateFlags : int
@@ -619,7 +619,7 @@ namespace OpenCV5Sharp
         _90Counterclockwise = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Flags for Singular Value Decomposition operations.
     /// </summary>
     public enum SvdFlags : int
@@ -632,7 +632,7 @@ namespace OpenCV5Sharp
         FullUv = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Represents the result status of a Linear Programming solver.
     /// </summary>
     public enum SolveLPResult : int
@@ -649,7 +649,7 @@ namespace OpenCV5Sharp
         Multi = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies matrix sorting directions and key arrangements.
     /// </summary>
     public enum SortFlags : int
@@ -664,7 +664,7 @@ namespace OpenCV5Sharp
         Descending = 16,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum7 Sparse Mat.
     /// </summary>
     public enum UnnamedEnum7SparseMat : int
@@ -679,7 +679,7 @@ namespace OpenCV5Sharp
         HashBit = unchecked((int)(0x80000000)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies termination criteria types for iterative algorithms.
     /// </summary>
     public enum TermCriteriaType : int
@@ -692,7 +692,7 @@ namespace OpenCV5Sharp
         Eps = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum12 U Mat.
     /// </summary>
     public enum UnnamedEnum12UMat : int
@@ -705,7 +705,7 @@ namespace OpenCV5Sharp
         DepthMask = 7,
     }
 
-        /// <summary>
+    /// <summary>
     /// Internal memory allocation flags for UMat.
     /// </summary>
     public enum UMatDataMemoryFlag : int
@@ -728,7 +728,7 @@ namespace OpenCV5Sharp
         AsyncCleanup = 128,
     }
 
-        /// <summary>
+    /// <summary>
     /// Usage hints for Unified Matrix allocation.
     /// </summary>
     public enum UMatUsageFlags : int
@@ -745,7 +745,7 @@ namespace OpenCV5Sharp
         UmatUsageFlags32bit = unchecked((int)(0x7fffffff)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Identifies the underlying container type of an InputArray.
     /// </summary>
     public enum InputArrayKindFlag : int
@@ -792,7 +792,7 @@ namespace OpenCV5Sharp
         StdVectorCudaGpuMatNd = unchecked((int)(17 << KindShift)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Bitmask specifying acceptable output array depths.
     /// </summary>
     public enum OutputArrayDepthMask : int
@@ -833,7 +833,7 @@ namespace OpenCV5Sharp
         Flt = unchecked((int)(_32f + _64f)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Cuda Device Info Compute Mode.
     /// </summary>
     public enum CudaDeviceInfoComputeMode : int
@@ -848,7 +848,7 @@ namespace OpenCV5Sharp
         ComputeModeExclusiveProcess = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Cuda Event Create Flags.
     /// </summary>
     public enum CudaEventCreateFlags : int
@@ -863,7 +863,7 @@ namespace OpenCV5Sharp
         Interprocess = unchecked((int)(0x04)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Cuda Feature Set.
     /// </summary>
     public enum CudaFeatureSet : int
@@ -900,7 +900,7 @@ namespace OpenCV5Sharp
         DynamicParallelism = unchecked((int)(FeatureSetCompute35)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Cuda Host Mem Alloc Type.
     /// </summary>
     public enum CudaHostMemAllocType : int
@@ -913,7 +913,7 @@ namespace OpenCV5Sharp
         WriteCombined = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Detail Test Op.
     /// </summary>
     public enum DetailTestOp : int
@@ -934,7 +934,7 @@ namespace OpenCV5Sharp
         Gt = 6,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Instr Flags.
     /// </summary>
     public enum InstrFlags : int
@@ -947,7 +947,7 @@ namespace OpenCV5Sharp
         ExpandSameNames = unchecked((int)(0x02)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Instr Impl.
     /// </summary>
     public enum InstrImpl : int
@@ -960,7 +960,7 @@ namespace OpenCV5Sharp
         Opencl = unchecked((int)(0 + 2)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Instr Type.
     /// </summary>
     public enum InstrType : int
@@ -975,7 +975,7 @@ namespace OpenCV5Sharp
         Fun = unchecked((int)(0 + 3)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum17 Ocl Device.
     /// </summary>
     public enum UnnamedEnum17OclDevice : int
@@ -990,7 +990,7 @@ namespace OpenCV5Sharp
         VendorNvidia = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum18 Ocl Kernel Arg.
     /// </summary>
     public enum UnnamedEnum18OclKernelArg : int
@@ -1011,7 +1011,7 @@ namespace OpenCV5Sharp
         NoSize = 256,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Ocl Ocl Vector Strategy.
     /// </summary>
     public enum OclOclVectorStrategy : int
@@ -1024,7 +1024,7 @@ namespace OpenCV5Sharp
         Default = unchecked((int)(Own)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Ogl Buffer Access.
     /// </summary>
     public enum OglBufferAccess : int
@@ -1037,7 +1037,7 @@ namespace OpenCV5Sharp
         ReadWrite = unchecked((int)(0x88BA)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Ogl Buffer Target.
     /// </summary>
     public enum OglBufferTarget : int
@@ -1052,7 +1052,7 @@ namespace OpenCV5Sharp
         PixelUnpackBuffer = unchecked((int)(0x88EC)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Ogl Render Modes.
     /// </summary>
     public enum OglRenderModes : int
@@ -1079,7 +1079,7 @@ namespace OpenCV5Sharp
         Polygon = unchecked((int)(0x0009)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Ogl Texture2 D Format.
     /// </summary>
     public enum OglTexture2DFormat : int
@@ -1094,7 +1094,7 @@ namespace OpenCV5Sharp
         Rgba = unchecked((int)(0x1908)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Utils Logging Log Level.
     /// </summary>
     public enum UtilsLoggingLogLevel : int

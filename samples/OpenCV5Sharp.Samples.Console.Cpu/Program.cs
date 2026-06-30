@@ -97,7 +97,7 @@ namespace OpenCV5Sharp.Samples.Console.Cpu
         private static async Task RunSuperResolutionAsync(string imagePath)
         {
             System.Console.WriteLine("\n[3] Running FSRCNN Super Resolution (Deep Learning Upscaling)...");
-            
+
             try
             {
                 await DownloadModelIfMissingAsync(FsrcnnFile, FsrcnnUrl);
@@ -116,9 +116,9 @@ namespace OpenCV5Sharp.Samples.Console.Cpu
 
             var sw = Stopwatch.StartNew();
             // Pre-process frame for FSRCNN x2
-            using var blob = Cv2.DnnBlobFromImage(src, 1.0 / 255.0, new OpenCV5Sharp.Size(src.Cols, src.Rows), new Scalar(0,0,0), false, false, 5)!;
-            net.SetInput(blob, null, 1.0, new Scalar(0,0,0));
-            
+            using var blob = Cv2.DnnBlobFromImage(src, 1.0 / 255.0, new OpenCV5Sharp.Size(src.Cols, src.Rows), new Scalar(0, 0, 0), false, false, 5)!;
+            net.SetInput(blob, null, 1.0, new Scalar(0, 0, 0));
+
             using var prob = net.Forward(null);
             sw.Stop();
 

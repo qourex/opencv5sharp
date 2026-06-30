@@ -15,7 +15,7 @@ namespace OpenCV5Sharp.Tests
             // NamedWindow and DestroyWindow should run without crashing in headless mode
             string winName = "Test Window";
             Cv2.NamedWindow(winName, 0); // 0 = WINDOW_NORMAL
-            
+
             // Poll for key without waiting
             int key = Cv2.PollKey();
             Assert.Equal(-1, key);

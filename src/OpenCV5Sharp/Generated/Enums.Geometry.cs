@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies distance metrics for distance transform and clustering.
     /// </summary>
     public enum DistanceTypes : int
@@ -29,7 +29,7 @@ namespace OpenCV5Sharp
         Huber = 7,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Local Optim Method.
     /// </summary>
     public enum LocalOptimMethod : int
@@ -46,7 +46,7 @@ namespace OpenCV5Sharp
         Sigma = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for M S T Algorithm.
     /// </summary>
     public enum MSTAlgorithm : int
@@ -57,7 +57,7 @@ namespace OpenCV5Sharp
         Kruskal = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Matrix Type.
     /// </summary>
     public enum MatrixType : int
@@ -70,7 +70,7 @@ namespace OpenCV5Sharp
         Sparse = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Neighbor Search Method.
     /// </summary>
     public enum NeighborSearchMethod : int
@@ -83,7 +83,7 @@ namespace OpenCV5Sharp
         FlannRadius = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Polishing Method.
     /// </summary>
     public enum PolishingMethod : int
@@ -98,7 +98,7 @@ namespace OpenCV5Sharp
         CovPolisher = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies intersection relationships between rectangles.
     /// </summary>
     public enum RectanglesIntersectTypes : int
@@ -111,7 +111,7 @@ namespace OpenCV5Sharp
         Full = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Sac Method.
     /// </summary>
     public enum SacMethod : int
@@ -120,7 +120,7 @@ namespace OpenCV5Sharp
         SacMethodRansac = 0,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Sac Model Type.
     /// </summary>
     public enum SacModelType : int
@@ -131,7 +131,7 @@ namespace OpenCV5Sharp
         Sphere = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Sampling Method.
     /// </summary>
     public enum SamplingMethod : int
@@ -146,7 +146,7 @@ namespace OpenCV5Sharp
         Prosac = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Score Method.
     /// </summary>
     public enum ScoreMethod : int
@@ -161,7 +161,7 @@ namespace OpenCV5Sharp
         Lmeds = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Solve Pn P Method.
     /// </summary>
     public enum SolvePnPMethod : int
@@ -184,7 +184,7 @@ namespace OpenCV5Sharp
         MaxCount = unchecked((int)(6 + 1)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum11 Subdiv2 D.
     /// </summary>
     public enum UnnamedEnum11Subdiv2D : int
@@ -207,7 +207,7 @@ namespace OpenCV5Sharp
         PrevAroundRight = unchecked((int)(0x02)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Variable Type.
     /// </summary>
     public enum VariableType : int

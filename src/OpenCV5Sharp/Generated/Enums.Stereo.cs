@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum8 Stereo B M.
     /// </summary>
     public enum UnnamedEnum8StereoBM : int
@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
         Xsobel = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum9 Stereo Matcher.
     /// </summary>
     public enum UnnamedEnum9StereoMatcher : int
@@ -28,7 +28,7 @@ namespace OpenCV5Sharp
         Scale = unchecked((int)(1 << Shift)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum10 Stereo S G B M.
     /// </summary>
     public enum UnnamedEnum10StereoSGBM : int

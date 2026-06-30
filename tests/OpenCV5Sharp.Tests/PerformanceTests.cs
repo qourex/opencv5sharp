@@ -16,7 +16,7 @@ namespace OpenCV5Sharp.Tests
         {
             const int CV_8UC1 = 0;
             const int iterations = 1000;
-            
+
             using (var src = new Mat(500, 500, CV_8UC1))
             using (var dst = new Mat())
             {
@@ -39,7 +39,7 @@ namespace OpenCV5Sharp.Tests
                 sw.Stop();
 
                 double avgMs = sw.Elapsed.TotalMilliseconds / iterations;
-                
+
                 // Assert reasonable time budget (typically takes < 1ms per run on modern hardware)
                 Assert.True(avgMs < 10.0, $"Average execution time {avgMs:F3} ms exceeded performance budget of 10.0 ms.");
             }

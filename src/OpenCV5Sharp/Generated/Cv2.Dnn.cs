@@ -161,7 +161,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static DnnNet? DnnReadNet(string framework, IntPtr bufferModel, IntPtr bufferConfig, int engine)
         {
-                if (framework == null) throw new ArgumentNullException(nameof(framework));
+            if (framework == null) throw new ArgumentNullException(nameof(framework));
             IntPtr res = NativeMethods.cv_dnn_readNet_1(framework, bufferModel, bufferConfig, engine);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DnnNet(res);
@@ -431,8 +431,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void DnnWriteTextGraph(string model, string output)
         {
-                if (model == null) throw new ArgumentNullException(nameof(model));
-                if (output == null) throw new ArgumentNullException(nameof(output));
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            if (output == null) throw new ArgumentNullException(nameof(output));
             NativeMethods.cv_dnn_writeTextGraph_0(model, output);
             ErrorHelper.CheckError();
         }
@@ -551,7 +551,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static string? DnnSetInferenceEngineBackendType(string newBackendType)
         {
-                if (newBackendType == null) throw new ArgumentNullException(nameof(newBackendType));
+            if (newBackendType == null) throw new ArgumentNullException(nameof(newBackendType));
             IntPtr res = NativeMethods.cv_dnn_setInferenceEngineBackendType_0(newBackendType);
             ErrorHelper.CheckError();
             if (res == IntPtr.Zero) return null;

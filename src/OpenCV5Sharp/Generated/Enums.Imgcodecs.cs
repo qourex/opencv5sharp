@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies metadata format types.
     /// </summary>
     public enum ImageMetadataType : int
@@ -25,7 +25,7 @@ namespace OpenCV5Sharp
         Max = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies image loading color/depth mode options.
     /// </summary>
     public enum ImreadModes : int
@@ -62,7 +62,7 @@ namespace OpenCV5Sharp
         ColorRgb = 256,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite B M P Compression Flags.
     /// </summary>
     public enum ImwriteBMPCompressionFlags : int
@@ -73,7 +73,7 @@ namespace OpenCV5Sharp
         Bitfields = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies EXR image compression modes.
     /// </summary>
     public enum ImwriteEXRCompressionFlags : int
@@ -100,7 +100,7 @@ namespace OpenCV5Sharp
         Dwab = 9,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies compression types for EXR image encoding.
     /// </summary>
     public enum ImwriteEXRTypeFlags : int
@@ -111,7 +111,7 @@ namespace OpenCV5Sharp
         Float = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies encoding parameter flags for writing image files.
     /// </summary>
     public enum ImwriteFlags : int
@@ -200,7 +200,7 @@ namespace OpenCV5Sharp
         GifColortable = 1029,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite G I F Compression Flags.
     /// </summary>
     public enum ImwriteGIFCompressionFlags : int
@@ -223,7 +223,7 @@ namespace OpenCV5Sharp
         ColortableSize256 = 8,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies HDR compression modes.
     /// </summary>
     public enum ImwriteHDRCompressionFlags : int
@@ -234,7 +234,7 @@ namespace OpenCV5Sharp
         Rle = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite J P E G Sampling Factor Params.
     /// </summary>
     public enum ImwriteJPEGSamplingFactorParams : int
@@ -251,7 +251,7 @@ namespace OpenCV5Sharp
         _444 = unchecked((int)(0x111111)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies PAM image format options.
     /// </summary>
     public enum ImwritePAMFlags : int
@@ -270,7 +270,7 @@ namespace OpenCV5Sharp
         RgbAlpha = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite P N G Filter Flags.
     /// </summary>
     public enum ImwritePNGFilterFlags : int
@@ -291,7 +291,7 @@ namespace OpenCV5Sharp
         AllFilters = unchecked((int)(FastFilters | FilterAvg | FilterPaeth)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies compression strategies for PNG image encoding.
     /// </summary>
     public enum ImwritePNGFlags : int
@@ -308,7 +308,7 @@ namespace OpenCV5Sharp
         Fixed = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite Tiff Compression Flags.
     /// </summary>
     public enum ImwriteTiffCompressionFlags : int
@@ -381,7 +381,7 @@ namespace OpenCV5Sharp
         Jxl = 50002,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite Tiff Predictor Flags.
     /// </summary>
     public enum ImwriteTiffPredictorFlags : int
@@ -394,7 +394,7 @@ namespace OpenCV5Sharp
         Floatingpoint = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite Tiff Resolution Unit Flags.
     /// </summary>
     public enum ImwriteTiffResolutionUnitFlags : int
@@ -407,7 +407,7 @@ namespace OpenCV5Sharp
         Centimeter = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Imwrite W E B P Lossless Mode.
     /// </summary>
     public enum ImwriteWEBPLosslessMode : int

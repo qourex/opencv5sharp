@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum19 Cvtest Ts.
     /// </summary>
     public enum UnnamedEnum19CvtestTs : int
@@ -33,7 +33,7 @@ namespace OpenCV5Sharp
         MaxIdx = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Cvtest Ts Failure Code.
     /// </summary>
     public enum CvtestTsFailureCode : int
@@ -74,7 +74,7 @@ namespace OpenCV5Sharp
         Skipped = 1,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Perf Perf Strategy.
     /// </summary>
     public enum PerfPerfStrategy : int

@@ -4,11 +4,11 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCV5Sharp;
-using System.Runtime.InteropServices;
 
 namespace OpenCV5Sharp.Samples.WinForms.Cpu
 {
@@ -334,7 +334,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Cpu
 
                 using var processed = ApplyActiveFilter(src);
                 var bmp = MatToBitmap(processed);
-                
+
                 var old = _videoBox.Image;
                 _videoBox.Image = bmp;
                 old?.Dispose();
@@ -368,7 +368,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Cpu
             {
                 var center = new Point2F(adjusted.Cols / 2f, adjusted.Rows / 2f);
                 using var rotationMatrix = Cv2.GetRotationMatrix2D(center, angle, 1.0);
-                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new OpenCV5Sharp.Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0,0,0), AlgorithmHint.Default);
+                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new OpenCV5Sharp.Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0, 0, 0), AlgorithmHint.Default);
             }
             else
             {

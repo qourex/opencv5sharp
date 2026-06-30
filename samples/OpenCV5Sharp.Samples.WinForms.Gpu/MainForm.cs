@@ -6,11 +6,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCV5Sharp;
-using System.Runtime.InteropServices;
 
 namespace OpenCV5Sharp.Samples.WinForms.Gpu
 {
@@ -35,7 +35,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Gpu
         // DNN Networks
         private DnnNet? _yoloNet;
         private FaceDetectorYN? _yunetNet;
-        
+
         private string? _currentStaticPath;
         private TrackBar _brightnessBar = null!;
         private TrackBar _contrastBar = null!;
@@ -137,12 +137,12 @@ namespace OpenCV5Sharp.Samples.WinForms.Gpu
                 BackColor = Color.FromArgb(40, 40, 40),
                 ForeColor = Color.White
             };
-            _modelCombo.Items.AddRange(new object[] { 
-                "Original (No AI)", 
-                "Grayscale", 
-                "Canny Edge", 
-                "Gaussian Blur", 
-                "YOLOv8 Object Detector (GPU)", 
+            _modelCombo.Items.AddRange(new object[] {
+                "Original (No AI)",
+                "Grayscale",
+                "Canny Edge",
+                "Gaussian Blur",
+                "YOLOv8 Object Detector (GPU)",
                 "YuNet Face Tracker (GPU)",
                 "Hand & Finger Tracker"
             });
@@ -337,7 +337,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Gpu
                 while (!token.IsCancellationRequested)
                 {
                     sw.Restart();
-                    
+
                     var frame = TrackMat(new Mat());
                     if (!_capture.Read(frame) || frame.Empty())
                     {
@@ -487,7 +487,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Gpu
             {
                 var center = new Point2F(adjusted.Cols / 2f, adjusted.Rows / 2f);
                 using var rotationMatrix = Cv2.GetRotationMatrix2D(center, angle, 1.0);
-                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new OpenCV5Sharp.Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0,0,0), AlgorithmHint.Default);
+                Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new OpenCV5Sharp.Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0, 0, 0), AlgorithmHint.Default);
             }
             else
             {
@@ -559,7 +559,7 @@ namespace OpenCV5Sharp.Samples.WinForms.Gpu
             // YOLOv8 requires input blob: 640x640, scale 1.0/255.0, swapRB true
             using var blob = Cv2.DnnBlobFromImage(src, 1.0 / 255.0, new Size(640, 640), new Scalar(0, 0, 0), true, false, 5)!;
             _yoloNet!.SetInput(blob, "", 1.0, new Scalar(0, 0, 0));
-            
+
             using var output = _yoloNet.Forward("")!;
 
             // Output has shape [1, 84, 8400]

@@ -205,7 +205,7 @@ namespace OpenCV5Sharp
         public FontFace(string fontPathOrName)
             : base(NativeMethods.FontFace_New_1(fontPathOrName))
         {
-                if (fontPathOrName == null) throw new ArgumentNullException(nameof(fontPathOrName));
+            if (fontPathOrName == null) throw new ArgumentNullException(nameof(fontPathOrName));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -217,7 +217,7 @@ namespace OpenCV5Sharp
         public bool Set(string fontPathOrName)
         {
             ThrowIfDisposed();
-                if (fontPathOrName == null) throw new ArgumentNullException(nameof(fontPathOrName));
+            if (fontPathOrName == null) throw new ArgumentNullException(nameof(fontPathOrName));
             var res = NativeMethods.FontFace_set_0(Handle, fontPathOrName);
             ErrorHelper.CheckError();
             return res;

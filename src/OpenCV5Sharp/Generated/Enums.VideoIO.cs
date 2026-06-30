@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum0.
     /// </summary>
     public enum UnnamedEnum0 : int
@@ -21,7 +21,7 @@ namespace OpenCV5Sharp
         Yuv444p = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Codecs.
     /// </summary>
     public enum Codecs : int
@@ -30,7 +30,7 @@ namespace OpenCV5Sharp
         Mjpeg = 0,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Stream Type.
     /// </summary>
     public enum StreamType : int
@@ -45,7 +45,7 @@ namespace OpenCV5Sharp
         Wb = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Video Acceleration Type.
     /// </summary>
     public enum VideoAccelerationType : int
@@ -64,7 +64,7 @@ namespace OpenCV5Sharp
         Drm = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies video capture backends.
     /// </summary>
     public enum VideoCaptureAPIs : int
@@ -131,7 +131,7 @@ namespace OpenCV5Sharp
         Obsensor = 2600,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Video Capture O B Sensor Data Type.
     /// </summary>
     public enum VideoCaptureOBSensorDataType : int
@@ -144,7 +144,7 @@ namespace OpenCV5Sharp
         IrImage = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Video Capture O B Sensor Generators.
     /// </summary>
     public enum VideoCaptureOBSensorGenerators : int
@@ -159,7 +159,7 @@ namespace OpenCV5Sharp
         GeneratorsMask = unchecked((int)(DepthGenerator + ImageGenerator + IrGenerator)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Video Capture O B Sensor Properties.
     /// </summary>
     public enum VideoCaptureOBSensorProperties : int
@@ -200,7 +200,7 @@ namespace OpenCV5Sharp
         ColorDistortionP2 = 26017,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies property identifiers for video capture devices and files.
     /// </summary>
     public enum VideoCaptureProperties : int
@@ -355,7 +355,7 @@ namespace OpenCV5Sharp
         ImageSeqStart = 73,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies property identifiers for video writers.
     /// </summary>
     public enum VideoWriterProperties : int

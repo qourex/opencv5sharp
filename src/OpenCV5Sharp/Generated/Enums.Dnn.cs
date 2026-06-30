@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Activation Type.
     /// </summary>
     public enum DnnActivationType : int
@@ -37,7 +37,7 @@ namespace OpenCV5Sharp
         Clip = unchecked((int)(0 + 11)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Arg Kind.
     /// </summary>
     public enum DnnArgKind : int
@@ -56,7 +56,7 @@ namespace OpenCV5Sharp
         Pattern = 5,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Auto Padding.
     /// </summary>
     public enum DnnAutoPadding : int
@@ -71,7 +71,7 @@ namespace OpenCV5Sharp
         Valid = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Backend.
     /// </summary>
     public enum DnnBackend : int
@@ -94,7 +94,7 @@ namespace OpenCV5Sharp
         Cann = unchecked((int)(2 + 6)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Engine Type.
     /// </summary>
     public enum DnnEngineType : int
@@ -109,7 +109,7 @@ namespace OpenCV5Sharp
         Ort = 4,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Image Padding Mode.
     /// </summary>
     public enum DnnImagePaddingMode : int
@@ -122,7 +122,7 @@ namespace OpenCV5Sharp
         Letterbox = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Loss Reduction.
     /// </summary>
     public enum DnnLossReduction : int
@@ -135,7 +135,7 @@ namespace OpenCV5Sharp
         Sum = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Model Format.
     /// </summary>
     public enum DnnModelFormat : int
@@ -150,7 +150,7 @@ namespace OpenCV5Sharp
         Tflite = 3,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Nary Eltwise Layer Operation.
     /// </summary>
     public enum DnnNaryEltwiseLayerOperation : int
@@ -205,7 +205,7 @@ namespace OpenCV5Sharp
         BitwiseXor = unchecked((int)(0 + 23)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Profiling Mode.
     /// </summary>
     public enum DnnProfilingMode : int
@@ -218,7 +218,7 @@ namespace OpenCV5Sharp
         Detailed = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Reduce2 Layer Reduce Type.
     /// </summary>
     public enum DnnReduce2LayerReduceType : int
@@ -245,7 +245,7 @@ namespace OpenCV5Sharp
         LogSumExp = 9,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Soft N M S Method.
     /// </summary>
     public enum DnnSoftNMSMethod : int
@@ -256,7 +256,7 @@ namespace OpenCV5Sharp
         Gaussian = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Target.
     /// </summary>
     public enum DnnTarget : int
@@ -285,7 +285,7 @@ namespace OpenCV5Sharp
         CpuFp16 = unchecked((int)(0 + 10)),
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Dnn Tracing Mode.
     /// </summary>
     public enum DnnTracingMode : int

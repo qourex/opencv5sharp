@@ -11,7 +11,7 @@ namespace OpenCV5Sharp.Samples.Blazor.Cpu
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
+
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 

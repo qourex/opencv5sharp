@@ -6,7 +6,7 @@
 
 namespace OpenCV5Sharp
 {
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Unnamed Enum1 D I S Optical Flow.
     /// </summary>
     public enum UnnamedEnum1DISOpticalFlow : int
@@ -19,7 +19,7 @@ namespace OpenCV5Sharp
         Medium = 2,
     }
 
-        /// <summary>
+    /// <summary>
     /// Specifies options and constants for Detail Tracker Sampler C S C Mode.
     /// </summary>
     public enum DetailTrackerSamplerCSCMode : int

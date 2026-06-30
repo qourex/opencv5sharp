@@ -210,7 +210,7 @@ namespace OpenCV5Sharp
         public void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.Algorithm_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
             ErrorHelper.CheckError();
         }
@@ -250,7 +250,7 @@ namespace OpenCV5Sharp
         public void Save(string filename)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.Algorithm_save_0(Handle, filename);
             ErrorHelper.CheckError();
         }
@@ -493,7 +493,7 @@ namespace OpenCV5Sharp
         public FileNode? OperatorGet(string nodename)
         {
             ThrowIfDisposed();
-                if (nodename == null) throw new ArgumentNullException(nameof(nodename));
+            if (nodename == null) throw new ArgumentNullException(nameof(nodename));
             IntPtr res = NativeMethods.FileNode_operator_get_0(Handle, nodename);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FileNode(res);
@@ -749,7 +749,7 @@ namespace OpenCV5Sharp
         public FileStorage(string filename, int flags, string? encoding)
             : base(NativeMethods.FileStorage_New_1(filename, flags, encoding ?? ""))
         {
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -767,7 +767,7 @@ namespace OpenCV5Sharp
         public bool Open(string filename, int flags, string? encoding)
         {
             ThrowIfDisposed();
-                if (filename == null) throw new ArgumentNullException(nameof(filename));
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.FileStorage_open_0(Handle, filename, flags, encoding ?? "");
             ErrorHelper.CheckError();
             return res;
@@ -850,7 +850,7 @@ namespace OpenCV5Sharp
         public FileNode? OperatorGet(string nodename)
         {
             ThrowIfDisposed();
-                if (nodename == null) throw new ArgumentNullException(nameof(nodename));
+            if (nodename == null) throw new ArgumentNullException(nameof(nodename));
             IntPtr res = NativeMethods.FileStorage_operator_get_0(Handle, nodename);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FileNode(res);
@@ -868,7 +868,7 @@ namespace OpenCV5Sharp
         public void Write(string name, int val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_0(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -881,7 +881,7 @@ namespace OpenCV5Sharp
         public void Write(string name, bool val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_1(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -894,7 +894,7 @@ namespace OpenCV5Sharp
         public void Write(string name, long val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_2(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -907,7 +907,7 @@ namespace OpenCV5Sharp
         public void Write(string name, double val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_3(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -920,8 +920,8 @@ namespace OpenCV5Sharp
         public void Write(string name, string val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
-                if (val == null) throw new ArgumentNullException(nameof(val));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            if (val == null) throw new ArgumentNullException(nameof(val));
             NativeMethods.FileStorage_write_4(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -936,7 +936,7 @@ namespace OpenCV5Sharp
         public void Write(string name, Mat val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_5(Handle, name, ValidationHelper.GetHandle(val, nameof(val), false));
             ErrorHelper.CheckError();
         }
@@ -949,7 +949,7 @@ namespace OpenCV5Sharp
         public void Write(string name, IntPtr val)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_write_6(Handle, name, val);
             ErrorHelper.CheckError();
         }
@@ -965,7 +965,7 @@ namespace OpenCV5Sharp
         public void WriteComment(string comment, bool append)
         {
             ThrowIfDisposed();
-                if (comment == null) throw new ArgumentNullException(nameof(comment));
+            if (comment == null) throw new ArgumentNullException(nameof(comment));
             NativeMethods.FileStorage_writeComment_0(Handle, comment, append);
             ErrorHelper.CheckError();
         }
@@ -979,7 +979,7 @@ namespace OpenCV5Sharp
         public void StartWriteStruct(string name, int flags, string? typeName)
         {
             ThrowIfDisposed();
-                if (name == null) throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.FileStorage_startWriteStruct_0(Handle, name, flags, typeName ?? "");
             ErrorHelper.CheckError();
         }
@@ -4312,7 +4312,7 @@ namespace OpenCV5Sharp
         public bool IsExtensionSupported(string extensionName)
         {
             ThrowIfDisposed();
-                if (extensionName == null) throw new ArgumentNullException(nameof(extensionName));
+            if (extensionName == null) throw new ArgumentNullException(nameof(extensionName));
             var res = NativeMethods.ocl_Device_isExtensionSupported_0(Handle, extensionName);
             ErrorHelper.CheckError();
             return res;

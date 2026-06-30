@@ -36,7 +36,7 @@ namespace OpenCV5Sharp.Tests
                         // Running stitching on dummy black images will return a failure status (e.g. ErrorNeedMoreImgs or similar)
                         // but it should run successfully and return a valid StitcherStatus enum rather than crashing.
                         StitcherStatus status = stitcher.Stitch(vecPtr, pano);
-                        
+
                         // Assert that the enum returned is a valid defined StitcherStatus value
                         Assert.True(Enum.IsDefined(typeof(StitcherStatus), status));
                     }

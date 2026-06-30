@@ -2715,7 +2715,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void PutText(Mat img, string text, Point org, int fontFace, double fontScale, Scalar color, int thickness, int lineType, bool bottomLeftOrigin)
         {
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             NativeMethods.cv_putText_0(ValidationHelper.GetHandle(img, nameof(img), false), text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin);
             ErrorHelper.CheckError();
         }
@@ -2761,7 +2761,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Size GetTextSize(string text, int fontFace, double fontScale, int thickness, IntPtr baseLine)
         {
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             var res = NativeMethods.cv_getTextSize_0(text, fontFace, fontScale, thickness, baseLine);
             ErrorHelper.CheckError();
             return res;
@@ -2806,7 +2806,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Point PutText(Mat img, string text, Point org, Scalar color, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
         {
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             var res = NativeMethods.cv_putText_1(ValidationHelper.GetHandle(img, nameof(img), false), text, org, color, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
             ErrorHelper.CheckError();
             return res;
@@ -2832,7 +2832,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Rect GetTextSize(Size imgsize, string text, Point org, FontFace fface, int size, int weight, PutTextFlags flags, Range wrap)
         {
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             var res = NativeMethods.cv_getTextSize_1(imgsize, text, org, ValidationHelper.GetHandle(fface, nameof(fface), false), size, weight, (int)flags, wrap);
             ErrorHelper.CheckError();
             return res;

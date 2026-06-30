@@ -60,7 +60,7 @@ namespace OpenCV5Sharp.Samples.Blazor.Gpu
                     // 1. Forward pass
                     using var blob = Cv2.DnnBlobFromImage(src, 1.0 / 255.0, new Size(640, 640), new Scalar(0, 0, 0), true, false, 5)!;
                     _net.SetInput(blob, "", 1.0, new Scalar(0, 0, 0));
-                    
+
                     using var output = _net.Forward("")!;
 
                     // 2. Parse results via unmanaged float pointer (zero-copy)

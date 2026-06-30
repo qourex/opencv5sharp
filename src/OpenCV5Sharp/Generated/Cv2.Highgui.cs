@@ -36,7 +36,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void NamedWindow(string winname, int flags)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_namedWindow_0(winname, flags);
             ErrorHelper.CheckError();
         }
@@ -50,7 +50,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void DestroyWindow(string winname)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_destroyWindow_0(winname);
             ErrorHelper.CheckError();
         }
@@ -193,7 +193,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void Imshow(string winname, Mat mat)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_imshow_0(winname, ValidationHelper.GetHandle(mat, nameof(mat), false));
             ErrorHelper.CheckError();
         }
@@ -210,7 +210,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void ResizeWindow(string winname, int width, int height)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_resizeWindow_0(winname, width, height);
             ErrorHelper.CheckError();
         }
@@ -222,7 +222,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void ResizeWindow(string winname, Size size)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_resizeWindow_1(winname, size);
             ErrorHelper.CheckError();
         }
@@ -238,7 +238,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void MoveWindow(string winname, int x, int y)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_moveWindow_0(winname, x, y);
             ErrorHelper.CheckError();
         }
@@ -255,7 +255,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SetWindowProperty(string winname, int prop_id, double prop_value)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_setWindowProperty_0(winname, prop_id, prop_value);
             ErrorHelper.CheckError();
         }
@@ -267,8 +267,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void SetWindowTitle(string winname, string title)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
-                if (title == null) throw new ArgumentNullException(nameof(title));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (title == null) throw new ArgumentNullException(nameof(title));
             NativeMethods.cv_setWindowTitle_0(winname, title);
             ErrorHelper.CheckError();
         }
@@ -286,7 +286,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static double GetWindowProperty(string winname, int prop_id)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             var res = NativeMethods.cv_getWindowProperty_0(winname, prop_id);
             ErrorHelper.CheckError();
             return res;
@@ -304,7 +304,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Rect GetWindowImageRect(string winname)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             var res = NativeMethods.cv_getWindowImageRect_0(winname);
             ErrorHelper.CheckError();
             return res;
@@ -329,7 +329,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static Rect SelectROI(string windowName, Mat img, bool showCrosshair, bool fromCenter, bool printNotice)
         {
-                if (windowName == null) throw new ArgumentNullException(nameof(windowName));
+            if (windowName == null) throw new ArgumentNullException(nameof(windowName));
             var res = NativeMethods.cv_selectROI_0(windowName, ValidationHelper.GetHandle(img, nameof(img), false), showCrosshair, fromCenter, printNotice);
             ErrorHelper.CheckError();
             return res;
@@ -372,7 +372,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SelectROIs(string windowName, Mat img, IntPtr boundingBoxes, bool showCrosshair, bool fromCenter, bool printNotice)
         {
-                if (windowName == null) throw new ArgumentNullException(nameof(windowName));
+            if (windowName == null) throw new ArgumentNullException(nameof(windowName));
             NativeMethods.cv_selectROIs_0(windowName, ValidationHelper.GetHandle(img, nameof(img), false), boundingBoxes, showCrosshair, fromCenter, printNotice);
             ErrorHelper.CheckError();
         }
@@ -390,8 +390,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static int GetTrackbarPos(string trackbarname, string winname)
         {
-                if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             var res = NativeMethods.cv_getTrackbarPos_0(trackbarname, winname);
             ErrorHelper.CheckError();
             return res;
@@ -410,8 +410,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SetTrackbarPos(string trackbarname, string winname, int pos)
         {
-                if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_setTrackbarPos_0(trackbarname, winname, pos);
             ErrorHelper.CheckError();
         }
@@ -429,8 +429,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SetTrackbarMax(string trackbarname, string winname, int maxval)
         {
-                if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_setTrackbarMax_0(trackbarname, winname, maxval);
             ErrorHelper.CheckError();
         }
@@ -448,8 +448,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SetTrackbarMin(string trackbarname, string winname, int minval)
         {
-                if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (trackbarname == null) throw new ArgumentNullException(nameof(trackbarname));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
             NativeMethods.cv_setTrackbarMin_0(trackbarname, winname, minval);
             ErrorHelper.CheckError();
         }
@@ -470,8 +470,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static void AddText(Mat img, string text, Point org, string nameFont, int pointSize, Scalar color, int weight, int style, int spacing)
         {
-                if (text == null) throw new ArgumentNullException(nameof(text));
-                if (nameFont == null) throw new ArgumentNullException(nameof(nameFont));
+            if (text == null) throw new ArgumentNullException(nameof(text));
+            if (nameFont == null) throw new ArgumentNullException(nameof(nameFont));
             NativeMethods.cv_addText_0(ValidationHelper.GetHandle(img, nameof(img), false), text, org, nameFont, pointSize, color, weight, style, spacing);
             ErrorHelper.CheckError();
         }
@@ -489,8 +489,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void DisplayOverlay(string winname, string text, int delayms)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             NativeMethods.cv_displayOverlay_0(winname, text, delayms);
             ErrorHelper.CheckError();
         }
@@ -508,8 +508,8 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void DisplayStatusBar(string winname, string text, int delayms)
         {
-                if (winname == null) throw new ArgumentNullException(nameof(winname));
-                if (text == null) throw new ArgumentNullException(nameof(text));
+            if (winname == null) throw new ArgumentNullException(nameof(winname));
+            if (text == null) throw new ArgumentNullException(nameof(text));
             NativeMethods.cv_displayStatusBar_0(winname, text, delayms);
             ErrorHelper.CheckError();
         }
