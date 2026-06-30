@@ -3,6 +3,8 @@ bin/
 obj/
 build/
 !src/OpenCV5Sharp/build/
+!src/OpenCV5Sharp.Gpu.Windows/build/
+!src/OpenCV5Sharp.Gpu.Linux/build/
 x64/
 [Dd]ebug/
 [Rr]elease/
