@@ -88,6 +88,15 @@ namespace OpenCV5Sharp
     /// </summary>
     internal static class ValidationHelper
     {
+        /// <summary>
+        /// Gets the native pointer handle from a disposable OpenCV object, validating that it is not null (if not optional) and not disposed.
+        /// </summary>
+        /// <param name="obj">The disposable OpenCV object.</param>
+        /// <param name="paramName">The parameter name to report in exceptions.</param>
+        /// <param name="isOptional">True if the parameter can be null; false if it is required.</param>
+        /// <returns>The unmanaged pointer handle of the object, or <see cref="IntPtr.Zero"/> if null and optional.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="obj"/> is null and <paramref name="isOptional"/> is false.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when <paramref name="obj"/> has been disposed.</exception>
         public static IntPtr GetHandle(DisposableOpenCVObject? obj, string paramName, bool isOptional)
         {
             if (obj is null)
@@ -109,6 +118,12 @@ namespace OpenCV5Sharp
         /// Validates matrix dimensions and invokes a factory to create the native handle.
         /// Throws if dimensions are invalid; otherwise returns the result of <paramref name="factory"/>.
         /// </summary>
+        /// <param name="rows">The number of rows.</param>
+        /// <param name="cols">The number of columns.</param>
+        /// <param name="factory">The factory function generating the handle.</param>
+        /// <returns>The unmanaged pointer handle of the newly created Mat.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="rows"/> or <paramref name="cols"/> is negative.</exception>
+        /// <exception cref="ArgumentException">Thrown when matrix size exceeds limits.</exception>
         public static IntPtr CheckDimensions(int rows, int cols, Func<IntPtr> factory)
         {
             if (rows < 0) throw new ArgumentOutOfRangeException(nameof(rows));
@@ -120,6 +135,11 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Validates matrix size and invokes a factory to create the native handle.
         /// </summary>
+        /// <param name="size">The size of the matrix.</param>
+        /// <param name="factory">The factory function generating the handle.</param>
+        /// <returns>The unmanaged pointer handle of the newly created Mat.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when size elements are negative.</exception>
+        /// <exception cref="ArgumentException">Thrown when matrix size exceeds limits.</exception>
         public static IntPtr CheckSize(Size size, Func<IntPtr> factory)
         {
             return CheckDimensions(size.Height, size.Width, factory);

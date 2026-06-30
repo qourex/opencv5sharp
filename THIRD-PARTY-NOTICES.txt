@@ -91,3 +91,26 @@ component licenses listed below:
     - License: Apache License 2.0
     - Project URL: https://github.com/dmlc/dlpack
     - Copyright: Copyright (c) by Contributors
+
+16. SqueezeNet ONNX Model
+    - License: BSD-3-Clause
+    - Project URL: https://github.com/onnx/models
+    - Source: ONNX Model Zoo (https://github.com/onnx/models/tree/main/validated/vision/classification/squeezenet)
+    - Copyright: Copyright (c) 2018 the ONNX Model Zoo contributors
+    - Note: The squeezenet.onnx model file is included for DNN inference samples only.
+
+17. YuNet Face Detection Model
+    - License: MIT License
+    - Project URL: https://github.com/ShiqiYu/libfacedetection
+    - Source: libfacedetection (https://github.com/ShiqiYu/libfacedetection)
+    - Copyright: Copyright (c) 2015-2026, Shiqi Yu, all rights reserved.
+    - Note: The face_detection_yunet.onnx model file is included for face detection samples only.
+
+18. NVIDIA CUDA Toolkit (GPU package only)
+    - License: NVIDIA Software License Agreement (EULA)
+    - Project URL: https://developer.nvidia.com/cuda-toolkit
+    - Copyright: Copyright (c) 2005-2026 NVIDIA Corporation
+    - Note: The OpenCV5Sharp.Gpu.Windows and OpenCV5Sharp.Gpu.Linux NuGet packages bundle NVIDIA CUDA runtime libraries
+      (cudart, cublas, cufft, curand, cusolver, cusparse, cudnn) for GPU-accelerated
+      computer vision. Redistribution is permitted under the NVIDIA CUDA Toolkit EULA.
+      Users must have a compatible NVIDIA GPU driver installed.

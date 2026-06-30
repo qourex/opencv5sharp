@@ -8,3 +8,4 @@ using System.Runtime.InteropServices;
 // the application's own directory, not from untrusted locations in the system PATH.
 [assembly: DefaultDllImportSearchPaths(DllImportSearchPath.AssemblyDirectory | DllImportSearchPath.UseDllDirectoryForDependencies)]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("OpenCV5Sharp.Samples")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("OpenCV5Sharp.Tests")]

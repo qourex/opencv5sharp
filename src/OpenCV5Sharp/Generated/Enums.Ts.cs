@@ -7,83 +7,83 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Unnamed Enum19 Cvtest Ts.
     /// </summary>
     public enum UnnamedEnum19CvtestTs : int
     {
-        /// <summary>Nul</summary>
+        /// <summary>Nul option.</summary>
         Nul = 0,
-        /// <summary>SummaryIdx</summary>
+        /// <summary>Summary idx option.</summary>
         SummaryIdx = 0,
-        /// <summary>Summary</summary>
+        /// <summary>Summary option.</summary>
         Summary = unchecked((int)(1 << SummaryIdx)),
-        /// <summary>LogIdx</summary>
+        /// <summary>Log idx option.</summary>
         LogIdx = 1,
-        /// <summary>Log</summary>
+        /// <summary>Log option.</summary>
         Log = unchecked((int)(1 << LogIdx)),
-        /// <summary>CsvIdx</summary>
+        /// <summary>Csv idx option.</summary>
         CsvIdx = 2,
-        /// <summary>Csv</summary>
+        /// <summary>Csv option.</summary>
         Csv = unchecked((int)(1 << CsvIdx)),
-        /// <summary>ConsoleIdx</summary>
+        /// <summary>Console idx option.</summary>
         ConsoleIdx = 3,
-        /// <summary>Console</summary>
+        /// <summary>Console option.</summary>
         Console = unchecked((int)(1 << ConsoleIdx)),
-        /// <summary>MaxIdx</summary>
+        /// <summary>Max idx option.</summary>
         MaxIdx = 4,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Cvtest Ts Failure Code.
     /// </summary>
     public enum CvtestTsFailureCode : int
     {
-        /// <summary>Ok</summary>
+        /// <summary>Ok option.</summary>
         Ok = 0,
-        /// <summary>FailGeneric</summary>
+        /// <summary>Fail generic option.</summary>
         FailGeneric = -1,
-        /// <summary>FailMissingTestData</summary>
+        /// <summary>Fail missing test data option.</summary>
         FailMissingTestData = -2,
-        /// <summary>FailErrorInCalledFunc</summary>
+        /// <summary>Fail error in called func option.</summary>
         FailErrorInCalledFunc = -3,
-        /// <summary>FailException</summary>
+        /// <summary>Fail exception option.</summary>
         FailException = -4,
-        /// <summary>FailMemoryException</summary>
+        /// <summary>Fail memory exception option.</summary>
         FailMemoryException = -5,
-        /// <summary>FailArithmException</summary>
+        /// <summary>Fail arithm exception option.</summary>
         FailArithmException = -6,
-        /// <summary>FailMemoryCorruptionBegin</summary>
+        /// <summary>Fail memory corruption begin option.</summary>
         FailMemoryCorruptionBegin = -7,
-        /// <summary>FailMemoryCorruptionEnd</summary>
+        /// <summary>Fail memory corruption end option.</summary>
         FailMemoryCorruptionEnd = -8,
-        /// <summary>FailMemoryLeak</summary>
+        /// <summary>Fail memory leak option.</summary>
         FailMemoryLeak = -9,
-        /// <summary>FailInvalidOutput</summary>
+        /// <summary>Fail invalid output option.</summary>
         FailInvalidOutput = -10,
-        /// <summary>FailMismatch</summary>
+        /// <summary>Fail mismatch option.</summary>
         FailMismatch = -11,
-        /// <summary>FailBadAccuracy</summary>
+        /// <summary>Fail bad accuracy option.</summary>
         FailBadAccuracy = -12,
-        /// <summary>FailHang</summary>
+        /// <summary>Fail hang option.</summary>
         FailHang = -13,
-        /// <summary>FailBadArgCheck</summary>
+        /// <summary>Fail bad arg check option.</summary>
         FailBadArgCheck = -14,
-        /// <summary>FailInvalidTestData</summary>
+        /// <summary>Fail invalid test data option.</summary>
         FailInvalidTestData = -15,
-        /// <summary>Skipped</summary>
+        /// <summary>Skipped option.</summary>
         Skipped = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Perf Perf Strategy.
     /// </summary>
     public enum PerfPerfStrategy : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = -1,
-        /// <summary>Base</summary>
+        /// <summary>Base option.</summary>
         Base = 0,
-        /// <summary>Simple</summary>
+        /// <summary>Simple option.</summary>
         Simple = 1,
     }
 

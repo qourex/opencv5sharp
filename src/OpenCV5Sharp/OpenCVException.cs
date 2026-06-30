@@ -60,6 +60,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Queries the native thread-local error state and throws an OpenCVException if a native error is registered.
         /// </summary>
+        /// <exception cref="OpenCVException">Thrown when a native error state is detected.</exception>
         public static void CheckError()
         {
             int code = NativeMethods.opencv5sharp_getLastErrorCode();

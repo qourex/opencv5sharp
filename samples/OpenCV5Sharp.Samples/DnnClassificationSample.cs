@@ -47,6 +47,26 @@ namespace OpenCV5Sharp.Samples
 
                     Console.WriteLine("   Network loaded successfully.");
 
+                    // Auto-enable CUDA GPU acceleration if available
+                    try
+                    {
+                        int cudaDevices = Cv2.CudaGetCudaEnabledDeviceCount();
+                        if (cudaDevices > 0)
+                        {
+                            Console.WriteLine($"   CUDA detected ({cudaDevices} devices)! Enabling GPU acceleration...");
+                            net.SetPreferableBackend((int)DnnBackend.Cuda);
+                            net.SetPreferableTarget((int)DnnTarget.Cuda);
+                        }
+                        else
+                        {
+                            Console.WriteLine("   No CUDA devices detected. Running ONNX model on CPU.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"   Could not check for CUDA backend ({ex.Message}). Defaulting to CPU.");
+                    }
+
                     Console.WriteLine("\n2. Preprocessing input image...");
                     using (Mat img = Cv2.Imread(imagePath, (int)ImreadModes.Color))
                     {

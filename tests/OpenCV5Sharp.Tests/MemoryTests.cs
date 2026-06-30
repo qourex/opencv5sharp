@@ -14,6 +14,10 @@ namespace OpenCV5Sharp.Tests
         {
             const int CV_8UC3 = 64;
 
+            // Warm up and run GC before capturing start memory
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
             long startMemory = GC.GetTotalMemory(true);
 
             for (int i = 0; i < 2000; i++)
@@ -22,13 +26,20 @@ namespace OpenCV5Sharp.Tests
                 {
                     using (Mat m2 = m1.Clone())
                     {
+                        Assert.False(m2.Empty());
                     }
                 }
             }
 
+            // Run GC after loops to clean up any transient objects
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
             long endMemory = GC.GetTotalMemory(true);
+
             long diff = endMemory - startMemory;
-            Assert.True(diff / 1024 < 10000, $"Memory difference too high: {diff / 1024} KB");
+            // Strict threshold of 500 KB (accounting for transient heap / JIT metadata variations)
+            Assert.True(diff / 1024 < 500, $"Memory difference too high: {diff / 1024} KB");
         }
     }
 }

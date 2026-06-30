@@ -7,31 +7,31 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Flann Flann Index Type.
     /// </summary>
     public enum FlannFlannIndexType : int
     {
-        /// <summary>FlannIndexType8u</summary>
+        /// <summary>Flann index type8u option.</summary>
         FlannIndexType8u = 0,
-        /// <summary>FlannIndexType8s</summary>
+        /// <summary>Flann index type8s option.</summary>
         FlannIndexType8s = 1,
-        /// <summary>FlannIndexType16u</summary>
+        /// <summary>Flann index type16u option.</summary>
         FlannIndexType16u = 2,
-        /// <summary>FlannIndexType16s</summary>
+        /// <summary>Flann index type16s option.</summary>
         FlannIndexType16s = 3,
-        /// <summary>FlannIndexType32s</summary>
+        /// <summary>Flann index type32s option.</summary>
         FlannIndexType32s = 4,
-        /// <summary>FlannIndexType32f</summary>
+        /// <summary>Flann index type32f option.</summary>
         FlannIndexType32f = 5,
-        /// <summary>FlannIndexType64f</summary>
+        /// <summary>Flann index type64f option.</summary>
         FlannIndexType64f = 6,
-        /// <summary>FlannIndexTypeString</summary>
+        /// <summary>Flann index type string option.</summary>
         FlannIndexTypeString = unchecked((int)(6 + 1)),
-        /// <summary>FlannIndexTypeBool</summary>
+        /// <summary>Flann index type bool option.</summary>
         FlannIndexTypeBool = unchecked((int)(6 + 2)),
-        /// <summary>FlannIndexTypeAlgorithm</summary>
+        /// <summary>Flann index type algorithm option.</summary>
         FlannIndexTypeAlgorithm = unchecked((int)(6 + 3)),
-        /// <summary>LastValueFlannIndexType</summary>
+        /// <summary>Last value flann index type option.</summary>
         LastValueFlannIndexType = unchecked((int)(FlannIndexTypeAlgorithm)),
     }
 

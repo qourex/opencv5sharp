@@ -3,11 +3,41 @@
     <VersionPrefix>1.0.0</VersionPrefix>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Allow missing XML docs in generated code -->
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     <NuGetAudit>true</NuGetAudit>
     <NuGetAuditLevel>low</NuGetAuditLevel>
+
+    <!-- SourceLink conditional activation based on Git repository existence -->
+    <GitRepoExists Condition="Exists('$(MSBuildThisFileDirectory).git')">true</GitRepoExists>
+    <GitRepoExists Condition="!Exists('$(MSBuildThisFileDirectory).git')">false</GitRepoExists>
+    
+    <PublishRepositoryUrl Condition="'$(GitRepoExists)' == 'true'">true</PublishRepositoryUrl>
+    <PublishRepositoryUrl Condition="'$(GitRepoExists)' != 'true'">false</PublishRepositoryUrl>
+    
+    <SourceControlInformationFeatureSupported Condition="'$(GitRepoExists)' == 'true'">true</SourceControlInformationFeatureSupported>
+    <SourceControlInformationFeatureSupported Condition="'$(GitRepoExists)' != 'true'">false</SourceControlInformationFeatureSupported>
+    
+    <EnableSourceControlManagerQueries Condition="'$(GitRepoExists)' == 'true'">true</EnableSourceControlManagerQueries>
+    <EnableSourceControlManagerQueries Condition="'$(GitRepoExists)' != 'true'">false</EnableSourceControlManagerQueries>
+    
+    <SourceLinkEnabled Condition="'$(GitRepoExists)' == 'true'">true</SourceLinkEnabled>
+    <SourceLinkEnabled Condition="'$(GitRepoExists)' != 'true'">false</SourceLinkEnabled>
+    
+    <EnableSourceLink Condition="'$(GitRepoExists)' == 'true'">true</EnableSourceLink>
+    <EnableSourceLink Condition="'$(GitRepoExists)' != 'true'">false</EnableSourceLink>
   </PropertyGroup>
+
+  <!-- Copy native runtime binaries to target output directory for local solution builds (project references) -->
+  <Target Name="CopyLocalNativeLibraries" AfterTargets="Build" Condition="'$(OS)' == 'Windows_NT' And '$(AssemblyName)' != 'OpenCV5Sharp' And '$(AssemblyName)' != 'OpenCV5Sharp.Gpu.Windows' And '$(AssemblyName)' != 'OpenCV5Sharp.Gpu.Linux' And '$(AssemblyName)' != 'OpenCV5Sharp.Generator' And '$(TargetDir)' != ''">
+    <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)src\OpenCV5Sharp\runtimes\win-x64\native')">
+      <CpuNativeBinaries Include="$(MSBuildThisFileDirectory)src\OpenCV5Sharp\runtimes\win-x64\native\*.dll" />
+    </ItemGroup>
+    <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)src\OpenCV5Sharp.Gpu.Windows\runtimes\win-x64\native')">
+      <GpuNativeBinaries Include="$(MSBuildThisFileDirectory)src\OpenCV5Sharp.Gpu.Windows\runtimes\win-x64\native\*.dll" />
+    </ItemGroup>
+    
+    <Copy SourceFiles="@(CpuNativeBinaries)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" Condition="'@(CpuNativeBinaries)' != ''" />
+    <Copy SourceFiles="@(GpuNativeBinaries)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" Condition="'@(GpuNativeBinaries)' != ''" />
+  </Target>
 </Project>

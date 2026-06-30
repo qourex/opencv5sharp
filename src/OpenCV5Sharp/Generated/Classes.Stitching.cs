@@ -30,6 +30,7 @@ namespace OpenCV5Sharp
         public PyRotationWarper(string type, float scale)
             : base(NativeMethods.PyRotationWarper_New_0(type, scale))
         {
+            if (type == null) throw new ArgumentNullException(nameof(type));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -1376,6 +1377,7 @@ namespace OpenCV5Sharp
         public DetailDpSeamFinder(string costFunc)
             : base(NativeMethods.detail_DpSeamFinder_New_0(costFunc))
         {
+            if (costFunc == null) throw new ArgumentNullException(nameof(costFunc));
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -1386,6 +1388,7 @@ namespace OpenCV5Sharp
         public void SetCostFunction(string val)
         {
             ThrowIfDisposed();
+            if (val == null) throw new ArgumentNullException(nameof(val));
             NativeMethods.detail_DpSeamFinder_setCostFunction_0(Handle, val);
             ErrorHelper.CheckError();
         }
@@ -1829,6 +1832,7 @@ namespace OpenCV5Sharp
         public DetailGraphCutSeamFinder(string cost_type, float terminal_cost, float bad_region_penalty)
             : base(NativeMethods.detail_GraphCutSeamFinder_New_0(cost_type, terminal_cost, bad_region_penalty))
         {
+            if (cost_type == null) throw new ArgumentNullException(nameof(cost_type));
             ErrorHelper.CheckError();
         }
         /// <summary>

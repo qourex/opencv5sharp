@@ -38,6 +38,7 @@ namespace OpenCV5Sharp.Samples
                 RunOption("17");
                 RunOption("18");
                 RunOption("19");
+                RunOption("20");
                 return;
             }
 
@@ -66,14 +67,15 @@ namespace OpenCV5Sharp.Samples
                 Console.WriteLine("17. Perspective Warp & Homography Correction");
                 Console.WriteLine("18. Object Tracking via CamShift");
                 Console.WriteLine("19. Hough Line & Circle Detection");
-                Console.WriteLine("20. Exit");
+                Console.WriteLine("20. CUDA GPU Denoising & Benchmark");
+                Console.WriteLine("21. Exit");
                 Console.WriteLine("==================================================");
-                Console.Write("Select an option (1-20): ");
+                Console.Write("Select an option (1-21): ");
 
                 string? choice = Console.ReadLine();
                 Console.WriteLine();
 
-                if (choice == "20")
+                if (choice == "21")
                 {
                     Console.WriteLine("Exiting example suite...");
                     return;
@@ -151,6 +153,9 @@ namespace OpenCV5Sharp.Samples
                         break;
                     case "19":
                         HoughTransformSample.Run();
+                        break;
+                    case "20":
+                        GpuSample.Run();
                         break;
                     default:
                         Console.WriteLine("Invalid option.");

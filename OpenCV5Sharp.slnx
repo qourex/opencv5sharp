@@ -1,9 +1,21 @@
 <Solution>
   <Folder Name="/samples/">
     <Project Path="samples/OpenCV5Sharp.Samples/OpenCV5Sharp.Samples.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Console.Cpu/OpenCV5Sharp.Samples.Console.Cpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Console.Gpu/OpenCV5Sharp.Samples.Console.Gpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.AspNetCore.Cpu/OpenCV5Sharp.Samples.AspNetCore.Cpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.AspNetCore.Gpu/OpenCV5Sharp.Samples.AspNetCore.Gpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Blazor.Cpu/OpenCV5Sharp.Samples.Blazor.Cpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Blazor.Gpu/OpenCV5Sharp.Samples.Blazor.Gpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.WinForms.Cpu/OpenCV5Sharp.Samples.WinForms.Cpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.WinForms.Gpu/OpenCV5Sharp.Samples.WinForms.Gpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Maui.Cpu/OpenCV5Sharp.Samples.Maui.Cpu.csproj" />
+    <Project Path="samples/OpenCV5Sharp.Samples.Maui.Gpu/OpenCV5Sharp.Samples.Maui.Gpu.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/OpenCV5Sharp/OpenCV5Sharp.csproj" />
+    <Project Path="src/OpenCV5Sharp.Gpu.Windows/OpenCV5Sharp.Gpu.Windows.csproj" />
+    <Project Path="src/OpenCV5Sharp.Gpu.Linux/OpenCV5Sharp.Gpu.Linux.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/OpenCV5Sharp.Tests/OpenCV5Sharp.Tests.csproj" />

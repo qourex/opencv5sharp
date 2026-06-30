@@ -7,41 +7,41 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the camera projection model for calibration.
     /// </summary>
     public enum CameraModel : int
     {
-        /// <summary>Pinhole</summary>
+        /// <summary>Standard pinhole camera model.</summary>
         Pinhole = 0,
-        /// <summary>Fisheye</summary>
+        /// <summary>Fisheye (wide-angle) camera model.</summary>
         Fisheye = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the solver algorithm for hand-eye calibration (AX=XB).
     /// </summary>
     public enum HandEyeCalibrationMethod : int
     {
-        /// <summary>Tsai</summary>
+        /// <summary>Tsai (1989) rotation-then-translation method.</summary>
         Tsai = 0,
-        /// <summary>Park</summary>
+        /// <summary>Park (1994) simultaneous rotation-translation method.</summary>
         Park = 1,
-        /// <summary>Horaud</summary>
+        /// <summary>Horaud (1995) quaternion-based method.</summary>
         Horaud = 2,
-        /// <summary>Andreff</summary>
+        /// <summary>Andreff (2001) linear formulation method.</summary>
         Andreff = 3,
-        /// <summary>Daniilidis</summary>
+        /// <summary>Daniilidis (1999) dual quaternion method.</summary>
         Daniilidis = 4,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the solver algorithm for robot-world/hand-eye calibration (AX=ZB).
     /// </summary>
     public enum RobotWorldHandEyeCalibrationMethod : int
     {
-        /// <summary>Shah</summary>
+        /// <summary>Shah (2013) method.</summary>
         Shah = 0,
-        /// <summary>Li</summary>
+        /// <summary>Li (2010) method.</summary>
         Li = 1,
     }
 

@@ -7,90 +7,90 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the distance metric for approximate nearest neighbor index search.
     /// </summary>
     public enum ANNIndexDistance : int
     {
-        /// <summary>Euclidean</summary>
+        /// <summary>Euclidean (L2) distance.</summary>
         Euclidean = 0,
-        /// <summary>Manhattan</summary>
+        /// <summary>Manhattan (L1) distance.</summary>
         Manhattan = 1,
-        /// <summary>Angular</summary>
+        /// <summary>Angular (cosine) distance.</summary>
         Angular = 2,
-        /// <summary>Hamming</summary>
+        /// <summary>Hamming distance for binary vectors.</summary>
         Hamming = 3,
-        /// <summary>Dotproduct</summary>
+        /// <summary>Dot product similarity.</summary>
         Dotproduct = 4,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the descriptor matcher algorithm type.
     /// </summary>
     public enum DescriptorMatcherMatcherType : int
     {
-        /// <summary>Flannbased</summary>
+        /// <summary>FLANN-based matcher.</summary>
         Flannbased = 1,
-        /// <summary>Bruteforce</summary>
+        /// <summary>Brute-force L2 matcher.</summary>
         Bruteforce = 2,
-        /// <summary>BruteforceL1</summary>
+        /// <summary>Brute-force L1 matcher.</summary>
         BruteforceL1 = 3,
-        /// <summary>BruteforceHamming</summary>
+        /// <summary>Brute-force Hamming matcher.</summary>
         BruteforceHamming = 4,
-        /// <summary>BruteforceHamminglut</summary>
+        /// <summary>Brute-force Hamming with LUT.</summary>
         BruteforceHamminglut = 5,
-        /// <summary>BruteforceSl2</summary>
+        /// <summary>Brute-force squared L2 matcher.</summary>
         BruteforceSl2 = 6,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies visualization flags for drawing keypoints and matches.
     /// </summary>
     public enum DrawMatchesFlags : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Create new output image and draw.</summary>
         Default = 0,
-        /// <summary>DrawOverOutimg</summary>
+        /// <summary>Draw over existing output image.</summary>
         DrawOverOutimg = 1,
-        /// <summary>NotDrawSinglePoints</summary>
+        /// <summary>Do not draw unmatched keypoints.</summary>
         NotDrawSinglePoints = 2,
-        /// <summary>DrawRichKeypoints</summary>
+        /// <summary>Draw keypoints with size and orientation.</summary>
         DrawRichKeypoints = 4,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies parameter indices for the FAST feature detector.
     /// </summary>
     public enum UnnamedEnum2FastFeatureDetector : int
     {
-        /// <summary>Threshold</summary>
+        /// <summary>Intensity difference threshold parameter.</summary>
         Threshold = 10000,
-        /// <summary>NonmaxSuppression</summary>
+        /// <summary>Non-maximum suppression parameter.</summary>
         NonmaxSuppression = 10001,
-        /// <summary>FastN</summary>
+        /// <summary>Arc length parameter.</summary>
         FastN = 10002,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the FAST corner detection arc length variant.
     /// </summary>
     public enum FastFeatureDetectorDetectorType : int
     {
-        /// <summary>_58</summary>
+        /// <summary>FAST-5/8 with 8-pixel circle and 5 contiguous pixels.</summary>
         _58 = 0,
-        /// <summary>_712</summary>
+        /// <summary>FAST-7/12 with 12-pixel circle and 7 contiguous pixels.</summary>
         _712 = 1,
-        /// <summary>_916</summary>
+        /// <summary>FAST-9/16 with 16-pixel circle and 9 contiguous pixels.</summary>
         _916 = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the ORB keypoint scoring method.
     /// </summary>
     public enum OrbScoreType : int
     {
-        /// <summary>HarrisScore</summary>
+        /// <summary>Use Harris corner response for scoring.</summary>
         HarrisScore = 0,
-        /// <summary>FastScore</summary>
+        /// <summary>Use FAST corner response for faster scoring.</summary>
         FastScore = 1,
     }
 

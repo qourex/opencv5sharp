@@ -7,138 +7,138 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Odometry Algo Type.
     /// </summary>
     public enum OdometryAlgoType : int
     {
-        /// <summary>Common</summary>
+        /// <summary>Common option.</summary>
         Common = 0,
-        /// <summary>Fast</summary>
+        /// <summary>Fast option.</summary>
         Fast = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Odometry Frame Pyramid Type.
     /// </summary>
     public enum OdometryFramePyramidType : int
     {
-        /// <summary>PyrImage</summary>
+        /// <summary>Pyr image option.</summary>
         PyrImage = 0,
-        /// <summary>PyrDepth</summary>
+        /// <summary>Pyr depth option.</summary>
         PyrDepth = 1,
-        /// <summary>PyrMask</summary>
+        /// <summary>Pyr mask option.</summary>
         PyrMask = 2,
-        /// <summary>PyrCloud</summary>
+        /// <summary>Pyr cloud option.</summary>
         PyrCloud = 3,
-        /// <summary>PyrDix</summary>
+        /// <summary>Pyr dix option.</summary>
         PyrDix = 4,
-        /// <summary>PyrDiy</summary>
+        /// <summary>Pyr diy option.</summary>
         PyrDiy = 5,
-        /// <summary>PyrTexmask</summary>
+        /// <summary>Pyr texmask option.</summary>
         PyrTexmask = 6,
-        /// <summary>PyrNorm</summary>
+        /// <summary>Pyr norm option.</summary>
         PyrNorm = 7,
-        /// <summary>PyrNormmask</summary>
+        /// <summary>Pyr normmask option.</summary>
         PyrNormmask = 8,
-        /// <summary>NPyramids</summary>
+        /// <summary>N pyramids option.</summary>
         NPyramids = unchecked((int)(8 + 1)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Odometry Type.
     /// </summary>
     public enum OdometryType : int
     {
-        /// <summary>Depth</summary>
+        /// <summary>Depth option.</summary>
         Depth = 0,
-        /// <summary>Rgb</summary>
+        /// <summary>Rgb option.</summary>
         Rgb = 1,
-        /// <summary>RgbDepth</summary>
+        /// <summary>Rgb depth option.</summary>
         RgbDepth = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Rgbd Normals Rgbd Normals Method.
     /// </summary>
     public enum RgbdNormalsRgbdNormalsMethod : int
     {
-        /// <summary>Fals</summary>
+        /// <summary>Fals option.</summary>
         Fals = 0,
-        /// <summary>Linemod</summary>
+        /// <summary>Linemod option.</summary>
         Linemod = 1,
-        /// <summary>Sri</summary>
+        /// <summary>Sri option.</summary>
         Sri = 2,
-        /// <summary>CrossProduct</summary>
+        /// <summary>Cross product option.</summary>
         CrossProduct = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Rgbd Plane Method.
     /// </summary>
     public enum RgbdPlaneMethod : int
     {
-        /// <summary>RgbdPlaneMethodDefault</summary>
+        /// <summary>Rgbd plane method default option.</summary>
         RgbdPlaneMethodDefault = 0,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Triangle Culling Mode.
     /// </summary>
     public enum TriangleCullingMode : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Cw</summary>
+        /// <summary>Cw option.</summary>
         Cw = 1,
-        /// <summary>Ccw</summary>
+        /// <summary>Ccw option.</summary>
         Ccw = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Triangle Gl Compatible Mode.
     /// </summary>
     public enum TriangleGlCompatibleMode : int
     {
-        /// <summary>Disabled</summary>
+        /// <summary>Disabled option.</summary>
         Disabled = 0,
-        /// <summary>Invdepth</summary>
+        /// <summary>Invdepth option.</summary>
         Invdepth = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Triangle Shading Type.
     /// </summary>
     public enum TriangleShadingType : int
     {
-        /// <summary>White</summary>
+        /// <summary>White option.</summary>
         White = 0,
-        /// <summary>Flat</summary>
+        /// <summary>Flat option.</summary>
         Flat = 1,
-        /// <summary>Shaded</summary>
+        /// <summary>Shaded option.</summary>
         Shaded = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Volume Bounding Box Precision.
     /// </summary>
     public enum VolumeBoundingBoxPrecision : int
     {
-        /// <summary>VolumeUnit</summary>
+        /// <summary>Volume unit option.</summary>
         VolumeUnit = 0,
-        /// <summary>Voxel</summary>
+        /// <summary>Voxel option.</summary>
         Voxel = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Volume Type.
     /// </summary>
     public enum VolumeType : int
     {
-        /// <summary>Tsdf</summary>
+        /// <summary>Tsdf option.</summary>
         Tsdf = 0,
-        /// <summary>HashTSDF</summary>
+        /// <summary>Hash t s d f option.</summary>
         HashTSDF = 1,
-        /// <summary>ColorTSDF</summary>
+        /// <summary>Color t s d f option.</summary>
         ColorTSDF = 2,
     }
 

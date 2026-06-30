@@ -3,6 +3,8 @@ bin/
 obj/
 build/
 !src/OpenCV5Sharp/build/
+!src/OpenCV5Sharp.Gpu.Windows/build/
+!src/OpenCV5Sharp.Gpu.Linux/build/
 x64/
 [Dd]ebug/
 [Rr]elease/
@@ -23,9 +25,12 @@ x64/
 *.ilk
 *.aps
 
-# Keep native dlls that are packaged under runtimes/
+# Keep native dlls and so libraries that are packaged under runtimes/
 *.dll
+*.so
 !src/OpenCV5Sharp/runtimes/**/*.dll
+!src/OpenCV5Sharp/runtimes/**/*.so
+
 
 # Large binaries at root
 opencv-5.0.0-windows.exe
@@ -40,7 +45,8 @@ Thumbs.db
 *.snupkg
 
 # Native build artifacts (specific to OpenCV5Sharp.Native)
-src/OpenCV5Sharp.Native/build/
+src/OpenCV5Sharp.Native/build*/
+build_opencv_cuda*/
 src/OpenCV5Sharp.Native/*.obj
 src/OpenCV5Sharp.Native/*.lib
 src/OpenCV5Sharp.Native/*.exp
@@ -49,4 +55,18 @@ src/OpenCV5Sharp.Native/*.pdb
 # Test results and coverage
 TestResults/
 **/coverage.cobertura.xml
+
+# GPU binaries zip backups
+win_gpu_binaries.zip
+linux_gpu_binaries.zip
+
+# Local test outputs and model files at root
+/*.png
+!/social_card.png
+/*.jpg
+/*.onnx
+/opencv_contrib/
+/docs/node_modules/
+/docs/.vitepress/cache/
+/docs/.vitepress/dist/
 

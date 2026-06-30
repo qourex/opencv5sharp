@@ -11,12 +11,15 @@ namespace OpenCV5Sharp.Tests
     public class PixelAccessTests
     {
         [Fact]
-        public void TestPixelAccess()
+        public void Mat_PixelAccess_ContinuousMemory_Success()
         {
             const int CV_8UC3 = 64;
 
             using (Mat mat = new Mat(100, 100, CV_8UC3))
             {
+                // Assert continuity before using continuous memory layout assumptions (L9)
+                Assert.True(mat.IsContinuous());
+
                 IntPtr dataPtr = mat.Data;
                 Assert.NotEqual(IntPtr.Zero, dataPtr);
 

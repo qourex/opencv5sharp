@@ -10,10 +10,14 @@ namespace OpenCV5Sharp.Tests
     public class NullArgumentTests
     {
         [Fact]
-        public void TestNullArgumentThrowsException()
+        public void CvtColor_NullArguments_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Cv2.CvtColor(null!, new Mat(), 6, 0, AlgorithmHint.Default));
-            Assert.Throws<ArgumentNullException>(() => Cv2.CvtColor(new Mat(), null!, 6, 0, AlgorithmHint.Default));
+            // Verify that passing null for either source or destination throws ArgumentNullException and doesn't leak memory
+            using (var validMat = new Mat())
+            {
+                Assert.Throws<ArgumentNullException>(() => Cv2.CvtColor(null!, validMat, 6, 0, AlgorithmHint.Default));
+                Assert.Throws<ArgumentNullException>(() => Cv2.CvtColor(validMat, null!, 6, 0, AlgorithmHint.Default));
+            }
         }
     }
 }

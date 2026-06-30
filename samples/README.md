@@ -1,13 +1,13 @@
 # OpenCV5Sharp C# Examples Application Suite
 
-Welcome to the **OpenCV5Sharp** Examples Application Suite! This project contains runnable C# samples showcasing core computer vision operations in OpenCV 5, designed to compile and run on Windows using .NET 8.0.
+Welcome to the **OpenCV5Sharp** Examples Application Suite! This project contains runnable C# samples showcasing core computer vision operations in OpenCV 5, designed to compile and run on Windows, Linux, and macOS using .NET 8.0, 9.0, or 10.0.
 
 ---
 
 ## 1. Prerequisites & Compilation
 
 Before running the examples, ensure you have the following installed:
-1. **.NET 8.0 SDK** (via [dotnet.microsoft.com](https://dotnet.microsoft.com/download))
+1. **.NET SDK (8.0, 9.0, or 10.0)** (via [dotnet.microsoft.com](https://dotnet.microsoft.com/download))
 2. **MSVC Build Toolset** (if recompiling the C++ DLL manually)
 
 ### To Run the Samples:
@@ -46,7 +46,8 @@ When run, you will see an interactive CLI menu allowing you to select and execut
 17. Perspective Warp & Homography Correction
 18. Object Tracking via CamShift
 19. Hough Line & Circle Detection
-20. Exit
+20. CUDA GPU Denoising & Benchmark
+21. Exit
 ==================================================
 ```
 
@@ -294,7 +295,7 @@ ArUco sample completed.
 ```
 
 ### 2.12 Panoramic Image Stitching
-Combines multiple overlapping images into a single wide-angle panorama using the OpenCV 5 `Stitcher` module, passing an array of mats wrapped into a `std::vector<cv::Mat>` pointer via `cv_VectorMat_New`.
+Combines multiple overlapping images into a single wide-angle panorama using the OpenCV 5 `Stitcher` module, passing a `Mat[]` array wrapped into a native vector via the native vector allocation function.
 **Expected Output:**
 ```text
 --- [12] Panoramic Image Stitching ---
@@ -591,3 +592,42 @@ public void UpdateAvaloniaImage(WriteableBitmap avaloniaBitmap, Mat frame)
 ## Trademarks
 
 "OpenCV" is a registered trademark of the OpenCV Foundation. This project is not affiliated with, endorsed by, or sponsored by the OpenCV Foundation or OpenCV.org. The use of the "OpenCV" name is purely for descriptive purposes to indicate compatibility with the OpenCV library.
+
+---
+
+## Framework-Specific Sample Projects
+
+In addition to the interactive CLI demo above, OpenCV5Sharp provides ready-to-run sample projects for popular .NET application frameworks. Each is available in both CPU and GPU (CUDA) variants:
+
+### Console Applications
+- **`OpenCV5Sharp.Samples.Console.Cpu`** — Minimal console app demonstrating CPU-based image processing.
+- **`OpenCV5Sharp.Samples.Console.Gpu`** — Console app demonstrating CUDA GPU-accelerated processing.
+
+### WinForms Applications
+- **`OpenCV5Sharp.Samples.WinForms.Cpu`** — Windows Forms desktop app with CPU image processing pipeline.
+- **`OpenCV5Sharp.Samples.WinForms.Gpu`** — Windows Forms desktop app with GPU-accelerated pipeline.
+
+### Blazor Web Applications
+- **`OpenCV5Sharp.Samples.Blazor.Cpu`** — Blazor Server/WASM app with CPU-based vision processing.
+- **`OpenCV5Sharp.Samples.Blazor.Gpu`** — Blazor app leveraging CUDA for server-side GPU processing.
+
+### ASP.NET Core Web API
+- **`OpenCV5Sharp.Samples.AspNetCore.Cpu`** — REST API for image processing using CPU.
+- **`OpenCV5Sharp.Samples.AspNetCore.Gpu`** — REST API for image processing using CUDA GPU.
+
+### .NET MAUI Mobile Applications
+- **`OpenCV5Sharp.Samples.Maui.Cpu`** — Cross-platform mobile app (Android/iOS) with CPU vision.
+- **`OpenCV5Sharp.Samples.Maui.Gpu`** — Cross-platform mobile app with GPU acceleration.
+
+### Running a Framework Sample
+
+```bash
+# Example: Run the WinForms CPU sample
+dotnet run --project samples/OpenCV5Sharp.Samples.WinForms.Cpu
+
+# Example: Run the Blazor GPU sample
+dotnet run --project samples/OpenCV5Sharp.Samples.Blazor.Gpu
+
+# Example: Run the MAUI CPU sample (requires MAUI workload)
+dotnet build samples/OpenCV5Sharp.Samples.Maui.Cpu -f net8.0-android
+```

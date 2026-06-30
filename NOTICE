@@ -9,6 +9,16 @@ This product includes software developed by:
 - The FFmpeg project (https://ffmpeg.org/)
   Licensed under the GNU Lesser General Public License, Version 2.1 or later.
 
+The following libraries are statically linked inside the bundled OpenCV binaries:
+zlib, libpng, libjpeg-turbo, libtiff, OpenEXR, protobuf, FlatBuffers, OpenJPEG,
+libwebp, HarfBuzz, Intel IPP/IPPICV, Intel TBB, and DLPack.
+
+For complete license texts and attribution details for all third-party components,
+see the THIRD-PARTY-NOTICES.txt file included with this distribution.
+
+The GPU package additionally includes NVIDIA CUDA runtime libraries, redistributed
+under the NVIDIA CUDA Toolkit EULA. See THIRD-PARTY-NOTICES.txt for details.
+
 TRADEMARK NOTICE:
 "OpenCV" is a registered trademark of the OpenCV Foundation.
 This project is not affiliated with, endorsed by, or sponsored by the

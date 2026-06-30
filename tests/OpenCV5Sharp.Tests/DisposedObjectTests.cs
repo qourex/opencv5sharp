@@ -10,12 +10,21 @@ namespace OpenCV5Sharp.Tests
     public class DisposedObjectTests
     {
         [Fact]
-        public void TestDisposedObjectThrowsException()
+        public void VideoCapture_AfterDispose_ThrowsObjectDisposedException()
         {
-            Mat m = new Mat();
-            m.Dispose();
-            Assert.Throws<ObjectDisposedException>(() => m.Clone());
-            Assert.Throws<ObjectDisposedException>(() => Cv2.CvtColor(m, new Mat(), 6, 0, AlgorithmHint.Default));
+            var cap = new VideoCapture();
+            cap.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => cap.IsOpened());
+            Assert.Throws<ObjectDisposedException>(() => cap.Release());
+        }
+
+        [Fact]
+        public void StereoBM_AfterDispose_ThrowsObjectDisposedException()
+        {
+            var stereo = StereoBM.Create(16, 9);
+            Assert.NotNull(stereo);
+            stereo!.Dispose();
+            Assert.Throws<ObjectDisposedException>(() => stereo.GetBlockSize());
         }
     }
 }

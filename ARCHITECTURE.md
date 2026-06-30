@@ -21,14 +21,14 @@ OpenCV 5 C++ library and managed .NET code:
 │  └──────────┘  └─────────────┘  └────────────────┘         │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 2: Native C++ Flat Exports (extern "C")              │
-│  opencv5sharp_native.dll                                    │
+│  opencv5sharp_native.dll / .so / .dylib                     │
 │  - Flattens C++ classes to C functions                      │
 │  - Translates cv::Ptr<T> to void*                           │
 │  - Wraps all calls in try/catch                             │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 1: OpenCV 5 C++ Library                              │
-│  opencv_world500.dll + opencv_videoio_ffmpeg500_64.dll      │
-│  - Official OpenCV binary distribution                      │
+│  opencv_world500.dll / .so / .dylib + ffmpeg plugins        │
+│  - Bundled OpenCV binaries (CPU & GPU/CUDA editions)        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -72,7 +72,7 @@ py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir
 
 ```csharp
 // Caller MUST dispose:
-using var mat = new Mat(100, 100, CvType.CV_8UC3);
+using var mat = new Mat(100, 100, 64); // 64 = CV_8UC3 (8-bit unsigned, 3 channels)
 using var orb = ORB.Create();
 ```
 
@@ -115,24 +115,42 @@ Throws OpenCVException with message and code
 
 ```
 OpenCV5/
+├── .github/workflows/
+│   ├── build.yml                    # CI: build, test, pack CPU NuGet
+│   ├── pr-check.yml                 # CI: checksum verification, format check
+│   ├── release.yml                  # CD: cross-platform native build + NuGet publish
+│   └── deploy-docs.yml              # CD: VitePress docs deployment to GitHub Pages
 ├── src/
-│   ├── OpenCV5Sharp/                 # Managed C# library (NuGet package)
+│   ├── OpenCV5Sharp/                 # Managed C# CPU library
 │   │   ├── Generated/               # Generated: split module classes, enums, P/Invokes
+│   │   ├── Extensions/              # Hand-written: Cv2Extensions, Cv2Parallel
+│   │   ├── DisposableOpenCVObject.cs # Hand-written: thread-safe disposal base class
 │   │   ├── OpenCVException.cs       # Hand-written: custom exception
-│   │   ├── AssemblyInfo.cs          # Hand-written: assembly attributes
 │   │   ├── PlatformGuard.cs         # Hand-written: platform validation
-│   │   └── runtimes/win-x64/native/ # Bundled native DLLs
+│   │   ├── AssemblyInfo.cs          # Hand-written: assembly attributes
+│   │   └── runtimes/                # Staged cross-platform CPU binaries
+│   ├── OpenCV5Sharp.Gpu.Windows/     # Managed C# GPU (CUDA) library (Windows x64)
+│   │   └── runtimes/                # Staged Windows CUDA native binaries
+│   ├── OpenCV5Sharp.Gpu.Linux/       # Managed C# GPU (CUDA) library (Linux x64)
+│   │   └── runtimes/                # Staged Linux CUDA native binaries
 │   ├── OpenCV5Sharp.Generator/      # Python code generator
-│   │   ├── generator.py             # Main generator script
-│   │   └── shadow_mat.hpp           # Shadow header for Mat extensions
 │   └── OpenCV5Sharp.Native/         # C++ native wrapper
-│       ├── opencv5sharp_native.cpp  # Generated: flat C exports
-│       ├── opencv5sharp_native.h    # Generated: C export declarations
-│       ├── CMakeLists.txt           # CMake build config
-│       ├── compile.ps1              # PowerShell build script
-│       └── build.bat                # Batch build script
 ├── tests/OpenCV5Sharp.Tests/        # Test suite
-├── samples/OpenCV5Sharp.Samples/    # Example applications
+├── samples/                          # Example applications
+│   ├── OpenCV5Sharp.Samples/         # Interactive CLI demo suite
+│   ├── OpenCV5Sharp.Samples.Console.Cpu/  # Console CPU sample
+│   ├── OpenCV5Sharp.Samples.Console.Gpu/  # Console GPU sample
+│   ├── OpenCV5Sharp.Samples.WinForms.Cpu/ # WinForms CPU sample
+│   ├── OpenCV5Sharp.Samples.WinForms.Gpu/ # WinForms GPU sample
+│   ├── OpenCV5Sharp.Samples.Blazor.Cpu/   # Blazor CPU sample
+│   ├── OpenCV5Sharp.Samples.Blazor.Gpu/   # Blazor GPU sample
+│   ├── OpenCV5Sharp.Samples.AspNetCore.Cpu/ # ASP.NET Core CPU sample
+│   ├── OpenCV5Sharp.Samples.AspNetCore.Gpu/ # ASP.NET Core GPU sample
+│   ├── OpenCV5Sharp.Samples.Maui.Cpu/ # MAUI CPU sample
+│   └── OpenCV5Sharp.Samples.Maui.Gpu/ # MAUI GPU sample
+├── build.ps1                        # Windows: unified PowerShell build/pack orchestrator
+├── build.sh                         # Linux/macOS: unified bash build/pack orchestrator
+├── Dockerfile                       # WSL/Docker: builder environment for Linux CUDA compiling
 ├── opencv/                          # OpenCV 5 source (for header parsing)
 └── opencv_prebuilt/                 # Pre-built OpenCV binaries
 ```
@@ -144,3 +162,27 @@ OpenCV5/
 3. If the module has a namespace, add it to `MODULE_NAMESPACES` dict
 4. Run the generator: `py src/OpenCV5Sharp.Generator/generator.py`
 5. Rebuild the native DLL and C# project
+
+---
+
+## Testing Infrastructure
+
+OpenCV5Sharp implements an extensive test suite in `tests/OpenCV5Sharp.Tests/` targeting both `.NET 8.0` and `.NET 9.0` with **602 unique test cases** (totaling **1,204 runs**). The test architecture is structured into five main tiers:
+
+1. **Blittable Type & Memory Layout Verification**:
+   - Asserts size and member offsets of layout-critical structs (`Point`, `Point2f`, `Size`, `Rect`, `Scalar`, `TermCriteria`) using exact C++ byte-alignment constraints.
+   - Validates memory copy limits and continuous layout padding calculations for custom matrix layouts.
+
+2. **Data-Driven Permutation Grid**:
+   - Explores the API surface combinatorially via xUnit `[Theory]` tests.
+   - Evaluates combinations of pixel depths (8-bit to 64-bit), channel dimensions, filter methods, mathematical operations, threshold forms, and resizing interpolation formulas.
+
+3. **Algorithm Integration Testing**:
+   - Verifies structural output correctness of heavy modules: DNN ONNX networks (YuNet face landmarks, SqueezeNet classifier), keypoint descriptors (`Sift`/`Orb`), panorama stitching, Kalman filters, and Stereo matching (`StereoBM`).
+
+4. **Dynamic Environment Adaptation (CUDA)**:
+   - GPU-accelerated computing tests (`CudaTests.cs`) query unmanaged hardware device counts at boot.
+   - Utilizes `SkippableFact` to automatically bypass active CUDA tests on machines without a configured GPU runtime, maintaining a green test suite in CPU-only development environments.
+
+5. **Negative Boundary Validation**:
+   - Asserts C# validations raise `ArgumentNullException` and `ObjectDisposedException` for invalid handles, and native OpenCV assertions propagate as catchable `OpenCVException` exceptions.

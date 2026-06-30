@@ -7,294 +7,294 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Activation Type.
     /// </summary>
     public enum DnnActivationType : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Mish</summary>
+        /// <summary>Mish option.</summary>
         Mish = unchecked((int)(0 + 1)),
-        /// <summary>Swish</summary>
+        /// <summary>Swish option.</summary>
         Swish = unchecked((int)(0 + 2)),
-        /// <summary>Sigmoid</summary>
+        /// <summary>Sigmoid option.</summary>
         Sigmoid = unchecked((int)(0 + 3)),
-        /// <summary>Tanh</summary>
+        /// <summary>Tanh option.</summary>
         Tanh = unchecked((int)(0 + 4)),
-        /// <summary>Elu</summary>
+        /// <summary>Elu option.</summary>
         Elu = unchecked((int)(0 + 5)),
-        /// <summary>Hardswish</summary>
+        /// <summary>Hardswish option.</summary>
         Hardswish = unchecked((int)(0 + 6)),
-        /// <summary>Hardsigmoid</summary>
+        /// <summary>Hardsigmoid option.</summary>
         Hardsigmoid = unchecked((int)(0 + 7)),
-        /// <summary>Gelu</summary>
+        /// <summary>Gelu option.</summary>
         Gelu = unchecked((int)(0 + 8)),
-        /// <summary>GeluApprox</summary>
+        /// <summary>Gelu approx option.</summary>
         GeluApprox = unchecked((int)(0 + 9)),
-        /// <summary>Relu</summary>
+        /// <summary>Relu option.</summary>
         Relu = unchecked((int)(0 + 10)),
-        /// <summary>Clip</summary>
+        /// <summary>Clip option.</summary>
         Clip = unchecked((int)(0 + 11)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Arg Kind.
     /// </summary>
     public enum DnnArgKind : int
     {
-        /// <summary>Empty</summary>
+        /// <summary>Empty option.</summary>
         Empty = 0,
-        /// <summary>Const</summary>
+        /// <summary>Const option.</summary>
         Const = 1,
-        /// <summary>Input</summary>
+        /// <summary>Input option.</summary>
         Input = 2,
-        /// <summary>Output</summary>
+        /// <summary>Output option.</summary>
         Output = 3,
-        /// <summary>Temp</summary>
+        /// <summary>Temp option.</summary>
         Temp = 4,
-        /// <summary>Pattern</summary>
+        /// <summary>Pattern option.</summary>
         Pattern = 5,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Auto Padding.
     /// </summary>
     public enum DnnAutoPadding : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>SameUpper</summary>
+        /// <summary>Same upper option.</summary>
         SameUpper = 1,
-        /// <summary>SameLower</summary>
+        /// <summary>Same lower option.</summary>
         SameLower = 2,
-        /// <summary>Valid</summary>
+        /// <summary>Valid option.</summary>
         Valid = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Backend.
     /// </summary>
     public enum DnnBackend : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = 0,
-        /// <summary>InferenceEngine</summary>
+        /// <summary>Inference engine option.</summary>
         InferenceEngine = 2,
-        /// <summary>Opencv</summary>
+        /// <summary>Opencv option.</summary>
         Opencv = unchecked((int)(2 + 1)),
-        /// <summary>Vkcom</summary>
+        /// <summary>Vkcom option.</summary>
         Vkcom = unchecked((int)(2 + 2)),
-        /// <summary>Cuda</summary>
+        /// <summary>Cuda option.</summary>
         Cuda = unchecked((int)(2 + 3)),
-        /// <summary>Webnn</summary>
+        /// <summary>Webnn option.</summary>
         Webnn = unchecked((int)(2 + 4)),
-        /// <summary>Timvx</summary>
+        /// <summary>Timvx option.</summary>
         Timvx = unchecked((int)(2 + 5)),
-        /// <summary>Cann</summary>
+        /// <summary>Cann option.</summary>
         Cann = unchecked((int)(2 + 6)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Engine Type.
     /// </summary>
     public enum DnnEngineType : int
     {
-        /// <summary>Classic</summary>
+        /// <summary>Classic option.</summary>
         Classic = 1,
-        /// <summary>New</summary>
+        /// <summary>New option.</summary>
         New = 2,
-        /// <summary>Auto</summary>
+        /// <summary>Auto option.</summary>
         Auto = 3,
-        /// <summary>Ort</summary>
+        /// <summary>Ort option.</summary>
         Ort = 4,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Image Padding Mode.
     /// </summary>
     public enum DnnImagePaddingMode : int
     {
-        /// <summary>Null</summary>
+        /// <summary>Null option.</summary>
         Null = 0,
-        /// <summary>CropCenter</summary>
+        /// <summary>Crop center option.</summary>
         CropCenter = 1,
-        /// <summary>Letterbox</summary>
+        /// <summary>Letterbox option.</summary>
         Letterbox = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Loss Reduction.
     /// </summary>
     public enum DnnLossReduction : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Mean</summary>
+        /// <summary>Mean option.</summary>
         Mean = 1,
-        /// <summary>Sum</summary>
+        /// <summary>Sum option.</summary>
         Sum = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Model Format.
     /// </summary>
     public enum DnnModelFormat : int
     {
-        /// <summary>Generic</summary>
+        /// <summary>Generic option.</summary>
         Generic = 0,
-        /// <summary>Onnx</summary>
+        /// <summary>Onnx option.</summary>
         Onnx = 1,
-        /// <summary>Tf</summary>
+        /// <summary>Tf option.</summary>
         Tf = 2,
-        /// <summary>Tflite</summary>
+        /// <summary>Tflite option.</summary>
         Tflite = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Nary Eltwise Layer Operation.
     /// </summary>
     public enum DnnNaryEltwiseLayerOperation : int
     {
-        /// <summary>And</summary>
+        /// <summary>And option.</summary>
         And = 0,
-        /// <summary>Equal</summary>
+        /// <summary>Equal option.</summary>
         Equal = unchecked((int)(0 + 1)),
-        /// <summary>Greater</summary>
+        /// <summary>Greater option.</summary>
         Greater = unchecked((int)(0 + 2)),
-        /// <summary>GreaterEqual</summary>
+        /// <summary>Greater equal option.</summary>
         GreaterEqual = unchecked((int)(0 + 3)),
-        /// <summary>Less</summary>
+        /// <summary>Less option.</summary>
         Less = unchecked((int)(0 + 4)),
-        /// <summary>LessEqual</summary>
+        /// <summary>Less equal option.</summary>
         LessEqual = unchecked((int)(0 + 5)),
-        /// <summary>Or</summary>
+        /// <summary>Or option.</summary>
         Or = unchecked((int)(0 + 6)),
-        /// <summary>Pow</summary>
+        /// <summary>Pow option.</summary>
         Pow = unchecked((int)(0 + 7)),
-        /// <summary>Xor</summary>
+        /// <summary>Xor option.</summary>
         Xor = unchecked((int)(0 + 8)),
-        /// <summary>Bitshift</summary>
+        /// <summary>Bitshift option.</summary>
         Bitshift = unchecked((int)(0 + 9)),
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = unchecked((int)(0 + 10)),
-        /// <summary>Mean</summary>
+        /// <summary>Mean option.</summary>
         Mean = unchecked((int)(0 + 11)),
-        /// <summary>Min</summary>
+        /// <summary>Min option.</summary>
         Min = unchecked((int)(0 + 12)),
-        /// <summary>Mod</summary>
+        /// <summary>Mod option.</summary>
         Mod = unchecked((int)(0 + 13)),
-        /// <summary>Fmod</summary>
+        /// <summary>Fmod option.</summary>
         Fmod = unchecked((int)(0 + 14)),
-        /// <summary>Prod</summary>
+        /// <summary>Prod option.</summary>
         Prod = unchecked((int)(0 + 15)),
-        /// <summary>Sub</summary>
+        /// <summary>Sub option.</summary>
         Sub = unchecked((int)(0 + 16)),
-        /// <summary>Sum</summary>
+        /// <summary>Sum option.</summary>
         Sum = unchecked((int)(0 + 17)),
-        /// <summary>Add</summary>
+        /// <summary>Add option.</summary>
         Add = unchecked((int)(0 + 18)),
-        /// <summary>Div</summary>
+        /// <summary>Div option.</summary>
         Div = unchecked((int)(0 + 19)),
-        /// <summary>Where</summary>
+        /// <summary>Where option.</summary>
         Where = unchecked((int)(0 + 20)),
-        /// <summary>BitwiseAnd</summary>
+        /// <summary>Bitwise and option.</summary>
         BitwiseAnd = unchecked((int)(0 + 21)),
-        /// <summary>BitwiseOr</summary>
+        /// <summary>Bitwise or option.</summary>
         BitwiseOr = unchecked((int)(0 + 22)),
-        /// <summary>BitwiseXor</summary>
+        /// <summary>Bitwise xor option.</summary>
         BitwiseXor = unchecked((int)(0 + 23)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Profiling Mode.
     /// </summary>
     public enum DnnProfilingMode : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Summary</summary>
+        /// <summary>Summary option.</summary>
         Summary = 1,
-        /// <summary>Detailed</summary>
+        /// <summary>Detailed option.</summary>
         Detailed = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Reduce2 Layer Reduce Type.
     /// </summary>
     public enum DnnReduce2LayerReduceType : int
     {
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = 0,
-        /// <summary>Min</summary>
+        /// <summary>Min option.</summary>
         Min = 1,
-        /// <summary>Mean</summary>
+        /// <summary>Mean option.</summary>
         Mean = 2,
-        /// <summary>Sum</summary>
+        /// <summary>Sum option.</summary>
         Sum = 3,
-        /// <summary>L1</summary>
+        /// <summary>L1 option.</summary>
         L1 = 4,
-        /// <summary>L2</summary>
+        /// <summary>L2 option.</summary>
         L2 = 5,
-        /// <summary>Prod</summary>
+        /// <summary>Prod option.</summary>
         Prod = 6,
-        /// <summary>SumSquare</summary>
+        /// <summary>Sum square option.</summary>
         SumSquare = 7,
-        /// <summary>LogSum</summary>
+        /// <summary>Log sum option.</summary>
         LogSum = 8,
-        /// <summary>LogSumExp</summary>
+        /// <summary>Log sum exp option.</summary>
         LogSumExp = 9,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Soft N M S Method.
     /// </summary>
     public enum DnnSoftNMSMethod : int
     {
-        /// <summary>Linear</summary>
+        /// <summary>Linear option.</summary>
         Linear = 1,
-        /// <summary>Gaussian</summary>
+        /// <summary>Gaussian option.</summary>
         Gaussian = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Target.
     /// </summary>
     public enum DnnTarget : int
     {
-        /// <summary>Cpu</summary>
+        /// <summary>Cpu option.</summary>
         Cpu = 0,
-        /// <summary>Opencl</summary>
+        /// <summary>Opencl option.</summary>
         Opencl = unchecked((int)(0 + 1)),
-        /// <summary>OpenclFp16</summary>
+        /// <summary>Opencl fp16 option.</summary>
         OpenclFp16 = unchecked((int)(0 + 2)),
-        /// <summary>Myriad</summary>
+        /// <summary>Myriad option.</summary>
         Myriad = unchecked((int)(0 + 3)),
-        /// <summary>Vulkan</summary>
+        /// <summary>Vulkan option.</summary>
         Vulkan = unchecked((int)(0 + 4)),
-        /// <summary>Fpga</summary>
+        /// <summary>Fpga option.</summary>
         Fpga = unchecked((int)(0 + 5)),
-        /// <summary>Cuda</summary>
+        /// <summary>Cuda option.</summary>
         Cuda = unchecked((int)(0 + 6)),
-        /// <summary>CudaFp16</summary>
+        /// <summary>Cuda fp16 option.</summary>
         CudaFp16 = unchecked((int)(0 + 7)),
-        /// <summary>Hddl</summary>
+        /// <summary>Hddl option.</summary>
         Hddl = unchecked((int)(0 + 8)),
-        /// <summary>Npu</summary>
+        /// <summary>Npu option.</summary>
         Npu = unchecked((int)(0 + 9)),
-        /// <summary>CpuFp16</summary>
+        /// <summary>Cpu fp16 option.</summary>
         CpuFp16 = unchecked((int)(0 + 10)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies options and constants for Dnn Tracing Mode.
     /// </summary>
     public enum DnnTracingMode : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>All</summary>
+        /// <summary>All option.</summary>
         All = 1,
-        /// <summary>Op</summary>
+        /// <summary>Op option.</summary>
         Op = 2,
     }
 

@@ -1,0 +1,736 @@
+@page "/"
+@using System.IO
+@using System.Diagnostics
+@using System.Threading
+@using System.Runtime.InteropServices
+@using OpenCV5Sharp
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@implements IDisposable
+
+<div style="max-width: 1100px; margin: 30px auto; padding: 25px; background: rgba(30, 30, 30, 0.65); backdrop-filter: blur(12px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #fff;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 15px;">
+        <h1 style="margin: 0; font-size: 26px; font-weight: 700; background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            OpenCV5Sharp CPU Web Dashboard
+        </h1>
+        <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; padding: 5px 12px; border-radius: 20px; color: #10b981; font-weight: 600; font-size: 13px;">
+            CPU Backend
+        </span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 25px;">
+        <!-- Control Panel Column -->
+        <div style="background: rgba(20, 20, 20, 0.6); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 18px;">
+            <h3 style="margin: 0 0 5px 0; font-size: 15px; color: #888; letter-spacing: 1px; font-weight: 700;">CONTROL PANEL</h3>
+
+            <!-- Input Source Selection -->
+            <div>
+                <label style="display: block; margin-bottom: 6px; font-size: 13px; color: #bbb; font-weight: 600;">Input Source:</label>
+                <select @onchange="OnSourceChanged" style="width: 100%; padding: 10px; background: #222; border: 1px solid #444; border-radius: 8px; color: #fff; outline: none;">
+                    <option value="webcam">Live Webcam</option>
+                    <option value="upload">Static Image Upload</option>
+                </select>
+            </div>
+
+            <!-- Upload File Input -->
+            @if (_selectedSource == "upload")
+            {
+                <div>
+                    <label style="display: block; margin-bottom: 6px; font-size: 13px; color: #bbb; font-weight: 600;">Upload Image:</label>
+                    <InputFile OnChange="HandleFileSelected" style="display: block; width: 100%; padding: 8px; background: #222; border: 1px solid #444; border-radius: 8px; color: #fff; cursor: pointer; font-size: 12px;" />
+                </div>
+            }
+
+            <!-- Filter Selection -->
+            <div>
+                <label style="display: block; margin-bottom: 6px; font-size: 13px; color: #bbb; font-weight: 600;">CPU Filter:</label>
+                <select @bind="_activeFilter" @bind:after="OnParameterChanged" style="width: 100%; padding: 10px; background: #222; border: 1px solid #444; border-radius: 8px; color: #fff; outline: none;">
+                    <option value="none">Original</option>
+                    <option value="gray">Grayscale</option>
+                    <option value="canny">Canny Edges</option>
+                    <option value="blur">Gaussian Blur</option>
+                    <option value="yolo">YOLOv8 Object Detector (CPU)</option>
+                    <option value="yunet">YuNet Face Tracker (CPU)</option>
+                    <option value="hand">Hand & Finger Tracker</option>
+                </select>
+            </div>
+
+            <!-- Image Manipulation Controls -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; display: flex; flex-direction: column; gap: 15px;">
+                <h4 style="margin: 0 0 5px 0; font-size: 13px; color: #aaa; font-weight: 600;">IMAGE MANIPULATION</h4>
+
+                <!-- Brightness Slider -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span>Brightness</span>
+                        <span style="color: #3b82f6;">@_brightness</span>
+                    </div>
+                    <input type="range" min="-100" max="100" @bind="_brightness" @bind:event="oninput" @bind:after="OnParameterChanged" style="width: 100%; cursor: pointer;" />
+                </div>
+
+                <!-- Contrast Slider -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span>Contrast</span>
+                        <span style="color: #10b981;">@_contrast.ToString("F1")x</span>
+                    </div>
+                    <input type="range" min="0.5" max="3.0" step="0.1" @bind="_contrast" @bind:event="oninput" @bind:after="OnParameterChanged" style="width: 100%; cursor: pointer;" />
+                </div>
+
+                <!-- Rotation Slider -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span>Rotation / Skew</span>
+                        <span style="color: #a78bfa;">@_rotation°</span>
+                    </div>
+                    <input type="range" min="-45" max="45" @bind="_rotation" @bind:event="oninput" @bind:after="OnParameterChanged" style="width: 100%; cursor: pointer;" />
+                </div>
+
+                <!-- Canny Threshold Slider -->
+                @if (_activeFilter == "canny")
+                {
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                            <span>Canny Threshold</span>
+                            <span style="color: #ef4444;">@_cannyThreshold</span>
+                        </div>
+                        <input type="range" min="10" max="250" @bind="_cannyThreshold" @bind:event="oninput" @bind:after="OnParameterChanged" style="width: 100%; cursor: pointer;" />
+                    </div>
+                }
+            </div>
+
+            <!-- Actions -->
+            @if (_isLoadingModel)
+            {
+                <div style="display: flex; align-items: center; gap: 10px; color: #a78bfa; font-size: 13px;">
+                    <div style="border: 2px solid #a78bfa; border-top: 2px solid transparent; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite;"></div>
+                    <span>@_loadingStatus</span>
+                </div>
+            }
+
+            @if (_selectedSource == "webcam")
+            {
+                <button @onclick="ToggleWebcam" style="width: 100%; padding: 12px; background: @(_isRunning ? "#ef4444" : "#2563eb"); border: none; border-radius: 8px; color: #fff; font-weight: 700; cursor: pointer; transition: background 0.2s;">
+                    @(_isRunning ? "Stop Webcam Feed" : "Start Webcam Feed")
+                </button>
+            }
+
+            @if (_errorMessage != null)
+            {
+                <div style="padding: 10px; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; border-radius: 6px; color: #fca5a5; font-size: 12px; word-break: break-all;">
+                    @_errorMessage
+                </div>
+            }
+
+            <!-- Performance Metrics -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
+                <h3 style="margin: 0 0 10px 0; font-size: 15px; color: #888; letter-spacing: 1px; font-weight: 700;">METRICS</h3>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #aaa;">Frame Rate:</span>
+                        <span style="color: #3b82f6; font-weight: bold;">@(_selectedSource == "upload" ? "N/A" : $"{_fps:F1} FPS")</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #aaa;">Latency:</span>
+                        <span style="color: #10b981; font-weight: bold;">@_latencyMs ms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Viewport Column -->
+        <div style="display: flex; flex-direction: column; gap: 15px; background: rgba(15, 15, 15, 0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); padding: 20px; align-items: center; justify-content: center; min-height: 450px; overflow: hidden; position: relative;">
+            @if (_processedBase64 != null)
+            {
+                <img src="data:image/jpeg;base64,@_processedBase64" style="max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" />
+            }
+            else
+            {
+                <div style="text-align: center; color: #555;">
+                    <span style="font-size: 48px; display: block; margin-bottom: 10px;">📷</span>
+                    <span>Start Webcam Feed or upload an image to view viewport</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _selectedSource = "webcam";
+    private string _activeFilter = "none";
+    private int _brightness = 0;
+    private double _contrast = 1.0;
+    private int _rotation = 0;
+    private int _cannyThreshold = 100;
+    private bool _isLoadingModel = false;
+    private string _loadingStatus = "";
+
+    private const string YoloUrl = "https://huggingface.co/Kalray/yolov8/resolve/main/yolov8n.onnx";
+    private const string YoloFile = "yolov8n.onnx";
+    private const string YunetUrl = "https://github.com/opencv/opencv_zoo/raw/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx";
+    private const string YunetFile = "face_detection_yunet.onnx";
+
+    private DnnNet? _yoloNet;
+    private FaceDetectorYN? _yunetNet;
+
+    private byte[]? _uploadedBytes;
+    private string? _processedBase64;
+    private string? _errorMessage;
+
+    private VideoCapture? _capture;
+    private CancellationTokenSource? _cts;
+    private bool _isRunning = false;
+    private long _latencyMs = 0;
+    private double _fps = 0;
+
+    private async Task OnSourceChanged(ChangeEventArgs e)
+    {
+        StopWebcam();
+        _selectedSource = e.Value?.ToString() ?? "webcam";
+        _processedBase64 = null;
+        _errorMessage = null;
+        _latencyMs = 0;
+        _fps = 0;
+    }
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        _errorMessage = null;
+        try
+        {
+            using var memoryStream = new MemoryStream();
+            await e.File.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).CopyToAsync(memoryStream);
+            _uploadedBytes = memoryStream.ToArray();
+            ProcessUploadedImage();
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"File upload failed: {ex.Message}";
+        }
+    }
+
+    private async Task OnParameterChanged()
+    {
+        await InitializeSelectedModelAsync();
+        if (_selectedSource == "upload")
+        {
+            ProcessUploadedImage();
+        }
+    }
+
+    private void ProcessUploadedImage()
+    {
+        if (_uploadedBytes == null) return;
+
+        try
+        {
+            var sw = Stopwatch.StartNew();
+            using var src = Cv2.Imdecode(_uploadedBytes, (int)ImreadModes.Color);
+            if (src == null || src.Empty()) return;
+
+            using var processed = ApplyPipeline(src);
+            byte[] outputBytes = Cv2.Imencode(".jpg", processed);
+            _processedBase64 = Convert.ToBase64String(outputBytes);
+            sw.Stop();
+            _latencyMs = sw.ElapsedMilliseconds;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+    }
+
+    private async Task ToggleWebcam()
+    {
+        if (_isRunning)
+        {
+            StopWebcam();
+        }
+        else
+        {
+            _errorMessage = null;
+            await InitializeSelectedModelAsync();
+            _ = StartWebcamLoopAsync();
+        }
+    }
+
+    private async Task StartWebcamLoopAsync()
+    {
+        _cts = new CancellationTokenSource();
+        var token = _cts.Token;
+        _isRunning = true;
+
+        try
+        {
+            _capture = new VideoCapture(0, 0);
+            if (!_capture.IsOpened())
+            {
+                _errorMessage = "Webcam is not available or could not be initialized.";
+                StopWebcam();
+                return;
+            }
+
+            var sw = new Stopwatch();
+            using var frame = new Mat();
+
+            while (!token.IsCancellationRequested)
+            {
+                sw.Restart();
+                bool hasFrame = _capture.Read(frame);
+                if (!hasFrame || frame.Empty()) break;
+
+                using var processed = ApplyPipeline(frame);
+                byte[] jpegBytes = Cv2.Imencode(".jpg", processed);
+                _processedBase64 = Convert.ToBase64String(jpegBytes);
+
+                sw.Stop();
+                _latencyMs = sw.ElapsedMilliseconds;
+                _fps = _latencyMs > 0 ? 1000.0 / _latencyMs : 0.0;
+
+                await InvokeAsync(StateHasChanged);
+                int sleepTime = Math.Max(1, 33 - (int)_latencyMs);
+                await Task.Delay(sleepTime, token);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Stream error: {ex.Message}";
+        }
+        finally
+        {
+            StopWebcam();
+        }
+    }
+
+    private void StopWebcam()
+    {
+        _cts?.Cancel();
+        _cts = null;
+        _capture?.Dispose();
+        _capture = null;
+        _isRunning = false;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private Mat ApplyPipeline(Mat src)
+    {
+        var adjusted = new Mat();
+        src.ConvertTo(adjusted, -1, _contrast, _brightness);
+
+        var rotated = new Mat();
+        if (_rotation != 0)
+        {
+            var center = new Point2F(adjusted.Cols / 2f, adjusted.Rows / 2f);
+            using var rotationMatrix = Cv2.GetRotationMatrix2D(center, _rotation, 1.0);
+            Cv2.WarpAffine(adjusted, rotated, rotationMatrix!, new Size(adjusted.Cols, adjusted.Rows), (int)InterpolationFlags.InterLinear, (int)BorderTypes.Constant, new Scalar(0,0,0), AlgorithmHint.Default);
+        }
+        else
+        {
+            adjusted.CopyTo(rotated);
+        }
+        adjusted.Dispose();
+
+        var dst = new Mat();
+        if (_activeFilter == "gray")
+        {
+            Cv2.CvtColor(rotated, dst, (int)ColorConversionCodes.Bgr2gray, 0, AlgorithmHint.Default);
+        }
+        else if (_activeFilter == "canny")
+        {
+            using var gray = new Mat();
+            Cv2.CvtColor(rotated, gray, (int)ColorConversionCodes.Bgr2gray, 0, AlgorithmHint.Default);
+            Cv2.Canny(gray, dst, _cannyThreshold, _cannyThreshold * 3, 3, false);
+        }
+        else if (_activeFilter == "blur")
+        {
+            Cv2.GaussianBlur(rotated, dst, new Size(15, 15), 0, 0, 4, AlgorithmHint.Default);
+        }
+        else if (_activeFilter == "yolo" && _yoloNet != null)
+        {
+            var res = RunYoloInference(rotated);
+            res.CopyTo(dst);
+            res.Dispose();
+        }
+        else if (_activeFilter == "yunet" && _yunetNet != null)
+        {
+            var res = RunYuNetInference(rotated);
+            res.CopyTo(dst);
+            res.Dispose();
+        }
+        else if (_activeFilter == "hand")
+        {
+            var res = TrackHandAndFingers(rotated);
+            res.CopyTo(dst);
+            res.Dispose();
+        }
+        else
+        {
+            rotated.CopyTo(dst);
+        }
+
+        rotated.Dispose();
+        return dst;
+    }
+
+    private async Task InitializeSelectedModelAsync()
+    {
+        if (_activeFilter == "yolo" && _yoloNet == null)
+        {
+            try
+            {
+                _isLoadingModel = true;
+                _loadingStatus = "Loading YOLOv8...";
+                await InvokeAsync(StateHasChanged);
+                await DownloadModelIfMissingAsync(YoloFile, YoloUrl);
+                _yoloNet = Cv2.DnnReadNetFromONNX(YoloFile, (int)DnnEngineType.Classic)!;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = $"Failed loading model: {ex.Message}";
+            }
+            finally
+            {
+                _isLoadingModel = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        else if (_activeFilter == "yunet" && _yunetNet == null)
+        {
+            try
+            {
+                _isLoadingModel = true;
+                _loadingStatus = "Loading YuNet...";
+                await InvokeAsync(StateHasChanged);
+                await DownloadModelIfMissingAsync(YunetFile, YunetUrl);
+                _yunetNet = FaceDetectorYN.Create(YunetFile, "", new Size(320, 320), 0.6f, 0.3f, 5000, 0, 0)!;
+            }
+            catch (Exception ex)
+            {
+                _errorMessage = $"Failed loading model: {ex.Message}";
+            }
+            finally
+            {
+                _isLoadingModel = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    private async Task DownloadModelIfMissingAsync(string fileName, string url)
+    {
+        if (File.Exists(fileName)) return;
+
+        _loadingStatus = "Downloading weights...";
+        await InvokeAsync(StateHasChanged);
+
+        using var client = new HttpClient();
+        byte[] data = await client.GetByteArrayAsync(url);
+        await File.WriteAllBytesAsync(fileName, data);
+    }
+
+    private unsafe Mat RunYoloInference(Mat src)
+    {
+        var dst = new Mat();
+        src.CopyTo(dst);
+
+        using var blob = Cv2.DnnBlobFromImage(src, 1.0 / 255.0, new Size(640, 640), new Scalar(0, 0, 0), true, false, 5)!;
+        _yoloNet!.SetInput(blob, "", 1.0, new Scalar(0, 0, 0));
+        using var output = _yoloNet.Forward("")!;
+
+        float* dataPtr = (float*)output.Data.ToPointer();
+        var boxes = new List<Rect>();
+        var confidences = new List<float>();
+        var classIds = new List<int>();
+
+        float x_ratio = (float)src.Cols / 640.0f;
+        float y_ratio = (float)src.Rows / 640.0f;
+
+        for (int col = 0; col < 8400; col++)
+        {
+            float bestConf = 0.0f;
+            int bestClassId = 0;
+
+            for (int c = 0; c < 80; c++)
+            {
+                float conf = dataPtr[(4 + c) * 8400 + col];
+                if (conf > bestConf)
+                {
+                    bestConf = conf;
+                    bestClassId = c;
+                }
+            }
+
+            if (bestConf > 0.45f)
+            {
+                float cx = dataPtr[0 * 8400 + col] * x_ratio;
+                float cy = dataPtr[1 * 8400 + col] * y_ratio;
+                float w = dataPtr[2 * 8400 + col] * x_ratio;
+                float h = dataPtr[3 * 8400 + col] * y_ratio;
+
+                int left = (int)(cx - w / 2);
+                int top = (int)(cy - h / 2);
+                boxes.Add(new Rect(left, top, (int)w, (int)h));
+                confidences.Add(bestConf);
+                classIds.Add(bestClassId);
+            }
+        }
+
+        var indices = PerformNMS(boxes, confidences, 0.45f);
+        foreach (int idx in indices)
+        {
+            var box = boxes[idx];
+            Cv2.Rectangle(dst, box, new Scalar(0, 255, 0), 2, 8, 0);
+            Cv2.PutText(dst, $"Class {classIds[idx]} {confidences[idx]:P0}", new Point(box.X, box.Y - 5), (int)HersheyFonts.HersheySimplex, 0.5, new Scalar(255, 255, 255), 1, 8, false);
+        }
+
+        return dst;
+    }
+
+    private unsafe Mat RunYuNetInference(Mat src)
+    {
+        var dst = new Mat();
+        src.CopyTo(dst);
+
+        if (_yunetNet == null) return dst;
+
+        _yunetNet.SetInputSize(new Size(src.Cols, src.Rows));
+        using var faces = new Mat();
+        _yunetNet.Detect(src, faces);
+
+        int numFaces = faces.Rows;
+        if (numFaces <= 0) return dst;
+
+        int cols = faces.Cols; // 15 columns
+        int totalFloats = numFaces * cols;
+        float[] data = new float[totalFloats];
+        Marshal.Copy(faces.Data, data, 0, totalFloats);
+
+        for (int i = 0; i < numFaces; i++)
+        {
+            int offset = i * cols;
+            float x = data[offset + 0];
+            float y = data[offset + 1];
+            float w = data[offset + 2];
+            float h = data[offset + 3];
+            float score = data[offset + 14];
+
+            if (score > 0.5f)
+            {
+                var box = new Rect((int)x, (int)y, (int)w, (int)h);
+                Cv2.Rectangle(dst, box, new Scalar(255, 0, 0), 2, 8, 0);
+
+                // Draw 5-Point Landmarks
+                for (int l = 0; l < 5; l++)
+                {
+                    float lx = data[offset + 4 + l * 2];
+                    float ly = data[offset + 4 + l * 2 + 1];
+                    Cv2.Circle(dst, new Point((int)lx, (int)ly), 3, new Scalar(0, 255, 255), -1, 8, 0);
+                }
+
+                Cv2.PutText(dst, $"Face {score:P0}", new Point((int)x, (int)Math.Max(y - 5, 15)), (int)HersheyFonts.HersheySimplex, 0.5, new Scalar(255, 255, 255), 1, 8, false);
+            }
+        }
+
+        return dst;
+    }
+
+    private unsafe Mat TrackHandAndFingers(Mat src)
+    {
+        var dst = new Mat();
+        src.CopyTo(dst);
+
+        // Define ROI box in the center-right of the screen
+        int roiWidth = 200;
+        int roiHeight = 240;
+        int roiX = Math.Max(src.Cols - roiWidth - 30, 0);
+        int roiY = Math.Max((src.Rows - roiHeight) / 2, 0);
+
+        // Draw ROI Box on the output frame
+        var roiRect = new Rect(roiX, roiY, roiWidth, roiHeight);
+        Cv2.Rectangle(dst, roiRect, new Scalar(255, 255, 255), 2, 8, 0);
+        Cv2.PutText(dst, "Place Hand Inside Box", new Point(roiX, Math.Max(roiY - 10, 15)), (int)HersheyFonts.HersheySimplex, 0.5, new Scalar(255, 255, 255), 1, 8, false);
+
+        using (var roiMat = new Mat(src, roiRect))
+        using (var ycrcb = new Mat())
+        {
+            Cv2.CvtColor(roiMat, ycrcb, (int)ColorConversionCodes.BGR2YCrCb, 0, AlgorithmHint.Default);
+
+            int rows = ycrcb.Rows;
+            int cols = ycrcb.Cols;
+            const int CV_8UC3 = 64;
+
+            using (var lowerb = new Mat(rows, cols, CV_8UC3))
+            using (var upperb = new Mat(rows, cols, CV_8UC3))
+            using (var skinMask = new Mat())
+            {
+                int pixelCount = rows * cols;
+                int size = pixelCount * 3;
+                byte[] lowData = new byte[size];
+                byte[] highData = new byte[size];
+                for (int j = 0; j < size; j += 3)
+                {
+                    lowData[j] = 0;       // Y min
+                    lowData[j + 1] = 133; // Cr min
+                    lowData[j + 2] = 77;  // Cb min
+
+                    highData[j] = 255;    // Y max
+                    highData[j + 1] = 173; // Cr max
+                    highData[j + 2] = 127; // Cb max
+                }
+                Marshal.Copy(lowData, 0, lowerb.Data, size);
+                Marshal.Copy(highData, 0, upperb.Data, size);
+
+                Cv2.InRange(ycrcb, lowerb, upperb, skinMask);
+
+                using (var element = Cv2.GetStructuringElement((int)MorphShapes.Ellipse, new Size(3, 3), new Point(-1, -1)))
+                using (var cleanMask = new Mat())
+                {
+                    if (element != null)
+                    {
+                        Cv2.Erode(skinMask, cleanMask, element, new Point(-1, -1), 1, (int)BorderTypes.Constant, new Scalar(0));
+                        Cv2.Dilate(cleanMask, skinMask, element, new Point(-1, -1), 2, (int)BorderTypes.Constant, new Scalar(0));
+                    }
+
+                    using (var m = Cv2.Moments(skinMask, true))
+                    {
+                        if (m == null || m.M00 < 800)
+                        {
+                            Cv2.PutText(dst, "No Hand Detected", new Point(roiX, roiY + roiHeight + 20), (int)HersheyFonts.HersheySimplex, 0.6, new Scalar(0, 0, 255), 2, 8, false);
+                            return dst;
+                        }
+
+                        double cx = m.M10 / m.M00;
+                        double cy = m.M01 / m.M00;
+
+                        int width = skinMask.Cols;
+                        int height = skinMask.Rows;
+                        byte[] maskPixels = new byte[width * height];
+                        Marshal.Copy(skinMask.Data, maskPixels, 0, maskPixels.Length);
+
+                        int minX = width, maxX = 0, minY = height, maxY = 0;
+                        for (int y = 0; y < height; y++)
+                        {
+                            for (int x = 0; x < width; x++)
+                            {
+                                if (maskPixels[y * width + x] == 255)
+                                {
+                                    if (x < minX) minX = x;
+                                    if (x > maxX) maxX = x;
+                                    if (y < minY) minY = y;
+                                    if (y > maxY) maxY = y;
+                                }
+                            }
+                        }
+
+                        int sliceY = (int)(cy - (cy - minY) * 0.55);
+                        int fingerCount = 0;
+                        bool inFinger = false;
+                        int fingerWidth = 0;
+
+                        if (sliceY >= 0 && sliceY < height)
+                        {
+                            for (int x = minX; x <= maxX; x++)
+                            {
+                                if (maskPixels[sliceY * width + x] == 255)
+                                {
+                                    if (!inFinger)
+                                    {
+                                        inFinger = true;
+                                        fingerWidth = 1;
+                                    }
+                                    else
+                                    {
+                                        fingerWidth++;
+                                    }
+                                }
+                                else
+                                {
+                                    if (inFinger)
+                                    {
+                                        inFinger = false;
+                                        if (fingerWidth > 2 && fingerWidth < (maxX - minX) * 0.4)
+                                        {
+                                            fingerCount++;
+                                        }
+                                    }
+                                }
+                            }
+                            if (inFinger && fingerWidth > 2 && fingerWidth < (maxX - minX) * 0.4)
+                            {
+                                fingerCount++;
+                            }
+                        }
+
+                        // Offset coords by ROI origin
+                        int absMinX = minX + roiX;
+                        int absMaxX = maxX + roiX;
+                        int absMinY = minY + roiY;
+                        int absMaxY = maxY + roiY;
+                        int absCx = (int)cx + roiX;
+                        int absCy = (int)cy + roiY;
+                        int absSliceY = sliceY + roiY;
+
+                        Cv2.Rectangle(dst, new Rect(absMinX, absMinY, absMaxX - absMinX, absMaxY - absMinY), new Scalar(0, 255, 0), 2, 8, 0);
+                        Cv2.Circle(dst, new Point(absCx, absCy), 8, new Scalar(0, 0, 255), -1, 8, 0);
+                        if (sliceY >= 0 && sliceY < height)
+                        {
+                            Cv2.Line(dst, new Point(absMinX, absSliceY), new Point(absMaxX, absSliceY), new Scalar(255, 255, 0), 1, 8, 0);
+                        }
+                        Cv2.PutText(dst, $"Fingers: {fingerCount}", new Point(absMinX, Math.Max(absMinY - 10, 20)), (int)HersheyFonts.HersheySimplex, 0.7, new Scalar(0, 255, 255), 2, 8, false);
+                    }
+                }
+            }
+        }
+
+        return dst;
+    }
+
+    private List<int> PerformNMS(List<Rect> boxes, List<float> confidences, float nmsThreshold)
+    {
+        var indices = new List<int>();
+        var sortedIndices = new List<int>();
+        for (int i = 0; i < boxes.Count; i++) sortedIndices.Add(i);
+
+        // Sort by confidence descending
+        sortedIndices.Sort((a, b) => confidences[b].CompareTo(confidences[a]));
+
+        while (sortedIndices.Count > 0)
+        {
+            int current = sortedIndices[0];
+            indices.Add(current);
+            sortedIndices.RemoveAt(0);
+
+            for (int i = sortedIndices.Count - 1; i >= 0; i--)
+            {
+                int candidate = sortedIndices[i];
+                if (IntersectionOverUnion(boxes[current], boxes[candidate]) > nmsThreshold)
+                {
+                    sortedIndices.RemoveAt(i);
+                }
+            }
+        }
+
+        return indices;
+    }
+
+    private float IntersectionOverUnion(Rect boxA, Rect boxB)
+    {
+        int xA = Math.Max(boxA.X, boxB.X);
+        int yA = Math.Max(boxA.Y, boxB.Y);
+        int xB = Math.Min(boxA.X + boxA.Width, boxB.X + boxB.Width);
+        int yB = Math.Min(boxA.Y + boxA.Height, boxB.Y + boxB.Height);
+
+        int interArea = Math.Max(0, xB - xA) * Math.Max(0, yB - yA);
+        if (interArea == 0) return 0.0f;
+
+        int boxAArea = boxA.Width * boxA.Height;
+        int boxBArea = boxB.Width * boxB.Height;
+
+        return (float)interArea / (boxAArea + boxBArea - interArea);
+    }
+
+    public void Dispose()
+    {
+        StopWebcam();
+    }
+}

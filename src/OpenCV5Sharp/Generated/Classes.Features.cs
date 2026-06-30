@@ -36,6 +36,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Aliked? Create(string modelPath, IntPtr @params)
         {
+            if (modelPath == null) throw new ArgumentNullException(nameof(modelPath));
             IntPtr res = NativeMethods.ALIKED_create_0(modelPath, @params);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new Aliked(res);
@@ -180,6 +181,7 @@ namespace OpenCV5Sharp
         public void Save(string filename, bool prefault)
         {
             ThrowIfDisposed();
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.ANNIndex_save_0(Handle, filename, prefault);
             ErrorHelper.CheckError();
         }
@@ -196,6 +198,7 @@ namespace OpenCV5Sharp
         public void Load(string filename, bool prefault)
         {
             ThrowIfDisposed();
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.ANNIndex_load_0(Handle, filename, prefault);
             ErrorHelper.CheckError();
         }
@@ -235,6 +238,7 @@ namespace OpenCV5Sharp
         public bool SetOnDiskBuild(string filename)
         {
             ThrowIfDisposed();
+            if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.ANNIndex_setOnDiskBuild_0(Handle, filename);
             ErrorHelper.CheckError();
             return res;
@@ -588,6 +592,7 @@ namespace OpenCV5Sharp
         public void Write(string fileName)
         {
             ThrowIfDisposed();
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             NativeMethods.DescriptorMatcher_write_0(Handle, fileName);
             ErrorHelper.CheckError();
         }
@@ -599,6 +604,7 @@ namespace OpenCV5Sharp
         public void Read(string fileName)
         {
             ThrowIfDisposed();
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             NativeMethods.DescriptorMatcher_read_0(Handle, fileName);
             ErrorHelper.CheckError();
         }
@@ -637,6 +643,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static DescriptorMatcher? Create(string descriptorMatcherType)
         {
+            if (descriptorMatcherType == null) throw new ArgumentNullException(nameof(descriptorMatcherType));
             IntPtr res = NativeMethods.DescriptorMatcher_create_0(descriptorMatcherType);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new DescriptorMatcher(res);
@@ -664,6 +671,7 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.DescriptorMatcher_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
             ErrorHelper.CheckError();
         }
@@ -912,6 +920,7 @@ namespace OpenCV5Sharp
         public void Write(string fileName)
         {
             ThrowIfDisposed();
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             NativeMethods.Feature2D_write_0(Handle, fileName);
             ErrorHelper.CheckError();
         }
@@ -923,6 +932,7 @@ namespace OpenCV5Sharp
         public void Read(string fileName)
         {
             ThrowIfDisposed();
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             NativeMethods.Feature2D_read_0(Handle, fileName);
             ErrorHelper.CheckError();
         }
@@ -977,6 +987,7 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
+            if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.Feature2D_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
             ErrorHelper.CheckError();
         }
@@ -1237,6 +1248,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static LightGlueMatcher? Create(string modelPath, float scoreThreshold, int backend, int target)
         {
+            if (modelPath == null) throw new ArgumentNullException(nameof(modelPath));
             IntPtr res = NativeMethods.LightGlueMatcher_create_0(modelPath, scoreThreshold, backend, target);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new LightGlueMatcher(res);

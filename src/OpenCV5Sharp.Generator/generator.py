@@ -57,7 +57,7 @@ def normalize_module_name(mod: str) -> str:
         return "Stitching"
     return mod.capitalize()
 
-def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_desc=None, has_disposable=False, is_enum=False) -> str:
+def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_desc=None, has_disposable=False, is_enum=False, enum_name=None, member_name=None) -> str:
     """Format C++ docstring into C# XML documentation comments."""
     if not doc_str:
         doc_str = ""
@@ -143,7 +143,64 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
                     remarks_lines.append(line_strip)
 
     if not summary_lines or (len(summary_lines) == 1 and not summary_lines[0].strip()):
-        summary_lines = ["Wrapper for OpenCV's native functionality."]
+        if is_enum and enum_name:
+            if member_name:
+                import re as _re
+                desc = f"{member_name} option."
+                if enum_name == "ColorConversionCodes":
+                    match = _re.match(r'^([A-Za-z0-9]+)2([A-Za-z0-9]+)$', member_name)
+                    if match:
+                        src = match.group(1).upper()
+                        dst = match.group(2).upper()
+                        desc = f"Converts image color space from {src} to {dst}."
+                else:
+                    _common_members = {
+                        "Constant": "Pads the border with a constant value.",
+                        "Replicate": "Replicates the edge pixels.",
+                        "Reflect": "Reflects the image border.",
+                        "Wrap": "Wraps the image border from the opposite edge.",
+                        "Reflect101": "Reflects the image border with a 1-pixel boundary offset.",
+                        "Transparent": "Does not modify the border pixels corresponding to outliers.",
+                        "Default": "Default option (equivalent to Reflect101 or basic default).",
+                        "Isolated": "Does not look outside of the ROI.",
+                        "Unchanged": "Loads the image as-is, including alpha channel if present.",
+                        "Grayscale": "Loads the image as a single-channel grayscale image.",
+                        "Color": "Loads the image as a 3-channel BGR color image.",
+                        "ColorBgr": "Loads the image as a 3-channel BGR color image.",
+                        "Anydepth": "Loads 16-bit or 32-bit images when input has corresponding depth; otherwise converts to 8-bit.",
+                        "Anycolor": "Loads the image in any possible color format.",
+                        "LoadGdal": "Uses GDAL driver to load the image.",
+                        "IgnoreOrientation": "Do not rotate the image according to EXIF orientation flag.",
+                    }
+                    val = _re.sub(r'(?<!^)(?=[A-Z])', ' ', member_name).lower()
+                    val_cap = val[0].upper() + val[1:] if val else ""
+                    desc = _common_members.get(member_name, f"{val_cap} option.")
+                summary_lines = [desc]
+            else:
+                import re as _re
+                _common_enums = {
+                    "AccessFlag": "Specifies unmanaged memory access flags for matrix allocation.",
+                    "AlgorithmHint": "Provides optimization hints to underlying OpenCV algorithms.",
+                    "BorderTypes": "Specifies pixel extrapolation methods used by image boundaries.",
+                    "CmpTypes": "Specifies comparison operators for element-wise array comparisons.",
+                    "ColorConversionCodes": "Specifies color space conversion codes.",
+                    "MorphTypes": "Specifies morphological operation types.",
+                    "MorphShapes": "Specifies structural element shapes for morphological operations.",
+                    "InterpolationFlags": "Specifies interpolation methods for image resizing and warping.",
+                    "ThresholdTypes": "Specifies thresholding operation types.",
+                    "AdaptiveThresholdTypes": "Specifies adaptive thresholding algorithms.",
+                    "ContourApproximationModes": "Specifies contour approximation algorithms.",
+                    "RetrievalModes": "Specifies contour retrieval modes.",
+                    "LineTypes": "Specifies drawing line types.",
+                    "HersheyFonts": "Specifies Hershey font face options.",
+                    "ImreadModes": "Specifies image loading color/depth mode options.",
+                    "ImwriteFlags": "Specifies encoding parameter flags for writing image files.",
+                    "WindowFlags": "Specifies window creation flags.",
+                }
+                desc = _common_enums.get(enum_name, f"Specifies options and constants for {_re.sub(r'(?<!^)(?=[A-Z])', ' ', enum_name)}.")
+                summary_lines = [desc]
+        else:
+            summary_lines = ["Wrapper for OpenCV's native functionality."]
         
     indent = " " * indent_spaces
     xml_lines = []
@@ -935,7 +992,7 @@ class OpenCVWrapperGenerator:
                     m_name = "_" + m_name
                 local_map[raw_m_name] = m_name
 
-            enums_by_module[mod_norm].append(format_xml_doc(doc, 0, is_enum=True))
+            enums_by_module[mod_norm].append(format_xml_doc(doc, 0, is_enum=True, enum_name=pascal_enum_name))
             enums_by_module[mod_norm].append(f"public enum {pascal_enum_name} : int\n{{")
             
             generated_enum_members = set()
@@ -959,9 +1016,9 @@ class OpenCVWrapperGenerator:
                     
                 m_doc = m[5] if len(m) > 5 else ""
                 if m_doc.strip():
-                    enums_by_module[mod_norm].append(format_xml_doc(m_doc, 4))
+                    enums_by_module[mod_norm].append(format_xml_doc(m_doc, 4, is_enum=True, enum_name=pascal_enum_name, member_name=m_name))
                 else:
-                    enums_by_module[mod_norm].append(f"    /// <summary>{m_name}</summary>")
+                    enums_by_module[mod_norm].append(format_xml_doc("", 4, is_enum=True, enum_name=pascal_enum_name, member_name=m_name))
                 enums_by_module[mod_norm].append(f"    {m_name} = {val},")
             enums_by_module[mod_norm].append("}\n")
 
