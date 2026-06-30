@@ -28,8 +28,7 @@ x64/
 *.so
 !src/OpenCV5Sharp/runtimes/**/*.dll
 !src/OpenCV5Sharp/runtimes/**/*.so
-!src/OpenCV5Sharp.Gpu/runtimes/**/*.dll
-!src/OpenCV5Sharp.Gpu/runtimes/**/*.so
+
 
 # Large binaries at root
 opencv-5.0.0-windows.exe
@@ -54,4 +53,18 @@ src/OpenCV5Sharp.Native/*.pdb
 # Test results and coverage
 TestResults/
 **/coverage.cobertura.xml
+
+# GPU binaries zip backups
+win_gpu_binaries.zip
+linux_gpu_binaries.zip
+
+# Local test outputs and model files at root
+/*.png
+!/social_card.png
+/*.jpg
+/*.onnx
+/opencv_contrib/
+/docs/node_modules/
+/docs/.vitepress/cache/
+/docs/.vitepress/dist/
 

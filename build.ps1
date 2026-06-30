@@ -6,11 +6,13 @@
 # Usage:
 #   .\build.ps1              # Build both CPU and GPU packages (default, skips GPU if CUDA is missing)
 #   .\build.ps1 -CpuOnly     # Build only the CPU package
-#   .\build.ps1 -GpuOnly     # Build only the GPU package (fails if CUDA is missing)
+#   .\build.ps1 -GpuOnly     # Build only the GPU package
+#   .\build.ps1 -Precompiled # Pack precompiled GPU binaries directly (bypasses native GPU/CUDA CMake compilation)
 
 param(
     [switch]$CpuOnly,
-    [switch]$GpuOnly
+    [switch]$GpuOnly,
+    [switch]$Precompiled
 )
 
 $ErrorActionPreference = "Stop"
@@ -37,7 +39,8 @@ $NativeDir = Join-Path $RootDir "src\OpenCV5Sharp.Native"
 $BuildCpuDir = Join-Path $NativeDir "build_cpu_win"
 $BuildGpuDir = Join-Path $NativeDir "build_gpu_win"
 $CSharpCpuDir = Join-Path $RootDir "src\OpenCV5Sharp"
-$CSharpGpuDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu"
+$CSharpGpuWinDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu.Windows"
+$CSharpGpuLinuxDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu.Linux"
 
 # Ensure CMake from VS is in the PATH so it is always available
 $VsCMakeDir = "C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin"
@@ -95,6 +98,48 @@ function Check-Cuda-Available {
     if (Get-Command nvcc -ErrorAction SilentlyContinue) { return $true }
     if (Test-Path "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA") { return $true }
     return $false
+}
+
+# Precompiled GPU downloader helper
+function Download-Precompiled-Binaries {
+    $releaseTag = "cuda"
+    $winZipUrl = "https://github.com/qourex/opencv5sharp/releases/download/$releaseTag/win_gpu_binaries.zip"
+    $linuxZipUrl = "https://github.com/qourex/opencv5sharp/releases/download/$releaseTag/linux_gpu_binaries.zip"
+    
+    $winNativeDir = Join-Path $CSharpGpuWinDir "runtimes\win-x64\native"
+    $linuxNativeDir = Join-Path $CSharpGpuLinuxDir "runtimes\linux-x64\native"
+
+    # Stage Windows
+    if (-not (Test-Path (Join-Path $winNativeDir "opencv_world500.dll"))) {
+        if (-not (Test-Path $winNativeDir)) { New-Item -ItemType Directory -Path $winNativeDir | Out-Null }
+        $winZipPath = Join-Path $RootDir "win_gpu_binaries.zip"
+        if (-not (Test-Path $winZipPath)) {
+            Write-Host "Downloading precompiled Windows GPU binaries from: $winZipUrl" -ForegroundColor Yellow
+            Invoke-WebRequest -Uri $winZipUrl -OutFile $winZipPath
+        } else {
+            Write-Host "Using local win_gpu_binaries.zip..." -ForegroundColor Green
+        }
+        Write-Host "Extracting Windows GPU binaries..." -ForegroundColor Yellow
+        Expand-Archive -Path $winZipPath -DestinationPath $winNativeDir -Force
+    } else {
+        Write-Host "Windows GPU binaries already staged at $winNativeDir" -ForegroundColor Green
+    }
+
+    # Stage Linux
+    if (-not (Test-Path (Join-Path $linuxNativeDir "libopencv_world.so.5.0.0")) -and -not (Test-Path (Join-Path $linuxNativeDir "libopencv_world.so.5.0"))) {
+        if (-not (Test-Path $linuxNativeDir)) { New-Item -ItemType Directory -Path $linuxNativeDir | Out-Null }
+        $linuxZipPath = Join-Path $RootDir "linux_gpu_binaries.zip"
+        if (-not (Test-Path $linuxZipPath)) {
+            Write-Host "Downloading precompiled Linux GPU binaries from: $linuxZipUrl" -ForegroundColor Yellow
+            Invoke-WebRequest -Uri $linuxZipUrl -OutFile $linuxZipPath
+        } else {
+            Write-Host "Using local linux_gpu_binaries.zip..." -ForegroundColor Green
+        }
+        Write-Host "Extracting Linux GPU binaries..." -ForegroundColor Yellow
+        Expand-Archive -Path $linuxZipPath -DestinationPath $linuxNativeDir -Force
+    } else {
+        Write-Host "Linux GPU binaries already staged at $linuxNativeDir" -ForegroundColor Green
+    }
 }
 
 # Native build and DLL staging helper
@@ -180,7 +225,7 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
                         Write-Host "Using Ninja generator for parallel file compilation..." -ForegroundColor Green
                         $generatorFlags = "-G `"Ninja`" -DCMAKE_MAKE_PROGRAM=`"$NinjaExe`""
                     }
-                    $cmakeCmd = "cmake `"$RootDir\opencv`" $generatorFlags -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=`"install`" -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DWITH_CUDA=ON -DWITH_CUDNN=ON -DCUDA_FAST_MATH=ON -DOPENCV_DNN_CUDA=ON -DCUDA_ARCH_BIN=`"5.0 5.2 6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0 10.0 10.1`" -DCUDA_ARCH_PTX=`"10.0 10.1`" -DCMAKE_CUDA_FLAGS=`"--threads 0`" -DOPENCV_EXTRA_MODULES_PATH=`"$contribDir\modules`" -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF"
+                    $cmakeCmd = "cmake `"$RootDir\opencv`" $generatorFlags -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=`"install`" -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DWITH_CUDA=ON -DWITH_CUDNN=ON -DCUDA_FAST_MATH=ON -DOPENCV_DNN_CUDA=ON -DCUDA_ARCH_BIN=`"6.1 7.5 8.6 8.9 10.1`" -DCUDA_ARCH_PTX=`"10.1`" -DCMAKE_CUDA_FLAGS=`"--threads 0`" -DOPENCV_EXTRA_MODULES_PATH=`"$contribDir\modules`" -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF"
                     cmd.exe /c "call `"$VsDevCmd`" -arch=x64 && $cmakeCmd"
                     if ($LASTEXITCODE -ne 0) { throw "OpenCV CMake configuration failed" }
 
@@ -220,7 +265,7 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
     try {
         $cudaFlags = ""
         if ($cudaEnabled) {
-            $cudaFlags = "-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=`"50;52;60;61;70;75;80;86;89;90;100;101;101+PTX`""
+            $cudaFlags = "-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=`"61;75;86;89;101;101+PTX`""
         } else {
             $cudaFlags = "-DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
         }
@@ -268,15 +313,15 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
         $opencvBin = Join-Path $opencvPath "bin"
     }
     
-    $worldDll = Join-Path $opencvBin "opencv_world500.dll"
-    if (Test-Path $worldDll) {
-        Copy-Item -Path $worldDll -Destination $runtimeNativeDir -Force
-        Write-Host "  Copied opencv_world500.dll"
+    $worldDll = Get-ChildItem -Path $opencvBin -Filter "opencv_world*.dll" | Select-Object -First 1
+    if ($null -ne $worldDll) {
+        Copy-Item -Path $worldDll.FullName -Destination $runtimeNativeDir -Force
+        Write-Host "  Copied $($worldDll.Name)"
     }
-    $ffmpegDll = Join-Path $opencvBin "opencv_videoio_ffmpeg500_64.dll"
-    if (Test-Path $ffmpegDll) {
-        Copy-Item -Path $ffmpegDll -Destination $runtimeNativeDir -Force
-        Write-Host "  Copied opencv_videoio_ffmpeg500_64.dll"
+    $ffmpegDll = Get-ChildItem -Path $opencvBin -Filter "opencv_videoio_ffmpeg*.dll" | Select-Object -First 1
+    if ($null -ne $ffmpegDll) {
+        Copy-Item -Path $ffmpegDll.FullName -Destination $runtimeNativeDir -Force
+        Write-Host "  Copied $($ffmpegDll.Name)"
     }
 
     Write-Host "  All native DLLs staged at: $runtimeNativeDir"
@@ -286,21 +331,34 @@ function Build-Native-And-Stage($buildDir, $cudaEnabled, $csharpProjectDir) {
 
 # CPU Build
 if ($buildCpu) {
-    Build-Native-And-Stage -buildDir $BuildCpuDir -cudaEnabled $false -csharpProjectDir $CSharpCpuDir
+    if (-not $Precompiled) {
+        Build-Native-And-Stage -buildDir $BuildCpuDir -cudaEnabled $false -csharpProjectDir $CSharpCpuDir
+    } else {
+        Write-Host "`nSkipping CPU native build because -Precompiled is specified." -ForegroundColor Yellow
+        $cpuNativeDir = Join-Path $CSharpCpuDir "runtimes\win-x64\native"
+        if (-not (Test-Path (Join-Path $cpuNativeDir "opencv5sharp_native.dll"))) {
+            Write-Host "Warning: No precompiled CPU native binaries found at $cpuNativeDir. CPU NuGet package might be incomplete." -ForegroundColor Red
+        }
+    }
 }
 
 # GPU Build
 if ($buildGpu) {
-    $cudaAvailable = Check-Cuda-Available
-    if (-not $cudaAvailable) {
-        if ($GpuOnly) {
-            throw "CUDA Toolkit not detected on this machine. Cannot build GPU version."
-        } else {
-            Write-Host "`nCUDA Toolkit not detected. Skipping GPU package build." -ForegroundColor Yellow
-            $buildGpu = $false
-        }
+    if ($Precompiled) {
+        Write-Host "`nStaging GPU precompiled binaries from GitHub Release..." -ForegroundColor Green
+        Download-Precompiled-Binaries
     } else {
-        Build-Native-And-Stage -buildDir $BuildGpuDir -cudaEnabled $true -csharpProjectDir $CSharpGpuDir
+        $cudaAvailable = Check-Cuda-Available
+        if (-not $cudaAvailable) {
+            if ($GpuOnly) {
+                throw "CUDA Toolkit not detected on this machine. Cannot build GPU version."
+            } else {
+                Write-Host "`nCUDA Toolkit not detected. Skipping GPU package build." -ForegroundColor Yellow
+                $buildGpu = $false
+            }
+        } else {
+            Build-Native-And-Stage -buildDir $BuildGpuDir -cudaEnabled $true -csharpProjectDir $CSharpGpuWinDir
+        }
     }
 }
 
@@ -314,7 +372,8 @@ if ($buildCpu) {
 }
 
 if ($buildGpu) {
-    dotnet pack $CSharpGpuDir --configuration Release --output (Join-Path $RootDir "artifacts")
+    dotnet pack $CSharpGpuWinDir --configuration Release --output (Join-Path $RootDir "artifacts")
+    dotnet pack $CSharpGpuLinuxDir --configuration Release --output (Join-Path $RootDir "artifacts")
 }
 
 Write-Host "`n==================================================" -ForegroundColor Cyan

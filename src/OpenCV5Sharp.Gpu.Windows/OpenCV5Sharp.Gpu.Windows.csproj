@@ -1,31 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' != 'true'">net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' == 'true'">net8.0;net8.0-windows;net9.0;net9.0-windows;net10.0;net10.0-windows</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
-    <PackageId>OpenCV5Sharp.Gpu</PackageId>
+    
+    <!-- Package Metadata -->
+    <PackageId>OpenCV5Sharp.Gpu.Windows</PackageId>
+    <AssemblyName>OpenCV5Sharp.Gpu.Windows</AssemblyName>
+    <Title>OpenCV5Sharp.Gpu.Windows (CUDA)</Title>
     <Authors>Qourex</Authors>
     <Company>Qourex</Company>
+    <Copyright>Copyright (c) 2026 Qourex</Copyright>
     <Description>Clean, automatic C# wrapper for OpenCV 5 with GPU/CUDA acceleration (Windows x64). Provides 2,600+ API methods with robust IDisposable memory management. Note: Installed footprint is large due to bundled native OpenCV CUDA binaries.</Description>
-    <Title>OpenCV5Sharp.Gpu (CUDA)</Title>
-    <PackageProjectUrl>https://qourex.com</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0 AND LGPL-2.1-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://qourex.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/qourex/opencv5sharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Copyright>Copyright (c) 2026 Qourex</Copyright>
-    <PackageTags>opencv opencv5 c# wrapper computer-vision image-processing dotnet Qourex cuda gpu</PackageTags>
+    <PackageTags>opencv opencv5 c# wrapper computer-vision image-processing dotnet Qourex cuda gpu windows</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>See CHANGELOG.md for release notes.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIcon>icon.png</PackageIcon>
+
+    <!-- SourceLink and symbols -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <DebugType>portable</DebugType>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,11 +46,9 @@
   <ItemGroup>
     <!-- Windows x64 Native CUDA Binaries -->
     <Content Include="runtimes\win-x64\native\*.dll" Link="runtimes\win-x64\native\%(Filename)%(Extension)" Pack="true" PackagePath="runtimes\win-x64\native\" CopyToOutputDirectory="PreserveNewest" />
-    <!-- Linux x64 Native CUDA Binaries -->
-    <Content Include="runtimes\linux-x64\native\*.so" Link="runtimes\linux-x64\native\%(Filename)%(Extension)" Pack="true" PackagePath="runtimes\linux-x64\native\" CopyToOutputDirectory="PreserveNewest" />
 
     <!-- Include MSBuild targets file for consumers -->
-    <None Include="build\OpenCV5Sharp.Gpu.targets" Pack="true" PackagePath="build\" />
+    <None Include="build\OpenCV5Sharp.Gpu.Windows.targets" Pack="true" PackagePath="build\" />
 
     <!-- Package documentation and legal files -->
     <None Include="../../README.md" Pack="true" PackagePath="README.md" />
@@ -55,5 +58,4 @@
     <None Include="..\..\THIRD-PARTY-NOTICES.txt" Pack="true" PackagePath="\" />
     <None Include="..\..\NOTICE" Pack="true" PackagePath="\" />
   </ItemGroup>
-
 </Project>

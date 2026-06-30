@@ -57,7 +57,7 @@ NATIVE_DIR="$ROOT_DIR/src/OpenCV5Sharp.Native"
 BUILD_CPU_DIR="$NATIVE_DIR/build_cpu_linux"
 BUILD_GPU_DIR="$NATIVE_DIR/build_gpu_linux"
 CSHARP_CPU_DIR="$ROOT_DIR/src/OpenCV5Sharp"
-CSHARP_GPU_DIR="$ROOT_DIR/src/OpenCV5Sharp.Gpu"
+CSHARP_GPU_DIR="$ROOT_DIR/src/OpenCV5Sharp.Gpu.Linux"
 
 # CUDA detection helper
 check_cuda_available() {
@@ -123,8 +123,9 @@ build_native_and_stage() {
           -DWITH_CUDNN=ON \
           -DCUDA_FAST_MATH=ON \
           -DOPENCV_DNN_CUDA=ON \
-          -DCUDA_ARCH_BIN="5.0 5.2 6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0 10.0 10.1" \
-          -DCUDA_ARCH_PTX="10.0 10.1" \
+          -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF \
+          -DCUDA_ARCH_BIN="6.1 7.5 8.6 8.9 10.1" \
+          -DCUDA_ARCH_PTX="10.1" \
           -DCMAKE_CUDA_FLAGS="--threads 0" \
           -DOPENCV_EXTRA_MODULES_PATH="$contribDir/modules" \
           -DBUILD_TESTS=OFF \
@@ -161,7 +162,7 @@ build_native_and_stage() {
 
   cmake_flags=""
   if [ "$cuda_enabled" = true ]; then
-    cmake_flags="-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=\"50;52;60;61;70;75;80;86;89;90;100;101;101+PTX\""
+    cmake_flags="-DWITH_CUDA=ON -DWITH_CUDNN=ON -DCMAKE_CUDA_ARCHITECTURES=\"61;75;86;89;101;101+PTX\""
   else
     cmake_flags="-DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
   fi
@@ -217,8 +218,9 @@ build_native_and_stage() {
       ct_lib=$(find "$opencvPath/lib" -name "libopencv_world.so*" | head -n 1)
     fi
     if [ -f "$ct_lib" ]; then
-      cp "$ct_lib" "$runtime_native_dir/libopencv_world500.so"
-      echo "  Copied libopencv_world500.so"
+      local lib_name=$(basename "$ct_lib")
+      cp "$ct_lib" "$runtime_native_dir/$lib_name"
+      echo "  Copied $lib_name"
     fi
   fi
 

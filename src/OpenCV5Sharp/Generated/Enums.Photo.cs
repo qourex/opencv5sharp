@@ -7,185 +7,185 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the blending method for seamless image cloning.
     /// </summary>
     public enum SeamlessCloneFlags : int
     {
-        /// <summary>NormalClone</summary>
+        /// <summary>Standard gradient-based seamless clone.</summary>
         NormalClone = 1,
-        /// <summary>MixedClone</summary>
+        /// <summary>Mixed clone preserving destination gradients.</summary>
         MixedClone = 2,
-        /// <summary>MonochromeTransfer</summary>
+        /// <summary>Transfer grayscale texture only.</summary>
         MonochromeTransfer = 3,
-        /// <summary>NormalCloneWide</summary>
+        /// <summary>Wide-area normal gradient clone.</summary>
         NormalCloneWide = 9,
-        /// <summary>MixedCloneWide</summary>
+        /// <summary>Wide-area mixed gradient clone.</summary>
         MixedCloneWide = 10,
-        /// <summary>MonochromeTransferWide</summary>
+        /// <summary>Wide-area monochrome texture transfer.</summary>
         MonochromeTransferWide = 11,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the color correction matrix model type.
     /// </summary>
     public enum CcmCcmType : int
     {
-        /// <summary>Linear</summary>
+        /// <summary>3x3 linear transformation model.</summary>
         Linear = 0,
-        /// <summary>Affine</summary>
+        /// <summary>3x4 affine transformation with offset.</summary>
         Affine = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the reference color checker chart type.
     /// </summary>
     public enum CcmColorCheckerType : int
     {
-        /// <summary>Macbeth</summary>
+        /// <summary>Macbeth ColorChecker 24-patch chart.</summary>
         Macbeth = 0,
-        /// <summary>Vinyl</summary>
+        /// <summary>Vinyl 18-patch color chart.</summary>
         Vinyl = 1,
-        /// <summary>DigitalSg</summary>
+        /// <summary>GretagMacbeth Digital SG 140-patch chart.</summary>
         DigitalSg = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the color space for color correction matrix computation.
     /// </summary>
     public enum CcmColorSpace : int
     {
-        /// <summary>Srgb</summary>
+        /// <summary>sRGB color space.</summary>
         Srgb = 0,
-        /// <summary>Srgbl</summary>
+        /// <summary>Linear sRGB color space.</summary>
         Srgbl = 1,
-        /// <summary>AdobeRgb</summary>
+        /// <summary>Adobe RGB (1998) color space.</summary>
         AdobeRgb = 2,
-        /// <summary>AdobeRgbl</summary>
+        /// <summary>Linear Adobe RGB color space.</summary>
         AdobeRgbl = 3,
-        /// <summary>WideGamutRgb</summary>
+        /// <summary>Wide Gamut RGB color space.</summary>
         WideGamutRgb = 4,
-        /// <summary>WideGamutRgbl</summary>
+        /// <summary>Linear Wide Gamut RGB color space.</summary>
         WideGamutRgbl = 5,
-        /// <summary>ProPhotoRgb</summary>
+        /// <summary>ProPhoto RGB color space.</summary>
         ProPhotoRgb = 6,
-        /// <summary>ProPhotoRgbl</summary>
+        /// <summary>Linear ProPhoto RGB color space.</summary>
         ProPhotoRgbl = 7,
-        /// <summary>DciP3Rgb</summary>
+        /// <summary>DCI-P3 RGB color space.</summary>
         DciP3Rgb = 8,
-        /// <summary>DciP3Rgbl</summary>
+        /// <summary>Linear DCI-P3 RGB color space.</summary>
         DciP3Rgbl = 9,
-        /// <summary>AppleRgb</summary>
+        /// <summary>Apple RGB color space.</summary>
         AppleRgb = 10,
-        /// <summary>AppleRgbl</summary>
+        /// <summary>Linear Apple RGB color space.</summary>
         AppleRgbl = 11,
-        /// <summary>Rec709Rgb</summary>
+        /// <summary>ITU-R BT.709 RGB color space.</summary>
         Rec709Rgb = 12,
-        /// <summary>Rec709Rgbl</summary>
+        /// <summary>Linear Rec.709 RGB color space.</summary>
         Rec709Rgbl = 13,
-        /// <summary>Rec2020Rgb</summary>
+        /// <summary>ITU-R BT.2020 RGB color space.</summary>
         Rec2020Rgb = 14,
-        /// <summary>Rec2020Rgbl</summary>
+        /// <summary>Linear Rec.2020 RGB color space.</summary>
         Rec2020Rgbl = 15,
-        /// <summary>XyzD652</summary>
+        /// <summary>CIE XYZ with D65 illuminant (2-degree observer).</summary>
         XyzD652 = 16,
-        /// <summary>XyzD502</summary>
+        /// <summary>CIE XYZ with D50 illuminant (2-degree observer).</summary>
         XyzD502 = 17,
-        /// <summary>XyzD6510</summary>
+        /// <summary>CIE XYZ with D65 illuminant (10-degree observer).</summary>
         XyzD6510 = 18,
-        /// <summary>XyzD5010</summary>
+        /// <summary>CIE XYZ with D50 illuminant (10-degree observer).</summary>
         XyzD5010 = 19,
-        /// <summary>XyzA2</summary>
+        /// <summary>CIE XYZ with illuminant A (2-degree observer).</summary>
         XyzA2 = 20,
-        /// <summary>XyzA10</summary>
+        /// <summary>CIE XYZ with illuminant A (10-degree observer).</summary>
         XyzA10 = 21,
-        /// <summary>XyzD552</summary>
+        /// <summary>CIE XYZ with D55 illuminant (2-degree observer).</summary>
         XyzD552 = 22,
-        /// <summary>XyzD5510</summary>
+        /// <summary>CIE XYZ with D55 illuminant (10-degree observer).</summary>
         XyzD5510 = 23,
-        /// <summary>XyzD752</summary>
+        /// <summary>CIE XYZ with D75 illuminant (2-degree observer).</summary>
         XyzD752 = 24,
-        /// <summary>XyzD7510</summary>
+        /// <summary>CIE XYZ with D75 illuminant (10-degree observer).</summary>
         XyzD7510 = 25,
-        /// <summary>XyzE2</summary>
+        /// <summary>CIE XYZ with illuminant E (2-degree observer).</summary>
         XyzE2 = 26,
-        /// <summary>XyzE10</summary>
+        /// <summary>CIE XYZ with illuminant E (10-degree observer).</summary>
         XyzE10 = 27,
-        /// <summary>LabD652</summary>
+        /// <summary>CIELAB with D65 illuminant (2-degree observer).</summary>
         LabD652 = 28,
-        /// <summary>LabD502</summary>
+        /// <summary>CIELAB with D50 illuminant (2-degree observer).</summary>
         LabD502 = 29,
-        /// <summary>LabD6510</summary>
+        /// <summary>CIELAB with D65 illuminant (10-degree observer).</summary>
         LabD6510 = 30,
-        /// <summary>LabD5010</summary>
+        /// <summary>CIELAB with D50 illuminant (10-degree observer).</summary>
         LabD5010 = 31,
-        /// <summary>LabA2</summary>
+        /// <summary>CIELAB with illuminant A (2-degree observer).</summary>
         LabA2 = 32,
-        /// <summary>LabA10</summary>
+        /// <summary>CIELAB with illuminant A (10-degree observer).</summary>
         LabA10 = 33,
-        /// <summary>LabD552</summary>
+        /// <summary>CIELAB with D55 illuminant (2-degree observer).</summary>
         LabD552 = 34,
-        /// <summary>LabD5510</summary>
+        /// <summary>CIELAB with D55 illuminant (10-degree observer).</summary>
         LabD5510 = 35,
-        /// <summary>LabD752</summary>
+        /// <summary>CIELAB with D75 illuminant (2-degree observer).</summary>
         LabD752 = 36,
-        /// <summary>LabD7510</summary>
+        /// <summary>CIELAB with D75 illuminant (10-degree observer).</summary>
         LabD7510 = 37,
-        /// <summary>LabE2</summary>
+        /// <summary>CIELAB with illuminant E (2-degree observer).</summary>
         LabE2 = 38,
-        /// <summary>LabE10</summary>
+        /// <summary>CIELAB with illuminant E (10-degree observer).</summary>
         LabE10 = 39,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the color difference formula for evaluating color correction accuracy.
     /// </summary>
     public enum CcmDistanceType : int
     {
-        /// <summary>Cie76</summary>
+        /// <summary>CIE76 delta-E color difference.</summary>
         Cie76 = 0,
-        /// <summary>Cie94GraphicArts</summary>
+        /// <summary>CIE94 delta-E for graphic arts.</summary>
         Cie94GraphicArts = 1,
-        /// <summary>Cie94Textiles</summary>
+        /// <summary>CIE94 delta-E for textiles.</summary>
         Cie94Textiles = 2,
-        /// <summary>Cie2000</summary>
+        /// <summary>CIEDE2000 delta-E color difference.</summary>
         Cie2000 = 3,
-        /// <summary>Cmc1to1</summary>
+        /// <summary>CMC l:c 1:1 color difference.</summary>
         Cmc1to1 = 4,
-        /// <summary>Cmc2to1</summary>
+        /// <summary>CMC l:c 2:1 color difference.</summary>
         Cmc2to1 = 5,
-        /// <summary>Rgb</summary>
+        /// <summary>RGB Euclidean distance.</summary>
         Rgb = 6,
-        /// <summary>Rgbl</summary>
+        /// <summary>Linear RGB Euclidean distance.</summary>
         Rgbl = 7,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the initialization method for CCM optimization.
     /// </summary>
     public enum CcmInitialMethodType : int
     {
-        /// <summary>WhiteBalance</summary>
+        /// <summary>Initialize with white balance correction.</summary>
         WhiteBalance = 0,
-        /// <summary>LeastSquare</summary>
+        /// <summary>Initialize with least squares solution.</summary>
         LeastSquare = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the linearization method for converting nonlinear color values.
     /// </summary>
     public enum CcmLinearizationType : int
     {
-        /// <summary>Identity</summary>
+        /// <summary>No linearization applied.</summary>
         Identity = 0,
-        /// <summary>Gamma</summary>
+        /// <summary>Gamma curve linearization.</summary>
         Gamma = 1,
-        /// <summary>Colorpolyfit</summary>
+        /// <summary>Per-channel polynomial fit linearization.</summary>
         Colorpolyfit = 2,
-        /// <summary>Colorlogpolyfit</summary>
+        /// <summary>Per-channel logarithmic polynomial fit.</summary>
         Colorlogpolyfit = 3,
-        /// <summary>Graypolyfit</summary>
+        /// <summary>Grayscale polynomial fit linearization.</summary>
         Graypolyfit = 4,
-        /// <summary>Graylogpolyfit</summary>
+        /// <summary>Grayscale logarithmic polynomial fit.</summary>
         Graylogpolyfit = 5,
     }
 

@@ -6,11 +6,7 @@
     It copies the native DLLs to the output directory at build time.
   -->
   <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64' OR ('$(RuntimeIdentifier)' == '' AND '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)' == 'X64')">
-    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv5sharp_native.dll"
-          CopyToOutputDirectory="PreserveNewest" Link="opencv5sharp_native.dll" />
-    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv_world500.dll"
-          CopyToOutputDirectory="PreserveNewest" Link="opencv_world500.dll" />
-    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\opencv_videoio_ffmpeg500_64.dll"
-          CopyToOutputDirectory="PreserveNewest" Link="opencv_videoio_ffmpeg500_64.dll" />
+    <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\*.dll"
+          CopyToOutputDirectory="PreserveNewest" Link="%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

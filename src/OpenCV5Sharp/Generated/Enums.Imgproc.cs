@@ -6,1056 +6,1056 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies adaptive thresholding algorithms.
     /// </summary>
     public enum AdaptiveThresholdTypes : int
     {
-        /// <summary>MeanC</summary>
+        /// <summary>Threshold value is the mean of the neighborhood minus C.</summary>
         MeanC = 0,
-        /// <summary>GaussianC</summary>
+        /// <summary>Threshold value is the weighted sum of the neighborhood minus C.</summary>
         GaussianC = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies color space conversion codes.
     /// </summary>
     public enum ColorConversionCodes : int
     {
-        /// <summary>Bgr2bgra</summary>
+        /// <summary>Converts image color space from BGR to BGRA.</summary>
         Bgr2bgra = 0,
-        /// <summary>Rgb2rgba</summary>
+        /// <summary>Converts image color space from RGB to RGBA.</summary>
         Rgb2rgba = unchecked((int)(Bgr2bgra)),
-        /// <summary>Bgra2bgr</summary>
+        /// <summary>Converts image color space from BGRA to BGR.</summary>
         Bgra2bgr = 1,
-        /// <summary>Rgba2rgb</summary>
+        /// <summary>Converts image color space from RGBA to RGB.</summary>
         Rgba2rgb = unchecked((int)(Bgra2bgr)),
-        /// <summary>Bgr2rgba</summary>
+        /// <summary>Converts image color space from BGR to RGBA.</summary>
         Bgr2rgba = 2,
-        /// <summary>Rgb2bgra</summary>
+        /// <summary>Converts image color space from RGB to BGRA.</summary>
         Rgb2bgra = unchecked((int)(Bgr2rgba)),
-        /// <summary>Rgba2bgr</summary>
+        /// <summary>Converts image color space from RGBA to BGR.</summary>
         Rgba2bgr = 3,
-        /// <summary>Bgra2rgb</summary>
+        /// <summary>Converts image color space from BGRA to RGB.</summary>
         Bgra2rgb = unchecked((int)(Rgba2bgr)),
-        /// <summary>Bgr2rgb</summary>
+        /// <summary>Converts image color space from BGR to RGB.</summary>
         Bgr2rgb = 4,
-        /// <summary>Rgb2bgr</summary>
+        /// <summary>Converts image color space from RGB to BGR.</summary>
         Rgb2bgr = unchecked((int)(Bgr2rgb)),
-        /// <summary>Bgra2rgba</summary>
+        /// <summary>Converts image color space from BGRA to RGBA.</summary>
         Bgra2rgba = 5,
-        /// <summary>Rgba2bgra</summary>
+        /// <summary>Converts image color space from RGBA to BGRA.</summary>
         Rgba2bgra = unchecked((int)(Bgra2rgba)),
-        /// <summary>Bgr2gray</summary>
+        /// <summary>Converts image color space from BGR to GRAY.</summary>
         Bgr2gray = 6,
-        /// <summary>Rgb2gray</summary>
+        /// <summary>Converts image color space from RGB to GRAY.</summary>
         Rgb2gray = 7,
-        /// <summary>Gray2bgr</summary>
+        /// <summary>Converts image color space from GRAY to BGR.</summary>
         Gray2bgr = 8,
-        /// <summary>Gray2rgb</summary>
+        /// <summary>Converts image color space from GRAY to RGB.</summary>
         Gray2rgb = unchecked((int)(Gray2bgr)),
-        /// <summary>Gray2bgra</summary>
+        /// <summary>Converts image color space from GRAY to BGRA.</summary>
         Gray2bgra = 9,
-        /// <summary>Gray2rgba</summary>
+        /// <summary>Converts image color space from GRAY to RGBA.</summary>
         Gray2rgba = unchecked((int)(Gray2bgra)),
-        /// <summary>Bgra2gray</summary>
+        /// <summary>Converts image color space from BGRA to GRAY.</summary>
         Bgra2gray = 10,
-        /// <summary>Rgba2gray</summary>
+        /// <summary>Converts image color space from RGBA to GRAY.</summary>
         Rgba2gray = 11,
-        /// <summary>Bgr2bgr565</summary>
+        /// <summary>Converts image color space from BGR to BGR565.</summary>
         Bgr2bgr565 = 12,
-        /// <summary>Rgb2bgr565</summary>
+        /// <summary>Converts image color space from RGB to BGR565.</summary>
         Rgb2bgr565 = 13,
-        /// <summary>Bgr5652bgr</summary>
+        /// <summary>Converts image color space from BGR565 to BGR.</summary>
         Bgr5652bgr = 14,
-        /// <summary>Bgr5652rgb</summary>
+        /// <summary>Converts image color space from BGR565 to RGB.</summary>
         Bgr5652rgb = 15,
-        /// <summary>Bgra2bgr565</summary>
+        /// <summary>Converts image color space from BGRA to BGR565.</summary>
         Bgra2bgr565 = 16,
-        /// <summary>Rgba2bgr565</summary>
+        /// <summary>Converts image color space from RGBA to BGR565.</summary>
         Rgba2bgr565 = 17,
-        /// <summary>Bgr5652bgra</summary>
+        /// <summary>Converts image color space from BGR565 to BGRA.</summary>
         Bgr5652bgra = 18,
-        /// <summary>Bgr5652rgba</summary>
+        /// <summary>Converts image color space from BGR565 to RGBA.</summary>
         Bgr5652rgba = 19,
-        /// <summary>Gray2bgr565</summary>
+        /// <summary>Converts image color space from GRAY to BGR565.</summary>
         Gray2bgr565 = 20,
-        /// <summary>Bgr5652gray</summary>
+        /// <summary>Converts image color space from BGR565 to GRAY.</summary>
         Bgr5652gray = 21,
-        /// <summary>Bgr2bgr555</summary>
+        /// <summary>Converts image color space from BGR to BGR555.</summary>
         Bgr2bgr555 = 22,
-        /// <summary>Rgb2bgr555</summary>
+        /// <summary>Converts image color space from RGB to BGR555.</summary>
         Rgb2bgr555 = 23,
-        /// <summary>Bgr5552bgr</summary>
+        /// <summary>Converts image color space from BGR555 to BGR.</summary>
         Bgr5552bgr = 24,
-        /// <summary>Bgr5552rgb</summary>
+        /// <summary>Converts image color space from BGR555 to RGB.</summary>
         Bgr5552rgb = 25,
-        /// <summary>Bgra2bgr555</summary>
+        /// <summary>Converts image color space from BGRA to BGR555.</summary>
         Bgra2bgr555 = 26,
-        /// <summary>Rgba2bgr555</summary>
+        /// <summary>Converts image color space from RGBA to BGR555.</summary>
         Rgba2bgr555 = 27,
-        /// <summary>Bgr5552bgra</summary>
+        /// <summary>Converts image color space from BGR555 to BGRA.</summary>
         Bgr5552bgra = 28,
-        /// <summary>Bgr5552rgba</summary>
+        /// <summary>Converts image color space from BGR555 to RGBA.</summary>
         Bgr5552rgba = 29,
-        /// <summary>Gray2bgr555</summary>
+        /// <summary>Converts image color space from GRAY to BGR555.</summary>
         Gray2bgr555 = 30,
-        /// <summary>Bgr5552gray</summary>
+        /// <summary>Converts image color space from BGR555 to GRAY.</summary>
         Bgr5552gray = 31,
-        /// <summary>Bgr2xyz</summary>
+        /// <summary>Converts image color space from BGR to XYZ.</summary>
         Bgr2xyz = 32,
-        /// <summary>Rgb2xyz</summary>
+        /// <summary>Converts image color space from RGB to XYZ.</summary>
         Rgb2xyz = 33,
-        /// <summary>Xyz2bgr</summary>
+        /// <summary>Converts image color space from XYZ to BGR.</summary>
         Xyz2bgr = 34,
-        /// <summary>Xyz2rgb</summary>
+        /// <summary>Converts image color space from XYZ to RGB.</summary>
         Xyz2rgb = 35,
-        /// <summary>BGR2YCrCb</summary>
+        /// <summary>Converts image color space from BGR to YCRCB.</summary>
         BGR2YCrCb = 36,
-        /// <summary>RGB2YCrCb</summary>
+        /// <summary>Converts image color space from RGB to YCRCB.</summary>
         RGB2YCrCb = 37,
-        /// <summary>YCrCb2BGR</summary>
+        /// <summary>Converts image color space from YCRCB to BGR.</summary>
         YCrCb2BGR = 38,
-        /// <summary>YCrCb2RGB</summary>
+        /// <summary>Converts image color space from YCRCB to RGB.</summary>
         YCrCb2RGB = 39,
-        /// <summary>Bgr2hsv</summary>
+        /// <summary>Converts image color space from BGR to HSV.</summary>
         Bgr2hsv = 40,
-        /// <summary>Rgb2hsv</summary>
+        /// <summary>Converts image color space from RGB to HSV.</summary>
         Rgb2hsv = 41,
-        /// <summary>BGR2Lab</summary>
+        /// <summary>Converts image color space from BGR to LAB.</summary>
         BGR2Lab = 44,
-        /// <summary>RGB2Lab</summary>
+        /// <summary>Converts image color space from RGB to LAB.</summary>
         RGB2Lab = 45,
-        /// <summary>BGR2Luv</summary>
+        /// <summary>Converts image color space from BGR to LUV.</summary>
         BGR2Luv = 50,
-        /// <summary>RGB2Luv</summary>
+        /// <summary>Converts image color space from RGB to LUV.</summary>
         RGB2Luv = 51,
-        /// <summary>Bgr2hls</summary>
+        /// <summary>Converts image color space from BGR to HLS.</summary>
         Bgr2hls = 52,
-        /// <summary>Rgb2hls</summary>
+        /// <summary>Converts image color space from RGB to HLS.</summary>
         Rgb2hls = 53,
-        /// <summary>Hsv2bgr</summary>
+        /// <summary>Converts image color space from HSV to BGR.</summary>
         Hsv2bgr = 54,
-        /// <summary>Hsv2rgb</summary>
+        /// <summary>Converts image color space from HSV to RGB.</summary>
         Hsv2rgb = 55,
-        /// <summary>Lab2BGR</summary>
+        /// <summary>Converts image color space from LAB to BGR.</summary>
         Lab2BGR = 56,
-        /// <summary>Lab2RGB</summary>
+        /// <summary>Converts image color space from LAB to RGB.</summary>
         Lab2RGB = 57,
-        /// <summary>Luv2BGR</summary>
+        /// <summary>Converts image color space from LUV to BGR.</summary>
         Luv2BGR = 58,
-        /// <summary>Luv2RGB</summary>
+        /// <summary>Converts image color space from LUV to RGB.</summary>
         Luv2RGB = 59,
-        /// <summary>Hls2bgr</summary>
+        /// <summary>Converts image color space from HLS to BGR.</summary>
         Hls2bgr = 60,
-        /// <summary>Hls2rgb</summary>
+        /// <summary>Converts image color space from HLS to RGB.</summary>
         Hls2rgb = 61,
-        /// <summary>Bgr2hsvFull</summary>
+        /// <summary>Converts image color space from BGR to HSVFULL.</summary>
         Bgr2hsvFull = 66,
-        /// <summary>Rgb2hsvFull</summary>
+        /// <summary>Converts image color space from RGB to HSVFULL.</summary>
         Rgb2hsvFull = 67,
-        /// <summary>Bgr2hlsFull</summary>
+        /// <summary>Converts image color space from BGR to HLSFULL.</summary>
         Bgr2hlsFull = 68,
-        /// <summary>Rgb2hlsFull</summary>
+        /// <summary>Converts image color space from RGB to HLSFULL.</summary>
         Rgb2hlsFull = 69,
-        /// <summary>Hsv2bgrFull</summary>
+        /// <summary>Converts image color space from HSV to BGRFULL.</summary>
         Hsv2bgrFull = 70,
-        /// <summary>Hsv2rgbFull</summary>
+        /// <summary>Converts image color space from HSV to RGBFULL.</summary>
         Hsv2rgbFull = 71,
-        /// <summary>Hls2bgrFull</summary>
+        /// <summary>Converts image color space from HLS to BGRFULL.</summary>
         Hls2bgrFull = 72,
-        /// <summary>Hls2rgbFull</summary>
+        /// <summary>Converts image color space from HLS to RGBFULL.</summary>
         Hls2rgbFull = 73,
-        /// <summary>LBGR2Lab</summary>
+        /// <summary>Converts image color space from LBGR to LAB.</summary>
         LBGR2Lab = 74,
-        /// <summary>LRGB2Lab</summary>
+        /// <summary>Converts image color space from LRGB to LAB.</summary>
         LRGB2Lab = 75,
-        /// <summary>LBGR2Luv</summary>
+        /// <summary>Converts image color space from LBGR to LUV.</summary>
         LBGR2Luv = 76,
-        /// <summary>LRGB2Luv</summary>
+        /// <summary>Converts image color space from LRGB to LUV.</summary>
         LRGB2Luv = 77,
-        /// <summary>Lab2LBGR</summary>
+        /// <summary>Converts image color space from LAB to LBGR.</summary>
         Lab2LBGR = 78,
-        /// <summary>Lab2LRGB</summary>
+        /// <summary>Converts image color space from LAB to LRGB.</summary>
         Lab2LRGB = 79,
-        /// <summary>Luv2LBGR</summary>
+        /// <summary>Converts image color space from LUV to LBGR.</summary>
         Luv2LBGR = 80,
-        /// <summary>Luv2LRGB</summary>
+        /// <summary>Converts image color space from LUV to LRGB.</summary>
         Luv2LRGB = 81,
-        /// <summary>Bgr2yuv</summary>
+        /// <summary>Converts image color space from BGR to YUV.</summary>
         Bgr2yuv = 82,
-        /// <summary>Rgb2yuv</summary>
+        /// <summary>Converts image color space from RGB to YUV.</summary>
         Rgb2yuv = 83,
-        /// <summary>Yuv2bgr</summary>
+        /// <summary>Converts image color space from YUV to BGR.</summary>
         Yuv2bgr = 84,
-        /// <summary>Yuv2rgb</summary>
+        /// <summary>Converts image color space from YUV to RGB.</summary>
         Yuv2rgb = 85,
-        /// <summary>Yuv2rgbNv12</summary>
+        /// <summary>Converts image color space from YUV to RGBNV12.</summary>
         Yuv2rgbNv12 = 90,
-        /// <summary>Yuv2bgrNv12</summary>
+        /// <summary>Converts image color space from YUV to BGRNV12.</summary>
         Yuv2bgrNv12 = 91,
-        /// <summary>Yuv2rgbNv21</summary>
+        /// <summary>Converts image color space from YUV2RGBNV to 1.</summary>
         Yuv2rgbNv21 = 92,
-        /// <summary>Yuv2bgrNv21</summary>
+        /// <summary>Converts image color space from YUV2BGRNV to 1.</summary>
         Yuv2bgrNv21 = 93,
-        /// <summary>YUV420sp2RGB</summary>
+        /// <summary>Converts image color space from YUV420SP to RGB.</summary>
         YUV420sp2RGB = unchecked((int)(Yuv2rgbNv21)),
-        /// <summary>YUV420sp2BGR</summary>
+        /// <summary>Converts image color space from YUV420SP to BGR.</summary>
         YUV420sp2BGR = unchecked((int)(Yuv2bgrNv21)),
-        /// <summary>Yuv2rgbaNv12</summary>
+        /// <summary>Converts image color space from YUV to RGBANV12.</summary>
         Yuv2rgbaNv12 = 94,
-        /// <summary>Yuv2bgraNv12</summary>
+        /// <summary>Converts image color space from YUV to BGRANV12.</summary>
         Yuv2bgraNv12 = 95,
-        /// <summary>Yuv2rgbaNv21</summary>
+        /// <summary>Converts image color space from YUV2RGBANV to 1.</summary>
         Yuv2rgbaNv21 = 96,
-        /// <summary>Yuv2bgraNv21</summary>
+        /// <summary>Converts image color space from YUV2BGRANV to 1.</summary>
         Yuv2bgraNv21 = 97,
-        /// <summary>YUV420sp2RGBA</summary>
+        /// <summary>Converts image color space from YUV420SP to RGBA.</summary>
         YUV420sp2RGBA = unchecked((int)(Yuv2rgbaNv21)),
-        /// <summary>YUV420sp2BGRA</summary>
+        /// <summary>Converts image color space from YUV420SP to BGRA.</summary>
         YUV420sp2BGRA = unchecked((int)(Yuv2bgraNv21)),
-        /// <summary>Yuv2rgbYv12</summary>
+        /// <summary>Converts image color space from YUV to RGBYV12.</summary>
         Yuv2rgbYv12 = 98,
-        /// <summary>Yuv2bgrYv12</summary>
+        /// <summary>Converts image color space from YUV to BGRYV12.</summary>
         Yuv2bgrYv12 = 99,
-        /// <summary>Yuv2rgbIyuv</summary>
+        /// <summary>Converts image color space from YUV to RGBIYUV.</summary>
         Yuv2rgbIyuv = 100,
-        /// <summary>Yuv2bgrIyuv</summary>
+        /// <summary>Converts image color space from YUV to BGRIYUV.</summary>
         Yuv2bgrIyuv = 101,
-        /// <summary>Yuv2rgbI420</summary>
+        /// <summary>Converts image color space from YUV2RGBI4 to 0.</summary>
         Yuv2rgbI420 = unchecked((int)(Yuv2rgbIyuv)),
-        /// <summary>Yuv2bgrI420</summary>
+        /// <summary>Converts image color space from YUV2BGRI4 to 0.</summary>
         Yuv2bgrI420 = unchecked((int)(Yuv2bgrIyuv)),
-        /// <summary>YUV420p2RGB</summary>
+        /// <summary>Converts image color space from YUV420P to RGB.</summary>
         YUV420p2RGB = unchecked((int)(Yuv2rgbYv12)),
-        /// <summary>YUV420p2BGR</summary>
+        /// <summary>Converts image color space from YUV420P to BGR.</summary>
         YUV420p2BGR = unchecked((int)(Yuv2bgrYv12)),
-        /// <summary>Yuv2rgbaYv12</summary>
+        /// <summary>Converts image color space from YUV to RGBAYV12.</summary>
         Yuv2rgbaYv12 = 102,
-        /// <summary>Yuv2bgraYv12</summary>
+        /// <summary>Converts image color space from YUV to BGRAYV12.</summary>
         Yuv2bgraYv12 = 103,
-        /// <summary>Yuv2rgbaIyuv</summary>
+        /// <summary>Converts image color space from YUV to RGBAIYUV.</summary>
         Yuv2rgbaIyuv = 104,
-        /// <summary>Yuv2bgraIyuv</summary>
+        /// <summary>Converts image color space from YUV to BGRAIYUV.</summary>
         Yuv2bgraIyuv = 105,
-        /// <summary>Yuv2rgbaI420</summary>
+        /// <summary>Converts image color space from YUV2RGBAI4 to 0.</summary>
         Yuv2rgbaI420 = unchecked((int)(Yuv2rgbaIyuv)),
-        /// <summary>Yuv2bgraI420</summary>
+        /// <summary>Converts image color space from YUV2BGRAI4 to 0.</summary>
         Yuv2bgraI420 = unchecked((int)(Yuv2bgraIyuv)),
-        /// <summary>YUV420p2RGBA</summary>
+        /// <summary>Converts image color space from YUV420P to RGBA.</summary>
         YUV420p2RGBA = unchecked((int)(Yuv2rgbaYv12)),
-        /// <summary>YUV420p2BGRA</summary>
+        /// <summary>Converts image color space from YUV420P to BGRA.</summary>
         YUV420p2BGRA = unchecked((int)(Yuv2bgraYv12)),
-        /// <summary>Yuv2gray420</summary>
+        /// <summary>Converts image color space from YUV2GRAY4 to 0.</summary>
         Yuv2gray420 = 106,
-        /// <summary>Yuv2grayNv21</summary>
+        /// <summary>Converts image color space from YUV2GRAYNV to 1.</summary>
         Yuv2grayNv21 = unchecked((int)(Yuv2gray420)),
-        /// <summary>Yuv2grayNv12</summary>
+        /// <summary>Converts image color space from YUV to GRAYNV12.</summary>
         Yuv2grayNv12 = unchecked((int)(Yuv2gray420)),
-        /// <summary>Yuv2grayYv12</summary>
+        /// <summary>Converts image color space from YUV to GRAYYV12.</summary>
         Yuv2grayYv12 = unchecked((int)(Yuv2gray420)),
-        /// <summary>Yuv2grayIyuv</summary>
+        /// <summary>Converts image color space from YUV to GRAYIYUV.</summary>
         Yuv2grayIyuv = unchecked((int)(Yuv2gray420)),
-        /// <summary>Yuv2grayI420</summary>
+        /// <summary>Converts image color space from YUV2GRAYI4 to 0.</summary>
         Yuv2grayI420 = unchecked((int)(Yuv2gray420)),
-        /// <summary>YUV420sp2GRAY</summary>
+        /// <summary>Converts image color space from YUV420SP to GRAY.</summary>
         YUV420sp2GRAY = unchecked((int)(Yuv2gray420)),
-        /// <summary>YUV420p2GRAY</summary>
+        /// <summary>Converts image color space from YUV420P to GRAY.</summary>
         YUV420p2GRAY = unchecked((int)(Yuv2gray420)),
-        /// <summary>Yuv2rgbUyvy</summary>
+        /// <summary>Converts image color space from YUV to RGBUYVY.</summary>
         Yuv2rgbUyvy = 107,
-        /// <summary>Yuv2bgrUyvy</summary>
+        /// <summary>Converts image color space from YUV to BGRUYVY.</summary>
         Yuv2bgrUyvy = 108,
-        /// <summary>Yuv2rgbY422</summary>
+        /// <summary>Converts image color space from YUV2RGBY4 to 2.</summary>
         Yuv2rgbY422 = unchecked((int)(Yuv2rgbUyvy)),
-        /// <summary>Yuv2bgrY422</summary>
+        /// <summary>Converts image color space from YUV2BGRY4 to 2.</summary>
         Yuv2bgrY422 = unchecked((int)(Yuv2bgrUyvy)),
-        /// <summary>Yuv2rgbUynv</summary>
+        /// <summary>Converts image color space from YUV to RGBUYNV.</summary>
         Yuv2rgbUynv = unchecked((int)(Yuv2rgbUyvy)),
-        /// <summary>Yuv2bgrUynv</summary>
+        /// <summary>Converts image color space from YUV to BGRUYNV.</summary>
         Yuv2bgrUynv = unchecked((int)(Yuv2bgrUyvy)),
-        /// <summary>Yuv2rgbaUyvy</summary>
+        /// <summary>Converts image color space from YUV to RGBAUYVY.</summary>
         Yuv2rgbaUyvy = 111,
-        /// <summary>Yuv2bgraUyvy</summary>
+        /// <summary>Converts image color space from YUV to BGRAUYVY.</summary>
         Yuv2bgraUyvy = 112,
-        /// <summary>Yuv2rgbaY422</summary>
+        /// <summary>Converts image color space from YUV2RGBAY4 to 2.</summary>
         Yuv2rgbaY422 = unchecked((int)(Yuv2rgbaUyvy)),
-        /// <summary>Yuv2bgraY422</summary>
+        /// <summary>Converts image color space from YUV2BGRAY4 to 2.</summary>
         Yuv2bgraY422 = unchecked((int)(Yuv2bgraUyvy)),
-        /// <summary>Yuv2rgbaUynv</summary>
+        /// <summary>Converts image color space from YUV to RGBAUYNV.</summary>
         Yuv2rgbaUynv = unchecked((int)(Yuv2rgbaUyvy)),
-        /// <summary>Yuv2bgraUynv</summary>
+        /// <summary>Converts image color space from YUV to BGRAUYNV.</summary>
         Yuv2bgraUynv = unchecked((int)(Yuv2bgraUyvy)),
-        /// <summary>Yuv2rgbYuy2</summary>
+        /// <summary>Converts image color space from YUV to RGBYUY2.</summary>
         Yuv2rgbYuy2 = 115,
-        /// <summary>Yuv2bgrYuy2</summary>
+        /// <summary>Converts image color space from YUV to BGRYUY2.</summary>
         Yuv2bgrYuy2 = 116,
-        /// <summary>Yuv2rgbYvyu</summary>
+        /// <summary>Converts image color space from YUV to RGBYVYU.</summary>
         Yuv2rgbYvyu = 117,
-        /// <summary>Yuv2bgrYvyu</summary>
+        /// <summary>Converts image color space from YUV to BGRYVYU.</summary>
         Yuv2bgrYvyu = 118,
-        /// <summary>Yuv2rgbYuyv</summary>
+        /// <summary>Converts image color space from YUV to RGBYUYV.</summary>
         Yuv2rgbYuyv = unchecked((int)(Yuv2rgbYuy2)),
-        /// <summary>Yuv2bgrYuyv</summary>
+        /// <summary>Converts image color space from YUV to BGRYUYV.</summary>
         Yuv2bgrYuyv = unchecked((int)(Yuv2bgrYuy2)),
-        /// <summary>Yuv2rgbYunv</summary>
+        /// <summary>Converts image color space from YUV to RGBYUNV.</summary>
         Yuv2rgbYunv = unchecked((int)(Yuv2rgbYuy2)),
-        /// <summary>Yuv2bgrYunv</summary>
+        /// <summary>Converts image color space from YUV to BGRYUNV.</summary>
         Yuv2bgrYunv = unchecked((int)(Yuv2bgrYuy2)),
-        /// <summary>Yuv2rgbaYuy2</summary>
+        /// <summary>Converts image color space from YUV to RGBAYUY2.</summary>
         Yuv2rgbaYuy2 = 119,
-        /// <summary>Yuv2bgraYuy2</summary>
+        /// <summary>Converts image color space from YUV to BGRAYUY2.</summary>
         Yuv2bgraYuy2 = 120,
-        /// <summary>Yuv2rgbaYvyu</summary>
+        /// <summary>Converts image color space from YUV to RGBAYVYU.</summary>
         Yuv2rgbaYvyu = 121,
-        /// <summary>Yuv2bgraYvyu</summary>
+        /// <summary>Converts image color space from YUV to BGRAYVYU.</summary>
         Yuv2bgraYvyu = 122,
-        /// <summary>Yuv2rgbaYuyv</summary>
+        /// <summary>Converts image color space from YUV to RGBAYUYV.</summary>
         Yuv2rgbaYuyv = unchecked((int)(Yuv2rgbaYuy2)),
-        /// <summary>Yuv2bgraYuyv</summary>
+        /// <summary>Converts image color space from YUV to BGRAYUYV.</summary>
         Yuv2bgraYuyv = unchecked((int)(Yuv2bgraYuy2)),
-        /// <summary>Yuv2rgbaYunv</summary>
+        /// <summary>Converts image color space from YUV to RGBAYUNV.</summary>
         Yuv2rgbaYunv = unchecked((int)(Yuv2rgbaYuy2)),
-        /// <summary>Yuv2bgraYunv</summary>
+        /// <summary>Converts image color space from YUV to BGRAYUNV.</summary>
         Yuv2bgraYunv = unchecked((int)(Yuv2bgraYuy2)),
-        /// <summary>Yuv2grayUyvy</summary>
+        /// <summary>Converts image color space from YUV to GRAYUYVY.</summary>
         Yuv2grayUyvy = 123,
-        /// <summary>Yuv2grayYuy2</summary>
+        /// <summary>Converts image color space from YUV to GRAYYUY2.</summary>
         Yuv2grayYuy2 = 124,
-        /// <summary>Yuv2grayY422</summary>
+        /// <summary>Converts image color space from YUV2GRAYY4 to 2.</summary>
         Yuv2grayY422 = unchecked((int)(Yuv2grayUyvy)),
-        /// <summary>Yuv2grayUynv</summary>
+        /// <summary>Converts image color space from YUV to GRAYUYNV.</summary>
         Yuv2grayUynv = unchecked((int)(Yuv2grayUyvy)),
-        /// <summary>Yuv2grayYvyu</summary>
+        /// <summary>Converts image color space from YUV to GRAYYVYU.</summary>
         Yuv2grayYvyu = unchecked((int)(Yuv2grayYuy2)),
-        /// <summary>Yuv2grayYuyv</summary>
+        /// <summary>Converts image color space from YUV to GRAYYUYV.</summary>
         Yuv2grayYuyv = unchecked((int)(Yuv2grayYuy2)),
-        /// <summary>Yuv2grayYunv</summary>
+        /// <summary>Converts image color space from YUV to GRAYYUNV.</summary>
         Yuv2grayYunv = unchecked((int)(Yuv2grayYuy2)),
-        /// <summary>RGBA2mRGBA</summary>
+        /// <summary>Converts image color space from RGBA to MRGBA.</summary>
         RGBA2mRGBA = 125,
-        /// <summary>MRGBA2RGBA</summary>
+        /// <summary>Converts image color space from MRGBA to RGBA.</summary>
         MRGBA2RGBA = 126,
-        /// <summary>Rgb2yuvI420</summary>
+        /// <summary>Converts image color space from RGB2YUVI4 to 0.</summary>
         Rgb2yuvI420 = 127,
-        /// <summary>Bgr2yuvI420</summary>
+        /// <summary>Converts image color space from BGR2YUVI4 to 0.</summary>
         Bgr2yuvI420 = 128,
-        /// <summary>Rgb2yuvIyuv</summary>
+        /// <summary>Converts image color space from RGB to YUVIYUV.</summary>
         Rgb2yuvIyuv = unchecked((int)(Rgb2yuvI420)),
-        /// <summary>Bgr2yuvIyuv</summary>
+        /// <summary>Converts image color space from BGR to YUVIYUV.</summary>
         Bgr2yuvIyuv = unchecked((int)(Bgr2yuvI420)),
-        /// <summary>Rgba2yuvI420</summary>
+        /// <summary>Converts image color space from RGBA2YUVI4 to 0.</summary>
         Rgba2yuvI420 = 129,
-        /// <summary>Bgra2yuvI420</summary>
+        /// <summary>Converts image color space from BGRA2YUVI4 to 0.</summary>
         Bgra2yuvI420 = 130,
-        /// <summary>Rgba2yuvIyuv</summary>
+        /// <summary>Converts image color space from RGBA to YUVIYUV.</summary>
         Rgba2yuvIyuv = unchecked((int)(Rgba2yuvI420)),
-        /// <summary>Bgra2yuvIyuv</summary>
+        /// <summary>Converts image color space from BGRA to YUVIYUV.</summary>
         Bgra2yuvIyuv = unchecked((int)(Bgra2yuvI420)),
-        /// <summary>Rgb2yuvYv12</summary>
+        /// <summary>Converts image color space from RGB to YUVYV12.</summary>
         Rgb2yuvYv12 = 131,
-        /// <summary>Bgr2yuvYv12</summary>
+        /// <summary>Converts image color space from BGR to YUVYV12.</summary>
         Bgr2yuvYv12 = 132,
-        /// <summary>Rgba2yuvYv12</summary>
+        /// <summary>Converts image color space from RGBA to YUVYV12.</summary>
         Rgba2yuvYv12 = 133,
-        /// <summary>Bgra2yuvYv12</summary>
+        /// <summary>Converts image color space from BGRA to YUVYV12.</summary>
         Bgra2yuvYv12 = 134,
-        /// <summary>BayerBG2BGR</summary>
+        /// <summary>Converts image color space from BAYERBG to BGR.</summary>
         BayerBG2BGR = 46,
-        /// <summary>BayerGB2BGR</summary>
+        /// <summary>Converts image color space from BAYERGB to BGR.</summary>
         BayerGB2BGR = 47,
-        /// <summary>BayerRG2BGR</summary>
+        /// <summary>Converts image color space from BAYERRG to BGR.</summary>
         BayerRG2BGR = 48,
-        /// <summary>BayerGR2BGR</summary>
+        /// <summary>Converts image color space from BAYERGR to BGR.</summary>
         BayerGR2BGR = 49,
-        /// <summary>BayerRGGB2BGR</summary>
+        /// <summary>Converts image color space from BAYERRGGB to BGR.</summary>
         BayerRGGB2BGR = unchecked((int)(BayerBG2BGR)),
-        /// <summary>BayerGRBG2BGR</summary>
+        /// <summary>Converts image color space from BAYERGRBG to BGR.</summary>
         BayerGRBG2BGR = unchecked((int)(BayerGB2BGR)),
-        /// <summary>BayerBGGR2BGR</summary>
+        /// <summary>Converts image color space from BAYERBGGR to BGR.</summary>
         BayerBGGR2BGR = unchecked((int)(BayerRG2BGR)),
-        /// <summary>BayerGBRG2BGR</summary>
+        /// <summary>Converts image color space from BAYERGBRG to BGR.</summary>
         BayerGBRG2BGR = unchecked((int)(BayerGR2BGR)),
-        /// <summary>BayerRGGB2RGB</summary>
+        /// <summary>Converts image color space from BAYERRGGB to RGB.</summary>
         BayerRGGB2RGB = unchecked((int)(BayerBGGR2BGR)),
-        /// <summary>BayerGRBG2RGB</summary>
+        /// <summary>Converts image color space from BAYERGRBG to RGB.</summary>
         BayerGRBG2RGB = unchecked((int)(BayerGBRG2BGR)),
-        /// <summary>BayerBGGR2RGB</summary>
+        /// <summary>Converts image color space from BAYERBGGR to RGB.</summary>
         BayerBGGR2RGB = unchecked((int)(BayerRGGB2BGR)),
-        /// <summary>BayerGBRG2RGB</summary>
+        /// <summary>Converts image color space from BAYERGBRG to RGB.</summary>
         BayerGBRG2RGB = unchecked((int)(BayerGRBG2BGR)),
-        /// <summary>BayerBG2RGB</summary>
+        /// <summary>Converts image color space from BAYERBG to RGB.</summary>
         BayerBG2RGB = unchecked((int)(BayerRG2BGR)),
-        /// <summary>BayerGB2RGB</summary>
+        /// <summary>Converts image color space from BAYERGB to RGB.</summary>
         BayerGB2RGB = unchecked((int)(BayerGR2BGR)),
-        /// <summary>BayerRG2RGB</summary>
+        /// <summary>Converts image color space from BAYERRG to RGB.</summary>
         BayerRG2RGB = unchecked((int)(BayerBG2BGR)),
-        /// <summary>BayerGR2RGB</summary>
+        /// <summary>Converts image color space from BAYERGR to RGB.</summary>
         BayerGR2RGB = unchecked((int)(BayerGB2BGR)),
-        /// <summary>BayerBG2GRAY</summary>
+        /// <summary>Converts image color space from BAYERBG to GRAY.</summary>
         BayerBG2GRAY = 86,
-        /// <summary>BayerGB2GRAY</summary>
+        /// <summary>Converts image color space from BAYERGB to GRAY.</summary>
         BayerGB2GRAY = 87,
-        /// <summary>BayerRG2GRAY</summary>
+        /// <summary>Converts image color space from BAYERRG to GRAY.</summary>
         BayerRG2GRAY = 88,
-        /// <summary>BayerGR2GRAY</summary>
+        /// <summary>Converts image color space from BAYERGR to GRAY.</summary>
         BayerGR2GRAY = 89,
-        /// <summary>BayerRGGB2GRAY</summary>
+        /// <summary>Converts image color space from BAYERRGGB to GRAY.</summary>
         BayerRGGB2GRAY = unchecked((int)(BayerBG2GRAY)),
-        /// <summary>BayerGRBG2GRAY</summary>
+        /// <summary>Converts image color space from BAYERGRBG to GRAY.</summary>
         BayerGRBG2GRAY = unchecked((int)(BayerGB2GRAY)),
-        /// <summary>BayerBGGR2GRAY</summary>
+        /// <summary>Converts image color space from BAYERBGGR to GRAY.</summary>
         BayerBGGR2GRAY = unchecked((int)(BayerRG2GRAY)),
-        /// <summary>BayerGBRG2GRAY</summary>
+        /// <summary>Converts image color space from BAYERGBRG to GRAY.</summary>
         BayerGBRG2GRAY = unchecked((int)(BayerGR2GRAY)),
-        /// <summary>BayerBG2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERBG to BGRVNG.</summary>
         BayerBG2BGRVNG = 62,
-        /// <summary>BayerGB2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERGB to BGRVNG.</summary>
         BayerGB2BGRVNG = 63,
-        /// <summary>BayerRG2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERRG to BGRVNG.</summary>
         BayerRG2BGRVNG = 64,
-        /// <summary>BayerGR2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERGR to BGRVNG.</summary>
         BayerGR2BGRVNG = 65,
-        /// <summary>BayerRGGB2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERRGGB to BGRVNG.</summary>
         BayerRGGB2BGRVNG = unchecked((int)(BayerBG2BGRVNG)),
-        /// <summary>BayerGRBG2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERGRBG to BGRVNG.</summary>
         BayerGRBG2BGRVNG = unchecked((int)(BayerGB2BGRVNG)),
-        /// <summary>BayerBGGR2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERBGGR to BGRVNG.</summary>
         BayerBGGR2BGRVNG = unchecked((int)(BayerRG2BGRVNG)),
-        /// <summary>BayerGBRG2BGRVNG</summary>
+        /// <summary>Converts image color space from BAYERGBRG to BGRVNG.</summary>
         BayerGBRG2BGRVNG = unchecked((int)(BayerGR2BGRVNG)),
-        /// <summary>BayerRGGB2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERRGGB to RGBVNG.</summary>
         BayerRGGB2RGBVNG = unchecked((int)(BayerBGGR2BGRVNG)),
-        /// <summary>BayerGRBG2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERGRBG to RGBVNG.</summary>
         BayerGRBG2RGBVNG = unchecked((int)(BayerGBRG2BGRVNG)),
-        /// <summary>BayerBGGR2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERBGGR to RGBVNG.</summary>
         BayerBGGR2RGBVNG = unchecked((int)(BayerRGGB2BGRVNG)),
-        /// <summary>BayerGBRG2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERGBRG to RGBVNG.</summary>
         BayerGBRG2RGBVNG = unchecked((int)(BayerGRBG2BGRVNG)),
-        /// <summary>BayerBG2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERBG to RGBVNG.</summary>
         BayerBG2RGBVNG = unchecked((int)(BayerRG2BGRVNG)),
-        /// <summary>BayerGB2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERGB to RGBVNG.</summary>
         BayerGB2RGBVNG = unchecked((int)(BayerGR2BGRVNG)),
-        /// <summary>BayerRG2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERRG to RGBVNG.</summary>
         BayerRG2RGBVNG = unchecked((int)(BayerBG2BGRVNG)),
-        /// <summary>BayerGR2RGBVNG</summary>
+        /// <summary>Converts image color space from BAYERGR to RGBVNG.</summary>
         BayerGR2RGBVNG = unchecked((int)(BayerGB2BGRVNG)),
-        /// <summary>BayerBG2BGREA</summary>
+        /// <summary>Converts image color space from BAYERBG to BGREA.</summary>
         BayerBG2BGREA = 135,
-        /// <summary>BayerGB2BGREA</summary>
+        /// <summary>Converts image color space from BAYERGB to BGREA.</summary>
         BayerGB2BGREA = 136,
-        /// <summary>BayerRG2BGREA</summary>
+        /// <summary>Converts image color space from BAYERRG to BGREA.</summary>
         BayerRG2BGREA = 137,
-        /// <summary>BayerGR2BGREA</summary>
+        /// <summary>Converts image color space from BAYERGR to BGREA.</summary>
         BayerGR2BGREA = 138,
-        /// <summary>BayerRGGB2BGREA</summary>
+        /// <summary>Converts image color space from BAYERRGGB to BGREA.</summary>
         BayerRGGB2BGREA = unchecked((int)(BayerBG2BGREA)),
-        /// <summary>BayerGRBG2BGREA</summary>
+        /// <summary>Converts image color space from BAYERGRBG to BGREA.</summary>
         BayerGRBG2BGREA = unchecked((int)(BayerGB2BGREA)),
-        /// <summary>BayerBGGR2BGREA</summary>
+        /// <summary>Converts image color space from BAYERBGGR to BGREA.</summary>
         BayerBGGR2BGREA = unchecked((int)(BayerRG2BGREA)),
-        /// <summary>BayerGBRG2BGREA</summary>
+        /// <summary>Converts image color space from BAYERGBRG to BGREA.</summary>
         BayerGBRG2BGREA = unchecked((int)(BayerGR2BGREA)),
-        /// <summary>BayerRGGB2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERRGGB to RGBEA.</summary>
         BayerRGGB2RGBEA = unchecked((int)(BayerBGGR2BGREA)),
-        /// <summary>BayerGRBG2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERGRBG to RGBEA.</summary>
         BayerGRBG2RGBEA = unchecked((int)(BayerGBRG2BGREA)),
-        /// <summary>BayerBGGR2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERBGGR to RGBEA.</summary>
         BayerBGGR2RGBEA = unchecked((int)(BayerRGGB2BGREA)),
-        /// <summary>BayerGBRG2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERGBRG to RGBEA.</summary>
         BayerGBRG2RGBEA = unchecked((int)(BayerGRBG2BGREA)),
-        /// <summary>BayerBG2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERBG to RGBEA.</summary>
         BayerBG2RGBEA = unchecked((int)(BayerRG2BGREA)),
-        /// <summary>BayerGB2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERGB to RGBEA.</summary>
         BayerGB2RGBEA = unchecked((int)(BayerGR2BGREA)),
-        /// <summary>BayerRG2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERRG to RGBEA.</summary>
         BayerRG2RGBEA = unchecked((int)(BayerBG2BGREA)),
-        /// <summary>BayerGR2RGBEA</summary>
+        /// <summary>Converts image color space from BAYERGR to RGBEA.</summary>
         BayerGR2RGBEA = unchecked((int)(BayerGB2BGREA)),
-        /// <summary>BayerBG2BGRA</summary>
+        /// <summary>Converts image color space from BAYERBG to BGRA.</summary>
         BayerBG2BGRA = 139,
-        /// <summary>BayerGB2BGRA</summary>
+        /// <summary>Converts image color space from BAYERGB to BGRA.</summary>
         BayerGB2BGRA = 140,
-        /// <summary>BayerRG2BGRA</summary>
+        /// <summary>Converts image color space from BAYERRG to BGRA.</summary>
         BayerRG2BGRA = 141,
-        /// <summary>BayerGR2BGRA</summary>
+        /// <summary>Converts image color space from BAYERGR to BGRA.</summary>
         BayerGR2BGRA = 142,
-        /// <summary>BayerRGGB2BGRA</summary>
+        /// <summary>Converts image color space from BAYERRGGB to BGRA.</summary>
         BayerRGGB2BGRA = unchecked((int)(BayerBG2BGRA)),
-        /// <summary>BayerGRBG2BGRA</summary>
+        /// <summary>Converts image color space from BAYERGRBG to BGRA.</summary>
         BayerGRBG2BGRA = unchecked((int)(BayerGB2BGRA)),
-        /// <summary>BayerBGGR2BGRA</summary>
+        /// <summary>Converts image color space from BAYERBGGR to BGRA.</summary>
         BayerBGGR2BGRA = unchecked((int)(BayerRG2BGRA)),
-        /// <summary>BayerGBRG2BGRA</summary>
+        /// <summary>Converts image color space from BAYERGBRG to BGRA.</summary>
         BayerGBRG2BGRA = unchecked((int)(BayerGR2BGRA)),
-        /// <summary>BayerRGGB2RGBA</summary>
+        /// <summary>Converts image color space from BAYERRGGB to RGBA.</summary>
         BayerRGGB2RGBA = unchecked((int)(BayerBGGR2BGRA)),
-        /// <summary>BayerGRBG2RGBA</summary>
+        /// <summary>Converts image color space from BAYERGRBG to RGBA.</summary>
         BayerGRBG2RGBA = unchecked((int)(BayerGBRG2BGRA)),
-        /// <summary>BayerBGGR2RGBA</summary>
+        /// <summary>Converts image color space from BAYERBGGR to RGBA.</summary>
         BayerBGGR2RGBA = unchecked((int)(BayerRGGB2BGRA)),
-        /// <summary>BayerGBRG2RGBA</summary>
+        /// <summary>Converts image color space from BAYERGBRG to RGBA.</summary>
         BayerGBRG2RGBA = unchecked((int)(BayerGRBG2BGRA)),
-        /// <summary>BayerBG2RGBA</summary>
+        /// <summary>Converts image color space from BAYERBG to RGBA.</summary>
         BayerBG2RGBA = unchecked((int)(BayerRG2BGRA)),
-        /// <summary>BayerGB2RGBA</summary>
+        /// <summary>Converts image color space from BAYERGB to RGBA.</summary>
         BayerGB2RGBA = unchecked((int)(BayerGR2BGRA)),
-        /// <summary>BayerRG2RGBA</summary>
+        /// <summary>Converts image color space from BAYERRG to RGBA.</summary>
         BayerRG2RGBA = unchecked((int)(BayerBG2BGRA)),
-        /// <summary>BayerGR2RGBA</summary>
+        /// <summary>Converts image color space from BAYERGR to RGBA.</summary>
         BayerGR2RGBA = unchecked((int)(BayerGB2BGRA)),
-        /// <summary>Rgb2yuvUyvy</summary>
+        /// <summary>Converts image color space from RGB to YUVUYVY.</summary>
         Rgb2yuvUyvy = 143,
-        /// <summary>Bgr2yuvUyvy</summary>
+        /// <summary>Converts image color space from BGR to YUVUYVY.</summary>
         Bgr2yuvUyvy = 144,
-        /// <summary>Rgb2yuvY422</summary>
+        /// <summary>Converts image color space from RGB2YUVY4 to 2.</summary>
         Rgb2yuvY422 = unchecked((int)(Rgb2yuvUyvy)),
-        /// <summary>Bgr2yuvY422</summary>
+        /// <summary>Converts image color space from BGR2YUVY4 to 2.</summary>
         Bgr2yuvY422 = unchecked((int)(Bgr2yuvUyvy)),
-        /// <summary>Rgb2yuvUynv</summary>
+        /// <summary>Converts image color space from RGB to YUVUYNV.</summary>
         Rgb2yuvUynv = unchecked((int)(Rgb2yuvUyvy)),
-        /// <summary>Bgr2yuvUynv</summary>
+        /// <summary>Converts image color space from BGR to YUVUYNV.</summary>
         Bgr2yuvUynv = unchecked((int)(Bgr2yuvUyvy)),
-        /// <summary>Rgba2yuvUyvy</summary>
+        /// <summary>Converts image color space from RGBA to YUVUYVY.</summary>
         Rgba2yuvUyvy = 145,
-        /// <summary>Bgra2yuvUyvy</summary>
+        /// <summary>Converts image color space from BGRA to YUVUYVY.</summary>
         Bgra2yuvUyvy = 146,
-        /// <summary>Rgba2yuvY422</summary>
+        /// <summary>Converts image color space from RGBA2YUVY4 to 2.</summary>
         Rgba2yuvY422 = unchecked((int)(Rgba2yuvUyvy)),
-        /// <summary>Bgra2yuvY422</summary>
+        /// <summary>Converts image color space from BGRA2YUVY4 to 2.</summary>
         Bgra2yuvY422 = unchecked((int)(Bgra2yuvUyvy)),
-        /// <summary>Rgba2yuvUynv</summary>
+        /// <summary>Converts image color space from RGBA to YUVUYNV.</summary>
         Rgba2yuvUynv = unchecked((int)(Rgba2yuvUyvy)),
-        /// <summary>Bgra2yuvUynv</summary>
+        /// <summary>Converts image color space from BGRA to YUVUYNV.</summary>
         Bgra2yuvUynv = unchecked((int)(Bgra2yuvUyvy)),
-        /// <summary>Rgb2yuvYuy2</summary>
+        /// <summary>Converts image color space from RGB to YUVYUY2.</summary>
         Rgb2yuvYuy2 = 147,
-        /// <summary>Bgr2yuvYuy2</summary>
+        /// <summary>Converts image color space from BGR to YUVYUY2.</summary>
         Bgr2yuvYuy2 = 148,
-        /// <summary>Rgb2yuvYvyu</summary>
+        /// <summary>Converts image color space from RGB to YUVYVYU.</summary>
         Rgb2yuvYvyu = 149,
-        /// <summary>Bgr2yuvYvyu</summary>
+        /// <summary>Converts image color space from BGR to YUVYVYU.</summary>
         Bgr2yuvYvyu = 150,
-        /// <summary>Rgb2yuvYuyv</summary>
+        /// <summary>Converts image color space from RGB to YUVYUYV.</summary>
         Rgb2yuvYuyv = unchecked((int)(Rgb2yuvYuy2)),
-        /// <summary>Bgr2yuvYuyv</summary>
+        /// <summary>Converts image color space from BGR to YUVYUYV.</summary>
         Bgr2yuvYuyv = unchecked((int)(Bgr2yuvYuy2)),
-        /// <summary>Rgb2yuvYunv</summary>
+        /// <summary>Converts image color space from RGB to YUVYUNV.</summary>
         Rgb2yuvYunv = unchecked((int)(Rgb2yuvYuy2)),
-        /// <summary>Bgr2yuvYunv</summary>
+        /// <summary>Converts image color space from BGR to YUVYUNV.</summary>
         Bgr2yuvYunv = unchecked((int)(Bgr2yuvYuy2)),
-        /// <summary>Rgba2yuvYuy2</summary>
+        /// <summary>Converts image color space from RGBA to YUVYUY2.</summary>
         Rgba2yuvYuy2 = 151,
-        /// <summary>Bgra2yuvYuy2</summary>
+        /// <summary>Converts image color space from BGRA to YUVYUY2.</summary>
         Bgra2yuvYuy2 = 152,
-        /// <summary>Rgba2yuvYvyu</summary>
+        /// <summary>Converts image color space from RGBA to YUVYVYU.</summary>
         Rgba2yuvYvyu = 153,
-        /// <summary>Bgra2yuvYvyu</summary>
+        /// <summary>Converts image color space from BGRA to YUVYVYU.</summary>
         Bgra2yuvYvyu = 154,
-        /// <summary>Rgba2yuvYuyv</summary>
+        /// <summary>Converts image color space from RGBA to YUVYUYV.</summary>
         Rgba2yuvYuyv = unchecked((int)(Rgba2yuvYuy2)),
-        /// <summary>Bgra2yuvYuyv</summary>
+        /// <summary>Converts image color space from BGRA to YUVYUYV.</summary>
         Bgra2yuvYuyv = unchecked((int)(Bgra2yuvYuy2)),
-        /// <summary>Rgba2yuvYunv</summary>
+        /// <summary>Converts image color space from RGBA to YUVYUNV.</summary>
         Rgba2yuvYunv = unchecked((int)(Rgba2yuvYuy2)),
-        /// <summary>Bgra2yuvYunv</summary>
+        /// <summary>Converts image color space from BGRA to YUVYUNV.</summary>
         Bgra2yuvYunv = unchecked((int)(Bgra2yuvYuy2)),
-        /// <summary>ColorcvtMax</summary>
+        /// <summary>Colorcvt max option.</summary>
         ColorcvtMax = 155,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Colormap Types.
     /// </summary>
     public enum ColormapTypes : int
     {
-        /// <summary>Autumn</summary>
+        /// <summary>Autumn option.</summary>
         Autumn = 0,
-        /// <summary>Bone</summary>
+        /// <summary>Bone option.</summary>
         Bone = 1,
-        /// <summary>Jet</summary>
+        /// <summary>Jet option.</summary>
         Jet = 2,
-        /// <summary>Winter</summary>
+        /// <summary>Winter option.</summary>
         Winter = 3,
-        /// <summary>Rainbow</summary>
+        /// <summary>Rainbow option.</summary>
         Rainbow = 4,
-        /// <summary>Ocean</summary>
+        /// <summary>Ocean option.</summary>
         Ocean = 5,
-        /// <summary>Summer</summary>
+        /// <summary>Summer option.</summary>
         Summer = 6,
-        /// <summary>Spring</summary>
+        /// <summary>Spring option.</summary>
         Spring = 7,
-        /// <summary>Cool</summary>
+        /// <summary>Cool option.</summary>
         Cool = 8,
-        /// <summary>Hsv</summary>
+        /// <summary>Hsv option.</summary>
         Hsv = 9,
-        /// <summary>Pink</summary>
+        /// <summary>Pink option.</summary>
         Pink = 10,
-        /// <summary>Hot</summary>
+        /// <summary>Hot option.</summary>
         Hot = 11,
-        /// <summary>Parula</summary>
+        /// <summary>Parula option.</summary>
         Parula = 12,
-        /// <summary>Magma</summary>
+        /// <summary>Magma option.</summary>
         Magma = 13,
-        /// <summary>Inferno</summary>
+        /// <summary>Inferno option.</summary>
         Inferno = 14,
-        /// <summary>Plasma</summary>
+        /// <summary>Plasma option.</summary>
         Plasma = 15,
-        /// <summary>Viridis</summary>
+        /// <summary>Viridis option.</summary>
         Viridis = 16,
-        /// <summary>Cividis</summary>
+        /// <summary>Cividis option.</summary>
         Cividis = 17,
-        /// <summary>Twilight</summary>
+        /// <summary>Twilight option.</summary>
         Twilight = 18,
-        /// <summary>TwilightShifted</summary>
+        /// <summary>Twilight shifted option.</summary>
         TwilightShifted = 19,
-        /// <summary>Turbo</summary>
+        /// <summary>Turbo option.</summary>
         Turbo = 20,
-        /// <summary>Deepgreen</summary>
+        /// <summary>Deepgreen option.</summary>
         Deepgreen = 21,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Connected Components Algorithms Types.
     /// </summary>
     public enum ConnectedComponentsAlgorithmsTypes : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = -1,
-        /// <summary>Wu</summary>
+        /// <summary>Wu option.</summary>
         Wu = 0,
-        /// <summary>Grana</summary>
+        /// <summary>Grana option.</summary>
         Grana = 1,
-        /// <summary>Bolelli</summary>
+        /// <summary>Bolelli option.</summary>
         Bolelli = 2,
-        /// <summary>Sauf</summary>
+        /// <summary>Sauf option.</summary>
         Sauf = 3,
-        /// <summary>Bbdt</summary>
+        /// <summary>Bbdt option.</summary>
         Bbdt = 4,
-        /// <summary>Spaghetti</summary>
+        /// <summary>Spaghetti option.</summary>
         Spaghetti = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Connected Components Types.
     /// </summary>
     public enum ConnectedComponentsTypes : int
     {
-        /// <summary>Left</summary>
+        /// <summary>Left option.</summary>
         Left = 0,
-        /// <summary>Top</summary>
+        /// <summary>Top option.</summary>
         Top = 1,
-        /// <summary>Width</summary>
+        /// <summary>Width option.</summary>
         Width = 2,
-        /// <summary>Height</summary>
+        /// <summary>Height option.</summary>
         Height = 3,
-        /// <summary>Area</summary>
+        /// <summary>Area option.</summary>
         Area = 4,
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies contour approximation algorithms.
     /// </summary>
     public enum ContourApproximationModes : int
     {
-        /// <summary>ChainCode</summary>
+        /// <summary>Chain code option.</summary>
         ChainCode = 0,
-        /// <summary>ChainApproxNone</summary>
+        /// <summary>Chain approx none option.</summary>
         ChainApproxNone = 1,
-        /// <summary>ChainApproxSimple</summary>
+        /// <summary>Chain approx simple option.</summary>
         ChainApproxSimple = 2,
-        /// <summary>ChainApproxTc89L1</summary>
+        /// <summary>Chain approx tc89 l1 option.</summary>
         ChainApproxTc89L1 = 3,
-        /// <summary>ChainApproxTc89Kcos</summary>
+        /// <summary>Chain approx tc89 kcos option.</summary>
         ChainApproxTc89Kcos = 4,
-        /// <summary>LinkRuns</summary>
+        /// <summary>Link runs option.</summary>
         LinkRuns = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Distance Transform Label Types.
     /// </summary>
     public enum DistanceTransformLabelTypes : int
     {
-        /// <summary>Ccomp</summary>
+        /// <summary>Ccomp option.</summary>
         Ccomp = 0,
-        /// <summary>Pixel</summary>
+        /// <summary>Pixel option.</summary>
         Pixel = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies mask sizes for distance transform operations.
     /// </summary>
     public enum DistanceTransformMasks : int
     {
-        /// <summary>_3</summary>
+        /// <summary>_3 option.</summary>
         _3 = 3,
-        /// <summary>_5</summary>
+        /// <summary>_5 option.</summary>
         _5 = 5,
-        /// <summary>Precise</summary>
+        /// <summary>Precise option.</summary>
         Precise = 0,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Flood Fill Flags.
     /// </summary>
     public enum FloodFillFlags : int
     {
-        /// <summary>FixedRange</summary>
+        /// <summary>Fixed range option.</summary>
         FixedRange = unchecked((int)(1 << 16)),
-        /// <summary>MaskOnly</summary>
+        /// <summary>Mask only option.</summary>
         MaskOnly = unchecked((int)(1 << 17)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies GrabCut segmentation classes.
     /// </summary>
     public enum GrabCutClasses : int
     {
-        /// <summary>Bgd</summary>
+        /// <summary>Bgd option.</summary>
         Bgd = 0,
-        /// <summary>Fgd</summary>
+        /// <summary>Fgd option.</summary>
         Fgd = 1,
-        /// <summary>PrBgd</summary>
+        /// <summary>Pr bgd option.</summary>
         PrBgd = 2,
-        /// <summary>PrFgd</summary>
+        /// <summary>Pr fgd option.</summary>
         PrFgd = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies GrabCut segmentation operational modes.
     /// </summary>
     public enum GrabCutModes : int
     {
-        /// <summary>InitWithRect</summary>
+        /// <summary>Init with rect option.</summary>
         InitWithRect = 0,
-        /// <summary>InitWithMask</summary>
+        /// <summary>Init with mask option.</summary>
         InitWithMask = 1,
-        /// <summary>Eval</summary>
+        /// <summary>Eval option.</summary>
         Eval = 2,
-        /// <summary>EvalFreezeModel</summary>
+        /// <summary>Eval freeze model option.</summary>
         EvalFreezeModel = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies Hershey font face options.
     /// </summary>
     public enum HersheyFonts : int
     {
-        /// <summary>HersheySimplex</summary>
+        /// <summary>Normal size sans-serif font.</summary>
         HersheySimplex = 0,
-        /// <summary>HersheyPlain</summary>
+        /// <summary>Small size sans-serif font.</summary>
         HersheyPlain = 1,
-        /// <summary>HersheyDuplex</summary>
+        /// <summary>Normal size sans-serif font (more complex than Simplex).</summary>
         HersheyDuplex = 2,
-        /// <summary>HersheyComplex</summary>
+        /// <summary>Normal size serif font.</summary>
         HersheyComplex = 3,
-        /// <summary>HersheyTriplex</summary>
+        /// <summary>Normal size serif font (more complex than Complex).</summary>
         HersheyTriplex = 4,
-        /// <summary>HersheyComplexSmall</summary>
+        /// <summary>Smaller version of HersheyComplex.</summary>
         HersheyComplexSmall = 5,
-        /// <summary>HersheyScriptSimplex</summary>
+        /// <summary>Handwriting-style font.</summary>
         HersheyScriptSimplex = 6,
-        /// <summary>HersheyScriptComplex</summary>
+        /// <summary>More complex handwriting-style font.</summary>
         HersheyScriptComplex = 7,
-        /// <summary>Italic</summary>
+        /// <summary>Italic flag.</summary>
         Italic = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies histogram comparison methods.
     /// </summary>
     public enum HistCompMethods : int
     {
-        /// <summary>Correl</summary>
+        /// <summary>Correl option.</summary>
         Correl = 0,
-        /// <summary>Chisqr</summary>
+        /// <summary>Chisqr option.</summary>
         Chisqr = 1,
-        /// <summary>Intersect</summary>
+        /// <summary>Intersect option.</summary>
         Intersect = 2,
-        /// <summary>Bhattacharyya</summary>
+        /// <summary>Bhattacharyya option.</summary>
         Bhattacharyya = 3,
-        /// <summary>Hellinger</summary>
+        /// <summary>Hellinger option.</summary>
         Hellinger = unchecked((int)(Bhattacharyya)),
-        /// <summary>ChisqrAlt</summary>
+        /// <summary>Chisqr alt option.</summary>
         ChisqrAlt = 4,
-        /// <summary>KlDiv</summary>
+        /// <summary>Kl div option.</summary>
         KlDiv = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies Hough transform variants.
     /// </summary>
     public enum HoughModes : int
     {
-        /// <summary>Standard</summary>
+        /// <summary>Standard option.</summary>
         Standard = 0,
-        /// <summary>Probabilistic</summary>
+        /// <summary>Probabilistic option.</summary>
         Probabilistic = 1,
-        /// <summary>MultiScale</summary>
+        /// <summary>Multi scale option.</summary>
         MultiScale = 2,
-        /// <summary>Gradient</summary>
+        /// <summary>Gradient option.</summary>
         Gradient = 3,
-        /// <summary>GradientAlt</summary>
+        /// <summary>Gradient alt option.</summary>
         GradientAlt = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies interpolation methods for image resizing and warping.
     /// </summary>
     public enum InterpolationFlags : int
     {
-        /// <summary>InterNearest</summary>
+        /// <summary>Inter nearest option.</summary>
         InterNearest = 0,
-        /// <summary>InterLinear</summary>
+        /// <summary>Inter linear option.</summary>
         InterLinear = 1,
-        /// <summary>InterCubic</summary>
+        /// <summary>Inter cubic option.</summary>
         InterCubic = 2,
-        /// <summary>InterArea</summary>
+        /// <summary>Inter area option.</summary>
         InterArea = 3,
-        /// <summary>InterLanczos4</summary>
+        /// <summary>Inter lanczos4 option.</summary>
         InterLanczos4 = 4,
-        /// <summary>InterLinearExact</summary>
+        /// <summary>Inter linear exact option.</summary>
         InterLinearExact = 5,
-        /// <summary>InterNearestExact</summary>
+        /// <summary>Inter nearest exact option.</summary>
         InterNearestExact = 6,
-        /// <summary>InterMax</summary>
+        /// <summary>Inter max option.</summary>
         InterMax = 7,
-        /// <summary>WarpFillOutliers</summary>
+        /// <summary>Warp fill outliers option.</summary>
         WarpFillOutliers = 8,
-        /// <summary>WarpInverseMap</summary>
+        /// <summary>Set inverse transformation flag for warpAffine or warpPerspective.</summary>
         WarpInverseMap = 16,
-        /// <summary>WarpRelativeMap</summary>
+        /// <summary>Warp relative map option.</summary>
         WarpRelativeMap = 32,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Interpolation Masks.
     /// </summary>
     public enum InterpolationMasks : int
     {
-        /// <summary>Bits</summary>
+        /// <summary>Bits option.</summary>
         Bits = 5,
-        /// <summary>Bits2</summary>
+        /// <summary>Bits2 option.</summary>
         Bits2 = unchecked((int)(Bits * 2)),
-        /// <summary>TabSize</summary>
+        /// <summary>Tab size option.</summary>
         TabSize = unchecked((int)(1 << Bits)),
-        /// <summary>TabSize2</summary>
+        /// <summary>Tab size2 option.</summary>
         TabSize2 = unchecked((int)(TabSize * TabSize)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Line Segment Detector Modes.
     /// </summary>
     public enum LineSegmentDetectorModes : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Std</summary>
+        /// <summary>Std option.</summary>
         Std = 1,
-        /// <summary>Adv</summary>
+        /// <summary>Adv option.</summary>
         Adv = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies drawing line types.
     /// </summary>
     public enum LineTypes : int
     {
-        /// <summary>Filled</summary>
+        /// <summary>Filled polygon or shape.</summary>
         Filled = -1,
-        /// <summary>Line4</summary>
+        /// <summary>Line4 option.</summary>
         Line4 = 4,
-        /// <summary>Line8</summary>
+        /// <summary>Line8 option.</summary>
         Line8 = 8,
-        /// <summary>LineAa</summary>
+        /// <summary>Line aa option.</summary>
         LineAa = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies marker shapes for drawing.
     /// </summary>
     public enum MarkerTypes : int
     {
-        /// <summary>Cross</summary>
+        /// <summary>Cross option.</summary>
         Cross = 0,
-        /// <summary>TiltedCross</summary>
+        /// <summary>Tilted cross option.</summary>
         TiltedCross = 1,
-        /// <summary>Star</summary>
+        /// <summary>Star option.</summary>
         Star = 2,
-        /// <summary>Diamond</summary>
+        /// <summary>Diamond option.</summary>
         Diamond = 3,
-        /// <summary>Square</summary>
+        /// <summary>Square option.</summary>
         Square = 4,
-        /// <summary>TriangleUp</summary>
+        /// <summary>Triangle up option.</summary>
         TriangleUp = 5,
-        /// <summary>TriangleDown</summary>
+        /// <summary>Triangle down option.</summary>
         TriangleDown = 6,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies structural element shapes for morphological operations.
     /// </summary>
     public enum MorphShapes : int
     {
-        /// <summary>Rect</summary>
+        /// <summary>A rectangular structuring element.</summary>
         Rect = 0,
-        /// <summary>Cross</summary>
+        /// <summary>A cross-shaped structuring element.</summary>
         Cross = 1,
-        /// <summary>Ellipse</summary>
+        /// <summary>An elliptic structuring element.</summary>
         Ellipse = 2,
-        /// <summary>Diamond</summary>
+        /// <summary>Diamond option.</summary>
         Diamond = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies morphological operation types.
     /// </summary>
     public enum MorphTypes : int
     {
-        /// <summary>Erode</summary>
+        /// <summary>Erosion morphological operation.</summary>
         Erode = 0,
-        /// <summary>Dilate</summary>
+        /// <summary>Dilation morphological operation.</summary>
         Dilate = 1,
-        /// <summary>Open</summary>
+        /// <summary>Opening operation (erosion followed by dilation).</summary>
         Open = 2,
-        /// <summary>Close</summary>
+        /// <summary>Closing operation (dilation followed by erosion).</summary>
         Close = 3,
-        /// <summary>Gradient</summary>
+        /// <summary>Morphological gradient (difference between dilation and erosion).</summary>
         Gradient = 4,
-        /// <summary>Tophat</summary>
+        /// <summary>Top hat operation (difference between input image and opening).</summary>
         Tophat = 5,
-        /// <summary>Blackhat</summary>
+        /// <summary>Black hat operation (difference between closing and input image).</summary>
         Blackhat = 6,
-        /// <summary>Hitmiss</summary>
+        /// <summary>Hit-or-miss morphological transform.</summary>
         Hitmiss = 7,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Put Text Flags.
     /// </summary>
     public enum PutTextFlags : int
     {
-        /// <summary>AlignLeft</summary>
+        /// <summary>Align left option.</summary>
         AlignLeft = 0,
-        /// <summary>AlignCenter</summary>
+        /// <summary>Align center option.</summary>
         AlignCenter = 1,
-        /// <summary>AlignRight</summary>
+        /// <summary>Align right option.</summary>
         AlignRight = 2,
-        /// <summary>AlignMask</summary>
+        /// <summary>Align mask option.</summary>
         AlignMask = 3,
-        /// <summary>OriginTl</summary>
+        /// <summary>Origin tl option.</summary>
         OriginTl = 0,
-        /// <summary>OriginBl</summary>
+        /// <summary>Origin bl option.</summary>
         OriginBl = 32,
-        /// <summary>Wrap</summary>
+        /// <summary>Wrap option.</summary>
         Wrap = 128,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies contour retrieval modes.
     /// </summary>
     public enum RetrievalModes : int
     {
-        /// <summary>External</summary>
+        /// <summary>External option.</summary>
         External = 0,
-        /// <summary>List</summary>
+        /// <summary>List option.</summary>
         List = 1,
-        /// <summary>Ccomp</summary>
+        /// <summary>Ccomp option.</summary>
         Ccomp = 2,
-        /// <summary>Tree</summary>
+        /// <summary>Tree option.</summary>
         Tree = 3,
-        /// <summary>Floodfill</summary>
+        /// <summary>Floodfill option.</summary>
         Floodfill = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Shape Match Modes.
     /// </summary>
     public enum ShapeMatchModes : int
     {
-        /// <summary>I1</summary>
+        /// <summary>I1 option.</summary>
         I1 = 1,
-        /// <summary>I2</summary>
+        /// <summary>I2 option.</summary>
         I2 = 2,
-        /// <summary>I3</summary>
+        /// <summary>I3 option.</summary>
         I3 = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Special Filter.
     /// </summary>
     public enum SpecialFilter : int
     {
-        /// <summary>FilterScharr</summary>
+        /// <summary>Filter scharr option.</summary>
         FilterScharr = -1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies template matching metrics.
     /// </summary>
     public enum TemplateMatchModes : int
     {
-        /// <summary>Sqdiff</summary>
+        /// <summary>Sqdiff option.</summary>
         Sqdiff = 0,
-        /// <summary>SqdiffNormed</summary>
+        /// <summary>Sqdiff normed option.</summary>
         SqdiffNormed = 1,
-        /// <summary>Ccorr</summary>
+        /// <summary>Ccorr option.</summary>
         Ccorr = 2,
-        /// <summary>CcorrNormed</summary>
+        /// <summary>Ccorr normed option.</summary>
         CcorrNormed = 3,
-        /// <summary>Ccoeff</summary>
+        /// <summary>Ccoeff option.</summary>
         Ccoeff = 4,
-        /// <summary>CcoeffNormed</summary>
+        /// <summary>Ccoeff normed option.</summary>
         CcoeffNormed = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies thresholding operation types.
     /// </summary>
     public enum ThresholdTypes : int
     {
-        /// <summary>Binary</summary>
+        /// <summary>Binary thresholding: values above threshold become maxVal, others become 0.</summary>
         Binary = 0,
-        /// <summary>BinaryInv</summary>
+        /// <summary>Inverse binary thresholding: values above threshold become 0, others become maxVal.</summary>
         BinaryInv = 1,
-        /// <summary>Trunc</summary>
+        /// <summary>Truncate thresholding: values above threshold become threshold, others remain unchanged.</summary>
         Trunc = 2,
-        /// <summary>Tozero</summary>
+        /// <summary>Threshold to zero: values above threshold remain unchanged, others become 0.</summary>
         Tozero = 3,
-        /// <summary>TozeroInv</summary>
+        /// <summary>Inverse threshold to zero: values above threshold become 0, others remain unchanged.</summary>
         TozeroInv = 4,
-        /// <summary>Mask</summary>
+        /// <summary>Mask option.</summary>
         Mask = 7,
-        /// <summary>Otsu</summary>
+        /// <summary>Use Otsu algorithm to choose optimal threshold value.</summary>
         Otsu = 8,
-        /// <summary>Triangle</summary>
+        /// <summary>Use Triangle algorithm to choose optimal threshold value.</summary>
         Triangle = 16,
-        /// <summary>Dryrun</summary>
+        /// <summary>Dryrun option.</summary>
         Dryrun = 128,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Undistort Types.
     /// </summary>
     public enum UndistortTypes : int
     {
-        /// <summary>Ortho</summary>
+        /// <summary>Ortho option.</summary>
         Ortho = 0,
-        /// <summary>Eqrect</summary>
+        /// <summary>Eqrect option.</summary>
         Eqrect = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Warp Polar Mode.
     /// </summary>
     public enum WarpPolarMode : int
     {
-        /// <summary>Linear</summary>
+        /// <summary>Linear option.</summary>
         Linear = 0,
-        /// <summary>Log</summary>
+        /// <summary>Log option.</summary>
         Log = 256,
     }
 

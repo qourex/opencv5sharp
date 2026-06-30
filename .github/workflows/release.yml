@@ -97,13 +97,13 @@ jobs:
           Copy-Item -Path "native_build/libopencv5sharp_native.so" -Destination "staged_binaries" -Force
           $worldPath = Get-ChildItem -Path "opencv_build/install/lib" -Filter "libopencv_world.so*" | Select-Object -First 1
           if ($worldPath) {
-            Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world500.so" -Force
+            Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.so" -Force
           }
         } else {
           Copy-Item -Path "native_build/libopencv5sharp_native.dylib" -Destination "staged_binaries" -Force
           $worldPath = Get-ChildItem -Path "opencv_build/install/lib" -Filter "libopencv_world*.dylib" | Select-Object -First 1
           if ($worldPath) {
-            Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world500.dylib" -Force
+            Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.dylib" -Force
           }
         }
 
@@ -137,6 +137,7 @@ jobs:
         dotnet-version: |
           8.0.x
           9.0.x
+          10.0.x
 
     - name: Extract Release Version
       id: version
@@ -187,21 +188,55 @@ jobs:
         name: native-ios-arm64
         path: src/OpenCV5Sharp/runtimes/ios-arm64/native
 
+    - name: Restore workloads
+      run: dotnet workload restore
+
     - name: Restore dependencies
       run: dotnet restore OpenCV5Sharp.slnx
 
     - name: Build Managed Assemblies
-      run: dotnet build OpenCV5Sharp.slnx -c Release /p:Version=${{ steps.version.outputs.VERSION }}
+      run: dotnet build OpenCV5Sharp.slnx -c Release -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true
 
     - name: Run unit tests
       run: dotnet test tests/OpenCV5Sharp.Tests/OpenCV5Sharp.Tests.csproj -c Release --no-build
 
-    - name: Pack Cross-Platform NuGet (CPU)
-      run: dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build /p:Version=${{ steps.version.outputs.VERSION }} -o ./artifacts
+    - name: Download Precompiled GPU CUDA Binaries
+      shell: pwsh
+      run: |
+        $winNativeDir = "src/OpenCV5Sharp.Gpu.Windows/runtimes/win-x64/native"
+        $linuxNativeDir = "src/OpenCV5Sharp.Gpu.Linux/runtimes/linux-x64/native"
+        New-Item -ItemType Directory -Path $winNativeDir -Force | Out-Null
+        New-Item -ItemType Directory -Path $linuxNativeDir -Force | Out-Null
+        Write-Host "Downloading precompiled Windows GPU binaries..."
+        Invoke-WebRequest -Uri "https://github.com/qourex/opencv5sharp/releases/download/cuda/win_gpu_binaries.zip" -OutFile "win_gpu_binaries.zip"
+        Expand-Archive -Path "win_gpu_binaries.zip" -DestinationPath $winNativeDir -Force
+        Remove-Item "win_gpu_binaries.zip" -Force
+        Write-Host "Downloading precompiled Linux GPU binaries..."
+        Invoke-WebRequest -Uri "https://github.com/qourex/opencv5sharp/releases/download/cuda/linux_gpu_binaries.zip" -OutFile "linux_gpu_binaries.zip"
+        Expand-Archive -Path "linux_gpu_binaries.zip" -DestinationPath $linuxNativeDir -Force
+        Remove-Item "linux_gpu_binaries.zip" -Force
 
-    # Note: GPU version packs whatever Windows and Linux CUDA binaries are committed in its runtimes directory
-    - name: Pack GPU NuGet (Windows & Linux CUDA)
-      run: dotnet pack src/OpenCV5Sharp.Gpu/OpenCV5Sharp.Gpu.csproj -c Release --no-build /p:Version=${{ steps.version.outputs.VERSION }} -o ./artifacts
+    - name: Pack Cross-Platform NuGet (CPU)
+      run: dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true -o ./artifacts
+
+    - name: Pack GPU NuGet (Windows CUDA)
+      shell: bash
+      run: |
+        cp README.md src/OpenCV5Sharp.Gpu.Windows/
+        dotnet pack src/OpenCV5Sharp.Gpu.Windows/OpenCV5Sharp.Gpu.Windows.csproj -c Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true -o ./artifacts
+
+    - name: Pack GPU NuGet (Linux CUDA)
+      shell: bash
+      run: |
+        cp README.md src/OpenCV5Sharp.Gpu.Linux/
+        dotnet pack src/OpenCV5Sharp.Gpu.Linux/OpenCV5Sharp.Gpu.Linux.csproj -c Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true -o ./artifacts
+
+    - name: Clean platform version suffixes from NuGet packages
+      run: |
+        Get-ChildItem -Path artifacts/* -Include *.nupkg, *.snupkg | ForEach-Object {
+          Write-Host "Running TFM cleanup on $_"
+          powershell -File scripts/cleanup_nupkg.ps1 $_.FullName
+        }
 
     - name: NuGet Login (OIDC Trusted Publishing)
       uses: NuGet/login@v1
@@ -210,7 +245,7 @@ jobs:
         user: cybowolf
 
     - name: Push to NuGet
-      run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: Get-ChildItem -Path artifacts/*.nupkg | ForEach-Object { dotnet nuget push $_.FullName --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate }
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2

@@ -6,118 +6,118 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Stitcher Mode.
     /// </summary>
     public enum StitcherMode : int
     {
-        /// <summary>Panorama</summary>
+        /// <summary>Panorama option.</summary>
         Panorama = 0,
-        /// <summary>Scans</summary>
+        /// <summary>Scans option.</summary>
         Scans = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Stitcher Status.
     /// </summary>
     public enum StitcherStatus : int
     {
-        /// <summary>Ok</summary>
+        /// <summary>Ok option.</summary>
         Ok = 0,
-        /// <summary>ErrNeedMoreImgs</summary>
+        /// <summary>Err need more imgs option.</summary>
         ErrNeedMoreImgs = 1,
-        /// <summary>ErrHomographyEstFail</summary>
+        /// <summary>Err homography est fail option.</summary>
         ErrHomographyEstFail = 2,
-        /// <summary>ErrCameraParamsAdjustFail</summary>
+        /// <summary>Err camera params adjust fail option.</summary>
         ErrCameraParamsAdjustFail = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum13 Detail Blender.
     /// </summary>
     public enum UnnamedEnum13DetailBlender : int
     {
-        /// <summary>No</summary>
+        /// <summary>No option.</summary>
         No = 0,
-        /// <summary>Feather</summary>
+        /// <summary>Feather option.</summary>
         Feather = 1,
-        /// <summary>MultiBand</summary>
+        /// <summary>Multi band option.</summary>
         MultiBand = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Detail Dp Seam Finder Cost Function.
     /// </summary>
     public enum DetailDpSeamFinderCostFunction : int
     {
-        /// <summary>Color</summary>
+        /// <summary>Color option.</summary>
         Color = 0,
-        /// <summary>ColorGrad</summary>
+        /// <summary>Color grad option.</summary>
         ColorGrad = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum14 Detail Exposure Compensator.
     /// </summary>
     public enum UnnamedEnum14DetailExposureCompensator : int
     {
-        /// <summary>No</summary>
+        /// <summary>No option.</summary>
         No = 0,
-        /// <summary>Gain</summary>
+        /// <summary>Gain option.</summary>
         Gain = 1,
-        /// <summary>GainBlocks</summary>
+        /// <summary>Gain blocks option.</summary>
         GainBlocks = 2,
-        /// <summary>Channels</summary>
+        /// <summary>Channels option.</summary>
         Channels = 3,
-        /// <summary>ChannelsBlocks</summary>
+        /// <summary>Channels blocks option.</summary>
         ChannelsBlocks = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Detail Graph Cut Seam Finder Base Cost Type.
     /// </summary>
     public enum DetailGraphCutSeamFinderBaseCostType : int
     {
-        /// <summary>Color</summary>
+        /// <summary>Color option.</summary>
         Color = 0,
-        /// <summary>ColorGrad</summary>
+        /// <summary>Color grad option.</summary>
         ColorGrad = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum15 Detail Seam Finder.
     /// </summary>
     public enum UnnamedEnum15DetailSeamFinder : int
     {
-        /// <summary>No</summary>
+        /// <summary>No option.</summary>
         No = 0,
-        /// <summary>VoronoiSeam</summary>
+        /// <summary>Voronoi seam option.</summary>
         VoronoiSeam = 1,
-        /// <summary>DpSeam</summary>
+        /// <summary>Dp seam option.</summary>
         DpSeam = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum16 Detail Timelapser.
     /// </summary>
     public enum UnnamedEnum16DetailTimelapser : int
     {
-        /// <summary>AsIs</summary>
+        /// <summary>As is option.</summary>
         AsIs = 0,
-        /// <summary>Crop</summary>
+        /// <summary>Crop option.</summary>
         Crop = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Detail Wave Correct Kind.
     /// </summary>
     public enum DetailWaveCorrectKind : int
     {
-        /// <summary>Horiz</summary>
+        /// <summary>Horiz option.</summary>
         Horiz = 0,
-        /// <summary>Vert</summary>
+        /// <summary>Vert option.</summary>
         Vert = 1,
-        /// <summary>Auto</summary>
+        /// <summary>Auto option.</summary>
         Auto = 2,
     }
 

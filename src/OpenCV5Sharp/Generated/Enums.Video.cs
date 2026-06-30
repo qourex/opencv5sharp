@@ -6,33 +6,33 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum1 D I S Optical Flow.
     /// </summary>
     public enum UnnamedEnum1DISOpticalFlow : int
     {
-        /// <summary>Ultrafast</summary>
+        /// <summary>Ultrafast option.</summary>
         Ultrafast = 0,
-        /// <summary>Fast</summary>
+        /// <summary>Fast option.</summary>
         Fast = 1,
-        /// <summary>Medium</summary>
+        /// <summary>Medium option.</summary>
         Medium = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Detail Tracker Sampler C S C Mode.
     /// </summary>
     public enum DetailTrackerSamplerCSCMode : int
     {
-        /// <summary>InitPos</summary>
+        /// <summary>Init pos option.</summary>
         InitPos = 1,
-        /// <summary>InitNeg</summary>
+        /// <summary>Init neg option.</summary>
         InitNeg = 2,
-        /// <summary>TrackPos</summary>
+        /// <summary>Track pos option.</summary>
         TrackPos = 3,
-        /// <summary>TrackNeg</summary>
+        /// <summary>Track neg option.</summary>
         TrackNeg = 4,
-        /// <summary>Detect</summary>
+        /// <summary>Detect option.</summary>
         Detect = 5,
     }
 

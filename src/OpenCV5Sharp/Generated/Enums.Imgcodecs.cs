@@ -6,417 +6,417 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies metadata format types.
     /// </summary>
     public enum ImageMetadataType : int
     {
-        /// <summary>Unknown</summary>
+        /// <summary>Unknown option.</summary>
         Unknown = -1,
-        /// <summary>Exif</summary>
+        /// <summary>Exif option.</summary>
         Exif = 0,
-        /// <summary>Xmp</summary>
+        /// <summary>Xmp option.</summary>
         Xmp = 1,
-        /// <summary>Iccp</summary>
+        /// <summary>Iccp option.</summary>
         Iccp = 2,
-        /// <summary>Cicp</summary>
+        /// <summary>Cicp option.</summary>
         Cicp = 3,
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies image loading color/depth mode options.
     /// </summary>
     public enum ImreadModes : int
     {
-        /// <summary>Unchanged</summary>
+        /// <summary>Loads the image as-is, including alpha channel if present.</summary>
         Unchanged = -1,
-        /// <summary>Grayscale</summary>
+        /// <summary>Loads the image as a single-channel grayscale image.</summary>
         Grayscale = 0,
-        /// <summary>ColorBgr</summary>
+        /// <summary>Loads the image as a 3-channel BGR color image.</summary>
         ColorBgr = 1,
-        /// <summary>Color</summary>
+        /// <summary>Loads the image as a 3-channel BGR color image.</summary>
         Color = 1,
-        /// <summary>Anydepth</summary>
+        /// <summary>Loads 16-bit or 32-bit images when input has corresponding depth; otherwise converts to 8-bit.</summary>
         Anydepth = 2,
-        /// <summary>Anycolor</summary>
+        /// <summary>Loads the image in any possible color format.</summary>
         Anycolor = 4,
-        /// <summary>LoadGdal</summary>
+        /// <summary>Uses GDAL driver to load the image.</summary>
         LoadGdal = 8,
-        /// <summary>ReducedGrayscale2</summary>
+        /// <summary>Reduced grayscale2 option.</summary>
         ReducedGrayscale2 = 16,
-        /// <summary>ReducedColor2</summary>
+        /// <summary>Reduced color2 option.</summary>
         ReducedColor2 = 17,
-        /// <summary>ReducedGrayscale4</summary>
+        /// <summary>Reduced grayscale4 option.</summary>
         ReducedGrayscale4 = 32,
-        /// <summary>ReducedColor4</summary>
+        /// <summary>Reduced color4 option.</summary>
         ReducedColor4 = 33,
-        /// <summary>ReducedGrayscale8</summary>
+        /// <summary>Reduced grayscale8 option.</summary>
         ReducedGrayscale8 = 64,
-        /// <summary>ReducedColor8</summary>
+        /// <summary>Reduced color8 option.</summary>
         ReducedColor8 = 65,
-        /// <summary>IgnoreOrientation</summary>
+        /// <summary>Do not rotate the image according to EXIF orientation flag.</summary>
         IgnoreOrientation = 128,
-        /// <summary>ColorRgb</summary>
+        /// <summary>Color rgb option.</summary>
         ColorRgb = 256,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite B M P Compression Flags.
     /// </summary>
     public enum ImwriteBMPCompressionFlags : int
     {
-        /// <summary>Rgb</summary>
+        /// <summary>Rgb option.</summary>
         Rgb = 0,
-        /// <summary>Bitfields</summary>
+        /// <summary>Bitfields option.</summary>
         Bitfields = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies EXR image compression modes.
     /// </summary>
     public enum ImwriteEXRCompressionFlags : int
     {
-        /// <summary>No</summary>
+        /// <summary>No option.</summary>
         No = 0,
-        /// <summary>Rle</summary>
+        /// <summary>Rle option.</summary>
         Rle = 1,
-        /// <summary>Zips</summary>
+        /// <summary>Zips option.</summary>
         Zips = 2,
-        /// <summary>Zip</summary>
+        /// <summary>Zip option.</summary>
         Zip = 3,
-        /// <summary>Piz</summary>
+        /// <summary>Piz option.</summary>
         Piz = 4,
-        /// <summary>Pxr24</summary>
+        /// <summary>Pxr24 option.</summary>
         Pxr24 = 5,
-        /// <summary>B44</summary>
+        /// <summary>B44 option.</summary>
         B44 = 6,
-        /// <summary>B44a</summary>
+        /// <summary>B44a option.</summary>
         B44a = 7,
-        /// <summary>Dwaa</summary>
+        /// <summary>Dwaa option.</summary>
         Dwaa = 8,
-        /// <summary>Dwab</summary>
+        /// <summary>Dwab option.</summary>
         Dwab = 9,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies compression types for EXR image encoding.
     /// </summary>
     public enum ImwriteEXRTypeFlags : int
     {
-        /// <summary>Half</summary>
+        /// <summary>Half option.</summary>
         Half = 1,
-        /// <summary>Float</summary>
+        /// <summary>Float option.</summary>
         Float = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies encoding parameter flags for writing image files.
     /// </summary>
     public enum ImwriteFlags : int
     {
-        /// <summary>JpegQuality</summary>
+        /// <summary>Jpeg quality option.</summary>
         JpegQuality = 1,
-        /// <summary>JpegProgressive</summary>
+        /// <summary>Jpeg progressive option.</summary>
         JpegProgressive = 2,
-        /// <summary>JpegOptimize</summary>
+        /// <summary>Jpeg optimize option.</summary>
         JpegOptimize = 3,
-        /// <summary>JpegRstInterval</summary>
+        /// <summary>Jpeg rst interval option.</summary>
         JpegRstInterval = 4,
-        /// <summary>JpegLumaQuality</summary>
+        /// <summary>Jpeg luma quality option.</summary>
         JpegLumaQuality = 5,
-        /// <summary>JpegChromaQuality</summary>
+        /// <summary>Jpeg chroma quality option.</summary>
         JpegChromaQuality = 6,
-        /// <summary>JpegSamplingFactor</summary>
+        /// <summary>Jpeg sampling factor option.</summary>
         JpegSamplingFactor = 7,
-        /// <summary>PngCompression</summary>
+        /// <summary>Png compression option.</summary>
         PngCompression = 16,
-        /// <summary>PngStrategy</summary>
+        /// <summary>Png strategy option.</summary>
         PngStrategy = 17,
-        /// <summary>PngBilevel</summary>
+        /// <summary>Png bilevel option.</summary>
         PngBilevel = 18,
-        /// <summary>PngFilter</summary>
+        /// <summary>Png filter option.</summary>
         PngFilter = 19,
-        /// <summary>PngZlibbufferSize</summary>
+        /// <summary>Png zlibbuffer size option.</summary>
         PngZlibbufferSize = 20,
-        /// <summary>PxmBinary</summary>
+        /// <summary>Pxm binary option.</summary>
         PxmBinary = 32,
-        /// <summary>ExrType</summary>
+        /// <summary>Exr type option.</summary>
         ExrType = unchecked((int)(3 << 4 + 0)),
-        /// <summary>ExrCompression</summary>
+        /// <summary>Exr compression option.</summary>
         ExrCompression = unchecked((int)(3 << 4 + 1)),
-        /// <summary>ExrDwaCompressionLevel</summary>
+        /// <summary>Exr dwa compression level option.</summary>
         ExrDwaCompressionLevel = unchecked((int)(3 << 4 + 2)),
-        /// <summary>WebpQuality</summary>
+        /// <summary>Webp quality option.</summary>
         WebpQuality = 64,
-        /// <summary>WebpLosslessMode</summary>
+        /// <summary>Webp lossless mode option.</summary>
         WebpLosslessMode = 65,
-        /// <summary>HdrCompression</summary>
+        /// <summary>Hdr compression option.</summary>
         HdrCompression = unchecked((int)(5 << 4 + 0)),
-        /// <summary>PamTupletype</summary>
+        /// <summary>Pam tupletype option.</summary>
         PamTupletype = 128,
-        /// <summary>TiffResunit</summary>
+        /// <summary>Tiff resunit option.</summary>
         TiffResunit = 256,
-        /// <summary>TiffXdpi</summary>
+        /// <summary>Tiff xdpi option.</summary>
         TiffXdpi = 257,
-        /// <summary>TiffYdpi</summary>
+        /// <summary>Tiff ydpi option.</summary>
         TiffYdpi = 258,
-        /// <summary>TiffCompression</summary>
+        /// <summary>Tiff compression option.</summary>
         TiffCompression = 259,
-        /// <summary>TiffRowsperstrip</summary>
+        /// <summary>Tiff rowsperstrip option.</summary>
         TiffRowsperstrip = 278,
-        /// <summary>TiffPredictor</summary>
+        /// <summary>Tiff predictor option.</summary>
         TiffPredictor = 317,
-        /// <summary>Jpeg2000CompressionX1000</summary>
+        /// <summary>Jpeg2000 compression x1000 option.</summary>
         Jpeg2000CompressionX1000 = 272,
-        /// <summary>AvifQuality</summary>
+        /// <summary>Avif quality option.</summary>
         AvifQuality = 512,
-        /// <summary>AvifDepth</summary>
+        /// <summary>Avif depth option.</summary>
         AvifDepth = 513,
-        /// <summary>AvifSpeed</summary>
+        /// <summary>Avif speed option.</summary>
         AvifSpeed = 514,
-        /// <summary>JpegxlQuality</summary>
+        /// <summary>Jpegxl quality option.</summary>
         JpegxlQuality = 640,
-        /// <summary>JpegxlEffort</summary>
+        /// <summary>Jpegxl effort option.</summary>
         JpegxlEffort = 641,
-        /// <summary>JpegxlDistance</summary>
+        /// <summary>Jpegxl distance option.</summary>
         JpegxlDistance = 642,
-        /// <summary>JpegxlDecodingSpeed</summary>
+        /// <summary>Jpegxl decoding speed option.</summary>
         JpegxlDecodingSpeed = 643,
-        /// <summary>BmpCompression</summary>
+        /// <summary>Bmp compression option.</summary>
         BmpCompression = 768,
-        /// <summary>GifLoop</summary>
+        /// <summary>Gif loop option.</summary>
         GifLoop = 1024,
-        /// <summary>GifSpeed</summary>
+        /// <summary>Gif speed option.</summary>
         GifSpeed = 1025,
-        /// <summary>GifQuality</summary>
+        /// <summary>Gif quality option.</summary>
         GifQuality = 1026,
-        /// <summary>GifDither</summary>
+        /// <summary>Gif dither option.</summary>
         GifDither = 1027,
-        /// <summary>GifTransparency</summary>
+        /// <summary>Gif transparency option.</summary>
         GifTransparency = 1028,
-        /// <summary>GifColortable</summary>
+        /// <summary>Gif colortable option.</summary>
         GifColortable = 1029,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite G I F Compression Flags.
     /// </summary>
     public enum ImwriteGIFCompressionFlags : int
     {
-        /// <summary>FastNoDither</summary>
+        /// <summary>Fast no dither option.</summary>
         FastNoDither = 1,
-        /// <summary>FastFloydDither</summary>
+        /// <summary>Fast floyd dither option.</summary>
         FastFloydDither = 2,
-        /// <summary>ColortableSize8</summary>
+        /// <summary>Colortable size8 option.</summary>
         ColortableSize8 = 3,
-        /// <summary>ColortableSize16</summary>
+        /// <summary>Colortable size16 option.</summary>
         ColortableSize16 = 4,
-        /// <summary>ColortableSize32</summary>
+        /// <summary>Colortable size32 option.</summary>
         ColortableSize32 = 5,
-        /// <summary>ColortableSize64</summary>
+        /// <summary>Colortable size64 option.</summary>
         ColortableSize64 = 6,
-        /// <summary>ColortableSize128</summary>
+        /// <summary>Colortable size128 option.</summary>
         ColortableSize128 = 7,
-        /// <summary>ColortableSize256</summary>
+        /// <summary>Colortable size256 option.</summary>
         ColortableSize256 = 8,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies HDR compression modes.
     /// </summary>
     public enum ImwriteHDRCompressionFlags : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Rle</summary>
+        /// <summary>Rle option.</summary>
         Rle = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite J P E G Sampling Factor Params.
     /// </summary>
     public enum ImwriteJPEGSamplingFactorParams : int
     {
-        /// <summary>_411</summary>
+        /// <summary>_411 option.</summary>
         _411 = unchecked((int)(0x411111)),
-        /// <summary>_420</summary>
+        /// <summary>_420 option.</summary>
         _420 = unchecked((int)(0x221111)),
-        /// <summary>_422</summary>
+        /// <summary>_422 option.</summary>
         _422 = unchecked((int)(0x211111)),
-        /// <summary>_440</summary>
+        /// <summary>_440 option.</summary>
         _440 = unchecked((int)(0x121111)),
-        /// <summary>_444</summary>
+        /// <summary>_444 option.</summary>
         _444 = unchecked((int)(0x111111)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies PAM image format options.
     /// </summary>
     public enum ImwritePAMFlags : int
     {
-        /// <summary>Null</summary>
+        /// <summary>Null option.</summary>
         Null = 0,
-        /// <summary>Blackandwhite</summary>
+        /// <summary>Blackandwhite option.</summary>
         Blackandwhite = 1,
-        /// <summary>Grayscale</summary>
+        /// <summary>Grayscale option.</summary>
         Grayscale = 2,
-        /// <summary>GrayscaleAlpha</summary>
+        /// <summary>Grayscale alpha option.</summary>
         GrayscaleAlpha = 3,
-        /// <summary>Rgb</summary>
+        /// <summary>Rgb option.</summary>
         Rgb = 4,
-        /// <summary>RgbAlpha</summary>
+        /// <summary>Rgb alpha option.</summary>
         RgbAlpha = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite P N G Filter Flags.
     /// </summary>
     public enum ImwritePNGFilterFlags : int
     {
-        /// <summary>FilterNone</summary>
+        /// <summary>Filter none option.</summary>
         FilterNone = 8,
-        /// <summary>FilterSub</summary>
+        /// <summary>Filter sub option.</summary>
         FilterSub = 16,
-        /// <summary>FilterUp</summary>
+        /// <summary>Filter up option.</summary>
         FilterUp = 32,
-        /// <summary>FilterAvg</summary>
+        /// <summary>Filter avg option.</summary>
         FilterAvg = 64,
-        /// <summary>FilterPaeth</summary>
+        /// <summary>Filter paeth option.</summary>
         FilterPaeth = 128,
-        /// <summary>FastFilters</summary>
+        /// <summary>Fast filters option.</summary>
         FastFilters = unchecked((int)(FilterNone | FilterSub | FilterUp)),
-        /// <summary>AllFilters</summary>
+        /// <summary>All filters option.</summary>
         AllFilters = unchecked((int)(FastFilters | FilterAvg | FilterPaeth)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies compression strategies for PNG image encoding.
     /// </summary>
     public enum ImwritePNGFlags : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = 0,
-        /// <summary>Filtered</summary>
+        /// <summary>Filtered option.</summary>
         Filtered = 1,
-        /// <summary>HuffmanOnly</summary>
+        /// <summary>Huffman only option.</summary>
         HuffmanOnly = 2,
-        /// <summary>Rle</summary>
+        /// <summary>Rle option.</summary>
         Rle = 3,
-        /// <summary>Fixed</summary>
+        /// <summary>Fixed option.</summary>
         Fixed = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite Tiff Compression Flags.
     /// </summary>
     public enum ImwriteTiffCompressionFlags : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 1,
-        /// <summary>Ccittrle</summary>
+        /// <summary>Ccittrle option.</summary>
         Ccittrle = 2,
-        /// <summary>Ccittfax3</summary>
+        /// <summary>Ccittfax3 option.</summary>
         Ccittfax3 = 3,
-        /// <summary>CcittT4</summary>
+        /// <summary>Ccitt t4 option.</summary>
         CcittT4 = 3,
-        /// <summary>Ccittfax4</summary>
+        /// <summary>Ccittfax4 option.</summary>
         Ccittfax4 = 4,
-        /// <summary>CcittT6</summary>
+        /// <summary>Ccitt t6 option.</summary>
         CcittT6 = 4,
-        /// <summary>Lzw</summary>
+        /// <summary>Lzw option.</summary>
         Lzw = 5,
-        /// <summary>Ojpeg</summary>
+        /// <summary>Ojpeg option.</summary>
         Ojpeg = 6,
-        /// <summary>Jpeg</summary>
+        /// <summary>Jpeg option.</summary>
         Jpeg = 7,
-        /// <summary>T85</summary>
+        /// <summary>T85 option.</summary>
         T85 = 9,
-        /// <summary>T43</summary>
+        /// <summary>T43 option.</summary>
         T43 = 10,
-        /// <summary>Next</summary>
+        /// <summary>Next option.</summary>
         Next = 32766,
-        /// <summary>Ccittrlew</summary>
+        /// <summary>Ccittrlew option.</summary>
         Ccittrlew = 32771,
-        /// <summary>Packbits</summary>
+        /// <summary>Packbits option.</summary>
         Packbits = 32773,
-        /// <summary>Thunderscan</summary>
+        /// <summary>Thunderscan option.</summary>
         Thunderscan = 32809,
-        /// <summary>It8ctpad</summary>
+        /// <summary>It8ctpad option.</summary>
         It8ctpad = 32895,
-        /// <summary>It8lw</summary>
+        /// <summary>It8lw option.</summary>
         It8lw = 32896,
-        /// <summary>It8mp</summary>
+        /// <summary>It8mp option.</summary>
         It8mp = 32897,
-        /// <summary>It8bl</summary>
+        /// <summary>It8bl option.</summary>
         It8bl = 32898,
-        /// <summary>Pixarfilm</summary>
+        /// <summary>Pixarfilm option.</summary>
         Pixarfilm = 32908,
-        /// <summary>Pixarlog</summary>
+        /// <summary>Pixarlog option.</summary>
         Pixarlog = 32909,
-        /// <summary>Deflate</summary>
+        /// <summary>Deflate option.</summary>
         Deflate = 32946,
-        /// <summary>AdobeDeflate</summary>
+        /// <summary>Adobe deflate option.</summary>
         AdobeDeflate = 8,
-        /// <summary>Dcs</summary>
+        /// <summary>Dcs option.</summary>
         Dcs = 32947,
-        /// <summary>Jbig</summary>
+        /// <summary>Jbig option.</summary>
         Jbig = 34661,
-        /// <summary>Sgilog</summary>
+        /// <summary>Sgilog option.</summary>
         Sgilog = 34676,
-        /// <summary>Sgilog24</summary>
+        /// <summary>Sgilog24 option.</summary>
         Sgilog24 = 34677,
-        /// <summary>Jp2000</summary>
+        /// <summary>Jp2000 option.</summary>
         Jp2000 = 34712,
-        /// <summary>Lerc</summary>
+        /// <summary>Lerc option.</summary>
         Lerc = 34887,
-        /// <summary>Lzma</summary>
+        /// <summary>Lzma option.</summary>
         Lzma = 34925,
-        /// <summary>Zstd</summary>
+        /// <summary>Zstd option.</summary>
         Zstd = 50000,
-        /// <summary>Webp</summary>
+        /// <summary>Webp option.</summary>
         Webp = 50001,
-        /// <summary>Jxl</summary>
+        /// <summary>Jxl option.</summary>
         Jxl = 50002,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite Tiff Predictor Flags.
     /// </summary>
     public enum ImwriteTiffPredictorFlags : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 1,
-        /// <summary>Horizontal</summary>
+        /// <summary>Horizontal option.</summary>
         Horizontal = 2,
-        /// <summary>Floatingpoint</summary>
+        /// <summary>Floatingpoint option.</summary>
         Floatingpoint = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite Tiff Resolution Unit Flags.
     /// </summary>
     public enum ImwriteTiffResolutionUnitFlags : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 1,
-        /// <summary>Inch</summary>
+        /// <summary>Inch option.</summary>
         Inch = 2,
-        /// <summary>Centimeter</summary>
+        /// <summary>Centimeter option.</summary>
         Centimeter = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Imwrite W E B P Lossless Mode.
     /// </summary>
     public enum ImwriteWEBPLosslessMode : int
     {
-        /// <summary>Off</summary>
+        /// <summary>Off option.</summary>
         Off = 0,
-        /// <summary>On</summary>
+        /// <summary>On option.</summary>
         On = 1,
-        /// <summary>PreserveColor</summary>
+        /// <summary>Preserve color option.</summary>
         PreserveColor = 2,
     }
 

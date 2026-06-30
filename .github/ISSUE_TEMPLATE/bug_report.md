@@ -12,10 +12,10 @@ A clear and concise description of what the bug is.
 
 ## Environment
 
-- **OS**: Windows 10 / 11 (x64)
+- **OS**: Windows 10/11 (x64) / Linux (x64) / macOS (x64/ARM64) / Android (ARM64) / iOS (ARM64)
 - **.NET SDK Version**: (run `dotnet --version`)
 - **OpenCV5Sharp Version**: (NuGet package version)
-- **Target Framework**: net8.0 / net9.0
+- **Target Framework**: net8.0 / net9.0 / net10.0
 
 ## Steps to Reproduce
 

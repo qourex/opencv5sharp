@@ -311,6 +311,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static FaceDetectorYN? Create(string model, string config, Size input_size, float score_threshold, float nms_threshold, int top_k, int backend_id, int target_id)
         {
+                if (model == null) throw new ArgumentNullException(nameof(model));
+                if (config == null) throw new ArgumentNullException(nameof(config));
             IntPtr res = NativeMethods.FaceDetectorYN_create_0(model, config, input_size, score_threshold, nms_threshold, top_k, backend_id, target_id);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FaceDetectorYN(res);
@@ -343,6 +345,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static FaceDetectorYN? Create(string framework, IntPtr bufferModel, IntPtr bufferConfig, Size input_size, float score_threshold, float nms_threshold, int top_k, int backend_id, int target_id)
         {
+                if (framework == null) throw new ArgumentNullException(nameof(framework));
             IntPtr res = NativeMethods.FaceDetectorYN_create_1(framework, bufferModel, bufferConfig, input_size, score_threshold, nms_threshold, top_k, backend_id, target_id);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FaceDetectorYN(res);
@@ -432,6 +435,8 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static FaceRecognizerSF? Create(string model, string config, int backend_id, int target_id)
         {
+                if (model == null) throw new ArgumentNullException(nameof(model));
+                if (config == null) throw new ArgumentNullException(nameof(config));
             IntPtr res = NativeMethods.FaceRecognizerSF_create_0(model, config, backend_id, target_id);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FaceRecognizerSF(res);
@@ -457,6 +462,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static FaceRecognizerSF? Create(string framework, IntPtr bufferModel, IntPtr bufferConfig, int backend_id, int target_id)
         {
+                if (framework == null) throw new ArgumentNullException(nameof(framework));
             IntPtr res = NativeMethods.FaceRecognizerSF_create_1(framework, bufferModel, bufferConfig, backend_id, target_id);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new FaceRecognizerSF(res);
@@ -881,6 +887,7 @@ namespace OpenCV5Sharp
         public void Encode(string encoded_info, Mat qrcode)
         {
             ThrowIfDisposed();
+                if (encoded_info == null) throw new ArgumentNullException(nameof(encoded_info));
             NativeMethods.QRCodeEncoder_encode_0(Handle, encoded_info, ValidationHelper.GetHandle(qrcode, nameof(qrcode), false));
             ErrorHelper.CheckError();
         }
@@ -893,6 +900,7 @@ namespace OpenCV5Sharp
         public void EncodeStructuredAppend(string encoded_info, IntPtr qrcodes)
         {
             ThrowIfDisposed();
+                if (encoded_info == null) throw new ArgumentNullException(nameof(encoded_info));
             NativeMethods.QRCodeEncoder_encodeStructuredAppend_0(Handle, encoded_info, qrcodes);
             ErrorHelper.CheckError();
         }
@@ -1273,6 +1281,7 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
+                if (name == null) throw new ArgumentNullException(nameof(name));
             NativeMethods.aruco_ArucoDetector_write_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
             ErrorHelper.CheckError();
         }
@@ -1911,7 +1920,7 @@ namespace OpenCV5Sharp
         public bool WriteDetectorParameters(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_DetectorParameters_writeDetectorParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            var res = NativeMethods.aruco_DetectorParameters_writeDetectorParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name ?? "");
             ErrorHelper.CheckError();
             return res;
         }
@@ -2245,7 +2254,7 @@ namespace OpenCV5Sharp
         public void WriteDictionary(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_Dictionary_writeDictionary_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            NativeMethods.aruco_Dictionary_writeDictionary_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name ?? "");
             ErrorHelper.CheckError();
         }
         /// <summary>
@@ -2523,7 +2532,7 @@ namespace OpenCV5Sharp
         public bool WriteRefineParameters(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_RefineParameters_writeRefineParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            var res = NativeMethods.aruco_RefineParameters_writeRefineParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name ?? "");
             ErrorHelper.CheckError();
             return res;
         }
@@ -2587,6 +2596,7 @@ namespace OpenCV5Sharp
         public BarcodeBarcodeDetector(string super_resolution_model_path)
             : base(NativeMethods.barcode_BarcodeDetector_New_1(super_resolution_model_path))
         {
+                if (super_resolution_model_path == null) throw new ArgumentNullException(nameof(super_resolution_model_path));
             ErrorHelper.CheckError();
         }
         /// <summary>

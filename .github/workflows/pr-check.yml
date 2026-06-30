@@ -11,18 +11,18 @@ concurrency:
 jobs:
   validate:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        dotnet-version: ['8.0.x', '9.0.x']
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET ${{ matrix.dotnet-version }}
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -44,4 +44,4 @@ jobs:
         run: dotnet build OpenCV5Sharp.slnx -c Debug --no-restore
 
       - name: Test (Debug)
-        run: dotnet test OpenCV5Sharp.slnx --no-build -c Debug --settings tests/coverlet.runsettings --logger:"console;verbosity=detailed"
+        run: dotnet test OpenCV5Sharp.slnx --no-build -c Debug --logger:"console;verbosity=detailed"

@@ -104,6 +104,7 @@ namespace OpenCV5Sharp
         public void Save(string filename)
         {
             ThrowIfDisposed();
+                if (filename == null) throw new ArgumentNullException(nameof(filename));
             NativeMethods.flann_Index_save_0(Handle, filename);
             ErrorHelper.CheckError();
         }
@@ -119,6 +120,7 @@ namespace OpenCV5Sharp
         public bool Load(Mat features, string filename)
         {
             ThrowIfDisposed();
+                if (filename == null) throw new ArgumentNullException(nameof(filename));
             var res = NativeMethods.flann_Index_load_0(Handle, ValidationHelper.GetHandle(features, nameof(features), false), filename);
             ErrorHelper.CheckError();
             return res;

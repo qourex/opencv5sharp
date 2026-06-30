@@ -6,1114 +6,1114 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies unmanaged memory access flags for matrix allocation.
     /// </summary>
     public enum AccessFlag : int
     {
-        /// <summary>Read</summary>
+        /// <summary>Read option.</summary>
         Read = unchecked((int)(1 << 24)),
-        /// <summary>Write</summary>
+        /// <summary>Write option.</summary>
         Write = unchecked((int)(1 << 25)),
-        /// <summary>Rw</summary>
+        /// <summary>Rw option.</summary>
         Rw = unchecked((int)(3 << 24)),
-        /// <summary>Mask</summary>
+        /// <summary>Mask option.</summary>
         Mask = unchecked((int)(Rw)),
-        /// <summary>Fast</summary>
+        /// <summary>Fast option.</summary>
         Fast = unchecked((int)(1 << 26)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Provides optimization hints to underlying OpenCV algorithms.
     /// </summary>
     public enum AlgorithmHint : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = 0,
-        /// <summary>Accurate</summary>
+        /// <summary>Accurate option.</summary>
         Accurate = 1,
-        /// <summary>Approx</summary>
+        /// <summary>Approx option.</summary>
         Approx = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies pixel extrapolation methods used by image boundaries.
     /// </summary>
     public enum BorderTypes : int
     {
-        /// <summary>Constant</summary>
+        /// <summary>Pads the border with a constant value.</summary>
         Constant = 0,
-        /// <summary>Replicate</summary>
+        /// <summary>Replicates the edge pixels.</summary>
         Replicate = 1,
-        /// <summary>Reflect</summary>
+        /// <summary>Reflects the image border.</summary>
         Reflect = 2,
-        /// <summary>Wrap</summary>
+        /// <summary>Wraps the image border from the opposite edge.</summary>
         Wrap = 3,
-        /// <summary>Reflect101</summary>
+        /// <summary>Reflects the image border with a 1-pixel boundary offset (default behavior).</summary>
         Reflect101 = 4,
-        /// <summary>Transparent</summary>
+        /// <summary>Does not modify the border pixels corresponding to outliers.</summary>
         Transparent = 5,
-        /// <summary>Default</summary>
+        /// <summary>Default border extrapolation method (equivalent to Reflect101).</summary>
         Default = unchecked((int)(Reflect101)),
-        /// <summary>Isolated</summary>
+        /// <summary>Does not look outside of the ROI.</summary>
         Isolated = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies comparison operators for element-wise array comparisons.
     /// </summary>
     public enum CmpTypes : int
     {
-        /// <summary>Eq</summary>
+        /// <summary>Eq option.</summary>
         Eq = 0,
-        /// <summary>Gt</summary>
+        /// <summary>Gt option.</summary>
         Gt = 1,
-        /// <summary>Ge</summary>
+        /// <summary>Ge option.</summary>
         Ge = 2,
-        /// <summary>Lt</summary>
+        /// <summary>Lt option.</summary>
         Lt = 3,
-        /// <summary>Le</summary>
+        /// <summary>Le option.</summary>
         Le = 4,
-        /// <summary>Ne</summary>
+        /// <summary>Ne option.</summary>
         Ne = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for calculating covariances of a set of vectors.
     /// </summary>
     public enum CovarFlags : int
     {
-        /// <summary>Scrambled</summary>
+        /// <summary>Scrambled option.</summary>
         Scrambled = 0,
-        /// <summary>Normal</summary>
+        /// <summary>Normal option.</summary>
         Normal = 1,
-        /// <summary>UseAvg</summary>
+        /// <summary>Use avg option.</summary>
         UseAvg = 2,
-        /// <summary>Scale</summary>
+        /// <summary>Scale option.</summary>
         Scale = 4,
-        /// <summary>Rows</summary>
+        /// <summary>Rows option.</summary>
         Rows = 8,
-        /// <summary>Cols</summary>
+        /// <summary>Cols option.</summary>
         Cols = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies data layout parameters.
     /// </summary>
     public enum DataLayout : int
     {
-        /// <summary>DataLayoutUnknown</summary>
+        /// <summary>Data layout unknown option.</summary>
         DataLayoutUnknown = 0,
-        /// <summary>DataLayoutNd</summary>
+        /// <summary>Data layout nd option.</summary>
         DataLayoutNd = 1,
-        /// <summary>DataLayoutNchw</summary>
+        /// <summary>Data layout nchw option.</summary>
         DataLayoutNchw = 2,
-        /// <summary>DataLayoutNcdhw</summary>
+        /// <summary>Data layout ncdhw option.</summary>
         DataLayoutNcdhw = 3,
-        /// <summary>DataLayoutNhwc</summary>
+        /// <summary>Data layout nhwc option.</summary>
         DataLayoutNhwc = 4,
-        /// <summary>DataLayoutNdhwc</summary>
+        /// <summary>Data layout ndhwc option.</summary>
         DataLayoutNdhwc = 5,
-        /// <summary>DataLayoutPlanar</summary>
+        /// <summary>Data layout planar option.</summary>
         DataLayoutPlanar = 6,
-        /// <summary>DataLayoutBlock</summary>
+        /// <summary>Data layout block option.</summary>
         DataLayoutBlock = 7,
-        /// <summary>DnnLayoutUnknown</summary>
+        /// <summary>Dnn layout unknown option.</summary>
         DnnLayoutUnknown = 0,
-        /// <summary>DnnLayoutNd</summary>
+        /// <summary>Dnn layout nd option.</summary>
         DnnLayoutNd = 1,
-        /// <summary>DnnLayoutNchw</summary>
+        /// <summary>Dnn layout nchw option.</summary>
         DnnLayoutNchw = 2,
-        /// <summary>DnnLayoutNcdhw</summary>
+        /// <summary>Dnn layout ncdhw option.</summary>
         DnnLayoutNcdhw = 3,
-        /// <summary>DnnLayoutNhwc</summary>
+        /// <summary>Dnn layout nhwc option.</summary>
         DnnLayoutNhwc = 4,
-        /// <summary>DnnLayoutNdhwc</summary>
+        /// <summary>Dnn layout ndhwc option.</summary>
         DnnLayoutNdhwc = 5,
-        /// <summary>DnnLayoutPlanar</summary>
+        /// <summary>Dnn layout planar option.</summary>
         DnnLayoutPlanar = 6,
-        /// <summary>DnnLayoutBlock</summary>
+        /// <summary>Dnn layout block option.</summary>
         DnnLayoutBlock = 7,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies matrix decomposition methods for solving linear systems.
     /// </summary>
     public enum DecompTypes : int
     {
-        /// <summary>Lu</summary>
+        /// <summary>Lu option.</summary>
         Lu = 0,
-        /// <summary>Svd</summary>
+        /// <summary>Svd option.</summary>
         Svd = 1,
-        /// <summary>Eig</summary>
+        /// <summary>Eig option.</summary>
         Eig = 2,
-        /// <summary>Cholesky</summary>
+        /// <summary>Cholesky option.</summary>
         Cholesky = 3,
-        /// <summary>Qr</summary>
+        /// <summary>Qr option.</summary>
         Qr = 4,
-        /// <summary>Normal</summary>
+        /// <summary>Normal option.</summary>
         Normal = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for performing Discrete Fourier Transforms.
     /// </summary>
     public enum DftFlags : int
     {
-        /// <summary>DftInverse</summary>
+        /// <summary>Dft inverse option.</summary>
         DftInverse = 1,
-        /// <summary>DftScale</summary>
+        /// <summary>Dft scale option.</summary>
         DftScale = 2,
-        /// <summary>DftRows</summary>
+        /// <summary>Dft rows option.</summary>
         DftRows = 4,
-        /// <summary>DftComplexOutput</summary>
+        /// <summary>Dft complex output option.</summary>
         DftComplexOutput = 16,
-        /// <summary>DftRealOutput</summary>
+        /// <summary>Dft real output option.</summary>
         DftRealOutput = 32,
-        /// <summary>DftComplexInput</summary>
+        /// <summary>Dft complex input option.</summary>
         DftComplexInput = 64,
-        /// <summary>DctInverse</summary>
+        /// <summary>Dct inverse option.</summary>
         DctInverse = unchecked((int)(DftInverse)),
-        /// <summary>DctRows</summary>
+        /// <summary>Dct rows option.</summary>
         DctRows = unchecked((int)(DftRows)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Represents status and error codes returned by OpenCV native operations.
     /// </summary>
     public enum ErrorCode : int
     {
-        /// <summary>StsOk</summary>
+        /// <summary>Sts ok option.</summary>
         StsOk = 0,
-        /// <summary>StsBackTrace</summary>
+        /// <summary>Sts back trace option.</summary>
         StsBackTrace = -1,
-        /// <summary>StsError</summary>
+        /// <summary>Sts error option.</summary>
         StsError = -2,
-        /// <summary>StsInternal</summary>
+        /// <summary>Sts internal option.</summary>
         StsInternal = -3,
-        /// <summary>StsNoMem</summary>
+        /// <summary>Sts no mem option.</summary>
         StsNoMem = -4,
-        /// <summary>StsBadArg</summary>
+        /// <summary>Sts bad arg option.</summary>
         StsBadArg = -5,
-        /// <summary>StsBadFunc</summary>
+        /// <summary>Sts bad func option.</summary>
         StsBadFunc = -6,
-        /// <summary>StsNoConv</summary>
+        /// <summary>Sts no conv option.</summary>
         StsNoConv = -7,
-        /// <summary>StsAutoTrace</summary>
+        /// <summary>Sts auto trace option.</summary>
         StsAutoTrace = -8,
-        /// <summary>HeaderIsNull</summary>
+        /// <summary>Header is null option.</summary>
         HeaderIsNull = -9,
-        /// <summary>BadImageSize</summary>
+        /// <summary>Bad image size option.</summary>
         BadImageSize = -10,
-        /// <summary>BadOffset</summary>
+        /// <summary>Bad offset option.</summary>
         BadOffset = -11,
-        /// <summary>BadDataPtr</summary>
+        /// <summary>Bad data ptr option.</summary>
         BadDataPtr = -12,
-        /// <summary>BadStep</summary>
+        /// <summary>Bad step option.</summary>
         BadStep = -13,
-        /// <summary>BadModelOrChSeq</summary>
+        /// <summary>Bad model or ch seq option.</summary>
         BadModelOrChSeq = -14,
-        /// <summary>BadNumChannels</summary>
+        /// <summary>Bad num channels option.</summary>
         BadNumChannels = -15,
-        /// <summary>BadNumChannel1U</summary>
+        /// <summary>Bad num channel1 u option.</summary>
         BadNumChannel1U = -16,
-        /// <summary>BadDepth</summary>
+        /// <summary>Bad depth option.</summary>
         BadDepth = -17,
-        /// <summary>BadAlphaChannel</summary>
+        /// <summary>Bad alpha channel option.</summary>
         BadAlphaChannel = -18,
-        /// <summary>BadOrder</summary>
+        /// <summary>Bad order option.</summary>
         BadOrder = -19,
-        /// <summary>BadOrigin</summary>
+        /// <summary>Bad origin option.</summary>
         BadOrigin = -20,
-        /// <summary>BadAlign</summary>
+        /// <summary>Bad align option.</summary>
         BadAlign = -21,
-        /// <summary>BadCallBack</summary>
+        /// <summary>Bad call back option.</summary>
         BadCallBack = -22,
-        /// <summary>BadTileSize</summary>
+        /// <summary>Bad tile size option.</summary>
         BadTileSize = -23,
-        /// <summary>BadCOI</summary>
+        /// <summary>Bad c o i option.</summary>
         BadCOI = -24,
-        /// <summary>BadROISize</summary>
+        /// <summary>Bad r o i size option.</summary>
         BadROISize = -25,
-        /// <summary>MaskIsTiled</summary>
+        /// <summary>Mask is tiled option.</summary>
         MaskIsTiled = -26,
-        /// <summary>StsNullPtr</summary>
+        /// <summary>Sts null ptr option.</summary>
         StsNullPtr = -27,
-        /// <summary>StsVecLengthErr</summary>
+        /// <summary>Sts vec length err option.</summary>
         StsVecLengthErr = -28,
-        /// <summary>StsFilterStructContentErr</summary>
+        /// <summary>Sts filter struct content err option.</summary>
         StsFilterStructContentErr = -29,
-        /// <summary>StsKernelStructContentErr</summary>
+        /// <summary>Sts kernel struct content err option.</summary>
         StsKernelStructContentErr = -30,
-        /// <summary>StsFilterOffsetErr</summary>
+        /// <summary>Sts filter offset err option.</summary>
         StsFilterOffsetErr = -31,
-        /// <summary>StsBadSize</summary>
+        /// <summary>Sts bad size option.</summary>
         StsBadSize = -201,
-        /// <summary>StsDivByZero</summary>
+        /// <summary>Sts div by zero option.</summary>
         StsDivByZero = -202,
-        /// <summary>StsInplaceNotSupported</summary>
+        /// <summary>Sts inplace not supported option.</summary>
         StsInplaceNotSupported = -203,
-        /// <summary>StsObjectNotFound</summary>
+        /// <summary>Sts object not found option.</summary>
         StsObjectNotFound = -204,
-        /// <summary>StsUnmatchedFormats</summary>
+        /// <summary>Sts unmatched formats option.</summary>
         StsUnmatchedFormats = -205,
-        /// <summary>StsBadFlag</summary>
+        /// <summary>Sts bad flag option.</summary>
         StsBadFlag = -206,
-        /// <summary>StsBadPoint</summary>
+        /// <summary>Sts bad point option.</summary>
         StsBadPoint = -207,
-        /// <summary>StsBadMask</summary>
+        /// <summary>Sts bad mask option.</summary>
         StsBadMask = -208,
-        /// <summary>StsUnmatchedSizes</summary>
+        /// <summary>Sts unmatched sizes option.</summary>
         StsUnmatchedSizes = -209,
-        /// <summary>StsUnsupportedFormat</summary>
+        /// <summary>Sts unsupported format option.</summary>
         StsUnsupportedFormat = -210,
-        /// <summary>StsOutOfRange</summary>
+        /// <summary>Sts out of range option.</summary>
         StsOutOfRange = -211,
-        /// <summary>StsParseError</summary>
+        /// <summary>Sts parse error option.</summary>
         StsParseError = -212,
-        /// <summary>StsNotImplemented</summary>
+        /// <summary>Sts not implemented option.</summary>
         StsNotImplemented = -213,
-        /// <summary>StsBadMemBlock</summary>
+        /// <summary>Sts bad mem block option.</summary>
         StsBadMemBlock = -214,
-        /// <summary>StsAssert</summary>
+        /// <summary>Sts assert option.</summary>
         StsAssert = -215,
-        /// <summary>GpuNotSupported</summary>
+        /// <summary>Gpu not supported option.</summary>
         GpuNotSupported = -216,
-        /// <summary>GpuApiCallError</summary>
+        /// <summary>Gpu api call error option.</summary>
         GpuApiCallError = -217,
-        /// <summary>OpenGlNotSupported</summary>
+        /// <summary>Open gl not supported option.</summary>
         OpenGlNotSupported = -218,
-        /// <summary>OpenGlApiCallError</summary>
+        /// <summary>Open gl api call error option.</summary>
         OpenGlApiCallError = -219,
-        /// <summary>OpenCLApiCallError</summary>
+        /// <summary>Open c l api call error option.</summary>
         OpenCLApiCallError = -220,
-        /// <summary>OpenCLDoubleNotSupported</summary>
+        /// <summary>Open c l double not supported option.</summary>
         OpenCLDoubleNotSupported = -221,
-        /// <summary>OpenCLInitError</summary>
+        /// <summary>Open c l init error option.</summary>
         OpenCLInitError = -222,
-        /// <summary>OpenCLNoAMDBlasFft</summary>
+        /// <summary>Open c l no a m d blas fft option.</summary>
         OpenCLNoAMDBlasFft = -223,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum3 File Node.
     /// </summary>
     public enum UnnamedEnum3FileNode : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Int</summary>
+        /// <summary>Int option.</summary>
         Int = 1,
-        /// <summary>Real</summary>
+        /// <summary>Real option.</summary>
         Real = 2,
-        /// <summary>Float</summary>
+        /// <summary>Float option.</summary>
         Float = unchecked((int)(Real)),
-        /// <summary>Str</summary>
+        /// <summary>Str option.</summary>
         Str = 3,
-        /// <summary>String</summary>
+        /// <summary>String option.</summary>
         String = unchecked((int)(Str)),
-        /// <summary>Seq</summary>
+        /// <summary>Seq option.</summary>
         Seq = 4,
-        /// <summary>Map</summary>
+        /// <summary>Map option.</summary>
         Map = 5,
-        /// <summary>TypeMask</summary>
+        /// <summary>Type mask option.</summary>
         TypeMask = 7,
-        /// <summary>Flow</summary>
+        /// <summary>Flow option.</summary>
         Flow = 8,
-        /// <summary>Uniform</summary>
+        /// <summary>Uniform option.</summary>
         Uniform = 8,
-        /// <summary>Empty</summary>
+        /// <summary>Empty option.</summary>
         Empty = 16,
-        /// <summary>Named</summary>
+        /// <summary>Named option.</summary>
         Named = 32,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies the mode for opening a FileStorage object.
     /// </summary>
     public enum FileStorageMode : int
     {
-        /// <summary>Read</summary>
+        /// <summary>Read option.</summary>
         Read = 0,
-        /// <summary>Write</summary>
+        /// <summary>Write option.</summary>
         Write = 1,
-        /// <summary>Append</summary>
+        /// <summary>Append option.</summary>
         Append = 2,
-        /// <summary>Memory</summary>
+        /// <summary>Memory option.</summary>
         Memory = 4,
-        /// <summary>FormatMask</summary>
+        /// <summary>Format mask option.</summary>
         FormatMask = unchecked((int)(7 << 3)),
-        /// <summary>FormatAuto</summary>
+        /// <summary>Format auto option.</summary>
         FormatAuto = 0,
-        /// <summary>FormatXml</summary>
+        /// <summary>Format xml option.</summary>
         FormatXml = unchecked((int)(1 << 3)),
-        /// <summary>FormatYaml</summary>
+        /// <summary>Format yaml option.</summary>
         FormatYaml = unchecked((int)(2 << 3)),
-        /// <summary>FormatJson</summary>
+        /// <summary>Format json option.</summary>
         FormatJson = unchecked((int)(3 << 3)),
-        /// <summary>FormatYaml10</summary>
+        /// <summary>Format yaml10 option.</summary>
         FormatYaml10 = unchecked((int)(4 << 3)),
-        /// <summary>Base64</summary>
+        /// <summary>Base64 option.</summary>
         Base64 = 64,
-        /// <summary>WriteBase64</summary>
+        /// <summary>Write base64 option.</summary>
         WriteBase64 = unchecked((int)(Base64 | Write)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Represents the state of a FileStorage object.
     /// </summary>
     public enum FileStorageState : int
     {
-        /// <summary>Undefined</summary>
+        /// <summary>Undefined option.</summary>
         Undefined = 0,
-        /// <summary>ValueExpected</summary>
+        /// <summary>Value expected option.</summary>
         ValueExpected = 1,
-        /// <summary>NameExpected</summary>
+        /// <summary>Name expected option.</summary>
         NameExpected = 2,
-        /// <summary>InsideMap</summary>
+        /// <summary>Inside map option.</summary>
         InsideMap = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies formatting options for outputting matrices.
     /// </summary>
     public enum FormatterFormatType : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = 0,
-        /// <summary>Matlab</summary>
+        /// <summary>Matlab option.</summary>
         Matlab = 1,
-        /// <summary>Csv</summary>
+        /// <summary>Csv option.</summary>
         Csv = 2,
-        /// <summary>Python</summary>
+        /// <summary>Python option.</summary>
         Python = 3,
-        /// <summary>Numpy</summary>
+        /// <summary>Numpy option.</summary>
         Numpy = 4,
-        /// <summary>C</summary>
+        /// <summary>C option.</summary>
         C = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for General Matrix Multiplication operations.
     /// </summary>
     public enum GemmFlags : int
     {
-        /// <summary>_1T</summary>
+        /// <summary>_1 t option.</summary>
         _1T = 1,
-        /// <summary>_2T</summary>
+        /// <summary>_2 t option.</summary>
         _2T = 2,
-        /// <summary>_3T</summary>
+        /// <summary>_3 t option.</summary>
         _3T = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for K-Means clustering algorithm initialization.
     /// </summary>
     public enum KmeansFlags : int
     {
-        /// <summary>RandomCenters</summary>
+        /// <summary>Random centers option.</summary>
         RandomCenters = 0,
-        /// <summary>PpCenters</summary>
+        /// <summary>Pp centers option.</summary>
         PpCenters = 2,
-        /// <summary>UseInitialLabels</summary>
+        /// <summary>Use initial labels option.</summary>
         UseInitialLabels = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum4 Mat.
     /// </summary>
     public enum UnnamedEnum4Mat : int
     {
-        /// <summary>MagicMask</summary>
+        /// <summary>Magic mask option.</summary>
         MagicMask = unchecked((int)(0xFFFF0000)),
-        /// <summary>TypeMask</summary>
+        /// <summary>Type mask option.</summary>
         TypeMask = unchecked((int)(0x00000FFF)),
-        /// <summary>DepthMask</summary>
+        /// <summary>Depth mask option.</summary>
         DepthMask = 7,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum5 Mat Shape.
     /// </summary>
     public enum UnnamedEnum5MatShape : int
     {
-        /// <summary>MaxDims</summary>
+        /// <summary>Max dims option.</summary>
         MaxDims = 10,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies normalization and distance metric types.
     /// </summary>
     public enum NormTypes : int
     {
-        /// <summary>Inf</summary>
+        /// <summary>Inf option.</summary>
         Inf = 1,
-        /// <summary>L1</summary>
+        /// <summary>L1 option.</summary>
         L1 = 2,
-        /// <summary>L2</summary>
+        /// <summary>L2 option.</summary>
         L2 = 4,
-        /// <summary>L2sqr</summary>
+        /// <summary>L2sqr option.</summary>
         L2sqr = 5,
-        /// <summary>Hamming</summary>
+        /// <summary>Hamming option.</summary>
         Hamming = 6,
-        /// <summary>Hamming2</summary>
+        /// <summary>Hamming2 option.</summary>
         Hamming2 = 7,
-        /// <summary>TypeMask</summary>
+        /// <summary>Type mask option.</summary>
         TypeMask = 7,
-        /// <summary>Relative</summary>
+        /// <summary>Relative option.</summary>
         Relative = 8,
-        /// <summary>Minmax</summary>
+        /// <summary>Minmax option.</summary>
         Minmax = 32,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for Principal Component Analysis.
     /// </summary>
     public enum PcaFlags : int
     {
-        /// <summary>DataAsRow</summary>
+        /// <summary>Data as row option.</summary>
         DataAsRow = 0,
-        /// <summary>DataAsCol</summary>
+        /// <summary>Data as col option.</summary>
         DataAsCol = 1,
-        /// <summary>UseAvg</summary>
+        /// <summary>Use avg option.</summary>
         UseAvg = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies type flags for algorithm parameters.
     /// </summary>
     public enum Param : int
     {
-        /// <summary>Int</summary>
+        /// <summary>Int option.</summary>
         Int = 0,
-        /// <summary>Boolean</summary>
+        /// <summary>Boolean option.</summary>
         Boolean = 1,
-        /// <summary>Real</summary>
+        /// <summary>Real option.</summary>
         Real = 2,
-        /// <summary>String</summary>
+        /// <summary>String option.</summary>
         String = 3,
-        /// <summary>Mat</summary>
+        /// <summary>Mat option.</summary>
         Mat = 4,
-        /// <summary>MatVector</summary>
+        /// <summary>Mat vector option.</summary>
         MatVector = 5,
-        /// <summary>Algorithm</summary>
+        /// <summary>Algorithm option.</summary>
         Algorithm = 6,
-        /// <summary>Float</summary>
+        /// <summary>Float option.</summary>
         Float = 7,
-        /// <summary>UnsignedInt</summary>
+        /// <summary>Unsigned int option.</summary>
         UnsignedInt = 8,
-        /// <summary>Uint64</summary>
+        /// <summary>Uint64 option.</summary>
         Uint64 = 9,
-        /// <summary>Uchar</summary>
+        /// <summary>Uchar option.</summary>
         Uchar = 11,
-        /// <summary>Scalar</summary>
+        /// <summary>Scalar option.</summary>
         Scalar = 12,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies quaternion assumption types.
     /// </summary>
     public enum QuatAssumeType : int
     {
-        /// <summary>NotUnit</summary>
+        /// <summary>Not unit option.</summary>
         NotUnit = 0,
-        /// <summary>Unit</summary>
+        /// <summary>Unit option.</summary>
         Unit = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies Euler angle convention types.
     /// </summary>
     public enum QuatEnumEulerAnglesType : int
     {
-        /// <summary>IntXyz</summary>
+        /// <summary>Int xyz option.</summary>
         IntXyz = 0,
-        /// <summary>IntXzy</summary>
+        /// <summary>Int xzy option.</summary>
         IntXzy = 1,
-        /// <summary>IntYxz</summary>
+        /// <summary>Int yxz option.</summary>
         IntYxz = 2,
-        /// <summary>IntYzx</summary>
+        /// <summary>Int yzx option.</summary>
         IntYzx = 3,
-        /// <summary>IntZxy</summary>
+        /// <summary>Int zxy option.</summary>
         IntZxy = 4,
-        /// <summary>IntZyx</summary>
+        /// <summary>Int zyx option.</summary>
         IntZyx = 5,
-        /// <summary>IntXyx</summary>
+        /// <summary>Int xyx option.</summary>
         IntXyx = 6,
-        /// <summary>IntXzx</summary>
+        /// <summary>Int xzx option.</summary>
         IntXzx = 7,
-        /// <summary>IntYxy</summary>
+        /// <summary>Int yxy option.</summary>
         IntYxy = 8,
-        /// <summary>IntYzy</summary>
+        /// <summary>Int yzy option.</summary>
         IntYzy = 9,
-        /// <summary>IntZxz</summary>
+        /// <summary>Int zxz option.</summary>
         IntZxz = 10,
-        /// <summary>IntZyz</summary>
+        /// <summary>Int zyz option.</summary>
         IntZyz = 11,
-        /// <summary>ExtXyz</summary>
+        /// <summary>Ext xyz option.</summary>
         ExtXyz = 12,
-        /// <summary>ExtXzy</summary>
+        /// <summary>Ext xzy option.</summary>
         ExtXzy = 13,
-        /// <summary>ExtYxz</summary>
+        /// <summary>Ext yxz option.</summary>
         ExtYxz = 14,
-        /// <summary>ExtYzx</summary>
+        /// <summary>Ext yzx option.</summary>
         ExtYzx = 15,
-        /// <summary>ExtZxy</summary>
+        /// <summary>Ext zxy option.</summary>
         ExtZxy = 16,
-        /// <summary>ExtZyx</summary>
+        /// <summary>Ext zyx option.</summary>
         ExtZyx = 17,
-        /// <summary>ExtXyx</summary>
+        /// <summary>Ext xyx option.</summary>
         ExtXyx = 18,
-        /// <summary>ExtXzx</summary>
+        /// <summary>Ext xzx option.</summary>
         ExtXzx = 19,
-        /// <summary>ExtYxy</summary>
+        /// <summary>Ext yxy option.</summary>
         ExtYxy = 20,
-        /// <summary>ExtYzy</summary>
+        /// <summary>Ext yzy option.</summary>
         ExtYzy = 21,
-        /// <summary>ExtZxz</summary>
+        /// <summary>Ext zxz option.</summary>
         ExtZxz = 22,
-        /// <summary>ExtZyz</summary>
+        /// <summary>Ext zyz option.</summary>
         ExtZyz = 23,
-        /// <summary>EulerAnglesMaxValue</summary>
+        /// <summary>Euler angles max value option.</summary>
         EulerAnglesMaxValue = 24,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum6 Rng.
     /// </summary>
     public enum UnnamedEnum6Rng : int
     {
-        /// <summary>Uniform</summary>
+        /// <summary>Uniform option.</summary>
         Uniform = 0,
-        /// <summary>Normal</summary>
+        /// <summary>Normal option.</summary>
         Normal = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies reduction operation types for reducing a matrix to a vector.
     /// </summary>
     public enum ReduceTypes : int
     {
-        /// <summary>Sum</summary>
+        /// <summary>Sum option.</summary>
         Sum = 0,
-        /// <summary>Avg</summary>
+        /// <summary>Avg option.</summary>
         Avg = 1,
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = 2,
-        /// <summary>Min</summary>
+        /// <summary>Min option.</summary>
         Min = 3,
-        /// <summary>Sum2</summary>
+        /// <summary>Sum2 option.</summary>
         Sum2 = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies rotation angles for 90-degree matrix rotations.
     /// </summary>
     public enum RotateFlags : int
     {
-        /// <summary>_90Clockwise</summary>
+        /// <summary>_90 clockwise option.</summary>
         _90Clockwise = 0,
-        /// <summary>_180</summary>
+        /// <summary>_180 option.</summary>
         _180 = 1,
-        /// <summary>_90Counterclockwise</summary>
+        /// <summary>_90 counterclockwise option.</summary>
         _90Counterclockwise = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Flags for Singular Value Decomposition operations.
     /// </summary>
     public enum SvdFlags : int
     {
-        /// <summary>ModifyA</summary>
+        /// <summary>Modify a option.</summary>
         ModifyA = 1,
-        /// <summary>NoUv</summary>
+        /// <summary>No uv option.</summary>
         NoUv = 2,
-        /// <summary>FullUv</summary>
+        /// <summary>Full uv option.</summary>
         FullUv = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Represents the result status of a Linear Programming solver.
     /// </summary>
     public enum SolveLPResult : int
     {
-        /// <summary>Lost</summary>
+        /// <summary>Lost option.</summary>
         Lost = -3,
-        /// <summary>Unbounded</summary>
+        /// <summary>Unbounded option.</summary>
         Unbounded = -2,
-        /// <summary>Unfeasible</summary>
+        /// <summary>Unfeasible option.</summary>
         Unfeasible = -1,
-        /// <summary>Single</summary>
+        /// <summary>Single option.</summary>
         Single = 0,
-        /// <summary>Multi</summary>
+        /// <summary>Multi option.</summary>
         Multi = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies matrix sorting directions and key arrangements.
     /// </summary>
     public enum SortFlags : int
     {
-        /// <summary>EveryRow</summary>
+        /// <summary>Every row option.</summary>
         EveryRow = 0,
-        /// <summary>EveryColumn</summary>
+        /// <summary>Every column option.</summary>
         EveryColumn = 1,
-        /// <summary>Ascending</summary>
+        /// <summary>Ascending option.</summary>
         Ascending = 0,
-        /// <summary>Descending</summary>
+        /// <summary>Descending option.</summary>
         Descending = 16,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum7 Sparse Mat.
     /// </summary>
     public enum UnnamedEnum7SparseMat : int
     {
-        /// <summary>MagicVal</summary>
+        /// <summary>Magic val option.</summary>
         MagicVal = unchecked((int)(0x42FD0000)),
-        /// <summary>MaxDim</summary>
+        /// <summary>Max dim option.</summary>
         MaxDim = 32,
-        /// <summary>HashScale</summary>
+        /// <summary>Hash scale option.</summary>
         HashScale = unchecked((int)(0x5bd1e995)),
-        /// <summary>HashBit</summary>
+        /// <summary>Hash bit option.</summary>
         HashBit = unchecked((int)(0x80000000)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies termination criteria types for iterative algorithms.
     /// </summary>
     public enum TermCriteriaType : int
     {
-        /// <summary>Count</summary>
+        /// <summary>Count option.</summary>
         Count = 1,
-        /// <summary>MaxIter</summary>
+        /// <summary>Max iter option.</summary>
         MaxIter = unchecked((int)(Count)),
-        /// <summary>Eps</summary>
+        /// <summary>Eps option.</summary>
         Eps = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum12 U Mat.
     /// </summary>
     public enum UnnamedEnum12UMat : int
     {
-        /// <summary>MagicMask</summary>
+        /// <summary>Magic mask option.</summary>
         MagicMask = unchecked((int)(0xFFFF0000)),
-        /// <summary>TypeMask</summary>
+        /// <summary>Type mask option.</summary>
         TypeMask = unchecked((int)(0x00000FFF)),
-        /// <summary>DepthMask</summary>
+        /// <summary>Depth mask option.</summary>
         DepthMask = 7,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Internal memory allocation flags for UMat.
     /// </summary>
     public enum UMatDataMemoryFlag : int
     {
-        /// <summary>CopyOnMap</summary>
+        /// <summary>Copy on map option.</summary>
         CopyOnMap = 1,
-        /// <summary>HostCopyObsolete</summary>
+        /// <summary>Host copy obsolete option.</summary>
         HostCopyObsolete = 2,
-        /// <summary>DeviceCopyObsolete</summary>
+        /// <summary>Device copy obsolete option.</summary>
         DeviceCopyObsolete = 4,
-        /// <summary>TempUmat</summary>
+        /// <summary>Temp umat option.</summary>
         TempUmat = 8,
-        /// <summary>TempCopiedUmat</summary>
+        /// <summary>Temp copied umat option.</summary>
         TempCopiedUmat = 24,
-        /// <summary>UserAllocated</summary>
+        /// <summary>User allocated option.</summary>
         UserAllocated = 32,
-        /// <summary>DeviceMemMapped</summary>
+        /// <summary>Device mem mapped option.</summary>
         DeviceMemMapped = 64,
-        /// <summary>AsyncCleanup</summary>
+        /// <summary>Async cleanup option.</summary>
         AsyncCleanup = 128,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Usage hints for Unified Matrix allocation.
     /// </summary>
     public enum UMatUsageFlags : int
     {
-        /// <summary>UsageDefault</summary>
+        /// <summary>Usage default option.</summary>
         UsageDefault = 0,
-        /// <summary>UsageAllocateHostMemory</summary>
+        /// <summary>Usage allocate host memory option.</summary>
         UsageAllocateHostMemory = unchecked((int)(1 << 0)),
-        /// <summary>UsageAllocateDeviceMemory</summary>
+        /// <summary>Usage allocate device memory option.</summary>
         UsageAllocateDeviceMemory = unchecked((int)(1 << 1)),
-        /// <summary>UsageAllocateSharedMemory</summary>
+        /// <summary>Usage allocate shared memory option.</summary>
         UsageAllocateSharedMemory = unchecked((int)(1 << 2)),
-        /// <summary>UmatUsageFlags32bit</summary>
+        /// <summary>Umat usage flags32bit option.</summary>
         UmatUsageFlags32bit = unchecked((int)(0x7fffffff)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Identifies the underlying container type of an InputArray.
     /// </summary>
     public enum InputArrayKindFlag : int
     {
-        /// <summary>KindShift</summary>
+        /// <summary>Kind shift option.</summary>
         KindShift = 16,
-        /// <summary>FixedType</summary>
+        /// <summary>Fixed type option.</summary>
         FixedType = unchecked((int)(0x8000 << KindShift)),
-        /// <summary>FixedSize</summary>
+        /// <summary>Fixed size option.</summary>
         FixedSize = unchecked((int)(0x4000 << KindShift)),
-        /// <summary>KindMask</summary>
+        /// <summary>Kind mask option.</summary>
         KindMask = unchecked((int)(31 << KindShift)),
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = unchecked((int)(0 << KindShift)),
-        /// <summary>Mat</summary>
+        /// <summary>Mat option.</summary>
         Mat = unchecked((int)(1 << KindShift)),
-        /// <summary>Matx</summary>
+        /// <summary>Matx option.</summary>
         Matx = unchecked((int)(2 << KindShift)),
-        /// <summary>StdVector</summary>
+        /// <summary>Std vector option.</summary>
         StdVector = unchecked((int)(3 << KindShift)),
-        /// <summary>StdVectorVector</summary>
+        /// <summary>Std vector vector option.</summary>
         StdVectorVector = unchecked((int)(4 << KindShift)),
-        /// <summary>StdVectorMat</summary>
+        /// <summary>Std vector mat option.</summary>
         StdVectorMat = unchecked((int)(5 << KindShift)),
-        /// <summary>OpenglBuffer</summary>
+        /// <summary>Opengl buffer option.</summary>
         OpenglBuffer = unchecked((int)(7 << KindShift)),
-        /// <summary>CudaHostMem</summary>
+        /// <summary>Cuda host mem option.</summary>
         CudaHostMem = unchecked((int)(8 << KindShift)),
-        /// <summary>CudaGpuMat</summary>
+        /// <summary>Cuda gpu mat option.</summary>
         CudaGpuMat = unchecked((int)(9 << KindShift)),
-        /// <summary>Umat</summary>
+        /// <summary>Umat option.</summary>
         Umat = unchecked((int)(10 << KindShift)),
-        /// <summary>StdVectorUmat</summary>
+        /// <summary>Std vector umat option.</summary>
         StdVectorUmat = unchecked((int)(11 << KindShift)),
-        /// <summary>StdBoolVector</summary>
+        /// <summary>Std bool vector option.</summary>
         StdBoolVector = unchecked((int)(12 << KindShift)),
-        /// <summary>StdVectorCudaGpuMat</summary>
+        /// <summary>Std vector cuda gpu mat option.</summary>
         StdVectorCudaGpuMat = unchecked((int)(13 << KindShift)),
-        /// <summary>StdArrayMat</summary>
+        /// <summary>Std array mat option.</summary>
         StdArrayMat = unchecked((int)(15 << KindShift)),
-        /// <summary>CudaGpuMatnd</summary>
+        /// <summary>Cuda gpu matnd option.</summary>
         CudaGpuMatnd = unchecked((int)(16 << KindShift)),
-        /// <summary>StdVectorCudaGpuMatNd</summary>
+        /// <summary>Std vector cuda gpu mat nd option.</summary>
         StdVectorCudaGpuMatNd = unchecked((int)(17 << KindShift)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Bitmask specifying acceptable output array depths.
     /// </summary>
     public enum OutputArrayDepthMask : int
     {
-        /// <summary>_8u</summary>
+        /// <summary>_8u option.</summary>
         _8u = unchecked((int)(1 << 0)),
-        /// <summary>_8s</summary>
+        /// <summary>_8s option.</summary>
         _8s = unchecked((int)(1 << 1)),
-        /// <summary>_16u</summary>
+        /// <summary>_16u option.</summary>
         _16u = unchecked((int)(1 << 2)),
-        /// <summary>_16s</summary>
+        /// <summary>_16s option.</summary>
         _16s = unchecked((int)(1 << 3)),
-        /// <summary>_32s</summary>
+        /// <summary>_32s option.</summary>
         _32s = unchecked((int)(1 << 4)),
-        /// <summary>_32f</summary>
+        /// <summary>_32f option.</summary>
         _32f = unchecked((int)(1 << 5)),
-        /// <summary>_64f</summary>
+        /// <summary>_64f option.</summary>
         _64f = unchecked((int)(1 << 6)),
-        /// <summary>_16f</summary>
+        /// <summary>_16f option.</summary>
         _16f = unchecked((int)(1 << 7)),
-        /// <summary>_16bf</summary>
+        /// <summary>_16bf option.</summary>
         _16bf = unchecked((int)(1 << 8)),
-        /// <summary>Bool</summary>
+        /// <summary>Bool option.</summary>
         Bool = unchecked((int)(1 << 9)),
-        /// <summary>_64u</summary>
+        /// <summary>_64u option.</summary>
         _64u = unchecked((int)(1 << 10)),
-        /// <summary>_64s</summary>
+        /// <summary>_64s option.</summary>
         _64s = unchecked((int)(1 << 11)),
-        /// <summary>_32u</summary>
+        /// <summary>_32u option.</summary>
         _32u = unchecked((int)(1 << 12)),
-        /// <summary>All</summary>
+        /// <summary>All option.</summary>
         All = unchecked((int)(1 << 13 - 1)),
-        /// <summary>AllBut8s</summary>
+        /// <summary>All but8s option.</summary>
         AllBut8s = unchecked((int)(All & ~_8s)),
-        /// <summary>All16f</summary>
+        /// <summary>All16f option.</summary>
         All16f = unchecked((int)(All)),
-        /// <summary>Flt</summary>
+        /// <summary>Flt option.</summary>
         Flt = unchecked((int)(_32f + _64f)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Cuda Device Info Compute Mode.
     /// </summary>
     public enum CudaDeviceInfoComputeMode : int
     {
-        /// <summary>ComputeModeDefault</summary>
+        /// <summary>Compute mode default option.</summary>
         ComputeModeDefault = 0,
-        /// <summary>ComputeModeExclusive</summary>
+        /// <summary>Compute mode exclusive option.</summary>
         ComputeModeExclusive = 1,
-        /// <summary>ComputeModeProhibited</summary>
+        /// <summary>Compute mode prohibited option.</summary>
         ComputeModeProhibited = 2,
-        /// <summary>ComputeModeExclusiveProcess</summary>
+        /// <summary>Compute mode exclusive process option.</summary>
         ComputeModeExclusiveProcess = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Cuda Event Create Flags.
     /// </summary>
     public enum CudaEventCreateFlags : int
     {
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = unchecked((int)(0x00)),
-        /// <summary>BlockingSync</summary>
+        /// <summary>Blocking sync option.</summary>
         BlockingSync = unchecked((int)(0x01)),
-        /// <summary>DisableTiming</summary>
+        /// <summary>Disable timing option.</summary>
         DisableTiming = unchecked((int)(0x02)),
-        /// <summary>Interprocess</summary>
+        /// <summary>Interprocess option.</summary>
         Interprocess = unchecked((int)(0x04)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Cuda Feature Set.
     /// </summary>
     public enum CudaFeatureSet : int
     {
-        /// <summary>FeatureSetCompute10</summary>
+        /// <summary>Feature set compute10 option.</summary>
         FeatureSetCompute10 = 10,
-        /// <summary>FeatureSetCompute11</summary>
+        /// <summary>Feature set compute11 option.</summary>
         FeatureSetCompute11 = 11,
-        /// <summary>FeatureSetCompute12</summary>
+        /// <summary>Feature set compute12 option.</summary>
         FeatureSetCompute12 = 12,
-        /// <summary>FeatureSetCompute13</summary>
+        /// <summary>Feature set compute13 option.</summary>
         FeatureSetCompute13 = 13,
-        /// <summary>FeatureSetCompute20</summary>
+        /// <summary>Feature set compute20 option.</summary>
         FeatureSetCompute20 = 20,
-        /// <summary>FeatureSetCompute21</summary>
+        /// <summary>Feature set compute21 option.</summary>
         FeatureSetCompute21 = 21,
-        /// <summary>FeatureSetCompute30</summary>
+        /// <summary>Feature set compute30 option.</summary>
         FeatureSetCompute30 = 30,
-        /// <summary>FeatureSetCompute32</summary>
+        /// <summary>Feature set compute32 option.</summary>
         FeatureSetCompute32 = 32,
-        /// <summary>FeatureSetCompute35</summary>
+        /// <summary>Feature set compute35 option.</summary>
         FeatureSetCompute35 = 35,
-        /// <summary>FeatureSetCompute50</summary>
+        /// <summary>Feature set compute50 option.</summary>
         FeatureSetCompute50 = 50,
-        /// <summary>GlobalAtomics</summary>
+        /// <summary>Global atomics option.</summary>
         GlobalAtomics = unchecked((int)(FeatureSetCompute11)),
-        /// <summary>SharedAtomics</summary>
+        /// <summary>Shared atomics option.</summary>
         SharedAtomics = unchecked((int)(FeatureSetCompute12)),
-        /// <summary>NativeDouble</summary>
+        /// <summary>Native double option.</summary>
         NativeDouble = unchecked((int)(FeatureSetCompute13)),
-        /// <summary>WarpShuffleFunctions</summary>
+        /// <summary>Warp shuffle functions option.</summary>
         WarpShuffleFunctions = unchecked((int)(FeatureSetCompute30)),
-        /// <summary>DynamicParallelism</summary>
+        /// <summary>Dynamic parallelism option.</summary>
         DynamicParallelism = unchecked((int)(FeatureSetCompute35)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Cuda Host Mem Alloc Type.
     /// </summary>
     public enum CudaHostMemAllocType : int
     {
-        /// <summary>PageLocked</summary>
+        /// <summary>Page locked option.</summary>
         PageLocked = 1,
-        /// <summary>Shared</summary>
+        /// <summary>Shared option.</summary>
         Shared = 2,
-        /// <summary>WriteCombined</summary>
+        /// <summary>Write combined option.</summary>
         WriteCombined = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Detail Test Op.
     /// </summary>
     public enum DetailTestOp : int
     {
-        /// <summary>Custom</summary>
+        /// <summary>Custom option.</summary>
         Custom = 0,
-        /// <summary>Eq</summary>
+        /// <summary>Eq option.</summary>
         Eq = 1,
-        /// <summary>Ne</summary>
+        /// <summary>Ne option.</summary>
         Ne = 2,
-        /// <summary>Le</summary>
+        /// <summary>Le option.</summary>
         Le = 3,
-        /// <summary>Lt</summary>
+        /// <summary>Lt option.</summary>
         Lt = 4,
-        /// <summary>Ge</summary>
+        /// <summary>Ge option.</summary>
         Ge = 5,
-        /// <summary>Gt</summary>
+        /// <summary>Gt option.</summary>
         Gt = 6,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Instr Flags.
     /// </summary>
     public enum InstrFlags : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Mapping</summary>
+        /// <summary>Mapping option.</summary>
         Mapping = unchecked((int)(0x01)),
-        /// <summary>ExpandSameNames</summary>
+        /// <summary>Expand same names option.</summary>
         ExpandSameNames = unchecked((int)(0x02)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Instr Impl.
     /// </summary>
     public enum InstrImpl : int
     {
-        /// <summary>Plain</summary>
+        /// <summary>Plain option.</summary>
         Plain = 0,
-        /// <summary>Ipp</summary>
+        /// <summary>Ipp option.</summary>
         Ipp = unchecked((int)(0 + 1)),
-        /// <summary>Opencl</summary>
+        /// <summary>Opencl option.</summary>
         Opencl = unchecked((int)(0 + 2)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Instr Type.
     /// </summary>
     public enum InstrType : int
     {
-        /// <summary>General</summary>
+        /// <summary>General option.</summary>
         General = 0,
-        /// <summary>Marker</summary>
+        /// <summary>Marker option.</summary>
         Marker = unchecked((int)(0 + 1)),
-        /// <summary>Wrapper</summary>
+        /// <summary>Wrapper option.</summary>
         Wrapper = unchecked((int)(0 + 2)),
-        /// <summary>Fun</summary>
+        /// <summary>Fun option.</summary>
         Fun = unchecked((int)(0 + 3)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum17 Ocl Device.
     /// </summary>
     public enum UnnamedEnum17OclDevice : int
     {
-        /// <summary>UnknownVendor</summary>
+        /// <summary>Unknown vendor option.</summary>
         UnknownVendor = 0,
-        /// <summary>VendorAmd</summary>
+        /// <summary>Vendor amd option.</summary>
         VendorAmd = 1,
-        /// <summary>VendorIntel</summary>
+        /// <summary>Vendor intel option.</summary>
         VendorIntel = 2,
-        /// <summary>VendorNvidia</summary>
+        /// <summary>Vendor nvidia option.</summary>
         VendorNvidia = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum18 Ocl Kernel Arg.
     /// </summary>
     public enum UnnamedEnum18OclKernelArg : int
     {
-        /// <summary>Local</summary>
+        /// <summary>Local option.</summary>
         Local = 1,
-        /// <summary>ReadOnly</summary>
+        /// <summary>Read only option.</summary>
         ReadOnly = 2,
-        /// <summary>WriteOnly</summary>
+        /// <summary>Write only option.</summary>
         WriteOnly = 4,
-        /// <summary>ReadWrite</summary>
+        /// <summary>Read write option.</summary>
         ReadWrite = 6,
-        /// <summary>Constant</summary>
+        /// <summary>Constant option.</summary>
         Constant = 8,
-        /// <summary>PtrOnly</summary>
+        /// <summary>Ptr only option.</summary>
         PtrOnly = 16,
-        /// <summary>NoSize</summary>
+        /// <summary>No size option.</summary>
         NoSize = 256,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Ocl Ocl Vector Strategy.
     /// </summary>
     public enum OclOclVectorStrategy : int
     {
-        /// <summary>Own</summary>
+        /// <summary>Own option.</summary>
         Own = 0,
-        /// <summary>Max</summary>
+        /// <summary>Max option.</summary>
         Max = 1,
-        /// <summary>Default</summary>
+        /// <summary>Default option.</summary>
         Default = unchecked((int)(Own)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Ogl Buffer Access.
     /// </summary>
     public enum OglBufferAccess : int
     {
-        /// <summary>ReadOnly</summary>
+        /// <summary>Read only option.</summary>
         ReadOnly = unchecked((int)(0x88B8)),
-        /// <summary>WriteOnly</summary>
+        /// <summary>Write only option.</summary>
         WriteOnly = unchecked((int)(0x88B9)),
-        /// <summary>ReadWrite</summary>
+        /// <summary>Read write option.</summary>
         ReadWrite = unchecked((int)(0x88BA)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Ogl Buffer Target.
     /// </summary>
     public enum OglBufferTarget : int
     {
-        /// <summary>ArrayBuffer</summary>
+        /// <summary>Array buffer option.</summary>
         ArrayBuffer = unchecked((int)(0x8892)),
-        /// <summary>ElementArrayBuffer</summary>
+        /// <summary>Element array buffer option.</summary>
         ElementArrayBuffer = unchecked((int)(0x8893)),
-        /// <summary>PixelPackBuffer</summary>
+        /// <summary>Pixel pack buffer option.</summary>
         PixelPackBuffer = unchecked((int)(0x88EB)),
-        /// <summary>PixelUnpackBuffer</summary>
+        /// <summary>Pixel unpack buffer option.</summary>
         PixelUnpackBuffer = unchecked((int)(0x88EC)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Ogl Render Modes.
     /// </summary>
     public enum OglRenderModes : int
     {
-        /// <summary>Points</summary>
+        /// <summary>Points option.</summary>
         Points = unchecked((int)(0x0000)),
-        /// <summary>Lines</summary>
+        /// <summary>Lines option.</summary>
         Lines = unchecked((int)(0x0001)),
-        /// <summary>LineLoop</summary>
+        /// <summary>Line loop option.</summary>
         LineLoop = unchecked((int)(0x0002)),
-        /// <summary>LineStrip</summary>
+        /// <summary>Line strip option.</summary>
         LineStrip = unchecked((int)(0x0003)),
-        /// <summary>Triangles</summary>
+        /// <summary>Triangles option.</summary>
         Triangles = unchecked((int)(0x0004)),
-        /// <summary>TriangleStrip</summary>
+        /// <summary>Triangle strip option.</summary>
         TriangleStrip = unchecked((int)(0x0005)),
-        /// <summary>TriangleFan</summary>
+        /// <summary>Triangle fan option.</summary>
         TriangleFan = unchecked((int)(0x0006)),
-        /// <summary>Quads</summary>
+        /// <summary>Quads option.</summary>
         Quads = unchecked((int)(0x0007)),
-        /// <summary>QuadStrip</summary>
+        /// <summary>Quad strip option.</summary>
         QuadStrip = unchecked((int)(0x0008)),
-        /// <summary>Polygon</summary>
+        /// <summary>Polygon option.</summary>
         Polygon = unchecked((int)(0x0009)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Ogl Texture2 D Format.
     /// </summary>
     public enum OglTexture2DFormat : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>DepthComponent</summary>
+        /// <summary>Depth component option.</summary>
         DepthComponent = unchecked((int)(0x1902)),
-        /// <summary>Rgb</summary>
+        /// <summary>Rgb option.</summary>
         Rgb = unchecked((int)(0x1907)),
-        /// <summary>Rgba</summary>
+        /// <summary>Rgba option.</summary>
         Rgba = unchecked((int)(0x1908)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Utils Logging Log Level.
     /// </summary>
     public enum UtilsLoggingLogLevel : int
     {
-        /// <summary>LogLevelSilent</summary>
+        /// <summary>Log level silent option.</summary>
         LogLevelSilent = 0,
-        /// <summary>LogLevelFatal</summary>
+        /// <summary>Log level fatal option.</summary>
         LogLevelFatal = 1,
-        /// <summary>LogLevelError</summary>
+        /// <summary>Log level error option.</summary>
         LogLevelError = 2,
-        /// <summary>LogLevelWarning</summary>
+        /// <summary>Log level warning option.</summary>
         LogLevelWarning = 3,
-        /// <summary>LogLevelInfo</summary>
+        /// <summary>Log level info option.</summary>
         LogLevelInfo = 4,
-        /// <summary>LogLevelDebug</summary>
+        /// <summary>Log level debug option.</summary>
         LogLevelDebug = 5,
-        /// <summary>LogLevelVerbose</summary>
+        /// <summary>Log level verbose option.</summary>
         LogLevelVerbose = 6,
-        /// <summary>EnumLogLevelForceInt</summary>
+        /// <summary>Enum log level force int option.</summary>
         EnumLogLevelForceInt = 2147483647,
     }
 

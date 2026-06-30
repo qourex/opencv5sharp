@@ -43,6 +43,7 @@ RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-p
     && apt-get update && apt-get install -y --no-install-recommends \
     dotnet-sdk-8.0 \
     dotnet-sdk-9.0 \
+    dotnet-sdk-10.0 \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Setup workdir

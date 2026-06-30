@@ -300,6 +300,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Mat? ReadOpticalFlow(string path)
         {
+                if (path == null) throw new ArgumentNullException(nameof(path));
             IntPtr res = NativeMethods.cv_readOpticalFlow_0(path);
             ErrorHelper.CheckError();
             return res == IntPtr.Zero ? null : new Mat(res);
@@ -315,6 +316,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static bool WriteOpticalFlow(string path, Mat flow)
         {
+                if (path == null) throw new ArgumentNullException(nameof(path));
             var res = NativeMethods.cv_writeOpticalFlow_0(path, ValidationHelper.GetHandle(flow, nameof(flow), false));
             ErrorHelper.CheckError();
             return res;

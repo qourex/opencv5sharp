@@ -6,217 +6,217 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies distance metrics for distance transform and clustering.
     /// </summary>
     public enum DistanceTypes : int
     {
-        /// <summary>User</summary>
+        /// <summary>User option.</summary>
         User = -1,
-        /// <summary>L1</summary>
+        /// <summary>L1 option.</summary>
         L1 = 1,
-        /// <summary>L2</summary>
+        /// <summary>L2 option.</summary>
         L2 = 2,
-        /// <summary>C</summary>
+        /// <summary>C option.</summary>
         C = 3,
-        /// <summary>L12</summary>
+        /// <summary>L12 option.</summary>
         L12 = 4,
-        /// <summary>Fair</summary>
+        /// <summary>Fair option.</summary>
         Fair = 5,
-        /// <summary>Welsch</summary>
+        /// <summary>Welsch option.</summary>
         Welsch = 6,
-        /// <summary>Huber</summary>
+        /// <summary>Huber option.</summary>
         Huber = 7,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Local Optim Method.
     /// </summary>
     public enum LocalOptimMethod : int
     {
-        /// <summary>Null</summary>
+        /// <summary>Null option.</summary>
         Null = 0,
-        /// <summary>InnerLo</summary>
+        /// <summary>Inner lo option.</summary>
         InnerLo = 1,
-        /// <summary>InnerAndIterLo</summary>
+        /// <summary>Inner and iter lo option.</summary>
         InnerAndIterLo = 2,
-        /// <summary>Gc</summary>
+        /// <summary>Gc option.</summary>
         Gc = 3,
-        /// <summary>Sigma</summary>
+        /// <summary>Sigma option.</summary>
         Sigma = 4,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for M S T Algorithm.
     /// </summary>
     public enum MSTAlgorithm : int
     {
-        /// <summary>Prim</summary>
+        /// <summary>Prim option.</summary>
         Prim = 0,
-        /// <summary>Kruskal</summary>
+        /// <summary>Kruskal option.</summary>
         Kruskal = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Matrix Type.
     /// </summary>
     public enum MatrixType : int
     {
-        /// <summary>Auto</summary>
+        /// <summary>Auto option.</summary>
         Auto = 0,
-        /// <summary>Dense</summary>
+        /// <summary>Dense option.</summary>
         Dense = 1,
-        /// <summary>Sparse</summary>
+        /// <summary>Sparse option.</summary>
         Sparse = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Neighbor Search Method.
     /// </summary>
     public enum NeighborSearchMethod : int
     {
-        /// <summary>FlannKnn</summary>
+        /// <summary>Flann knn option.</summary>
         FlannKnn = 0,
-        /// <summary>Grid</summary>
+        /// <summary>Grid option.</summary>
         Grid = 1,
-        /// <summary>FlannRadius</summary>
+        /// <summary>Flann radius option.</summary>
         FlannRadius = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Polishing Method.
     /// </summary>
     public enum PolishingMethod : int
     {
-        /// <summary>NonePolisher</summary>
+        /// <summary>None polisher option.</summary>
         NonePolisher = 0,
-        /// <summary>LsqPolisher</summary>
+        /// <summary>Lsq polisher option.</summary>
         LsqPolisher = 1,
-        /// <summary>Magsac</summary>
+        /// <summary>Magsac option.</summary>
         Magsac = 2,
-        /// <summary>CovPolisher</summary>
+        /// <summary>Cov polisher option.</summary>
         CovPolisher = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies intersection relationships between rectangles.
     /// </summary>
     public enum RectanglesIntersectTypes : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Partial</summary>
+        /// <summary>Partial option.</summary>
         Partial = 1,
-        /// <summary>Full</summary>
+        /// <summary>Full option.</summary>
         Full = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Sac Method.
     /// </summary>
     public enum SacMethod : int
     {
-        /// <summary>SacMethodRansac</summary>
+        /// <summary>Sac method ransac option.</summary>
         SacMethodRansac = 0,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Sac Model Type.
     /// </summary>
     public enum SacModelType : int
     {
-        /// <summary>Plane</summary>
+        /// <summary>Plane option.</summary>
         Plane = 0,
-        /// <summary>Sphere</summary>
+        /// <summary>Sphere option.</summary>
         Sphere = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Sampling Method.
     /// </summary>
     public enum SamplingMethod : int
     {
-        /// <summary>Uniform</summary>
+        /// <summary>Uniform option.</summary>
         Uniform = 0,
-        /// <summary>ProgressiveNapsac</summary>
+        /// <summary>Progressive napsac option.</summary>
         ProgressiveNapsac = 1,
-        /// <summary>Napsac</summary>
+        /// <summary>Napsac option.</summary>
         Napsac = 2,
-        /// <summary>Prosac</summary>
+        /// <summary>Prosac option.</summary>
         Prosac = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Score Method.
     /// </summary>
     public enum ScoreMethod : int
     {
-        /// <summary>Ransac</summary>
+        /// <summary>Ransac option.</summary>
         Ransac = 0,
-        /// <summary>Msac</summary>
+        /// <summary>Msac option.</summary>
         Msac = 1,
-        /// <summary>Magsac</summary>
+        /// <summary>Magsac option.</summary>
         Magsac = 2,
-        /// <summary>Lmeds</summary>
+        /// <summary>Lmeds option.</summary>
         Lmeds = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Solve Pn P Method.
     /// </summary>
     public enum SolvePnPMethod : int
     {
-        /// <summary>Iterative</summary>
+        /// <summary>Iterative option.</summary>
         Iterative = 0,
-        /// <summary>Epnp</summary>
+        /// <summary>Epnp option.</summary>
         Epnp = 1,
-        /// <summary>P3p</summary>
+        /// <summary>P3p option.</summary>
         P3p = 2,
-        /// <summary>Ap3p</summary>
+        /// <summary>Ap3p option.</summary>
         Ap3p = 3,
-        /// <summary>Ippe</summary>
+        /// <summary>Ippe option.</summary>
         Ippe = 4,
-        /// <summary>IppeSquare</summary>
+        /// <summary>Ippe square option.</summary>
         IppeSquare = 5,
-        /// <summary>Sqpnp</summary>
+        /// <summary>Sqpnp option.</summary>
         Sqpnp = 6,
-        /// <summary>MaxCount</summary>
+        /// <summary>Max count option.</summary>
         MaxCount = unchecked((int)(6 + 1)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum11 Subdiv2 D.
     /// </summary>
     public enum UnnamedEnum11Subdiv2D : int
     {
-        /// <summary>NextAroundOrg</summary>
+        /// <summary>Next around org option.</summary>
         NextAroundOrg = unchecked((int)(0x00)),
-        /// <summary>NextAroundDst</summary>
+        /// <summary>Next around dst option.</summary>
         NextAroundDst = unchecked((int)(0x22)),
-        /// <summary>PrevAroundOrg</summary>
+        /// <summary>Prev around org option.</summary>
         PrevAroundOrg = unchecked((int)(0x11)),
-        /// <summary>PrevAroundDst</summary>
+        /// <summary>Prev around dst option.</summary>
         PrevAroundDst = unchecked((int)(0x33)),
-        /// <summary>NextAroundLeft</summary>
+        /// <summary>Next around left option.</summary>
         NextAroundLeft = unchecked((int)(0x13)),
-        /// <summary>NextAroundRight</summary>
+        /// <summary>Next around right option.</summary>
         NextAroundRight = unchecked((int)(0x31)),
-        /// <summary>PrevAroundLeft</summary>
+        /// <summary>Prev around left option.</summary>
         PrevAroundLeft = unchecked((int)(0x20)),
-        /// <summary>PrevAroundRight</summary>
+        /// <summary>Prev around right option.</summary>
         PrevAroundRight = unchecked((int)(0x02)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Variable Type.
     /// </summary>
     public enum VariableType : int
     {
-        /// <summary>Linear</summary>
+        /// <summary>Linear option.</summary>
         Linear = 0,
-        /// <summary>So3</summary>
+        /// <summary>So3 option.</summary>
         So3 = 1,
-        /// <summary>Se3</summary>
+        /// <summary>Se3 option.</summary>
         Se3 = 2,
     }
 

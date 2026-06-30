@@ -7,8 +7,8 @@ This guide will help you get your environment set up and outline our development
 ## Development Environment Setup
 
 ### Prerequisites
-- **Windows 10/11 x64**
-- **.NET SDK 8.0+** (or 9.0+)
+- **Windows 10/11 x64** (primary), **Linux x64**, or **macOS x64/ARM64**
+- **.NET SDK 8.0+** (supports 8.0, 9.0, and 10.0)
 - **Python 3.8+** (for the binding generator)
 - **Visual Studio 2022** with the "Desktop development with C++" workload
   (for compiling the native DLL)
@@ -43,15 +43,17 @@ changes will be overwritten on the next generation run.
 - `src/OpenCV5Sharp.Native/opencv5sharp_native.h`
 
 ### Hand-written files (safe to edit):
+- `src/OpenCV5Sharp/DisposableOpenCVObject.cs`
 - `src/OpenCV5Sharp/OpenCVException.cs`
 - `src/OpenCV5Sharp/AssemblyInfo.cs`
 - `src/OpenCV5Sharp/PlatformGuard.cs`
+- `src/OpenCV5Sharp/Extensions/*.cs`
 - `src/OpenCV5Sharp.Generator/generator.py`
 - All test and sample files
 
 ### Regenerating bindings
 ```bash
-py src/OpenCV5Sharp.Generator/generator.py
+py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir .
 ```
 
 ## Branch Naming Convention
@@ -91,11 +93,19 @@ git commit -s -m "feat: add new feature"
 
 ## Testing Requirements
 
-Before submitting a PR:
-1. Ensure `dotnet build` succeeds with zero warnings.
-2. Ensure all existing tests pass.
-3. Add tests for any new functionality.
-4. If modifying the generator, regenerate and verify the output compiles.
+OpenCV5Sharp has a comprehensive test suite (602 unique test cases executing 1,204 runs across .NET 8.0 and .NET 9.0) located in `tests/OpenCV5Sharp.Tests/`. The tests cover:
+- Core Memory layout (data alignment, row-stride safety).
+- Image Processing (color space grids, morphology, thresholding, filtering, resizing).
+- Extended algorithms (DNN models, keypoint descriptors, camera chessboards, and StereoBM).
+- P/Invoke calling conventions and native exceptions.
+- CUDA GPU acceleration (CudaGpuMat, streams, and device information).
+
+Before submitting a Pull Request:
+1. Ensure `dotnet build` succeeds with zero warnings and zero errors.
+2. Run the test suite: `dotnet test` (GPU-specific tests will safely auto-skip if a CUDA card or driver is missing, keeping the suite green).
+3. Ensure all tests pass.
+4. Add unit tests for any new functionality you introduce, utilizing data-driven parameterized tests (`[Theory]`) where applicable.
+5. If modifying the generator, regenerate and verify that the output compiles cleanly.
 
 ## Pull Request Process
 
@@ -118,4 +128,5 @@ When reporting bugs, please include:
 ## License
 
 By contributing, you agree that your contributions will be licensed under the
-Apache License 2.0.
+Apache License 2.0. Note that bundled FFmpeg binaries are distributed under the
+GNU LGPL v2.1 or later.

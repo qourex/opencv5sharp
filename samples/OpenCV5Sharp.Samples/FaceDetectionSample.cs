@@ -42,7 +42,20 @@ namespace OpenCV5Sharp.Samples
                     if (width <= 0) width = 640;
                     if (height <= 0) height = 480;
 
-                    using (var detector = FaceDetectorYN.Create(ModelPath, "", new Size((int)width, (int)height), 0.6f, 0.3f, 5000, 0, 0))
+                    int backend = 0;
+                    int target = 0;
+                    try
+                    {
+                        if (Cv2.CudaGetCudaEnabledDeviceCount() > 0)
+                        {
+                            backend = (int)DnnBackend.Cuda;
+                            target = (int)DnnTarget.Cuda;
+                            Console.WriteLine("   CUDA detected! Enabling GPU acceleration for FaceDetectorYN...");
+                        }
+                    }
+                    catch { }
+
+                    using (var detector = FaceDetectorYN.Create(ModelPath, "", new Size((int)width, (int)height), 0.6f, 0.3f, 5000, backend, target))
                     {
                         if (detector == null)
                         {
@@ -107,7 +120,20 @@ namespace OpenCV5Sharp.Samples
                     return;
                 }
 
-                using (var detector = FaceDetectorYN.Create(ModelPath, "", new Size(img.Cols, img.Rows), 0.5f, 0.3f, 5000, 0, 0))
+                int backend = 0;
+                int target = 0;
+                try
+                {
+                    if (Cv2.CudaGetCudaEnabledDeviceCount() > 0)
+                    {
+                        backend = (int)DnnBackend.Cuda;
+                        target = (int)DnnTarget.Cuda;
+                        Console.WriteLine("   CUDA detected! Enabling GPU acceleration for FaceDetectorYN...");
+                    }
+                }
+                catch { }
+
+                using (var detector = FaceDetectorYN.Create(ModelPath, "", new Size(img.Cols, img.Rows), 0.5f, 0.3f, 5000, backend, target))
                 {
                     if (detector == null)
                     {

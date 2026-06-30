@@ -3325,6 +3325,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static string? SamplesFindFile(string relative_path, bool required, bool silentMode)
         {
+                if (relative_path == null) throw new ArgumentNullException(nameof(relative_path));
             IntPtr res = NativeMethods.cv_samples_findFile_0(relative_path, required, silentMode);
             ErrorHelper.CheckError();
             if (res == IntPtr.Zero) return null;
@@ -3341,6 +3342,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static string? SamplesFindFileOrKeep(string relative_path, bool silentMode)
         {
+                if (relative_path == null) throw new ArgumentNullException(nameof(relative_path));
             IntPtr res = NativeMethods.cv_samples_findFileOrKeep_0(relative_path, silentMode);
             ErrorHelper.CheckError();
             if (res == IntPtr.Zero) return null;
@@ -3359,6 +3361,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SamplesAddSamplesDataSearchPath(string path)
         {
+                if (path == null) throw new ArgumentNullException(nameof(path));
             NativeMethods.cv_samples_addSamplesDataSearchPath_0(path);
             ErrorHelper.CheckError();
         }
@@ -3373,6 +3376,7 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static void SamplesAddSamplesDataSearchSubDirectory(string subdir)
         {
+                if (subdir == null) throw new ArgumentNullException(nameof(subdir));
             NativeMethods.cv_samples_addSamplesDataSearchSubDirectory_0(subdir);
             ErrorHelper.CheckError();
         }
@@ -3387,6 +3391,7 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static bool ParallelSetParallelForBackend(string backendName, bool propagateNumThreads)
         {
+                if (backendName == null) throw new ArgumentNullException(nameof(backendName));
             var res = NativeMethods.cv_parallel_setParallelForBackend_0(backendName, propagateNumThreads);
             ErrorHelper.CheckError();
             return res;

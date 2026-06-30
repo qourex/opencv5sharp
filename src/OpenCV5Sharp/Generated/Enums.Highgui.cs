@@ -7,141 +7,141 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies modifier and button state flags active during a mouse event.
     /// </summary>
     public enum MouseEventFlags : int
     {
-        /// <summary>Lbutton</summary>
+        /// <summary>Left mouse button is held down.</summary>
         Lbutton = 1,
-        /// <summary>Rbutton</summary>
+        /// <summary>Right mouse button is held down.</summary>
         Rbutton = 2,
-        /// <summary>Mbutton</summary>
+        /// <summary>Middle mouse button is held down.</summary>
         Mbutton = 4,
-        /// <summary>Ctrlkey</summary>
+        /// <summary>Ctrl key is held down.</summary>
         Ctrlkey = 8,
-        /// <summary>Shiftkey</summary>
+        /// <summary>Shift key is held down.</summary>
         Shiftkey = 16,
-        /// <summary>Altkey</summary>
+        /// <summary>Alt key is held down.</summary>
         Altkey = 32,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the type of mouse event.
     /// </summary>
     public enum MouseEventTypes : int
     {
-        /// <summary>Mousemove</summary>
+        /// <summary>Mouse pointer has moved.</summary>
         Mousemove = 0,
-        /// <summary>Lbuttondown</summary>
+        /// <summary>Left mouse button pressed down.</summary>
         Lbuttondown = 1,
-        /// <summary>Rbuttondown</summary>
+        /// <summary>Right mouse button pressed down.</summary>
         Rbuttondown = 2,
-        /// <summary>Mbuttondown</summary>
+        /// <summary>Middle mouse button pressed down.</summary>
         Mbuttondown = 3,
-        /// <summary>Lbuttonup</summary>
+        /// <summary>Left mouse button released.</summary>
         Lbuttonup = 4,
-        /// <summary>Rbuttonup</summary>
+        /// <summary>Right mouse button released.</summary>
         Rbuttonup = 5,
-        /// <summary>Mbuttonup</summary>
+        /// <summary>Middle mouse button released.</summary>
         Mbuttonup = 6,
-        /// <summary>Lbuttondblclk</summary>
+        /// <summary>Left mouse button double-clicked.</summary>
         Lbuttondblclk = 7,
-        /// <summary>Rbuttondblclk</summary>
+        /// <summary>Right mouse button double-clicked.</summary>
         Rbuttondblclk = 8,
-        /// <summary>Mbuttondblclk</summary>
+        /// <summary>Middle mouse button double-clicked.</summary>
         Mbuttondblclk = 9,
-        /// <summary>Mousewheel</summary>
+        /// <summary>Vertical mouse wheel scroll event.</summary>
         Mousewheel = 10,
-        /// <summary>Mousehwheel</summary>
+        /// <summary>Horizontal mouse wheel scroll event.</summary>
         Mousehwheel = 11,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the Qt button type for createButton.
     /// </summary>
     public enum QtButtonTypes : int
     {
-        /// <summary>PushButton</summary>
+        /// <summary>Standard push button.</summary>
         PushButton = 0,
-        /// <summary>Checkbox</summary>
+        /// <summary>Check box toggle button.</summary>
         Checkbox = 1,
-        /// <summary>Radiobox</summary>
+        /// <summary>Radio button for exclusive selection.</summary>
         Radiobox = 2,
-        /// <summary>NewButtonbar</summary>
+        /// <summary>Creates a new button bar.</summary>
         NewButtonbar = 1024,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the Qt font style.
     /// </summary>
     public enum QtFontStyles : int
     {
-        /// <summary>Normal</summary>
+        /// <summary>Normal (upright) style.</summary>
         Normal = 0,
-        /// <summary>Italic</summary>
+        /// <summary>Italic style.</summary>
         Italic = 1,
-        /// <summary>Oblique</summary>
+        /// <summary>Oblique (slanted) style.</summary>
         Oblique = 2,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the Qt font weight.
     /// </summary>
     public enum QtFontWeights : int
     {
-        /// <summary>Light</summary>
+        /// <summary>Light font weight.</summary>
         Light = 25,
-        /// <summary>Normal</summary>
+        /// <summary>Normal (upright) style.</summary>
         Normal = 50,
-        /// <summary>Demibold</summary>
+        /// <summary>Semi-bold font weight.</summary>
         Demibold = 63,
-        /// <summary>Bold</summary>
+        /// <summary>Bold font weight.</summary>
         Bold = 75,
-        /// <summary>Black</summary>
+        /// <summary>Extra-bold (black) font weight.</summary>
         Black = 87,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies window creation flags for namedWindow.
     /// </summary>
     public enum WindowFlags : int
     {
-        /// <summary>Normal</summary>
+        /// <summary>Normal window style allowing manual resizing.</summary>
         Normal = unchecked((int)(0x00000000)),
-        /// <summary>Autosize</summary>
+        /// <summary>Auto-sized to fit the displayed image.</summary>
         Autosize = unchecked((int)(0x00000001)),
-        /// <summary>Opengl</summary>
+        /// <summary>Window with OpenGL support.</summary>
         Opengl = unchecked((int)(0x00001000)),
-        /// <summary>Fullscreen</summary>
+        /// <summary>Full-screen window mode.</summary>
         Fullscreen = 1,
-        /// <summary>Freeratio</summary>
+        /// <summary>Allow free aspect ratio.</summary>
         Freeratio = unchecked((int)(0x00000100)),
-        /// <summary>Keepratio</summary>
+        /// <summary>Maintain the image aspect ratio.</summary>
         Keepratio = unchecked((int)(0x00000000)),
-        /// <summary>GuiExpanded</summary>
+        /// <summary>Expanded GUI with toolbar and status bar.</summary>
         GuiExpanded = unchecked((int)(0x00000000)),
-        /// <summary>GuiNormal</summary>
+        /// <summary>Minimal GUI without extras.</summary>
         GuiNormal = unchecked((int)(0x00000010)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies window property identifiers for getWindowProperty and setWindowProperty.
     /// </summary>
     public enum WindowPropertyFlags : int
     {
-        /// <summary>Fullscreen</summary>
+        /// <summary>Full-screen window mode.</summary>
         Fullscreen = 0,
-        /// <summary>Autosize</summary>
+        /// <summary>Auto-sized to fit the displayed image.</summary>
         Autosize = 1,
-        /// <summary>AspectRatio</summary>
+        /// <summary>Window aspect ratio property.</summary>
         AspectRatio = 2,
-        /// <summary>Opengl</summary>
+        /// <summary>Window with OpenGL support.</summary>
         Opengl = 3,
-        /// <summary>Visible</summary>
+        /// <summary>Window visibility property.</summary>
         Visible = 4,
-        /// <summary>Topmost</summary>
+        /// <summary>Window topmost (always on top) property.</summary>
         Topmost = 5,
-        /// <summary>Vsync</summary>
+        /// <summary>Vertical sync property.</summary>
         Vsync = 6,
     }
 

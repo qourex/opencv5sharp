@@ -29,7 +29,7 @@ Once the NuGet package is generated using `dotnet pack`, it can be signed using 
 
 ### Signing command:
 ```powershell
-dotnet nuget sign "src\OpenCV5Sharp\bin\Release\OpenCV5Sharp.1.0.0.nupkg" `
+dotnet nuget sign "artifacts\OpenCV5Sharp.<VERSION>.nupkg" `
   --certificate-path "path\to\your\certificate.pfx" `
   --certificate-password "your-certificate-password" `
   --timestamper "http://timestamp.digicert.com"
@@ -48,12 +48,12 @@ After signing the package, verify that the signature is valid using `dotnet nuge
 
 ### Verification command:
 ```powershell
-dotnet nuget verify "src\OpenCV5Sharp\bin\Release\OpenCV5Sharp.1.0.0.nupkg"
+dotnet nuget verify "artifacts\OpenCV5Sharp.<VERSION>.nupkg"
 ```
 
 ### Expected Output:
 ```text
-Successfully verified package 'OpenCV5Sharp.1.0.0.nupkg'.
+Successfully verified package 'OpenCV5Sharp.<VERSION>.nupkg'.
 ```
 
 ---
@@ -62,7 +62,7 @@ Successfully verified package 'OpenCV5Sharp.1.0.0.nupkg'.
 
 After verification, push the signed package to NuGet.org:
 ```powershell
-dotnet nuget push "src\OpenCV5Sharp\bin\Release\OpenCV5Sharp.1.0.0.nupkg" --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
+dotnet nuget push "artifacts\OpenCV5Sharp.<VERSION>.nupkg" --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
 ```
 
 NuGet.org will automatically validate the signature against your registered certificate.

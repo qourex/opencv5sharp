@@ -6,40 +6,40 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum8 Stereo B M.
     /// </summary>
     public enum UnnamedEnum8StereoBM : int
     {
-        /// <summary>NormalizedResponse</summary>
+        /// <summary>Normalized response option.</summary>
         NormalizedResponse = 0,
-        /// <summary>Xsobel</summary>
+        /// <summary>Xsobel option.</summary>
         Xsobel = 1,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum9 Stereo Matcher.
     /// </summary>
     public enum UnnamedEnum9StereoMatcher : int
     {
-        /// <summary>Shift</summary>
+        /// <summary>Shift option.</summary>
         Shift = 4,
-        /// <summary>Scale</summary>
+        /// <summary>Scale option.</summary>
         Scale = unchecked((int)(1 << Shift)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum10 Stereo S G B M.
     /// </summary>
     public enum UnnamedEnum10StereoSGBM : int
     {
-        /// <summary>Sgbm</summary>
+        /// <summary>Sgbm option.</summary>
         Sgbm = 0,
-        /// <summary>Hh</summary>
+        /// <summary>Hh option.</summary>
         Hh = 1,
-        /// <summary>Sgbm3way</summary>
+        /// <summary>Sgbm3way option.</summary>
         Sgbm3way = 2,
-        /// <summary>Hh4</summary>
+        /// <summary>Hh4 option.</summary>
         Hh4 = 3,
     }
 

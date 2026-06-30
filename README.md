@@ -1,204 +1,140 @@
+![OpenCV5Sharp Banner](https://raw.githubusercontent.com/qourex/opencv5sharp/main/social_card.png)
+
 # OpenCV5Sharp
 
-<p align="center">
-  <img src="social_card.png" alt="OpenCV5Sharp Banner" />
-</p>
+**by [Qourex](https://qourex.com)** — Bringing high-performance computer vision to .NET
 
-<p align="center">
-  <a href="https://github.com/qourex/opencv5sharp/actions/workflows/build.yml"><img src="https://github.com/qourex/opencv5sharp/actions/workflows/build.yml/badge.svg" alt="Build &amp; Test" /></a>
-  <a href="https://www.nuget.org/packages/OpenCV5Sharp"><img src="https://img.shields.io/nuget/v/OpenCV5Sharp.svg" alt="NuGet" /></a>
-  <a href="https://www.nuget.org/packages/OpenCV5Sharp"><img src="https://img.shields.io/nuget/dt/OpenCV5Sharp.svg" alt="NuGet Downloads" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License" /></a>
-  <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/.NET-8.0%20%7C%209.0-512BD4" alt=".NET" /></a>
-</p>
+[![Build & Test](https://github.com/qourex/opencv5sharp/actions/workflows/build.yml/badge.svg)](https://github.com/qourex/opencv5sharp/actions/workflows/build.yml)
+[![NuGet](https://img.shields.io/nuget/v/OpenCV5Sharp.svg?style=flat-square&logo=nuget&label=NuGet)](https://www.nuget.org/packages/OpenCV5Sharp)
+[![Downloads](https://img.shields.io/nuget/dt/OpenCV5Sharp.svg?style=flat-square&logo=nuget&label=Downloads)](https://www.nuget.org/packages/OpenCV5Sharp)
+[![Documentation](https://img.shields.io/badge/docs-VitePress-brightgreen.svg?style=flat-square)](https://qourex.github.io/opencv5sharp/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg?style=flat-square)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com)
+
+📖 **[Read the Documentation](https://qourex.github.io/opencv5sharp/)** for detailed guides, C# samples, and mobile deployment walkthroughs.
+🚀 **[GPU Acceleration Guide](README_GPU.md)** for CUDA-enabled development.
 
 ---
 
-**OpenCV5Sharp** is an automatic, clean C# wrapper for **OpenCV 5.0.0**.
-It parses OpenCV headers using the official OpenCV parser and generates flat C++ exports
-along with managed C# P/Invoke wrappers covering **2,600+ API methods**.
+**OpenCV5Sharp** is a production-ready C# wrapper for **OpenCV 5.x**. It provides a clean, automatic .NET API mapping of OpenCV's core computer vision algorithms.
 
-The project offers two main packages:
-- **OpenCV5Sharp** — CPU execution on Windows, Linux, macOS, Android, and iOS.
-- **OpenCV5Sharp.Gpu** — GPU-accelerated execution with NVIDIA CUDA & cuDNN on Windows and Linux.
+The project features robust `IDisposable` memory management patterns, allowing developers to write high-performance image processing, feature detection, object tracking, and deep learning pipelines in modern C# without native memory leaks.
 
-## Why OpenCV5Sharp?
+---
 
-We built **OpenCV5Sharp** because we wanted a modern, lightweight, and zero-configuration wrapper for **OpenCV 5** without the legacy overhead or setup friction of older wrappers. Our goal is to make computer vision in C# feel natural, fast, and safe on modern .NET 8.0/9.0 runtimes.
+## ❓ Why OpenCV5Sharp?
 
-## ✨ Features
+OpenCV5Sharp focuses on delivering a complete, optimized .NET developer experience:
 
-- **Complete OpenCV 5 Coverage** — 2,600+ methods across core, imgproc, videoio, highgui, features2d, calib3d, objdetect, photo, dnn, and more.
-- **Thread-Safe Memory Management** — Atomic `Interlocked.Exchange`-based disposal prevents double-free conditions in multi-threaded scenarios.
-- **Exception Boundary Protection** — Every native C++ entry point is wrapped in `try/catch` handlers. Zero raw crashes; all errors surface as managed `OpenCVException`.
-- **Zero-Configuration Bundling** — Prebuilt `opencv_world500.dll`, `opencv_videoio_ffmpeg500_64.dll`, and `opencv5sharp_native.dll` are bundled and auto-copied at build time.
-- **Multi-Target Framework Support** — Targets both .NET 8.0 (LTS) and .NET 9.0.
-- **Auto-Generated Bindings** — A Python generator ensures consistent, up-to-date wrappers directly from OpenCV headers.
-- **DLL Hijack Prevention** — `DllImportSearchPath` restriction (CWE-426 mitigation).
+- **🔌 Native .NET API Surface** — Elegant, idiomatic C# wrappers covering 2,600+ OpenCV methods.
+- **⚡ OpenCV 5 Backend** — High-performance execution powered by compiled OpenCV 5 native libraries.
+- **🎮 GPU Acceleration** — Native CUDA and cuDNN support for fast pixel manipulation and DNN runs.
+- **📱 Cross-Platform Interop** — First-class support for Windows, Linux, macOS, Android, and iOS using runtime identifiers (RIDs).
+- **🔒 Automated Memory Cleanup** — Built-in `IDisposable` wrappers that clean up unmanaged pointers deterministically.
+- **🤖 Deep Learning (DNN)** — Direct ONNX model support for face detection (YuNet) and image classification.
+- **📦 Workload Isolation** — Dynamically strips unused platform binaries to reduce mobile package size.
+- **✅ Automated Verification** — Extensive test suite validating interop methods and library layouts.
 
-## 📦 Installation
+---
 
-For standard CPU execution:
+## 🏥 Project Health
 
-```bash
-dotnet add package OpenCV5Sharp
+| Metric | Value |
+| :--- | :--- |
+| **Native Backend** | OpenCV 5.0.0 |
+| **License** | Apache-2.0 (Wrapper) / LGPL-2.1-or-later (FFmpeg) |
+| **Target Frameworks** | .NET 8.0, .NET 9.0, .NET 10.0 |
+| **Supported OS** | Windows (x64), Linux (x64), macOS (x64, ARM64), Android (ARM64), iOS (ARM64) |
+| **Languages** | C#, C++, CUDA |
+
+---
+
+## 🎯 Feature Matrix
+
+| Capability | Support |
+| :--- | :---: |
+| **Image Processing & Filtering** | ✅ |
+| **Feature & Corner Detection** | ✅ |
+| **Object Tracking & Optical Flow** | ✅ |
+| **ArUco Marker Detection** | ✅ |
+| **Image Inpainting & Restoration** | ✅ |
+| **Deep Learning Inference (DNN)** | ✅ |
+| **CUDA GPU Acceleration** | ✅ |
+| **IDisposable Memory Management** | ✅ |
+
+---
+
+## 📐 Architecture
+
+Below is a high-level overview of the library's interop layer:
+
+```mermaid
+graph TD
+    App[Application] --> SDK[OpenCV5Sharp]
+    subgraph SDK Modules
+        SDK --> Core[Core Structures: Mat, Size, Scalar]
+        SDK --> Proc[Image Processing & Transforms]
+        SDK --> Dnn[ONNX DNN Pipelines]
+        SDK --> Cuda[CUDA/cuDNN GPU Accelerators]
+        SDK --> Interop[P/Invoke C++ Wrapper: opencv5sharp_native]
+    end
+    Interop --> OpenCV[OpenCV 5 Engine: opencv_world]
 ```
 
-For GPU-accelerated execution (CUDA):
+---
 
-```bash
-dotnet add package OpenCV5Sharp.Gpu
-```
+## 💻 Quick Start
 
-Or via the NuGet Package Manager Console:
-
-```powershell
-# CPU package
-Install-Package OpenCV5Sharp
-
-# GPU package (CUDA)
-Install-Package OpenCV5Sharp.Gpu
-```
-
-## 🚀 Quick Start
+Here is a copy-pasteable example showing Canny Edge Detection:
 
 ```csharp
+using System;
 using OpenCV5Sharp;
 
-// Create a Mat, process it, and save
-using var src = Cv2.Imread("input.jpg", (int)ImreadModes.Color);
-using var dst = new Mat();
-Cv2.GaussianBlur(src, dst, new Size(5, 5), 1.5, 1.5, (int)BorderTypes.Default, AlgorithmHint.Default);
-Cv2.Imwrite("output.jpg", dst, IntPtr.Zero);
+class Program
+{
+    static void Main()
+    {
+        // 1. Load an image from disk
+        using var src = Cv2.Imread("lena.jpg", (int)ImreadModes.Color);
+        if (src == null || src.Handle == IntPtr.Zero)
+        {
+            Console.WriteLine("Could not load image.");
+            return;
+        }
+
+        // 2. Prepare workspace matrices
+        using var gray = new Mat();
+        using var edges = new Mat();
+
+        // 3. Convert to grayscale and run Canny Filter
+        Cv2.CvtColor(src, gray, (int)ColorConversionCodes.Bgr2gray, 0, AlgorithmHint.Default);
+        Cv2.Canny(gray, edges, 50, 150, 3, false);
+
+        // 4. Save the output
+        Cv2.Imwrite("edges.png", edges, IntPtr.Zero);
+        Console.WriteLine("Edge detection complete!");
+    }
+}
 ```
-
-## 🔑 Primary API Entry Points
-
-| Class | Description |
-|:---|:---|
-| `Mat` | Core matrix type — image data container with automatic memory management |
-| `Cv2` | Static entry point for 2,600+ OpenCV functions (imgproc, core, calib3d, etc.) |
-| `VideoCapture` | Video and camera input capture |
-| `CLAHE` | Contrast Limited Adaptive Histogram Equalization |
-| `Net` | DNN module — load and run deep learning models (ONNX, TensorFlow, Caffe) |
-| `QRCodeDetector` | QR code detection and decoding |
-| `CascadeClassifier` | Haar/LBP cascade-based object detection |
-
-## 💻 Supported Platforms
-
-| OS | Architecture | Status / Package |
-|:---|:---|:---|
-| **Windows 10/11** | x64 / x86 | ✅ CPU (`OpenCV5Sharp`) / GPU (`OpenCV5Sharp.Gpu`) |
-| **Linux** | x64 / ARM64 | ✅ CPU (`OpenCV5Sharp`) / GPU (`OpenCV5Sharp.Gpu`) |
-| **macOS** | ARM64 / x64 | ✅ CPU (`OpenCV5Sharp`) |
-| **Android** | ARM64 / ARM32 / x64 / x86 | ✅ CPU (`OpenCV5Sharp`) |
-| **iOS** | ARM64 / ARM32 | ✅ CPU (`OpenCV5Sharp`) |
-
-## Prerequisites
-
-- **.NET 8.0** or **.NET 9.0** SDK
-- For GPU acceleration: NVIDIA GPU + CUDA Toolkit and cuDNN.
-
-For building from source:
-- **Python 3.8+** (for the binding generator)
-- **Visual Studio 2022+** with "Desktop development with C++" workload
-- **CMake 3.12+** (optional, for CMake-based native builds)
-
-## Project Structure
-
-| Directory | Description |
-|:---|:---|
-| `src/OpenCV5Sharp/` | Managed C# library (CPU NuGet package) with generated wrappers and bundled native DLLs |
-| `src/OpenCV5Sharp.Gpu/` | Managed C# library (GPU NuGet package) with CUDA/GPU acceleration |
-| `src/OpenCV5Sharp.Generator/` | Python binding generator (`generator.py`) and shadow templates |
-| `src/OpenCV5Sharp.Native/` | C-linkage C++ wrapper code and build scripts |
-| `tests/OpenCV5Sharp.Tests/` | Test suite: core properties, pixel manipulation, exceptions, threading, Python parity |
-| `samples/OpenCV5Sharp.Samples/` | Interactive examples: Mat basics, image processing, video capture, DNN inference |
-
-## Building from Source
-
-### 1. Regenerating Bindings (Optional)
-
-If you modify the OpenCV headers or the generator script:
-
-```bash
-py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir .
-```
-
-### 2. Compiling the Native DLL
-
-```powershell
-# PowerShell (auto-detects Visual Studio)
-powershell -ExecutionPolicy Bypass -File src/OpenCV5Sharp.Native/compile.ps1
-
-# Or use CMake
-cd src/OpenCV5Sharp.Native && mkdir build && cd build
-cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-nmake
-```
-
-### 3. Building the Solution
-
-```bash
-dotnet build OpenCV5Sharp.slnx -c Release
-dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release
-```
-
-## Running Tests
-
-```bash
-dotnet test OpenCV5Sharp.slnx -c Release
-```
-
-The test suite includes 8 validation stages: memory leak detection, exception boundary
-validation, concurrency tests, and byte-for-byte Python cv2 parity checks.
-
-## Running Samples
-
-```bash
-dotnet run --project samples/OpenCV5Sharp.Samples/OpenCV5Sharp.Samples.csproj
-```
-
-For detailed coding usage and guides, see the [samples/README.md](samples/README.md).
-
-## Known Limitations
-
-- **Windows x64 only** — Linux and macOS support is planned for v1.1.
-- **Vector parameters** use raw `IntPtr` — managed vector wrappers planned for v1.1.
-- **Package size** is ~106 MB due to bundled native OpenCV binaries.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
-
-## Documentation
-
-- [ARCHITECTURE.md](ARCHITECTURE.md) — Internal architecture and design
-- [CHANGELOG.md](CHANGELOG.md) — Version history
-- [SECURITY.md](SECURITY.md) — Security policy and vulnerability reporting
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Community standards
-- [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt) — Third-party component licenses
-
-## 📬 Support & Contact
-
-- **Issues & Bugs**: [GitHub Issues](https://github.com/qourex/opencv5sharp/issues)
-- **Website**: [qourex.com](https://qourex.com)
-- **Email**: [info@qourex.com](mailto:info@qourex.com)
-
-## License
-
-Licensed under the [Apache License 2.0](LICENSE). FFmpeg components are licensed
-under [LGPL 2.1](LICENSE_FFMPEG.txt).
-
-## Trademarks
-
-"OpenCV" is a registered trademark of the OpenCV Foundation. This project is not
-affiliated with, endorsed by, or sponsored by the OpenCV Foundation or OpenCV.org.
-The use of the "OpenCV" name is purely for descriptive purposes to indicate
-compatibility with the OpenCV library.
 
 ---
 
-<p align="center">
-  Built with ❤️ by <a href="https://qourex.com">Qourex</a>
-</p>
+## 🧪 Running the Test Suite
+
+OpenCV5Sharp comes with a comprehensive test suite targeting both `.NET 8.0` and `.NET 9.0` frameworks with **602 unique test cases** (running **1,204 test runs** in total). The suite verifies memory layout padding, exception boundaries, API calling conventions, DNN model inference, and GPU calculations.
+
+To run the test suite locally:
+```bash
+dotnet test
+```
+
+*Note: CUDA GPU tests (`CudaTests.cs`) utilize dynamic device queries and will automatically skip on machines without a configured CUDA runtime, keeping the test runner green across both CPU and GPU development machines.*
+
+---
+
+## 📄 License
+
+The managed wrapper code and native compile scripts are licensed under the **Apache License, Version 2.0**.
+Bundled native FFmpeg binaries linked dynamically are licensed under the **GNU LGPL v2.1 or later**.
+See the [LICENSE](LICENSE) and [LICENSE_FFMPEG.txt](LICENSE_FFMPEG.txt) files for complete details.

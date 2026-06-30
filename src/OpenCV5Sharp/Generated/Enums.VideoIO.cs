@@ -6,391 +6,391 @@
 
 namespace OpenCV5Sharp
 {
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Unnamed Enum0.
     /// </summary>
     public enum UnnamedEnum0 : int
     {
-        /// <summary>Gray</summary>
+        /// <summary>Gray option.</summary>
         Gray = 0,
-        /// <summary>Rgba</summary>
+        /// <summary>Rgba option.</summary>
         Rgba = 1,
-        /// <summary>Bgr</summary>
+        /// <summary>Bgr option.</summary>
         Bgr = 2,
-        /// <summary>Yuv444p</summary>
+        /// <summary>Yuv444p option.</summary>
         Yuv444p = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Codecs.
     /// </summary>
     public enum Codecs : int
     {
-        /// <summary>Mjpeg</summary>
+        /// <summary>Mjpeg option.</summary>
         Mjpeg = 0,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Stream Type.
     /// </summary>
     public enum StreamType : int
     {
-        /// <summary>Db</summary>
+        /// <summary>Db option.</summary>
         Db = 0,
-        /// <summary>Dc</summary>
+        /// <summary>Dc option.</summary>
         Dc = 1,
-        /// <summary>Pc</summary>
+        /// <summary>Pc option.</summary>
         Pc = 2,
-        /// <summary>Wb</summary>
+        /// <summary>Wb option.</summary>
         Wb = 3,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Video Acceleration Type.
     /// </summary>
     public enum VideoAccelerationType : int
     {
-        /// <summary>None</summary>
+        /// <summary>None option.</summary>
         None = 0,
-        /// <summary>Any</summary>
+        /// <summary>Any option.</summary>
         Any = 1,
-        /// <summary>D3d11</summary>
+        /// <summary>D3d11 option.</summary>
         D3d11 = 2,
-        /// <summary>Vaapi</summary>
+        /// <summary>Vaapi option.</summary>
         Vaapi = 3,
-        /// <summary>Mfx</summary>
+        /// <summary>Mfx option.</summary>
         Mfx = 4,
-        /// <summary>Drm</summary>
+        /// <summary>Drm option.</summary>
         Drm = 5,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies video capture backends.
     /// </summary>
     public enum VideoCaptureAPIs : int
     {
-        /// <summary>Any</summary>
+        /// <summary>Any option.</summary>
         Any = 0,
-        /// <summary>V4l</summary>
+        /// <summary>V4l option.</summary>
         V4l = 200,
-        /// <summary>V4l2</summary>
+        /// <summary>V4l2 option.</summary>
         V4l2 = unchecked((int)(V4l)),
-        /// <summary>Firewire</summary>
+        /// <summary>Firewire option.</summary>
         Firewire = 300,
-        /// <summary>Fireware</summary>
+        /// <summary>Fireware option.</summary>
         Fireware = unchecked((int)(Firewire)),
-        /// <summary>Ieee1394</summary>
+        /// <summary>Ieee1394 option.</summary>
         Ieee1394 = unchecked((int)(Firewire)),
-        /// <summary>Dc1394</summary>
+        /// <summary>Dc1394 option.</summary>
         Dc1394 = unchecked((int)(Firewire)),
-        /// <summary>Cmu1394</summary>
+        /// <summary>Cmu1394 option.</summary>
         Cmu1394 = unchecked((int)(Firewire)),
-        /// <summary>Dshow</summary>
+        /// <summary>Dshow option.</summary>
         Dshow = 700,
-        /// <summary>Pvapi</summary>
+        /// <summary>Pvapi option.</summary>
         Pvapi = 800,
-        /// <summary>Android</summary>
+        /// <summary>Android option.</summary>
         Android = 1000,
-        /// <summary>Xiapi</summary>
+        /// <summary>Xiapi option.</summary>
         Xiapi = 1100,
-        /// <summary>Avfoundation</summary>
+        /// <summary>Avfoundation option.</summary>
         Avfoundation = 1200,
-        /// <summary>Msmf</summary>
+        /// <summary>Msmf option.</summary>
         Msmf = 1400,
-        /// <summary>Winrt</summary>
+        /// <summary>Winrt option.</summary>
         Winrt = 1410,
-        /// <summary>Intelperc</summary>
+        /// <summary>Intelperc option.</summary>
         Intelperc = 1500,
-        /// <summary>Realsense</summary>
+        /// <summary>Realsense option.</summary>
         Realsense = 1500,
-        /// <summary>Openni2</summary>
+        /// <summary>Openni2 option.</summary>
         Openni2 = 1600,
-        /// <summary>Openni2Asus</summary>
+        /// <summary>Openni2 asus option.</summary>
         Openni2Asus = 1610,
-        /// <summary>Openni2Astra</summary>
+        /// <summary>Openni2 astra option.</summary>
         Openni2Astra = 1620,
-        /// <summary>Gphoto2</summary>
+        /// <summary>Gphoto2 option.</summary>
         Gphoto2 = 1700,
-        /// <summary>Gstreamer</summary>
+        /// <summary>Gstreamer option.</summary>
         Gstreamer = 1800,
-        /// <summary>Ffmpeg</summary>
+        /// <summary>Ffmpeg option.</summary>
         Ffmpeg = 1900,
-        /// <summary>Images</summary>
+        /// <summary>Images option.</summary>
         Images = 2000,
-        /// <summary>Aravis</summary>
+        /// <summary>Aravis option.</summary>
         Aravis = 2100,
-        /// <summary>OpencvMjpeg</summary>
+        /// <summary>Opencv mjpeg option.</summary>
         OpencvMjpeg = 2200,
-        /// <summary>IntelMfx</summary>
+        /// <summary>Intel mfx option.</summary>
         IntelMfx = 2300,
-        /// <summary>Xine</summary>
+        /// <summary>Xine option.</summary>
         Xine = 2400,
-        /// <summary>Ueye</summary>
+        /// <summary>Ueye option.</summary>
         Ueye = 2500,
-        /// <summary>Obsensor</summary>
+        /// <summary>Obsensor option.</summary>
         Obsensor = 2600,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Video Capture O B Sensor Data Type.
     /// </summary>
     public enum VideoCaptureOBSensorDataType : int
     {
-        /// <summary>DepthMap</summary>
+        /// <summary>Depth map option.</summary>
         DepthMap = 0,
-        /// <summary>BgrImage</summary>
+        /// <summary>Bgr image option.</summary>
         BgrImage = 1,
-        /// <summary>IrImage</summary>
+        /// <summary>Ir image option.</summary>
         IrImage = 2,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Video Capture O B Sensor Generators.
     /// </summary>
     public enum VideoCaptureOBSensorGenerators : int
     {
-        /// <summary>DepthGenerator</summary>
+        /// <summary>Depth generator option.</summary>
         DepthGenerator = unchecked((int)(1 << 29)),
-        /// <summary>ImageGenerator</summary>
+        /// <summary>Image generator option.</summary>
         ImageGenerator = unchecked((int)(1 << 28)),
-        /// <summary>IrGenerator</summary>
+        /// <summary>Ir generator option.</summary>
         IrGenerator = unchecked((int)(1 << 27)),
-        /// <summary>GeneratorsMask</summary>
+        /// <summary>Generators mask option.</summary>
         GeneratorsMask = unchecked((int)(DepthGenerator + ImageGenerator + IrGenerator)),
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies options and constants for Video Capture O B Sensor Properties.
     /// </summary>
     public enum VideoCaptureOBSensorProperties : int
     {
-        /// <summary>IntrinsicFx</summary>
+        /// <summary>Intrinsic fx option.</summary>
         IntrinsicFx = 26001,
-        /// <summary>IntrinsicFy</summary>
+        /// <summary>Intrinsic fy option.</summary>
         IntrinsicFy = 26002,
-        /// <summary>IntrinsicCx</summary>
+        /// <summary>Intrinsic cx option.</summary>
         IntrinsicCx = 26003,
-        /// <summary>IntrinsicCy</summary>
+        /// <summary>Intrinsic cy option.</summary>
         IntrinsicCy = 26004,
-        /// <summary>RgbPosMsec</summary>
+        /// <summary>Rgb pos msec option.</summary>
         RgbPosMsec = 26005,
-        /// <summary>DepthPosMsec</summary>
+        /// <summary>Depth pos msec option.</summary>
         DepthPosMsec = 26006,
-        /// <summary>DepthWidth</summary>
+        /// <summary>Depth width option.</summary>
         DepthWidth = 26007,
-        /// <summary>DepthHeight</summary>
+        /// <summary>Depth height option.</summary>
         DepthHeight = 26008,
-        /// <summary>DepthFps</summary>
+        /// <summary>Depth fps option.</summary>
         DepthFps = 26009,
-        /// <summary>ColorDistortionK1</summary>
+        /// <summary>Color distortion k1 option.</summary>
         ColorDistortionK1 = 26010,
-        /// <summary>ColorDistortionK2</summary>
+        /// <summary>Color distortion k2 option.</summary>
         ColorDistortionK2 = 26011,
-        /// <summary>ColorDistortionK3</summary>
+        /// <summary>Color distortion k3 option.</summary>
         ColorDistortionK3 = 26012,
-        /// <summary>ColorDistortionK4</summary>
+        /// <summary>Color distortion k4 option.</summary>
         ColorDistortionK4 = 26013,
-        /// <summary>ColorDistortionK5</summary>
+        /// <summary>Color distortion k5 option.</summary>
         ColorDistortionK5 = 26014,
-        /// <summary>ColorDistortionK6</summary>
+        /// <summary>Color distortion k6 option.</summary>
         ColorDistortionK6 = 26015,
-        /// <summary>ColorDistortionP1</summary>
+        /// <summary>Color distortion p1 option.</summary>
         ColorDistortionP1 = 26016,
-        /// <summary>ColorDistortionP2</summary>
+        /// <summary>Color distortion p2 option.</summary>
         ColorDistortionP2 = 26017,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies property identifiers for video capture devices and files.
     /// </summary>
     public enum VideoCaptureProperties : int
     {
-        /// <summary>Unknown</summary>
+        /// <summary>Unknown option.</summary>
         Unknown = -1,
-        /// <summary>PosMsec</summary>
+        /// <summary>Pos msec option.</summary>
         PosMsec = 0,
-        /// <summary>PosFrames</summary>
+        /// <summary>Pos frames option.</summary>
         PosFrames = 1,
-        /// <summary>PosAviRatio</summary>
+        /// <summary>Pos avi ratio option.</summary>
         PosAviRatio = 2,
-        /// <summary>FrameWidth</summary>
+        /// <summary>Frame width option.</summary>
         FrameWidth = 3,
-        /// <summary>FrameHeight</summary>
+        /// <summary>Frame height option.</summary>
         FrameHeight = 4,
-        /// <summary>Fps</summary>
+        /// <summary>Fps option.</summary>
         Fps = 5,
-        /// <summary>Fourcc</summary>
+        /// <summary>Fourcc option.</summary>
         Fourcc = 6,
-        /// <summary>FrameCount</summary>
+        /// <summary>Frame count option.</summary>
         FrameCount = 7,
-        /// <summary>Format</summary>
+        /// <summary>Format option.</summary>
         Format = 8,
-        /// <summary>Mode</summary>
+        /// <summary>Mode option.</summary>
         Mode = 9,
-        /// <summary>Brightness</summary>
+        /// <summary>Brightness option.</summary>
         Brightness = 10,
-        /// <summary>Contrast</summary>
+        /// <summary>Contrast option.</summary>
         Contrast = 11,
-        /// <summary>Saturation</summary>
+        /// <summary>Saturation option.</summary>
         Saturation = 12,
-        /// <summary>Hue</summary>
+        /// <summary>Hue option.</summary>
         Hue = 13,
-        /// <summary>Gain</summary>
+        /// <summary>Gain option.</summary>
         Gain = 14,
-        /// <summary>Exposure</summary>
+        /// <summary>Exposure option.</summary>
         Exposure = 15,
-        /// <summary>ConvertRgb</summary>
+        /// <summary>Convert rgb option.</summary>
         ConvertRgb = 16,
-        /// <summary>WhiteBalanceBlueU</summary>
+        /// <summary>White balance blue u option.</summary>
         WhiteBalanceBlueU = 17,
-        /// <summary>Rectification</summary>
+        /// <summary>Rectification option.</summary>
         Rectification = 18,
-        /// <summary>Monochrome</summary>
+        /// <summary>Monochrome option.</summary>
         Monochrome = 19,
-        /// <summary>Sharpness</summary>
+        /// <summary>Sharpness option.</summary>
         Sharpness = 20,
-        /// <summary>AutoExposure</summary>
+        /// <summary>Auto exposure option.</summary>
         AutoExposure = 21,
-        /// <summary>Gamma</summary>
+        /// <summary>Gamma option.</summary>
         Gamma = 22,
-        /// <summary>Temperature</summary>
+        /// <summary>Temperature option.</summary>
         Temperature = 23,
-        /// <summary>Trigger</summary>
+        /// <summary>Trigger option.</summary>
         Trigger = 24,
-        /// <summary>TriggerDelay</summary>
+        /// <summary>Trigger delay option.</summary>
         TriggerDelay = 25,
-        /// <summary>WhiteBalanceRedV</summary>
+        /// <summary>White balance red v option.</summary>
         WhiteBalanceRedV = 26,
-        /// <summary>Zoom</summary>
+        /// <summary>Zoom option.</summary>
         Zoom = 27,
-        /// <summary>Focus</summary>
+        /// <summary>Focus option.</summary>
         Focus = 28,
-        /// <summary>Guid</summary>
+        /// <summary>Guid option.</summary>
         Guid = 29,
-        /// <summary>IsoSpeed</summary>
+        /// <summary>Iso speed option.</summary>
         IsoSpeed = 30,
-        /// <summary>Backlight</summary>
+        /// <summary>Backlight option.</summary>
         Backlight = 32,
-        /// <summary>Pan</summary>
+        /// <summary>Pan option.</summary>
         Pan = 33,
-        /// <summary>Tilt</summary>
+        /// <summary>Tilt option.</summary>
         Tilt = 34,
-        /// <summary>Roll</summary>
+        /// <summary>Roll option.</summary>
         Roll = 35,
-        /// <summary>Iris</summary>
+        /// <summary>Iris option.</summary>
         Iris = 36,
-        /// <summary>Settings</summary>
+        /// <summary>Settings option.</summary>
         Settings = 37,
-        /// <summary>Buffersize</summary>
+        /// <summary>Buffersize option.</summary>
         Buffersize = 38,
-        /// <summary>Autofocus</summary>
+        /// <summary>Autofocus option.</summary>
         Autofocus = 39,
-        /// <summary>SarNum</summary>
+        /// <summary>Sar num option.</summary>
         SarNum = 40,
-        /// <summary>SarDen</summary>
+        /// <summary>Sar den option.</summary>
         SarDen = 41,
-        /// <summary>Backend</summary>
+        /// <summary>Backend option.</summary>
         Backend = 42,
-        /// <summary>Channel</summary>
+        /// <summary>Channel option.</summary>
         Channel = 43,
-        /// <summary>AutoWb</summary>
+        /// <summary>Auto wb option.</summary>
         AutoWb = 44,
-        /// <summary>WbTemperature</summary>
+        /// <summary>Wb temperature option.</summary>
         WbTemperature = 45,
-        /// <summary>CodecPixelFormat</summary>
+        /// <summary>Codec pixel format option.</summary>
         CodecPixelFormat = 46,
-        /// <summary>Bitrate</summary>
+        /// <summary>Bitrate option.</summary>
         Bitrate = 47,
-        /// <summary>OrientationMeta</summary>
+        /// <summary>Orientation meta option.</summary>
         OrientationMeta = 48,
-        /// <summary>OrientationAuto</summary>
+        /// <summary>Orientation auto option.</summary>
         OrientationAuto = 49,
-        /// <summary>HwAcceleration</summary>
+        /// <summary>Hw acceleration option.</summary>
         HwAcceleration = 50,
-        /// <summary>HwDevice</summary>
+        /// <summary>Hw device option.</summary>
         HwDevice = 51,
-        /// <summary>HwAccelerationUseOpencl</summary>
+        /// <summary>Hw acceleration use opencl option.</summary>
         HwAccelerationUseOpencl = 52,
-        /// <summary>OpenTimeoutMsec</summary>
+        /// <summary>Open timeout msec option.</summary>
         OpenTimeoutMsec = 53,
-        /// <summary>ReadTimeoutMsec</summary>
+        /// <summary>Read timeout msec option.</summary>
         ReadTimeoutMsec = 54,
-        /// <summary>StreamOpenTimeUsec</summary>
+        /// <summary>Stream open time usec option.</summary>
         StreamOpenTimeUsec = 55,
-        /// <summary>VideoTotalChannels</summary>
+        /// <summary>Video total channels option.</summary>
         VideoTotalChannels = 56,
-        /// <summary>VideoStream</summary>
+        /// <summary>Video stream option.</summary>
         VideoStream = 57,
-        /// <summary>AudioStream</summary>
+        /// <summary>Audio stream option.</summary>
         AudioStream = 58,
-        /// <summary>AudioPos</summary>
+        /// <summary>Audio pos option.</summary>
         AudioPos = 59,
-        /// <summary>AudioShiftNsec</summary>
+        /// <summary>Audio shift nsec option.</summary>
         AudioShiftNsec = 60,
-        /// <summary>AudioDataDepth</summary>
+        /// <summary>Audio data depth option.</summary>
         AudioDataDepth = 61,
-        /// <summary>AudioSamplesPerSecond</summary>
+        /// <summary>Audio samples per second option.</summary>
         AudioSamplesPerSecond = 62,
-        /// <summary>AudioBaseIndex</summary>
+        /// <summary>Audio base index option.</summary>
         AudioBaseIndex = 63,
-        /// <summary>AudioTotalChannels</summary>
+        /// <summary>Audio total channels option.</summary>
         AudioTotalChannels = 64,
-        /// <summary>AudioTotalStreams</summary>
+        /// <summary>Audio total streams option.</summary>
         AudioTotalStreams = 65,
-        /// <summary>AudioSynchronize</summary>
+        /// <summary>Audio synchronize option.</summary>
         AudioSynchronize = 66,
-        /// <summary>LrfHasKeyFrame</summary>
+        /// <summary>Lrf has key frame option.</summary>
         LrfHasKeyFrame = 67,
-        /// <summary>CodecExtradataIndex</summary>
+        /// <summary>Codec extradata index option.</summary>
         CodecExtradataIndex = 68,
-        /// <summary>FrameType</summary>
+        /// <summary>Frame type option.</summary>
         FrameType = 69,
-        /// <summary>NThreads</summary>
+        /// <summary>N threads option.</summary>
         NThreads = 70,
-        /// <summary>Pts</summary>
+        /// <summary>Pts option.</summary>
         Pts = 71,
-        /// <summary>DtsDelay</summary>
+        /// <summary>Dts delay option.</summary>
         DtsDelay = 72,
-        /// <summary>ImageSeqStart</summary>
+        /// <summary>Image seq start option.</summary>
         ImageSeqStart = 73,
     }
 
-    /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+        /// <summary>
+    /// Specifies property identifiers for video writers.
     /// </summary>
     public enum VideoWriterProperties : int
     {
-        /// <summary>Unknown</summary>
+        /// <summary>Unknown option.</summary>
         Unknown = -1,
-        /// <summary>Quality</summary>
+        /// <summary>Quality option.</summary>
         Quality = 1,
-        /// <summary>Framebytes</summary>
+        /// <summary>Framebytes option.</summary>
         Framebytes = 2,
-        /// <summary>Nstripes</summary>
+        /// <summary>Nstripes option.</summary>
         Nstripes = 3,
-        /// <summary>IsColor</summary>
+        /// <summary>Is color option.</summary>
         IsColor = 4,
-        /// <summary>Depth</summary>
+        /// <summary>Depth option.</summary>
         Depth = 5,
-        /// <summary>HwAcceleration</summary>
+        /// <summary>Hw acceleration option.</summary>
         HwAcceleration = 6,
-        /// <summary>HwDevice</summary>
+        /// <summary>Hw device option.</summary>
         HwDevice = 7,
-        /// <summary>HwAccelerationUseOpencl</summary>
+        /// <summary>Hw acceleration use opencl option.</summary>
         HwAccelerationUseOpencl = 8,
-        /// <summary>RawVideo</summary>
+        /// <summary>Raw video option.</summary>
         RawVideo = 9,
-        /// <summary>KeyInterval</summary>
+        /// <summary>Key interval option.</summary>
         KeyInterval = 10,
-        /// <summary>KeyFlag</summary>
+        /// <summary>Key flag option.</summary>
         KeyFlag = 11,
-        /// <summary>Pts</summary>
+        /// <summary>Pts option.</summary>
         Pts = 12,
-        /// <summary>DtsDelay</summary>
+        /// <summary>Dts delay option.</summary>
         DtsDelay = 13,
-        /// <summary>ColorSpace</summary>
+        /// <summary>Color space option.</summary>
         ColorSpace = 14,
-        /// <summary>EnableAlpha</summary>
+        /// <summary>Enable alpha option.</summary>
         EnableAlpha = 15,
     }
 

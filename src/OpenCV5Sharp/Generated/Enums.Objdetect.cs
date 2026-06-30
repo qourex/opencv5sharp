@@ -7,150 +7,150 @@
 namespace OpenCV5Sharp
 {
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the calibration circles grid pattern type.
     /// </summary>
     public enum CirclesGridFinderParametersGridType : int
     {
-        /// <summary>SymmetricGrid</summary>
+        /// <summary>Symmetric circles grid pattern.</summary>
         SymmetricGrid = 0,
-        /// <summary>AsymmetricGrid</summary>
+        /// <summary>Asymmetric (offset) circles grid pattern.</summary>
         AsymmetricGrid = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the distance metric for face feature comparison.
     /// </summary>
     public enum FaceRecognizerSFDisType : int
     {
-        /// <summary>Cosine</summary>
+        /// <summary>Cosine similarity distance.</summary>
         Cosine = 0,
-        /// <summary>NormL2</summary>
+        /// <summary>Normalized L2 (Euclidean) distance.</summary>
         NormL2 = 1,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the QR code error correction level.
     /// </summary>
     public enum QRCodeEncoderCorrectionLevel : int
     {
-        /// <summary>L</summary>
+        /// <summary>Low error correction (~7% recovery).</summary>
         L = 0,
-        /// <summary>M</summary>
+        /// <summary>Medium error correction (~15% recovery).</summary>
         M = 1,
-        /// <summary>Q</summary>
+        /// <summary>Quartile error correction (~25% recovery).</summary>
         Q = 2,
-        /// <summary>H</summary>
+        /// <summary>High error correction (~30% recovery).</summary>
         H = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the Extended Channel Interpretation character encoding for QR codes.
     /// </summary>
     public enum QRCodeEncoderECIEncodings : int
     {
-        /// <summary>ShiftJis</summary>
+        /// <summary>Shift JIS (Japanese) encoding.</summary>
         ShiftJis = 20,
-        /// <summary>Utf8</summary>
+        /// <summary>UTF-8 Unicode encoding.</summary>
         Utf8 = 26,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the QR code data encoding mode.
     /// </summary>
     public enum QRCodeEncoderEncodeMode : int
     {
-        /// <summary>Auto</summary>
+        /// <summary>Automatically select the most efficient mode.</summary>
         Auto = -1,
-        /// <summary>Numeric</summary>
+        /// <summary>Digits only (0-9) encoding mode.</summary>
         Numeric = 1,
-        /// <summary>Alphanumeric</summary>
+        /// <summary>Uppercase letters, digits, and symbols.</summary>
         Alphanumeric = 2,
-        /// <summary>Byte</summary>
+        /// <summary>Raw byte data encoding.</summary>
         Byte = 4,
-        /// <summary>Eci</summary>
+        /// <summary>Extended Channel Interpretation mode.</summary>
         Eci = 7,
-        /// <summary>Kanji</summary>
+        /// <summary>Kanji character encoding mode.</summary>
         Kanji = 8,
-        /// <summary>StructuredAppend</summary>
+        /// <summary>Structured append for multi-QR linking.</summary>
         StructuredAppend = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the corner refinement method for ArUco marker detection.
     /// </summary>
     public enum ArucoCornerRefineMethod : int
     {
-        /// <summary>None</summary>
+        /// <summary>No corner refinement.</summary>
         None = 0,
-        /// <summary>Subpix</summary>
+        /// <summary>Sub-pixel corner refinement.</summary>
         Subpix = 1,
-        /// <summary>Contour</summary>
+        /// <summary>Contour-based corner refinement.</summary>
         Contour = 2,
-        /// <summary>Apriltag</summary>
+        /// <summary>AprilTag-style corner refinement.</summary>
         Apriltag = 3,
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the predefined ArUco marker dictionary type and size.
     /// </summary>
     public enum ArucoPredefinedDictionaryType : int
     {
-        /// <summary>_4x450</summary>
+        /// <summary>4x4 bit markers with 50 unique IDs.</summary>
         _4x450 = 0,
-        /// <summary>_4x4100</summary>
+        /// <summary>4x4 bit markers with 100 unique IDs.</summary>
         _4x4100 = unchecked((int)(0 + 1)),
-        /// <summary>_4x4250</summary>
+        /// <summary>4x4 bit markers with 250 unique IDs.</summary>
         _4x4250 = unchecked((int)(0 + 2)),
-        /// <summary>_4x41000</summary>
+        /// <summary>4x4 bit markers with 1000 unique IDs.</summary>
         _4x41000 = unchecked((int)(0 + 3)),
-        /// <summary>_5x550</summary>
+        /// <summary>5x5 bit markers with 50 unique IDs.</summary>
         _5x550 = unchecked((int)(0 + 4)),
-        /// <summary>_5x5100</summary>
+        /// <summary>5x5 bit markers with 100 unique IDs.</summary>
         _5x5100 = unchecked((int)(0 + 5)),
-        /// <summary>_5x5250</summary>
+        /// <summary>5x5 bit markers with 250 unique IDs.</summary>
         _5x5250 = unchecked((int)(0 + 6)),
-        /// <summary>_5x51000</summary>
+        /// <summary>5x5 bit markers with 1000 unique IDs.</summary>
         _5x51000 = unchecked((int)(0 + 7)),
-        /// <summary>_6x650</summary>
+        /// <summary>6x6 bit markers with 50 unique IDs.</summary>
         _6x650 = unchecked((int)(0 + 8)),
-        /// <summary>_6x6100</summary>
+        /// <summary>6x6 bit markers with 100 unique IDs.</summary>
         _6x6100 = unchecked((int)(0 + 9)),
-        /// <summary>_6x6250</summary>
+        /// <summary>6x6 bit markers with 250 unique IDs.</summary>
         _6x6250 = unchecked((int)(0 + 10)),
-        /// <summary>_6x61000</summary>
+        /// <summary>6x6 bit markers with 1000 unique IDs.</summary>
         _6x61000 = unchecked((int)(0 + 11)),
-        /// <summary>_7x750</summary>
+        /// <summary>7x7 bit markers with 50 unique IDs.</summary>
         _7x750 = unchecked((int)(0 + 12)),
-        /// <summary>_7x7100</summary>
+        /// <summary>7x7 bit markers with 100 unique IDs.</summary>
         _7x7100 = unchecked((int)(0 + 13)),
-        /// <summary>_7x7250</summary>
+        /// <summary>7x7 bit markers with 250 unique IDs.</summary>
         _7x7250 = unchecked((int)(0 + 14)),
-        /// <summary>_7x71000</summary>
+        /// <summary>7x7 bit markers with 1000 unique IDs.</summary>
         _7x71000 = unchecked((int)(0 + 15)),
-        /// <summary>ArucoOriginal</summary>
+        /// <summary>Original ArUco marker dictionary.</summary>
         ArucoOriginal = unchecked((int)(0 + 16)),
-        /// <summary>APRILTAG16h5</summary>
+        /// <summary>AprilTag 16h5 family dictionary.</summary>
         APRILTAG16h5 = unchecked((int)(0 + 17)),
-        /// <summary>APRILTAG25h9</summary>
+        /// <summary>AprilTag 25h9 family dictionary.</summary>
         APRILTAG25h9 = unchecked((int)(0 + 18)),
-        /// <summary>APRILTAG36h10</summary>
+        /// <summary>AprilTag 36h10 family dictionary.</summary>
         APRILTAG36h10 = unchecked((int)(0 + 19)),
-        /// <summary>APRILTAG36h11</summary>
+        /// <summary>AprilTag 36h11 family dictionary.</summary>
         APRILTAG36h11 = unchecked((int)(0 + 20)),
-        /// <summary>ARUCOMIP36h12</summary>
+        /// <summary>ArUco MIP 36h12 dictionary.</summary>
         ARUCOMIP36h12 = unchecked((int)(0 + 21)),
     }
 
     /// <summary>
-    /// Wrapper for OpenCV's native functionality.
+    /// Specifies the Macbeth ColorChecker chart type for color calibration.
     /// </summary>
     public enum MccColorChart : int
     {
-        /// <summary>Mcc24</summary>
+        /// <summary>Classic 24-patch Macbeth ColorChecker.</summary>
         Mcc24 = 0,
-        /// <summary>Sg140</summary>
+        /// <summary>140-patch GretagMacbeth SG chart.</summary>
         Sg140 = unchecked((int)(0 + 1)),
-        /// <summary>Vinyl18</summary>
+        /// <summary>18-patch Vinyl color chart.</summary>
         Vinyl18 = unchecked((int)(0 + 2)),
     }
 

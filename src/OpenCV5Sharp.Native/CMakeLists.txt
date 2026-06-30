@@ -8,15 +8,26 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Configure OpenCV path - auto-detect from environment or relative path
-if(DEFINED ENV{OPENCV_DIR})
-    set(OpenCV_DIR $ENV{OPENCV_DIR})
-elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../../opencv_prebuilt/opencv/build")
-    set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../opencv_prebuilt/opencv/build")
-else()
-    message(FATAL_ERROR
-        "OpenCV build directory not found. Set one of:\n"
-        "  - OPENCV_DIR environment variable\n"
-        "  - Place OpenCV at <workspace>/opencv_prebuilt/opencv/build/")
+if(NOT DEFINED OpenCV_DIR)
+    if(DEFINED ENV{OPENCV_DIR})
+        set(OpenCV_DIR $ENV{OPENCV_DIR})
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../../opencv_prebuilt/opencv/build")
+        set(OpenCV_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../opencv_prebuilt/opencv/build")
+    else()
+        message(FATAL_ERROR
+            "OpenCV build directory not found. Set one of:\n"
+            "  - OPENCV_DIR environment variable\n"
+            "  - Place OpenCV at <workspace>/opencv_prebuilt/opencv/build/")
+    endif()
+endif()
+
+# Adjust OpenCV_DIR path if pointing to installation root where CMake files are nested
+if(DEFINED OpenCV_DIR)
+    if(EXISTS "${OpenCV_DIR}/lib/cmake/opencv5")
+        set(OpenCV_DIR "${OpenCV_DIR}/lib/cmake/opencv5" CACHE PATH "Path to OpenCV CMake files" FORCE)
+    elseif(EXISTS "${OpenCV_DIR}/lib/cmake/opencv4")
+        set(OpenCV_DIR "${OpenCV_DIR}/lib/cmake/opencv4" CACHE PATH "Path to OpenCV CMake files" FORCE)
+    endif()
 endif()
 
 find_package(OpenCV REQUIRED)

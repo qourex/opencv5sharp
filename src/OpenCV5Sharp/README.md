@@ -7,7 +7,7 @@ Clean, automatic C# wrapper for **OpenCV 5.0.0** with complete API coverage and 
 [![Nuget](https://img.shields.io/nuget/v/OpenCV5Sharp.svg)](https://www.nuget.org/packages/OpenCV5Sharp/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/OpenCV5Sharp.svg)](https://www.nuget.org/packages/OpenCV5Sharp/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20x64-lightgrey.svg)]()
+[![Platform](https://img.shields.io/badge/Platform-Cross--Platform-lightgrey.svg)]()
 
 ---
 
@@ -37,8 +37,8 @@ Install-Package OpenCV5Sharp
 
 ## Supported Platforms
 
-- **Operating System**: Windows 10 / 11 (x64)
-- **Frameworks**: .NET 8.0, .NET 9.0+
+- **Operating System**: Windows (x64), Linux (x64), macOS (x64, ARM64), Android (ARM64), iOS (ARM64)
+- **Frameworks**: .NET 8.0, .NET 9.0, .NET 10.0
 
 ---
 
@@ -58,7 +58,7 @@ class Program
         using (Mat blurred = new Mat())
         using (Mat edges = new Mat())
         {
-            if (src.Handle == IntPtr.Zero)
+            if (src == null || src.Handle == IntPtr.Zero)
             {
                 Console.WriteLine("Error: Could not load image.");
                 return;
