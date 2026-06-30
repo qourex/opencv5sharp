@@ -122,7 +122,7 @@ class Program
 
 ## 🧪 Running the Test Suite
 
-OpenCV5Sharp comes with a comprehensive test suite targeting both `.NET 8.0` and `.NET 9.0` frameworks with **602 unique test cases** (running **1,204 test runs** in total). The suite verifies memory layout padding, exception boundaries, API calling conventions, DNN model inference, and GPU calculations.
+OpenCV5Sharp comes with a comprehensive test suite targeting both `.NET 8.0` and `.NET 9.0` frameworks with **618 unique test cases** (running **1,236 test runs** in total). The suite verifies memory layout padding, exception boundaries, API calling conventions, DNN model inference, and GPU calculations.
 
 To run the test suite locally:
 ```bash
