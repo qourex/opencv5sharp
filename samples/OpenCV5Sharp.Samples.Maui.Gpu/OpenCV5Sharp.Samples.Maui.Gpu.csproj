@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net10.0-windows10.0.19041.0</TargetFrameworks>
 		<TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows'))">net10.0-android</TargetFrameworks>
+		<RuntimeIdentifiers Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifiers>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>OpenCV5Sharp.Samples.Maui.Gpu</RootNamespace>
 		<UseMaui>true</UseMaui>
