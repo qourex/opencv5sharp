@@ -49,7 +49,9 @@ jobs:
         run: dotnet test OpenCV5Sharp.slnx --no-build -c Release --collect:"XPlat Code Coverage" --logger:"console;verbosity=detailed"
 
       - name: Pack NuGet (CPU)
-        run: dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build -o ./artifacts
+        run: |
+          dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build -o ./artifacts
+          dotnet pack src/OpenCV5Sharp.Mobile/OpenCV5Sharp.Mobile.csproj -c Release --no-build -o ./artifacts
 
       - name: Upload NuGet Package
         uses: actions/upload-artifact@v4
