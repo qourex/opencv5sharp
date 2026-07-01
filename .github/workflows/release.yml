@@ -56,8 +56,8 @@ jobs:
           - os: ios
             arch: arm64
             runner: macos-latest
-            opencv_extra_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64"
-            cmake_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
+            opencv_extra_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_SHARED_LINKER_FLAGS=\"-framework Foundation -framework CoreFoundation -framework AVFoundation -framework CoreMedia -framework CoreVideo -framework QuartzCore -framework UIKit -framework AssetsLibrary -lobjc\""
+            cmake_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_SHARED_LINKER_FLAGS=\"-framework Foundation -framework CoreFoundation -framework AVFoundation -framework CoreMedia -framework CoreVideo -framework QuartzCore -framework UIKit -framework AssetsLibrary -lobjc\" -DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
             artifact_name: "native-ios-arm64"
 
     steps:
