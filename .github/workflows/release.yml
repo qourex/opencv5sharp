@@ -111,13 +111,13 @@ jobs:
         mkdir staged_binaries
         if ("${{ matrix.os }}" -eq "linux" -or "${{ matrix.os }}" -eq "android") {
           Copy-Item -Path "native_build/libopencv5sharp_native.so" -Destination "staged_binaries" -Force
-          $worldPath = Get-ChildItem -Path "opencv_build/install/lib" -Filter "libopencv_world.so*" | Select-Object -First 1
+          $worldPath = Get-ChildItem -Path "opencv_build/install" -Filter "libopencv_world.so*" -Recurse | Select-Object -First 1
           if ($worldPath) {
             Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.so" -Force
           }
         } else {
           Copy-Item -Path "native_build/libopencv5sharp_native.dylib" -Destination "staged_binaries" -Force
-          $worldPath = Get-ChildItem -Path "opencv_build/install/lib" -Filter "libopencv_world*.dylib" | Select-Object -First 1
+          $worldPath = Get-ChildItem -Path "opencv_build/install" -Filter "libopencv_world*.dylib" -Recurse | Select-Object -First 1
           if ($worldPath) {
             Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.dylib" -Force
           }
