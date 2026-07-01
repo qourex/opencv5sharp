@@ -56,14 +56,30 @@ jobs:
           - os: ios
             arch: arm64
             runner: macos-latest
-            opencv_extra_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
-            cmake_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY -DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
+            opencv_extra_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64"
+            cmake_flags: "-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 -DWITH_CUDA=OFF -DWITH_CUDNN=OFF"
             artifact_name: "native-ios-arm64"
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
+
+    - name: Patch OpenCV DNN MLAS Link Dependency
+      run: |
+        python3 -c '
+        with open("opencv/modules/dnn/CMakeLists.txt", "r") as f:
+            content = f.read()
+        target = "list(APPEND include_dirs ${MLAS_INCLUDE_DIRS})"
+        replacement = "list(APPEND include_dirs ${MLAS_INCLUDE_DIRS})\n  list(APPEND libs opencv_dnn_mlas)"
+        if target in content and "opencv_dnn_mlas" not in content:
+            content = content.replace(target, replacement)
+            with open("opencv/modules/dnn/CMakeLists.txt", "w") as f:
+                f.write(content)
+            print("Successfully patched MLAS link dependency.")
+        else:
+            print("MLAS link dependency already patched or target not found.")
+        '
 
     - name: Install System Dependencies (Linux)
       if: matrix.os == 'linux'
@@ -75,7 +91,7 @@ jobs:
       run: |
         mkdir opencv_build
         cd opencv_build
-        cmake ../opencv -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DWITH_CUDA=OFF -DWITH_CUDNN=OFF -DBUILD_ANDROID_EXAMPLES=OFF -DBUILD_ANDROID_PROJECTS=OFF -DBUILD_JAVA=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_objc=OFF ${{ matrix.opencv_extra_flags }}
+        cmake ../opencv -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DBUILD_APPS=OFF -DWITH_CUDA=OFF -DWITH_CUDNN=OFF -DBUILD_ANDROID_EXAMPLES=OFF -DBUILD_ANDROID_PROJECTS=OFF -DBUILD_JAVA=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_objc=OFF ${{ matrix.opencv_extra_flags }}
         cmake --build . --config Release --target install --parallel $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)
 
     - name: Configure Native Wrapper
