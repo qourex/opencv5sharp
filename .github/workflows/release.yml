@@ -91,7 +91,7 @@ jobs:
       run: |
         mkdir opencv_build
         cd opencv_build
-        cmake ../opencv -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DBUILD_APPS=OFF -DWITH_CUDA=OFF -DWITH_CUDNN=OFF -DBUILD_ANDROID_EXAMPLES=OFF -DBUILD_ANDROID_PROJECTS=OFF -DBUILD_JAVA=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_objc=OFF ${{ matrix.opencv_extra_flags }}
+        cmake ../opencv -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DBUILD_SHARED_LIBS=ON -DBUILD_opencv_world=ON -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_DOCS=OFF -DBUILD_opencv_apps=OFF -DWITH_CUDA=OFF -DWITH_CUDNN=OFF -DBUILD_ANDROID_EXAMPLES=OFF -DBUILD_ANDROID_PROJECTS=OFF -DBUILD_JAVA=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_objc=OFF ${{ matrix.opencv_extra_flags }}
         cmake --build . --config Release --target install --parallel $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)
 
     - name: Configure Native Wrapper
