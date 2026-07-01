@@ -36,7 +36,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenCV5Sharp\OpenCV5Sharp.csproj" ExcludeAssets="contentFiles" />
+    <ProjectReference Include="..\OpenCV5Sharp\OpenCV5Sharp.csproj">
+      <PrivateAssets>contentFiles</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
   <!-- Android Runtime -->
