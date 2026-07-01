@@ -1,0 +1,92 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' != 'true'">net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' == 'true' And $([MSBuild]::VersionGreaterThanOrEquals('$(MSBuildVersion)', '18.0')) And $([MSBuild]::IsOSPlatform('OSX'))">net8.0;net8.0-android;net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-macos;net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst;net10.0-macos</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' == 'true' And $([MSBuild]::VersionGreaterThanOrEquals('$(MSBuildVersion)', '18.0')) And !$([MSBuild]::IsOSPlatform('OSX'))">net8.0;net8.0-android;net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst;net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' == 'true' And !$([MSBuild]::VersionGreaterThanOrEquals('$(MSBuildVersion)', '18.0')) And $([MSBuild]::IsOSPlatform('OSX'))">net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-macos;net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-macos;net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst;net10.0-macos</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeMobileTargets)' == 'true' And !$([MSBuild]::VersionGreaterThanOrEquals('$(MSBuildVersion)', '18.0')) And !$([MSBuild]::IsOSPlatform('OSX'))">net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst;net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst;net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">true</GeneratePackageOnBuild>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <CheckEolWorkloads>false</CheckEolWorkloads>
+
+    <!-- Package Metadata -->
+    <PackageId>OpenCV5Sharp.Mobile</PackageId>
+    <AssemblyName>OpenCV5Sharp.Mobile</AssemblyName>
+    <Title>OpenCV5Sharp.Mobile</Title>
+    <Authors>Qourex</Authors>
+    <Company>Qourex</Company>
+    <Copyright>Copyright (c) 2026 Qourex</Copyright>
+    <Description>Mobile native runtimes (Android arm64, iOS arm64) for OpenCV5Sharp.</Description>
+    <PackageLicenseExpression>Apache-2.0 AND LGPL-2.1-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://qourex.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/qourex/opencv5sharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>opencv opencv5 c# wrapper computer-vision image-processing mobile android ios Qourex</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>See CHANGELOG.md for release notes.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageIcon>icon.png</PackageIcon>
+
+    <!-- SourceLink and symbols -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCV5Sharp\OpenCV5Sharp.csproj" />
+  </ItemGroup>
+
+  <!-- Android Runtime -->
+  <ItemGroup Condition="'$(TargetFramework)' == '' Or '$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net10.0' Or '$(TargetFramework)' == 'net8.0-android' Or '$(TargetFramework)' == 'net9.0-android' Or '$(TargetFramework)' == 'net10.0-android'">
+    <AndroidNativeLibrary Condition="'$(TargetFramework)' == 'net8.0-android' Or '$(TargetFramework)' == 'net9.0-android' Or '$(TargetFramework)' == 'net10.0-android'" Include="..\OpenCV5Sharp\runtimes\android-arm64\native\*.so" Link="libs\arm64-v8a\%(Filename)%(Extension)" />
+    <Content Condition="'$(TargetFramework)' != 'net8.0-android' And '$(TargetFramework)' != 'net9.0-android' And '$(TargetFramework)' != 'net10.0-android'" Include="..\OpenCV5Sharp\runtimes\android-arm64\native\*.so" Link="runtimes\android-arm64\native\%(Filename)%(Extension)" Pack="true" PackagePath="runtimes\android-arm64\native\" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- iOS Runtime -->
+  <ItemGroup Condition="'$(TargetFramework)' == '' Or '$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0' Or '$(TargetFramework)' == 'net10.0' Or '$(TargetFramework)' == 'net8.0-ios' Or '$(TargetFramework)' == 'net9.0-ios' Or '$(TargetFramework)' == 'net10.0-ios'">
+    <Content Include="..\OpenCV5Sharp\runtimes\ios-arm64\native\*.dylib" Link="runtimes\ios-arm64\native\%(Filename)%(Extension)" Pack="true" PackagePath="runtimes\ios-arm64\native\" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- Package Files -->
+  <ItemGroup>
+    <None Include="..\OpenCV5Sharp\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\OpenCV5Sharp\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\..\LICENSE_FFMPEG.txt" Pack="true" PackagePath="\" />
+    <None Include="..\..\THIRD-PARTY-NOTICES.txt" Pack="true" PackagePath="\" />
+    <None Include="..\..\NOTICE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Prevent command-line /p:Version=x.y.z from overriding TargetPlatformVersion on iOS and MacCatalyst -->
+  <Target Name="FixTargetPlatformVersion" BeforeTargets="ProcessFrameworkReferences;PrepareForBuild">
+    <PropertyGroup>
+      <TargetPlatformVersion Condition="'$(TargetFramework)' == 'net8.0-ios' Or '$(TargetFramework)' == 'net8.0-maccatalyst'">17.2</TargetPlatformVersion>
+      <TargetPlatformVersion Condition="'$(TargetFramework)' == 'net9.0-ios' Or '$(TargetFramework)' == 'net9.0-maccatalyst'">18.0</TargetPlatformVersion>
+      <TargetPlatformVersion Condition="'$(TargetFramework)' == 'net10.0-ios' Or '$(TargetFramework)' == 'net10.0-maccatalyst'">26.0</TargetPlatformVersion>
+    </PropertyGroup>
+  </Target>
+
+  <PropertyGroup>
+    <IsAndroidTarget Condition="'$(TargetFramework)' != '' And $(TargetFramework.Contains('-android'))">true</IsAndroidTarget>
+    <IsIosTarget Condition="'$(TargetFramework)' != '' And $(TargetFramework.Contains('-ios'))">true</IsIosTarget>
+  </PropertyGroup>
+
+  <!-- Android: Remove other runtimes -->
+  <ItemGroup Condition="'$(IsAndroidTarget)' == 'true'">
+    <Content Remove="..\OpenCV5Sharp\runtimes\**\*" />
+    <None Remove="..\OpenCV5Sharp\runtimes\**\*" />
+    <AndroidNativeLibrary Remove="..\OpenCV5Sharp\runtimes\**\*" />
+    <AndroidNativeLibrary Include="..\OpenCV5Sharp\runtimes\android-arm64\native\*.so" Link="libs\arm64-v8a\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <!-- iOS: Keep only iOS runtime -->
+  <ItemGroup Condition="'$(IsIosTarget)' == 'true'">
+    <Content Remove="..\OpenCV5Sharp\runtimes\**\*" />
+    <None Remove="..\OpenCV5Sharp\runtimes\**\*" />
+    <Content Include="..\OpenCV5Sharp\runtimes\ios-arm64\native\*.dylib" Link="runtimes\ios-arm64\native\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

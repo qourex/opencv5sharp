@@ -235,6 +235,11 @@ jobs:
     - name: Pack Cross-Platform NuGet (CPU)
       run: dotnet pack src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true -o ./artifacts
 
+    - name: Pack Mobile NuGet (CPU Mobile)
+      run: |
+        cp README.md src/OpenCV5Sharp.Mobile/
+        dotnet pack src/OpenCV5Sharp.Mobile/OpenCV5Sharp.Mobile.csproj -c Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -p:IncludeMobileTargets=true -o ./artifacts
+
     - name: Pack GPU NuGet (Windows CUDA)
       shell: bash
       run: |

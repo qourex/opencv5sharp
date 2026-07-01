@@ -14,6 +14,7 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/OpenCV5Sharp/OpenCV5Sharp.csproj" />
+    <Project Path="src/OpenCV5Sharp.Mobile/OpenCV5Sharp.Mobile.csproj" />
     <Project Path="src/OpenCV5Sharp.Gpu.Windows/OpenCV5Sharp.Gpu.Windows.csproj" />
     <Project Path="src/OpenCV5Sharp.Gpu.Linux/OpenCV5Sharp.Gpu.Linux.csproj" />
   </Folder>

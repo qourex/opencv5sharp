@@ -17,7 +17,7 @@
 - **`OpenCV5Sharp.Gpu.Windows`**: Bundles `opencv_world500.dll` and `opencv5sharp_native.dll` compiled for Windows x64.
 - **`OpenCV5Sharp.Gpu.Linux`**: Bundles `libopencv_world.so` and `libopencv5sharp_native.so` compiled for Linux x64.
 
-For CPU-only execution without CUDA prerequisites, please use the cross-platform [OpenCV5Sharp](https://www.nuget.org/packages/OpenCV5Sharp) package.
+For CPU-only execution without CUDA prerequisites, please use the cross-platform CPU packages: [OpenCV5Sharp](https://www.nuget.org/packages/OpenCV5Sharp) for desktop (Windows, Linux, macOS) or [OpenCV5Sharp.Mobile](https://www.nuget.org/packages/OpenCV5Sharp.Mobile) for mobile devices (Android, iOS).
 
 ---
 

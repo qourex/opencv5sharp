@@ -57,6 +57,7 @@ NATIVE_DIR="$ROOT_DIR/src/OpenCV5Sharp.Native"
 BUILD_CPU_DIR="$NATIVE_DIR/build_cpu_linux"
 BUILD_GPU_DIR="$NATIVE_DIR/build_gpu_linux"
 CSHARP_CPU_DIR="$ROOT_DIR/src/OpenCV5Sharp"
+CSHARP_MOBILE_DIR="$ROOT_DIR/src/OpenCV5Sharp.Mobile"
 CSHARP_GPU_DIR="$ROOT_DIR/src/OpenCV5Sharp.Gpu.Linux"
 
 # CUDA detection helper
@@ -257,6 +258,9 @@ if command -v dotnet &> /dev/null; then
 
   if [ "$build_cpu" = true ]; then
     dotnet pack "$CSHARP_CPU_DIR" --configuration Release --output "$ROOT_DIR/artifacts"
+    if [ -d "$CSHARP_MOBILE_DIR" ]; then
+      dotnet pack "$CSHARP_MOBILE_DIR" --configuration Release --output "$ROOT_DIR/artifacts"
+    fi
   fi
 
   if [ "$build_gpu" = true ]; then

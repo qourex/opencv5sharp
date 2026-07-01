@@ -39,6 +39,7 @@ $NativeDir = Join-Path $RootDir "src\OpenCV5Sharp.Native"
 $BuildCpuDir = Join-Path $NativeDir "build_cpu_win"
 $BuildGpuDir = Join-Path $NativeDir "build_gpu_win"
 $CSharpCpuDir = Join-Path $RootDir "src\OpenCV5Sharp"
+$CSharpMobileDir = Join-Path $RootDir "src\OpenCV5Sharp.Mobile"
 $CSharpGpuWinDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu.Windows"
 $CSharpGpuLinuxDir = Join-Path $RootDir "src\OpenCV5Sharp.Gpu.Linux"
 
@@ -369,6 +370,9 @@ dotnet build (Join-Path $RootDir "OpenCV5Sharp.slnx") --configuration Release
 
 if ($buildCpu) {
     dotnet pack $CSharpCpuDir --configuration Release --output (Join-Path $RootDir "artifacts")
+    if (Test-Path $CSharpMobileDir) {
+        dotnet pack $CSharpMobileDir --configuration Release --output (Join-Path $RootDir "artifacts")
+    }
 }
 
 if ($buildGpu) {

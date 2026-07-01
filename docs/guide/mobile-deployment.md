@@ -16,6 +16,16 @@ To run high-performance image processing algorithms on mobile devices, OpenCV5Sh
 > [!WARNING]
 > Only 64-bit mobile devices and simulators are supported. Attempting to build or run on 32-bit simulators or legacy devices will result in a `DllNotFoundException` or runtime execution failures.
 
+
+---
+
+## 📦 NuGet Installation
+
+To target Android and/or iOS in your .NET MAUI or mobile applications, install the dedicated mobile package:
+```bash
+dotnet add package OpenCV5Sharp.Mobile
+```
+
 ---
 
 ## 🤖 Android Integration
@@ -49,7 +59,7 @@ dotnet workload install ios
 ```
 
 ### 2. Code-Signing Requirements
-Physical iOS devices require all binaries and native `.dylib` libraries to be code-signed. The OpenCV5Sharp NuGet package includes MSBuild targets that automatically extract, sign, and embed the native interop dynamic libraries into your `.app` bundle.
+Physical iOS devices require all binaries and native `.dylib` libraries to be code-signed. The `OpenCV5Sharp.Mobile` NuGet package includes MSBuild targets that automatically extract, sign, and embed the native interop dynamic libraries into your `.app` bundle.
 - Ensure you have a valid Apple Developer Profile configured in Visual Studio or Rider.
 - For physical device debugging, configure your `Entitlements.plist` and provisioning profiles as you would for a standard iOS app.
 

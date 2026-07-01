@@ -26,12 +26,19 @@ OpenCV5Sharp wraps compiled C++ binaries. Depending on your target operating sys
 
 ## 📦 Installation
 
-OpenCV5Sharp is distributed as two primary NuGet packages. Choose the package matching your performance target:
+OpenCV5Sharp is distributed as CPU and GPU NuGet packages. Choose the package matching your performance target and target operating systems:
 
-### 1. CPU-Only Package
-For standard CPU execution on Windows, Linux, macOS, Android, and iOS:
+### 1. CPU Packages
+To comply with the 250 MB NuGet.org limit, CPU native packages are separated by workload:
+
+#### Desktop (Windows, Linux, macOS)
 ```bash
 dotnet add package OpenCV5Sharp
+```
+
+#### Mobile (Android, iOS)
+```bash
+dotnet add package OpenCV5Sharp.Mobile
 ```
 
 ### 2. GPU-Accelerated Packages
