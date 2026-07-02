@@ -203,6 +203,10 @@ build_native_and_stage() {
       cp "$ct_lib" "$runtime_native_dir/"
       echo "  Copied libopencv_world.dylib"
     fi
+
+    # Strip macOS binaries
+    echo "  Stripping macOS binaries..."
+    strip -x "$runtime_native_dir"/*.dylib
   else
     local compiled_lib="$build_dir/libopencv5sharp_native.so"
     if [ ! -f "$compiled_lib" ]; then
@@ -223,6 +227,10 @@ build_native_and_stage() {
       cp "$ct_lib" "$runtime_native_dir/$lib_name"
       echo "  Copied $lib_name"
     fi
+
+    # Strip Linux binaries
+    echo "  Stripping Linux binaries..."
+    strip --strip-unneeded "$runtime_native_dir"/*.so*
   fi
 
   echo -e "  All native libraries staged at: $runtime_native_dir"

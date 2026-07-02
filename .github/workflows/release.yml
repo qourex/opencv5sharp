@@ -115,11 +115,27 @@ jobs:
           if ($worldPath) {
             Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.so" -Force
           }
+          if ("${{ matrix.os }}" -eq "linux") {
+            Write-Host "Stripping Linux binaries..."
+            Get-ChildItem -Path "staged_binaries" -Filter "*.so" | ForEach-Object {
+              & strip --strip-unneeded $_.FullName
+            }
+          } elseif ("${{ matrix.os }}" -eq "android") {
+            Write-Host "Stripping Android binaries..."
+            $llvmStrip = "$env:ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip"
+            Get-ChildItem -Path "staged_binaries" -Filter "*.so" | ForEach-Object {
+              & $llvmStrip --strip-unneeded $_.FullName
+            }
+          }
         } else {
           Copy-Item -Path "native_build/libopencv5sharp_native.dylib" -Destination "staged_binaries" -Force
           $worldPath = Get-ChildItem -Path "opencv_build/install" -Filter "libopencv_world*.dylib" -Recurse | Select-Object -First 1
           if ($worldPath) {
             Copy-Item -Path $worldPath.FullName -Destination "staged_binaries/libopencv_world.dylib" -Force
+          }
+          Write-Host "Stripping macOS/iOS binaries..."
+          Get-ChildItem -Path "staged_binaries" -Filter "*.dylib" | ForEach-Object {
+            & strip -x $_.FullName
           }
         }
 
