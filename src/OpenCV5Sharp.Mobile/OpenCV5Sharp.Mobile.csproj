@@ -33,12 +33,11 @@
     <!-- SourceLink and symbols -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackProjectReferences>false</PackProjectReferences>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenCV5Sharp\OpenCV5Sharp.csproj">
-      <PrivateAssets>contentFiles</PrivateAssets>
-    </ProjectReference>
+    <ProjectReference Include="..\OpenCV5Sharp\OpenCV5Sharp.csproj" />
   </ItemGroup>
 
   <!-- Android Runtime -->
