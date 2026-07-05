@@ -57,7 +57,138 @@ def normalize_module_name(mod: str) -> str:
         return "Stitching"
     return mod.capitalize()
 
-def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_desc=None, has_disposable=False, is_enum=False, enum_name=None, member_name=None) -> str:
+class DocLinkResolver:
+    def __init__(self):
+        self.class_by_cpp = {}
+        self.class_members = {} # maps class_name -> { member_name: [list of param lists] }
+        self.globals = {} # maps global_name -> [list of param lists]
+
+    def setup(self, classes, funcs, generator_instance):
+        for c_name, c_info in classes.items():
+            clean_c_name = c_name.replace("cv.", "").replace(".", "_")
+            pascal_c_name = "".join(to_pascal_case(p) for p in clean_c_name.split("_") if p)
+            
+            self.class_by_cpp[c_name] = pascal_c_name
+            self.class_by_cpp[f"cv::{c_name.replace('cv.', '')}"] = pascal_c_name
+            self.class_by_cpp[c_name.replace("cv.", "")] = pascal_c_name
+            self.class_by_cpp[c_name.split('.')[-1]] = pascal_c_name
+            
+            members_map = {}
+            for decl in c_info.get("methods", []):
+                subname = decl[0].split('.')[-1]
+                pascal_name = "".join(to_pascal_case(p) for p in subname.split("_") if p)
+                
+                param_types = []
+                for arg in decl[3]:
+                    t = generator_instance.get_user_facing_csharp_type(arg[0])
+                    # Strip nullability marker to keep cref valid
+                    if t.endswith("?"):
+                        t = t[:-1]
+                    param_types.append(t)
+                
+                if pascal_name not in members_map:
+                    members_map[pascal_name] = []
+                members_map[pascal_name].append(param_types)
+                
+            for prop in c_info.get("props", []):
+                pascal_prop_name = to_pascal_case(prop[1])
+                if pascal_prop_name not in members_map:
+                    members_map[pascal_prop_name] = []
+                members_map[pascal_prop_name].append([])
+                
+            self.class_members[pascal_c_name] = members_map
+            
+        for decl in funcs:
+            name = decl[0]
+            parts = name.split('.')
+            if parts[0] == "cv":
+                parts = parts[1:]
+            csharp_method_name = "".join(to_pascal_case(sanitize_identifier(p)) for p in parts)
+            
+            param_types = []
+            for arg in decl[3]:
+                t = generator_instance.get_user_facing_csharp_type(arg[0])
+                if t.endswith("?"):
+                    t = t[:-1]
+                param_types.append(t)
+                
+            if csharp_method_name not in self.globals:
+                self.globals[csharp_method_name] = []
+            self.globals[csharp_method_name].append(param_types)
+
+    def resolve(self, link_name: str, current_class: str = None) -> tuple[str, bool]:
+        link_name = link_name.strip()
+        
+        # 1. Check if it matches a generated class name
+        if link_name in self.class_by_cpp:
+            return self.class_by_cpp[link_name], True
+            
+        # 2. Check if it's a member of the current class
+        if current_class:
+            pascal_link = "".join(to_pascal_case(p) for p in link_name.split("_") if p)
+            prop_link = pascal_link
+            if (pascal_link.startswith("Get") or pascal_link.startswith("Set")) and len(pascal_link) > 3 and pascal_link[3].isupper():
+                prop_link = pascal_link[3:]
+                
+            members_map = self.class_members.get(current_class, {})
+            resolved_member = None
+            if pascal_link in members_map:
+                resolved_member = pascal_link
+            elif prop_link in members_map:
+                resolved_member = prop_link
+                
+            if resolved_member:
+                overloads = members_map[resolved_member]
+                if overloads and len(overloads) > 1:
+                    params_str = ", ".join(overloads[0])
+                    return f"{resolved_member}({params_str})", True
+                else:
+                    return resolved_member, True
+                
+        # 3. Check if it's a global function under Cv2
+        pascal_global = "".join(to_pascal_case(p) for p in link_name.replace("cv::", "").replace("cv.", "").split("_") if p)
+        if pascal_global in self.globals:
+            overloads = self.globals[pascal_global]
+            if overloads and len(overloads) > 1:
+                params_str = ", ".join(overloads[0])
+                return f"Cv2.{pascal_global}({params_str})", True
+            else:
+                return f"Cv2.{pascal_global}", True
+            
+        # 4. Check if it's a fully qualified member (e.g. cv::Mat::create, Mat::create)
+        if "::" in link_name:
+            parts = link_name.split("::")
+            if len(parts) >= 2:
+                cpp_cls = parts[-2]
+                cpp_member = parts[-1]
+                csharp_cls = self.class_by_cpp.get(cpp_cls)
+                if csharp_cls:
+                    pascal_member = "".join(to_pascal_case(p) for p in cpp_member.split("_") if p)
+                    prop_member = pascal_member
+                    if (pascal_member.startswith("Get") or pascal_member.startswith("Set")) and len(pascal_member) > 3 and pascal_member[3].isupper():
+                        prop_member = pascal_member[3:]
+                        
+                    members_map = self.class_members.get(csharp_cls, {})
+                    resolved_member = None
+                    if pascal_member in members_map:
+                        resolved_member = pascal_member
+                    elif prop_member in members_map:
+                        resolved_member = prop_member
+                        
+                    if resolved_member:
+                        overloads = members_map[resolved_member]
+                        if overloads and len(overloads) > 1:
+                            params_str = ", ".join(overloads[0])
+                            return f"{csharp_cls}.{resolved_member}({params_str})", True
+                        else:
+                            return f"{csharp_cls}.{resolved_member}", True
+                        
+        clean_text = link_name.replace("cv::", "").replace("::", ".")
+        return clean_text, False
+
+doc_resolver = DocLinkResolver()
+
+def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_desc=None, has_disposable=False, is_enum=False, enum_name=None, member_name=None, current_class=None) -> str:
     """Format C++ docstring into C# XML documentation comments."""
     if not doc_str:
         doc_str = ""
@@ -75,9 +206,32 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
     in_return = False
     in_remarks = False
     
+    import re as _re
+
+    valid_params = set()
+    if params_list:
+        for p in params_list:
+            p_name_san = sanitize_csharp_argument_name(p[1]).lstrip('@')
+            valid_params.add(p_name_san)
+
+    # Normalize lines by stripping list bullets and leading spaces before Doxygen tags
     lines = doc_str.split('\n')
+    cleaned_lines = []
     for line in lines:
         line_strip = line.strip()
+        if not line_strip:
+            cleaned_lines.append(line_strip)
+            continue
+        
+        # Check if line contains a Doxygen tag (possibly preceded by *, -, or spaces)
+        # Supports both @ and \ prefixes
+        m = _re.match(r'^[\*\-\+\s]*([@\\])(brief|param|return|returns|note|warning|sa|see|code|endcode|overload|details|snippet|copydoc|anchor|include|class|file|defgroup|ingroup|addtogroup)\b(.*)', line_strip)
+        if m:
+            cleaned_lines.append("@" + m.group(2) + m.group(3))
+        else:
+            cleaned_lines.append(line_strip)
+
+    for line_strip in cleaned_lines:
         if not line_strip:
             if summary_lines and not remarks_lines and not param_descs and not return_lines:
                 in_brief = False
@@ -85,13 +239,13 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
             continue
 
         # Strip Doxygen artifacts that leak into XML docs
-        if line_strip.startswith('@snippet') or line_strip.startswith('@copydoc'):
-            continue  # Skip @snippet and @copydoc lines entirely
+        if line_strip.startswith('@snippet') or line_strip.startswith('@copydoc') or line_strip.startswith('@anchor') or line_strip.startswith('@include') or line_strip.startswith('@class') or line_strip.startswith('@file') or line_strip.startswith('@defgroup') or line_strip.startswith('@ingroup') or line_strip.startswith('@addtogroup'):
+            continue  # Skip unneeded Doxygen tags entirely
         if line_strip.startswith('@overload'):
             summary_lines.append('This is an overloaded member function, provided for convenience.')
             continue
+            
         # Convert LaTeX \f[...\f] to plain text
-        import re as _re
         line_strip = _re.sub(r'\\f\[.*?\\f\]', '[see mathematical formula in OpenCV docs]', line_strip)
         line_strip = _re.sub(r'\\f\$.*?\\f\$', '[formula]', line_strip)
 
@@ -103,16 +257,32 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
             content = line_strip[6:].strip()
             if content:
                 summary_lines.append(content)
+        elif line_strip.startswith('@details'):
+            in_brief = False
+            in_param = False
+            in_return = False
+            in_remarks = True
+            content = line_strip[8:].strip()
+            if content:
+                remarks_lines.append(content)
         elif line_strip.startswith('@param'):
             in_brief = False
             in_param = True
             in_return = False
             in_remarks = False
-            parts = line_strip[6:].strip().split(None, 1)
-            if parts:
-                current_param = parts[0].strip()
-                content = parts[1].strip() if len(parts) > 1 else ""
+            
+            # Support @param[in], @param[out], and @param[in,out]
+            param_match = _re.match(r'^@param(?:\[(?:in|out|in\s*,\s*out)\])?\s+([A-Za-z0-9_]+)\s*(.*)', line_strip)
+            if param_match:
+                current_param = param_match.group(1).strip()
+                content = param_match.group(2).strip()
                 param_descs[current_param] = [content] if content else []
+            else:
+                parts = line_strip[6:].strip().split(None, 1)
+                if parts:
+                    current_param = parts[0].strip()
+                    content = parts[1].strip() if len(parts) > 1 else ""
+                    param_descs[current_param] = [content] if content else []
         elif line_strip.startswith('@return') or line_strip.startswith('@returns'):
             in_brief = False
             in_param = False
@@ -145,7 +315,6 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
     if not summary_lines or (len(summary_lines) == 1 and not summary_lines[0].strip()):
         if is_enum and enum_name:
             if member_name:
-                import re as _re
                 desc = f"{member_name} option."
                 if enum_name == "ColorConversionCodes":
                     match = _re.match(r'^([A-Za-z0-9]+)2([A-Za-z0-9]+)$', member_name)
@@ -177,7 +346,6 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
                     desc = _common_members.get(member_name, f"{val_cap} option.")
                 summary_lines = [desc]
             else:
-                import re as _re
                 _common_enums = {
                     "AccessFlag": "Specifies unmanaged memory access flags for matrix allocation.",
                     "AlgorithmHint": "Provides optimization hints to underlying OpenCV algorithms.",
@@ -200,14 +368,103 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
                 desc = _common_enums.get(enum_name, f"Specifies options and constants for {_re.sub(r'(?<!^)(?=[A-Z])', ' ', enum_name)}.")
                 summary_lines = [desc]
         else:
-            summary_lines = ["Wrapper for OpenCV's native functionality."]
+            _common_classes = {
+                "Mat": "Represents an n-dimensional dense numerical array (image, matrix, or tensor).",
+                "MatND": "Represents a multi-dimensional dense numerical array.",
+                "UMat": "Represents an OpenCL-enabled matrix supporting transparent API acceleration.",
+                "GpuMat": "Represents a dense GPU memory matrix for CUDA-accelerated operations.",
+                "CudaGpuMat": "Represents a dense GPU memory matrix for CUDA-accelerated operations.",
+                "DnnNet": "Represents a deep learning neural network model.",
+                "VideoCapture": "Provides APIs for capturing video from cameras, video files, or image streams.",
+                "VideoWriter": "Provides APIs for writing and encoding video files or image sequences.",
+                "CascadeClassifier": "Provides Haar-cascade and LBP-cascade object detection capability.",
+                "ArucoDetector": "Class for detecting ArUco markers in an image using a dictionary.",
+                "QRCodeDetector": "Provides APIs to detect and decode QR codes in images.",
+                "BarcodeDetector": "Provides APIs to detect and decode barcodes in images.",
+                "FaceDetectorYN": "Provides APIs for face detection and landmark localization using YuNet.",
+                "FaceRecognizerSF": "Provides APIs for face recognition and embedding extraction using Face-Transformer.",
+                "StereoBM": "Computes stereo disparity using the block matching algorithm.",
+                "StereoSGBM": "Computes stereo disparity using the semi-global block matching algorithm.",
+                "Stitcher": "Provides high-level APIs for stitching multiple images into a panorama.",
+                "KalmanFilter": "Implements the standard Kalman filter algorithm for tracking and state estimation.",
+                "BackgroundSubtractorMOG2": "Gaussian Mixture-based Background/Foreground Segmentation Algorithm.",
+            }
+            class_name = current_class or ""
+            if class_name in _common_classes:
+                summary_lines = [_common_classes[class_name]]
+            else:
+                summary_lines = ["Wrapper for OpenCV's native functionality."]
         
+    def sanitize_doxygen_for_csharp(text: str) -> str:
+        if not text:
+            return ""
+        # 1. Escape XML characters first
+        text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        
+        # 2. Recursively convert C++ vector types (e.g. std::vector<T> or vector<T>) to C# arrays (T[])
+        pattern_vec = _re.compile(r'(?:std::)?vector&lt;\s*(.*?)\s*&gt;')
+        while True:
+            new_text = pattern_vec.sub(r'\1[]', text)
+            if new_text == text:
+                break
+            text = new_text
+
+        # 3. Apply standard type mappings
+        cpp_to_cs_types = {
+            "cv::Mat": "Mat",
+            "cv::String": "string",
+            "std::string": "string",
+            "cv::Ptr": "",
+            "cv::": ""
+        }
+        for cpp_t, cs_t in cpp_to_cs_types.items():
+            text = text.replace(cpp_t, cs_t)
+
+        # 4. Translate inline Doxygen tags to XML counterparts
+        # @p / \p param -> <paramref name="param"/>
+        def replace_paramref(match):
+            p_name = match.group(2)
+            p_name_san = sanitize_csharp_argument_name(p_name).lstrip('@')
+            if p_name_san in valid_params:
+                return f'<paramref name="{p_name_san}"/>'
+            else:
+                return f'<c>{p_name}</c>'
+        text = _re.sub(r'([@\\][pa])\s+([A-Za-z0-9_]+)', replace_paramref, text)
+
+        # @c / \c code -> <c>code</c>
+        text = _re.sub(r'[@\\]c\s+([A-Za-z0-9_]+)', r'<c>\1</c>', text)
+
+        # Translate @code / @endcode / \code / \endcode
+        text = text.replace("@code", "<code>").replace("@endcode", "</code>")
+        text = text.replace("\\code", "<code>").replace("\\endcode", "</code>")
+
+        # Translate citations @cite and \cite to [CitationName]
+        text = _re.sub(r'[@\\]cite\s+([A-Za-z0-9_]+)', r'[\1]', text)
+        
+        # Translate @ref to <see cref="resolved"/>
+        def replace_ref(match):
+            ref_symbol = match.group(1)
+            resolved, is_valid = doc_resolver.resolve(ref_symbol, current_class)
+            return f'<see cref="{resolved}"/>' if is_valid else ref_symbol
+        text = _re.sub(r'[@\\]ref\s+([A-Za-z0-9_:]+)', replace_ref, text)
+
+        # Translate @sa and @see links
+        def replace_link(match):
+            link = match.group(2)
+            resolved, is_valid = doc_resolver.resolve(link, current_class)
+            return f'<see cref="{resolved}"/>' if is_valid else resolved
+        text = _re.sub(r'[@\\](sa|see)\s+([A-Za-z0-9_:]+)', replace_link, text)
+
+        # 5. Clean up C++ scope resolutions :: to . for cleaner C# naming references
+        text = _re.sub(r'\b([A-Za-z0-9_]+)::([A-Za-z0-9_]+)\b', r'\1.\2', text)
+        text = text.replace("cv.", "")
+        return text
+
     indent = " " * indent_spaces
     xml_lines = []
     xml_lines.append(f"{indent}/// <summary>")
     for sl in summary_lines:
-        sl_esc = sl.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        xml_lines.append(f"{indent}/// {sl_esc}")
+        xml_lines.append(f"{indent}/// {sanitize_doxygen_for_csharp(sl)}")
     xml_lines.append(f"{indent}/// </summary>")
     
     if params_list:
@@ -217,7 +474,6 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
             desc_lines = param_descs.get(p_name, [])
             desc = " ".join(desc_lines).strip()
             if not desc:
-                # Provide meaningful defaults for common parameter names
                 _common_param_descs = {
                     'src': 'Source matrix or image.',
                     'dst': 'Destination matrix or image (output).',
@@ -239,28 +495,45 @@ def format_xml_doc(doc_str: str, indent_spaces: int, params_list=None, returns_d
                     'apertureSize': 'Aperture size for the Sobel operator.',
                 }
                 desc = _common_param_descs.get(p_name, f"The {p_name_san} parameter.")
-            desc_esc = desc.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-            xml_lines.append(f"{indent}/// <param name=\"{p_name_san.lstrip('@')}\">{desc_esc}</param>")
+            xml_lines.append(f"{indent}/// <param name=\"{p_name_san.lstrip('@')}\">{sanitize_doxygen_for_csharp(desc)}</param>")
             
     if returns_desc and returns_desc != "void":
         ret_desc = " ".join(return_lines).strip()
         if not ret_desc:
             ret_desc = "The returned value."
-        ret_desc_esc = ret_desc.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        xml_lines.append(f"{indent}/// <returns>{ret_desc_esc}</returns>")
+        xml_lines.append(f"{indent}/// <returns>{sanitize_doxygen_for_csharp(ret_desc)}</returns>")
 
-    # Only emit exception tags for non-enum types (enums cannot throw exceptions)
     if not is_enum:
         if has_disposable:
             xml_lines.append(f"{indent}/// <exception cref=\"ArgumentNullException\">Thrown when a required parameter is null.</exception>")
             xml_lines.append(f"{indent}/// <exception cref=\"ObjectDisposedException\">Thrown when a parameter has been disposed.</exception>")
         xml_lines.append(f"{indent}/// <exception cref=\"OpenCVException\">Thrown when the underlying OpenCV native call fails.</exception>")
     
+    if not remarks_lines and not is_enum and current_class:
+        _common_remarks = {
+            "Mat": [
+                "The Mat class represents an n-dimensional dense numerical single-channel or multi-channel array.",
+                "It is the primary data structure in OpenCV used for image processing and computer vision operations.",
+                "Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header."
+            ],
+            "CudaGpuMat": [
+                "GpuMat (wrapped as CudaGpuMat) represents memory allocated on a CUDA-capable GPU device.",
+                "Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing."
+            ],
+            "DnnNet": [
+                "The Net class allows loading pre-trained models from formats like ONNX, TensorFlow, PyTorch, and Caffe.",
+                "Call SetInput to pass input blobs and Forward to perform inference."
+            ]
+        }
+        if current_class in _common_remarks:
+            remarks_lines = _common_remarks[current_class]
+
     if remarks_lines:
         xml_lines.append(f"{indent}/// <remarks>")
         for rl in remarks_lines:
-            rl_esc = rl.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-            xml_lines.append(f"{indent}/// {rl_esc}")
+            # Strip leading @note / @warning prefixes inside remarks
+            cleaned_rl = _re.sub(r'^[@\\](note|warning)\s*', r'', rl)
+            xml_lines.append(f"{indent}/// {sanitize_doxygen_for_csharp(cleaned_rl)}")
         xml_lines.append(f"{indent}/// </remarks>")
         
     return "\n".join(xml_lines)
@@ -463,6 +736,11 @@ def map_parser_type_to_cpp(tp, cls_name=None):
         
     return "cv::" + tp
 
+def is_struct_type(tp):
+    ctp = clean_type(tp)
+    return ctp in ["Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", 
+                    "Size2f", "Size2F", "Point2f", "Point2F", "Rect2f", "Rect2F"]
+
 class OpenCVWrapperGenerator:
     def __init__(self, opencv_dir, workspace_dir, verbose=False):
         self.opencv_dir = opencv_dir
@@ -490,6 +768,19 @@ class OpenCVWrapperGenerator:
         self.enums = {}
         self.functions = []
         self.funcs = []
+        
+        self.native_signatures = {}
+        cpp_cpp_path = os.path.join(self.workspace_dir, "src", "OpenCV5Sharp.Native", "opencv5sharp_native.cpp")
+        if os.path.exists(cpp_cpp_path):
+            import re
+            with open(cpp_cpp_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.startswith('extern "C" __declspec(dllexport)'):
+                        match = re.search(r'extern\s+"C"\s+__declspec\(dllexport\)\s+(\w+::\w+|\w+)\s+(\w+)\((.*?)\)', line)
+                        if match:
+                            ret_type = match.group(1).strip()
+                            func_name = match.group(2).strip()
+                            self.native_signatures[func_name] = (ret_type == "void")
         
     def find_headers(self):
         all_headers = []
@@ -701,7 +992,7 @@ class OpenCVWrapperGenerator:
         if ctp in ["int16_t", "uint16_t"]:
             return "short"
         if ctp in ["String", "std::string", "string", "c_string"]:
-            return "IntPtr" if is_return else ("[MarshalAs(UnmanagedType.LPUTF8Str)] string" if is_parameter else "string")
+            return "IntPtr" if is_return else ("[MarshalAs(UnmanagedType.LPUTF8Str)] string?" if is_parameter else "string")
         if ctp in ["Size", "Point", "Rect", "Scalar", "Range", "TermCriteria"]:
             return ctp
         if ctp == "Size2f" or ctp == "Size2F":
@@ -826,6 +1117,8 @@ class OpenCVWrapperGenerator:
             pascal_cls_name = "".join(to_pascal_case(p) for p in clean_cls_name.split("_") if p)
             self.generated_class_names.add(pascal_cls_name)
 
+        doc_resolver.setup(self.classes, self.funcs, self)
+
         # Collect all classes returned via cv::Ptr
         ptr_classes = set()
         for decl in self.funcs:
@@ -856,8 +1149,8 @@ class OpenCVWrapperGenerator:
             "CV_DEPTH_CURR_MAX": "13",
         }
         # Let's generate native C++ files first
-        cpp_h_path = os.path.join(self.workspace_dir, "src", "OpenCV5Sharp.Native", "opencv5sharp_native.h")
-        cpp_cpp_path = os.path.join(self.workspace_dir, "src", "OpenCV5Sharp.Native", "opencv5sharp_native.cpp")
+        cpp_h_path = os.devnull
+        cpp_cpp_path = os.devnull
         
         # Track name occurrences to append overloads
         c_names = {}
@@ -1023,6 +1316,12 @@ class OpenCVWrapperGenerator:
             enums_by_module[mod_norm].append("}\n")
 
         # 2. Generate Classes and Methods
+        csharp_class_delete_funcs = {}
+        for c_name in self.classes:
+            clean_c_name = c_name.replace("cv.", "").replace(".", "_")
+            pascal_c_name = "".join(to_pascal_case(p) for p in clean_c_name.split("_") if p)
+            csharp_class_delete_funcs[pascal_c_name] = f"{clean_c_name}_Delete"
+
         for cls_name, info in sorted(self.classes.items()):
             clean_cls_name = cls_name.replace("cv.", "").replace(".", "_")
             if not clean_cls_name or "IStreamReader" in clean_cls_name:
@@ -1192,13 +1491,18 @@ class OpenCVWrapperGenerator:
                 native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
                 if clean_type(ret_type) == "bool" and not is_constructor:
                     native_methods_by_module[mod_norm].append('[return: MarshalAs(UnmanagedType.U1)]')
-                native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(ret_type, is_return=True) if not is_constructor else "IntPtr"} {flat_name}({", ".join(cs_args_decl)});')
+                if is_struct_type(ret_type) and self.native_signatures.get(flat_name, False):
+                    ret_tp_cs = self.get_csharp_type(ret_type)
+                    pm_list = cs_args_decl + [f"out {ret_tp_cs} retVal"]
+                    native_methods_by_module[mod_norm].append(f'public static extern void {flat_name}({", ".join(pm_list)});')
+                else:
+                    native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(ret_type, is_return=True) if not is_constructor else "IntPtr"} {flat_name}({", ".join(cs_args_decl)});')
                 
                 # C# Class Method Implementation
                 sanitized_subname = sanitize_identifier(subname)
                 has_disposable = any(self.get_user_facing_csharp_type(a[0]) in self.generated_class_names for a in args)
                 if is_constructor:
-                    cs_class_methods.append(format_xml_doc(doc, 4, args, has_disposable=has_disposable))
+                    cs_class_methods.append(format_xml_doc(doc, 4, args, has_disposable=has_disposable, current_class=pascal_cls_name))
                     cs_class_methods.append(f'    public {pascal_cls_name}({", ".join([f"{self.get_user_facing_csharp_type_nullable(arg[0], arg[2])} {sanitize_csharp_argument_name(arg[1])}" for arg in args])})')
                     call_args = []
                     for arg in args:
@@ -1240,7 +1544,7 @@ class OpenCVWrapperGenerator:
                     ret_user = self.get_user_facing_csharp_type(ret_type)
                     ret_user_nullable = self.get_user_facing_csharp_return_type_nullable(ret_type)
                     
-                    cs_class_methods.append(format_xml_doc(doc, 4, args, ret_type, has_disposable=has_disposable))
+                    cs_class_methods.append(format_xml_doc(doc, 4, args, ret_type, has_disposable=has_disposable, current_class=pascal_cls_name))
                     cs_class_methods.append(f'    public {static_keyword}{new_keyword}{ret_user_nullable} {pascal_name}({", ".join([f"{self.get_user_facing_csharp_type_nullable(arg[0], arg[2])} {sanitize_csharp_argument_name(arg[1])}" for arg in args])})')
                     cs_class_methods.append("    {")
                     if not is_static:
@@ -1262,27 +1566,86 @@ class OpenCVWrapperGenerator:
                             call_args.append(san_name)
                     fcall = f"NativeMethods.{flat_name}({', '.join(call_args)})"
                     
-                    if ret_user == "void":
+                    keep_alives = []
+                    if not is_static:
+                        keep_alives.append("        GC.KeepAlive(this);")
+                    for arg in args:
+                        san_name = sanitize_csharp_argument_name(arg[1])
+                        user_type = self.get_user_facing_csharp_type(arg[0])
+                        if user_type in self.generated_class_names:
+                            keep_alives.append(f"        GC.KeepAlive({san_name});")
+                    if is_struct_type(ret_type) and self.native_signatures.get(flat_name, False):
+                        cs_class_methods.append(f"        {ret_user} res;")
+                        cs_class_methods.append(f"        NativeMethods.{flat_name}({', '.join(call_args + ['out res'])});")
+                        cs_class_methods.append(f"        ErrorHelper.CheckError();")
+                        for ka in keep_alives:
+                            cs_class_methods.append(ka)
+                        cs_class_methods.append(f"        return res;")
+                    elif ret_user == "void":
                         cs_class_methods.append(f"        {fcall};")
                         cs_class_methods.append(f"        ErrorHelper.CheckError();")
+                        for ka in keep_alives:
+                            cs_class_methods.append(ka)
                     elif ret_user == "string":
                         cs_class_methods.append(f"        IntPtr res = {fcall};")
-                        cs_class_methods.append(f"        ErrorHelper.CheckError();")
-                        cs_class_methods.append(f"        if (res == IntPtr.Zero) return null;")
-                        cs_class_methods.append(f"        string strRes = Marshal.PtrToStringUTF8(res);")
-                        cs_class_methods.append(f"        NativeMethods.cv_FreeString(res);")
-                        cs_class_methods.append(f"        return strRes;")
+                        cs_class_methods.append(f"        if (res == IntPtr.Zero)")
+                        cs_class_methods.append(f"        {{")
+                        for ka in keep_alives:
+                            cs_class_methods.append(f"    {ka}")
+                        cs_class_methods.append(f"            return null;")
+                        cs_class_methods.append(f"        }}")
+                        cs_class_methods.append(f"        try")
+                        cs_class_methods.append(f"        {{")
+                        cs_class_methods.append(f"            ErrorHelper.CheckError();")
+                        cs_class_methods.append(f"            string strRes = Marshal.PtrToStringUTF8(res) ?? \"\";")
+                        cs_class_methods.append(f"            return strRes;")
+                        cs_class_methods.append(f"        }}")
+                        cs_class_methods.append(f"        finally")
+                        cs_class_methods.append(f"        {{")
+                        cs_class_methods.append(f"            NativeMethods.cv_FreeString(res);")
+                        for ka in keep_alives:
+                            cs_class_methods.append(f"    {ka}")
+                        cs_class_methods.append(f"        }}")
                     elif self.is_enum_type(ret_type):
                         cs_class_methods.append(f"        var res = {fcall};")
                         cs_class_methods.append(f"        ErrorHelper.CheckError();")
+                        for ka in keep_alives:
+                            cs_class_methods.append(ka)
                         cs_class_methods.append(f"        return ({ret_user})res;")
                     elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                         cs_class_methods.append(f"        IntPtr res = {fcall};")
-                        cs_class_methods.append(f"        ErrorHelper.CheckError();")
-                        cs_class_methods.append(f"        return res == IntPtr.Zero ? null : new {ret_user}(res);")
+                        cs_class_methods.append(f"        if (res == IntPtr.Zero)")
+                        cs_class_methods.append(f"        {{")
+                        for ka in keep_alives:
+                            cs_class_methods.append(f"    {ka}")
+                        cs_class_methods.append(f"            return null;")
+                        cs_class_methods.append(f"        }}")
+                        cs_class_methods.append(f"        {ret_user}? resultObj = null;")
+                        cs_class_methods.append(f"        try")
+                        cs_class_methods.append(f"        {{")
+                        cs_class_methods.append(f"            resultObj = new {ret_user}(res);")
+                        cs_class_methods.append(f"            ErrorHelper.CheckError();")
+                        cs_class_methods.append(f"            return resultObj;")
+                        cs_class_methods.append(f"        }}")
+                        cs_class_methods.append(f"        catch")
+                        cs_class_methods.append(f"        {{")
+                        cs_class_methods.append(f"            if (resultObj == null)")
+                        cs_class_methods.append(f"            {{")
+                        del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
+                        cs_class_methods.append(f"                NativeMethods.{del_fn}(res);")
+                        cs_class_methods.append(f"            }}")
+                        cs_class_methods.append(f"            throw;")
+                        cs_class_methods.append(f"        }}")
+                        cs_class_methods.append(f"        finally")
+                        cs_class_methods.append(f"        {{")
+                        for ka in keep_alives:
+                            cs_class_methods.append(f"    {ka}")
+                        cs_class_methods.append(f"        }}")
                     else:
                         cs_class_methods.append(f"        var res = {fcall};")
                         cs_class_methods.append(f"        ErrorHelper.CheckError();")
+                        for ka in keep_alives:
+                            cs_class_methods.append(ka)
                         cs_class_methods.append(f"        return res;")
                     cs_class_methods.append("    }")
 
@@ -1334,7 +1697,11 @@ class OpenCVWrapperGenerator:
                 native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
                 if clean_type(prop_type) == "bool":
                     native_methods_by_module[mod_norm].append('[return: MarshalAs(UnmanagedType.U1)]')
-                native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(prop_type, is_return=True)} {getter_name}(IntPtr self);')
+                if is_struct_type(prop_type) and self.native_signatures.get(getter_name, False):
+                    ret_tp_cs = self.get_csharp_type(prop_type)
+                    native_methods_by_module[mod_norm].append(f'public static extern void {getter_name}(IntPtr self, out {ret_tp_cs} retVal);')
+                else:
+                    native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(prop_type, is_return=True)} {getter_name}(IntPtr self);')
                 
                 if not is_readonly:
                     setter_name = f"{clean_cls_name}_{prop_name}_set"
@@ -1389,22 +1756,30 @@ class OpenCVWrapperGenerator:
                     cs_class_methods.append("        get {")
                     cs_class_methods.append("            ThrowIfDisposed();")
                     cs_class_methods.append(f"            IntPtr res = NativeMethods.{getter_name}(Handle);")
-                    cs_class_methods.append("            ErrorHelper.CheckError();")
                     cs_class_methods.append("            if (res == IntPtr.Zero) return Array.Empty<int>();")
-                    cs_class_methods.append("            int size = NativeMethods.cv_VectorInt_Size(res);")
-                    cs_class_methods.append("            int[] data = new int[size];")
-                    cs_class_methods.append("            NativeMethods.cv_VectorInt_GetData(res, data);")
-                    cs_class_methods.append("            NativeMethods.cv_VectorInt_Delete(res);")
-                    cs_class_methods.append("            return data;")
+                    cs_class_methods.append("            try {")
+                    cs_class_methods.append("                ErrorHelper.CheckError();")
+                    cs_class_methods.append("                int size = NativeMethods.cv_VectorInt_Size(res);")
+                    cs_class_methods.append("                int[] data = new int[size];")
+                    cs_class_methods.append("                NativeMethods.cv_VectorInt_GetData(res, data);")
+                    cs_class_methods.append("                return data;")
+                    cs_class_methods.append("            } finally {")
+                    cs_class_methods.append("                NativeMethods.cv_VectorInt_Delete(res);")
+                    cs_class_methods.append("                GC.KeepAlive(this);")
+                    cs_class_methods.append("            }")
                     cs_class_methods.append("        }")
                     if not is_readonly:
                         cs_class_methods.append("        set {")
                         cs_class_methods.append("            ThrowIfDisposed();")
                         cs_class_methods.append("            if (value == null) return;")
                         cs_class_methods.append("            IntPtr vecPtr = NativeMethods.cv_VectorInt_New(value, value.Length);")
-                        cs_class_methods.append(f"            NativeMethods.{setter_name}(Handle, vecPtr);")
-                        cs_class_methods.append("            ErrorHelper.CheckError();")
-                        cs_class_methods.append("            NativeMethods.cv_VectorInt_Delete(vecPtr);")
+                        cs_class_methods.append("            try {")
+                        cs_class_methods.append(f"                NativeMethods.{setter_name}(Handle, vecPtr);")
+                        cs_class_methods.append("                ErrorHelper.CheckError();")
+                        cs_class_methods.append("            } finally {")
+                        cs_class_methods.append("                NativeMethods.cv_VectorInt_Delete(vecPtr);")
+                        cs_class_methods.append("                GC.KeepAlive(this);")
+                        cs_class_methods.append("            }")
                         cs_class_methods.append("        }")
                     cs_class_methods.append("    }")
                 elif is_vector_mat:
@@ -1413,16 +1788,20 @@ class OpenCVWrapperGenerator:
                     cs_class_methods.append("        get {")
                     cs_class_methods.append("            ThrowIfDisposed();")
                     cs_class_methods.append(f"            IntPtr res = NativeMethods.{getter_name}(Handle);")
-                    cs_class_methods.append("            ErrorHelper.CheckError();")
                     cs_class_methods.append("            if (res == IntPtr.Zero) return Array.Empty<Mat>();")
-                    cs_class_methods.append("            int size = NativeMethods.cv_VectorMat_Size(res);")
-                    cs_class_methods.append("            Mat[] data = new Mat[size];")
-                    cs_class_methods.append("            for (int i = 0; i < size; i++) {")
-                    cs_class_methods.append("                IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);")
-                    cs_class_methods.append("                data[i] = matPtr == IntPtr.Zero ? null : new Mat(matPtr);")
+                    cs_class_methods.append("            try {")
+                    cs_class_methods.append("                ErrorHelper.CheckError();")
+                    cs_class_methods.append("                int size = NativeMethods.cv_VectorMat_Size(res);")
+                    cs_class_methods.append("                Mat[] data = new Mat[size];")
+                    cs_class_methods.append("                for (int i = 0; i < size; i++) {")
+                    cs_class_methods.append("                    IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);")
+                    cs_class_methods.append("                    data[i] = matPtr == IntPtr.Zero ? null! : new Mat(matPtr);")
+                    cs_class_methods.append("                }")
+                    cs_class_methods.append("                return data;")
+                    cs_class_methods.append("            } finally {")
+                    cs_class_methods.append("                NativeMethods.cv_VectorMat_Delete(res);")
+                    cs_class_methods.append("                GC.KeepAlive(this);")
                     cs_class_methods.append("            }")
-                    cs_class_methods.append("            NativeMethods.cv_VectorMat_Delete(res);")
-                    cs_class_methods.append("            return data;")
                     cs_class_methods.append("        }")
                     if not is_readonly:
                         cs_class_methods.append("        set {")
@@ -1433,9 +1812,18 @@ class OpenCVWrapperGenerator:
                         cs_class_methods.append("                handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;")
                         cs_class_methods.append("            }")
                         cs_class_methods.append("            IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);")
-                        cs_class_methods.append(f"            NativeMethods.{setter_name}(Handle, vecPtr);")
-                        cs_class_methods.append("            ErrorHelper.CheckError();")
-                        cs_class_methods.append("            NativeMethods.cv_VectorMat_Delete(vecPtr);")
+                        cs_class_methods.append("            try {")
+                        cs_class_methods.append(f"                NativeMethods.{setter_name}(Handle, vecPtr);")
+                        cs_class_methods.append("                ErrorHelper.CheckError();")
+                        cs_class_methods.append("            } finally {")
+                        cs_class_methods.append("                NativeMethods.cv_VectorMat_Delete(vecPtr);")
+                        cs_class_methods.append("                GC.KeepAlive(this);")
+                        cs_class_methods.append("                if (value != null) {")
+                        cs_class_methods.append("                    for (int i = 0; i < value.Length; i++) {")
+                        cs_class_methods.append("                        if (value[i] != null) GC.KeepAlive(value[i]);")
+                        cs_class_methods.append("                    }")
+                        cs_class_methods.append("                }")
+                        cs_class_methods.append("            }")
                         cs_class_methods.append("        }")
                     cs_class_methods.append("    }")
                 else:
@@ -1448,32 +1836,52 @@ class OpenCVWrapperGenerator:
                         cs_class_methods.append(f"        get {{")
                         cs_class_methods.append(f"            ThrowIfDisposed();")
                         cs_class_methods.append(f"            IntPtr res = NativeMethods.{getter_name}(Handle);")
-                        cs_class_methods.append(f"            ErrorHelper.CheckError();")
                         cs_class_methods.append(f"            if (res == IntPtr.Zero) return null;")
-                        cs_class_methods.append(f"            string strRes = Marshal.PtrToStringUTF8(res);")
-                        cs_class_methods.append(f"            NativeMethods.cv_FreeString(res);")
-                        cs_class_methods.append(f"            return strRes;")
+                        cs_class_methods.append(f"            try {{")
+                        cs_class_methods.append(f"                ErrorHelper.CheckError();")
+                        cs_class_methods.append(f"                string strRes = Marshal.PtrToStringUTF8(res) ?? \"\";")
+                        cs_class_methods.append(f"                return strRes;")
+                        cs_class_methods.append(f"            }} finally {{")
+                        cs_class_methods.append(f"                NativeMethods.cv_FreeString(res);")
+                        cs_class_methods.append(f"                GC.KeepAlive(this);")
+                        cs_class_methods.append(f"            }}")
                         cs_class_methods.append(f"        }}")
                     elif self.is_enum_type(prop_type):
-                        cs_class_methods.append(f"        get {{ ThrowIfDisposed(); var res = NativeMethods.{getter_name}(Handle); ErrorHelper.CheckError(); return ({ret_user})res; }}")
+                        cs_class_methods.append(f"        get {{ ThrowIfDisposed(); var res = NativeMethods.{getter_name}(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return ({ret_user})res; }}")
                     elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                         cs_class_methods.append(f"        get {{")
                         cs_class_methods.append(f"            ThrowIfDisposed();")
                         cs_class_methods.append(f"            IntPtr res = NativeMethods.{getter_name}(Handle);")
-                        cs_class_methods.append(f"            ErrorHelper.CheckError();")
-                        cs_class_methods.append(f"            return res == IntPtr.Zero ? null : new {ret_user}(res);")
+                        cs_class_methods.append(f"            if (res == IntPtr.Zero) return null;")
+                        cs_class_methods.append(f"            {ret_user}? resultObj = null;")
+                        cs_class_methods.append(f"            try {{")
+                        cs_class_methods.append(f"                resultObj = new {ret_user}(res);")
+                        cs_class_methods.append(f"                ErrorHelper.CheckError();")
+                        cs_class_methods.append(f"                return resultObj;")
+                        cs_class_methods.append(f"            }} catch {{")
+                        cs_class_methods.append(f"                if (resultObj == null) {{")
+                        del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
+                        cs_class_methods.append(f"                    NativeMethods.{del_fn}(res);")
+                        cs_class_methods.append(f"                }}")
+                        cs_class_methods.append(f"                throw;")
+                        cs_class_methods.append(f"            }} finally {{")
+                        cs_class_methods.append(f"                GC.KeepAlive(this);")
+                        cs_class_methods.append(f"            }}")
                         cs_class_methods.append(f"        }}")
                     else:
-                        cs_class_methods.append(f"        get {{ ThrowIfDisposed(); var res = NativeMethods.{getter_name}(Handle); ErrorHelper.CheckError(); return res; }}")
+                        if is_struct_type(prop_type) and self.native_signatures.get(getter_name, False):
+                            cs_class_methods.append(f"        get {{ ThrowIfDisposed(); {ret_user} res; NativeMethods.{getter_name}(Handle, out res); ErrorHelper.CheckError(); GC.KeepAlive(this); return res; }}")
+                        else:
+                            cs_class_methods.append(f"        get {{ ThrowIfDisposed(); var res = NativeMethods.{getter_name}(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return res; }}")
                     
                     # Setter
                     if not is_readonly:
                         if self.is_enum_type(prop_type):
-                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, (int)value); ErrorHelper.CheckError(); }}")
+                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, (int)value); ErrorHelper.CheckError(); GC.KeepAlive(this); }}")
                         elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
-                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); }}")
+                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }}")
                         else:
-                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value); ErrorHelper.CheckError(); }}")
+                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value); ErrorHelper.CheckError(); GC.KeepAlive(this); }}")
                     cs_class_methods.append("    }")
 
             # Determine base class
@@ -1488,12 +1896,13 @@ class OpenCVWrapperGenerator:
 
             cls_doc = info.get("doc", "")
             class_lines = []
-            class_lines.append(format_xml_doc(cls_doc, 0))
-            class_lines.append(f"public class {pascal_cls_name} : {base_class_name}\n{{")
+            class_lines.append(format_xml_doc(cls_doc, 0, current_class=pascal_cls_name))
+            class_lines.append(f"public partial class {pascal_cls_name} : {base_class_name}\n{{")
             class_lines.append(f"    internal {pascal_cls_name}(IntPtr handle) : base(handle) {{}}")
-            class_lines.append(f"    protected override void DisposeUnmanaged(IntPtr handle)\n    {{")
-            class_lines.append(f"        NativeMethods.{delete_func_name}(handle);")
-            class_lines.append("    }")
+            if pascal_cls_name != "Mat":
+                class_lines.append(f"    protected override void DisposeUnmanaged(IntPtr handle)\n    {{")
+                class_lines.append(f"        NativeMethods.{delete_func_name}(handle);")
+                class_lines.append("    }")
             class_lines.extend(cs_class_methods)
             class_lines.append("}\n")
             
@@ -1618,7 +2027,7 @@ class OpenCVWrapperGenerator:
             ret_user_nullable = self.get_user_facing_csharp_return_type_nullable(ret_type)
             
             cv2_lines = []
-            cv2_lines.append(format_xml_doc(doc, 4, args, ret_type, has_disposable=has_disposable))
+            cv2_lines.append(format_xml_doc(doc, 4, args, ret_type, has_disposable=has_disposable, current_class="Cv2"))
             cv2_lines.append(f'    public static {ret_user_nullable} {csharp_method_name}({", ".join([f"{self.get_user_facing_csharp_type_nullable(arg[0], arg[2])} {sanitize_csharp_argument_name(arg[1])}" for arg in args])})')
             cv2_lines.append("    {")
             call_args = []
@@ -1636,34 +2045,85 @@ class OpenCVWrapperGenerator:
                     call_args.append(san_name)
                     
             fcall = f"NativeMethods.{flat_name}({', '.join(call_args)})"
+            keep_alives = []
+            for arg in args:
+                san_name = sanitize_csharp_argument_name(arg[1])
+                user_type = self.get_user_facing_csharp_type(arg[0])
+                if user_type in self.generated_class_names:
+                    keep_alives.append(f"        GC.KeepAlive({san_name});")
+
             if ret_user == "void":
                 cv2_lines.append(f"        {fcall};")
                 cv2_lines.append(f"        ErrorHelper.CheckError();")
+                for ka in keep_alives:
+                    cv2_lines.append(ka)
             elif ret_user == "string":
                 cv2_lines.append(f"        IntPtr res = {fcall};")
-                cv2_lines.append(f"        ErrorHelper.CheckError();")
-                cv2_lines.append(f"        if (res == IntPtr.Zero) return null;")
-                cv2_lines.append(f"        string strRes = Marshal.PtrToStringUTF8(res);")
-                cv2_lines.append(f"        NativeMethods.cv_FreeString(res);")
-                cv2_lines.append(f"        return strRes;")
+                cv2_lines.append(f"        if (res == IntPtr.Zero)")
+                cv2_lines.append(f"        {{")
+                for ka in keep_alives:
+                    cv2_lines.append(f"    {ka}")
+                cv2_lines.append(f"            return null;")
+                cv2_lines.append(f"        }}")
+                cv2_lines.append(f"        try")
+                cv2_lines.append(f"        {{")
+                cv2_lines.append(f"            ErrorHelper.CheckError();")
+                cv2_lines.append(f"            string strRes = Marshal.PtrToStringUTF8(res) ?? \"\";")
+                cv2_lines.append(f"            return strRes;")
+                cv2_lines.append(f"        }}")
+                cv2_lines.append(f"        finally")
+                cv2_lines.append(f"        {{")
+                cv2_lines.append(f"            NativeMethods.cv_FreeString(res);")
+                for ka in keep_alives:
+                    cv2_lines.append(f"    {ka}")
+                cv2_lines.append(f"        }}")
             elif self.is_enum_type(ret_type):
                 cv2_lines.append(f"        var res = {fcall};")
                 cv2_lines.append(f"        ErrorHelper.CheckError();")
+                for ka in keep_alives:
+                    cv2_lines.append(ka)
                 cv2_lines.append(f"        return ({ret_user})res;")
             elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                 cv2_lines.append(f"        IntPtr res = {fcall};")
-                cv2_lines.append(f"        ErrorHelper.CheckError();")
-                cv2_lines.append(f"        return res == IntPtr.Zero ? null : new {ret_user}(res);")
+                cv2_lines.append(f"        if (res == IntPtr.Zero)")
+                cv2_lines.append(f"        {{")
+                for ka in keep_alives:
+                    cv2_lines.append(f"    {ka}")
+                cv2_lines.append(f"            return null;")
+                cv2_lines.append(f"        }}")
+                cv2_lines.append(f"        {ret_user}? resultObj = null;")
+                cv2_lines.append(f"        try")
+                cv2_lines.append(f"        {{")
+                cv2_lines.append(f"            resultObj = new {ret_user}(res);")
+                cv2_lines.append(f"            ErrorHelper.CheckError();")
+                cv2_lines.append(f"            return resultObj;")
+                cv2_lines.append(f"        }}")
+                cv2_lines.append(f"        catch")
+                cv2_lines.append(f"        {{")
+                cv2_lines.append(f"            if (resultObj == null)")
+                cv2_lines.append(f"            {{")
+                del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
+                cv2_lines.append(f"                NativeMethods.{del_fn}(res);")
+                cv2_lines.append(f"            }}")
+                cv2_lines.append(f"            throw;")
+                cv2_lines.append(f"        }}")
+                cv2_lines.append(f"        finally")
+                cv2_lines.append(f"        {{")
+                for ka in keep_alives:
+                    cv2_lines.append(f"    {ka}")
+                cv2_lines.append(f"        }}")
             else:
                 cv2_lines.append(f"        var res = {fcall};")
                 cv2_lines.append(f"        ErrorHelper.CheckError();")
+                for ka in keep_alives:
+                    cv2_lines.append(ka)
                 cv2_lines.append(f"        return res;")
             cv2_lines.append("    }")
             
             cv2_methods_by_module[mod_norm].append("\n".join(cv2_lines))
 
         # Copyright header for generated files
-        cs_copyright = "// Copyright (c) 2026 Qourex. Licensed under Apache-2.0.\n// See LICENSE file in the project root for full license information.\n// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY. Generated by generator.py.\n\n#pragma warning disable CS8600, CS8601, CS8602, CS8603, CS8604, CS8625\n\n"
+        cs_copyright = "// Copyright (c) 2026 Qourex. Licensed under Apache-2.0.\n// See LICENSE file in the project root for full license information.\n// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY. Generated by generator.py.\n\n"
         cpp_copyright = "// Copyright (c) 2026 Qourex. Licensed under Apache-2.0.\n// See LICENSE file in the project root for full license information.\n// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY. Generated by generator.py.\n\n"
 
         # Write C++ header

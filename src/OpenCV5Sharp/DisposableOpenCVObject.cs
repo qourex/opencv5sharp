@@ -19,13 +19,14 @@ namespace OpenCV5Sharp
             PlatformGuard.EnsureSupported();
         }
 
-        private IntPtr _handle;
+        private volatile IntPtr _handle;
 
         /// <summary>Gets the native handle to the underlying OpenCV object.</summary>
         /// <value>A pointer to the unmanaged object, or <see cref="IntPtr.Zero"/> if disposed.</value>
         public IntPtr Handle => _handle;
 
         /// <summary>Gets a value indicating whether this object has been disposed.</summary>
+        /// <value><c>true</c> if the object is disposed and the native handle is zero; otherwise, <c>false</c>.</value>
         public bool IsDisposed => _handle == IntPtr.Zero;
 
         /// <summary>
@@ -33,8 +34,13 @@ namespace OpenCV5Sharp
         /// with the specified native handle.
         /// </summary>
         /// <param name="handle">The native handle to the unmanaged OpenCV object.</param>
+        /// <exception cref="OpenCVException">Thrown when the native handle is null (IntPtr.Zero).</exception>
         protected DisposableOpenCVObject(IntPtr handle)
         {
+            if (handle == IntPtr.Zero)
+            {
+                throw new OpenCVException("Failed to allocate or retrieve native OpenCV object (received null pointer).");
+            }
             _handle = handle;
         }
 
@@ -68,7 +74,14 @@ namespace OpenCV5Sharp
             IntPtr h = Interlocked.Exchange(ref _handle, IntPtr.Zero);
             if (h != IntPtr.Zero)
             {
-                DisposeUnmanaged(h);
+                try
+                {
+                    DisposeUnmanaged(h);
+                }
+                catch
+                {
+                    if (disposing) throw;
+                }
             }
         }
 
@@ -104,8 +117,21 @@ namespace OpenCV5Sharp
                 if (isOptional) return IntPtr.Zero;
                 throw new ArgumentNullException(paramName);
             }
-            obj.ThrowIfDisposed();
-            return obj.Handle;
+            IntPtr handle = obj.Handle;
+            if (handle == IntPtr.Zero)
+            {
+                throw new ObjectDisposedException(obj.GetType().Name);
+            }
+            return handle;
+        }
+
+        /// <summary>Reinterprets a ulong as an unmanaged struct value (e.g. Size2F, Point2F, Size, Point).</summary>
+        /// <typeparam name="T">The unmanaged struct type to reinterpret to.</typeparam>
+        /// <param name="val">The raw ulong value to reinterpret.</param>
+        /// <returns>The reinterpreted struct of type <typeparamref name="T"/>.</returns>
+        public static unsafe T Reinterpret<T>(ulong val) where T : unmanaged
+        {
+            return *(T*)&val;
         }
     }
 

@@ -13,6 +13,9 @@ namespace OpenCV5Sharp
     /// </summary>
     internal static class PlatformGuard
     {
+        private static readonly bool IsSupported;
+        private static readonly string ErrorMsg = string.Empty;
+
         static PlatformGuard()
         {
             bool supported = false;
@@ -30,19 +33,25 @@ namespace OpenCV5Sharp
                 supported = true;
 #endif
 
+            IsSupported = supported;
             if (!supported)
             {
-                throw new PlatformNotSupportedException(
-                    $"OpenCV5Sharp does not support {RuntimeInformation.RuntimeIdentifier}. " +
-                    $"Supported platforms: win-x64, linux-x64, osx-x64, osx-arm64, android-arm64, ios-arm64.");
+                ErrorMsg = $"OpenCV5Sharp does not support {RuntimeInformation.RuntimeIdentifier}. " +
+                    $"Supported platforms: win-x64, linux-x64, osx-x64, osx-arm64, android-arm64, ios-arm64.";
             }
         }
 
         /// <summary>
-        /// Forces the static constructor to run, validating platform compatibility.
+        /// Forces platform compatibility validation.
         /// Call this early in the library initialization path.
         /// </summary>
         /// <exception cref="PlatformNotSupportedException">Thrown when executing on an unsupported OS or process architecture.</exception>
-        internal static void EnsureSupported() { }
+        internal static void EnsureSupported()
+        {
+            if (!IsSupported)
+            {
+                throw new PlatformNotSupportedException(ErrorMsg);
+            }
+        }
     }
 }
