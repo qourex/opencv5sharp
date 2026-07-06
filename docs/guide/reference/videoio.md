@@ -115,11 +115,10 @@ The C function also deallocates memory and clears \*capture pointer.
   * *Summary*: Sets a property in the VideoCapture.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Even if it returns `true` this doesn't ensure that the property
 value has been accepted by the capture device. See note in VideoCapture.get()
-.:
-
+:::
   * *Parameter* `propId`: Property identifier from VideoCaptureProperties (eg. CAP_PROP_POS_MSEC, CAP_PROP_POS_FRAMES, ...) or one from `videoio_flags_others`
   * *Parameter* `value`: Value of the property.
   * *Returns*: `true` if the property is supported by backend used by the VideoCapture instance.
@@ -127,7 +126,7 @@ value has been accepted by the capture device. See note in VideoCapture.get()
   * *Summary*: Returns the specified VideoCapture property
   * *Remarks*:
 
-.: info Note
+::: info Note
 Reading / writing properties involves many layers. Some unexpected result might happens
 along this chain.
 
@@ -138,18 +137,16 @@ VideoCapture -> API Backend -> Operating System -> Device Driver -> Device Hardw
 The returned value might be different from what really used by the device or it could be encoded
 using device dependent rules (eg. steps or percentage). Effective behaviour depends from device
 driver and API Backend
-.:
-
+:::
   * *Parameter* `propId`: Property identifier from VideoCaptureProperties (eg. CAP_PROP_POS_MSEC, CAP_PROP_POS_FRAMES, ...) or one from `videoio_flags_others`
   * *Returns*: Value for the specified property. Value CAP_PROP_UNKNOWN is returned when querying a property that is not supported by the backend used by the VideoCapture instance.
 * `string? GetBackendName()`
   * *Summary*: Returns used backend API name
   * *Remarks*:
 
-.: info Note
+::: info Note
 Stream should be opened.
-.:
-
+:::
   * *Returns*: The backend API name as a string, or `null` if the stream is not opened.
 * `void SetExceptionMode(bool enable)`
   * *Summary*: Switches exceptions mode
@@ -285,10 +282,9 @@ destructor.
   * *Summary*: Returns used backend API name
   * *Remarks*:
 
-.: info Note
+::: info Note
 Stream should be opened.
-.:
-
+:::
   * *Returns*: The backend API name as a string, or `null` if the stream is not opened.
 
 ---

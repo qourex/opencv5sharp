@@ -19,7 +19,7 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine($"\n1. Encoding text to QR Code: \"{qrText}\"");
 
             using (var parameters = new QRCodeEncoderParams())
-            using (var encoder = QRCodeEncoder.Create(parameters.Handle))
+            using (var encoder = QRCodeEncoder.Create(parameters))
             {
                 if (encoder == null)
                 {

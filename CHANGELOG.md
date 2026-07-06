@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Split the CUDA/cuDNN GPU-accelerated C# wrapper into platform-specific packages: `OpenCV5Sharp.Gpu.Windows` and `OpenCV5Sharp.Gpu.Linux` to comply with NuGet.org's 250 MB package size limits.
 - Added `-Precompiled` switch to `build.ps1` to automatically fetch, stage, and package precompiled native libraries directly from GitHub Release tags.
-- Expanded the unit test suite to **636 unique test cases** (running **1,272 test runs** across .NET 8.0 and .NET 9.0) covering:
+- Expanded the unit test suite to **638 unique test cases** (running **1,276 test runs** across .NET 8.0 and .NET 9.0) covering:
   - Core row-stride matrix alignment, continuous layout, and memory copy limits.
   - Image processing data-driven grids (577 parameterized combinations of thresholding, color conversion space paths, matrix math operators, morphology operations, resizing interpolations, and pixel access).
   - Advanced modules: DNN ONNX inferences, SIFT/ORB features, Stitcher workflows, inpainting restoration, and motion prediction (Kalman filters).
@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CRITICAL**: Fixed immediate .NET 9.0 test host crash caused by P/Invoke return types being incorrectly mapped to SafeHandle subclasses. Restored `is_parameter` guard in `get_csharp_type()` so only parameters use typed SafeHandles while return types remain `IntPtr`.
 - **HIGH**: Fixed GCHandle leak in `Mat.AllocateAndPin()` — GCHandle is now freed in catch block if the Mat constructor throws.
 - **HIGH**: Added `~Mat()` finalizer to free the GCHandle on the finalization path when `Dispose()` is not explicitly called.
-- **HIGH**: Fixed potential stack overrun in `DisposableOpenCVObject.Reinterpret<T>()` by adding `sizeof(T) <= sizeof(ulong)` size guard.
+- **HIGH**: Fixed potential stack overrun in `ValidationHelper.Reinterpret<T>()` by adding `sizeof(T) <= sizeof(ulong)` size guard.
 - **HIGH**: Fixed race condition in `Cv2Parallel.ParallelBatchProcess` — input `IList` is now copied to a local snapshot array to prevent concurrent modification during parallel processing.
 - **MEDIUM**: Fixed `Cv2Extensions.Imencode` regex validation to prevent path traversal attacks.
 - Fixed `release.yml` workflow to apply TFM version suffix cleanup to both `.nupkg` and `.snupkg` packages, preventing NuGet.org symbol validation mismatches.

@@ -170,19 +170,17 @@ Result can be fetched via get() method only once.
   * *Summary*: Fetch the result.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Result or stored exception can be fetched only once.
-.:
-
+:::
   * *Parameter* `dst`: Destination matrix or image (output).
 * `bool Get(Mat dst, double timeoutNs)`
   * *Summary*: Retrieving the result with timeout
   * *Remarks*:
 
-.: info Note
+::: info Note
 Result or stored exception can be fetched only once.
-.:
-
+:::
   * *Parameter* `dst`: Destination matrix or image (output).
   * *Parameter* `timeoutNs`: The timeoutNs parameter.
   * *Returns*: s true if result is ready, false if the timeout has expired
@@ -623,8 +621,7 @@ where formula is the mass center:
 [see mathematical formula in OpenCV docs]
 The normalized central moments formula are computed as:
 [see mathematical formula in OpenCV docs]
-.: info Note
-
+::: info Note
 formula, formula
 formula , hence the values are not
 stored.
@@ -632,13 +629,11 @@ The moments of a contour are defined in the same way but computed using the Gree
 <http://en.wikipedia.org/wiki/Green_theorem>). So, due to a limited raster resolution, the moments
 computed for a contour are slightly different from the moments computed for the same rasterized
 contour.
-.:
-.: info Note
-
+:::
+::: info Note
 Since the contour moments are computed using Green formula, you may get seemingly odd results for
 contours with self-intersections, e.g. a zero area (m00) for butterfly-shaped contours.
-.:
-
+:::
 #### Properties
 | Property | Type | Description |
 | :--- | :--- | :--- |
@@ -706,12 +701,11 @@ The sample below demonstrates how to use RotatedRect:
   * *Summary*: returns 4 vertices of the rotated rectangle
   * *Remarks*:
 
-.: info Note
+::: info Note
 _Bottom_, _Top_, _Left_ and _Right_ sides refer to the original rectangle (angle is 0),
 so after 180 degree rotation _bottomLeft_ point will be located at the top right corner of the
 rectangle.
-.:
-
+:::
   * *Parameter* `pts`: The points array for storing rectangle vertices. The order is _bottomLeft_, _topLeft_, topRight, bottomRight.
 * `Rect BoundingRect()`
   * *Summary*: Wrapper for OpenCV's native functionality.
@@ -796,7 +790,7 @@ Cuda.SetBufferPoolUsage(true);
 
 ```
 
-.: info Note
+::: info Note
 `setBufferPoolUsage` must be called *before* any Stream declaration.
 Users may specify custom allocator for Stream and may implement their own stream based
 functions utilizing the same underlying GPU memory management.
@@ -841,8 +835,8 @@ using var pool3 = new CudaBufferPool(stream3);
 using var dSrc3 = pool3.GetBuffer(1024, 1024, MatType.CV_8UC1); // DefaultAllocator
 ```
 
-.:
-.: warning Warning
+:::
+::: warning Warning
 When utilizing StackAllocator, deallocation order is important.
 Just like a stack, deallocation must be done in LIFO order. Below is an example of
 erroneous usage that violates LIFO rule. If OpenCV is compiled in Debug mode, this
@@ -879,8 +873,7 @@ for (int i = 0; i < 10; i++)
     // 'using' declarations ensure LIFO disposal at end of scope
 }
 ```
-.:
-
+:::
 #### Constructors
 * `new CudaBufferPool(CudaStream stream)`
   * *Summary*: Wrapper for OpenCV's native functionality.
@@ -1133,11 +1126,11 @@ CPU)
 Beware that the latter limitation may lead to overloaded matrix operators that cause memory
 allocations. The GpuMat class is convertible to unmanaged memory pointers and unmanaged memory pointers so it can be
 passed directly to the kernel.
-.: info Note
+::: info Note
 In contrast with Mat, in most cases CudaGpuMat.IsContinuous == false . This means that rows are
 aligned to a size depending on the hardware. Single-row GpuMat is always a continuous matrix.
-.:
-.: info Note
+:::
+::: info Note
 You are not recommended to leave static or global GpuMat variables allocated, that is, to rely
 on its destructor. The destruction order of such variables and CUDA context is undefined. GPU memory
 release function returns error if the CUDA context has been destroyed before.
@@ -1149,8 +1142,7 @@ Compared to their blocking counterpart, non-blocking functions accept Stream as 
 argument. If a non-default stream is passed, the GPU operation may overlap with operations in other
 streams.
 **See also**: Mat
-.:
-
+:::
 #### Properties
 | Property | Type | Description |
 | :--- | :--- | :--- |
@@ -1427,11 +1419,10 @@ address space, if supported.
 -   **WRITE_COMBINED** sets the write combined buffer that is not cached by CPU. Such buffers are
 used to supply GPU with data when GPU only reads it. The advantage is a better CPU cache
 utilization.
-.: info Note
+::: info Note
 Allocation size of such memory types is usually limited. For more details, see *CUDA 2.2
 Pinned Memory APIs* document or *CUDA C Programming Guide*.
-.:
-
+:::
 #### Properties
 | Property | Type | Description |
 | :--- | :--- | :--- |
@@ -1515,14 +1506,14 @@ eliminates an extra copy.
 This class encapsulates a queue of asynchronous calls.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Currently, you may face problems if an operation is enqueued twice with different data. Some
 functions use the constant GPU memory, and next call may update the memory before the previous one
 has been finished. But calling different operations asynchronously is safe because each operation
 has its own constant buffer. Memory copy/upload/download/set operations to the buffers you hold are
 also safe.
-.:
-.: info Note
+:::
+::: info Note
 The Stream class is not thread-safe. Please use different Stream objects for different CPU threads.
 
 ```csharp
@@ -1540,12 +1531,11 @@ void Thread2()
 }
 ```
 
-.:
-.: info Note
+:::
+::: info Note
 By default all CUDA routines are launched in CudaStream.Null() object, if the stream is not specified by user.
 In multi-threading environment the stream objects must be passed explicitly (see previous note).
-.:
-
+:::
 #### Constructors
 * `new CudaStream()`
   * *Summary*: Wrapper for OpenCV's native functionality.
@@ -1566,13 +1556,12 @@ In multi-threading environment the stream objects must be passed explicitly (see
   * *Summary*: Adds a callback to be called on the host after all currently enqueued items in the stream have completed.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Callbacks must not make any CUDA API calls. Callbacks must not perform any synchronization
 that may depend on outstanding device work or other callbacks that are not mandated to run earlier.
 Callbacks without a mandated order (in independent streams) execute in undefined order and may be
 serialized.
-.:
-
+:::
   * *Returns*: The returned value.
 * `IntPtr CudaPtr()`
   * *Summary*: Wrapper for OpenCV's native functionality.
@@ -1924,13 +1913,12 @@ Cv2.CvtColor(rgb, gray, (int)ColorConversionCodes.Rgb2gray, 0, AlgorithmHint.Def
 Cv2.CopyMakeBorder(gray, gray_buf, border, border, border, border, (int)BorderTypes.Replicate, new Scalar(0));
 ```
 
-.: info Note
+::: info Note
 When the source image is a part (ROI) of a bigger image, the function will try to use the
 pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
 if src was not a ROI, use borderType | `BORDER_ISOLATED`.
 **See also**: borderInterpolate
-.:
-
+:::
 **Parameters**:
 * `src`: Source image.
 * `dst`: Destination image of the same type as src and the size Size(src.cols+left+right, src.rows+top+bottom) .
@@ -1973,14 +1961,13 @@ floating-point array. Depth of the output array is determined by the dtype param
 and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
 be set to the default -1. In this case, the output array will have the same depth as the input
 array, be it src1, src2 or both.
-.: info Note
+::: info Note
 Saturation is not applied when the output array has the depth CV_32S. You may even get
 result of an incorrect sign in the case of overflow.
 `add(src,X)` means `add(src,(X,X,X,X))`.
 `add(src,(X,))` means `add(src,(X,0,0,0))`.
 **See also**: subtract, addWeighted, scaleAdd, Mat.ConvertTo
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array or a scalar.
 * `src2`: second input array or a scalar.
@@ -2022,14 +2009,13 @@ can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signe
 the output array is determined by dtype parameter. In the second and third cases above, as well as
 in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
 case the output array will have the same depth as the input array, be it src1, src2 or both.
-.: info Note
+::: info Note
 Saturation is not applied when the output array has the depth CV_32S. You may even get
 result of an incorrect sign in the case of overflow.
 `subtract(src,X)` means `subtract(src,(X,X,X,X))`.
 `subtract(src,(X,))` means `subtract(src,(X,0,0,0))`.
 **See also**: add, addWeighted, scaleAdd, Mat.ConvertTo
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array or a scalar.
 * `src2`: second input array or a scalar.
@@ -2048,7 +2034,7 @@ The function multiply calculates the per-element product of two arrays:
 [see mathematical formula in OpenCV docs]
 There is also a `MatrixExpressions` -friendly variant of the first function. See Mat.Mul .
 For a not-per-element matrix product, see gemm .
-.: info Note
+::: info Note
 Saturation is not applied when the output array has the depth
 CV_32S. You may even get result of an incorrect sign in the case of
 overflow.
@@ -2056,8 +2042,7 @@ overflow.
 `multiply(src,(X,))` means `multiply(src,(X,0,0,0))`.
 **See also**: add, subtract, divide, scaleAdd, addWeighted, accumulate, accumulateProduct, accumulateSquare,
 Mat.ConvertTo
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array.
 * `src2`: second input array of the same size and the same type as src1.
@@ -2078,19 +2063,18 @@ or a scalar by an array when there is no src1 :
 [see mathematical formula in OpenCV docs]
 Different channels of multi-channel arrays are processed independently.
 For integer types when src2(I) is zero, dst(I) will also be zero.
-.: info Note
+::: info Note
 In case of floating point data there is no special defined behavior for zero src2(I) values.
 Regular floating-point division is used.
 Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
-.:
-.: info Note
+:::
+::: info Note
 Saturation is not applied when the output array has the depth CV_32S. You may even get
 result of an incorrect sign in the case of overflow.
 `divide(src,X)` means `divide(src,(X,X,X,X))`.
 `divide(src,(X,))` means `divide(src,(X,0,0,0))`.
 **See also**: multiply, add, subtract
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array.
 * `src2`: second input array of the same size and type as src1.
@@ -2158,12 +2142,11 @@ dst = src1*alpha + src2*beta + gamma;
 
 ```
 
-.: info Note
+::: info Note
 Saturation is not applied when the output array has the depth CV_32S. You may even get
 result of an incorrect sign in the case of overflow.
 **See also**: add, subtract, scaleAdd, Mat.ConvertTo
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array.
 * `alpha`: weight of the first array elements.
@@ -2255,15 +2238,13 @@ The function do not work with multi-channel arrays. If you need to check non-zer
 elements across all the channels, use Mat.Reshape first to reinterpret the array as
 single-channel. Or you may extract the particular channel using either extractImageCOI, or
 mixChannels, or split.
-.: info Note
-
+::: info Note
 - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 - If the location of non-zero array elements is important, `findNonZero` is helpful.
 - If the count of non-zero array elements is important, `countNonZero` is helpful.
 **See also**: mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
 **See also**: findNonZero, countNonZero
-.:
-
+:::
 **Parameters**:
 * `src`: single-channel array.
 
@@ -2282,15 +2263,13 @@ The function do not work with multi-channel arrays. If you need to count non-zer
 elements across all the channels, use Mat.Reshape first to reinterpret the array as
 single-channel. Or you may extract the particular channel using either extractImageCOI, or
 mixChannels, or split.
-.: info Note
-
+::: info Note
 - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 - If only whether there are non-zero elements is important, `hasNonZero` is helpful.
 - If the location of non-zero array elements is important, `findNonZero` is helpful.
 **See also**: mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
 **See also**: findNonZero, hasNonZero
-.:
-
+:::
 **Parameters**:
 * `src`: single-channel array.
 
@@ -2332,14 +2311,12 @@ The function do not work with multi-channel arrays. If you need to find non-zero
 elements across all the channels, use Mat.Reshape first to reinterpret the array as
 single-channel. Or you may extract the particular channel using either extractImageCOI, or
 mixChannels, or split.
-.: info Note
-
+::: info Note
 - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 - If only count of non-zero array elements is important, `countNonZero` is helpful.
 - If only whether there are non-zero elements is important, `hasNonZero` is helpful.
 **See also**: countNonZero, hasNonZero
-.:
-
+:::
 **Parameters**:
 * `src`: single-channel array
 * `idx`: the output array, type of Mat or Point[], corresponding to non-zero indices in the input
@@ -2376,15 +2353,14 @@ output parameters:
 [see mathematical formula in OpenCV docs]
 When all the mask elements are 0's, the function returns
 mean=stddev=Scalar.all(0).
-.: info Note
+::: info Note
 The calculated standard deviation is only the diagonal of the
 complete normalized covariance matrix. If the full matrix is needed, you
 can reshape the multi-channel array M x N to the single-channel array
 M\*N x mtx.channels() (only possible when the matrix is continuous) and
 then pass the matrix to calcCovarMatrix .
 **See also**: countNonZero, mean, norm, minMaxLoc, calcCovarMatrix
-.:
-
+:::
 **Parameters**:
 * `src`: input array that should have from 1 to 4 channels so that the results can be stored in Scalar_ 's.
 * `mean`: output parameter: calculated mean value.
@@ -2526,14 +2502,13 @@ Cv2.Normalize(positiveMat, normalizedData_inf, 1.0, 0.0, (int)NormTypes.Inf);
 Cv2.Normalize(positiveMat, normalizedData_minmax, 1.0, 0.0, (int)NormTypes.Minmax);
 ```
 
-.: info Note
+::: info Note
 Due to rounding issues, min-max normalization can result in values outside provided boundaries.
 If exact range conformity is needed, following workarounds can be used:
 - use double floating point precision (dtype = CV_64F)
 - manually clip values (`max(res, left_bound, res)`, `min(res, right_bound, res)` or `Math.Clamp`)
 **See also**: norm, Mat.ConvertTo, SparseMat.ConvertTo
-.:
-
+:::
 **Parameters**:
 * `src`: input array.
 * `dst`: output array of the same size as src .
@@ -2561,11 +2536,10 @@ the array as single-channel. Alternatively, you can extract the particular chann
 extractImageCOI, mixChannels, or split.
 
 functionality.
-.: info Note
+::: info Note
 CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 **See also**: max, min, reduceArgMin, reduceArgMax, compare, inRange, extractImageCOI, mixChannels, split, Mat.Reshape
-.:
-
+:::
 **Parameters**:
 * `src`: input single-channel array.
 * `minVal`: pointer to the returned minimum value; null is used if not required.
@@ -2581,7 +2555,7 @@ CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 *  Finds indices of min elements along provided axis
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 *
 *      - If input or output array is not continuous, this function will create an internal copy.
 *      - NaN handling is left unspecified, see patchNaNs().
@@ -2593,8 +2567,7 @@ CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 * * **Parameter** `lastIndex`:  whether to get the index of first or last occurrence of min.
 * * **Parameter** `axis`:  axis to reduce along.
 **See also**: *  reduceArgMax, minMaxLoc, min, max, compare, reduce
-.:
-
+:::
 **Parameters**:
 * `src`: Source matrix or image.
 * `dst`: Destination matrix or image (output).
@@ -2608,7 +2581,7 @@ CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 *  Finds indices of max elements along provided axis
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 *
 *      - If input or output array is not continuous, this function will create an internal copy.
 *      - NaN handling is left unspecified, see patchNaNs().
@@ -2620,8 +2593,7 @@ CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
 * * **Parameter** `lastIndex`:  whether to get the index of first or last occurrence of max.
 * * **Parameter** `axis`:  axis to reduce along.
 **See also**: *  reduceArgMin, minMaxLoc, min, max, compare, reduce
-.:
-
+:::
 **Parameters**:
 * `src`: Source matrix or image.
 * `dst`: Destination matrix or image (output).
@@ -2979,14 +2951,13 @@ number of channels in `src2`:
 [see mathematical formula in OpenCV docs]
 where I is a multi-dimensional index of array elements. In case of
 multi-channel arrays, each channel is processed independently.
-.: info Note
+::: info Note
 Saturation is not applied when the arrays have the depth CV_32S.
 You may even get a negative value in the case of overflow.
 `absdiff(src,X)` means `absdiff(src,(X,X,X,X))`.
 `absdiff(src,(X,))` means `absdiff(src,(X,0,0,0))`.
 **See also**: Cv2.Abs(Mat)
-.:
-
+:::
 **Parameters**:
 * `src1`: first input array or a scalar.
 * `src2`: second input array or a scalar.
@@ -3373,11 +3344,10 @@ Transposes a matrix.
 **Detailed Remarks**:
 The function transpose transposes the matrix src :
 [see mathematical formula in OpenCV docs]
-.: info Note
+::: info Note
 No complex conjugation is done in case of a complex matrix. It
 should be done separately if needed.
-.:
-
+:::
 **Parameters**:
 * `src`: input array.
 * `dst`: output array of the same type as src.
@@ -3436,7 +3406,7 @@ and
 [see mathematical formula in OpenCV docs]
 Here a 3D vector transformation is shown. In case of a 2D vector
 transformation, the z component is omitted.
-.: info Note
+::: info Note
 The function transforms a sparse set of 2D or 3D vectors. If you
 want to transform an image using perspective transformation, use
 warpPerspective . If you have an inverse problem, that is, you want to
@@ -3444,8 +3414,7 @@ compute the most probable perspective transformation out of several
 pairs of corresponding points, you can use getPerspectiveTransform or
 findHomography .
 **See also**: transform, warpPerspective, getPerspectiveTransform, findHomography
-.:
-
+:::
 **Parameters**:
 * `src`: input two-channel or three-channel floating-point array; each element is a 2D/3D vector to be transformed.
 * `dst`: output array of the same size and type as src.
@@ -3576,13 +3545,12 @@ If `DECOMP_LU` or `DECOMP_CHOLESKY` method is used, the function returns 1
 if src1 (or formula ) is non-singular. Otherwise,
 it returns 0. In the latter case, dst is not valid. Other methods find a
 pseudo-solution in case of a singular left-hand side part.
-.: info Note
+::: info Note
 If you want to find a unity-norm solution of an under-defined
 singular system formula , the function solve
 will not do the work. Use SVD.solveZ instead.
 **See also**: invert, SVD, eigen
-.:
-
+:::
 **Parameters**:
 * `src1`: input matrix on the left-hand side of the system.
 * `src2`: input matrix on the right-hand side of the system.
@@ -3686,11 +3654,10 @@ matrix src:
 src * eigenvectors.Row(i).T() = eigenvalues[i] * eigenvectors.Row(i).T()
 ```
 
-.: info Note
+::: info Note
 Use eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of non-symmetric matrix.
 **See also**: eigenNonSymmetric, completeSymm, PCA
-.:
-
+:::
 **Parameters**:
 * `src`: input matrix that must have CV_32FC1 or CV_64FC1 type, square size and be symmetrical (src ^T^ == src).
 * `eigenvalues`: output vector of eigenvalues of the same type as src; the eigenvalues are stored in the descending order.
@@ -3705,7 +3672,7 @@ Use eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of no
 Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Assumes real eigenvalues.
 The function calculates eigenvalues and eigenvectors (optional) of the square matrix src:
 
@@ -3714,8 +3681,7 @@ src * eigenvectors.Row(i).T() = eigenvalues[i] * eigenvectors.Row(i).T()
 ```
 
 **See also**: eigen
-.:
-
+:::
 **Parameters**:
 * `src`: input matrix (CV_32FC1 or CV_64FC1 type).
 * `eigenvalues`: output vector of eigenvalues (type is the same type as src).
@@ -3728,10 +3694,9 @@ src * eigenvectors.Row(i).T() = eigenvalues[i] * eigenvectors.Row(i).T()
 This is an overloaded member function, provided for convenience.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 use `COVAR_ROWS` or `COVAR_COLS` flag
-.:
-
+:::
 **Parameters**:
 * `samples`: samples stored as rows/columns of a single matrix.
 * `covar`: output covariance matrix of the type ctype and square size.
@@ -3930,13 +3895,11 @@ All of the above improvements have been implemented in `matchTemplate` and `filt
 using them, you can get the performance even better than with the above theoretically optimal
 implementation. Though, those two functions actually calculate cross-correlation, not convolution,
 so you need to "flip" the second convolution operand B vertically and horizontally using flip .
-.: info Note
-
+::: info Note
 -   An example using the discrete fourier transform can be found at
 **See also**: dct, getOptimalDFTSize, mulSpectrums, filter2D, matchTemplate, flip, cartToPolar,
 magnitude, phase
-.:
-
+:::
 **Parameters**:
 * `src`: input array that could be real or complex.
 * `dst`: output array whose size and type depends on the flags .
@@ -3951,12 +3914,11 @@ Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
 
 **Detailed Remarks**:
 idft(src, dst, flags) is equivalent to dft(src, dst, flags | `DFT_INVERSE`) .
-.: info Note
+::: info Note
 None of dft and idft scales the result by default. So, you should pass `DFT_SCALE` to one of
 dft or idft explicitly to make these transforms mutually inverse.
 **See also**: dft, dct, idct, mulSpectrums, getOptimalDFTSize
-.:
-
+:::
 **Parameters**:
 * `src`: input floating-point real or complex array.
 * `dst`: output array whose size and type depend on the flags.
@@ -3991,7 +3953,7 @@ is an inverse 1D or 2D transform.
 -   If (flags & `DCT_ROWS`) != 0, the function performs a 1D transform of each row.
 -   If the array is a single column or a single row, the function performs a 1D transform.
 -   If none of the above is true, the function performs a 2D transform.
-.: info Note
+::: info Note
 Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you
 can pad the array when necessary.
 Also, the function performance depends very much, and not monotonically, on the array size (see
@@ -4006,8 +3968,7 @@ int n1 = GetOptimalDCTSize(n);
 ```
 
 **See also**: dft, getOptimalDFTSize, idct
-.:
-
+:::
 **Parameters**:
 * `src`: input floating-point array.
 * `dst`: output array of the same size and type as src .
@@ -4279,10 +4240,8 @@ Ensures that the size of a matrix is big enough and the matrix has a proper type
 Bindings overload to create a GpuMat from existing GPU memory.
 
 **Detailed Remarks**:
-.: info Note
-
-.:
-
+::: info Note
+:::
 **Parameters**:
 * `rows`: Row count.
 * `cols`: Column count.
@@ -4299,10 +4258,8 @@ Bindings overload to create a GpuMat from existing GPU memory.
 This is an overloaded member function, provided for convenience.
 
 **Detailed Remarks**:
-.: info Note
-
-.:
-
+::: info Note
+:::
 **Parameters**:
 * `size`: 2D array size: Size(cols, rows). In the Size() constructor, the number of rows and the number of columns go in the reverse order.
 * `type`: Type of the matrix.
@@ -4356,10 +4313,8 @@ Unmaps the memory of matrix and makes it pageable again.
 Bindings overload to create a Stream object from the address stored in an existing CUDA Runtime API stream pointer (cudaStream_t).
 
 **Detailed Remarks**:
-.: info Note
-
-.:
-
+::: info Note
+:::
 **Parameters**:
 * `cudaStreamMemoryAddress`: Memory address stored in a CUDA Runtime API stream pointer (cudaStream_t). The created Stream object does not perform any allocation or deallocation and simply wraps existing raw CUDA Runtime API stream pointer.
 

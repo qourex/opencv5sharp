@@ -214,16 +214,14 @@ Computes rectification transforms for each head of a calibrated stereo camera.
 Computes a rectification transform for an uncalibrated stereo camera.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 While the algorithm does not need to know the intrinsic parameters of the cameras, it heavily
 depends on the epipolar geometry. Therefore, if the camera lenses have a significant distortion,
 it would be better to correct it before computing the fundamental matrix and calling this
 function. For example, distortion coefficients can be estimated for each head of stereo camera
 separately by using `CalibrateCamera` . Then, the images can be corrected using `undistort` , or
 just the point coordinates can be corrected with `undistortPoints` .
-.:
-
+:::
 **Parameters**:
 * `points1`: Array of feature points in the first image.
 * `points2`: The corresponding points in the second image. The same formats as in `findFundamentalMat` are supported.

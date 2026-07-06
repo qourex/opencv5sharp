@@ -57,7 +57,7 @@ class Program
     {
         // 1. Load an image from disk
         using var src = Cv2.Imread("lena.jpg", ImreadModes.Color.ToInt());
-        if (src == null || src.Handle.IsInvalid)
+        if (src == null || src.Empty())
         {
             Console.WriteLine("Could not load image.");
             return;
@@ -67,7 +67,7 @@ class Program
         using var gray = new Mat();
         using var edges = new Mat();
 
-        // 3. Convert to grayscale and run Canny Filter (Note: OpenCV 5.0 uses MatType.CV_8UC1 = 0)
+        // 3. Convert to grayscale and run Canny Filter
         Cv2.CvtColor(src, gray, ColorConversionCodes.Bgr2gray.ToInt(), 0, AlgorithmHint.Default);
         Cv2.Canny(gray, edges, 50, 150, 3, false);
 
@@ -102,18 +102,19 @@ public void UpdateWpfImage(WriteableBitmap wpfBitmap, Mat frame)
     wpfBitmap.Lock();
     try
     {
-        int srcStride = frame.Cols * frame.Channels(); 
+        int srcStride = (int)frame.Step; 
         int dstStride = wpfBitmap.BackBufferStride;
+        int bytesToCopyPerRow = frame.Cols * frame.Channels(); // Assuming 8-bit channels
 
         unsafe
         {
             byte* srcPtr = (byte*)frame.Data;
             byte* dstPtr = (byte*)wpfBitmap.BackBuffer;
 
-            int bytesToCopyPerRow = Math.Min(srcStride, dstStride);
+            int bytesToCopy = Math.Min(bytesToCopyPerRow, dstStride);
             for (int y = 0; y < frame.Rows; y++)
             {
-                Buffer.MemoryCopy(srcPtr + (y * srcStride), dstPtr + (y * dstStride), dstStride, bytesToCopyPerRow);
+                Buffer.MemoryCopy(srcPtr + (y * srcStride), dstPtr + (y * dstStride), dstStride, bytesToCopy);
             }
         }
         wpfBitmap.AddDirtyRect(new Int32Rect(0, 0, frame.Cols, frame.Rows));

@@ -82,13 +82,11 @@ High level image stitcher.
 It's possible to use this class without being aware of the entire stitching pipeline. However, to
 be able to achieve higher stitching stability and quality of the final images at least being
 familiar with the theory is recommended.
-.: info Note
-
+::: info Note
 -   A basic example on image stitching can be found at
 
 -   A detailed example on image stitching can be found at
-.:
-
+:::
 #### Methods
 * `Stitcher? Create(FileStorageMode mode)`
   * *Summary*: Creates a Stitcher configured in one of the stitching modes.
@@ -134,11 +132,10 @@ familiar with the theory is recommended.
   * *Summary*: These functions try to match the given images and to estimate rotations of each camera.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Use the functions only if you're aware of the stitching pipeline, otherwise use
 Stitcher.stitch.
-.:
-
+:::
   * *Parameter* `images`: Input images.
   * *Parameter* `masks`: Masks for each input image specifying where to look for keypoints (optional).
   * *Returns*: Status code.
@@ -150,11 +147,10 @@ Stitcher.stitch.
   * *Summary*: These functions try to compose the given images (or images stored internally from the other function calls) into the final pano under the assumption that the image transformations were estimated before.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Use the functions only if you're aware of the stitching pipeline, otherwise use
 Stitcher.stitch.
-.:
-
+:::
   * *Parameter* `images`: Input images.
   * *Parameter* `pano`: Final pano.
   * *Returns*: Status code.
@@ -476,10 +472,9 @@ You can affect only on them via the refinement mask.
 Describes camera parameters.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Translation is assumed to be zero during the whole stitching pipeline. :
-.:
-
+:::
 #### Properties
 | Property | Type | Description |
 | :--- | :--- | :--- |
@@ -557,11 +552,10 @@ Rotation estimator base class.
 **Detailed Remarks**:
 It takes features of all images, pairwise matches between all images and estimates rotations of all
 cameras.
-.: info Note
+::: info Note
 The coordinate system origin is implementation-dependent, but you can always normalize the
 rotations in respect to the first camera, for instance. :
-.:
-
+:::
 #### Methods
 * `bool Operator(IntPtr features, IntPtr pairwise_matches, IntPtr cameras)`
   * *Summary*: Estimates camera parameters.

@@ -263,11 +263,10 @@ Line segment detector class
 
 **Detailed Remarks**:
 following the algorithm described at **Citation**:  Rafael12 .
-.: info Note
+::: info Note
 Implementation has been removed from OpenCV version 3.4.6 to 3.4.15 and version 4.1.0 to 4.5.3 due original code license conflict.
 restored again after [Computation of a NFA](https://github.com/rafael-grompone-von-gioi/binomial_nfa) code published under the MIT license.
-.:
-
+:::
 #### Methods
 * `void Detect(Mat image, Mat lines, Mat? width, Mat? prec, Mat? nfa)`
   * *Summary*: Finds lines in the input image.
@@ -408,11 +407,10 @@ Blurs an image using the median filter.
 The function smoothes an image using the median filter with the `\texttt{ksize} \times
 \texttt{ksize}` aperture. Each channel of a multi-channel image is processed independently.
 In-place operation is supported.
-.: info Note
+::: info Note
 The median filter uses `BORDER_REPLICATE` internally to cope with border pixels, see `BorderTypes`
 **See also**: bilateralFilter, blur, boxFilter, GaussianBlur
-.:
-
+:::
 **Parameters**:
 * `src`: input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image depth should be CV_8U, CV_16U, or CV_32F, for larger aperture sizes, it can only be CV_8U.
 * `dst`: destination array of the same size and type as src.
@@ -957,7 +955,9 @@ Finds circles in a grayscale image using the Hough transform.
 **Detailed Remarks**:
 The function finds circles in a grayscale image using a modification of the Hough transform.
 Example: :
-See example in OpenCV documentation. .: info Note
+See example in OpenCV documentation.
+
+::: info Note
 Usually the function detects the centers of circles well. However, it may fail to find correct
 radii. You can assist to the function by specifying the radius range ( minRadius and maxRadius ) if
 you know it. Or, in the case of `HOUGH_GRADIENT` method you may set maxRadius to a negative number
@@ -965,8 +965,7 @@ to return centers only without radius search, and find the correct radius using 
 It also helps to smooth image a bit unless it's already soft. For example,
 GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help.
 **See also**: fitEllipse, minEnclosingCircle
-.:
-
+:::
 **Parameters**:
 * `image`: 8-bit, single-channel, grayscale input image.
 * `circles`: Output vector of found circles. Each vector is encoded as  3 or 4 element floating-point vector formula or formula .
@@ -1036,12 +1035,11 @@ basic operations.
 Any of the operations can be done in-place. In case of multi-channel images, each channel is
 processed independently.
 **See also**: dilate, erode, getStructuringElement
-.: info Note
+::: info Note
 The number of iterations is the number of times erosion or dilatation operation will be applied.
 For instance, an opening operation (`MORPH_OPEN`) with two iterations is equivalent to apply
 successively: erode -> erode -> dilate -> dilate (and not erode -> dilate -> erode -> dilate).
-.:
-
+:::
 **Parameters**:
 * `src`: Source image. The number of channels can be arbitrary. The depth should be one of CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
 * `dst`: Destination image of the same size and type as source image.
@@ -1159,11 +1157,9 @@ convert from floating to fixed-point representations of a map is that they can y
 (\~2x) remapping operations. In the converted case, formula contains pairs (cvFloor(x),
 cvFloor(y)) and formula contains indices in a table of interpolation coefficients.
 This function cannot operate in-place.
-.: info Note
-
+::: info Note
 Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
-.:
-
+:::
 **Parameters**:
 * `src`: Source image.
 * `dst`: Destination image. It has the same size as map1 and the same type as src .
@@ -1475,14 +1471,12 @@ the destination image will have the given size therefore the area of the boundin
  Reverse mapping
 You can get reverse mapping adding `WARP_INVERSE_MAP` to `flags`
 In addition, to calculate the original coordinate from a polar mapped coordinate formula:
-.: info Note
-
+::: info Note
 -  The function can not operate in-place.
 -  To calculate magnitude and angle in degrees `cartToPolar` is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
 -  This function uses `remap`. Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
 **See also**: remap
-.:
-
+:::
 **Parameters**:
 * `src`: Source image.
 * `dst`: Destination image. It will have same type as src.
@@ -1714,12 +1708,11 @@ type parameter.
 Also, the special values `THRESH_OTSU` or `THRESH_TRIANGLE` may be combined with one of the
 above values. In these cases, the function determines the optimal threshold value using the Otsu's
 or Triangle algorithm and uses it instead of the specified thresh.
-.: info Note
+::: info Note
 Currently, the Otsu's method is implemented only for CV_8UC1 and CV_16UC1 images,
 and the Triangle's method is implemented only for CV_8UC1 images.
 **See also**: thresholdWithMask, adaptiveThreshold, findContours, compare, min, max
-.:
-
+:::
 **Parameters**:
 * `src`: input array (multiple-channel, CV_8U, CV_16S, CV_16U, CV_32F or CV_64F).
 * `dst`: output array of the same size  and type and the same number of channels as src.
@@ -1736,13 +1729,12 @@ and the Triangle's method is implemented only for CV_8UC1 images.
 Same as `threshold`, but with an optional mask
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 If the mask is empty, `thresholdWithMask` is equivalent to `threshold`.
 If the mask is not empty, dst *must* be of the same size and type as src, so that
 outliers pixels are left as-is
 **See also**: threshold, adaptiveThreshold, findContours, compare, min, max
-.:
-
+:::
 **Parameters**:
 * `src`: input array (multiple-channel, 8-bit or 32-bit floating point).
 * `dst`: output array of the same size  and type and the same number of channels as src.
@@ -1950,13 +1942,12 @@ the future image regions. All the other pixels in markers , whose relation to th
 is not known and should be defined by the algorithm, should be set to 0's. In the function output,
 each pixel in markers is set to a value of the "seed" components or to -1 at boundaries between the
 regions.
-.: info Note
+::: info Note
 Any two neighbor connected components are not necessarily separated by a watershed boundary
 (-1's pixels); for example, they can touch each other in the initial marker image passed to the
 function.
 **See also**: findContours
-.:
-
+:::
 **Parameters**:
 * `image`: Input 8-bit 3-channel image.
 * `markers`: Input/output 32-bit single-channel image (map) of markers. It should have the same size as image .
@@ -2109,12 +2100,11 @@ of a floating range.
 - Color/brightness of the seed point in case of a fixed range.
 Use these functions to either mark a connected component with the specified color in-place, or build
 a mask and then extract the contour, or copy the region to another image, and so on.
-.: info Note
+::: info Note
 Since the mask is larger than the filled image, a pixel formula in image corresponds to the
 pixel formula in the mask .
 **See also**: findContours
-.:
-
+:::
 **Parameters**:
 * `image`: Input/output 1- or 3-channel, 8-bit, or floating-point image. It is modified by the function unless the `FLOODFILL_MASK_ONLY` flag is set in the second variant of the function. See the details below.
 * `mask`: Operation mask that should be a single-channel 8-bit image, 2 pixels wider and 2 pixels taller than image. If an empty Mat is passed it will be created automatically. Since this is both an input and output parameter, you must take responsibility of initializing it. Flood-filling cannot go across non-zero pixels in the input mask. For example, an edge detector output can be used as a mask to stop filling at edges. On output, pixels in the mask corresponding to filled pixels in the image are set to 1 or to the specified value in flags as described below. Additionally, the function fills the border of the mask with ones to simplify internal processing. It is therefore possible to use the same mask in multiple calls to the function to make sure the filled areas do not overlap.
@@ -2178,11 +2168,10 @@ that need the full range of colors or that convert an image before an operation 
 back.
 If conversion adds the alpha channel, its value will set to the maximum of corresponding channel
 range: 255 for CV_8U, 65535 for CV_16U, 1 for CV_32F.
-.: info Note
+::: info Note
 The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
 **See also**: `imgproc_color_conversions`
-.:
-
+:::
 **Parameters**:
 * `src`: input image: 8-bit unsigned, 16-bit unsigned ( CV_16UC... ), or single-precision floating-point.
 * `dst`: output image of the same size and depth as src.
@@ -2213,11 +2202,10 @@ This function only supports YUV420 to RGB conversion as of now.
 main function for all demosaicing processes
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 The source image (src) must be of an appropriate type for the desired color conversion. see ColorConversionCodes
 **See also**: cvtColor
-.:
-
+:::
 **Parameters**:
 * `src`: input image: 8-bit unsigned or 16-bit unsigned.
 * `dst`: output image of the same size and depth as src.
@@ -2344,18 +2332,17 @@ Finds contours in a binary image.
 The function retrieves contours from the binary image. The contours
 are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the
 OpenCV sample directory.
-.: info Note
+::: info Note
 Since OpenCV 4.14, when mode is `RETR_LIST` and no hierarchy is requested, this function
 automatically uses the TRUCO parallel algorithm **Citation**:  TRUCO2026, a scalable lock-free method for
 contour extraction. In all other cases, the sequential **Citation**:  Suzuki85 algorithm is used.
-.:
-.: info Note
+:::
+::: info Note
 Since opencv 3.2 source image is not modified by this function.
-.:
-.: info Note
+:::
+::: info Note
 The hierarchy array maps contour relationships to access hierarchical elements of i-th contour.
-.:
-
+:::
 **Parameters**:
 * `image`: Source, an 8-bit single-channel image. Non-zero pixels are treated as 1's. Zero pixels remain 0's, so the image is treated as binary . You can use `compare`, `inRange`, `threshold` , `adaptiveThreshold`, `Canny`, and others to create a binary image out of a grayscale or color one. If mode equals to `RETR_CCOMP` or `RETR_FLOODFILL`, the input can also be a 32-bit integer image of labels (CV_32SC1).
 * `contours`: Detected contours. Each contour is stored as a vector of points (e.g. Point[][]).
@@ -2656,14 +2643,15 @@ Draws contours outlines or filled contours.
 The function draws contour outlines in the image if formula or fills the area
 bounded by the contours if formula . The example below shows how to retrieve
 connected components from the binary image and label them: :
-See example in OpenCV documentation. .: info Note
+See example in OpenCV documentation.
+
+::: info Note
 When thickness=`FILLED`, the function is designed to handle connected components with holes correctly
 even when no hierarchy data is provided. This is done by analyzing all the outlines together
 using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
 contours. In order to solve this problem, you need to call `drawContours` separately for each sub-group
 of contours, or iterate over the collection using contourIdx parameter.
-.:
-
+:::
 **Parameters**:
 * `image`: Destination image.
 * `contours`: All the input contours. Each contour is stored as a point vector.
@@ -2748,7 +2736,7 @@ string text = "Funny text inside the box";
 int fontFace = (int)HersheyFonts.ScriptSimplex;
 double fontScale = 2;
 int thickness = 3;
-using var img = new Mat(600, 800, 16, new Scalar(0)); // CV_8UC3 = 16
+using var img = new Mat(600, 800, MatType.CV_8UC3, new Scalar(0));
 IntPtr baselinePtr = System.Runtime.InteropServices.Marshal.AllocHGlobal(sizeof(int));
 try
 {

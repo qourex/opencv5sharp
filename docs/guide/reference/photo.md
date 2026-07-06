@@ -376,7 +376,7 @@ Produce a ColorCorrectionModel instance for inference
   * *Summary*: set ColorSpace
   * *Remarks*:
 
-.: info Note
+::: info Note
 It should be some RGB color space;
 Supported list of color cards:
 - `COLOR_SPACE_SRGB`
@@ -387,8 +387,7 @@ Supported list of color cards:
 - `COLOR_SPACE_APPLE_RGB`
 - `COLOR_SPACE_REC_709_RGB`
 - `COLOR_SPACE_REC_2020_RGB`
-.:
-
+:::
   * *Parameter* `cs`: the absolute color space that detected colors convert to; default: `COLOR_SPACE_SRGB`
 * `void SetCcmType(CcmCcmType ccmType)`
   * *Summary*: set ccmType
@@ -403,23 +402,21 @@ Supported list of color cards:
   * *Summary*: set Gamma
   * *Remarks*:
 
-.: info Note
+::: info Note
 only valid when linear is set to "gamma";
-.:
-
+:::
   * *Parameter* `gamma`: the gamma value of gamma correction; default: 2.2;
 * `void SetLinearizationDegree(int deg)`
   * *Summary*: set degree
   * *Remarks*:
 
-.: info Note
+::: info Note
 only valid when linear is set to
 - `LINEARIZATION_COLORPOLYFIT`
 - `LINEARIZATION_GRAYPOLYFIT`
 - `LINEARIZATION_COLORLOGPOLYFIT`
 - `LINEARIZATION_GRAYLOGPOLYFIT`
-.:
-
+:::
   * *Parameter* `deg`: the degree of linearization polynomial default: 3
 * `void SetSaturatedThreshold(double lower, double upper)`
   * *Summary*: set SaturatedThreshold. The colors in the closed interval [lower, upper] are reserved to participate in the calculation of the loss function and initialization parameters
@@ -537,11 +534,9 @@ Intelligent Scissors image segmentation * * This class is used to find the path 
 Restores the selected region in an image using the region neighborhood.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 -   An example using the inpainting technique can be found at
-.:
-
+:::
 **Parameters**:
 * `src`: Input 8-bit, 16-bit unsigned or 32-bit float 1-channel or 8-bit 3-channel image.
 * `inpaintMask`: Inpainting mask, 8-bit 1-channel image. Non-zero pixels indicate the area that needs to be inpainted.
@@ -844,13 +839,11 @@ Applying an appropriate non-linear transformation to the gradient field inside t
 By retaining only the gradients at edge locations, before integrating with the Poisson solver, one washes out the texture of the selected region, giving its contents a flat aspect. Here Canny Edge Detector is used.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 The algorithm assumes that the color of the source image is close to that of the destination. This
 assumption means that when the colors don't match, the source image color gets tinted toward the
 color of the destination image.
-.:
-
+:::
 **Parameters**:
 * `src`: Input 8-bit 3-channel image.
 * `mask`: Input 8-bit 1 or 3-channel image.

@@ -38,7 +38,7 @@ namespace OpenCV5Sharp.Samples
                 Console.WriteLine("\nVerifying DNN APIs link successfully in native DLL...");
                 using (DnnNet dummyNet = new DnnNet())
                 {
-                    Console.WriteLine($"   DnnNet initialized successfully. Handle: 0x{dummyNet.Handle.ToString("X")}");
+                    Console.WriteLine($"   DnnNet initialized successfully. Handle: 0x{dummyNet.Handle.DangerousGetHandle().ToString("X")}");
                 }
                 Console.WriteLine("   DNN API linkage verification passed.");
             }

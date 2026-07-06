@@ -85,14 +85,14 @@ class DnnClassifier
         
         // 2. Prepare input image
         using var img = Cv2.Imread(imagePath, (int)ImreadModes.Color);
-        if (img == null || img.Handle == IntPtr.Zero)
+        if (img == null || img.Empty())
         {
             Console.WriteLine("Failed to load image.");
             return;
         }
 
         using var blob = Cv2.DnnBlobFromImage(img, 1.0 / 255.0, new Size(224, 224),
-            new Scalar(0, 0, 0), true, false, 5); // ddepth: CV_32F = 5
+            new Scalar(0, 0, 0), true, false, MatType.CV_32F); // ddepth: CV_32F = 5
         net.SetInput(blob, "", 1.0, new Scalar(0, 0, 0, 0));
         
         // 3. Forward pass
@@ -156,14 +156,14 @@ using OpenCV5Sharp;
 void DetectMarkers(string imagePath)
 {
     using var src = Cv2.Imread(imagePath, (int)ImreadModes.Color);
-    if (src == null || src.Handle == IntPtr.Zero)
+    if (src == null || src.Empty())
     {
         Console.WriteLine("Failed to load image.");
         return;
     }
 
     // Get a predefined ArUco dictionary (DICT_6X6_250 = 10)
-    using var dictionary = Cv2.ArucoGetPredefinedDictionary(10);
+    using var dictionary = Cv2.ArucoGetPredefinedDictionary((int)ArucoPredefinedDictionaryType._6x6250);
     using var detectorParams = new ArucoDetectorParameters();
     
     // Instantiate detector

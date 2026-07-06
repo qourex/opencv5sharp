@@ -66,7 +66,7 @@ OpenCV C++ Headers (.hpp files)
 py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir .
 ```
 
-## Memory Ownership Model
+## Memory Ownership & Lifecycle Model
 
 ### Rule 1: Objects returned by factory methods are OWNED by the caller
 
@@ -76,16 +76,66 @@ using var mat = new Mat(100, 100, 64); // 64 = CV_8UC3 (8-bit unsigned, 3 channe
 using var orb = ORB.Create();
 ```
 
-### Rule 2: DisposableOpenCVObject handles prevent double-free
+### Rule 2: Thread-Safe Native Lifecycle via SafeHandle
 
-The base class uses `Interlocked.Exchange` to atomically swap the handle to
-`IntPtr.Zero` on dispose, ensuring exactly-once cleanup even under concurrent
-disposal.
+Unmanaged resources are wrapped by `OpenCVHandle`, which inherits from .NET's 
+`SafeHandleZeroOrMinusOneIsInvalid`. Over 180 typed SafeHandle subclasses (e.g., `MatHandle`, `AlgorithmHandle`)
+are auto-generated.
+
+The managed classes inherit from `DisposableOpenCVObject`, which wraps these handles.
+The CLR's `SafeHandle` implementation natively prevents double-free conditions, coordinates
+unmanaged reference tracking during P/Invoke transitions, and guarantees reliable cleanup.
 
 ### Rule 3: Properties return copies, not internal references
 
 Property getters that return objects (e.g., `Mat.Clone()`) return new allocations
 that the caller must dispose.
+
+### Rule 4: Leak Prevention in Managed Factory Methods
+
+Native C++ methods return new object instances as `IntPtr`. If the managed constructor 
+or subsequent post-allocation checks (e.g., `ErrorHelper.CheckError()`) throw an exception,
+unmanaged memory would be leaked. 
+
+Managed factory methods wrap wrapper construction in a `try-catch` block:
+```csharp
+IntPtr res = NativeMethods.SomeClass_Create();
+SomeClass? resultObj = null;
+try
+{
+    resultObj = new SomeClass(res, true);
+    ErrorHelper.CheckError();
+    return resultObj;
+}
+catch
+{
+    if (resultObj == null)
+    {
+        NativeMethods.SomeClass_Delete(res); // Free native pointer if wrap failed
+    }
+    throw;
+}
+```
+
+### Rule 5: Shutdown Crash Prevention
+
+During application shutdown, the unmanaged C++ library may be unloaded before .NET finalizers execute.
+Attempting to free unmanaged objects during shutdown results in process-level Access Violations.
+All generated `SafeHandle` subclasses guard their `ReleaseHandle` code path with a shutdown check:
+```csharp
+protected override bool ReleaseHandle()
+{
+    if (Environment.HasShutdownStarted)
+    {
+        return true; // Skip native deletion to prevent crashes
+    }
+    if (handle != IntPtr.Zero)
+    {
+        NativeMethods.SomeClass_Delete(handle);
+    }
+    return true;
+}
+```
 
 ## Error Propagation Model
 
@@ -109,7 +159,8 @@ Throws OpenCVException with message and code
 - **String Marshaling**: `UnmanagedType.LPUTF8Str` (UTF-8 on both sides)
 - **Boolean Marshaling**: `UnmanagedType.U1` (C++ `bool` is 1 byte)
 - **Struct Layout**: `LayoutKind.Sequential` for all blittable structs (Point, Size, Rect, Scalar, TermCriteria)
-- **Object Handles**: `IntPtr` representing `void*` to heap-allocated C++ objects
+- **Object Handle parameters**: Strongly-typed `SafeHandle` subclasses (e.g. `MatHandle`), allowing the CLR to increment ref-counts during transitions.
+- **Object Handle returns**: `IntPtr`, representing unmanaged pointers prior to SafeHandle wrapping.
 
 ## Directory Structure
 
@@ -123,12 +174,16 @@ OpenCV5/
 ├── src/
 │   ├── OpenCV5Sharp/                 # Managed C# CPU library
 │   │   ├── Generated/               # Generated: split module classes, enums, P/Invokes
+│   │   │   └── SafeHandles.cs       # Generated SafeHandle subclasses (180+)
 │   │   ├── Extensions/              # Hand-written: Cv2Extensions, Cv2Parallel
+│   │   ├── SafeHandles/             # Hand-written base handles
+│   │   │   └── OpenCVHandle.cs      # OpenCV base SafeHandle class
 │   │   ├── DisposableOpenCVObject.cs # Hand-written: thread-safe disposal base class
 │   │   ├── OpenCVException.cs       # Hand-written: custom exception
 │   │   ├── PlatformGuard.cs         # Hand-written: platform validation
 │   │   ├── AssemblyInfo.cs          # Hand-written: assembly attributes
 │   │   └── runtimes/                # Staged cross-platform CPU binaries
+│   ├── OpenCV5Sharp.Mobile/         # Managed C# project for mobile platforms
 │   ├── OpenCV5Sharp.Gpu.Windows/     # Managed C# GPU (CUDA) library (Windows x64)
 │   │   └── runtimes/                # Staged Windows CUDA native binaries
 │   ├── OpenCV5Sharp.Gpu.Linux/       # Managed C# GPU (CUDA) library (Linux x64)
@@ -152,6 +207,7 @@ OpenCV5/
 ├── build.sh                         # Linux/macOS: unified bash build/pack orchestrator
 ├── Dockerfile                       # WSL/Docker: builder environment for Linux CUDA compiling
 ├── opencv/                          # OpenCV 5 source (for header parsing)
+├── opencv_contrib/                 # OpenCV 5 contrib modules source
 └── opencv_prebuilt/                 # Pre-built OpenCV binaries
 ```
 
@@ -167,7 +223,7 @@ OpenCV5/
 
 ## Testing Infrastructure
 
-OpenCV5Sharp implements an extensive test suite in `tests/OpenCV5Sharp.Tests/` targeting both `.NET 8.0` and `.NET 9.0` with **602 unique test cases** (totaling **1,204 runs**). The test architecture is structured into five main tiers:
+OpenCV5Sharp implements an extensive test suite in `tests/OpenCV5Sharp.Tests/` targeting both `.NET 8.0` and `.NET 9.0` with **638 unique test cases** (totaling **1,276 runs**). The test architecture is structured into six main tiers:
 
 1. **Blittable Type & Memory Layout Verification**:
    - Asserts size and member offsets of layout-critical structs (`Point`, `Point2f`, `Size`, `Rect`, `Scalar`, `TermCriteria`) using exact C++ byte-alignment constraints.
@@ -184,5 +240,9 @@ OpenCV5Sharp implements an extensive test suite in `tests/OpenCV5Sharp.Tests/` t
    - GPU-accelerated computing tests (`CudaTests.cs`) query unmanaged hardware device counts at boot.
    - Utilizes `SkippableFact` to automatically bypass active CUDA tests on machines without a configured GPU runtime, maintaining a green test suite in CPU-only development environments.
 
-5. **Negative Boundary Validation**:
+5. **Thread-Safety & Disposal Stress Testing**:
+   - Exercises concurrent multi-threaded resource releasing (`ConcurrentDisposeTests`) and use-while-disposing integrity checks (`ConcurrentUseWhileDisposingTests`) to ensure thread-local locking prevents Access Violations.
+   - Asserts standard GC finalizer path collection correctness under forced garbage collection sweeps (`FinalizerBehaviorTests`).
+
+6. **Negative Boundary Validation**:
    - Asserts C# validations raise `ArgumentNullException` and `ObjectDisposedException` for invalid handles, and native OpenCV assertions propagate as catchable `OpenCVException` exceptions.

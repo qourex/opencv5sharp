@@ -84,17 +84,13 @@ To package the library directly from precompiled binary assets (downloaded autom
 ```
 
 ### From-Source Local Compilation
-Run the following command from the root of the repository:
+Build and run the Docker container to compile the native CUDA wrappers and pack the .NET NuGet libraries:
 ```bash
-docker run --rm --gpus all -v "$(pwd)":/workspace -w /workspace nvcr.io/nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04 bash -c "
-  apt-get update && \
-  apt-get install -y ca-certificates gpg wget && \
-  wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null && \
-  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null && \
-  apt-get update && \
-  apt-get install -y cmake build-essential ninja-build git && \
-  ./build.sh --gpu-only
-"
+# 1. Build the builder image containing the CUDA toolkit, cuDNN, and the .NET SDK
+docker build -t opencv5sharp-cuda-builder .
+
+# 2. Run the build (mounts your workspace and generates artifacts in ./artifacts)
+docker run --rm --gpus all -v "$(pwd)":/workspace opencv5sharp-cuda-builder
 ```
 *Note: If your local Docker setup does not have the NVIDIA Container Toolkit configured, you can omit the `--gpus all` flag, as a physical GPU is not required during compilation.*
 
@@ -113,12 +109,11 @@ class Program
 {
     static void Main()
     {
-        const int CV_8UC1 = 0; // 8-bit single channel
         int width = 1920;
         int height = 1080;
 
-        // Initialize 1080p noisy image
-        using (var src = new Mat(height, width, CV_8UC1))
+        // Initialize 1080p noisy image (uses OpenCV 5.0 compliant MatType)
+        using (var src = new Mat(height, width, MatType.CV_8UC1))
         using (var dst = new Mat())
         {
             // Set random noise
@@ -127,20 +122,27 @@ class Program
             rand.NextBytes(buffer);
             System.Runtime.InteropServices.Marshal.Copy(buffer, 0, src.Data, buffer.Length);
 
-            // Upload Mat data to GPU Memory (VRAM)
-            using (var gpuSrc = new CudaGpuMat(src))
-            using (var gpuDst = new CudaGpuMat())
+            // Get the default CUDA GPU memory allocator
+            IntPtr defaultAllocator = CudaGpuMat.DefaultAllocator();
+
+            // Initialize GPU matrices with dimensions, type, and allocator
+            using (var gpuSrc = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
+            using (var gpuDst = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
             {
                 var sw = Stopwatch.StartNew();
 
-                // Run CUDA-accelerated Non-Local Means Denoising
-                Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 3.0f, 7, 21, null);
+                // Upload Mat data to GPU Memory (VRAM)
+                gpuSrc.Upload(src);
 
-                sw.Stop();
-                Console.WriteLine($"GPU Denoising Time: {sw.ElapsedMilliseconds} ms");
+                // Run CUDA-accelerated Non-Local Means Denoising
+                // (search_window = 21, block_size = 7)
+                Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 3.0f, 21, 7, null);
 
                 // Download result back to CPU RAM
                 gpuDst.Download(dst);
+
+                sw.Stop();
+                Console.WriteLine($"GPU Denoising & Transfer Time: {sw.ElapsedMilliseconds} ms");
             }
         }
     }

@@ -54,8 +54,7 @@ Currently, the following file formats are supported:
 -   OpenEXR Image files - \*.exr (see the *Note* section)
 -   Radiance HDR - \*.hdr, \*.pic (always supported)
 -   Raster and Vector geospatial data supported by GDAL (see the *Note* section)
-.: info Note
-
+::: info Note
 -   The function determines the type of an image by its content, not by the file extension.
 -   In the case of color images, the decoded images will have the channels stored in **B G R** order.
 -   When using IMREAD_GRAYSCALE, the codec's internal grayscale conversion will be used, if available.
@@ -78,8 +77,7 @@ or `IMREAD_UNCHANGED` are passed.
 -   Use the IMREAD_UNCHANGED flag to preserve the floating-point values from PFM images.
 -   By default, the number of pixels must be less than 2^30. This limit can be changed by setting
 the environment variable `OPENCV_IO_MAX_IMAGE_PIXELS`. See `tutorial_env_reference`.
-.:
-
+:::
 **Parameters**:
 * `filename`: Name of the file to be loaded.
 * `flags`: Flag that can take values of ImreadModes, default with IMREAD_COLOR_BGR.
@@ -94,11 +92,9 @@ Loads an image from a file.
 
 **Detailed Remarks**:
 This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts and the return value.
-.: info Note
-
+::: info Note
 The image passing through the img parameter can be pre-allocated. The memory is reused if the shape and the type match with the load image.
-.:
-
+:::
 **Parameters**:
 * `filename`: Name of file to be loaded.
 * `dst`: object in which the image will be loaded.
@@ -114,10 +110,9 @@ Reads an image from a file along with associated metadata.
 This function behaves similarly to imread(), loading an image from the specified file.
 In addition to the image pixel data, it also attempts to extract any available metadata
 embedded in the file (such as EXIF, XMP, etc.), depending on file format support.
-.: info Note
+::: info Note
 In the case of color images, the decoded images will have the channels stored in **B G R** order.
-.:
-
+:::
 **Parameters**:
 * `filename`: Name of the file to be loaded.
 * `metadataTypes`: Output vector with types of metadata chunks returned in metadata, see ImageMetadataType.
@@ -134,11 +129,10 @@ Loads a multi-page image from a file.
 
 **Detailed Remarks**:
 The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects.
-.: info Note
+::: info Note
 The default flags value was changed from IMREAD_ANYCOLOR to IMREAD_COLOR_BGR for unification.
 **See also**: imread
-.:
-
+:::
 **Parameters**:
 * `filename`: Name of file to be loaded.
 * `mats`: A vector of Mat objects holding each page.
@@ -244,11 +238,10 @@ Returns the number of images inside the given file
 **Detailed Remarks**:
 The function imcount returns the number of pages in a multi-page image (e.g. TIFF), the number of frames in an animation (e.g. AVIF), and 1 otherwise.
 If the image cannot be decoded, 0 is returned.
-.: info Note
+::: info Note
 The default flags value was changed from IMREAD_ANYCOLOR to IMREAD_COLOR_BGR for unification.
 When IMREAD_LOAD_GDAL flag is used the return value will be 0 or 1 because OpenCV's GDAL decoder doesn't support multi-page reading yet.
-.:
-
+:::
 **Parameters**:
 * `filename`: Name of file to be loaded.
 * `flags`: Flag that can take values of ImreadModes, default with IMREAD_COLOR_BGR.
@@ -361,10 +354,9 @@ Reads an image from a buffer in memory.
 The function imdecode reads an image from the specified buffer in the memory. If the buffer is too short or
 contains invalid data, the function returns an empty matrix ( Mat.Data == IntPtr.Zero ).
 See imread for the list of supported formats and flags description.
-.: info Note
+::: info Note
 In the case of color images, the decoded images will have the channels stored in **B G R** order.
-.:
-
+:::
 **Parameters**:
 * `buf`: Input array or vector of bytes.
 * `flags`: Flag that can take values of ImreadModes.
@@ -381,10 +373,9 @@ Reads an image from a memory buffer and extracts associated metadata.
 This function decodes an image from the specified memory buffer. If the buffer is too short or
 contains invalid data, the function returns an empty matrix ( Mat.Data == IntPtr.Zero ).
 See imread for the list of supported formats and flags description.
-.: info Note
+::: info Note
 In the case of color images, the decoded images will have the channels stored in **B G R** order.
-.:
-
+:::
 **Parameters**:
 * `buf`: Input array or vector of bytes containing the encoded image data.
 * `metadataTypes`: Output vector with types of metadata chucks returned in metadata, see ImageMetadataType
@@ -403,10 +394,9 @@ Reads a multi-page image from a buffer in memory.
 The function imdecodemulti reads a multi-page image from the specified buffer in the memory. If the buffer is too short or
 contains invalid data, the function returns false.
 See imreadmulti for the list of supported formats and flags description.
-.: info Note
+::: info Note
 In the case of color images, the decoded images will have the channels stored in **B G R** order.
-.:
-
+:::
 **Parameters**:
 * `buf`: Input array or vector of bytes.
 * `flags`: Flag that can take values of ImreadModes.
@@ -480,13 +470,12 @@ Checks if the specified image file can be decoded by OpenCV.
 **Detailed Remarks**:
 The function haveImageReader checks if OpenCV is capable of reading the specified file.
 This can be useful for verifying support for a given image format before attempting to load an image.
-.: info Note
+::: info Note
 The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
 It does not load the image codec implementation and decode data, but uses signature check.
 If the file cannot be opened or the format is unsupported, the function will return false.
 **See also**: haveImageWriter, imread, imdecode
-.:
-
+:::
 **Parameters**:
 * `filename`: The name of the file to be checked.
 
@@ -501,12 +490,11 @@ Checks if the specified image file or specified file extension can be encoded by
 **Detailed Remarks**:
 The function haveImageWriter checks if OpenCV is capable of writing images with the specified file extension.
 This can be useful for verifying support for a given image format before attempting to save an image.
-.: info Note
+::: info Note
 The function checks the availability of image codecs that are either built into OpenCV or dynamically loaded.
 It does not check for the actual existence of the file but rather the ability to write files of the given type.
 **See also**: haveImageReader, imwrite, imencode
-.:
-
+:::
 **Parameters**:
 * `filename`: The name of the file or the file extension (e.g., ".jpg", ".png"). It is recommended to provide the file extension rather than the full file name.
 
