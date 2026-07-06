@@ -14,17 +14,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class FlannIndex : DisposableOpenCVObject
     {
-        internal FlannIndex(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.flann_Index_Delete(handle);
-        }
+        public new FlannIndexHandle Handle => (FlannIndexHandle)base.Handle;
+        internal FlannIndex(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexHandle(handle, ownsHandle)) {}
+        internal FlannIndex(FlannIndexHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FlannIndex()
-            : base(NativeMethods.flann_Index_New_0())
+            : base(new FlannIndexHandle(NativeMethods.flann_Index_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -37,8 +35,8 @@ namespace OpenCV5Sharp
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public FlannIndex(Mat features, FlannIndexParams @params, IntPtr distType)
-            : base(NativeMethods.flann_Index_New_1(ValidationHelper.GetHandle(features, nameof(features), false), ValidationHelper.GetHandle(@params, nameof(@params), false), distType))
+        public FlannIndex(Mat features, FlannIndexParams @params, int distType)
+            : base(new FlannIndexHandle(NativeMethods.flann_Index_New_1(ValidationHelper.GetHandle<MatHandle>(features, nameof(features), false), ValidationHelper.GetHandle<FlannIndexParamsHandle>(@params, nameof(@params), false), (int)distType)))
         {
             ErrorHelper.CheckError();
         }
@@ -51,10 +49,14 @@ namespace OpenCV5Sharp
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void Build(Mat features, FlannIndexParams @params, IntPtr distType)
+        public void Build(Mat features, FlannIndexParams @params, int distType)
         {
             ThrowIfDisposed();
-            NativeMethods.flann_Index_build_0(Handle, ValidationHelper.GetHandle(features, nameof(features), false), ValidationHelper.GetHandle(@params, nameof(@params), false), distType);
+            if (features == null) throw new ArgumentNullException(nameof(features));
+            features.ThrowIfDisposed();
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            NativeMethods.flann_Index_build_0(Handle, features.Handle, @params.Handle, (int)distType);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(features);
@@ -74,7 +76,14 @@ namespace OpenCV5Sharp
         public void KnnSearch(Mat query, Mat indices, Mat dists, int knn, FlannSearchParams? @params)
         {
             ThrowIfDisposed();
-            NativeMethods.flann_Index_knnSearch_0(Handle, ValidationHelper.GetHandle(query, nameof(query), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(dists, nameof(dists), false), knn, ValidationHelper.GetHandle(@params, nameof(@params), true));
+            if (query == null) throw new ArgumentNullException(nameof(query));
+            query.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (dists == null) throw new ArgumentNullException(nameof(dists));
+            dists.ThrowIfDisposed();
+            if (@params != null) @params.ThrowIfDisposed();
+            NativeMethods.flann_Index_knnSearch_0(Handle, query.Handle, indices.Handle, dists.Handle, knn, ValidationHelper.GetHandle(@params, nameof(@params), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(query);
@@ -98,7 +107,14 @@ namespace OpenCV5Sharp
         public int RadiusSearch(Mat query, Mat indices, Mat dists, double radius, int maxResults, FlannSearchParams? @params)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.flann_Index_radiusSearch_0(Handle, ValidationHelper.GetHandle(query, nameof(query), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(dists, nameof(dists), false), radius, maxResults, ValidationHelper.GetHandle(@params, nameof(@params), true));
+            if (query == null) throw new ArgumentNullException(nameof(query));
+            query.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (dists == null) throw new ArgumentNullException(nameof(dists));
+            dists.ThrowIfDisposed();
+            if (@params != null) @params.ThrowIfDisposed();
+            var res = NativeMethods.flann_Index_radiusSearch_0(Handle, query.Handle, indices.Handle, dists.Handle, radius, maxResults, ValidationHelper.GetHandle(@params, nameof(@params), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(query);
@@ -131,7 +147,9 @@ namespace OpenCV5Sharp
         public bool Load(Mat features, string filename)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.flann_Index_load_0(Handle, ValidationHelper.GetHandle(features, nameof(features), false), filename);
+            if (features == null) throw new ArgumentNullException(nameof(features));
+            features.ThrowIfDisposed();
+            var res = NativeMethods.flann_Index_load_0(Handle, features.Handle, filename);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(features);
@@ -153,26 +171,26 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetDistance()
+        public int GetDistance()
         {
             ThrowIfDisposed();
             var res = NativeMethods.flann_Index_getDistance_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetAlgorithm()
+        public int GetAlgorithm()
         {
             ThrowIfDisposed();
             var res = NativeMethods.flann_Index_getAlgorithm_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
     }
 
@@ -182,17 +200,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class FlannIndexParams : DisposableOpenCVObject
     {
-        internal FlannIndexParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.flann_IndexParams_Delete(handle);
-        }
+        public new FlannIndexParamsHandle Handle => (FlannIndexParamsHandle)base.Handle;
+        internal FlannIndexParams(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexParamsHandle(handle, ownsHandle)) {}
+        internal FlannIndexParams(FlannIndexParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FlannIndexParams()
-            : base(NativeMethods.flann_IndexParams_New_0())
+            : base(new FlannIndexParamsHandle(NativeMethods.flann_IndexParams_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -204,17 +220,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class FlannSearchParams : DisposableOpenCVObject
     {
-        internal FlannSearchParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.flann_SearchParams_Delete(handle);
-        }
+        public new FlannSearchParamsHandle Handle => (FlannSearchParamsHandle)base.Handle;
+        internal FlannSearchParams(IntPtr handle, bool ownsHandle = true) : base(new FlannSearchParamsHandle(handle, ownsHandle)) {}
+        internal FlannSearchParams(FlannSearchParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FlannSearchParams()
-            : base(NativeMethods.flann_SearchParams_New_0())
+            : base(new FlannSearchParamsHandle(NativeMethods.flann_SearchParams_New_0()))
         {
             ErrorHelper.CheckError();
         }

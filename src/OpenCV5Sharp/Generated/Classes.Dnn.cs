@@ -18,11 +18,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnClassificationModel : DnnModel
     {
-        internal DnnClassificationModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_ClassificationModel_Delete(handle);
-        }
+        public new DnnClassificationModelHandle Handle => (DnnClassificationModelHandle)base.Handle;
+        internal DnnClassificationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnClassificationModelHandle(handle, ownsHandle)) {}
+        internal DnnClassificationModel(DnnClassificationModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create classification model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -31,7 +29,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnClassificationModel(string model, string? config)
-            : base(NativeMethods.dnn_ClassificationModel_New_0(model, config))
+            : base(new DnnClassificationModelHandle(NativeMethods.dnn_ClassificationModel_New_0(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -43,7 +41,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnClassificationModel(DnnNet network)
-            : base(NativeMethods.dnn_ClassificationModel_New_1(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnClassificationModelHandle(NativeMethods.dnn_ClassificationModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -70,7 +68,7 @@ namespace OpenCV5Sharp
             DnnClassificationModel? resultObj = null;
             try
             {
-                resultObj = new DnnClassificationModel(res);
+                resultObj = new DnnClassificationModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -114,7 +112,9 @@ namespace OpenCV5Sharp
         public void Classify(Mat frame, int classId, float conf)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_ClassificationModel_classify_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), classId, conf);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_ClassificationModel_classify_0(Handle, frame.Handle, classId, conf);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -132,11 +132,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnDetectionModel : DnnModel
     {
-        internal DnnDetectionModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_DetectionModel_Delete(handle);
-        }
+        public new DnnDetectionModelHandle Handle => (DnnDetectionModelHandle)base.Handle;
+        internal DnnDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnDetectionModelHandle(handle, ownsHandle)) {}
+        internal DnnDetectionModel(DnnDetectionModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create detection model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -145,7 +143,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDetectionModel(string model, string? config)
-            : base(NativeMethods.dnn_DetectionModel_New_0(model, config))
+            : base(new DnnDetectionModelHandle(NativeMethods.dnn_DetectionModel_New_0(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -157,7 +155,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDetectionModel(DnnNet network)
-            : base(NativeMethods.dnn_DetectionModel_New_1(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnDetectionModelHandle(NativeMethods.dnn_DetectionModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -181,7 +179,7 @@ namespace OpenCV5Sharp
             DnnDetectionModel? resultObj = null;
             try
             {
-                resultObj = new DnnDetectionModel(res);
+                resultObj = new DnnDetectionModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -227,7 +225,9 @@ namespace OpenCV5Sharp
         public void Detect(Mat frame, IntPtr classIds, IntPtr confidences, IntPtr boxes, float confThreshold, float nmsThreshold)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_DetectionModel_detect_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), classIds, confidences, boxes, confThreshold, nmsThreshold);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_DetectionModel_detect_0(Handle, frame.Handle, classIds, confidences, boxes, confThreshold, nmsThreshold);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -240,17 +240,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnDict : DisposableOpenCVObject
     {
-        internal DnnDict(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Dict_Delete(handle);
-        }
+        public new DnnDictHandle Handle => (DnnDictHandle)base.Handle;
+        internal DnnDict(IntPtr handle, bool ownsHandle = true) : base(new DnnDictHandle(handle, ownsHandle)) {}
+        internal DnnDict(DnnDictHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDict()
-            : base(NativeMethods.dnn_Dict_New_0())
+            : base(new DnnDictHandle(NativeMethods.dnn_Dict_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -263,18 +261,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnDictValue : DisposableOpenCVObject
     {
-        internal DnnDictValue(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_DictValue_Delete(handle);
-        }
+        public new DnnDictValueHandle Handle => (DnnDictValueHandle)base.Handle;
+        internal DnnDictValue(IntPtr handle, bool ownsHandle = true) : base(new DnnDictValueHandle(handle, ownsHandle)) {}
+        internal DnnDictValue(DnnDictValueHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="i">The i parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDictValue(int i)
-            : base(NativeMethods.dnn_DictValue_New_0(i))
+            : base(new DnnDictValueHandle(NativeMethods.dnn_DictValue_New_0(i)))
         {
             ErrorHelper.CheckError();
         }
@@ -284,7 +280,7 @@ namespace OpenCV5Sharp
         /// <param name="p">The p parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDictValue(double p)
-            : base(NativeMethods.dnn_DictValue_New_1(p))
+            : base(new DnnDictValueHandle(NativeMethods.dnn_DictValue_New_1(p)))
         {
             ErrorHelper.CheckError();
         }
@@ -294,7 +290,7 @@ namespace OpenCV5Sharp
         /// <param name="s">The s parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnDictValue(string s)
-            : base(NativeMethods.dnn_DictValue_New_2(s))
+            : base(new DnnDictValueHandle(NativeMethods.dnn_DictValue_New_2(s)))
         {
             ErrorHelper.CheckError();
         }
@@ -411,17 +407,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DnnImage2BlobParams : DisposableOpenCVObject
     {
-        internal DnnImage2BlobParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Image2BlobParams_Delete(handle);
-        }
+        public new DnnImage2BlobParamsHandle Handle => (DnnImage2BlobParamsHandle)base.Handle;
+        internal DnnImage2BlobParams(IntPtr handle, bool ownsHandle = true) : base(new DnnImage2BlobParamsHandle(handle, ownsHandle)) {}
+        internal DnnImage2BlobParams(DnnImage2BlobParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnImage2BlobParams()
-            : base(NativeMethods.dnn_Image2BlobParams_New_0())
+            : base(new DnnImage2BlobParamsHandle(NativeMethods.dnn_Image2BlobParams_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -438,7 +432,7 @@ namespace OpenCV5Sharp
         /// <param name="borderValue">The borderValue parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnImage2BlobParams(Scalar scalefactor, Size size, Scalar mean, bool swapRB, int ddepth, DataLayout datalayout, DnnImagePaddingMode mode, Scalar borderValue)
-            : base(NativeMethods.dnn_Image2BlobParams_New_1(scalefactor, size, mean, swapRB, ddepth, (int)datalayout, (int)mode, borderValue))
+            : base(new DnnImage2BlobParamsHandle(NativeMethods.dnn_Image2BlobParams_New_1(scalefactor, size, mean, swapRB, ddepth, (int)datalayout, (int)mode, borderValue)))
         {
             ErrorHelper.CheckError();
         }
@@ -515,10 +509,10 @@ namespace OpenCV5Sharp
         }
         /// <summary>Gets or sets the paddingmode property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr Paddingmode
+        public int Paddingmode
         {
-            get { ThrowIfDisposed(); var res = NativeMethods.dnn_Image2BlobParams_paddingmode_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return res; }
-            set { ThrowIfDisposed(); NativeMethods.dnn_Image2BlobParams_paddingmode_set(Handle, value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
+            get { ThrowIfDisposed(); var res = NativeMethods.dnn_Image2BlobParams_paddingmode_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return (int)res; }
+            set { ThrowIfDisposed(); NativeMethods.dnn_Image2BlobParams_paddingmode_set(Handle, (int)value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
         }
         /// <summary>Gets or sets the borderValue property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -539,11 +533,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnKeypointsModel : DnnModel
     {
-        internal DnnKeypointsModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_KeypointsModel_Delete(handle);
-        }
+        public new DnnKeypointsModelHandle Handle => (DnnKeypointsModelHandle)base.Handle;
+        internal DnnKeypointsModel(IntPtr handle, bool ownsHandle = true) : base(new DnnKeypointsModelHandle(handle, ownsHandle)) {}
+        internal DnnKeypointsModel(DnnKeypointsModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create keypoints model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -552,7 +544,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnKeypointsModel(string model, string? config)
-            : base(NativeMethods.dnn_KeypointsModel_New_0(model, config))
+            : base(new DnnKeypointsModelHandle(NativeMethods.dnn_KeypointsModel_New_0(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -564,7 +556,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnKeypointsModel(DnnNet network)
-            : base(NativeMethods.dnn_KeypointsModel_New_1(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnKeypointsModelHandle(NativeMethods.dnn_KeypointsModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -580,7 +572,9 @@ namespace OpenCV5Sharp
         public IntPtr Estimate(Mat frame, float thresh)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.dnn_KeypointsModel_estimate_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), thresh);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            var res = NativeMethods.dnn_KeypointsModel_estimate_0(Handle, frame.Handle, thresh);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -597,11 +591,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnLayer : Algorithm
     {
-        internal DnnLayer(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Layer_Delete(handle);
-        }
+        public new DnnLayerHandle Handle => (DnnLayerHandle)base.Handle;
+        internal DnnLayer(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerHandle(handle, ownsHandle)) {}
+        internal DnnLayer(DnnLayerHandle handle) : base(handle) {}
         /// <summary>
         /// Computes and sets internal parameters according to inputs, outputs and blobs.
         /// </summary>
@@ -674,7 +666,7 @@ namespace OpenCV5Sharp
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
                 for (int i = 0; i < value.Length; i++) {
-                    handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;
+                    handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle.DangerousGetHandle();
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
                 try {
@@ -744,17 +736,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnLayerParams : DisposableOpenCVObject
     {
-        internal DnnLayerParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_LayerParams_Delete(handle);
-        }
+        public new DnnLayerParamsHandle Handle => (DnnLayerParamsHandle)base.Handle;
+        internal DnnLayerParams(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerParamsHandle(handle, ownsHandle)) {}
+        internal DnnLayerParams(DnnLayerParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnLayerParams()
-            : base(NativeMethods.dnn_LayerParams_New_0())
+            : base(new DnnLayerParamsHandle(NativeMethods.dnn_LayerParams_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -770,11 +760,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnModel : DisposableOpenCVObject
     {
-        internal DnnModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Model_Delete(handle);
-        }
+        public new DnnModelHandle Handle => (DnnModelHandle)base.Handle;
+        internal DnnModel(IntPtr handle, bool ownsHandle = true) : base(new DnnModelHandle(handle, ownsHandle)) {}
+        internal DnnModel(DnnModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create model from deep learning network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -783,7 +771,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnModel(string model, string? config)
-            : base(NativeMethods.dnn_Model_New_0(model, config))
+            : base(new DnnModelHandle(NativeMethods.dnn_Model_New_0(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -795,7 +783,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnModel(DnnNet network)
-            : base(NativeMethods.dnn_Model_New_1(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnModelHandle(NativeMethods.dnn_Model_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -820,7 +808,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -856,7 +844,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -891,7 +879,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -926,7 +914,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -961,7 +949,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -996,7 +984,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1031,7 +1019,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1075,7 +1063,9 @@ namespace OpenCV5Sharp
         public void Predict(Mat frame, IntPtr outs)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_Model_predict_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), outs);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_Model_predict_0(Handle, frame.Handle, outs);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -1086,10 +1076,10 @@ namespace OpenCV5Sharp
         /// <param name="backendId">The backendId parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public DnnModel? SetPreferableBackend(IntPtr backendId)
+        public DnnModel? SetPreferableBackend(int backendId)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.dnn_Model_setPreferableBackend_0(Handle, backendId);
+            IntPtr res = NativeMethods.dnn_Model_setPreferableBackend_0(Handle, (int)backendId);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -1098,7 +1088,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1121,10 +1111,10 @@ namespace OpenCV5Sharp
         /// <param name="targetId">The targetId parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public DnnModel? SetPreferableTarget(IntPtr targetId)
+        public DnnModel? SetPreferableTarget(int targetId)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.dnn_Model_setPreferableTarget_0(Handle, targetId);
+            IntPtr res = NativeMethods.dnn_Model_setPreferableTarget_0(Handle, (int)targetId);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -1133,7 +1123,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1168,7 +1158,7 @@ namespace OpenCV5Sharp
             DnnModel? resultObj = null;
             try
             {
-                resultObj = new DnnModel(res);
+                resultObj = new DnnModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1205,11 +1195,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DnnNet : DisposableOpenCVObject
     {
-        internal DnnNet(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Net_Delete(handle);
-        }
+        public new DnnNetHandle Handle => (DnnNetHandle)base.Handle;
+        internal DnnNet(IntPtr handle, bool ownsHandle = true) : base(new DnnNetHandle(handle, ownsHandle)) {}
+        internal DnnNet(DnnNetHandle handle) : base(handle) {}
         /// <summary>
         /// Represents a deep learning neural network model.
         /// </summary>
@@ -1219,7 +1207,7 @@ namespace OpenCV5Sharp
         /// Call SetInput to pass input blobs and Forward to perform inference.
         /// </remarks>
         public DnnNet()
-            : base(NativeMethods.dnn_Net_New_0())
+            : base(new DnnNetHandle(NativeMethods.dnn_Net_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1244,7 +1232,7 @@ namespace OpenCV5Sharp
             DnnNet? resultObj = null;
             try
             {
-                resultObj = new DnnNet(res);
+                resultObj = new DnnNet(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1281,7 +1269,7 @@ namespace OpenCV5Sharp
             DnnNet? resultObj = null;
             try
             {
-                resultObj = new DnnNet(res);
+                resultObj = new DnnNet(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1393,7 +1381,9 @@ namespace OpenCV5Sharp
         public int AddLayer(string name, string type, int dtype, DnnLayerParams @params)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.dnn_Net_addLayer_0(Handle, name, type, dtype, ValidationHelper.GetHandle(@params, nameof(@params), false));
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            var res = NativeMethods.dnn_Net_addLayer_0(Handle, name, type, dtype, @params.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(@params);
@@ -1416,7 +1406,9 @@ namespace OpenCV5Sharp
         public int AddLayerToPrev(string name, string type, int dtype, DnnLayerParams @params)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.dnn_Net_addLayerToPrev_0(Handle, name, type, dtype, ValidationHelper.GetHandle(@params, nameof(@params), false));
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            var res = NativeMethods.dnn_Net_addLayerToPrev_0(Handle, name, type, dtype, @params.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(@params);
@@ -1479,7 +1471,7 @@ namespace OpenCV5Sharp
             DnnLayer? resultObj = null;
             try
             {
-                resultObj = new DnnLayer(res);
+                resultObj = new DnnLayer(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1517,7 +1509,7 @@ namespace OpenCV5Sharp
             DnnLayer? resultObj = null;
             try
             {
-                resultObj = new DnnLayer(res);
+                resultObj = new DnnLayer(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1555,7 +1547,7 @@ namespace OpenCV5Sharp
             DnnLayer? resultObj = null;
             try
             {
-                resultObj = new DnnLayer(res);
+                resultObj = new DnnLayer(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1647,7 +1639,9 @@ namespace OpenCV5Sharp
         public void SetInputShape(string inputName, MatShape shape)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_Net_setInputShape_0(Handle, inputName, ValidationHelper.GetHandle(shape, nameof(shape), false));
+            if (shape == null) throw new ArgumentNullException(nameof(shape));
+            shape.ThrowIfDisposed();
+            NativeMethods.dnn_Net_setInputShape_0(Handle, inputName, shape.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(shape);
@@ -1673,7 +1667,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1714,7 +1708,7 @@ namespace OpenCV5Sharp
             AsyncArray? resultObj = null;
             try
             {
-                resultObj = new AsyncArray(res);
+                resultObj = new AsyncArray(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1933,7 +1927,9 @@ namespace OpenCV5Sharp
         public void SetInput(Mat blob, string? name, double scalefactor, Scalar mean)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_Net_setInput_0(Handle, ValidationHelper.GetHandle(blob, nameof(blob), false), name, scalefactor, mean);
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            blob.ThrowIfDisposed();
+            NativeMethods.dnn_Net_setInput_0(Handle, blob.Handle, name, scalefactor, mean);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(blob);
@@ -1955,7 +1951,9 @@ namespace OpenCV5Sharp
         public void SetParam(int layer, int numParam, Mat blob)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_Net_setParam_0(Handle, layer, numParam, ValidationHelper.GetHandle(blob, nameof(blob), false));
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            blob.ThrowIfDisposed();
+            NativeMethods.dnn_Net_setParam_0(Handle, layer, numParam, blob.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(blob);
@@ -1976,7 +1974,9 @@ namespace OpenCV5Sharp
         public void SetParam(string layerName, int numParam, Mat blob)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_Net_setParam_1(Handle, layerName, numParam, ValidationHelper.GetHandle(blob, nameof(blob), false));
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            blob.ThrowIfDisposed();
+            NativeMethods.dnn_Net_setParam_1(Handle, layerName, numParam, blob.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(blob);
@@ -2003,7 +2003,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2043,7 +2043,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2343,11 +2343,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnSegmentationModel : DnnModel
     {
-        internal DnnSegmentationModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_SegmentationModel_Delete(handle);
-        }
+        public new DnnSegmentationModelHandle Handle => (DnnSegmentationModelHandle)base.Handle;
+        internal DnnSegmentationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnSegmentationModelHandle(handle, ownsHandle)) {}
+        internal DnnSegmentationModel(DnnSegmentationModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create segmentation model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -2356,7 +2354,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnSegmentationModel(string model, string? config)
-            : base(NativeMethods.dnn_SegmentationModel_New_0(model, config))
+            : base(new DnnSegmentationModelHandle(NativeMethods.dnn_SegmentationModel_New_0(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -2368,7 +2366,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnSegmentationModel(DnnNet network)
-            : base(NativeMethods.dnn_SegmentationModel_New_1(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnSegmentationModelHandle(NativeMethods.dnn_SegmentationModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -2383,7 +2381,11 @@ namespace OpenCV5Sharp
         public void Segment(Mat frame, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_SegmentationModel_segment_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.dnn_SegmentationModel_segment_0(Handle, frame.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -2397,11 +2399,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnTextDetectionModel : DnnModel
     {
-        internal DnnTextDetectionModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_TextDetectionModel_Delete(handle);
-        }
+        public new DnnTextDetectionModelHandle Handle => (DnnTextDetectionModelHandle)base.Handle;
+        internal DnnTextDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelHandle(handle, ownsHandle)) {}
+        internal DnnTextDetectionModel(DnnTextDetectionModelHandle handle) : base(handle) {}
         /// <summary>
         /// Performs detection
         /// *
@@ -2429,7 +2429,9 @@ namespace OpenCV5Sharp
         public void Detect(Mat frame, IntPtr detections, IntPtr confidences)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_TextDetectionModel_detect_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), detections, confidences);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_TextDetectionModel_detect_0(Handle, frame.Handle, detections, confidences);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -2445,7 +2447,9 @@ namespace OpenCV5Sharp
         public void Detect(Mat frame, IntPtr detections)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_TextDetectionModel_detect_1(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), detections);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_TextDetectionModel_detect_1(Handle, frame.Handle, detections);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -2471,7 +2475,9 @@ namespace OpenCV5Sharp
         public void DetectTextRectangles(Mat frame, IntPtr detections, IntPtr confidences)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_TextDetectionModel_detectTextRectangles_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), detections, confidences);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_TextDetectionModel_detectTextRectangles_0(Handle, frame.Handle, detections, confidences);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -2487,7 +2493,9 @@ namespace OpenCV5Sharp
         public void DetectTextRectangles(Mat frame, IntPtr detections)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_TextDetectionModel_detectTextRectangles_1(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), detections);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_TextDetectionModel_detectTextRectangles_1(Handle, frame.Handle, detections);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -2510,11 +2518,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnTextDetectionModelDb : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelDb(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_TextDetectionModel_DB_Delete(handle);
-        }
+        public new DnnTextDetectionModelDbHandle Handle => (DnnTextDetectionModelDbHandle)base.Handle;
+        internal DnnTextDetectionModelDb(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelDbHandle(handle, ownsHandle)) {}
+        internal DnnTextDetectionModelDb(DnnTextDetectionModelDbHandle handle) : base(handle) {}
         /// <summary>
         /// Create text detection algorithm from deep learning network.
         /// </summary>
@@ -2523,7 +2529,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextDetectionModelDb(DnnNet network)
-            : base(NativeMethods.dnn_TextDetectionModel_DB_New_0(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnTextDetectionModelDbHandle(NativeMethods.dnn_TextDetectionModel_DB_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -2535,7 +2541,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextDetectionModelDb(string model, string? config)
-            : base(NativeMethods.dnn_TextDetectionModel_DB_New_1(model, config))
+            : base(new DnnTextDetectionModelDbHandle(NativeMethods.dnn_TextDetectionModel_DB_New_1(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -2557,7 +2563,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelDb? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelDb(res);
+                resultObj = new DnnTextDetectionModelDb(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2605,7 +2611,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelDb? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelDb(res);
+                resultObj = new DnnTextDetectionModelDb(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2653,7 +2659,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelDb? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelDb(res);
+                resultObj = new DnnTextDetectionModelDb(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2701,7 +2707,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelDb? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelDb(res);
+                resultObj = new DnnTextDetectionModelDb(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2743,11 +2749,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnTextDetectionModelEast : DnnTextDetectionModel
     {
-        internal DnnTextDetectionModelEast(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_TextDetectionModel_EAST_Delete(handle);
-        }
+        public new DnnTextDetectionModelEastHandle Handle => (DnnTextDetectionModelEastHandle)base.Handle;
+        internal DnnTextDetectionModelEast(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelEastHandle(handle, ownsHandle)) {}
+        internal DnnTextDetectionModelEast(DnnTextDetectionModelEastHandle handle) : base(handle) {}
         /// <summary>
         /// Create text detection algorithm from deep learning network
         /// </summary>
@@ -2756,7 +2760,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextDetectionModelEast(DnnNet network)
-            : base(NativeMethods.dnn_TextDetectionModel_EAST_New_0(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnTextDetectionModelEastHandle(NativeMethods.dnn_TextDetectionModel_EAST_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -2768,7 +2772,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextDetectionModelEast(string model, string? config)
-            : base(NativeMethods.dnn_TextDetectionModel_EAST_New_1(model, config))
+            : base(new DnnTextDetectionModelEastHandle(NativeMethods.dnn_TextDetectionModel_EAST_New_1(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -2790,7 +2794,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelEast? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelEast(res);
+                resultObj = new DnnTextDetectionModelEast(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2838,7 +2842,7 @@ namespace OpenCV5Sharp
             DnnTextDetectionModelEast? resultObj = null;
             try
             {
-                resultObj = new DnnTextDetectionModelEast(res);
+                resultObj = new DnnTextDetectionModelEast(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2881,11 +2885,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnTextRecognitionModel : DnnModel
     {
-        internal DnnTextRecognitionModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_TextRecognitionModel_Delete(handle);
-        }
+        public new DnnTextRecognitionModelHandle Handle => (DnnTextRecognitionModelHandle)base.Handle;
+        internal DnnTextRecognitionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextRecognitionModelHandle(handle, ownsHandle)) {}
+        internal DnnTextRecognitionModel(DnnTextRecognitionModelHandle handle) : base(handle) {}
         /// <summary>
         /// Create Text Recognition model from deep learning network
         /// * Call setDecodeType() and setVocabulary() after constructor to initialize the decoding method
@@ -2895,7 +2897,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextRecognitionModel(DnnNet network)
-            : base(NativeMethods.dnn_TextRecognitionModel_New_0(ValidationHelper.GetHandle(network, nameof(network), false)))
+            : base(new DnnTextRecognitionModelHandle(NativeMethods.dnn_TextRecognitionModel_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -2907,7 +2909,7 @@ namespace OpenCV5Sharp
         /// <param name="config">Text file contains network configuration</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DnnTextRecognitionModel(string model, string? config)
-            : base(NativeMethods.dnn_TextRecognitionModel_New_1(model, config))
+            : base(new DnnTextRecognitionModelHandle(NativeMethods.dnn_TextRecognitionModel_New_1(model, config)))
         {
             ErrorHelper.CheckError();
         }
@@ -2929,7 +2931,7 @@ namespace OpenCV5Sharp
             DnnTextRecognitionModel? resultObj = null;
             try
             {
-                resultObj = new DnnTextRecognitionModel(res);
+                resultObj = new DnnTextRecognitionModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2991,7 +2993,7 @@ namespace OpenCV5Sharp
             DnnTextRecognitionModel? resultObj = null;
             try
             {
-                resultObj = new DnnTextRecognitionModel(res);
+                resultObj = new DnnTextRecognitionModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3026,7 +3028,7 @@ namespace OpenCV5Sharp
             DnnTextRecognitionModel? resultObj = null;
             try
             {
-                resultObj = new DnnTextRecognitionModel(res);
+                resultObj = new DnnTextRecognitionModel(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3067,7 +3069,9 @@ namespace OpenCV5Sharp
         public string? Recognize(Mat frame)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.dnn_TextRecognitionModel_recognize_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false));
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            IntPtr res = NativeMethods.dnn_TextRecognitionModel_recognize_0(Handle, frame.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -3099,7 +3103,9 @@ namespace OpenCV5Sharp
         public void Recognize(Mat frame, IntPtr roiRects, IntPtr results)
         {
             ThrowIfDisposed();
-            NativeMethods.dnn_TextRecognitionModel_recognize_1(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), roiRects, results);
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.dnn_TextRecognitionModel_recognize_1(Handle, frame.Handle, roiRects, results);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -3122,11 +3128,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DnnTokenizer : DisposableOpenCVObject
     {
-        internal DnnTokenizer(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.dnn_Tokenizer_Delete(handle);
-        }
+        public new DnnTokenizerHandle Handle => (DnnTokenizerHandle)base.Handle;
+        internal DnnTokenizer(IntPtr handle, bool ownsHandle = true) : base(new DnnTokenizerHandle(handle, ownsHandle)) {}
+        internal DnnTokenizer(DnnTokenizerHandle handle) : base(handle) {}
         /// <summary>
         /// Load a tokenizer from a model directory.
         /// *
@@ -3152,7 +3156,7 @@ namespace OpenCV5Sharp
             DnnTokenizer? resultObj = null;
             try
             {
-                resultObj = new DnnTokenizer(res);
+                resultObj = new DnnTokenizer(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }

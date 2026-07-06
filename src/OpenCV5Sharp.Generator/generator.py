@@ -768,6 +768,7 @@ class OpenCVWrapperGenerator:
         self.enums = {}
         self.functions = []
         self.funcs = []
+        self.generated_enum_names = set()
         
         self.native_signatures = {}
         cpp_cpp_path = os.path.join(self.workspace_dir, "src", "OpenCV5Sharp.Native", "opencv5sharp_native.cpp")
@@ -846,7 +847,7 @@ class OpenCVWrapperGenerator:
                         else:
                             prefix = "struct "
                         t_name = name[len(prefix):].strip()
-                        ALL_CLASSES_AND_ENUMS.add(t_name.replace("cv.", "").strip())
+                        ALL_CLASSES_AND_ENUMS.add(t_name.replace("cv::", "").replace("cv.", "").replace("::", ".").strip())
                         
                         cls_name_clean = t_name.replace("cv.", "").replace(".", "_")
                         CLASS_TO_MODULE[cls_name_clean] = module
@@ -936,7 +937,7 @@ class OpenCVWrapperGenerator:
                     "doc": f"Stub class representing {stub_name}.",
                     "module": module
                 }
-                ALL_CLASSES_AND_ENUMS.add(stub_name.replace("cv.", "").strip())
+                ALL_CLASSES_AND_ENUMS.add(stub_name.replace("cv::", "").replace("cv.", "").replace("::", ".").strip())
                 clean_key = stub_name.replace("cv.", "").replace(".", "_")
                 CLASS_TO_MODULE[clean_key] = module
 
@@ -947,11 +948,25 @@ class OpenCVWrapperGenerator:
 
     def is_enum_type(self, tp):
         ctp = clean_type(tp).replace("const", "").replace("&", "").strip()
-        ctp_clean = ctp.replace("cv::", "").replace("cv.", "").replace("::", ".").strip()
-        for key in self.enums:
-            key_clean = key.replace("cv.", "").strip()
-            if key_clean == ctp_clean or key_clean.endswith("." + ctp_clean):
-                return True
+        if ctp in self.generated_enum_names:
+            return True
+        clean_tp = ctp.replace("cv::", "").replace("cv.", "").replace("::", "_").replace("*", "").strip()
+        pascal_tp = "".join(to_pascal_case(p) for p in clean_tp.split("_") if p)
+        if pascal_tp in self.generated_enum_names:
+            return True
+        def check_match(val):
+            ctp_clean = val.replace("cv::", "").replace("cv.", "").replace("::", ".").strip()
+            for key in self.enums:
+                key_clean = key.replace("cv.", "").strip()
+                if key_clean == ctp_clean or key_clean.endswith("." + ctp_clean):
+                    return True
+            return False
+        if check_match(ctp):
+            return True
+        if check_match(ctp.replace("_", ".")):
+            return True
+        if "flann_distance_t" in ctp or "flann_algorithm_t" in ctp or "ANNIndexDistance" in ctp or "ANNIndex_Distance" in ctp:
+            return True
         return False
 
     def get_c_flat_type(self, tp):
@@ -973,7 +988,8 @@ class OpenCVWrapperGenerator:
             return "cv::Rect2f"
         return "void*"
 
-    def get_csharp_type(self, tp, is_parameter=False, is_return=False):
+
+    def get_csharp_type(self, tp, is_parameter=False, is_return=False, is_optional=False):
         ctp = clean_type(tp)
         if self.is_enum_type(tp):
             return "int"
@@ -1001,10 +1017,43 @@ class OpenCVWrapperGenerator:
             return "Point2F"
         if ctp == "Rect2f" or ctp == "Rect2F":
             return "Rect2F"
+        if is_parameter:
+            clean_tp = ctp.replace("cv::", "").replace("cv.", "").replace("::", "_").replace("*", "").strip()
+            if clean_tp.startswith("Ptr_"):
+                clean_tp = clean_tp[4:]
+            pascal_tp = "".join(to_pascal_case(p) for p in clean_tp.split("_") if p)
+            matched_cls = None
+            if pascal_tp in self.generated_class_names:
+                matched_cls = pascal_tp
+            if matched_cls:
+                if is_optional:
+                    return "IntPtr"
+                return f"{matched_cls}Handle"
         return "IntPtr"
 
     def get_user_facing_csharp_type(self, tp):
-        ctp = clean_type(tp)
+        ctp_raw = clean_type(tp)
+        if ctp_raw in ["int", "double", "float", "bool", "void"]:
+            return ctp_raw
+            
+        is_pointer = tp.strip().endswith("*") or ctp_raw.endswith("*")
+        ctp = ctp_raw.replace("cv::", "").replace("cv.", "").replace("::", ".").replace("*", "").strip()
+        
+        # Check if it is a class type first
+        clean_tp = ctp_raw.replace("cv::", "").replace("cv.", "").replace("::", "_").replace("*", "").strip()
+        if clean_tp.startswith("Ptr_"):
+            clean_tp = clean_tp[4:]
+        pascal_tp = "".join(to_pascal_case(p) for p in clean_tp.split("_") if p)
+        
+        matched_cls = None
+        if pascal_tp in self.generated_class_names:
+            matched_cls = pascal_tp
+        if matched_cls:
+            return matched_cls
+            
+        if is_pointer:
+            return "IntPtr"
+            
         if self.is_enum_type(tp):
             ctp_clean = ctp.replace("cv::", "").replace("cv.", "").replace("::", ".").strip()
             for key in self.enums:
@@ -1014,8 +1063,6 @@ class OpenCVWrapperGenerator:
                     parts = clean.split('_')
                     return "".join(to_pascal_case(p) for p in parts if p)
             return "int"
-        if ctp in ["int", "double", "float", "bool", "void"]:
-            return ctp
         if ctp in ["char", "uchar", "uint8_t"]:
             return "byte"
         if ctp == "int8_t":
@@ -1043,12 +1090,21 @@ class OpenCVWrapperGenerator:
             return "IntPtr"
             
         # Resolve via ALL_CLASSES_AND_ENUMS
-        for item in ALL_CLASSES_AND_ENUMS:
-            if item == ctp or item.endswith("." + ctp):
-                clean = item.replace("cv.", "").replace(".", "_")
-                parts = clean.split('_')
-                return "".join(to_pascal_case(p) for p in parts if p)
-                
+        def find_match(ctp_val):
+            for item in ALL_CLASSES_AND_ENUMS:
+                if item == ctp_val or item.endswith("." + ctp_val):
+                    clean = item.replace("cv.", "").replace(".", "_")
+                    parts = clean.split('_')
+                    return "".join(to_pascal_case(p) for p in parts if p)
+            return None
+
+        matched = find_match(ctp)
+        if matched:
+            return matched
+        matched = find_match(ctp.replace("_", "."))
+        if matched:
+            return matched
+            
         return "IntPtr"
 
     def get_cpp_type(self, tp, cls_name=None):
@@ -1258,6 +1314,7 @@ class OpenCVWrapperGenerator:
                 unnamed_counter += 1
             
             pascal_enum_name = "".join(to_pascal_case(p) for p in clean_enum_name.split("_") if p)
+            self.generated_enum_names.add(pascal_enum_name)
             
             member_names = [m[0].split('.')[-1].replace("const cv.", "").replace("const ", "") for m in members]
             common_prefix = ""
@@ -1381,6 +1438,16 @@ class OpenCVWrapperGenerator:
                 is_static = '/S' in decl[2]
                 
                 if is_constructor:
+                    # Skip specific constructors to align with the precompiled C++ DLL exports
+                    if clean_cls_name == "cuda_Event" and len(args) == 1 and "CreateFlags" in args[0][0]:
+                        continue
+                    if clean_cls_name == "cuda_HostMem" and len(args) == 1 and "AllocType" in args[0][0]:
+                        continue
+                    if clean_cls_name == "cuda_Stream" and len(args) == 1 and "Allocator" in args[0][0]:
+                        continue
+                    if clean_cls_name == "QRCodeDetectorAruco" and len(args) == 1 and "Params" in args[0][0]:
+                        continue
+
                     ctor_sig = tuple(self.get_user_facing_csharp_type(arg[0]) for arg in args)
                     if ctor_sig in generated_ctors:
                         continue
@@ -1485,8 +1552,8 @@ class OpenCVWrapperGenerator:
                 
                 cs_args_decl = []
                 if not is_constructor and not is_static:
-                    cs_args_decl.append("IntPtr self")
-                cs_args_decl.extend([f"{self.get_csharp_type(arg[0], is_parameter=True)} {sanitize_csharp_argument_name(arg[1])}" for arg in args])
+                    cs_args_decl.append(f"{pascal_cls_name}Handle self")
+                cs_args_decl.extend([f"{self.get_csharp_type(arg[0], is_parameter=True, is_optional=bool(arg[2]))} {sanitize_csharp_argument_name(arg[1])}" for arg in args])
                 
                 native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
                 if clean_type(ret_type) == "bool" and not is_constructor:
@@ -1512,9 +1579,10 @@ class OpenCVWrapperGenerator:
                             call_args.append(f"(int){san_name}")
                         elif user_type in self.generated_class_names:
                             is_opt = "true" if arg[2] else "false"
-                            call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), {is_opt})")
+                            call_args.append(f"ValidationHelper.GetHandle<{user_type}Handle>({san_name}, nameof({san_name}), {is_opt})")
                         elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
-                            call_args.append(f"{san_name} == null ? IntPtr.Zero : {san_name}.Handle")
+                            is_opt = "true" if arg[2] else "false"
+                            call_args.append(f"ValidationHelper.GetHandle<OpenCVHandle>({san_name}, nameof({san_name}), {is_opt})")
                         else:
                             call_args.append(san_name)
                     
@@ -1532,7 +1600,7 @@ class OpenCVWrapperGenerator:
                         base_call = f"MatValidation.{validation_expr}, () => {native_call})"
                     else:
                         base_call = native_call
-                    cs_class_methods.append(f'        : base({base_call})')
+                    cs_class_methods.append(f'        : base(new {pascal_cls_name}Handle({base_call}))')
                     cs_class_methods.append('    {')
                     cs_class_methods.append('        ErrorHelper.CheckError();')
                     cs_class_methods.append('    }')
@@ -1549,21 +1617,33 @@ class OpenCVWrapperGenerator:
                     cs_class_methods.append("    {")
                     if not is_static:
                         cs_class_methods.append("        ThrowIfDisposed();")
+                    validation_lines = []
                     call_args = []
                     if not is_static:
                         call_args.append("Handle")
                     for arg in args:
                         san_name = sanitize_csharp_argument_name(arg[1])
                         user_type = self.get_user_facing_csharp_type(arg[0])
+                        is_opt = arg[2]
                         if self.is_enum_type(arg[0]):
                             call_args.append(f"(int){san_name}")
                         elif user_type in self.generated_class_names:
-                            is_opt = "true" if arg[2] else "false"
-                            call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), {is_opt})")
+                            if is_opt:
+                                validation_lines.append(f"        if ({san_name} != null) {san_name}.ThrowIfDisposed();")
+                                call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
+                            else:
+                                validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
+                                validation_lines.append(f"        {san_name}.ThrowIfDisposed();")
+                                call_args.append(f"{san_name}.Handle")
                         elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
-                            call_args.append(f"{san_name} == null ? IntPtr.Zero : {san_name}.Handle")
+                            if is_opt:
+                                call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
+                            else:
+                                validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
+                                call_args.append(f"{san_name}.Handle")
                         else:
                             call_args.append(san_name)
+                    cs_class_methods.extend(validation_lines)
                     fcall = f"NativeMethods.{flat_name}({', '.join(call_args)})"
                     
                     keep_alives = []
@@ -1620,20 +1700,22 @@ class OpenCVWrapperGenerator:
                             cs_class_methods.append(f"    {ka}")
                         cs_class_methods.append(f"            return null;")
                         cs_class_methods.append(f"        }}")
+                        owns_expr = "false" if pascal_name in ["DefaultAllocator", "GetStdAllocator", "GetDefaultAllocator"] else "true"
                         cs_class_methods.append(f"        {ret_user}? resultObj = null;")
                         cs_class_methods.append(f"        try")
                         cs_class_methods.append(f"        {{")
-                        cs_class_methods.append(f"            resultObj = new {ret_user}(res);")
+                        cs_class_methods.append(f"            resultObj = new {ret_user}(res, {owns_expr});")
                         cs_class_methods.append(f"            ErrorHelper.CheckError();")
                         cs_class_methods.append(f"            return resultObj;")
                         cs_class_methods.append(f"        }}")
                         cs_class_methods.append(f"        catch")
                         cs_class_methods.append(f"        {{")
-                        cs_class_methods.append(f"            if (resultObj == null)")
-                        cs_class_methods.append(f"            {{")
-                        del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
-                        cs_class_methods.append(f"                NativeMethods.{del_fn}(res);")
-                        cs_class_methods.append(f"            }}")
+                        if owns_expr == "true":
+                            cs_class_methods.append(f"            if (resultObj == null)")
+                            cs_class_methods.append(f"            {{")
+                            del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
+                            cs_class_methods.append(f"                NativeMethods.{del_fn}(res);")
+                            cs_class_methods.append(f"            }}")
                         cs_class_methods.append(f"            throw;")
                         cs_class_methods.append(f"        }}")
                         cs_class_methods.append(f"        finally")
@@ -1697,11 +1779,11 @@ class OpenCVWrapperGenerator:
                 native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
                 if clean_type(prop_type) == "bool":
                     native_methods_by_module[mod_norm].append('[return: MarshalAs(UnmanagedType.U1)]')
+                ret_tp_cs = self.get_csharp_type(prop_type)
                 if is_struct_type(prop_type) and self.native_signatures.get(getter_name, False):
-                    ret_tp_cs = self.get_csharp_type(prop_type)
-                    native_methods_by_module[mod_norm].append(f'public static extern void {getter_name}(IntPtr self, out {ret_tp_cs} retVal);')
+                    native_methods_by_module[mod_norm].append(f'public static extern void {getter_name}({pascal_cls_name}Handle self, out {ret_tp_cs} retVal);')
                 else:
-                    native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(prop_type, is_return=True)} {getter_name}(IntPtr self);')
+                    native_methods_by_module[mod_norm].append(f'public static extern {self.get_csharp_type(prop_type, is_return=True)} {getter_name}({pascal_cls_name}Handle self);')
                 
                 if not is_readonly:
                     setter_name = f"{clean_cls_name}_{prop_name}_set"
@@ -1743,7 +1825,7 @@ class OpenCVWrapperGenerator:
                     cpp_impls.append('}')
                     
                     native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
-                    native_methods_by_module[mod_norm].append(f'public static extern void {setter_name}(IntPtr self, {self.get_csharp_type(prop_type, is_parameter=True)} val);')
+                    native_methods_by_module[mod_norm].append(f'public static extern void {setter_name}({pascal_cls_name}Handle self, {self.get_csharp_type(prop_type, is_parameter=True, is_optional=True)} val);')
                 
                 # C# property definition
                 prop_desc = f"Gets the {prop_name} property." if is_readonly else f"Gets or sets the {prop_name} property."
@@ -1809,7 +1891,7 @@ class OpenCVWrapperGenerator:
                         cs_class_methods.append("            if (value == null) return;")
                         cs_class_methods.append("            IntPtr[] handles = new IntPtr[value.Length];")
                         cs_class_methods.append("            for (int i = 0; i < value.Length; i++) {")
-                        cs_class_methods.append("                handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;")
+                        cs_class_methods.append("                handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle.DangerousGetHandle();")
                         cs_class_methods.append("            }")
                         cs_class_methods.append("            IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);")
                         cs_class_methods.append("            try {")
@@ -1879,7 +1961,7 @@ class OpenCVWrapperGenerator:
                         if self.is_enum_type(prop_type):
                             cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, (int)value); ErrorHelper.CheckError(); GC.KeepAlive(this); }}")
                         elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
-                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }}")
+                            cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }}")
                         else:
                             cs_class_methods.append(f"        set {{ ThrowIfDisposed(); NativeMethods.{setter_name}(Handle, value); ErrorHelper.CheckError(); GC.KeepAlive(this); }}")
                     cs_class_methods.append("    }")
@@ -1888,21 +1970,17 @@ class OpenCVWrapperGenerator:
             base_class_name = "DisposableOpenCVObject"
             if info.get("base"):
                 raw_base = info["base"].replace("cv::", "").replace("cv.", "").replace("::", "_").replace(":", "").replace(".", "_").strip()
-                for c_name in self.classes:
-                    clean_c_name = c_name.replace("cv.", "").replace(".", "_")
-                    if clean_c_name == raw_base:
-                        base_class_name = "".join(to_pascal_case(p) for p in clean_c_name.split("_") if p)
-                        break
+                base_pascal = "".join(to_pascal_case(p) for p in raw_base.split("_") if p)
+                if base_pascal in self.generated_class_names:
+                    base_class_name = base_pascal
 
             cls_doc = info.get("doc", "")
             class_lines = []
             class_lines.append(format_xml_doc(cls_doc, 0, current_class=pascal_cls_name))
             class_lines.append(f"public partial class {pascal_cls_name} : {base_class_name}\n{{")
-            class_lines.append(f"    internal {pascal_cls_name}(IntPtr handle) : base(handle) {{}}")
-            if pascal_cls_name != "Mat":
-                class_lines.append(f"    protected override void DisposeUnmanaged(IntPtr handle)\n    {{")
-                class_lines.append(f"        NativeMethods.{delete_func_name}(handle);")
-                class_lines.append("    }")
+            class_lines.append(f"    public new {pascal_cls_name}Handle Handle => ({pascal_cls_name}Handle)base.Handle;")
+            class_lines.append(f"    internal {pascal_cls_name}(IntPtr handle, bool ownsHandle = true) : base(new {pascal_cls_name}Handle(handle, ownsHandle)) {{}}")
+            class_lines.append(f"    internal {pascal_cls_name}({pascal_cls_name}Handle handle) : base(handle) {{}}")
             class_lines.extend(cs_class_methods)
             class_lines.append("}\n")
             
@@ -2015,7 +2093,7 @@ class OpenCVWrapperGenerator:
             cpp_impls.append('}')
             
             # C# Native signature
-            cs_args_decl = [f"{self.get_csharp_type(arg[0], is_parameter=True)} {sanitize_csharp_argument_name(arg[1])}" for arg in args]
+            cs_args_decl = [f"{self.get_csharp_type(arg[0], is_parameter=True, is_optional=bool(arg[2]))} {sanitize_csharp_argument_name(arg[1])}" for arg in args]
             native_methods_by_module[mod_norm].append(f'[DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]')
             if clean_type(ret_type) == "bool":
                 native_methods_by_module[mod_norm].append('[return: MarshalAs(UnmanagedType.U1)]')
@@ -2030,20 +2108,31 @@ class OpenCVWrapperGenerator:
             cv2_lines.append(format_xml_doc(doc, 4, args, ret_type, has_disposable=has_disposable, current_class="Cv2"))
             cv2_lines.append(f'    public static {ret_user_nullable} {csharp_method_name}({", ".join([f"{self.get_user_facing_csharp_type_nullable(arg[0], arg[2])} {sanitize_csharp_argument_name(arg[1])}" for arg in args])})')
             cv2_lines.append("    {")
+            validation_lines = []
             call_args = []
             for arg in args:
                 san_name = sanitize_csharp_argument_name(arg[1])
                 user_type = self.get_user_facing_csharp_type(arg[0])
+                is_opt = arg[2]
                 if self.is_enum_type(arg[0]):
                     call_args.append(f"(int){san_name}")
                 elif user_type in self.generated_class_names:
-                    is_opt = "true" if arg[2] else "false"
-                    call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), {is_opt})")
+                    if is_opt:
+                        validation_lines.append(f"        if ({san_name} != null) {san_name}.ThrowIfDisposed();")
+                        call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
+                    else:
+                        validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
+                        validation_lines.append(f"        {san_name}.ThrowIfDisposed();")
+                        call_args.append(f"{san_name}.Handle")
                 elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
-                    call_args.append(f"{san_name} == null ? IntPtr.Zero : {san_name}.Handle")
+                    if is_opt:
+                        call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
+                    else:
+                        validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
+                        call_args.append(f"{san_name}.Handle")
                 else:
                     call_args.append(san_name)
-                    
+            cv2_lines.extend(validation_lines)
             fcall = f"NativeMethods.{flat_name}({', '.join(call_args)})"
             keep_alives = []
             for arg in args:
@@ -2084,6 +2173,7 @@ class OpenCVWrapperGenerator:
                     cv2_lines.append(ka)
                 cv2_lines.append(f"        return ({ret_user})res;")
             elif ret_user not in ["int", "double", "float", "bool", "byte", "long", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
+                owns_expr = "false" if csharp_method_name in ["DefaultAllocator", "GetStdAllocator", "GetDefaultAllocator"] else "true"
                 cv2_lines.append(f"        IntPtr res = {fcall};")
                 cv2_lines.append(f"        if (res == IntPtr.Zero)")
                 cv2_lines.append(f"        {{")
@@ -2094,17 +2184,18 @@ class OpenCVWrapperGenerator:
                 cv2_lines.append(f"        {ret_user}? resultObj = null;")
                 cv2_lines.append(f"        try")
                 cv2_lines.append(f"        {{")
-                cv2_lines.append(f"            resultObj = new {ret_user}(res);")
+                cv2_lines.append(f"            resultObj = new {ret_user}(res, {owns_expr});")
                 cv2_lines.append(f"            ErrorHelper.CheckError();")
                 cv2_lines.append(f"            return resultObj;")
                 cv2_lines.append(f"        }}")
                 cv2_lines.append(f"        catch")
                 cv2_lines.append(f"        {{")
-                cv2_lines.append(f"            if (resultObj == null)")
-                cv2_lines.append(f"            {{")
-                del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
-                cv2_lines.append(f"                NativeMethods.{del_fn}(res);")
-                cv2_lines.append(f"            }}")
+                if owns_expr == "true":
+                    cv2_lines.append(f"            if (resultObj == null)")
+                    cv2_lines.append(f"            {{")
+                    del_fn = csharp_class_delete_funcs.get(ret_user, f"{ret_user}_Delete")
+                    cv2_lines.append(f"                NativeMethods.{del_fn}(res);")
+                    cv2_lines.append(f"            }}")
                 cv2_lines.append(f"            throw;")
                 cv2_lines.append(f"        }}")
                 cv2_lines.append(f"        finally")
@@ -2275,6 +2366,9 @@ class OpenCVWrapperGenerator:
                         f.write(indented + "\n")
                     f.write("}\n")
 
+        # Generate SafeHandles
+        self.generate_safe_handles(gen_dir)
+
         print("Binding generation complete!")
         print(f"\nGeneration Summary:")
         print(f"  Classes generated: {len(self.classes)}")
@@ -2284,6 +2378,74 @@ class OpenCVWrapperGenerator:
         if self.verbose and self.skipped_items:
             for item, reason in self.skipped_items:
                 print(f"    SKIPPED: {item} - {reason}")
+
+    def generate_safe_handles(self, gen_dir):
+        safe_handles_path = os.path.join(gen_dir, "SafeHandles.cs")
+        lines = []
+        cs_copyright = "// Copyright (c) 2026 Qourex. Licensed under Apache-2.0.\n// See LICENSE file in the project root for full license information.\n// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY. Generated by generator.py.\n\n"
+        lines.append(cs_copyright)
+        lines.append("using System;")
+        lines.append("using System.Runtime.InteropServices;\n")
+        lines.append("namespace OpenCV5Sharp")
+        lines.append("{")
+
+        for cls_name, info in sorted(self.classes.items()):
+            clean_cls_name = cls_name.replace("cv.", "").replace(".", "_")
+            if not clean_cls_name or "IStreamReader" in clean_cls_name:
+                continue
+            pascal_cls_name = "".join(to_pascal_case(p) for p in clean_cls_name.split("_") if p)
+
+            base_handle = "OpenCVHandle"
+            if info.get("base"):
+                base_c = info["base"].replace("cv::", "").replace("cv.", "").replace("::", "_").replace(":", "").replace(".", "_").strip()
+                base_pascal = "".join(to_pascal_case(p) for p in base_c.split("_") if p)
+                if base_pascal in self.generated_class_names:
+                    base_handle = base_pascal + "Handle"
+
+            del_fn = f"{clean_cls_name}_Delete"
+
+            lines.append(f"    /// <summary>")
+            lines.append(f"    /// SafeHandle subclass for native {cls_name} pointers.")
+            lines.append(f"    /// </summary>")
+            lines.append(f"    public class {pascal_cls_name}Handle : {base_handle}")
+            lines.append(f"    {{")
+            lines.append(f"        /// <summary>")
+            lines.append(f"        /// Initializes a new instance of the <see cref=\"{pascal_cls_name}Handle\"/> class.")
+            lines.append(f"        /// </summary>")
+            lines.append(f"        public {pascal_cls_name}Handle() : base(true) {{}}")
+            lines.append(f"        /// <summary>")
+            lines.append(f"        /// Initializes a new instance of the <see cref=\"{pascal_cls_name}Handle\"/> class.")
+            lines.append(f"        /// </summary>")
+            lines.append(f"        /// <param name=\"ownsHandle\">True to reliably release the handle during finalization; otherwise, false.</param>")
+            lines.append(f"        protected {pascal_cls_name}Handle(bool ownsHandle) : base(ownsHandle) {{}}")
+            lines.append(f"        /// <summary>")
+            lines.append(f"        /// Initializes a new instance of the <see cref=\"{pascal_cls_name}Handle\"/> class wrapping the raw pointer.")
+            lines.append(f"        /// </summary>")
+            lines.append(f"        /// <param name=\"ptr\">The raw unmanaged handle address.</param>")
+            lines.append(f"        /// <param name=\"ownsHandle\">True to reliably release the handle during finalization; otherwise, false.</param>")
+            lines.append(f"        public {pascal_cls_name}Handle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {{}}")
+            lines.append(f"        /// <summary>")
+            lines.append(f"        /// Releases the native resource identified by the handle.")
+            lines.append(f"        /// </summary>")
+            lines.append(f"        protected override bool ReleaseHandle()")
+            lines.append( "        {")
+            lines.append( "            if (Environment.HasShutdownStarted)")
+            lines.append( "            {")
+            lines.append( "                return true;")
+            lines.append( "            }")
+            lines.append( "            if (handle != IntPtr.Zero)")
+            lines.append( "            {")
+            lines.append(f"                NativeMethods.{del_fn}(handle);")
+            lines.append( "            }")
+            lines.append( "            return true;")
+            lines.append( "        }")
+            lines.append(f"    }}")
+            lines.append("")
+
+        lines.append("}")
+
+        with open(safe_handles_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
 
 
 def main():

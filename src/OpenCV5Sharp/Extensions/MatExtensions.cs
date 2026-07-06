@@ -13,6 +13,14 @@ namespace OpenCV5Sharp
         private int _pinnedState = 0; // 0 = unpinned/free, 1 = pinned
 
         /// <summary>
+        /// Finalizes the <see cref="Mat"/> instance.
+        /// </summary>
+        ~Mat()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Mat"/> class wrapping a managed array.
         /// Pins the managed array to prevent the Garbage Collector from relocating it while in use by OpenCV.
         /// </summary>
@@ -30,12 +38,41 @@ namespace OpenCV5Sharp
         {
             _pinnedDataHandle = handle;
             _pinnedState = 1;
-            ErrorHelper.CheckError();
+            try
+            {
+                ErrorHelper.CheckError();
+            }
+            catch
+            {
+                if (Interlocked.CompareExchange(ref _pinnedState, 0, 1) == 1)
+                {
+                    if (_pinnedDataHandle.IsAllocated)
+                    {
+                        _pinnedDataHandle.Free();
+                    }
+                }
+                throw;
+            }
         }
 
         private static IntPtr AllocateAndPin(int rows, int cols, int type, Array data, long step, out GCHandle handle)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
+
+            Type elementType = data.GetType().GetElementType() ?? throw new ArgumentException("Array element type cannot be determined.");
+            if (!elementType.IsValueType)
+            {
+                throw new ArgumentException("Array elements must be value types.");
+            }
+            int elementSize = Marshal.SizeOf(elementType);
+            long arrayByteLength = (long)data.Length * elementSize;
+            long requiredByteLength = (long)rows * step;
+
+            if (arrayByteLength < requiredByteLength)
+            {
+                throw new ArgumentException($"Provided array size ({arrayByteLength} bytes) is too small for the matrix ({requiredByteLength} bytes required).", nameof(data));
+            }
+
             handle = GCHandle.Alloc(data, GCHandleType.Pinned);
             try
             {
@@ -57,14 +94,10 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Releases resources and unpins the managed memory if pinned.
         /// </summary>
-        /// <param name="handle">The native handle to release.</param>
-        protected override void DisposeUnmanaged(IntPtr handle)
+        /// <param name="disposing">true if called from Dispose; false if called from finalizer.</param>
+        protected override void Dispose(bool disposing)
         {
             try
-            {
-                NativeMethods.Mat_Delete(handle);
-            }
-            finally
             {
                 if (Interlocked.CompareExchange(ref _pinnedState, 0, 1) == 1)
                 {
@@ -73,6 +106,10 @@ namespace OpenCV5Sharp
                         _pinnedDataHandle.Free();
                     }
                 }
+            }
+            finally
+            {
+                base.Dispose(disposing);
             }
         }
     }

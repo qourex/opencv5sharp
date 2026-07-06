@@ -14,11 +14,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class AlignExposures : Algorithm
     {
-        internal AlignExposures(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.AlignExposures_Delete(handle);
-        }
+        public new AlignExposuresHandle Handle => (AlignExposuresHandle)base.Handle;
+        internal AlignExposures(IntPtr handle, bool ownsHandle = true) : base(new AlignExposuresHandle(handle, ownsHandle)) {}
+        internal AlignExposures(AlignExposuresHandle handle) : base(handle) {}
         /// <summary>
         /// Aligns images
         /// </summary>
@@ -32,7 +30,11 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, IntPtr dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.AlignExposures_process_0(Handle, src, dst, ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.AlignExposures_process_0(Handle, src, dst, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(times);
@@ -52,11 +54,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class AlignMTB : AlignExposures
     {
-        internal AlignMTB(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.AlignMTB_Delete(handle);
-        }
+        public new AlignMTBHandle Handle => (AlignMTBHandle)base.Handle;
+        internal AlignMTB(IntPtr handle, bool ownsHandle = true) : base(new AlignMTBHandle(handle, ownsHandle)) {}
+        internal AlignMTB(AlignMTBHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -70,7 +70,11 @@ namespace OpenCV5Sharp
         public new void Process(IntPtr src, IntPtr dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.AlignMTB_process_0(Handle, src, dst, ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.AlignMTB_process_0(Handle, src, dst, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(times);
@@ -102,7 +106,11 @@ namespace OpenCV5Sharp
         public Point CalculateShift(Mat img0, Mat img1)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.AlignMTB_calculateShift_0(Handle, ValidationHelper.GetHandle(img0, nameof(img0), false), ValidationHelper.GetHandle(img1, nameof(img1), false));
+            if (img0 == null) throw new ArgumentNullException(nameof(img0));
+            img0.ThrowIfDisposed();
+            if (img1 == null) throw new ArgumentNullException(nameof(img1));
+            img1.ThrowIfDisposed();
+            var res = NativeMethods.AlignMTB_calculateShift_0(Handle, img0.Handle, img1.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img0);
@@ -121,7 +129,11 @@ namespace OpenCV5Sharp
         public void ShiftMat(Mat src, Mat dst, Point shift)
         {
             ThrowIfDisposed();
-            NativeMethods.AlignMTB_shiftMat_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), shift);
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.AlignMTB_shiftMat_0(Handle, src.Handle, dst.Handle, shift);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -139,7 +151,13 @@ namespace OpenCV5Sharp
         public void ComputeBitmaps(Mat img, Mat tb, Mat eb)
         {
             ThrowIfDisposed();
-            NativeMethods.AlignMTB_computeBitmaps_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(tb, nameof(tb), false), ValidationHelper.GetHandle(eb, nameof(eb), false));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (tb == null) throw new ArgumentNullException(nameof(tb));
+            tb.ThrowIfDisposed();
+            if (eb == null) throw new ArgumentNullException(nameof(eb));
+            eb.ThrowIfDisposed();
+            NativeMethods.AlignMTB_computeBitmaps_0(Handle, img.Handle, tb.Handle, eb.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -229,11 +247,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CalibrateCRF : Algorithm
     {
-        internal CalibrateCRF(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.CalibrateCRF_Delete(handle);
-        }
+        public new CalibrateCRFHandle Handle => (CalibrateCRFHandle)base.Handle;
+        internal CalibrateCRF(IntPtr handle, bool ownsHandle = true) : base(new CalibrateCRFHandle(handle, ownsHandle)) {}
+        internal CalibrateCRF(CalibrateCRFHandle handle) : base(handle) {}
         /// <summary>
         /// Recovers inverse camera response.
         /// </summary>
@@ -246,7 +262,11 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, Mat dst, Mat times)
         {
             ThrowIfDisposed();
-            NativeMethods.CalibrateCRF_process_0(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            NativeMethods.CalibrateCRF_process_0(Handle, src, dst.Handle, times.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -265,11 +285,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CalibrateDebevec : CalibrateCRF
     {
-        internal CalibrateDebevec(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.CalibrateDebevec_Delete(handle);
-        }
+        public new CalibrateDebevecHandle Handle => (CalibrateDebevecHandle)base.Handle;
+        internal CalibrateDebevec(IntPtr handle, bool ownsHandle = true) : base(new CalibrateDebevecHandle(handle, ownsHandle)) {}
+        internal CalibrateDebevec(CalibrateDebevecHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -357,11 +375,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CalibrateRobertson : CalibrateCRF
     {
-        internal CalibrateRobertson(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.CalibrateRobertson_Delete(handle);
-        }
+        public new CalibrateRobertsonHandle Handle => (CalibrateRobertsonHandle)base.Handle;
+        internal CalibrateRobertson(IntPtr handle, bool ownsHandle = true) : base(new CalibrateRobertsonHandle(handle, ownsHandle)) {}
+        internal CalibrateRobertson(CalibrateRobertsonHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -429,7 +445,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -458,11 +474,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class MergeDebevec : MergeExposures
     {
-        internal MergeDebevec(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MergeDebevec_Delete(handle);
-        }
+        public new MergeDebevecHandle Handle => (MergeDebevecHandle)base.Handle;
+        internal MergeDebevec(IntPtr handle, bool ownsHandle = true) : base(new MergeDebevecHandle(handle, ownsHandle)) {}
+        internal MergeDebevec(MergeDebevecHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -476,7 +490,13 @@ namespace OpenCV5Sharp
         public new void Process(IntPtr src, Mat dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeDebevec_process_0(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.MergeDebevec_process_0(Handle, src, dst.Handle, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -495,7 +515,11 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, Mat dst, Mat times)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeDebevec_process_1(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            NativeMethods.MergeDebevec_process_1(Handle, src, dst.Handle, times.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -509,11 +533,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class MergeExposures : Algorithm
     {
-        internal MergeExposures(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MergeExposures_Delete(handle);
-        }
+        public new MergeExposuresHandle Handle => (MergeExposuresHandle)base.Handle;
+        internal MergeExposures(IntPtr handle, bool ownsHandle = true) : base(new MergeExposuresHandle(handle, ownsHandle)) {}
+        internal MergeExposures(MergeExposuresHandle handle) : base(handle) {}
         /// <summary>
         /// Merges images.
         /// </summary>
@@ -527,7 +549,13 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, Mat dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeExposures_process_0(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.MergeExposures_process_0(Handle, src, dst.Handle, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -550,11 +578,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class MergeMertens : MergeExposures
     {
-        internal MergeMertens(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MergeMertens_Delete(handle);
-        }
+        public new MergeMertensHandle Handle => (MergeMertensHandle)base.Handle;
+        internal MergeMertens(IntPtr handle, bool ownsHandle = true) : base(new MergeMertensHandle(handle, ownsHandle)) {}
+        internal MergeMertens(MergeMertensHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -568,7 +594,13 @@ namespace OpenCV5Sharp
         public new void Process(IntPtr src, Mat dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeMertens_process_0(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.MergeMertens_process_0(Handle, src, dst.Handle, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -586,7 +618,9 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeMertens_process_1(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.MergeMertens_process_1(Handle, src, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -678,11 +712,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class MergeRobertson : MergeExposures
     {
-        internal MergeRobertson(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MergeRobertson_Delete(handle);
-        }
+        public new MergeRobertsonHandle Handle => (MergeRobertsonHandle)base.Handle;
+        internal MergeRobertson(IntPtr handle, bool ownsHandle = true) : base(new MergeRobertsonHandle(handle, ownsHandle)) {}
+        internal MergeRobertson(MergeRobertsonHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -696,7 +728,13 @@ namespace OpenCV5Sharp
         public new void Process(IntPtr src, Mat dst, Mat times, Mat response)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeRobertson_process_0(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false), ValidationHelper.GetHandle(response, nameof(response), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            if (response == null) throw new ArgumentNullException(nameof(response));
+            response.ThrowIfDisposed();
+            NativeMethods.MergeRobertson_process_0(Handle, src, dst.Handle, times.Handle, response.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -715,7 +753,11 @@ namespace OpenCV5Sharp
         public void Process(IntPtr src, Mat dst, Mat times)
         {
             ThrowIfDisposed();
-            NativeMethods.MergeRobertson_process_1(Handle, src, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(times, nameof(times), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (times == null) throw new ArgumentNullException(nameof(times));
+            times.ThrowIfDisposed();
+            NativeMethods.MergeRobertson_process_1(Handle, src, dst.Handle, times.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -729,11 +771,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Tonemap : Algorithm
     {
-        internal Tonemap(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Tonemap_Delete(handle);
-        }
+        public new TonemapHandle Handle => (TonemapHandle)base.Handle;
+        internal Tonemap(IntPtr handle, bool ownsHandle = true) : base(new TonemapHandle(handle, ownsHandle)) {}
+        internal Tonemap(TonemapHandle handle) : base(handle) {}
         /// <summary>
         /// Tonemaps image
         /// </summary>
@@ -745,7 +785,11 @@ namespace OpenCV5Sharp
         public void Process(Mat src, Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.Tonemap_process_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.Tonemap_process_0(Handle, src.Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -791,11 +835,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class TonemapDrago : Tonemap
     {
-        internal TonemapDrago(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.TonemapDrago_Delete(handle);
-        }
+        public new TonemapDragoHandle Handle => (TonemapDragoHandle)base.Handle;
+        internal TonemapDrago(IntPtr handle, bool ownsHandle = true) : base(new TonemapDragoHandle(handle, ownsHandle)) {}
+        internal TonemapDrago(TonemapDragoHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -859,11 +901,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class TonemapMantiuk : Tonemap
     {
-        internal TonemapMantiuk(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.TonemapMantiuk_Delete(handle);
-        }
+        public new TonemapMantiukHandle Handle => (TonemapMantiukHandle)base.Handle;
+        internal TonemapMantiuk(IntPtr handle, bool ownsHandle = true) : base(new TonemapMantiukHandle(handle, ownsHandle)) {}
+        internal TonemapMantiuk(TonemapMantiukHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -927,11 +967,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class TonemapReinhard : Tonemap
     {
-        internal TonemapReinhard(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.TonemapReinhard_Delete(handle);
-        }
+        public new TonemapReinhardHandle Handle => (TonemapReinhardHandle)base.Handle;
+        internal TonemapReinhard(IntPtr handle, bool ownsHandle = true) : base(new TonemapReinhardHandle(handle, ownsHandle)) {}
+        internal TonemapReinhard(TonemapReinhardHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1018,17 +1056,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CcmColorCorrectionModel : DisposableOpenCVObject
     {
-        internal CcmColorCorrectionModel(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ccm_ColorCorrectionModel_Delete(handle);
-        }
+        public new CcmColorCorrectionModelHandle Handle => (CcmColorCorrectionModelHandle)base.Handle;
+        internal CcmColorCorrectionModel(IntPtr handle, bool ownsHandle = true) : base(new CcmColorCorrectionModelHandle(handle, ownsHandle)) {}
+        internal CcmColorCorrectionModel(CcmColorCorrectionModelHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CcmColorCorrectionModel()
-            : base(NativeMethods.ccm_ColorCorrectionModel_New_0())
+            : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1047,7 +1083,7 @@ namespace OpenCV5Sharp
         /// - COLORCHECKER_DIGITAL_SG, the DigitalSG ColorChecker with 140 squares
         /// </remarks>
         public CcmColorCorrectionModel(Mat src, int constColor)
-            : base(NativeMethods.ccm_ColorCorrectionModel_New_1(ValidationHelper.GetHandle(src, nameof(src), false), constColor))
+            : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_1(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), constColor)))
         {
             ErrorHelper.CheckError();
         }
@@ -1061,7 +1097,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CcmColorCorrectionModel(Mat src, Mat colors, CcmColorSpace refColorSpace)
-            : base(NativeMethods.ccm_ColorCorrectionModel_New_2(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(colors, nameof(colors), false), (int)refColorSpace))
+            : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_2(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), ValidationHelper.GetHandle<MatHandle>(colors, nameof(colors), false), (int)refColorSpace)))
         {
             ErrorHelper.CheckError();
         }
@@ -1076,7 +1112,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CcmColorCorrectionModel(Mat src, Mat colors, CcmColorSpace refColorSpace, Mat coloredPatchesMask)
-            : base(NativeMethods.ccm_ColorCorrectionModel_New_3(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(colors, nameof(colors), false), (int)refColorSpace, ValidationHelper.GetHandle(coloredPatchesMask, nameof(coloredPatchesMask), false)))
+            : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_3(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), ValidationHelper.GetHandle<MatHandle>(colors, nameof(colors), false), (int)refColorSpace, ValidationHelper.GetHandle<MatHandle>(coloredPatchesMask, nameof(coloredPatchesMask), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -1199,7 +1235,9 @@ namespace OpenCV5Sharp
         public void SetWeightsList(Mat weightsList)
         {
             ThrowIfDisposed();
-            NativeMethods.ccm_ColorCorrectionModel_setWeightsList_0(Handle, ValidationHelper.GetHandle(weightsList, nameof(weightsList), false));
+            if (weightsList == null) throw new ArgumentNullException(nameof(weightsList));
+            weightsList.ThrowIfDisposed();
+            NativeMethods.ccm_ColorCorrectionModel_setWeightsList_0(Handle, weightsList.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(weightsList);
@@ -1281,7 +1319,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1315,7 +1353,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1362,7 +1400,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1396,7 +1434,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1430,7 +1468,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1464,7 +1502,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1498,7 +1536,11 @@ namespace OpenCV5Sharp
         public void CorrectImage(Mat src, Mat dst, bool islinear)
         {
             ThrowIfDisposed();
-            NativeMethods.ccm_ColorCorrectionModel_correctImage_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), islinear);
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.ccm_ColorCorrectionModel_correctImage_0(Handle, src.Handle, dst.Handle, islinear);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -1514,7 +1556,9 @@ namespace OpenCV5Sharp
         public void Write(FileStorage fs)
         {
             ThrowIfDisposed();
-            NativeMethods.ccm_ColorCorrectionModel_write_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false));
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.ccm_ColorCorrectionModel_write_0(Handle, fs.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -1529,7 +1573,9 @@ namespace OpenCV5Sharp
         public void Read(FileNode node)
         {
             ThrowIfDisposed();
-            NativeMethods.ccm_ColorCorrectionModel_read_0(Handle, ValidationHelper.GetHandle(node, nameof(node), false));
+            if (node == null) throw new ArgumentNullException(nameof(node));
+            node.ThrowIfDisposed();
+            NativeMethods.ccm_ColorCorrectionModel_read_0(Handle, node.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(node);
@@ -1551,17 +1597,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class SegmentationIntelligentScissorsMB : DisposableOpenCVObject
     {
-        internal SegmentationIntelligentScissorsMB(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.segmentation_IntelligentScissorsMB_Delete(handle);
-        }
+        public new SegmentationIntelligentScissorsMBHandle Handle => (SegmentationIntelligentScissorsMBHandle)base.Handle;
+        internal SegmentationIntelligentScissorsMB(IntPtr handle, bool ownsHandle = true) : base(new SegmentationIntelligentScissorsMBHandle(handle, ownsHandle)) {}
+        internal SegmentationIntelligentScissorsMB(SegmentationIntelligentScissorsMBHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public SegmentationIntelligentScissorsMB()
-            : base(NativeMethods.segmentation_IntelligentScissorsMB_New_0())
+            : base(new SegmentationIntelligentScissorsMBHandle(NativeMethods.segmentation_IntelligentScissorsMB_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1589,7 +1633,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1632,7 +1676,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1679,7 +1723,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1723,7 +1767,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1752,7 +1796,9 @@ namespace OpenCV5Sharp
         public SegmentationIntelligentScissorsMB? ApplyImage(Mat image)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.segmentation_IntelligentScissorsMB_applyImage_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            IntPtr res = NativeMethods.segmentation_IntelligentScissorsMB_applyImage_0(Handle, image.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -1762,7 +1808,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1797,7 +1843,14 @@ namespace OpenCV5Sharp
         public SegmentationIntelligentScissorsMB? ApplyImageFeatures(Mat non_edge, Mat gradient_direction, Mat gradient_magnitude, Mat? image)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.segmentation_IntelligentScissorsMB_applyImageFeatures_0(Handle, ValidationHelper.GetHandle(non_edge, nameof(non_edge), false), ValidationHelper.GetHandle(gradient_direction, nameof(gradient_direction), false), ValidationHelper.GetHandle(gradient_magnitude, nameof(gradient_magnitude), false), ValidationHelper.GetHandle(image, nameof(image), true));
+            if (non_edge == null) throw new ArgumentNullException(nameof(non_edge));
+            non_edge.ThrowIfDisposed();
+            if (gradient_direction == null) throw new ArgumentNullException(nameof(gradient_direction));
+            gradient_direction.ThrowIfDisposed();
+            if (gradient_magnitude == null) throw new ArgumentNullException(nameof(gradient_magnitude));
+            gradient_magnitude.ThrowIfDisposed();
+            if (image != null) image.ThrowIfDisposed();
+            IntPtr res = NativeMethods.segmentation_IntelligentScissorsMB_applyImageFeatures_0(Handle, non_edge.Handle, gradient_direction.Handle, gradient_magnitude.Handle, ValidationHelper.GetHandle(image, nameof(image), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -1810,7 +1863,7 @@ namespace OpenCV5Sharp
             SegmentationIntelligentScissorsMB? resultObj = null;
             try
             {
-                resultObj = new SegmentationIntelligentScissorsMB(res);
+                resultObj = new SegmentationIntelligentScissorsMB(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1865,7 +1918,9 @@ namespace OpenCV5Sharp
         public void GetContour(Point targetPt, Mat contour, bool backward)
         {
             ThrowIfDisposed();
-            NativeMethods.segmentation_IntelligentScissorsMB_getContour_0(Handle, targetPt, ValidationHelper.GetHandle(contour, nameof(contour), false), backward);
+            if (contour == null) throw new ArgumentNullException(nameof(contour));
+            contour.ThrowIfDisposed();
+            NativeMethods.segmentation_IntelligentScissorsMB_getContour_0(Handle, targetPt, contour.Handle, backward);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(contour);

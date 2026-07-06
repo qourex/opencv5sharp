@@ -169,11 +169,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Algorithm : DisposableOpenCVObject
     {
-        internal Algorithm(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Algorithm_Delete(handle);
-        }
+        public new AlgorithmHandle Handle => (AlgorithmHandle)base.Handle;
+        internal Algorithm(IntPtr handle, bool ownsHandle = true) : base(new AlgorithmHandle(handle, ownsHandle)) {}
+        internal Algorithm(AlgorithmHandle handle) : base(handle) {}
         /// <summary>
         /// Clears the algorithm state
         /// </summary>
@@ -195,7 +193,9 @@ namespace OpenCV5Sharp
         public void Write(FileStorage fs)
         {
             ThrowIfDisposed();
-            NativeMethods.Algorithm_write_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false));
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.Algorithm_write_0(Handle, fs.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -211,7 +211,9 @@ namespace OpenCV5Sharp
         public void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
-            NativeMethods.Algorithm_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.Algorithm_write_1(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -226,7 +228,9 @@ namespace OpenCV5Sharp
         public void Read(FileNode fn)
         {
             ThrowIfDisposed();
-            NativeMethods.Algorithm_read_0(Handle, ValidationHelper.GetHandle(fn, nameof(fn), false));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            fn.ThrowIfDisposed();
+            NativeMethods.Algorithm_read_0(Handle, fn.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fn);
@@ -301,17 +305,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class AsyncArray : DisposableOpenCVObject
     {
-        internal AsyncArray(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.AsyncArray_Delete(handle);
-        }
+        public new AsyncArrayHandle Handle => (AsyncArrayHandle)base.Handle;
+        internal AsyncArray(IntPtr handle, bool ownsHandle = true) : base(new AsyncArrayHandle(handle, ownsHandle)) {}
+        internal AsyncArray(AsyncArrayHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public AsyncArray()
-            : base(NativeMethods.AsyncArray_New_0())
+            : base(new AsyncArrayHandle(NativeMethods.AsyncArray_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -339,7 +341,9 @@ namespace OpenCV5Sharp
         public void Get(Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.AsyncArray_get_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.AsyncArray_get_0(Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -359,7 +363,9 @@ namespace OpenCV5Sharp
         public bool Get(Mat dst, double timeoutNs)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.AsyncArray_get_1(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), timeoutNs);
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            var res = NativeMethods.AsyncArray_get_1(Handle, dst.Handle, timeoutNs);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -404,17 +410,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DMatch : DisposableOpenCVObject
     {
-        internal DMatch(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.DMatch_Delete(handle);
-        }
+        public new DMatchHandle Handle => (DMatchHandle)base.Handle;
+        internal DMatch(IntPtr handle, bool ownsHandle = true) : base(new DMatchHandle(handle, ownsHandle)) {}
+        internal DMatch(DMatchHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DMatch()
-            : base(NativeMethods.DMatch_New_0())
+            : base(new DMatchHandle(NativeMethods.DMatch_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -426,7 +430,7 @@ namespace OpenCV5Sharp
         /// <param name="_distance">The _distance parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DMatch(int _queryIdx, int _trainIdx, float _distance)
-            : base(NativeMethods.DMatch_New_1(_queryIdx, _trainIdx, _distance))
+            : base(new DMatchHandle(NativeMethods.DMatch_New_1(_queryIdx, _trainIdx, _distance)))
         {
             ErrorHelper.CheckError();
         }
@@ -439,7 +443,7 @@ namespace OpenCV5Sharp
         /// <param name="_distance">The _distance parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DMatch(int _queryIdx, int _trainIdx, int _imgIdx, float _distance)
-            : base(NativeMethods.DMatch_New_2(_queryIdx, _trainIdx, _imgIdx, _distance))
+            : base(new DMatchHandle(NativeMethods.DMatch_New_2(_queryIdx, _trainIdx, _imgIdx, _distance)))
         {
             ErrorHelper.CheckError();
         }
@@ -489,11 +493,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class FileNode : DisposableOpenCVObject
     {
-        internal FileNode(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FileNode_Delete(handle);
-        }
+        public new FileNodeHandle Handle => (FileNodeHandle)base.Handle;
+        internal FileNode(IntPtr handle, bool ownsHandle = true) : base(new FileNodeHandle(handle, ownsHandle)) {}
+        internal FileNode(FileNodeHandle handle) : base(handle) {}
         /// <summary>
         /// The constructors.
         /// </summary>
@@ -503,7 +505,7 @@ namespace OpenCV5Sharp
         /// from the another file node.
         /// </remarks>
         public FileNode()
-            : base(NativeMethods.FileNode_New_0())
+            : base(new FileNodeHandle(NativeMethods.FileNode_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -525,7 +527,7 @@ namespace OpenCV5Sharp
             FileNode? resultObj = null;
             try
             {
-                resultObj = new FileNode(res);
+                resultObj = new FileNode(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -560,7 +562,7 @@ namespace OpenCV5Sharp
             FileNode? resultObj = null;
             try
             {
-                resultObj = new FileNode(res);
+                resultObj = new FileNode(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -818,7 +820,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -844,11 +846,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class FileStorage : DisposableOpenCVObject
     {
-        internal FileStorage(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FileStorage_Delete(handle);
-        }
+        public new FileStorageHandle Handle => (FileStorageHandle)base.Handle;
+        internal FileStorage(IntPtr handle, bool ownsHandle = true) : base(new FileStorageHandle(handle, ownsHandle)) {}
+        internal FileStorage(FileStorageHandle handle) : base(handle) {}
         /// <summary>
         /// The constructors.
         /// </summary>
@@ -858,7 +858,7 @@ namespace OpenCV5Sharp
         /// call FileStorage.open.
         /// </remarks>
         public FileStorage()
-            : base(NativeMethods.FileStorage_New_0())
+            : base(new FileStorageHandle(NativeMethods.FileStorage_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -870,7 +870,7 @@ namespace OpenCV5Sharp
         /// <param name="encoding">The encoding parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FileStorage(string filename, int flags, string? encoding)
-            : base(NativeMethods.FileStorage_New_1(filename, flags, encoding))
+            : base(new FileStorageHandle(NativeMethods.FileStorage_New_1(filename, flags, encoding)))
         {
             ErrorHelper.CheckError();
         }
@@ -968,7 +968,7 @@ namespace OpenCV5Sharp
             FileNode? resultObj = null;
             try
             {
-                resultObj = new FileNode(res);
+                resultObj = new FileNode(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1003,7 +1003,7 @@ namespace OpenCV5Sharp
             FileNode? resultObj = null;
             try
             {
-                resultObj = new FileNode(res);
+                resultObj = new FileNode(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1038,7 +1038,7 @@ namespace OpenCV5Sharp
             FileNode? resultObj = null;
             try
             {
-                resultObj = new FileNode(res);
+                resultObj = new FileNode(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1131,7 +1131,9 @@ namespace OpenCV5Sharp
         public void Write(string name, Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.FileStorage_write_5(Handle, name, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.FileStorage_write_5(Handle, name, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1220,17 +1222,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class KeyPoint : DisposableOpenCVObject
     {
-        internal KeyPoint(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.KeyPoint_Delete(handle);
-        }
+        public new KeyPointHandle Handle => (KeyPointHandle)base.Handle;
+        internal KeyPoint(IntPtr handle, bool ownsHandle = true) : base(new KeyPointHandle(handle, ownsHandle)) {}
+        internal KeyPoint(KeyPointHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public KeyPoint()
-            : base(NativeMethods.KeyPoint_New_0())
+            : base(new KeyPointHandle(NativeMethods.KeyPoint_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1246,7 +1246,7 @@ namespace OpenCV5Sharp
         /// <param name="class_id">object id</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public KeyPoint(float x, float y, float size, float angle, float response, int octave, int class_id)
-            : base(NativeMethods.KeyPoint_New_1(x, y, size, angle, response, octave, class_id))
+            : base(new KeyPointHandle(NativeMethods.KeyPoint_New_1(x, y, size, angle, response, octave, class_id)))
         {
             ErrorHelper.CheckError();
         }
@@ -1295,7 +1295,11 @@ namespace OpenCV5Sharp
         /// </remarks>
         public static float Overlap(KeyPoint kp1, KeyPoint kp2)
         {
-            var res = NativeMethods.KeyPoint_overlap_0(ValidationHelper.GetHandle(kp1, nameof(kp1), false), ValidationHelper.GetHandle(kp2, nameof(kp2), false));
+            if (kp1 == null) throw new ArgumentNullException(nameof(kp1));
+            kp1.ThrowIfDisposed();
+            if (kp2 == null) throw new ArgumentNullException(nameof(kp2));
+            kp2.ThrowIfDisposed();
+            var res = NativeMethods.KeyPoint_overlap_0(kp1.Handle, kp2.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(kp1);
             GC.KeepAlive(kp2);
@@ -1356,7 +1360,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Mat : DisposableOpenCVObject
     {
-        internal Mat(IntPtr handle) : base(handle) {}
+        public new MatHandle Handle => (MatHandle)base.Handle;
+        internal Mat(IntPtr handle, bool ownsHandle = true) : base(new MatHandle(handle, ownsHandle)) {}
+        internal Mat(MatHandle handle) : base(handle) {}
         /// <summary>
         /// Represents an n-dimensional dense numerical array (image, matrix, or tensor).
         /// </summary>
@@ -1367,7 +1373,7 @@ namespace OpenCV5Sharp
         /// Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header.
         /// </remarks>
         public Mat()
-            : base(NativeMethods.Mat_New_0())
+            : base(new MatHandle(NativeMethods.Mat_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1384,7 +1390,7 @@ namespace OpenCV5Sharp
         /// Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header.
         /// </remarks>
         public Mat(int rows, int cols, int type)
-            : base(MatValidation.CheckDimensions(rows, cols, () => NativeMethods.Mat_New_1(rows, cols, type)))
+            : base(new MatHandle(MatValidation.CheckDimensions(rows, cols, () => NativeMethods.Mat_New_1(rows, cols, type))))
         {
             ErrorHelper.CheckError();
         }
@@ -1403,7 +1409,7 @@ namespace OpenCV5Sharp
         /// Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header.
         /// </remarks>
         public Mat(int rows, int cols, int type, IntPtr data, long step)
-            : base(MatValidation.CheckDimensions(rows, cols, () => NativeMethods.Mat_New_2(rows, cols, type, data, step)))
+            : base(new MatHandle(MatValidation.CheckDimensions(rows, cols, () => NativeMethods.Mat_New_2(rows, cols, type, data, step))))
         {
             ErrorHelper.CheckError();
         }
@@ -1422,7 +1428,7 @@ namespace OpenCV5Sharp
         /// Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header.
         /// </remarks>
         public Mat(Mat m, Range rowRange, Range colRange)
-            : base(NativeMethods.Mat_New_3(ValidationHelper.GetHandle(m, nameof(m), false), rowRange, colRange))
+            : base(new MatHandle(NativeMethods.Mat_New_3(ValidationHelper.GetHandle<MatHandle>(m, nameof(m), false), rowRange, colRange)))
         {
             ErrorHelper.CheckError();
         }
@@ -1440,7 +1446,7 @@ namespace OpenCV5Sharp
         /// Memory is managed via a reference-counting mechanism, where copying a Mat only copies the header.
         /// </remarks>
         public Mat(Mat m, Rect roi)
-            : base(NativeMethods.Mat_New_4(ValidationHelper.GetHandle(m, nameof(m), false), roi))
+            : base(new MatHandle(NativeMethods.Mat_New_4(ValidationHelper.GetHandle<MatHandle>(m, nameof(m), false), roi)))
         {
             ErrorHelper.CheckError();
         }
@@ -1501,7 +1507,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1533,7 +1539,9 @@ namespace OpenCV5Sharp
         public void CopyTo(Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.Mat_copyTo_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.Mat_copyTo_0(Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -1556,7 +1564,9 @@ namespace OpenCV5Sharp
         public void ConvertTo(Mat dst, int rtype, double alpha, double beta)
         {
             ThrowIfDisposed();
-            NativeMethods.Mat_convertTo_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), rtype, alpha, beta);
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.Mat_convertTo_0(Handle, dst.Handle, rtype, alpha, beta);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -1742,11 +1752,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class MatShape : DisposableOpenCVObject
     {
-        internal MatShape(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MatShape_Delete(handle);
-        }
+        public new MatShapeHandle Handle => (MatShapeHandle)base.Handle;
+        internal MatShape(IntPtr handle, bool ownsHandle = true) : base(new MatShapeHandle(handle, ownsHandle)) {}
+        internal MatShape(MatShapeHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1833,7 +1841,9 @@ namespace OpenCV5Sharp
         public MatShape? Expand(MatShape another)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.MatShape_expand_0(Handle, ValidationHelper.GetHandle(another, nameof(another), false));
+            if (another == null) throw new ArgumentNullException(nameof(another));
+            another.ThrowIfDisposed();
+            IntPtr res = NativeMethods.MatShape_expand_0(Handle, another.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -1843,7 +1853,7 @@ namespace OpenCV5Sharp
             MatShape? resultObj = null;
             try
             {
-                resultObj = new MatShape(res);
+                resultObj = new MatShape(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1880,7 +1890,7 @@ namespace OpenCV5Sharp
             MatShape? resultObj = null;
             try
             {
-                resultObj = new MatShape(res);
+                resultObj = new MatShape(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1926,11 +1936,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Moments : DisposableOpenCVObject
     {
-        internal Moments(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Moments_Delete(handle);
-        }
+        public new MomentsHandle Handle => (MomentsHandle)base.Handle;
+        internal Moments(IntPtr handle, bool ownsHandle = true) : base(new MomentsHandle(handle, ownsHandle)) {}
+        internal Moments(MomentsHandle handle) : base(handle) {}
         /// <summary>Gets or sets the m00 property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public double M00
@@ -2114,17 +2122,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class RotatedRect : DisposableOpenCVObject
     {
-        internal RotatedRect(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.RotatedRect_Delete(handle);
-        }
+        public new RotatedRectHandle Handle => (RotatedRectHandle)base.Handle;
+        internal RotatedRect(IntPtr handle, bool ownsHandle = true) : base(new RotatedRectHandle(handle, ownsHandle)) {}
+        internal RotatedRect(RotatedRectHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public RotatedRect()
-            : base(NativeMethods.RotatedRect_New_0())
+            : base(new RotatedRectHandle(NativeMethods.RotatedRect_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2136,7 +2142,7 @@ namespace OpenCV5Sharp
         /// <param name="angle">The rotation angle in a clockwise direction. When the angle is 0, 90, 180, 270 etc., the rectangle becomes an up-right rectangle.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public RotatedRect(Point2F center, Size2F size, float angle)
-            : base(NativeMethods.RotatedRect_New_1(center, size, angle))
+            : base(new RotatedRectHandle(NativeMethods.RotatedRect_New_1(center, size, angle)))
         {
             ErrorHelper.CheckError();
         }
@@ -2151,7 +2157,7 @@ namespace OpenCV5Sharp
         /// anticlockwise).
         /// </remarks>
         public RotatedRect(Point2F point1, Point2F point2, Point2F point3)
-            : base(NativeMethods.RotatedRect_New_2(point1, point2, point3))
+            : base(new RotatedRectHandle(NativeMethods.RotatedRect_New_2(point1, point2, point3)))
         {
             ErrorHelper.CheckError();
         }
@@ -2235,17 +2241,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class TickMeter : DisposableOpenCVObject
     {
-        internal TickMeter(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.TickMeter_Delete(handle);
-        }
+        public new TickMeterHandle Handle => (TickMeterHandle)base.Handle;
+        internal TickMeter(IntPtr handle, bool ownsHandle = true) : base(new TickMeterHandle(handle, ownsHandle)) {}
+        internal TickMeter(TickMeterHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public TickMeter()
-            : base(NativeMethods.TickMeter_New_0())
+            : base(new TickMeterHandle(NativeMethods.TickMeter_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2534,11 +2538,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CudaBufferPool : DisposableOpenCVObject
     {
-        internal CudaBufferPool(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_BufferPool_Delete(handle);
-        }
+        public new CudaBufferPoolHandle Handle => (CudaBufferPoolHandle)base.Handle;
+        internal CudaBufferPool(IntPtr handle, bool ownsHandle = true) : base(new CudaBufferPoolHandle(handle, ownsHandle)) {}
+        internal CudaBufferPool(CudaBufferPoolHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2547,7 +2549,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CudaBufferPool(CudaStream stream)
-            : base(NativeMethods.cuda_BufferPool_New_0(ValidationHelper.GetHandle(stream, nameof(stream), false)))
+            : base(new CudaBufferPoolHandle(NativeMethods.cuda_BufferPool_New_0(ValidationHelper.GetHandle<CudaStreamHandle>(stream, nameof(stream), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -2571,7 +2573,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2607,7 +2609,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2629,13 +2631,34 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetAllocator()
+        public CudaGpuMatAllocator? GetAllocator()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.cuda_BufferPool_getAllocator_0(Handle);
-            ErrorHelper.CheckError();
-            GC.KeepAlive(this);
-            return res;
+            IntPtr res = NativeMethods.cuda_BufferPool_getAllocator_0(Handle);
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(this);
+                return null;
+            }
+            CudaGpuMatAllocator? resultObj = null;
+            try
+            {
+                resultObj = new CudaGpuMatAllocator(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.cuda_GpuMat_Allocator_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(this);
+            }
         }
     }
 
@@ -2645,17 +2668,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CudaDeviceInfo : DisposableOpenCVObject
     {
-        internal CudaDeviceInfo(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_DeviceInfo_Delete(handle);
-        }
+        public new CudaDeviceInfoHandle Handle => (CudaDeviceInfoHandle)base.Handle;
+        internal CudaDeviceInfo(IntPtr handle, bool ownsHandle = true) : base(new CudaDeviceInfoHandle(handle, ownsHandle)) {}
+        internal CudaDeviceInfo(CudaDeviceInfoHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CudaDeviceInfo()
-            : base(NativeMethods.cuda_DeviceInfo_New_0())
+            : base(new CudaDeviceInfoHandle(NativeMethods.cuda_DeviceInfo_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2665,7 +2686,7 @@ namespace OpenCV5Sharp
         /// <param name="device_id">System index of the CUDA device starting with 0. Constructs the DeviceInfo object for the specified device. If device_id parameter is missed, it constructs an object for the current device.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CudaDeviceInfo(int device_id)
-            : base(NativeMethods.cuda_DeviceInfo_New_1(device_id))
+            : base(new CudaDeviceInfoHandle(NativeMethods.cuda_DeviceInfo_New_1(device_id)))
         {
             ErrorHelper.CheckError();
         }
@@ -2921,13 +2942,13 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr ComputeMode()
+        public int ComputeMode()
         {
             ThrowIfDisposed();
             var res = NativeMethods.cuda_DeviceInfo_computeMode_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -3409,11 +3430,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CudaEvent : DisposableOpenCVObject
     {
-        internal CudaEvent(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_Event_Delete(handle);
-        }
+        public new CudaEventHandle Handle => (CudaEventHandle)base.Handle;
+        internal CudaEvent(IntPtr handle, bool ownsHandle = true) : base(new CudaEventHandle(handle, ownsHandle)) {}
+        internal CudaEvent(CudaEventHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -3424,6 +3443,7 @@ namespace OpenCV5Sharp
         public void Record(CudaStream? stream)
         {
             ThrowIfDisposed();
+            if (stream != null) stream.ThrowIfDisposed();
             NativeMethods.cuda_Event_record_0(Handle, ValidationHelper.GetHandle(stream, nameof(stream), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
@@ -3464,7 +3484,11 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static float ElapsedTime(CudaEvent start, CudaEvent end)
         {
-            var res = NativeMethods.cuda_Event_elapsedTime_0(ValidationHelper.GetHandle(start, nameof(start), false), ValidationHelper.GetHandle(end, nameof(end), false));
+            if (start == null) throw new ArgumentNullException(nameof(start));
+            start.ThrowIfDisposed();
+            if (end == null) throw new ArgumentNullException(nameof(end));
+            end.ThrowIfDisposed();
+            var res = NativeMethods.cuda_Event_elapsedTime_0(start.Handle, end.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(start);
             GC.KeepAlive(end);
@@ -3478,11 +3502,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CudaGpuData : DisposableOpenCVObject
     {
-        internal CudaGpuData(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_GpuData_Delete(handle);
-        }
+        public new CudaGpuDataHandle Handle => (CudaGpuDataHandle)base.Handle;
+        internal CudaGpuData(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuDataHandle(handle, ownsHandle)) {}
+        internal CudaGpuData(CudaGpuDataHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -3514,11 +3536,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CudaGpuMat : DisposableOpenCVObject
     {
-        internal CudaGpuMat(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_GpuMat_Delete(handle);
-        }
+        public new CudaGpuMatHandle Handle => (CudaGpuMatHandle)base.Handle;
+        internal CudaGpuMat(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatHandle(handle, ownsHandle)) {}
+        internal CudaGpuMat(CudaGpuMatHandle handle) : base(handle) {}
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
         /// </summary>
@@ -3576,7 +3596,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(int rows, int cols, int type, IntPtr allocator)
-            : base(NativeMethods.cuda_GpuMat_New_0(rows, cols, type, allocator))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_0(rows, cols, type, allocator)))
         {
             ErrorHelper.CheckError();
         }
@@ -3592,7 +3612,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(Size size, int type, IntPtr allocator)
-            : base(NativeMethods.cuda_GpuMat_New_1(size, type, allocator))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_1(size, type, allocator)))
         {
             ErrorHelper.CheckError();
         }
@@ -3610,7 +3630,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(int rows, int cols, int type, Scalar s, IntPtr allocator)
-            : base(NativeMethods.cuda_GpuMat_New_2(rows, cols, type, s, allocator))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_2(rows, cols, type, s, allocator)))
         {
             ErrorHelper.CheckError();
         }
@@ -3627,7 +3647,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(Size size, int type, Scalar s, IntPtr allocator)
-            : base(NativeMethods.cuda_GpuMat_New_3(size, type, s, allocator))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_3(size, type, s, allocator)))
         {
             ErrorHelper.CheckError();
         }
@@ -3643,7 +3663,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(CudaGpuMat m)
-            : base(NativeMethods.cuda_GpuMat_New_4(ValidationHelper.GetHandle(m, nameof(m), false)))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_4(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -3661,7 +3681,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(CudaGpuMat m, Range rowRange, Range colRange)
-            : base(NativeMethods.cuda_GpuMat_New_5(ValidationHelper.GetHandle(m, nameof(m), false), rowRange, colRange))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_5(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false), rowRange, colRange)))
         {
             ErrorHelper.CheckError();
         }
@@ -3678,7 +3698,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(CudaGpuMat m, Rect roi)
-            : base(NativeMethods.cuda_GpuMat_New_6(ValidationHelper.GetHandle(m, nameof(m), false), roi))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_6(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false), roi)))
         {
             ErrorHelper.CheckError();
         }
@@ -3695,7 +3715,7 @@ namespace OpenCV5Sharp
         /// Data must be explicitly uploaded from host memory (Mat) and downloaded back after GPU processing.
         /// </remarks>
         public CudaGpuMat(Mat arr, IntPtr allocator)
-            : base(NativeMethods.cuda_GpuMat_New_7(ValidationHelper.GetHandle(arr, nameof(arr), false), allocator))
+            : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_7(ValidationHelper.GetHandle<MatHandle>(arr, nameof(arr), false), allocator)))
         {
             ErrorHelper.CheckError();
         }
@@ -3763,7 +3783,9 @@ namespace OpenCV5Sharp
         public void Swap(CudaGpuMat mat)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_swap_0(Handle, ValidationHelper.GetHandle(mat, nameof(mat), false));
+            if (mat == null) throw new ArgumentNullException(nameof(mat));
+            mat.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_swap_0(Handle, mat.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(mat);
@@ -3782,7 +3804,9 @@ namespace OpenCV5Sharp
         public void Upload(Mat arr)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_upload_0(Handle, ValidationHelper.GetHandle(arr, nameof(arr), false));
+            if (arr == null) throw new ArgumentNullException(nameof(arr));
+            arr.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_upload_0(Handle, arr.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(arr);
@@ -3804,7 +3828,11 @@ namespace OpenCV5Sharp
         public void Upload(Mat arr, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_upload_1(Handle, ValidationHelper.GetHandle(arr, nameof(arr), false), ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (arr == null) throw new ArgumentNullException(nameof(arr));
+            arr.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_upload_1(Handle, arr.Handle, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(arr);
@@ -3824,7 +3852,9 @@ namespace OpenCV5Sharp
         public void Download(Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_download_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_download_0(Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3846,7 +3876,11 @@ namespace OpenCV5Sharp
         public void Download(Mat dst, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_download_1(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_download_1(Handle, dst.Handle, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3873,7 +3907,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3904,7 +3938,9 @@ namespace OpenCV5Sharp
         public void CopyTo(CudaGpuMat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_copyTo_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_copyTo_0(Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3924,7 +3960,11 @@ namespace OpenCV5Sharp
         public void CopyTo(CudaGpuMat dst, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_copyTo_1(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_copyTo_1(Handle, dst.Handle, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3945,7 +3985,11 @@ namespace OpenCV5Sharp
         public void CopyTo(CudaGpuMat dst, CudaGpuMat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_copyTo_2(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_copyTo_2(Handle, dst.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3967,7 +4011,13 @@ namespace OpenCV5Sharp
         public void CopyTo(CudaGpuMat dst, CudaGpuMat mask, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_copyTo_3(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_copyTo_3(Handle, dst.Handle, mask.Handle, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -3996,7 +4046,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4029,7 +4079,9 @@ namespace OpenCV5Sharp
         public CudaGpuMat? SetTo(Scalar s, CudaStream stream)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.cuda_GpuMat_setTo_1(Handle, s, ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cuda_GpuMat_setTo_1(Handle, s, stream.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -4039,7 +4091,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4073,7 +4125,9 @@ namespace OpenCV5Sharp
         public CudaGpuMat? SetTo(Scalar s, Mat mask)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.cuda_GpuMat_setTo_2(Handle, s, ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cuda_GpuMat_setTo_2(Handle, s, mask.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -4083,7 +4137,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4118,7 +4172,11 @@ namespace OpenCV5Sharp
         public CudaGpuMat? SetTo(Scalar s, Mat mask, CudaStream stream)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.cuda_GpuMat_setTo_3(Handle, s, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cuda_GpuMat_setTo_3(Handle, s, mask.Handle, stream.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -4129,7 +4187,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4163,7 +4221,9 @@ namespace OpenCV5Sharp
         public void ConvertTo(CudaGpuMat dst, int rtype)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_convertTo_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), rtype);
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_convertTo_0(Handle, dst.Handle, rtype);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -4184,7 +4244,11 @@ namespace OpenCV5Sharp
         public void ConvertTo(CudaGpuMat dst, int rtype, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_convertTo_1(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), rtype, ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_convertTo_1(Handle, dst.Handle, rtype, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -4207,7 +4271,9 @@ namespace OpenCV5Sharp
         public void ConvertTo(CudaGpuMat dst, int rtype, double alpha, double beta)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_convertTo_2(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), rtype, alpha, beta);
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_convertTo_2(Handle, dst.Handle, rtype, alpha, beta);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -4230,7 +4296,11 @@ namespace OpenCV5Sharp
         public void ConvertTo(CudaGpuMat dst, int rtype, double alpha, double beta, CudaStream stream)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_convertTo_3(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), rtype, alpha, beta, ValidationHelper.GetHandle(stream, nameof(stream), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            stream.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_convertTo_3(Handle, dst.Handle, rtype, alpha, beta, stream.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -4251,7 +4321,9 @@ namespace OpenCV5Sharp
         public void AssignTo(CudaGpuMat m, int type)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_GpuMat_assignTo_0(Handle, ValidationHelper.GetHandle(m, nameof(m), false), type);
+            if (m == null) throw new ArgumentNullException(nameof(m));
+            m.ThrowIfDisposed();
+            NativeMethods.cuda_GpuMat_assignTo_0(Handle, m.Handle, type);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(m);
@@ -4278,7 +4350,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4317,7 +4389,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4357,7 +4429,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4396,7 +4468,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4436,7 +4508,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4475,7 +4547,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4515,7 +4587,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4574,7 +4646,7 @@ namespace OpenCV5Sharp
             CudaGpuMat? resultObj = null;
             try
             {
-                resultObj = new CudaGpuMat(res);
+                resultObj = new CudaGpuMat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4790,11 +4862,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CudaGpuMatAllocator : DisposableOpenCVObject
     {
-        internal CudaGpuMatAllocator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_GpuMat_Allocator_Delete(handle);
-        }
+        public new CudaGpuMatAllocatorHandle Handle => (CudaGpuMatAllocatorHandle)base.Handle;
+        internal CudaGpuMatAllocator(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatAllocatorHandle(handle, ownsHandle)) {}
+        internal CudaGpuMatAllocator(CudaGpuMatAllocatorHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -4803,11 +4873,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CudaGpuMatND : DisposableOpenCVObject
     {
-        internal CudaGpuMatND(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_GpuMatND_Delete(handle);
-        }
+        public new CudaGpuMatNDHandle Handle => (CudaGpuMatNDHandle)base.Handle;
+        internal CudaGpuMatND(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatNDHandle(handle, ownsHandle)) {}
+        internal CudaGpuMatND(CudaGpuMatNDHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -4828,11 +4896,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CudaHostMem : DisposableOpenCVObject
     {
-        internal CudaHostMem(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_HostMem_Delete(handle);
-        }
+        public new CudaHostMemHandle Handle => (CudaHostMemHandle)base.Handle;
+        internal CudaHostMem(IntPtr handle, bool ownsHandle = true) : base(new CudaHostMemHandle(handle, ownsHandle)) {}
+        internal CudaHostMem(CudaHostMemHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -4841,8 +4907,8 @@ namespace OpenCV5Sharp
         /// <param name="type">The type parameter.</param>
         /// <param name="alloc_type">The alloc_type parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public CudaHostMem(int rows, int cols, int type, IntPtr alloc_type)
-            : base(NativeMethods.cuda_HostMem_New_0(rows, cols, type, alloc_type))
+        public CudaHostMem(int rows, int cols, int type, int alloc_type)
+            : base(new CudaHostMemHandle(NativeMethods.cuda_HostMem_New_0(rows, cols, type, (int)alloc_type)))
         {
             ErrorHelper.CheckError();
         }
@@ -4853,8 +4919,8 @@ namespace OpenCV5Sharp
         /// <param name="type">The type parameter.</param>
         /// <param name="alloc_type">The alloc_type parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public CudaHostMem(Size size, int type, IntPtr alloc_type)
-            : base(NativeMethods.cuda_HostMem_New_1(size, type, alloc_type))
+        public CudaHostMem(Size size, int type, int alloc_type)
+            : base(new CudaHostMemHandle(NativeMethods.cuda_HostMem_New_1(size, type, (int)alloc_type)))
         {
             ErrorHelper.CheckError();
         }
@@ -4866,8 +4932,8 @@ namespace OpenCV5Sharp
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public CudaHostMem(Mat arr, IntPtr alloc_type)
-            : base(NativeMethods.cuda_HostMem_New_2(ValidationHelper.GetHandle(arr, nameof(arr), false), alloc_type))
+        public CudaHostMem(Mat arr, int alloc_type)
+            : base(new CudaHostMemHandle(NativeMethods.cuda_HostMem_New_2(ValidationHelper.GetHandle<MatHandle>(arr, nameof(arr), false), (int)alloc_type)))
         {
             ErrorHelper.CheckError();
         }
@@ -4881,7 +4947,9 @@ namespace OpenCV5Sharp
         public void Swap(CudaHostMem b)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_HostMem_swap_0(Handle, ValidationHelper.GetHandle(b, nameof(b), false));
+            if (b == null) throw new ArgumentNullException(nameof(b));
+            b.ThrowIfDisposed();
+            NativeMethods.cuda_HostMem_swap_0(Handle, b.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(b);
@@ -4903,7 +4971,7 @@ namespace OpenCV5Sharp
             CudaHostMem? resultObj = null;
             try
             {
-                resultObj = new CudaHostMem(res);
+                resultObj = new CudaHostMem(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4953,7 +5021,7 @@ namespace OpenCV5Sharp
             CudaHostMem? resultObj = null;
             try
             {
-                resultObj = new CudaHostMem(res);
+                resultObj = new CudaHostMem(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -4987,7 +5055,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -5163,17 +5231,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CudaStream : DisposableOpenCVObject
     {
-        internal CudaStream(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_Stream_Delete(handle);
-        }
+        public new CudaStreamHandle Handle => (CudaStreamHandle)base.Handle;
+        internal CudaStream(IntPtr handle, bool ownsHandle = true) : base(new CudaStreamHandle(handle, ownsHandle)) {}
+        internal CudaStream(CudaStreamHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CudaStream()
-            : base(NativeMethods.cuda_Stream_New_0())
+            : base(new CudaStreamHandle(NativeMethods.cuda_Stream_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -5192,7 +5258,7 @@ namespace OpenCV5Sharp
         /// </code>
         /// </remarks>
         public CudaStream(long cudaFlags)
-            : base(NativeMethods.cuda_Stream_New_1(cudaFlags))
+            : base(new CudaStreamHandle(NativeMethods.cuda_Stream_New_1(cudaFlags)))
         {
             ErrorHelper.CheckError();
         }
@@ -5230,7 +5296,9 @@ namespace OpenCV5Sharp
         public void WaitEvent(CudaEvent @event)
         {
             ThrowIfDisposed();
-            NativeMethods.cuda_Stream_waitEvent_0(Handle, ValidationHelper.GetHandle(@event, nameof(@event), false));
+            if (@event == null) throw new ArgumentNullException(nameof(@event));
+            @event.ThrowIfDisposed();
+            NativeMethods.cuda_Stream_waitEvent_0(Handle, @event.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(@event);
@@ -5257,7 +5325,7 @@ namespace OpenCV5Sharp
             CudaStream? resultObj = null;
             try
             {
-                resultObj = new CudaStream(res);
+                resultObj = new CudaStream(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -5299,11 +5367,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class CudaTargetArchs : DisposableOpenCVObject
     {
-        internal CudaTargetArchs(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.cuda_TargetArchs_Delete(handle);
-        }
+        public new CudaTargetArchsHandle Handle => (CudaTargetArchsHandle)base.Handle;
+        internal CudaTargetArchs(IntPtr handle, bool ownsHandle = true) : base(new CudaTargetArchsHandle(handle, ownsHandle)) {}
+        internal CudaTargetArchs(CudaTargetArchsHandle handle) : base(handle) {}
         /// <summary>
         /// There is a set of methods to check whether the module contains intermediate (PTX) or binary CUDA
         /// code for the given architecture(s):
@@ -5404,17 +5470,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class OclDevice : DisposableOpenCVObject
     {
-        internal OclDevice(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ocl_Device_Delete(handle);
-        }
+        public new OclDeviceHandle Handle => (OclDeviceHandle)base.Handle;
+        internal OclDevice(IntPtr handle, bool ownsHandle = true) : base(new OclDeviceHandle(handle, ownsHandle)) {}
+        internal OclDevice(OclDeviceHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public OclDevice()
-            : base(NativeMethods.ocl_Device_New_0())
+            : base(new OclDeviceHandle(NativeMethods.ocl_Device_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -6461,7 +6525,7 @@ namespace OpenCV5Sharp
             OclDevice? resultObj = null;
             try
             {
-                resultObj = new OclDevice(res);
+                resultObj = new OclDevice(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -6485,11 +6549,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class OclOpenCLExecutionContext : DisposableOpenCVObject
     {
-        internal OclOpenCLExecutionContext(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ocl_OpenCLExecutionContext_Delete(handle);
-        }
+        public new OclOpenCLExecutionContextHandle Handle => (OclOpenCLExecutionContextHandle)base.Handle;
+        internal OclOpenCLExecutionContext(IntPtr handle, bool ownsHandle = true) : base(new OclOpenCLExecutionContextHandle(handle, ownsHandle)) {}
+        internal OclOpenCLExecutionContext(OclOpenCLExecutionContextHandle handle) : base(handle) {}
     }
 
 }

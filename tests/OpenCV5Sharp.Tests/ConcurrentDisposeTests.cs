@@ -27,7 +27,7 @@ namespace OpenCV5Sharp.Tests
 
                 // Assert that concurrent dispose correctly sets Disposed state (L11)
                 Assert.True(m.IsDisposed);
-                Assert.Equal(IntPtr.Zero, m.Handle);
+                Assert.True(m.Handle.IsClosed);
             }
         }
     }

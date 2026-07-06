@@ -15,9 +15,9 @@ namespace OpenCV5Sharp
             /// <param name="be">The be parameter.</param>
             /// <returns>The returned value.</returns>
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr DnnGetAvailableTargets(IntPtr be)
+            public static IntPtr DnnGetAvailableTargets(int be)
             {
-                var res = NativeMethods.cv_dnn_getAvailableTargets_0(be);
+                var res = NativeMethods.cv_dnn_getAvailableTargets_0((int)be);
                 ErrorHelper.CheckError();
                 return res;
             }
@@ -40,7 +40,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -75,7 +75,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -108,7 +108,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -141,7 +141,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -176,7 +176,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -215,7 +215,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -248,7 +248,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -281,7 +281,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -314,7 +314,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -348,7 +348,7 @@ namespace OpenCV5Sharp
                 DnnNet? resultObj = null;
                 try
                 {
-                    resultObj = new DnnNet(res);
+                    resultObj = new DnnNet(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -380,7 +380,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -420,7 +420,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Mat? DnnBlobFromImage(Mat image, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth)
             {
-                IntPtr res = NativeMethods.cv_dnn_blobFromImage_0(ValidationHelper.GetHandle(image, nameof(image), false), scalefactor, size, mean, swapRB, crop, ddepth);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                IntPtr res = NativeMethods.cv_dnn_blobFromImage_0(image.Handle, scalefactor, size, mean, swapRB, crop, ddepth);
                 if (res == IntPtr.Zero)
                 {
                     GC.KeepAlive(image);
@@ -429,7 +431,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -477,7 +479,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -510,7 +512,10 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Mat? DnnBlobFromImageWithParams(Mat image, DnnImage2BlobParams? param)
             {
-                IntPtr res = NativeMethods.cv_dnn_blobFromImageWithParams_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(param, nameof(param), true));
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (param != null) param.ThrowIfDisposed();
+                IntPtr res = NativeMethods.cv_dnn_blobFromImageWithParams_0(image.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
                 if (res == IntPtr.Zero)
                 {
                     GC.KeepAlive(image);
@@ -520,7 +525,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -549,7 +554,12 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DnnBlobFromImageWithParams(Mat image, Mat blob, DnnImage2BlobParams? param)
             {
-                NativeMethods.cv_dnn_blobFromImageWithParams_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(blob, nameof(blob), false), ValidationHelper.GetHandle(param, nameof(param), true));
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (blob == null) throw new ArgumentNullException(nameof(blob));
+                blob.ThrowIfDisposed();
+                if (param != null) param.ThrowIfDisposed();
+                NativeMethods.cv_dnn_blobFromImageWithParams_1(image.Handle, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(blob);
@@ -572,6 +582,7 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Mat? DnnBlobFromImagesWithParams(IntPtr images, DnnImage2BlobParams? param)
             {
+                if (param != null) param.ThrowIfDisposed();
                 IntPtr res = NativeMethods.cv_dnn_blobFromImagesWithParams_0(images, ValidationHelper.GetHandle(param, nameof(param), true));
                 if (res == IntPtr.Zero)
                 {
@@ -581,7 +592,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -609,7 +620,10 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DnnBlobFromImagesWithParams(IntPtr images, Mat blob, DnnImage2BlobParams? param)
             {
-                NativeMethods.cv_dnn_blobFromImagesWithParams_1(images, ValidationHelper.GetHandle(blob, nameof(blob), false), ValidationHelper.GetHandle(param, nameof(param), true));
+                if (blob == null) throw new ArgumentNullException(nameof(blob));
+                blob.ThrowIfDisposed();
+                if (param != null) param.ThrowIfDisposed();
+                NativeMethods.cv_dnn_blobFromImagesWithParams_1(images, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(blob);
                 GC.KeepAlive(param);
@@ -625,7 +639,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DnnImagesFromBlob(Mat blob_, IntPtr images_)
             {
-                NativeMethods.cv_dnn_imagesFromBlob_0(ValidationHelper.GetHandle(blob_, nameof(blob_), false), images_);
+                if (blob_ == null) throw new ArgumentNullException(nameof(blob_));
+                blob_.ThrowIfDisposed();
+                NativeMethods.cv_dnn_imagesFromBlob_0(blob_.Handle, images_);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(blob_);
             }

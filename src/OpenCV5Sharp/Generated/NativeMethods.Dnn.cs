@@ -16,12 +16,12 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_ClassificationModel_New_1(IntPtr network);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_ClassificationModel_setEnableSoftmaxPostProcessing_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool enable);
+        public static extern IntPtr dnn_ClassificationModel_setEnableSoftmaxPostProcessing_0(DnnClassificationModelHandle self, [MarshalAs(UnmanagedType.U1)] bool enable);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_ClassificationModel_getEnableSoftmaxPostProcessing_0(IntPtr self);
+        public static extern bool dnn_ClassificationModel_getEnableSoftmaxPostProcessing_0(DnnClassificationModelHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_ClassificationModel_classify_0(IntPtr self, IntPtr frame, int classId, float conf);
+        public static extern void dnn_ClassificationModel_classify_0(DnnClassificationModelHandle self, MatHandle frame, int classId, float conf);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_DetectionModel_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -29,12 +29,12 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_DetectionModel_New_1(IntPtr network);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_DetectionModel_setNmsAcrossClasses_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool value);
+        public static extern IntPtr dnn_DetectionModel_setNmsAcrossClasses_0(DnnDetectionModelHandle self, [MarshalAs(UnmanagedType.U1)] bool value);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_DetectionModel_getNmsAcrossClasses_0(IntPtr self);
+        public static extern bool dnn_DetectionModel_getNmsAcrossClasses_0(DnnDetectionModelHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_DetectionModel_detect_0(IntPtr self, IntPtr frame, IntPtr classIds, IntPtr confidences, IntPtr boxes, float confThreshold, float nmsThreshold);
+        public static extern void dnn_DetectionModel_detect_0(DnnDetectionModelHandle self, MatHandle frame, IntPtr classIds, IntPtr confidences, IntPtr boxes, float confThreshold, float nmsThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_Dict_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -49,19 +49,19 @@ namespace OpenCV5Sharp
         public static extern IntPtr dnn_DictValue_New_2([MarshalAs(UnmanagedType.LPUTF8Str)] string? s);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_DictValue_isInt_0(IntPtr self);
+        public static extern bool dnn_DictValue_isInt_0(DnnDictValueHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_DictValue_isString_0(IntPtr self);
+        public static extern bool dnn_DictValue_isString_0(DnnDictValueHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_DictValue_isReal_0(IntPtr self);
+        public static extern bool dnn_DictValue_isReal_0(DnnDictValueHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_DictValue_getIntValue_0(IntPtr self, int idx);
+        public static extern int dnn_DictValue_getIntValue_0(DnnDictValueHandle self, int idx);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double dnn_DictValue_getRealValue_0(IntPtr self, int idx);
+        public static extern double dnn_DictValue_getRealValue_0(DnnDictValueHandle self, int idx);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_DictValue_getStringValue_0(IntPtr self, int idx);
+        public static extern IntPtr dnn_DictValue_getStringValue_0(DnnDictValueHandle self, int idx);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_Image2BlobParams_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -69,42 +69,42 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_Image2BlobParams_New_1(Scalar scalefactor, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, int ddepth, int datalayout, int mode, Scalar borderValue);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect dnn_Image2BlobParams_blobRectToImageRect_0(IntPtr self, Rect rBlob, Size size);
+        public static extern Rect dnn_Image2BlobParams_blobRectToImageRect_0(DnnImage2BlobParamsHandle self, Rect rBlob, Size size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_blobRectsToImageRects_0(IntPtr self, IntPtr rBlob, IntPtr rImg, Size size);
+        public static extern void dnn_Image2BlobParams_blobRectsToImageRects_0(DnnImage2BlobParamsHandle self, IntPtr rBlob, IntPtr rImg, Size size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar dnn_Image2BlobParams_scalefactor_get(IntPtr self);
+        public static extern Scalar dnn_Image2BlobParams_scalefactor_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_scalefactor_set(IntPtr self, Scalar val);
+        public static extern void dnn_Image2BlobParams_scalefactor_set(DnnImage2BlobParamsHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size dnn_Image2BlobParams_size_get(IntPtr self);
+        public static extern Size dnn_Image2BlobParams_size_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_size_set(IntPtr self, Size val);
+        public static extern void dnn_Image2BlobParams_size_set(DnnImage2BlobParamsHandle self, Size val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar dnn_Image2BlobParams_mean_get(IntPtr self);
+        public static extern Scalar dnn_Image2BlobParams_mean_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_mean_set(IntPtr self, Scalar val);
+        public static extern void dnn_Image2BlobParams_mean_set(DnnImage2BlobParamsHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_Image2BlobParams_swapRB_get(IntPtr self);
+        public static extern bool dnn_Image2BlobParams_swapRB_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_swapRB_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void dnn_Image2BlobParams_swapRB_set(DnnImage2BlobParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Image2BlobParams_ddepth_get(IntPtr self);
+        public static extern int dnn_Image2BlobParams_ddepth_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_ddepth_set(IntPtr self, int val);
+        public static extern void dnn_Image2BlobParams_ddepth_set(DnnImage2BlobParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Image2BlobParams_datalayout_get(IntPtr self);
+        public static extern int dnn_Image2BlobParams_datalayout_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_datalayout_set(IntPtr self, int val);
+        public static extern void dnn_Image2BlobParams_datalayout_set(DnnImage2BlobParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Image2BlobParams_paddingmode_get(IntPtr self);
+        public static extern int dnn_Image2BlobParams_paddingmode_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_paddingmode_set(IntPtr self, IntPtr val);
+        public static extern void dnn_Image2BlobParams_paddingmode_set(DnnImage2BlobParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar dnn_Image2BlobParams_borderValue_get(IntPtr self);
+        public static extern Scalar dnn_Image2BlobParams_borderValue_get(DnnImage2BlobParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Image2BlobParams_borderValue_set(IntPtr self, Scalar val);
+        public static extern void dnn_Image2BlobParams_borderValue_set(DnnImage2BlobParamsHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_KeypointsModel_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -112,31 +112,31 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_KeypointsModel_New_1(IntPtr network);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_KeypointsModel_estimate_0(IntPtr self, IntPtr frame, float thresh);
+        public static extern IntPtr dnn_KeypointsModel_estimate_0(DnnKeypointsModelHandle self, MatHandle frame, float thresh);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_Layer_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_finalize_0(IntPtr self, IntPtr inputs, IntPtr outputs);
+        public static extern void dnn_Layer_finalize_0(DnnLayerHandle self, IntPtr inputs, IntPtr outputs);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_run_0(IntPtr self, IntPtr inputs, IntPtr outputs, IntPtr internals);
+        public static extern void dnn_Layer_run_0(DnnLayerHandle self, IntPtr inputs, IntPtr outputs, IntPtr internals);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Layer_outputNameToIndex_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
+        public static extern int dnn_Layer_outputNameToIndex_0(DnnLayerHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Layer_blobs_get(IntPtr self);
+        public static extern IntPtr dnn_Layer_blobs_get(DnnLayerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_blobs_set(IntPtr self, IntPtr val);
+        public static extern void dnn_Layer_blobs_set(DnnLayerHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Layer_name_get(IntPtr self);
+        public static extern IntPtr dnn_Layer_name_get(DnnLayerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_name_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void dnn_Layer_name_set(DnnLayerHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Layer_type_get(IntPtr self);
+        public static extern IntPtr dnn_Layer_type_get(DnnLayerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_type_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void dnn_Layer_type_set(DnnLayerHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Layer_preferableTarget_get(IntPtr self);
+        public static extern int dnn_Layer_preferableTarget_get(DnnLayerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Layer_preferableTarget_set(IntPtr self, int val);
+        public static extern void dnn_Layer_preferableTarget_set(DnnLayerHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_LayerParams_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -148,29 +148,29 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_Model_New_1(IntPtr network);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputSize_0(IntPtr self, Size size);
+        public static extern IntPtr dnn_Model_setInputSize_0(DnnModelHandle self, Size size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputSize_1(IntPtr self, int width, int height);
+        public static extern IntPtr dnn_Model_setInputSize_1(DnnModelHandle self, int width, int height);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputMean_0(IntPtr self, Scalar mean);
+        public static extern IntPtr dnn_Model_setInputMean_0(DnnModelHandle self, Scalar mean);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputScale_0(IntPtr self, Scalar scale);
+        public static extern IntPtr dnn_Model_setInputScale_0(DnnModelHandle self, Scalar scale);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputCrop_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool crop);
+        public static extern IntPtr dnn_Model_setInputCrop_0(DnnModelHandle self, [MarshalAs(UnmanagedType.U1)] bool crop);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setInputSwapRB_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool swapRB);
+        public static extern IntPtr dnn_Model_setInputSwapRB_0(DnnModelHandle self, [MarshalAs(UnmanagedType.U1)] bool swapRB);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setOutputNames_0(IntPtr self, IntPtr outNames);
+        public static extern IntPtr dnn_Model_setOutputNames_0(DnnModelHandle self, IntPtr outNames);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Model_setInputParams_0(IntPtr self, double scale, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, [MarshalAs(UnmanagedType.U1)] bool crop);
+        public static extern void dnn_Model_setInputParams_0(DnnModelHandle self, double scale, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, [MarshalAs(UnmanagedType.U1)] bool crop);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Model_predict_0(IntPtr self, IntPtr frame, IntPtr outs);
+        public static extern void dnn_Model_predict_0(DnnModelHandle self, MatHandle frame, IntPtr outs);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setPreferableBackend_0(IntPtr self, IntPtr backendId);
+        public static extern IntPtr dnn_Model_setPreferableBackend_0(DnnModelHandle self, int backendId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_setPreferableTarget_0(IntPtr self, IntPtr targetId);
+        public static extern IntPtr dnn_Model_setPreferableTarget_0(DnnModelHandle self, int targetId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Model_enableWinograd_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool useWinograd);
+        public static extern IntPtr dnn_Model_enableWinograd_0(DnnModelHandle self, [MarshalAs(UnmanagedType.U1)] bool useWinograd);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_Net_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -181,99 +181,99 @@ namespace OpenCV5Sharp
         public static extern IntPtr dnn_Net_readFromModelOptimizer_1(IntPtr bufferModelConfig, IntPtr bufferWeights);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool dnn_Net_empty_0(IntPtr self);
+        public static extern bool dnn_Net_empty_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_dump_0(IntPtr self);
+        public static extern IntPtr dnn_Net_dump_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_dumpToFile_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
+        public static extern void dnn_Net_dumpToFile_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_dumpToPbtxt_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
+        public static extern void dnn_Net_dumpToPbtxt_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_addLayer_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, [MarshalAs(UnmanagedType.LPUTF8Str)] string? type, int dtype, IntPtr @params);
+        public static extern int dnn_Net_addLayer_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, [MarshalAs(UnmanagedType.LPUTF8Str)] string? type, int dtype, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_addLayerToPrev_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, [MarshalAs(UnmanagedType.LPUTF8Str)] string? type, int dtype, IntPtr @params);
+        public static extern int dnn_Net_addLayerToPrev_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, [MarshalAs(UnmanagedType.LPUTF8Str)] string? type, int dtype, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_getLayerId_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layer);
+        public static extern int dnn_Net_getLayerId_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layer);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getLayerNames_0(IntPtr self);
+        public static extern IntPtr dnn_Net_getLayerNames_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getLayer_0(IntPtr self, int layerId);
+        public static extern IntPtr dnn_Net_getLayer_0(DnnNetHandle self, int layerId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getLayer_1(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName);
+        public static extern IntPtr dnn_Net_getLayer_1(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getLayer_2(IntPtr self, IntPtr layerId);
+        public static extern IntPtr dnn_Net_getLayer_2(DnnNetHandle self, IntPtr layerId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_connect_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outPin, [MarshalAs(UnmanagedType.LPUTF8Str)] string? inpPin);
+        public static extern void dnn_Net_connect_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outPin, [MarshalAs(UnmanagedType.LPUTF8Str)] string? inpPin);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_registerOutput_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName, int layerId, int outputPort);
+        public static extern int dnn_Net_registerOutput_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName, int layerId, int outputPort);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setInputsNames_0(IntPtr self, IntPtr inputBlobNames);
+        public static extern void dnn_Net_setInputsNames_0(DnnNetHandle self, IntPtr inputBlobNames);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setInputShape_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? inputName, IntPtr shape);
+        public static extern void dnn_Net_setInputShape_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? inputName, MatShapeHandle shape);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_forward_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
+        public static extern IntPtr dnn_Net_forward_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_forwardAsync_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
+        public static extern IntPtr dnn_Net_forwardAsync_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_forward_1(IntPtr self, IntPtr outputBlobs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
+        public static extern void dnn_Net_forward_1(DnnNetHandle self, IntPtr outputBlobs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? outputName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_forward_2(IntPtr self, IntPtr outputBlobs, IntPtr outBlobNames);
+        public static extern void dnn_Net_forward_2(DnnNetHandle self, IntPtr outputBlobs, IntPtr outBlobNames);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setPreferableBackend_0(IntPtr self, int backendId);
+        public static extern void dnn_Net_setPreferableBackend_0(DnnNetHandle self, int backendId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setPreferableTarget_0(IntPtr self, int targetId);
+        public static extern void dnn_Net_setPreferableTarget_0(DnnNetHandle self, int targetId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_finalizeNet_0(IntPtr self);
+        public static extern void dnn_Net_finalizeNet_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setTracingMode_0(IntPtr self, int tracingMode);
+        public static extern void dnn_Net_setTracingMode_0(DnnNetHandle self, int tracingMode);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_getTracingMode_0(IntPtr self);
+        public static extern int dnn_Net_getTracingMode_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setProfilingMode_0(IntPtr self, int profilingMode);
+        public static extern void dnn_Net_setProfilingMode_0(DnnNetHandle self, int profilingMode);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_getProfilingMode_0(IntPtr self);
+        public static extern int dnn_Net_getProfilingMode_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_getModelFormat_0(IntPtr self);
+        public static extern int dnn_Net_getModelFormat_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setInput_0(IntPtr self, IntPtr blob, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, double scalefactor, Scalar mean);
+        public static extern void dnn_Net_setInput_0(DnnNetHandle self, MatHandle blob, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name, double scalefactor, Scalar mean);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setParam_0(IntPtr self, int layer, int numParam, IntPtr blob);
+        public static extern void dnn_Net_setParam_0(DnnNetHandle self, int layer, int numParam, MatHandle blob);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_setParam_1(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName, int numParam, IntPtr blob);
+        public static extern void dnn_Net_setParam_1(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName, int numParam, MatHandle blob);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getParam_0(IntPtr self, int layer, int numParam);
+        public static extern IntPtr dnn_Net_getParam_0(DnnNetHandle self, int layer, int numParam);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getParam_1(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName, int numParam);
+        public static extern IntPtr dnn_Net_getParam_1(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerName, int numParam);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getUnconnectedOutLayers_0(IntPtr self);
+        public static extern IntPtr dnn_Net_getUnconnectedOutLayers_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Net_getUnconnectedOutLayersNames_0(IntPtr self);
+        public static extern IntPtr dnn_Net_getUnconnectedOutLayersNames_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_getLayerShapes_0(IntPtr self, IntPtr netInputShapes, IntPtr netInputTypes, int layerId, IntPtr inLayerShapes, IntPtr outLayerShapes);
+        public static extern void dnn_Net_getLayerShapes_0(DnnNetHandle self, IntPtr netInputShapes, IntPtr netInputTypes, int layerId, IntPtr inLayerShapes, IntPtr outLayerShapes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern long dnn_Net_getFLOPS_0(IntPtr self, IntPtr netInputShapes, IntPtr netInputTypes);
+        public static extern long dnn_Net_getFLOPS_0(DnnNetHandle self, IntPtr netInputShapes, IntPtr netInputTypes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_getLayerTypes_0(IntPtr self, IntPtr layersTypes);
+        public static extern void dnn_Net_getLayerTypes_0(DnnNetHandle self, IntPtr layersTypes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_Net_getLayersCount_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerType);
+        public static extern int dnn_Net_getLayersCount_0(DnnNetHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? layerType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_getMemoryConsumption_0(IntPtr self, IntPtr netInputShapes, IntPtr netInputTypes, long weights, long blobs);
+        public static extern void dnn_Net_getMemoryConsumption_0(DnnNetHandle self, IntPtr netInputShapes, IntPtr netInputTypes, long weights, long blobs);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_enableFusion_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool fusion);
+        public static extern void dnn_Net_enableFusion_0(DnnNetHandle self, [MarshalAs(UnmanagedType.U1)] bool fusion);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_enableWinograd_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool useWinograd);
+        public static extern void dnn_Net_enableWinograd_0(DnnNetHandle self, [MarshalAs(UnmanagedType.U1)] bool useWinograd);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern long dnn_Net_getPerfProfile_0(IntPtr self, IntPtr timings);
+        public static extern long dnn_Net_getPerfProfile_0(DnnNetHandle self, IntPtr timings);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_enableKVCache_0(IntPtr self);
+        public static extern void dnn_Net_enableKVCache_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_disableKVCache_0(IntPtr self);
+        public static extern void dnn_Net_disableKVCache_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_resetKVCache_0(IntPtr self);
+        public static extern void dnn_Net_resetKVCache_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_getPerfProfile_1(IntPtr self, IntPtr names, IntPtr timems, IntPtr counts);
+        public static extern void dnn_Net_getPerfProfile_1(DnnNetHandle self, IntPtr names, IntPtr timems, IntPtr counts);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_Net_printPerfProfile_0(IntPtr self);
+        public static extern void dnn_Net_printPerfProfile_0(DnnNetHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_SegmentationModel_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -281,17 +281,17 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_SegmentationModel_New_1(IntPtr network);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_SegmentationModel_segment_0(IntPtr self, IntPtr frame, IntPtr mask);
+        public static extern void dnn_SegmentationModel_segment_0(DnnSegmentationModelHandle self, MatHandle frame, MatHandle mask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_TextDetectionModel_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_TextDetectionModel_detect_0(IntPtr self, IntPtr frame, IntPtr detections, IntPtr confidences);
+        public static extern void dnn_TextDetectionModel_detect_0(DnnTextDetectionModelHandle self, MatHandle frame, IntPtr detections, IntPtr confidences);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_TextDetectionModel_detect_1(IntPtr self, IntPtr frame, IntPtr detections);
+        public static extern void dnn_TextDetectionModel_detect_1(DnnTextDetectionModelHandle self, MatHandle frame, IntPtr detections);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_TextDetectionModel_detectTextRectangles_0(IntPtr self, IntPtr frame, IntPtr detections, IntPtr confidences);
+        public static extern void dnn_TextDetectionModel_detectTextRectangles_0(DnnTextDetectionModelHandle self, MatHandle frame, IntPtr detections, IntPtr confidences);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_TextDetectionModel_detectTextRectangles_1(IntPtr self, IntPtr frame, IntPtr detections);
+        public static extern void dnn_TextDetectionModel_detectTextRectangles_1(DnnTextDetectionModelHandle self, MatHandle frame, IntPtr detections);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_TextDetectionModel_DB_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -299,21 +299,21 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_TextDetectionModel_DB_New_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_DB_setBinaryThreshold_0(IntPtr self, float binaryThreshold);
+        public static extern IntPtr dnn_TextDetectionModel_DB_setBinaryThreshold_0(DnnTextDetectionModelDbHandle self, float binaryThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float dnn_TextDetectionModel_DB_getBinaryThreshold_0(IntPtr self);
+        public static extern float dnn_TextDetectionModel_DB_getBinaryThreshold_0(DnnTextDetectionModelDbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_DB_setPolygonThreshold_0(IntPtr self, float polygonThreshold);
+        public static extern IntPtr dnn_TextDetectionModel_DB_setPolygonThreshold_0(DnnTextDetectionModelDbHandle self, float polygonThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float dnn_TextDetectionModel_DB_getPolygonThreshold_0(IntPtr self);
+        public static extern float dnn_TextDetectionModel_DB_getPolygonThreshold_0(DnnTextDetectionModelDbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_DB_setUnclipRatio_0(IntPtr self, double unclipRatio);
+        public static extern IntPtr dnn_TextDetectionModel_DB_setUnclipRatio_0(DnnTextDetectionModelDbHandle self, double unclipRatio);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double dnn_TextDetectionModel_DB_getUnclipRatio_0(IntPtr self);
+        public static extern double dnn_TextDetectionModel_DB_getUnclipRatio_0(DnnTextDetectionModelDbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_DB_setMaxCandidates_0(IntPtr self, int maxCandidates);
+        public static extern IntPtr dnn_TextDetectionModel_DB_setMaxCandidates_0(DnnTextDetectionModelDbHandle self, int maxCandidates);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int dnn_TextDetectionModel_DB_getMaxCandidates_0(IntPtr self);
+        public static extern int dnn_TextDetectionModel_DB_getMaxCandidates_0(DnnTextDetectionModelDbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_TextDetectionModel_EAST_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -321,13 +321,13 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_TextDetectionModel_EAST_New_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_EAST_setConfidenceThreshold_0(IntPtr self, float confThreshold);
+        public static extern IntPtr dnn_TextDetectionModel_EAST_setConfidenceThreshold_0(DnnTextDetectionModelEastHandle self, float confThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float dnn_TextDetectionModel_EAST_getConfidenceThreshold_0(IntPtr self);
+        public static extern float dnn_TextDetectionModel_EAST_getConfidenceThreshold_0(DnnTextDetectionModelEastHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextDetectionModel_EAST_setNMSThreshold_0(IntPtr self, float nmsThreshold);
+        public static extern IntPtr dnn_TextDetectionModel_EAST_setNMSThreshold_0(DnnTextDetectionModelEastHandle self, float nmsThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float dnn_TextDetectionModel_EAST_getNMSThreshold_0(IntPtr self);
+        public static extern float dnn_TextDetectionModel_EAST_getNMSThreshold_0(DnnTextDetectionModelEastHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_TextRecognitionModel_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -335,29 +335,29 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_TextRecognitionModel_New_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_setDecodeType_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? decodeType);
+        public static extern IntPtr dnn_TextRecognitionModel_setDecodeType_0(DnnTextRecognitionModelHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? decodeType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_getDecodeType_0(IntPtr self);
+        public static extern IntPtr dnn_TextRecognitionModel_getDecodeType_0(DnnTextRecognitionModelHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_setDecodeOptsCTCPrefixBeamSearch_0(IntPtr self, int beamSize, int vocPruneSize);
+        public static extern IntPtr dnn_TextRecognitionModel_setDecodeOptsCTCPrefixBeamSearch_0(DnnTextRecognitionModelHandle self, int beamSize, int vocPruneSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_setVocabulary_0(IntPtr self, IntPtr vocabulary);
+        public static extern IntPtr dnn_TextRecognitionModel_setVocabulary_0(DnnTextRecognitionModelHandle self, IntPtr vocabulary);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_getVocabulary_0(IntPtr self);
+        public static extern IntPtr dnn_TextRecognitionModel_getVocabulary_0(DnnTextRecognitionModelHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_TextRecognitionModel_recognize_0(IntPtr self, IntPtr frame);
+        public static extern IntPtr dnn_TextRecognitionModel_recognize_0(DnnTextRecognitionModelHandle self, MatHandle frame);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void dnn_TextRecognitionModel_recognize_1(IntPtr self, IntPtr frame, IntPtr roiRects, IntPtr results);
+        public static extern void dnn_TextRecognitionModel_recognize_1(DnnTextRecognitionModelHandle self, MatHandle frame, IntPtr roiRects, IntPtr results);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void dnn_Tokenizer_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr dnn_Tokenizer_load_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? model_config);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Tokenizer_encode_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? text);
+        public static extern IntPtr dnn_Tokenizer_encode_0(DnnTokenizerHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? text);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr dnn_Tokenizer_decode_0(IntPtr self, IntPtr tokens);
+        public static extern IntPtr dnn_Tokenizer_decode_0(DnnTokenizerHandle self, IntPtr tokens);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_dnn_getAvailableTargets_0(IntPtr be);
+        public static extern IntPtr cv_dnn_getAvailableTargets_0(int be);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_dnn_readNetFromTensorflow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config, int engine, IntPtr extraOutputs);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -381,19 +381,19 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_dnn_readTensorFromONNX_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_dnn_blobFromImage_0(IntPtr image, double scalefactor, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, [MarshalAs(UnmanagedType.U1)] bool crop, int ddepth);
+        public static extern IntPtr cv_dnn_blobFromImage_0(MatHandle image, double scalefactor, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, [MarshalAs(UnmanagedType.U1)] bool crop, int ddepth);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_dnn_blobFromImages_0(IntPtr images, double scalefactor, Size size, Scalar mean, [MarshalAs(UnmanagedType.U1)] bool swapRB, [MarshalAs(UnmanagedType.U1)] bool crop, int ddepth);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_dnn_blobFromImageWithParams_0(IntPtr image, IntPtr param);
+        public static extern IntPtr cv_dnn_blobFromImageWithParams_0(MatHandle image, IntPtr param);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_dnn_blobFromImageWithParams_1(IntPtr image, IntPtr blob, IntPtr param);
+        public static extern void cv_dnn_blobFromImageWithParams_1(MatHandle image, MatHandle blob, IntPtr param);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_dnn_blobFromImagesWithParams_0(IntPtr images, IntPtr param);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_dnn_blobFromImagesWithParams_1(IntPtr images, IntPtr blob, IntPtr param);
+        public static extern void cv_dnn_blobFromImagesWithParams_1(IntPtr images, MatHandle blob, IntPtr param);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_dnn_imagesFromBlob_0(IntPtr blob_, IntPtr images_);
+        public static extern void cv_dnn_imagesFromBlob_0(MatHandle blob_, IntPtr images_);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_dnn_writeTextGraph_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? output);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]

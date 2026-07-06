@@ -12,220 +12,220 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void BackgroundSubtractor_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractor_apply_0(IntPtr self, IntPtr image, IntPtr fgmask, double learningRate);
+        public static extern void BackgroundSubtractor_apply_0(BackgroundSubtractorHandle self, MatHandle image, MatHandle fgmask, double learningRate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractor_apply_1(IntPtr self, IntPtr image, IntPtr knownForegroundMask, IntPtr fgmask, double learningRate);
+        public static extern void BackgroundSubtractor_apply_1(BackgroundSubtractorHandle self, MatHandle image, MatHandle knownForegroundMask, MatHandle fgmask, double learningRate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractor_getBackgroundImage_0(IntPtr self, IntPtr backgroundImage);
+        public static extern void BackgroundSubtractor_getBackgroundImage_0(BackgroundSubtractorHandle self, MatHandle backgroundImage);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void BackgroundSubtractorKNN_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorKNN_getHistory_0(IntPtr self);
+        public static extern int BackgroundSubtractorKNN_getHistory_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setHistory_0(IntPtr self, int history);
+        public static extern void BackgroundSubtractorKNN_setHistory_0(BackgroundSubtractorKNNHandle self, int history);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorKNN_getNSamples_0(IntPtr self);
+        public static extern int BackgroundSubtractorKNN_getNSamples_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setNSamples_0(IntPtr self, int _nN);
+        public static extern void BackgroundSubtractorKNN_setNSamples_0(BackgroundSubtractorKNNHandle self, int _nN);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorKNN_getDist2Threshold_0(IntPtr self);
+        public static extern double BackgroundSubtractorKNN_getDist2Threshold_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setDist2Threshold_0(IntPtr self, double _dist2Threshold);
+        public static extern void BackgroundSubtractorKNN_setDist2Threshold_0(BackgroundSubtractorKNNHandle self, double _dist2Threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorKNN_getkNNSamples_0(IntPtr self);
+        public static extern int BackgroundSubtractorKNN_getkNNSamples_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setkNNSamples_0(IntPtr self, int _nkNN);
+        public static extern void BackgroundSubtractorKNN_setkNNSamples_0(BackgroundSubtractorKNNHandle self, int _nkNN);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool BackgroundSubtractorKNN_getDetectShadows_0(IntPtr self);
+        public static extern bool BackgroundSubtractorKNN_getDetectShadows_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setDetectShadows_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool detectShadows);
+        public static extern void BackgroundSubtractorKNN_setDetectShadows_0(BackgroundSubtractorKNNHandle self, [MarshalAs(UnmanagedType.U1)] bool detectShadows);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorKNN_getShadowValue_0(IntPtr self);
+        public static extern int BackgroundSubtractorKNN_getShadowValue_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setShadowValue_0(IntPtr self, int value);
+        public static extern void BackgroundSubtractorKNN_setShadowValue_0(BackgroundSubtractorKNNHandle self, int value);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorKNN_getShadowThreshold_0(IntPtr self);
+        public static extern double BackgroundSubtractorKNN_getShadowThreshold_0(BackgroundSubtractorKNNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorKNN_setShadowThreshold_0(IntPtr self, double threshold);
+        public static extern void BackgroundSubtractorKNN_setShadowThreshold_0(BackgroundSubtractorKNNHandle self, double threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void BackgroundSubtractorMOG2_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorMOG2_getHistory_0(IntPtr self);
+        public static extern int BackgroundSubtractorMOG2_getHistory_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setHistory_0(IntPtr self, int history);
+        public static extern void BackgroundSubtractorMOG2_setHistory_0(BackgroundSubtractorMOG2Handle self, int history);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorMOG2_getNMixtures_0(IntPtr self);
+        public static extern int BackgroundSubtractorMOG2_getNMixtures_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setNMixtures_0(IntPtr self, int nmixtures);
+        public static extern void BackgroundSubtractorMOG2_setNMixtures_0(BackgroundSubtractorMOG2Handle self, int nmixtures);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getBackgroundRatio_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getBackgroundRatio_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setBackgroundRatio_0(IntPtr self, double ratio);
+        public static extern void BackgroundSubtractorMOG2_setBackgroundRatio_0(BackgroundSubtractorMOG2Handle self, double ratio);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getVarThreshold_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getVarThreshold_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setVarThreshold_0(IntPtr self, double varThreshold);
+        public static extern void BackgroundSubtractorMOG2_setVarThreshold_0(BackgroundSubtractorMOG2Handle self, double varThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getVarThresholdGen_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getVarThresholdGen_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setVarThresholdGen_0(IntPtr self, double varThresholdGen);
+        public static extern void BackgroundSubtractorMOG2_setVarThresholdGen_0(BackgroundSubtractorMOG2Handle self, double varThresholdGen);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getVarInit_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getVarInit_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setVarInit_0(IntPtr self, double varInit);
+        public static extern void BackgroundSubtractorMOG2_setVarInit_0(BackgroundSubtractorMOG2Handle self, double varInit);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getVarMin_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getVarMin_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setVarMin_0(IntPtr self, double varMin);
+        public static extern void BackgroundSubtractorMOG2_setVarMin_0(BackgroundSubtractorMOG2Handle self, double varMin);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getVarMax_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getVarMax_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setVarMax_0(IntPtr self, double varMax);
+        public static extern void BackgroundSubtractorMOG2_setVarMax_0(BackgroundSubtractorMOG2Handle self, double varMax);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getComplexityReductionThreshold_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getComplexityReductionThreshold_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setComplexityReductionThreshold_0(IntPtr self, double ct);
+        public static extern void BackgroundSubtractorMOG2_setComplexityReductionThreshold_0(BackgroundSubtractorMOG2Handle self, double ct);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool BackgroundSubtractorMOG2_getDetectShadows_0(IntPtr self);
+        public static extern bool BackgroundSubtractorMOG2_getDetectShadows_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setDetectShadows_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool detectShadows);
+        public static extern void BackgroundSubtractorMOG2_setDetectShadows_0(BackgroundSubtractorMOG2Handle self, [MarshalAs(UnmanagedType.U1)] bool detectShadows);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int BackgroundSubtractorMOG2_getShadowValue_0(IntPtr self);
+        public static extern int BackgroundSubtractorMOG2_getShadowValue_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setShadowValue_0(IntPtr self, int value);
+        public static extern void BackgroundSubtractorMOG2_setShadowValue_0(BackgroundSubtractorMOG2Handle self, int value);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double BackgroundSubtractorMOG2_getShadowThreshold_0(IntPtr self);
+        public static extern double BackgroundSubtractorMOG2_getShadowThreshold_0(BackgroundSubtractorMOG2Handle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_setShadowThreshold_0(IntPtr self, double threshold);
+        public static extern void BackgroundSubtractorMOG2_setShadowThreshold_0(BackgroundSubtractorMOG2Handle self, double threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_apply_0(IntPtr self, IntPtr image, IntPtr fgmask, double learningRate);
+        public static extern void BackgroundSubtractorMOG2_apply_0(BackgroundSubtractorMOG2Handle self, MatHandle image, MatHandle fgmask, double learningRate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void BackgroundSubtractorMOG2_apply_1(IntPtr self, IntPtr image, IntPtr knownForegroundMask, IntPtr fgmask, double learningRate);
+        public static extern void BackgroundSubtractorMOG2_apply_1(BackgroundSubtractorMOG2Handle self, MatHandle image, MatHandle knownForegroundMask, MatHandle fgmask, double learningRate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DISOpticalFlow_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getFinestScale_0(IntPtr self);
+        public static extern int DISOpticalFlow_getFinestScale_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setFinestScale_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setFinestScale_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setCoarsestScale_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setCoarsestScale_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getCoarsestScale_0(IntPtr self);
+        public static extern int DISOpticalFlow_getCoarsestScale_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getPatchSize_0(IntPtr self);
+        public static extern int DISOpticalFlow_getPatchSize_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setPatchSize_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setPatchSize_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getPatchStride_0(IntPtr self);
+        public static extern int DISOpticalFlow_getPatchStride_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setPatchStride_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setPatchStride_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getGradientDescentIterations_0(IntPtr self);
+        public static extern int DISOpticalFlow_getGradientDescentIterations_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setGradientDescentIterations_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setGradientDescentIterations_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int DISOpticalFlow_getVariationalRefinementIterations_0(IntPtr self);
+        public static extern int DISOpticalFlow_getVariationalRefinementIterations_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setVariationalRefinementIterations_0(IntPtr self, int val);
+        public static extern void DISOpticalFlow_setVariationalRefinementIterations_0(DISOpticalFlowHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float DISOpticalFlow_getVariationalRefinementAlpha_0(IntPtr self);
+        public static extern float DISOpticalFlow_getVariationalRefinementAlpha_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setVariationalRefinementAlpha_0(IntPtr self, float val);
+        public static extern void DISOpticalFlow_setVariationalRefinementAlpha_0(DISOpticalFlowHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float DISOpticalFlow_getVariationalRefinementDelta_0(IntPtr self);
+        public static extern float DISOpticalFlow_getVariationalRefinementDelta_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setVariationalRefinementDelta_0(IntPtr self, float val);
+        public static extern void DISOpticalFlow_setVariationalRefinementDelta_0(DISOpticalFlowHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float DISOpticalFlow_getVariationalRefinementGamma_0(IntPtr self);
+        public static extern float DISOpticalFlow_getVariationalRefinementGamma_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setVariationalRefinementGamma_0(IntPtr self, float val);
+        public static extern void DISOpticalFlow_setVariationalRefinementGamma_0(DISOpticalFlowHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float DISOpticalFlow_getVariationalRefinementEpsilon_0(IntPtr self);
+        public static extern float DISOpticalFlow_getVariationalRefinementEpsilon_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setVariationalRefinementEpsilon_0(IntPtr self, float val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool DISOpticalFlow_getUseMeanNormalization_0(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setUseMeanNormalization_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void DISOpticalFlow_setVariationalRefinementEpsilon_0(DISOpticalFlowHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool DISOpticalFlow_getUseSpatialPropagation_0(IntPtr self);
+        public static extern bool DISOpticalFlow_getUseMeanNormalization_0(DISOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DISOpticalFlow_setUseSpatialPropagation_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void DISOpticalFlow_setUseMeanNormalization_0(DISOpticalFlowHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool DISOpticalFlow_getUseSpatialPropagation_0(DISOpticalFlowHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DISOpticalFlow_setUseSpatialPropagation_0(DISOpticalFlowHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DISOpticalFlow_create_0(int preset);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DenseOpticalFlow_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DenseOpticalFlow_calc_0(IntPtr self, IntPtr I0, IntPtr I1, IntPtr flow);
+        public static extern void DenseOpticalFlow_calc_0(DenseOpticalFlowHandle self, MatHandle I0, MatHandle I1, MatHandle flow);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DenseOpticalFlow_collectGarbage_0(IntPtr self);
+        public static extern void DenseOpticalFlow_collectGarbage_0(DenseOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ECCParameters_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ECCParameters_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ECCParameters_motionType_get(IntPtr self);
+        public static extern int ECCParameters_motionType_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_motionType_set(IntPtr self, int val);
+        public static extern void ECCParameters_motionType_set(ECCParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern TermCriteria ECCParameters_criteria_get(IntPtr self);
+        public static extern TermCriteria ECCParameters_criteria_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_criteria_set(IntPtr self, TermCriteria val);
+        public static extern void ECCParameters_criteria_set(ECCParametersHandle self, TermCriteria val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ECCParameters_itersPerLevel_get(IntPtr self);
+        public static extern IntPtr ECCParameters_itersPerLevel_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_itersPerLevel_set(IntPtr self, IntPtr val);
+        public static extern void ECCParameters_itersPerLevel_set(ECCParametersHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ECCParameters_gaussFiltSize_get(IntPtr self);
+        public static extern int ECCParameters_gaussFiltSize_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_gaussFiltSize_set(IntPtr self, int val);
+        public static extern void ECCParameters_gaussFiltSize_set(ECCParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ECCParameters_nlevels_get(IntPtr self);
+        public static extern int ECCParameters_nlevels_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_nlevels_set(IntPtr self, int val);
+        public static extern void ECCParameters_nlevels_set(ECCParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ECCParameters_interpolation_get(IntPtr self);
+        public static extern int ECCParameters_interpolation_get(ECCParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ECCParameters_interpolation_set(IntPtr self, int val);
+        public static extern void ECCParameters_interpolation_set(ECCParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void FarnebackOpticalFlow_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FarnebackOpticalFlow_getNumLevels_0(IntPtr self);
+        public static extern int FarnebackOpticalFlow_getNumLevels_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setNumLevels_0(IntPtr self, int numLevels);
+        public static extern void FarnebackOpticalFlow_setNumLevels_0(FarnebackOpticalFlowHandle self, int numLevels);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double FarnebackOpticalFlow_getPyrScale_0(IntPtr self);
+        public static extern double FarnebackOpticalFlow_getPyrScale_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setPyrScale_0(IntPtr self, double pyrScale);
+        public static extern void FarnebackOpticalFlow_setPyrScale_0(FarnebackOpticalFlowHandle self, double pyrScale);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool FarnebackOpticalFlow_getFastPyramids_0(IntPtr self);
+        public static extern bool FarnebackOpticalFlow_getFastPyramids_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setFastPyramids_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool fastPyramids);
+        public static extern void FarnebackOpticalFlow_setFastPyramids_0(FarnebackOpticalFlowHandle self, [MarshalAs(UnmanagedType.U1)] bool fastPyramids);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FarnebackOpticalFlow_getWinSize_0(IntPtr self);
+        public static extern int FarnebackOpticalFlow_getWinSize_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setWinSize_0(IntPtr self, int winSize);
+        public static extern void FarnebackOpticalFlow_setWinSize_0(FarnebackOpticalFlowHandle self, int winSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FarnebackOpticalFlow_getNumIters_0(IntPtr self);
+        public static extern int FarnebackOpticalFlow_getNumIters_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setNumIters_0(IntPtr self, int numIters);
+        public static extern void FarnebackOpticalFlow_setNumIters_0(FarnebackOpticalFlowHandle self, int numIters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FarnebackOpticalFlow_getPolyN_0(IntPtr self);
+        public static extern int FarnebackOpticalFlow_getPolyN_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setPolyN_0(IntPtr self, int polyN);
+        public static extern void FarnebackOpticalFlow_setPolyN_0(FarnebackOpticalFlowHandle self, int polyN);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double FarnebackOpticalFlow_getPolySigma_0(IntPtr self);
+        public static extern double FarnebackOpticalFlow_getPolySigma_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setPolySigma_0(IntPtr self, double polySigma);
+        public static extern void FarnebackOpticalFlow_setPolySigma_0(FarnebackOpticalFlowHandle self, double polySigma);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FarnebackOpticalFlow_getFlags_0(IntPtr self);
+        public static extern int FarnebackOpticalFlow_getFlags_0(FarnebackOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FarnebackOpticalFlow_setFlags_0(IntPtr self, int flags);
+        public static extern void FarnebackOpticalFlow_setFlags_0(FarnebackOpticalFlowHandle self, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr FarnebackOpticalFlow_create_0(int numLevels, double pyrScale, [MarshalAs(UnmanagedType.U1)] bool fastPyramids, int winSize, int numIters, int polyN, double polySigma, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -235,86 +235,86 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr KalmanFilter_New_1(int dynamParams, int measureParams, int controlParams, int type);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_predict_0(IntPtr self, IntPtr control);
+        public static extern IntPtr KalmanFilter_predict_0(KalmanFilterHandle self, IntPtr control);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_correct_0(IntPtr self, IntPtr measurement);
+        public static extern IntPtr KalmanFilter_correct_0(KalmanFilterHandle self, MatHandle measurement);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_statePre_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_statePre_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_statePre_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_statePre_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_statePost_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_statePost_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_statePost_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_statePost_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_transitionMatrix_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_transitionMatrix_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_transitionMatrix_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_transitionMatrix_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_controlMatrix_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_controlMatrix_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_controlMatrix_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_controlMatrix_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_measurementMatrix_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_measurementMatrix_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_measurementMatrix_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_measurementMatrix_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_processNoiseCov_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_processNoiseCov_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_processNoiseCov_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_processNoiseCov_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_measurementNoiseCov_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_measurementNoiseCov_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_measurementNoiseCov_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_measurementNoiseCov_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_errorCovPre_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_errorCovPre_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_errorCovPre_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_errorCovPre_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_gain_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_gain_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_gain_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_gain_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr KalmanFilter_errorCovPost_get(IntPtr self);
+        public static extern IntPtr KalmanFilter_errorCovPost_get(KalmanFilterHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void KalmanFilter_errorCovPost_set(IntPtr self, IntPtr val);
+        public static extern void KalmanFilter_errorCovPost_set(KalmanFilterHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SparseOpticalFlow_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparseOpticalFlow_calc_0(IntPtr self, IntPtr prevImg, IntPtr nextImg, IntPtr prevPts, IntPtr nextPts, IntPtr status, IntPtr err);
+        public static extern void SparseOpticalFlow_calc_0(SparseOpticalFlowHandle self, MatHandle prevImg, MatHandle nextImg, MatHandle prevPts, MatHandle nextPts, MatHandle status, IntPtr err);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SparsePyrLKOpticalFlow_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size SparsePyrLKOpticalFlow_getWinSize_0(IntPtr self);
+        public static extern Size SparsePyrLKOpticalFlow_getWinSize_0(SparsePyrLKOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparsePyrLKOpticalFlow_setWinSize_0(IntPtr self, Size winSize);
+        public static extern void SparsePyrLKOpticalFlow_setWinSize_0(SparsePyrLKOpticalFlowHandle self, Size winSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SparsePyrLKOpticalFlow_getMaxLevel_0(IntPtr self);
+        public static extern int SparsePyrLKOpticalFlow_getMaxLevel_0(SparsePyrLKOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparsePyrLKOpticalFlow_setMaxLevel_0(IntPtr self, int maxLevel);
+        public static extern void SparsePyrLKOpticalFlow_setMaxLevel_0(SparsePyrLKOpticalFlowHandle self, int maxLevel);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern TermCriteria SparsePyrLKOpticalFlow_getTermCriteria_0(IntPtr self);
+        public static extern TermCriteria SparsePyrLKOpticalFlow_getTermCriteria_0(SparsePyrLKOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparsePyrLKOpticalFlow_setTermCriteria_0(IntPtr self, TermCriteria crit);
+        public static extern void SparsePyrLKOpticalFlow_setTermCriteria_0(SparsePyrLKOpticalFlowHandle self, TermCriteria crit);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SparsePyrLKOpticalFlow_getFlags_0(IntPtr self);
+        public static extern int SparsePyrLKOpticalFlow_getFlags_0(SparsePyrLKOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparsePyrLKOpticalFlow_setFlags_0(IntPtr self, int flags);
+        public static extern void SparsePyrLKOpticalFlow_setFlags_0(SparsePyrLKOpticalFlowHandle self, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double SparsePyrLKOpticalFlow_getMinEigThreshold_0(IntPtr self);
+        public static extern double SparsePyrLKOpticalFlow_getMinEigThreshold_0(SparsePyrLKOpticalFlowHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SparsePyrLKOpticalFlow_setMinEigThreshold_0(IntPtr self, double minEigThreshold);
+        public static extern void SparsePyrLKOpticalFlow_setMinEigThreshold_0(SparsePyrLKOpticalFlowHandle self, double minEigThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr SparsePyrLKOpticalFlow_create_0(Size winSize, int maxLevel, TermCriteria crit, int flags, double minEigThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Tracker_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Tracker_init_0(IntPtr self, IntPtr image, Rect boundingBox);
+        public static extern void Tracker_init_0(TrackerHandle self, MatHandle image, Rect boundingBox);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Tracker_update_0(IntPtr self, IntPtr image, Rect boundingBox);
+        public static extern bool Tracker_update_0(TrackerHandle self, MatHandle image, Rect boundingBox);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float Tracker_getTrackingScore_0(IntPtr self);
+        public static extern float Tracker_getTrackingScore_0(TrackerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void TrackerDaSiamRPN_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -324,25 +324,25 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr TrackerDaSiamRPN_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerDaSiamRPN_Params_model_get(IntPtr self);
+        public static extern IntPtr TrackerDaSiamRPN_Params_model_get(TrackerDaSiamRPNParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerDaSiamRPN_Params_model_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerDaSiamRPN_Params_model_set(TrackerDaSiamRPNParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerDaSiamRPN_Params_kernel_cls1_get(IntPtr self);
+        public static extern IntPtr TrackerDaSiamRPN_Params_kernel_cls1_get(TrackerDaSiamRPNParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerDaSiamRPN_Params_kernel_cls1_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerDaSiamRPN_Params_kernel_cls1_set(TrackerDaSiamRPNParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerDaSiamRPN_Params_kernel_r1_get(IntPtr self);
+        public static extern IntPtr TrackerDaSiamRPN_Params_kernel_r1_get(TrackerDaSiamRPNParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerDaSiamRPN_Params_kernel_r1_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerDaSiamRPN_Params_kernel_r1_set(TrackerDaSiamRPNParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerDaSiamRPN_Params_backend_get(IntPtr self);
+        public static extern int TrackerDaSiamRPN_Params_backend_get(TrackerDaSiamRPNParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerDaSiamRPN_Params_backend_set(IntPtr self, int val);
+        public static extern void TrackerDaSiamRPN_Params_backend_set(TrackerDaSiamRPNParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerDaSiamRPN_Params_target_get(IntPtr self);
+        public static extern int TrackerDaSiamRPN_Params_target_get(TrackerDaSiamRPNParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerDaSiamRPN_Params_target_set(IntPtr self, int val);
+        public static extern void TrackerDaSiamRPN_Params_target_set(TrackerDaSiamRPNParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void TrackerMIL_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -352,33 +352,33 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr TrackerMIL_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float TrackerMIL_Params_samplerInitInRadius_get(IntPtr self);
+        public static extern float TrackerMIL_Params_samplerInitInRadius_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerInitInRadius_set(IntPtr self, float val);
+        public static extern void TrackerMIL_Params_samplerInitInRadius_set(TrackerMILParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerMIL_Params_samplerInitMaxNegNum_get(IntPtr self);
+        public static extern int TrackerMIL_Params_samplerInitMaxNegNum_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerInitMaxNegNum_set(IntPtr self, int val);
+        public static extern void TrackerMIL_Params_samplerInitMaxNegNum_set(TrackerMILParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float TrackerMIL_Params_samplerSearchWinSize_get(IntPtr self);
+        public static extern float TrackerMIL_Params_samplerSearchWinSize_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerSearchWinSize_set(IntPtr self, float val);
+        public static extern void TrackerMIL_Params_samplerSearchWinSize_set(TrackerMILParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float TrackerMIL_Params_samplerTrackInRadius_get(IntPtr self);
+        public static extern float TrackerMIL_Params_samplerTrackInRadius_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerTrackInRadius_set(IntPtr self, float val);
+        public static extern void TrackerMIL_Params_samplerTrackInRadius_set(TrackerMILParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerMIL_Params_samplerTrackMaxPosNum_get(IntPtr self);
+        public static extern int TrackerMIL_Params_samplerTrackMaxPosNum_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerTrackMaxPosNum_set(IntPtr self, int val);
+        public static extern void TrackerMIL_Params_samplerTrackMaxPosNum_set(TrackerMILParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerMIL_Params_samplerTrackMaxNegNum_get(IntPtr self);
+        public static extern int TrackerMIL_Params_samplerTrackMaxNegNum_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_samplerTrackMaxNegNum_set(IntPtr self, int val);
+        public static extern void TrackerMIL_Params_samplerTrackMaxNegNum_set(TrackerMILParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerMIL_Params_featureSetNumFeatures_get(IntPtr self);
+        public static extern int TrackerMIL_Params_featureSetNumFeatures_get(TrackerMILParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerMIL_Params_featureSetNumFeatures_set(IntPtr self, int val);
+        public static extern void TrackerMIL_Params_featureSetNumFeatures_set(TrackerMILParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void TrackerNano_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -388,21 +388,21 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr TrackerNano_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerNano_Params_backbone_get(IntPtr self);
+        public static extern IntPtr TrackerNano_Params_backbone_get(TrackerNanoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerNano_Params_backbone_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerNano_Params_backbone_set(TrackerNanoParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerNano_Params_neckhead_get(IntPtr self);
+        public static extern IntPtr TrackerNano_Params_neckhead_get(TrackerNanoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerNano_Params_neckhead_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerNano_Params_neckhead_set(TrackerNanoParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerNano_Params_backend_get(IntPtr self);
+        public static extern int TrackerNano_Params_backend_get(TrackerNanoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerNano_Params_backend_set(IntPtr self, int val);
+        public static extern void TrackerNano_Params_backend_set(TrackerNanoParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerNano_Params_target_get(IntPtr self);
+        public static extern int TrackerNano_Params_target_get(TrackerNanoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerNano_Params_target_set(IntPtr self, int val);
+        public static extern void TrackerNano_Params_target_set(TrackerNanoParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void TrackerVit_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -412,61 +412,61 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr TrackerVit_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr TrackerVit_Params_net_get(IntPtr self);
+        public static extern IntPtr TrackerVit_Params_net_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_net_set(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
+        public static extern void TrackerVit_Params_net_set(TrackerVitParamsHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerVit_Params_backend_get(IntPtr self);
+        public static extern int TrackerVit_Params_backend_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_backend_set(IntPtr self, int val);
+        public static extern void TrackerVit_Params_backend_set(TrackerVitParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int TrackerVit_Params_target_get(IntPtr self);
+        public static extern int TrackerVit_Params_target_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_target_set(IntPtr self, int val);
+        public static extern void TrackerVit_Params_target_set(TrackerVitParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar TrackerVit_Params_meanvalue_get(IntPtr self);
+        public static extern Scalar TrackerVit_Params_meanvalue_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_meanvalue_set(IntPtr self, Scalar val);
+        public static extern void TrackerVit_Params_meanvalue_set(TrackerVitParamsHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar TrackerVit_Params_stdvalue_get(IntPtr self);
+        public static extern Scalar TrackerVit_Params_stdvalue_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_stdvalue_set(IntPtr self, Scalar val);
+        public static extern void TrackerVit_Params_stdvalue_set(TrackerVitParamsHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float TrackerVit_Params_tracking_score_threshold_get(IntPtr self);
+        public static extern float TrackerVit_Params_tracking_score_threshold_get(TrackerVitParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void TrackerVit_Params_tracking_score_threshold_set(IntPtr self, float val);
+        public static extern void TrackerVit_Params_tracking_score_threshold_set(TrackerVitParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void VariationalRefinement_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_calcUV_0(IntPtr self, IntPtr I0, IntPtr I1, IntPtr flow_u, IntPtr flow_v);
+        public static extern void VariationalRefinement_calcUV_0(VariationalRefinementHandle self, MatHandle I0, MatHandle I1, MatHandle flow_u, MatHandle flow_v);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int VariationalRefinement_getFixedPointIterations_0(IntPtr self);
+        public static extern int VariationalRefinement_getFixedPointIterations_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setFixedPointIterations_0(IntPtr self, int val);
+        public static extern void VariationalRefinement_setFixedPointIterations_0(VariationalRefinementHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int VariationalRefinement_getSorIterations_0(IntPtr self);
+        public static extern int VariationalRefinement_getSorIterations_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setSorIterations_0(IntPtr self, int val);
+        public static extern void VariationalRefinement_setSorIterations_0(VariationalRefinementHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float VariationalRefinement_getOmega_0(IntPtr self);
+        public static extern float VariationalRefinement_getOmega_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setOmega_0(IntPtr self, float val);
+        public static extern void VariationalRefinement_setOmega_0(VariationalRefinementHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float VariationalRefinement_getAlpha_0(IntPtr self);
+        public static extern float VariationalRefinement_getAlpha_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setAlpha_0(IntPtr self, float val);
+        public static extern void VariationalRefinement_setAlpha_0(VariationalRefinementHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float VariationalRefinement_getDelta_0(IntPtr self);
+        public static extern float VariationalRefinement_getDelta_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setDelta_0(IntPtr self, float val);
+        public static extern void VariationalRefinement_setDelta_0(VariationalRefinementHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float VariationalRefinement_getGamma_0(IntPtr self);
+        public static extern float VariationalRefinement_getGamma_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setGamma_0(IntPtr self, float val);
+        public static extern void VariationalRefinement_setGamma_0(VariationalRefinementHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float VariationalRefinement_getEpsilon_0(IntPtr self);
+        public static extern float VariationalRefinement_getEpsilon_0(VariationalRefinementHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void VariationalRefinement_setEpsilon_0(IntPtr self, float val);
+        public static extern void VariationalRefinement_setEpsilon_0(VariationalRefinementHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr VariationalRefinement_create_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -474,29 +474,29 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_createBackgroundSubtractorKNN_0(int history, double dist2Threshold, [MarshalAs(UnmanagedType.U1)] bool detectShadows);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_CamShift_0(IntPtr probImage, Rect window, TermCriteria criteria);
+        public static extern IntPtr cv_CamShift_0(MatHandle probImage, Rect window, TermCriteria criteria);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_meanShift_0(IntPtr probImage, Rect window, TermCriteria criteria);
+        public static extern int cv_meanShift_0(MatHandle probImage, Rect window, TermCriteria criteria);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_buildOpticalFlowPyramid_0(IntPtr img, IntPtr pyramid, Size winSize, int maxLevel, [MarshalAs(UnmanagedType.U1)] bool withDerivatives, int pyrBorder, int derivBorder, [MarshalAs(UnmanagedType.U1)] bool tryReuseInputImage);
+        public static extern int cv_buildOpticalFlowPyramid_0(MatHandle img, IntPtr pyramid, Size winSize, int maxLevel, [MarshalAs(UnmanagedType.U1)] bool withDerivatives, int pyrBorder, int derivBorder, [MarshalAs(UnmanagedType.U1)] bool tryReuseInputImage);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_calcOpticalFlowPyrLK_0(IntPtr prevImg, IntPtr nextImg, IntPtr prevPts, IntPtr nextPts, IntPtr status, IntPtr err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold);
+        public static extern void cv_calcOpticalFlowPyrLK_0(MatHandle prevImg, MatHandle nextImg, MatHandle prevPts, MatHandle nextPts, MatHandle status, MatHandle err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_calcOpticalFlowFarneback_0(IntPtr prev, IntPtr next, IntPtr flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags);
+        public static extern void cv_calcOpticalFlowFarneback_0(MatHandle prev, MatHandle next, MatHandle flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_computeECC_0(IntPtr templateImage, IntPtr inputImage, IntPtr inputMask);
+        public static extern double cv_computeECC_0(MatHandle templateImage, MatHandle inputImage, IntPtr inputMask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_findTransformECC_0(IntPtr templateImage, IntPtr inputImage, IntPtr warpMatrix, int motionType, TermCriteria criteria, IntPtr inputMask, int gaussFiltSize);
+        public static extern double cv_findTransformECC_0(MatHandle templateImage, MatHandle inputImage, MatHandle warpMatrix, int motionType, TermCriteria criteria, MatHandle inputMask, int gaussFiltSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_findTransformECC_1(IntPtr templateImage, IntPtr inputImage, IntPtr warpMatrix, int motionType, TermCriteria criteria, IntPtr inputMask);
+        public static extern double cv_findTransformECC_1(MatHandle templateImage, MatHandle inputImage, MatHandle warpMatrix, int motionType, TermCriteria criteria, IntPtr inputMask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_findTransformECCWithMask_0(IntPtr templateImage, IntPtr inputImage, IntPtr templateMask, IntPtr inputMask, IntPtr warpMatrix, int motionType, TermCriteria criteria, int gaussFiltSize);
+        public static extern double cv_findTransformECCWithMask_0(MatHandle templateImage, MatHandle inputImage, MatHandle templateMask, MatHandle inputMask, MatHandle warpMatrix, int motionType, TermCriteria criteria, int gaussFiltSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_findTransformECCMultiScale_0(IntPtr reference, IntPtr sample, IntPtr warpMatrix, IntPtr eccParams, IntPtr referenceMask, IntPtr sampleMask);
+        public static extern double cv_findTransformECCMultiScale_0(MatHandle reference, MatHandle sample, MatHandle warpMatrix, IntPtr eccParams, IntPtr referenceMask, IntPtr sampleMask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_readOpticalFlow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? path);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_writeOpticalFlow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? path, IntPtr flow);
+        public static extern bool cv_writeOpticalFlow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? path, MatHandle flow);
     }
 }

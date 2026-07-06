@@ -37,7 +37,7 @@ namespace OpenCV5Sharp
             Marshal.Copy(bytes, 0, dataPtr, bytes.Length);
             
             var result = Imdecode(mat, flags);
-            if (result == null || result.IsDisposed || result.Handle == IntPtr.Zero || result.Data == IntPtr.Zero)
+            if (result == null || result.IsDisposed || result.Handle.IsInvalid || result.Data == IntPtr.Zero)
             {
                 result?.Dispose();
                 throw new OpenCVException("Failed to decode image from the provided byte array.");

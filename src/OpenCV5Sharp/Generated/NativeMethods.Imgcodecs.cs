@@ -14,29 +14,29 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Animation_New_0(int loopCount, Scalar bgColor);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Animation_loop_count_get(IntPtr self);
+        public static extern int Animation_loop_count_get(AnimationHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Animation_loop_count_set(IntPtr self, int val);
+        public static extern void Animation_loop_count_set(AnimationHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar Animation_bgcolor_get(IntPtr self);
+        public static extern Scalar Animation_bgcolor_get(AnimationHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Animation_bgcolor_set(IntPtr self, Scalar val);
+        public static extern void Animation_bgcolor_set(AnimationHandle self, Scalar val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Animation_durations_get(IntPtr self);
+        public static extern IntPtr Animation_durations_get(AnimationHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Animation_durations_set(IntPtr self, IntPtr val);
+        public static extern void Animation_durations_set(AnimationHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Animation_frames_get(IntPtr self);
+        public static extern IntPtr Animation_frames_get(AnimationHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Animation_frames_set(IntPtr self, IntPtr val);
+        public static extern void Animation_frames_set(AnimationHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Animation_still_image_get(IntPtr self);
+        public static extern IntPtr Animation_still_image_get(AnimationHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Animation_still_image_set(IntPtr self, IntPtr val);
+        public static extern void Animation_still_image_set(AnimationHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_imread_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_imread_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr dst, int flags);
+        public static extern void cv_imread_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, MatHandle dst, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_imreadWithMetadata_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr metadataTypes, IntPtr metadata, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -47,40 +47,40 @@ namespace OpenCV5Sharp
         public static extern bool cv_imreadmulti_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr mats, int start, int count, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imreadanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr animation, int start, int count);
+        public static extern bool cv_imreadanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, AnimationHandle animation, int start, int count);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imdecodeanimation_0(IntPtr buf, IntPtr animation, int start, int count);
+        public static extern bool cv_imdecodeanimation_0(MatHandle buf, AnimationHandle animation, int start, int count);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imwriteanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr animation, IntPtr @params);
+        public static extern bool cv_imwriteanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, AnimationHandle animation, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imencodeanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, IntPtr animation, IntPtr buf, IntPtr @params);
+        public static extern bool cv_imencodeanimation_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, AnimationHandle animation, IntPtr buf, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern long cv_imcount_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imwrite_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr img, IntPtr @params);
+        public static extern bool cv_imwrite_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, MatHandle img, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imwriteWithMetadata_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params);
+        public static extern bool cv_imwriteWithMetadata_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, MatHandle img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool cv_imwritemulti_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, IntPtr img, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_imdecode_0(IntPtr buf, int flags);
+        public static extern IntPtr cv_imdecode_0(MatHandle buf, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_imdecodeWithMetadata_0(IntPtr buf, IntPtr metadataTypes, IntPtr metadata, int flags);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imdecodemulti_0(IntPtr buf, int flags, IntPtr mats, Range range);
+        public static extern IntPtr cv_imdecodeWithMetadata_0(MatHandle buf, IntPtr metadataTypes, IntPtr metadata, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imencode_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, IntPtr img, IntPtr buf, IntPtr @params);
+        public static extern bool cv_imdecodemulti_0(MatHandle buf, int flags, IntPtr mats, Range range);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_imencodeWithMetadata_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, IntPtr img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params);
+        public static extern bool cv_imencode_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, MatHandle img, IntPtr buf, IntPtr @params);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool cv_imencodeWithMetadata_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, MatHandle img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool cv_imencodemulti_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? ext, IntPtr imgs, IntPtr buf, IntPtr @params);

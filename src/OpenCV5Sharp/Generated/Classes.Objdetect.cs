@@ -14,17 +14,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class CirclesGridFinderParameters : DisposableOpenCVObject
     {
-        internal CirclesGridFinderParameters(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.CirclesGridFinderParameters_Delete(handle);
-        }
+        public new CirclesGridFinderParametersHandle Handle => (CirclesGridFinderParametersHandle)base.Handle;
+        internal CirclesGridFinderParameters(IntPtr handle, bool ownsHandle = true) : base(new CirclesGridFinderParametersHandle(handle, ownsHandle)) {}
+        internal CirclesGridFinderParameters(CirclesGridFinderParametersHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public CirclesGridFinderParameters()
-            : base(NativeMethods.CirclesGridFinderParameters_New_0())
+            : base(new CirclesGridFinderParametersHandle(NativeMethods.CirclesGridFinderParameters_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -151,11 +149,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class FaceDetectorYN : DisposableOpenCVObject
     {
-        internal FaceDetectorYN(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FaceDetectorYN_Delete(handle);
-        }
+        public new FaceDetectorYNHandle Handle => (FaceDetectorYNHandle)base.Handle;
+        internal FaceDetectorYN(IntPtr handle, bool ownsHandle = true) : base(new FaceDetectorYNHandle(handle, ownsHandle)) {}
+        internal FaceDetectorYN(FaceDetectorYNHandle handle) : base(handle) {}
         /// <summary>
         /// Set the size for the network input, which overwrites the input size of creating model. Call this method when the size of input image does not match the input size when creating model
         /// *
@@ -275,7 +271,11 @@ namespace OpenCV5Sharp
         public int Detect(Mat image, Mat faces)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.FaceDetectorYN_detect_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(faces, nameof(faces), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (faces == null) throw new ArgumentNullException(nameof(faces));
+            faces.ThrowIfDisposed();
+            var res = NativeMethods.FaceDetectorYN_detect_0(Handle, image.Handle, faces.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -306,7 +306,7 @@ namespace OpenCV5Sharp
             FaceDetectorYN? resultObj = null;
             try
             {
-                resultObj = new FaceDetectorYN(res);
+                resultObj = new FaceDetectorYN(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -349,7 +349,7 @@ namespace OpenCV5Sharp
             FaceDetectorYN? resultObj = null;
             try
             {
-                resultObj = new FaceDetectorYN(res);
+                resultObj = new FaceDetectorYN(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -376,11 +376,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class FaceRecognizerSF : DisposableOpenCVObject
     {
-        internal FaceRecognizerSF(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FaceRecognizerSF_Delete(handle);
-        }
+        public new FaceRecognizerSFHandle Handle => (FaceRecognizerSFHandle)base.Handle;
+        internal FaceRecognizerSF(IntPtr handle, bool ownsHandle = true) : base(new FaceRecognizerSFHandle(handle, ownsHandle)) {}
+        internal FaceRecognizerSF(FaceRecognizerSFHandle handle) : base(handle) {}
         /// <summary>
         /// Aligns detected face with the source input image and crops it
         /// </summary>
@@ -393,7 +391,13 @@ namespace OpenCV5Sharp
         public void AlignCrop(Mat src_img, Mat face_box, Mat aligned_img)
         {
             ThrowIfDisposed();
-            NativeMethods.FaceRecognizerSF_alignCrop_0(Handle, ValidationHelper.GetHandle(src_img, nameof(src_img), false), ValidationHelper.GetHandle(face_box, nameof(face_box), false), ValidationHelper.GetHandle(aligned_img, nameof(aligned_img), false));
+            if (src_img == null) throw new ArgumentNullException(nameof(src_img));
+            src_img.ThrowIfDisposed();
+            if (face_box == null) throw new ArgumentNullException(nameof(face_box));
+            face_box.ThrowIfDisposed();
+            if (aligned_img == null) throw new ArgumentNullException(nameof(aligned_img));
+            aligned_img.ThrowIfDisposed();
+            NativeMethods.FaceRecognizerSF_alignCrop_0(Handle, src_img.Handle, face_box.Handle, aligned_img.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src_img);
@@ -411,7 +415,11 @@ namespace OpenCV5Sharp
         public void Feature(Mat aligned_img, Mat face_feature)
         {
             ThrowIfDisposed();
-            NativeMethods.FaceRecognizerSF_feature_0(Handle, ValidationHelper.GetHandle(aligned_img, nameof(aligned_img), false), ValidationHelper.GetHandle(face_feature, nameof(face_feature), false));
+            if (aligned_img == null) throw new ArgumentNullException(nameof(aligned_img));
+            aligned_img.ThrowIfDisposed();
+            if (face_feature == null) throw new ArgumentNullException(nameof(face_feature));
+            face_feature.ThrowIfDisposed();
+            NativeMethods.FaceRecognizerSF_feature_0(Handle, aligned_img.Handle, face_feature.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(aligned_img);
@@ -430,7 +438,11 @@ namespace OpenCV5Sharp
         public double Match(Mat face_feature1, Mat face_feature2, int dis_type)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.FaceRecognizerSF_match_0(Handle, ValidationHelper.GetHandle(face_feature1, nameof(face_feature1), false), ValidationHelper.GetHandle(face_feature2, nameof(face_feature2), false), dis_type);
+            if (face_feature1 == null) throw new ArgumentNullException(nameof(face_feature1));
+            face_feature1.ThrowIfDisposed();
+            if (face_feature2 == null) throw new ArgumentNullException(nameof(face_feature2));
+            face_feature2.ThrowIfDisposed();
+            var res = NativeMethods.FaceRecognizerSF_match_0(Handle, face_feature1.Handle, face_feature2.Handle, dis_type);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(face_feature1);
@@ -456,7 +468,7 @@ namespace OpenCV5Sharp
             FaceRecognizerSF? resultObj = null;
             try
             {
-                resultObj = new FaceRecognizerSF(res);
+                resultObj = new FaceRecognizerSF(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -492,7 +504,7 @@ namespace OpenCV5Sharp
             FaceRecognizerSF? resultObj = null;
             try
             {
-                resultObj = new FaceRecognizerSF(res);
+                resultObj = new FaceRecognizerSF(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -516,11 +528,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class GraphicalCodeDetector : DisposableOpenCVObject
     {
-        internal GraphicalCodeDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.GraphicalCodeDetector_Delete(handle);
-        }
+        public new GraphicalCodeDetectorHandle Handle => (GraphicalCodeDetectorHandle)base.Handle;
+        internal GraphicalCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new GraphicalCodeDetectorHandle(handle, ownsHandle)) {}
+        internal GraphicalCodeDetector(GraphicalCodeDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Detects graphical code in image and returns the quadrangle containing the code.
         /// </summary>
@@ -533,7 +543,11 @@ namespace OpenCV5Sharp
         public bool Detect(Mat img, Mat points)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.GraphicalCodeDetector_detect_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            var res = NativeMethods.GraphicalCodeDetector_detect_0(Handle, img.Handle, points.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -556,7 +570,12 @@ namespace OpenCV5Sharp
         public string? Decode(Mat img, Mat points, Mat? straight_code)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.GraphicalCodeDetector_decode_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(straight_code, nameof(straight_code), true));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (straight_code != null) straight_code.ThrowIfDisposed();
+            IntPtr res = NativeMethods.GraphicalCodeDetector_decode_0(Handle, img.Handle, points.Handle, ValidationHelper.GetHandle(straight_code, nameof(straight_code), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -593,7 +612,11 @@ namespace OpenCV5Sharp
         public string? DetectAndDecode(Mat img, Mat? points, Mat? straight_code)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.GraphicalCodeDetector_detectAndDecode_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), true), ValidationHelper.GetHandle(straight_code, nameof(straight_code), true));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points != null) points.ThrowIfDisposed();
+            if (straight_code != null) straight_code.ThrowIfDisposed();
+            IntPtr res = NativeMethods.GraphicalCodeDetector_detectAndDecode_0(Handle, img.Handle, ValidationHelper.GetHandle(points, nameof(points), true), ValidationHelper.GetHandle(straight_code, nameof(straight_code), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -629,7 +652,11 @@ namespace OpenCV5Sharp
         public bool DetectMulti(Mat img, Mat points)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.GraphicalCodeDetector_detectMulti_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            var res = NativeMethods.GraphicalCodeDetector_detectMulti_0(Handle, img.Handle, points.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -650,7 +677,11 @@ namespace OpenCV5Sharp
         public bool DecodeMulti(Mat img, Mat points, IntPtr decoded_info, IntPtr straight_code)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.GraphicalCodeDetector_decodeMulti_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), decoded_info, straight_code);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            var res = NativeMethods.GraphicalCodeDetector_decodeMulti_0(Handle, img.Handle, points.Handle, decoded_info, straight_code);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -671,7 +702,10 @@ namespace OpenCV5Sharp
         public bool DetectAndDecodeMulti(Mat img, IntPtr decoded_info, Mat? points, IntPtr straight_code)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.GraphicalCodeDetector_detectAndDecodeMulti_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), decoded_info, ValidationHelper.GetHandle(points, nameof(points), true), straight_code);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points != null) points.ThrowIfDisposed();
+            var res = NativeMethods.GraphicalCodeDetector_detectAndDecodeMulti_0(Handle, img.Handle, decoded_info, ValidationHelper.GetHandle(points, nameof(points), true), straight_code);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -686,17 +720,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class QRCodeDetector : GraphicalCodeDetector
     {
-        internal QRCodeDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.QRCodeDetector_Delete(handle);
-        }
+        public new QRCodeDetectorHandle Handle => (QRCodeDetectorHandle)base.Handle;
+        internal QRCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorHandle(handle, ownsHandle)) {}
+        internal QRCodeDetector(QRCodeDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Provides APIs to detect and decode QR codes in images.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetector()
-            : base(NativeMethods.QRCodeDetector_New_0())
+            : base(new QRCodeDetectorHandle(NativeMethods.QRCodeDetector_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -718,7 +750,7 @@ namespace OpenCV5Sharp
             QRCodeDetector? resultObj = null;
             try
             {
-                resultObj = new QRCodeDetector(res);
+                resultObj = new QRCodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -753,7 +785,7 @@ namespace OpenCV5Sharp
             QRCodeDetector? resultObj = null;
             try
             {
-                resultObj = new QRCodeDetector(res);
+                resultObj = new QRCodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -790,7 +822,7 @@ namespace OpenCV5Sharp
             QRCodeDetector? resultObj = null;
             try
             {
-                resultObj = new QRCodeDetector(res);
+                resultObj = new QRCodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -823,7 +855,12 @@ namespace OpenCV5Sharp
         public string? DecodeCurved(Mat img, Mat points, Mat? straight_qrcode)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.QRCodeDetector_decodeCurved_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(straight_qrcode, nameof(straight_qrcode), true));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (straight_qrcode != null) straight_qrcode.ThrowIfDisposed();
+            IntPtr res = NativeMethods.QRCodeDetector_decodeCurved_0(Handle, img.Handle, points.Handle, ValidationHelper.GetHandle(straight_qrcode, nameof(straight_qrcode), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -860,7 +897,11 @@ namespace OpenCV5Sharp
         public string? DetectAndDecodeCurved(Mat img, Mat? points, Mat? straight_qrcode)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.QRCodeDetector_detectAndDecodeCurved_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), true), ValidationHelper.GetHandle(straight_qrcode, nameof(straight_qrcode), true));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points != null) points.ThrowIfDisposed();
+            if (straight_qrcode != null) straight_qrcode.ThrowIfDisposed();
+            IntPtr res = NativeMethods.QRCodeDetector_detectAndDecodeCurved_0(Handle, img.Handle, ValidationHelper.GetHandle(points, nameof(points), true), ValidationHelper.GetHandle(straight_qrcode, nameof(straight_qrcode), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
@@ -890,13 +931,13 @@ namespace OpenCV5Sharp
         /// <param name="codeIdx">an index of the previously decoded QR code. When decode or detectAndDecode is used, valid value is zero. For decodeMulti or detectAndDecodeMulti use indices corresponding to the output order.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetEncoding(int codeIdx)
+        public int GetEncoding(int codeIdx)
         {
             ThrowIfDisposed();
             var res = NativeMethods.QRCodeDetector_getEncoding_0(Handle, codeIdx);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
     }
 
@@ -906,17 +947,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class QRCodeDetectorAruco : GraphicalCodeDetector
     {
-        internal QRCodeDetectorAruco(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.QRCodeDetectorAruco_Delete(handle);
-        }
+        public new QRCodeDetectorArucoHandle Handle => (QRCodeDetectorArucoHandle)base.Handle;
+        internal QRCodeDetectorAruco(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoHandle(handle, ownsHandle)) {}
+        internal QRCodeDetectorAruco(QRCodeDetectorArucoHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetectorAruco()
-            : base(NativeMethods.QRCodeDetectorAruco_New_0())
+            : base(new QRCodeDetectorArucoHandle(NativeMethods.QRCodeDetectorAruco_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -925,33 +964,59 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetDetectorParameters()
+        public QRCodeDetectorArucoParams? GetDetectorParameters()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.QRCodeDetectorAruco_getDetectorParameters_0(Handle);
-            ErrorHelper.CheckError();
-            GC.KeepAlive(this);
-            return res;
+            IntPtr res = NativeMethods.QRCodeDetectorAruco_getDetectorParameters_0(Handle);
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(this);
+                return null;
+            }
+            QRCodeDetectorArucoParams? resultObj = null;
+            try
+            {
+                resultObj = new QRCodeDetectorArucoParams(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.QRCodeDetectorAruco_Params_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(this);
+            }
         }
         /// <summary>
         /// Detector parameters setter. See QRCodeDetectorAruco.Params
         /// </summary>
         /// <param name="params">The @params parameter.</param>
         /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public QRCodeDetectorAruco? SetDetectorParameters(IntPtr @params)
+        public QRCodeDetectorAruco? SetDetectorParameters(QRCodeDetectorArucoParams @params)
         {
             ThrowIfDisposed();
-            IntPtr res = NativeMethods.QRCodeDetectorAruco_setDetectorParameters_0(Handle, @params);
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            IntPtr res = NativeMethods.QRCodeDetectorAruco_setDetectorParameters_0(Handle, @params.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(this);
+                GC.KeepAlive(@params);
                 return null;
             }
             QRCodeDetectorAruco? resultObj = null;
             try
             {
-                resultObj = new QRCodeDetectorAruco(res);
+                resultObj = new QRCodeDetectorAruco(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -966,6 +1031,7 @@ namespace OpenCV5Sharp
             finally
             {
                 GC.KeepAlive(this);
+                GC.KeepAlive(@params);
             }
         }
         /// <summary>
@@ -973,25 +1039,51 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetArucoParameters()
+        public ArucoDetectorParameters? GetArucoParameters()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.QRCodeDetectorAruco_getArucoParameters_0(Handle);
-            ErrorHelper.CheckError();
-            GC.KeepAlive(this);
-            return res;
+            IntPtr res = NativeMethods.QRCodeDetectorAruco_getArucoParameters_0(Handle);
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(this);
+                return null;
+            }
+            ArucoDetectorParameters? resultObj = null;
+            try
+            {
+                resultObj = new ArucoDetectorParameters(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.aruco_DetectorParameters_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(this);
+            }
         }
         /// <summary>
         /// Aruco detector parameters are used to search for the finder patterns.
         /// </summary>
         /// <param name="params">The @params parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void SetArucoParameters(IntPtr @params)
+        public void SetArucoParameters(ArucoDetectorParameters @params)
         {
             ThrowIfDisposed();
-            NativeMethods.QRCodeDetectorAruco_setArucoParameters_0(Handle, @params);
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            NativeMethods.QRCodeDetectorAruco_setArucoParameters_0(Handle, @params.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
+            GC.KeepAlive(@params);
         }
     }
 
@@ -1001,17 +1093,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class QRCodeDetectorArucoParams : DisposableOpenCVObject
     {
-        internal QRCodeDetectorArucoParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.QRCodeDetectorAruco_Params_Delete(handle);
-        }
+        public new QRCodeDetectorArucoParamsHandle Handle => (QRCodeDetectorArucoParamsHandle)base.Handle;
+        internal QRCodeDetectorArucoParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoParamsHandle(handle, ownsHandle)) {}
+        internal QRCodeDetectorArucoParams(QRCodeDetectorArucoParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeDetectorArucoParams()
-            : base(NativeMethods.QRCodeDetectorAruco_Params_New_0())
+            : base(new QRCodeDetectorArucoParamsHandle(NativeMethods.QRCodeDetectorAruco_Params_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1072,28 +1162,30 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class QRCodeEncoder : DisposableOpenCVObject
     {
-        internal QRCodeEncoder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.QRCodeEncoder_Delete(handle);
-        }
+        public new QRCodeEncoderHandle Handle => (QRCodeEncoderHandle)base.Handle;
+        internal QRCodeEncoder(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderHandle(handle, ownsHandle)) {}
+        internal QRCodeEncoder(QRCodeEncoderHandle handle) : base(handle) {}
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="parameters">QR code encoder parameters QRCodeEncoder.Params</param>
         /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static QRCodeEncoder? Create(IntPtr parameters)
+        public static QRCodeEncoder? Create(QRCodeEncoderParams? parameters)
         {
-            IntPtr res = NativeMethods.QRCodeEncoder_create_0(parameters);
+            if (parameters != null) parameters.ThrowIfDisposed();
+            IntPtr res = NativeMethods.QRCodeEncoder_create_0(ValidationHelper.GetHandle(parameters, nameof(parameters), true));
             if (res == IntPtr.Zero)
             {
+                GC.KeepAlive(parameters);
                 return null;
             }
             QRCodeEncoder? resultObj = null;
             try
             {
-                resultObj = new QRCodeEncoder(res);
+                resultObj = new QRCodeEncoder(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1107,6 +1199,7 @@ namespace OpenCV5Sharp
             }
             finally
             {
+                GC.KeepAlive(parameters);
             }
         }
         /// <summary>
@@ -1120,7 +1213,9 @@ namespace OpenCV5Sharp
         public void Encode(string encoded_info, Mat qrcode)
         {
             ThrowIfDisposed();
-            NativeMethods.QRCodeEncoder_encode_0(Handle, encoded_info, ValidationHelper.GetHandle(qrcode, nameof(qrcode), false));
+            if (qrcode == null) throw new ArgumentNullException(nameof(qrcode));
+            qrcode.ThrowIfDisposed();
+            NativeMethods.QRCodeEncoder_encode_0(Handle, encoded_info, qrcode.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(qrcode);
@@ -1146,17 +1241,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class QRCodeEncoderParams : DisposableOpenCVObject
     {
-        internal QRCodeEncoderParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.QRCodeEncoder_Params_Delete(handle);
-        }
+        public new QRCodeEncoderParamsHandle Handle => (QRCodeEncoderParamsHandle)base.Handle;
+        internal QRCodeEncoderParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderParamsHandle(handle, ownsHandle)) {}
+        internal QRCodeEncoderParams(QRCodeEncoderParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public QRCodeEncoderParams()
-            : base(NativeMethods.QRCodeEncoder_Params_New_0())
+            : base(new QRCodeEncoderParamsHandle(NativeMethods.QRCodeEncoder_Params_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1169,17 +1262,17 @@ namespace OpenCV5Sharp
         }
         /// <summary>Gets or sets the correction_level property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr CorrectionLevel
+        public int CorrectionLevel
         {
-            get { ThrowIfDisposed(); var res = NativeMethods.QRCodeEncoder_Params_correction_level_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return res; }
-            set { ThrowIfDisposed(); NativeMethods.QRCodeEncoder_Params_correction_level_set(Handle, value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
+            get { ThrowIfDisposed(); var res = NativeMethods.QRCodeEncoder_Params_correction_level_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return (int)res; }
+            set { ThrowIfDisposed(); NativeMethods.QRCodeEncoder_Params_correction_level_set(Handle, (int)value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
         }
         /// <summary>Gets or sets the mode property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr Mode
+        public int Mode
         {
-            get { ThrowIfDisposed(); var res = NativeMethods.QRCodeEncoder_Params_mode_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return res; }
-            set { ThrowIfDisposed(); NativeMethods.QRCodeEncoder_Params_mode_set(Handle, value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
+            get { ThrowIfDisposed(); var res = NativeMethods.QRCodeEncoder_Params_mode_get(Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); return (int)res; }
+            set { ThrowIfDisposed(); NativeMethods.QRCodeEncoder_Params_mode_set(Handle, (int)value); ErrorHelper.CheckError(); GC.KeepAlive(this); }
         }
         /// <summary>Gets or sets the structure_number property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1203,11 +1296,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class ArucoArucoDetector : Algorithm
     {
-        internal ArucoArucoDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_ArucoDetector_Delete(handle);
-        }
+        public new ArucoArucoDetectorHandle Handle => (ArucoArucoDetectorHandle)base.Handle;
+        internal ArucoArucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoArucoDetectorHandle(handle, ownsHandle)) {}
+        internal ArucoArucoDetector(ArucoArucoDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Basic ArucoDetector constructor
         /// *
@@ -1219,7 +1310,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoArucoDetector(ArucoDictionary? dictionary, ArucoDetectorParameters? detectorParams, ArucoRefineParameters? refineParams)
-            : base(NativeMethods.aruco_ArucoDetector_New_0(ValidationHelper.GetHandle(dictionary, nameof(dictionary), true), ValidationHelper.GetHandle(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle(refineParams, nameof(refineParams), true)))
+            : base(new ArucoArucoDetectorHandle(NativeMethods.aruco_ArucoDetector_New_0(ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), true), ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -1234,7 +1325,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoArucoDetector(IntPtr dictionaries, ArucoDetectorParameters? detectorParams, ArucoRefineParameters? refineParams)
-            : base(NativeMethods.aruco_ArucoDetector_New_1(dictionaries, ValidationHelper.GetHandle(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle(refineParams, nameof(refineParams), true)))
+            : base(new ArucoArucoDetectorHandle(NativeMethods.aruco_ArucoDetector_New_1(dictionaries, ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -1257,7 +1348,11 @@ namespace OpenCV5Sharp
         public void DetectMarkers(Mat image, IntPtr corners, Mat ids, IntPtr rejectedImgPoints)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_detectMarkers_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), false), rejectedImgPoints);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            ids.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_detectMarkers_0(Handle, image.Handle, corners, ids.Handle, rejectedImgPoints);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1283,7 +1378,13 @@ namespace OpenCV5Sharp
         public void DetectMarkersWithConfidence(Mat image, IntPtr corners, Mat ids, Mat markersConfidence, IntPtr rejectedImgPoints)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_detectMarkersWithConfidence_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), false), ValidationHelper.GetHandle(markersConfidence, nameof(markersConfidence), false), rejectedImgPoints);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            ids.ThrowIfDisposed();
+            if (markersConfidence == null) throw new ArgumentNullException(nameof(markersConfidence));
+            markersConfidence.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_detectMarkersWithConfidence_0(Handle, image.Handle, corners, ids.Handle, markersConfidence.Handle, rejectedImgPoints);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1312,7 +1413,16 @@ namespace OpenCV5Sharp
         public void RefineDetectedMarkers(Mat image, ArucoBoard board, IntPtr detectedCorners, Mat detectedIds, IntPtr rejectedCorners, Mat? cameraMatrix, Mat? distCoeffs, Mat? recoveredIdxs)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_refineDetectedMarkers_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(board, nameof(board), false), detectedCorners, ValidationHelper.GetHandle(detectedIds, nameof(detectedIds), false), rejectedCorners, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), true), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), true), ValidationHelper.GetHandle(recoveredIdxs, nameof(recoveredIdxs), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (board == null) throw new ArgumentNullException(nameof(board));
+            board.ThrowIfDisposed();
+            if (detectedIds == null) throw new ArgumentNullException(nameof(detectedIds));
+            detectedIds.ThrowIfDisposed();
+            if (cameraMatrix != null) cameraMatrix.ThrowIfDisposed();
+            if (distCoeffs != null) distCoeffs.ThrowIfDisposed();
+            if (recoveredIdxs != null) recoveredIdxs.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_refineDetectedMarkers_0(Handle, image.Handle, board.Handle, detectedCorners, detectedIds.Handle, rejectedCorners, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), true), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), true), ValidationHelper.GetHandle(recoveredIdxs, nameof(recoveredIdxs), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1342,7 +1452,12 @@ namespace OpenCV5Sharp
         public void DetectMarkersMultiDict(Mat image, IntPtr corners, Mat ids, IntPtr rejectedImgPoints, Mat? dictIndices)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_detectMarkersMultiDict_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), false), rejectedImgPoints, ValidationHelper.GetHandle(dictIndices, nameof(dictIndices), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (ids == null) throw new ArgumentNullException(nameof(ids));
+            ids.ThrowIfDisposed();
+            if (dictIndices != null) dictIndices.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_detectMarkersMultiDict_0(Handle, image.Handle, corners, ids.Handle, rejectedImgPoints, ValidationHelper.GetHandle(dictIndices, nameof(dictIndices), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1367,7 +1482,7 @@ namespace OpenCV5Sharp
             ArucoDictionary? resultObj = null;
             try
             {
-                resultObj = new ArucoDictionary(res);
+                resultObj = new ArucoDictionary(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1395,7 +1510,9 @@ namespace OpenCV5Sharp
         public void SetDictionary(ArucoDictionary dictionary)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_setDictionary_0(Handle, ValidationHelper.GetHandle(dictionary, nameof(dictionary), false));
+            if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
+            dictionary.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_setDictionary_0(Handle, dictionary.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dictionary);
@@ -1447,7 +1564,7 @@ namespace OpenCV5Sharp
             ArucoDetectorParameters? resultObj = null;
             try
             {
-                resultObj = new ArucoDetectorParameters(res);
+                resultObj = new ArucoDetectorParameters(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1474,7 +1591,9 @@ namespace OpenCV5Sharp
         public void SetDetectorParameters(ArucoDetectorParameters detectorParameters)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_setDetectorParameters_0(Handle, ValidationHelper.GetHandle(detectorParameters, nameof(detectorParameters), false));
+            if (detectorParameters == null) throw new ArgumentNullException(nameof(detectorParameters));
+            detectorParameters.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_setDetectorParameters_0(Handle, detectorParameters.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(detectorParameters);
@@ -1496,7 +1615,7 @@ namespace OpenCV5Sharp
             ArucoRefineParameters? resultObj = null;
             try
             {
-                resultObj = new ArucoRefineParameters(res);
+                resultObj = new ArucoRefineParameters(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1523,7 +1642,9 @@ namespace OpenCV5Sharp
         public void SetRefineParameters(ArucoRefineParameters refineParameters)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_setRefineParameters_0(Handle, ValidationHelper.GetHandle(refineParameters, nameof(refineParameters), false));
+            if (refineParameters == null) throw new ArgumentNullException(nameof(refineParameters));
+            refineParameters.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_setRefineParameters_0(Handle, refineParameters.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(refineParameters);
@@ -1539,7 +1660,9 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_write_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_write_0(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -1554,7 +1677,9 @@ namespace OpenCV5Sharp
         public new void Read(FileNode fn)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_ArucoDetector_read_0(Handle, ValidationHelper.GetHandle(fn, nameof(fn), false));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            fn.ThrowIfDisposed();
+            NativeMethods.aruco_ArucoDetector_read_0(Handle, fn.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fn);
@@ -1574,11 +1699,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoBoard : DisposableOpenCVObject
     {
-        internal ArucoBoard(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_Board_Delete(handle);
-        }
+        public new ArucoBoardHandle Handle => (ArucoBoardHandle)base.Handle;
+        internal ArucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoBoardHandle(handle, ownsHandle)) {}
+        internal ArucoBoard(ArucoBoardHandle handle) : base(handle) {}
         /// <summary>
         /// Common Board constructor
         /// *
@@ -1590,7 +1713,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoBoard(IntPtr objPoints, ArucoDictionary dictionary, Mat ids)
-            : base(NativeMethods.aruco_Board_New_0(objPoints, ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle(ids, nameof(ids), false)))
+            : base(new ArucoBoardHandle(NativeMethods.aruco_Board_New_0(objPoints, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), false))))
         {
             ErrorHelper.CheckError();
         }
@@ -1611,7 +1734,7 @@ namespace OpenCV5Sharp
             ArucoDictionary? resultObj = null;
             try
             {
-                resultObj = new ArucoDictionary(res);
+                resultObj = new ArucoDictionary(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1693,7 +1816,13 @@ namespace OpenCV5Sharp
         public void MatchImagePoints(IntPtr detectedCorners, Mat detectedIds, Mat objPoints, Mat imgPoints)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_Board_matchImagePoints_0(Handle, detectedCorners, ValidationHelper.GetHandle(detectedIds, nameof(detectedIds), false), ValidationHelper.GetHandle(objPoints, nameof(objPoints), false), ValidationHelper.GetHandle(imgPoints, nameof(imgPoints), false));
+            if (detectedIds == null) throw new ArgumentNullException(nameof(detectedIds));
+            detectedIds.ThrowIfDisposed();
+            if (objPoints == null) throw new ArgumentNullException(nameof(objPoints));
+            objPoints.ThrowIfDisposed();
+            if (imgPoints == null) throw new ArgumentNullException(nameof(imgPoints));
+            imgPoints.ThrowIfDisposed();
+            NativeMethods.aruco_Board_matchImagePoints_0(Handle, detectedCorners, detectedIds.Handle, objPoints.Handle, imgPoints.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(detectedIds);
@@ -1714,7 +1843,9 @@ namespace OpenCV5Sharp
         public void GenerateImage(Size outSize, Mat img, int marginSize, int borderBits)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_Board_generateImage_0(Handle, outSize, ValidationHelper.GetHandle(img, nameof(img), false), marginSize, borderBits);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            NativeMethods.aruco_Board_generateImage_0(Handle, outSize, img.Handle, marginSize, borderBits);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -1730,11 +1861,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoCharucoBoard : ArucoBoard
     {
-        internal ArucoCharucoBoard(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_CharucoBoard_Delete(handle);
-        }
+        public new ArucoCharucoBoardHandle Handle => (ArucoCharucoBoardHandle)base.Handle;
+        internal ArucoCharucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoBoardHandle(handle, ownsHandle)) {}
+        internal ArucoCharucoBoard(ArucoCharucoBoardHandle handle) : base(handle) {}
         /// <summary>
         /// CharucoBoard constructor
         /// *
@@ -1748,7 +1877,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoCharucoBoard(Size size, float squareLength, float markerLength, ArucoDictionary dictionary, Mat? ids)
-            : base(NativeMethods.aruco_CharucoBoard_New_0(size, squareLength, markerLength, ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle(ids, nameof(ids), true)))
+            : base(new ArucoCharucoBoardHandle(NativeMethods.aruco_CharucoBoard_New_0(size, squareLength, markerLength, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -1848,7 +1977,9 @@ namespace OpenCV5Sharp
         public bool CheckCharucoCornersCollinear(Mat charucoIds)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_CharucoBoard_checkCharucoCornersCollinear_0(Handle, ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), false));
+            if (charucoIds == null) throw new ArgumentNullException(nameof(charucoIds));
+            charucoIds.ThrowIfDisposed();
+            var res = NativeMethods.aruco_CharucoBoard_checkCharucoCornersCollinear_0(Handle, charucoIds.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(charucoIds);
@@ -1862,11 +1993,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoCharucoDetector : Algorithm
     {
-        internal ArucoCharucoDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_CharucoDetector_Delete(handle);
-        }
+        public new ArucoCharucoDetectorHandle Handle => (ArucoCharucoDetectorHandle)base.Handle;
+        internal ArucoCharucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoDetectorHandle(handle, ownsHandle)) {}
+        internal ArucoCharucoDetector(ArucoCharucoDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Basic CharucoDetector constructor
         /// *
@@ -1879,7 +2008,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoCharucoDetector(ArucoCharucoBoard board, ArucoCharucoParameters? charucoParams, ArucoDetectorParameters? detectorParams, ArucoRefineParameters? refineParams)
-            : base(NativeMethods.aruco_CharucoDetector_New_0(ValidationHelper.GetHandle(board, nameof(board), false), ValidationHelper.GetHandle(charucoParams, nameof(charucoParams), true), ValidationHelper.GetHandle(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle(refineParams, nameof(refineParams), true)))
+            : base(new ArucoCharucoDetectorHandle(NativeMethods.aruco_CharucoDetector_New_0(ValidationHelper.GetHandle<ArucoCharucoBoardHandle>(board, nameof(board), false), ValidationHelper.GetHandle<ArucoCharucoParametersHandle>(charucoParams, nameof(charucoParams), true), ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -1900,7 +2029,7 @@ namespace OpenCV5Sharp
             ArucoCharucoBoard? resultObj = null;
             try
             {
-                resultObj = new ArucoCharucoBoard(res);
+                resultObj = new ArucoCharucoBoard(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1927,7 +2056,9 @@ namespace OpenCV5Sharp
         public void SetBoard(ArucoCharucoBoard board)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_setBoard_0(Handle, ValidationHelper.GetHandle(board, nameof(board), false));
+            if (board == null) throw new ArgumentNullException(nameof(board));
+            board.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_setBoard_0(Handle, board.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(board);
@@ -1949,7 +2080,7 @@ namespace OpenCV5Sharp
             ArucoCharucoParameters? resultObj = null;
             try
             {
-                resultObj = new ArucoCharucoParameters(res);
+                resultObj = new ArucoCharucoParameters(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1976,7 +2107,9 @@ namespace OpenCV5Sharp
         public void SetCharucoParameters(ArucoCharucoParameters charucoParameters)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_setCharucoParameters_0(Handle, ValidationHelper.GetHandle(charucoParameters, nameof(charucoParameters), false));
+            if (charucoParameters == null) throw new ArgumentNullException(nameof(charucoParameters));
+            charucoParameters.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_setCharucoParameters_0(Handle, charucoParameters.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(charucoParameters);
@@ -1998,7 +2131,7 @@ namespace OpenCV5Sharp
             ArucoDetectorParameters? resultObj = null;
             try
             {
-                resultObj = new ArucoDetectorParameters(res);
+                resultObj = new ArucoDetectorParameters(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2025,7 +2158,9 @@ namespace OpenCV5Sharp
         public void SetDetectorParameters(ArucoDetectorParameters detectorParameters)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_setDetectorParameters_0(Handle, ValidationHelper.GetHandle(detectorParameters, nameof(detectorParameters), false));
+            if (detectorParameters == null) throw new ArgumentNullException(nameof(detectorParameters));
+            detectorParameters.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_setDetectorParameters_0(Handle, detectorParameters.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(detectorParameters);
@@ -2047,7 +2182,7 @@ namespace OpenCV5Sharp
             ArucoRefineParameters? resultObj = null;
             try
             {
-                resultObj = new ArucoRefineParameters(res);
+                resultObj = new ArucoRefineParameters(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2074,7 +2209,9 @@ namespace OpenCV5Sharp
         public void SetRefineParameters(ArucoRefineParameters refineParameters)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_setRefineParameters_0(Handle, ValidationHelper.GetHandle(refineParameters, nameof(refineParameters), false));
+            if (refineParameters == null) throw new ArgumentNullException(nameof(refineParameters));
+            refineParameters.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_setRefineParameters_0(Handle, refineParameters.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(refineParameters);
@@ -2099,7 +2236,14 @@ namespace OpenCV5Sharp
         public void DetectBoard(Mat image, Mat charucoCorners, Mat charucoIds, IntPtr markerCorners, Mat? markerIds)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_detectBoard_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(charucoCorners, nameof(charucoCorners), false), ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), false), markerCorners, ValidationHelper.GetHandle(markerIds, nameof(markerIds), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (charucoCorners == null) throw new ArgumentNullException(nameof(charucoCorners));
+            charucoCorners.ThrowIfDisposed();
+            if (charucoIds == null) throw new ArgumentNullException(nameof(charucoIds));
+            charucoIds.ThrowIfDisposed();
+            if (markerIds != null) markerIds.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_detectBoard_0(Handle, image.Handle, charucoCorners.Handle, charucoIds.Handle, markerCorners, ValidationHelper.GetHandle(markerIds, nameof(markerIds), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -2122,7 +2266,12 @@ namespace OpenCV5Sharp
         public void DetectDiamonds(Mat image, IntPtr diamondCorners, Mat diamondIds, IntPtr markerCorners, Mat? markerIds)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_CharucoDetector_detectDiamonds_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), diamondCorners, ValidationHelper.GetHandle(diamondIds, nameof(diamondIds), false), markerCorners, ValidationHelper.GetHandle(markerIds, nameof(markerIds), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (diamondIds == null) throw new ArgumentNullException(nameof(diamondIds));
+            diamondIds.ThrowIfDisposed();
+            if (markerIds != null) markerIds.ThrowIfDisposed();
+            NativeMethods.aruco_CharucoDetector_detectDiamonds_0(Handle, image.Handle, diamondCorners, diamondIds.Handle, markerCorners, ValidationHelper.GetHandle(markerIds, nameof(markerIds), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -2137,17 +2286,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoCharucoParameters : DisposableOpenCVObject
     {
-        internal ArucoCharucoParameters(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_CharucoParameters_Delete(handle);
-        }
+        public new ArucoCharucoParametersHandle Handle => (ArucoCharucoParametersHandle)base.Handle;
+        internal ArucoCharucoParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoParametersHandle(handle, ownsHandle)) {}
+        internal ArucoCharucoParameters(ArucoCharucoParametersHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoCharucoParameters()
-            : base(NativeMethods.aruco_CharucoParameters_New_0())
+            : base(new ArucoCharucoParametersHandle(NativeMethods.aruco_CharucoParameters_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2173,7 +2320,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.aruco_CharucoParameters_cameraMatrix_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.aruco_CharucoParameters_cameraMatrix_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
         /// <summary>Gets or sets the distCoeffs property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2197,7 +2344,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.aruco_CharucoParameters_distCoeffs_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.aruco_CharucoParameters_distCoeffs_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
         /// <summary>Gets or sets the minMarkers property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2228,17 +2375,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoDetectorParameters : DisposableOpenCVObject
     {
-        internal ArucoDetectorParameters(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_DetectorParameters_Delete(handle);
-        }
+        public new ArucoDetectorParametersHandle Handle => (ArucoDetectorParametersHandle)base.Handle;
+        internal ArucoDetectorParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoDetectorParametersHandle(handle, ownsHandle)) {}
+        internal ArucoDetectorParameters(ArucoDetectorParametersHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoDetectorParameters()
-            : base(NativeMethods.aruco_DetectorParameters_New_0())
+            : base(new ArucoDetectorParametersHandle(NativeMethods.aruco_DetectorParameters_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2253,7 +2398,9 @@ namespace OpenCV5Sharp
         public bool ReadDetectorParameters(FileNode fn)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_DetectorParameters_readDetectorParameters_0(Handle, ValidationHelper.GetHandle(fn, nameof(fn), false));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            fn.ThrowIfDisposed();
+            var res = NativeMethods.aruco_DetectorParameters_readDetectorParameters_0(Handle, fn.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fn);
@@ -2271,7 +2418,9 @@ namespace OpenCV5Sharp
         public bool WriteDetectorParameters(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_DetectorParameters_writeDetectorParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            var res = NativeMethods.aruco_DetectorParameters_writeDetectorParameters_0(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -2543,17 +2692,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class ArucoDictionary : DisposableOpenCVObject
     {
-        internal ArucoDictionary(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_Dictionary_Delete(handle);
-        }
+        public new ArucoDictionaryHandle Handle => (ArucoDictionaryHandle)base.Handle;
+        internal ArucoDictionary(IntPtr handle, bool ownsHandle = true) : base(new ArucoDictionaryHandle(handle, ownsHandle)) {}
+        internal ArucoDictionary(ArucoDictionaryHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoDictionary()
-            : base(NativeMethods.aruco_Dictionary_New_0())
+            : base(new ArucoDictionaryHandle(NativeMethods.aruco_Dictionary_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2568,7 +2715,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoDictionary(Mat bytesList, int _markerSize, int maxcorr)
-            : base(NativeMethods.aruco_Dictionary_New_1(ValidationHelper.GetHandle(bytesList, nameof(bytesList), false), _markerSize, maxcorr))
+            : base(new ArucoDictionaryHandle(NativeMethods.aruco_Dictionary_New_1(ValidationHelper.GetHandle<MatHandle>(bytesList, nameof(bytesList), false), _markerSize, maxcorr)))
         {
             ErrorHelper.CheckError();
         }
@@ -2591,7 +2738,9 @@ namespace OpenCV5Sharp
         public bool ReadDictionary(FileNode fn)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_Dictionary_readDictionary_0(Handle, ValidationHelper.GetHandle(fn, nameof(fn), false));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            fn.ThrowIfDisposed();
+            var res = NativeMethods.aruco_Dictionary_readDictionary_0(Handle, fn.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fn);
@@ -2608,7 +2757,9 @@ namespace OpenCV5Sharp
         public void WriteDictionary(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_Dictionary_writeDictionary_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.aruco_Dictionary_writeDictionary_0(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -2629,7 +2780,9 @@ namespace OpenCV5Sharp
         public bool Identify(Mat onlyBits, int idx, int rotation, double maxCorrectionRate)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_Dictionary_identify_0(Handle, ValidationHelper.GetHandle(onlyBits, nameof(onlyBits), false), idx, rotation, maxCorrectionRate);
+            if (onlyBits == null) throw new ArgumentNullException(nameof(onlyBits));
+            onlyBits.ThrowIfDisposed();
+            var res = NativeMethods.aruco_Dictionary_identify_0(Handle, onlyBits.Handle, idx, rotation, maxCorrectionRate);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(onlyBits);
@@ -2652,7 +2805,9 @@ namespace OpenCV5Sharp
         public bool Identify(Mat onlyCellPixelRatio, int idx, int rotation, double maxCorrectionRate, float validBitIdThreshold)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_Dictionary_identify_1(Handle, ValidationHelper.GetHandle(onlyCellPixelRatio, nameof(onlyCellPixelRatio), false), idx, rotation, maxCorrectionRate, validBitIdThreshold);
+            if (onlyCellPixelRatio == null) throw new ArgumentNullException(nameof(onlyCellPixelRatio));
+            onlyCellPixelRatio.ThrowIfDisposed();
+            var res = NativeMethods.aruco_Dictionary_identify_1(Handle, onlyCellPixelRatio.Handle, idx, rotation, maxCorrectionRate, validBitIdThreshold);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(onlyCellPixelRatio);
@@ -2673,7 +2828,9 @@ namespace OpenCV5Sharp
         public int GetDistanceToId(Mat bits, int id, bool allRotations)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_Dictionary_getDistanceToId_0(Handle, ValidationHelper.GetHandle(bits, nameof(bits), false), id, allRotations);
+            if (bits == null) throw new ArgumentNullException(nameof(bits));
+            bits.ThrowIfDisposed();
+            var res = NativeMethods.aruco_Dictionary_getDistanceToId_0(Handle, bits.Handle, id, allRotations);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(bits);
@@ -2692,7 +2849,9 @@ namespace OpenCV5Sharp
         public void GenerateImageMarker(int id, int sidePixels, Mat _img, int borderBits)
         {
             ThrowIfDisposed();
-            NativeMethods.aruco_Dictionary_generateImageMarker_0(Handle, id, sidePixels, ValidationHelper.GetHandle(_img, nameof(_img), false), borderBits);
+            if (_img == null) throw new ArgumentNullException(nameof(_img));
+            _img.ThrowIfDisposed();
+            NativeMethods.aruco_Dictionary_generateImageMarker_0(Handle, id, sidePixels, _img.Handle, borderBits);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(_img);
@@ -2707,7 +2866,9 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Mat? GetByteListFromBits(Mat bits)
         {
-            IntPtr res = NativeMethods.aruco_Dictionary_getByteListFromBits_0(ValidationHelper.GetHandle(bits, nameof(bits), false));
+            if (bits == null) throw new ArgumentNullException(nameof(bits));
+            bits.ThrowIfDisposed();
+            IntPtr res = NativeMethods.aruco_Dictionary_getByteListFromBits_0(bits.Handle);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(bits);
@@ -2716,7 +2877,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2745,7 +2906,9 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Mat? GetBitsFromByteList(Mat byteList, int markerSize, int rotationId)
         {
-            IntPtr res = NativeMethods.aruco_Dictionary_getBitsFromByteList_0(ValidationHelper.GetHandle(byteList, nameof(byteList), false), markerSize, rotationId);
+            if (byteList == null) throw new ArgumentNullException(nameof(byteList));
+            byteList.ThrowIfDisposed();
+            IntPtr res = NativeMethods.aruco_Dictionary_getBitsFromByteList_0(byteList.Handle, markerSize, rotationId);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(byteList);
@@ -2754,7 +2917,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2790,7 +2953,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2829,7 +2992,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.aruco_Dictionary_bytesList_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.aruco_Dictionary_bytesList_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
         /// <summary>Gets or sets the markerSize property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2856,11 +3019,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoGridBoard : ArucoBoard
     {
-        internal ArucoGridBoard(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_GridBoard_Delete(handle);
-        }
+        public new ArucoGridBoardHandle Handle => (ArucoGridBoardHandle)base.Handle;
+        internal ArucoGridBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoGridBoardHandle(handle, ownsHandle)) {}
+        internal ArucoGridBoard(ArucoGridBoardHandle handle) : base(handle) {}
         /// <summary>
         /// GridBoard constructor
         /// *
@@ -2874,7 +3035,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoGridBoard(Size size, float markerLength, float markerSeparation, ArucoDictionary dictionary, Mat? ids)
-            : base(NativeMethods.aruco_GridBoard_New_0(size, markerLength, markerSeparation, ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle(ids, nameof(ids), true)))
+            : base(new ArucoGridBoardHandle(NativeMethods.aruco_GridBoard_New_0(size, markerLength, markerSeparation, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -2925,11 +3086,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class ArucoRefineParameters : DisposableOpenCVObject
     {
-        internal ArucoRefineParameters(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.aruco_RefineParameters_Delete(handle);
-        }
+        public new ArucoRefineParametersHandle Handle => (ArucoRefineParametersHandle)base.Handle;
+        internal ArucoRefineParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoRefineParametersHandle(handle, ownsHandle)) {}
+        internal ArucoRefineParameters(ArucoRefineParametersHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2938,7 +3097,7 @@ namespace OpenCV5Sharp
         /// <param name="checkAllOrders">The checkAllOrders parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public ArucoRefineParameters(float minRepDistance, float errorCorrectionRate, bool checkAllOrders)
-            : base(NativeMethods.aruco_RefineParameters_New_0(minRepDistance, errorCorrectionRate, checkAllOrders))
+            : base(new ArucoRefineParametersHandle(NativeMethods.aruco_RefineParameters_New_0(minRepDistance, errorCorrectionRate, checkAllOrders)))
         {
             ErrorHelper.CheckError();
         }
@@ -2953,7 +3112,9 @@ namespace OpenCV5Sharp
         public bool ReadRefineParameters(FileNode fn)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_RefineParameters_readRefineParameters_0(Handle, ValidationHelper.GetHandle(fn, nameof(fn), false));
+            if (fn == null) throw new ArgumentNullException(nameof(fn));
+            fn.ThrowIfDisposed();
+            var res = NativeMethods.aruco_RefineParameters_readRefineParameters_0(Handle, fn.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fn);
@@ -2971,7 +3132,9 @@ namespace OpenCV5Sharp
         public bool WriteRefineParameters(FileStorage fs, string? name)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.aruco_RefineParameters_writeRefineParameters_0(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            var res = NativeMethods.aruco_RefineParameters_writeRefineParameters_0(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -3006,17 +3169,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class BarcodeBarcodeDetector : GraphicalCodeDetector
     {
-        internal BarcodeBarcodeDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.barcode_BarcodeDetector_Delete(handle);
-        }
+        public new BarcodeBarcodeDetectorHandle Handle => (BarcodeBarcodeDetectorHandle)base.Handle;
+        internal BarcodeBarcodeDetector(IntPtr handle, bool ownsHandle = true) : base(new BarcodeBarcodeDetectorHandle(handle, ownsHandle)) {}
+        internal BarcodeBarcodeDetector(BarcodeBarcodeDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Initialize the BarcodeDetector. Super resolution is disabled.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public BarcodeBarcodeDetector()
-            : base(NativeMethods.barcode_BarcodeDetector_New_0())
+            : base(new BarcodeBarcodeDetectorHandle(NativeMethods.barcode_BarcodeDetector_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -3036,7 +3197,7 @@ namespace OpenCV5Sharp
         /// *
         /// </remarks>
         public BarcodeBarcodeDetector(string super_resolution_model_path)
-            : base(NativeMethods.barcode_BarcodeDetector_New_1(super_resolution_model_path))
+            : base(new BarcodeBarcodeDetectorHandle(NativeMethods.barcode_BarcodeDetector_New_1(super_resolution_model_path)))
         {
             ErrorHelper.CheckError();
         }
@@ -3055,7 +3216,11 @@ namespace OpenCV5Sharp
         public bool DecodeWithType(Mat img, Mat points, IntPtr decoded_info, IntPtr decoded_type)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.barcode_BarcodeDetector_decodeWithType_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(points, nameof(points), false), decoded_info, decoded_type);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            var res = NativeMethods.barcode_BarcodeDetector_decodeWithType_0(Handle, img.Handle, points.Handle, decoded_info, decoded_type);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -3076,7 +3241,10 @@ namespace OpenCV5Sharp
         public bool DetectAndDecodeWithType(Mat img, IntPtr decoded_info, IntPtr decoded_type, Mat? points)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.barcode_BarcodeDetector_detectAndDecodeWithType_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), decoded_info, decoded_type, ValidationHelper.GetHandle(points, nameof(points), true));
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (points != null) points.ThrowIfDisposed();
+            var res = NativeMethods.barcode_BarcodeDetector_detectAndDecodeWithType_0(Handle, img.Handle, decoded_info, decoded_type, ValidationHelper.GetHandle(points, nameof(points), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -3122,7 +3290,7 @@ namespace OpenCV5Sharp
             BarcodeBarcodeDetector? resultObj = null;
             try
             {
-                resultObj = new BarcodeBarcodeDetector(res);
+                resultObj = new BarcodeBarcodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3174,7 +3342,7 @@ namespace OpenCV5Sharp
             BarcodeBarcodeDetector? resultObj = null;
             try
             {
-                resultObj = new BarcodeBarcodeDetector(res);
+                resultObj = new BarcodeBarcodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3227,7 +3395,7 @@ namespace OpenCV5Sharp
             BarcodeBarcodeDetector? resultObj = null;
             try
             {
-                resultObj = new BarcodeBarcodeDetector(res);
+                resultObj = new BarcodeBarcodeDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3260,11 +3428,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class MccCChecker : Algorithm
     {
-        internal MccCChecker(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.mcc_CChecker_Delete(handle);
-        }
+        public new MccCCheckerHandle Handle => (MccCCheckerHandle)base.Handle;
+        internal MccCChecker(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerHandle(handle, ownsHandle)) {}
+        internal MccCChecker(MccCCheckerHandle handle) : base(handle) {}
         /// <summary>
         /// Create a new CChecker object.
         /// *
@@ -3281,7 +3447,7 @@ namespace OpenCV5Sharp
             MccCChecker? resultObj = null;
             try
             {
-                resultObj = new MccCChecker(res);
+                resultObj = new MccCChecker(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3331,7 +3497,9 @@ namespace OpenCV5Sharp
         public void SetChartsRGB(Mat _chartsRGB)
         {
             ThrowIfDisposed();
-            NativeMethods.mcc_CChecker_setChartsRGB_0(Handle, ValidationHelper.GetHandle(_chartsRGB, nameof(_chartsRGB), false));
+            if (_chartsRGB == null) throw new ArgumentNullException(nameof(_chartsRGB));
+            _chartsRGB.ThrowIfDisposed();
+            NativeMethods.mcc_CChecker_setChartsRGB_0(Handle, _chartsRGB.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(_chartsRGB);
@@ -3346,7 +3514,9 @@ namespace OpenCV5Sharp
         public void SetChartsYCbCr(Mat _chartsYCbCr)
         {
             ThrowIfDisposed();
-            NativeMethods.mcc_CChecker_setChartsYCbCr_0(Handle, ValidationHelper.GetHandle(_chartsYCbCr, nameof(_chartsYCbCr), false));
+            if (_chartsYCbCr == null) throw new ArgumentNullException(nameof(_chartsYCbCr));
+            _chartsYCbCr.ThrowIfDisposed();
+            NativeMethods.mcc_CChecker_setChartsYCbCr_0(Handle, _chartsYCbCr.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(_chartsYCbCr);
@@ -3436,7 +3606,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3470,7 +3640,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3521,11 +3691,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class MccCCheckerDetector : Algorithm
     {
-        internal MccCCheckerDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.mcc_CCheckerDetector_Delete(handle);
-        }
+        public new MccCCheckerDetectorHandle Handle => (MccCCheckerDetectorHandle)base.Handle;
+        internal MccCCheckerDetector(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerDetectorHandle(handle, ownsHandle)) {}
+        internal MccCCheckerDetector(MccCCheckerDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Find the ColorCharts in the given image.
         /// *
@@ -3543,7 +3711,9 @@ namespace OpenCV5Sharp
         public bool Process(Mat image, IntPtr regionsOfInterest, int nc)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.mcc_CCheckerDetector_process_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), regionsOfInterest, nc);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            var res = NativeMethods.mcc_CCheckerDetector_process_0(Handle, image.Handle, regionsOfInterest, nc);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -3569,7 +3739,9 @@ namespace OpenCV5Sharp
         public bool Process(Mat image, int nc)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.mcc_CCheckerDetector_process_1(Handle, ValidationHelper.GetHandle(image, nameof(image), false), nc);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            var res = NativeMethods.mcc_CCheckerDetector_process_1(Handle, image.Handle, nc);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -3581,13 +3753,34 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>checker A single colorchecker, if atleast one colorchecker *                 was detected, 'nullptr' otherwise.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetBestColorChecker()
+        public MccCChecker? GetBestColorChecker()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.mcc_CCheckerDetector_getBestColorChecker_0(Handle);
-            ErrorHelper.CheckError();
-            GC.KeepAlive(this);
-            return res;
+            IntPtr res = NativeMethods.mcc_CCheckerDetector_getBestColorChecker_0(Handle);
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(this);
+                return null;
+            }
+            MccCChecker? resultObj = null;
+            try
+            {
+                resultObj = new MccCChecker(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.mcc_CChecker_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(this);
+            }
         }
         /// <summary>
         /// Get the list of all detected colorcheckers
@@ -3618,7 +3811,7 @@ namespace OpenCV5Sharp
             MccCCheckerDetector? resultObj = null;
             try
             {
-                resultObj = new MccCCheckerDetector(res);
+                resultObj = new MccCCheckerDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3647,7 +3840,9 @@ namespace OpenCV5Sharp
         public void Draw(IntPtr checkers, Mat img, Scalar color, int thickness)
         {
             ThrowIfDisposed();
-            NativeMethods.mcc_CCheckerDetector_draw_0(Handle, checkers, ValidationHelper.GetHandle(img, nameof(img), false), color, thickness);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            NativeMethods.mcc_CCheckerDetector_draw_0(Handle, checkers, img.Handle, color, thickness);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -3669,7 +3864,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3696,7 +3891,9 @@ namespace OpenCV5Sharp
         public void SetDetectionParams(MccDetectorParametersMCC @params)
         {
             ThrowIfDisposed();
-            NativeMethods.mcc_CCheckerDetector_setDetectionParams_0(Handle, ValidationHelper.GetHandle(@params, nameof(@params), false));
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            NativeMethods.mcc_CCheckerDetector_setDetectionParams_0(Handle, @params.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(@params);
@@ -3730,7 +3927,7 @@ namespace OpenCV5Sharp
             MccDetectorParametersMCC? resultObj = null;
             try
             {
-                resultObj = new MccDetectorParametersMCC(res);
+                resultObj = new MccDetectorParametersMCC(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -3768,17 +3965,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class MccDetectorParametersMCC : DisposableOpenCVObject
     {
-        internal MccDetectorParametersMCC(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.mcc_DetectorParametersMCC_Delete(handle);
-        }
+        public new MccDetectorParametersMCCHandle Handle => (MccDetectorParametersMCCHandle)base.Handle;
+        internal MccDetectorParametersMCC(IntPtr handle, bool ownsHandle = true) : base(new MccDetectorParametersMCCHandle(handle, ownsHandle)) {}
+        internal MccDetectorParametersMCC(MccDetectorParametersMCCHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public MccDetectorParametersMCC()
-            : base(NativeMethods.mcc_DetectorParametersMCC_New_0())
+            : base(new MccDetectorParametersMCCHandle(NativeMethods.mcc_DetectorParametersMCC_New_0()))
         {
             ErrorHelper.CheckError();
         }

@@ -44,7 +44,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat? mask, int blockSize, bool useHarrisDetector, double k)
             {
-                NativeMethods.cv_goodFeaturesToTrack_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), blockSize, useHarrisDetector, k);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_goodFeaturesToTrack_0(image.Handle, corners.Handle, maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), blockSize, useHarrisDetector, k);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -68,7 +73,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, int gradientSize, bool useHarrisDetector, double k)
             {
-                NativeMethods.cv_goodFeaturesToTrack_1(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), blockSize, gradientSize, useHarrisDetector, k);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                NativeMethods.cv_goodFeaturesToTrack_1(image.Handle, corners.Handle, maxCorners, qualityLevel, minDistance, mask.Handle, blockSize, gradientSize, useHarrisDetector, k);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -93,7 +104,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void GoodFeaturesToTrack(Mat image, Mat corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, Mat cornersQuality, int blockSize, int gradientSize, bool useHarrisDetector, double k)
             {
-                NativeMethods.cv_goodFeaturesToTrack_2(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(corners, nameof(corners), false), maxCorners, qualityLevel, minDistance, ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(cornersQuality, nameof(cornersQuality), false), blockSize, gradientSize, useHarrisDetector, k);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (cornersQuality == null) throw new ArgumentNullException(nameof(cornersQuality));
+                cornersQuality.ThrowIfDisposed();
+                NativeMethods.cv_goodFeaturesToTrack_2(image.Handle, corners.Handle, maxCorners, qualityLevel, minDistance, mask.Handle, cornersQuality.Handle, blockSize, gradientSize, useHarrisDetector, k);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -119,7 +138,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void DrawKeypoints(Mat image, IntPtr keypoints, Mat outImage, Scalar color, DrawMatchesFlags flags)
             {
-                NativeMethods.cv_drawKeypoints_0(ValidationHelper.GetHandle(image, nameof(image), false), keypoints, ValidationHelper.GetHandle(outImage, nameof(outImage), false), color, (int)flags);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (outImage == null) throw new ArgumentNullException(nameof(outImage));
+                outImage.ThrowIfDisposed();
+                NativeMethods.cv_drawKeypoints_0(image.Handle, keypoints, outImage.Handle, color, (int)flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(outImage);
@@ -142,7 +165,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
             {
-                NativeMethods.cv_drawMatches_0(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchColor, singlePointColor, matchesMask, (int)flags);
+                if (img1 == null) throw new ArgumentNullException(nameof(img1));
+                img1.ThrowIfDisposed();
+                if (img2 == null) throw new ArgumentNullException(nameof(img2));
+                img2.ThrowIfDisposed();
+                if (outImg == null) throw new ArgumentNullException(nameof(outImg));
+                outImg.ThrowIfDisposed();
+                NativeMethods.cv_drawMatches_0(img1.Handle, keypoints1, img2.Handle, keypoints2, matches1to2, outImg.Handle, matchColor, singlePointColor, matchesMask, (int)flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img1);
                 GC.KeepAlive(img2);
@@ -167,7 +196,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DrawMatches(Mat img1, IntPtr keypoints1, Mat img2, IntPtr keypoints2, IntPtr matches1to2, Mat outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, DrawMatchesFlags flags)
             {
-                NativeMethods.cv_drawMatches_1(ValidationHelper.GetHandle(img1, nameof(img1), false), keypoints1, ValidationHelper.GetHandle(img2, nameof(img2), false), keypoints2, matches1to2, ValidationHelper.GetHandle(outImg, nameof(outImg), false), matchesThickness, matchColor, singlePointColor, matchesMask, (int)flags);
+                if (img1 == null) throw new ArgumentNullException(nameof(img1));
+                img1.ThrowIfDisposed();
+                if (img2 == null) throw new ArgumentNullException(nameof(img2));
+                img2.ThrowIfDisposed();
+                if (outImg == null) throw new ArgumentNullException(nameof(outImg));
+                outImg.ThrowIfDisposed();
+                NativeMethods.cv_drawMatches_1(img1.Handle, keypoints1, img2.Handle, keypoints2, matches1to2, outImg.Handle, matchesThickness, matchColor, singlePointColor, matchesMask, (int)flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img1);
                 GC.KeepAlive(img2);

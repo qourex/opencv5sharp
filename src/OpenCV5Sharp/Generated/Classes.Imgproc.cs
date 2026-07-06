@@ -14,11 +14,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Clahe : Algorithm
     {
-        internal Clahe(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.CLAHE_Delete(handle);
-        }
+        public new ClaheHandle Handle => (ClaheHandle)base.Handle;
+        internal Clahe(IntPtr handle, bool ownsHandle = true) : base(new ClaheHandle(handle, ownsHandle)) {}
+        internal Clahe(ClaheHandle handle) : base(handle) {}
         /// <summary>
         /// Equalizes the histogram of a grayscale image using Contrast Limited Adaptive Histogram Equalization.
         /// </summary>
@@ -30,7 +28,11 @@ namespace OpenCV5Sharp
         public void Apply(Mat src, Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.CLAHE_apply_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.CLAHE_apply_0(Handle, src.Handle, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -131,11 +133,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Filter2DParams : DisposableOpenCVObject
     {
-        internal Filter2DParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Filter2DParams_Delete(handle);
-        }
+        public new Filter2DParamsHandle Handle => (Filter2DParamsHandle)base.Handle;
+        internal Filter2DParams(IntPtr handle, bool ownsHandle = true) : base(new Filter2DParamsHandle(handle, ownsHandle)) {}
+        internal Filter2DParams(Filter2DParamsHandle handle) : base(handle) {}
         /// <summary>Gets or sets the anchorX property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int AnchorX
@@ -191,17 +191,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class FontFace : DisposableOpenCVObject
     {
-        internal FontFace(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FontFace_Delete(handle);
-        }
+        public new FontFaceHandle Handle => (FontFaceHandle)base.Handle;
+        internal FontFace(IntPtr handle, bool ownsHandle = true) : base(new FontFaceHandle(handle, ownsHandle)) {}
+        internal FontFace(FontFaceHandle handle) : base(handle) {}
         /// <summary>
         /// loads default font
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FontFace()
-            : base(NativeMethods.FontFace_New_0())
+            : base(new FontFaceHandle(NativeMethods.FontFace_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -211,7 +209,7 @@ namespace OpenCV5Sharp
         /// <param name="fontPathOrName">either path to the custom font or the name of embedded font: "sans", "italic" or "uni". Empty fontPathOrName means the default embedded font.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public FontFace(string fontPathOrName)
-            : base(NativeMethods.FontFace_New_1(fontPathOrName))
+            : base(new FontFaceHandle(NativeMethods.FontFace_New_1(fontPathOrName)))
         {
             ErrorHelper.CheckError();
         }
@@ -291,11 +289,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class GeneralizedHough : Algorithm
     {
-        internal GeneralizedHough(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.GeneralizedHough_Delete(handle);
-        }
+        public new GeneralizedHoughHandle Handle => (GeneralizedHoughHandle)base.Handle;
+        internal GeneralizedHough(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughHandle(handle, ownsHandle)) {}
+        internal GeneralizedHough(GeneralizedHoughHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -307,7 +303,9 @@ namespace OpenCV5Sharp
         public void SetTemplate(Mat templ, Point templCenter)
         {
             ThrowIfDisposed();
-            NativeMethods.GeneralizedHough_setTemplate_0(Handle, ValidationHelper.GetHandle(templ, nameof(templ), false), templCenter);
+            if (templ == null) throw new ArgumentNullException(nameof(templ));
+            templ.ThrowIfDisposed();
+            NativeMethods.GeneralizedHough_setTemplate_0(Handle, templ.Handle, templCenter);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(templ);
@@ -325,7 +323,13 @@ namespace OpenCV5Sharp
         public void SetTemplate(Mat edges, Mat dx, Mat dy, Point templCenter)
         {
             ThrowIfDisposed();
-            NativeMethods.GeneralizedHough_setTemplate_1(Handle, ValidationHelper.GetHandle(edges, nameof(edges), false), ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), templCenter);
+            if (edges == null) throw new ArgumentNullException(nameof(edges));
+            edges.ThrowIfDisposed();
+            if (dx == null) throw new ArgumentNullException(nameof(dx));
+            dx.ThrowIfDisposed();
+            if (dy == null) throw new ArgumentNullException(nameof(dy));
+            dy.ThrowIfDisposed();
+            NativeMethods.GeneralizedHough_setTemplate_1(Handle, edges.Handle, dx.Handle, dy.Handle, templCenter);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(edges);
@@ -344,7 +348,12 @@ namespace OpenCV5Sharp
         public void Detect(Mat image, Mat positions, Mat? votes)
         {
             ThrowIfDisposed();
-            NativeMethods.GeneralizedHough_detect_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(positions, nameof(positions), false), ValidationHelper.GetHandle(votes, nameof(votes), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (positions == null) throw new ArgumentNullException(nameof(positions));
+            positions.ThrowIfDisposed();
+            if (votes != null) votes.ThrowIfDisposed();
+            NativeMethods.GeneralizedHough_detect_0(Handle, image.Handle, positions.Handle, ValidationHelper.GetHandle(votes, nameof(votes), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -365,7 +374,16 @@ namespace OpenCV5Sharp
         public void Detect(Mat edges, Mat dx, Mat dy, Mat positions, Mat? votes)
         {
             ThrowIfDisposed();
-            NativeMethods.GeneralizedHough_detect_1(Handle, ValidationHelper.GetHandle(edges, nameof(edges), false), ValidationHelper.GetHandle(dx, nameof(dx), false), ValidationHelper.GetHandle(dy, nameof(dy), false), ValidationHelper.GetHandle(positions, nameof(positions), false), ValidationHelper.GetHandle(votes, nameof(votes), true));
+            if (edges == null) throw new ArgumentNullException(nameof(edges));
+            edges.ThrowIfDisposed();
+            if (dx == null) throw new ArgumentNullException(nameof(dx));
+            dx.ThrowIfDisposed();
+            if (dy == null) throw new ArgumentNullException(nameof(dy));
+            dy.ThrowIfDisposed();
+            if (positions == null) throw new ArgumentNullException(nameof(positions));
+            positions.ThrowIfDisposed();
+            if (votes != null) votes.ThrowIfDisposed();
+            NativeMethods.GeneralizedHough_detect_1(Handle, edges.Handle, dx.Handle, dy.Handle, positions.Handle, ValidationHelper.GetHandle(votes, nameof(votes), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(edges);
@@ -510,11 +528,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class GeneralizedHoughBallard : GeneralizedHough
     {
-        internal GeneralizedHoughBallard(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.GeneralizedHoughBallard_Delete(handle);
-        }
+        public new GeneralizedHoughBallardHandle Handle => (GeneralizedHoughBallardHandle)base.Handle;
+        internal GeneralizedHoughBallard(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughBallardHandle(handle, ownsHandle)) {}
+        internal GeneralizedHoughBallard(GeneralizedHoughBallardHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -576,11 +592,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class GeneralizedHoughGuil : GeneralizedHough
     {
-        internal GeneralizedHoughGuil(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.GeneralizedHoughGuil_Delete(handle);
-        }
+        public new GeneralizedHoughGuilHandle Handle => (GeneralizedHoughGuilHandle)base.Handle;
+        internal GeneralizedHoughGuil(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughGuilHandle(handle, ownsHandle)) {}
+        internal GeneralizedHoughGuil(GeneralizedHoughGuilHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -894,11 +908,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class LineSegmentDetector : Algorithm
     {
-        internal LineSegmentDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.LineSegmentDetector_Delete(handle);
-        }
+        public new LineSegmentDetectorHandle Handle => (LineSegmentDetectorHandle)base.Handle;
+        internal LineSegmentDetector(IntPtr handle, bool ownsHandle = true) : base(new LineSegmentDetectorHandle(handle, ownsHandle)) {}
+        internal LineSegmentDetector(LineSegmentDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Finds lines in the input image.
         /// </summary>
@@ -917,7 +929,14 @@ namespace OpenCV5Sharp
         public void Detect(Mat image, Mat lines, Mat? width, Mat? prec, Mat? nfa)
         {
             ThrowIfDisposed();
-            NativeMethods.LineSegmentDetector_detect_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false), ValidationHelper.GetHandle(width, nameof(width), true), ValidationHelper.GetHandle(prec, nameof(prec), true), ValidationHelper.GetHandle(nfa, nameof(nfa), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (lines == null) throw new ArgumentNullException(nameof(lines));
+            lines.ThrowIfDisposed();
+            if (width != null) width.ThrowIfDisposed();
+            if (prec != null) prec.ThrowIfDisposed();
+            if (nfa != null) nfa.ThrowIfDisposed();
+            NativeMethods.LineSegmentDetector_detect_0(Handle, image.Handle, lines.Handle, ValidationHelper.GetHandle(width, nameof(width), true), ValidationHelper.GetHandle(prec, nameof(prec), true), ValidationHelper.GetHandle(nfa, nameof(nfa), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -937,7 +956,11 @@ namespace OpenCV5Sharp
         public void DrawSegments(Mat image, Mat lines)
         {
             ThrowIfDisposed();
-            NativeMethods.LineSegmentDetector_drawSegments_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(lines, nameof(lines), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (lines == null) throw new ArgumentNullException(nameof(lines));
+            lines.ThrowIfDisposed();
+            NativeMethods.LineSegmentDetector_drawSegments_0(Handle, image.Handle, lines.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -957,7 +980,12 @@ namespace OpenCV5Sharp
         public int CompareSegments(Size size, Mat lines1, Mat lines2, Mat? image)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.LineSegmentDetector_compareSegments_0(Handle, size, ValidationHelper.GetHandle(lines1, nameof(lines1), false), ValidationHelper.GetHandle(lines2, nameof(lines2), false), ValidationHelper.GetHandle(image, nameof(image), true));
+            if (lines1 == null) throw new ArgumentNullException(nameof(lines1));
+            lines1.ThrowIfDisposed();
+            if (lines2 == null) throw new ArgumentNullException(nameof(lines2));
+            lines2.ThrowIfDisposed();
+            if (image != null) image.ThrowIfDisposed();
+            var res = NativeMethods.LineSegmentDetector_compareSegments_0(Handle, size, lines1.Handle, lines2.Handle, ValidationHelper.GetHandle(image, nameof(image), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(lines1);

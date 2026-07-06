@@ -13,25 +13,14 @@ namespace OpenCV5Sharp.Tests
         [Fact]
         public void TestOrbCreationAndConfig()
         {
-            // Allocate scoreType enum on heap: HARRIS_SCORE = 0
-            IntPtr scoreTypePtr = Marshal.AllocHGlobal(4);
-            Marshal.WriteInt32(scoreTypePtr, 0);
-
-            try
+            using (var orb = Orb.Create(500, 1.2f, 8, 31, 0, 2, 0, 31, 20))
             {
-                using (var orb = Orb.Create(500, 1.2f, 8, 31, 0, 2, scoreTypePtr, 31, 20))
-                {
-                    Assert.NotNull(orb);
-                    Assert.NotEqual(IntPtr.Zero, orb!.Handle);
+                Assert.NotNull(orb);
+                Assert.NotEqual(IntPtr.Zero, orb!.Handle);
 
-                    Assert.Equal(500, orb.GetMaxFeatures());
-                    orb.SetMaxFeatures(1000);
-                    Assert.Equal(1000, orb.GetMaxFeatures());
-                }
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(scoreTypePtr);
+                Assert.Equal(500, orb.GetMaxFeatures());
+                orb.SetMaxFeatures(1000);
+                Assert.Equal(1000, orb.GetMaxFeatures());
             }
         }
 

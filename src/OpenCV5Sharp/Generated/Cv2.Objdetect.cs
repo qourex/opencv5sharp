@@ -30,7 +30,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool FindChessboardCorners(Mat image, Size patternSize, Mat corners, int flags)
             {
-                var res = NativeMethods.cv_findChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                var res = NativeMethods.cv_findChessboardCorners_0(image.Handle, patternSize, corners.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -47,7 +51,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool CheckChessboard(Mat img, Size size)
             {
-                var res = NativeMethods.cv_checkChessboard_0(ValidationHelper.GetHandle(img, nameof(img), false), size);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_checkChessboard_0(img.Handle, size);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -78,7 +84,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags, Mat meta)
             {
-                var res = NativeMethods.cv_findChessboardCornersSB_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags, ValidationHelper.GetHandle(meta, nameof(meta), false));
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                if (meta == null) throw new ArgumentNullException(nameof(meta));
+                meta.ThrowIfDisposed();
+                var res = NativeMethods.cv_findChessboardCornersSB_0(image.Handle, patternSize, corners.Handle, flags, meta.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -98,7 +110,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool FindChessboardCornersSB(Mat image, Size patternSize, Mat corners, int flags)
             {
-                var res = NativeMethods.cv_findChessboardCornersSB_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), flags);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                var res = NativeMethods.cv_findChessboardCornersSB_1(image.Handle, patternSize, corners.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -128,7 +144,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Scalar EstimateChessboardSharpness(Mat image, Size patternSize, Mat corners, float rise_distance, bool vertical, Mat? sharpness)
             {
-                var res = NativeMethods.cv_estimateChessboardSharpness_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), rise_distance, vertical, ValidationHelper.GetHandle(sharpness, nameof(sharpness), true));
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                if (sharpness != null) sharpness.ThrowIfDisposed();
+                var res = NativeMethods.cv_estimateChessboardSharpness_0(image.Handle, patternSize, corners.Handle, rise_distance, vertical, ValidationHelper.GetHandle(sharpness, nameof(sharpness), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -147,7 +168,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool Find4QuadCornerSubpix(Mat img, Mat corners, Size region_size)
             {
-                var res = NativeMethods.cv_find4QuadCornerSubpix_0(ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(corners, nameof(corners), false), region_size);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                var res = NativeMethods.cv_find4QuadCornerSubpix_0(img.Handle, corners.Handle, region_size);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 GC.KeepAlive(corners);
@@ -165,7 +190,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DrawChessboardCorners(Mat image, Size patternSize, Mat corners, bool patternWasFound)
             {
-                NativeMethods.cv_drawChessboardCorners_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(corners, nameof(corners), false), patternWasFound);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (corners == null) throw new ArgumentNullException(nameof(corners));
+                corners.ThrowIfDisposed();
+                NativeMethods.cv_drawChessboardCorners_0(image.Handle, patternSize, corners.Handle, patternWasFound);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(corners);
@@ -189,7 +218,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector, CirclesGridFinderParameters parameters)
             {
-                var res = NativeMethods.cv_findCirclesGrid_0(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector, ValidationHelper.GetHandle(parameters, nameof(parameters), false));
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (centers == null) throw new ArgumentNullException(nameof(centers));
+                centers.ThrowIfDisposed();
+                if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+                parameters.ThrowIfDisposed();
+                var res = NativeMethods.cv_findCirclesGrid_0(image.Handle, patternSize, centers.Handle, flags, blobDetector, parameters.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(centers);
@@ -210,7 +245,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool FindCirclesGrid(Mat image, Size patternSize, Mat centers, int flags, IntPtr blobDetector)
             {
-                var res = NativeMethods.cv_findCirclesGrid_1(ValidationHelper.GetHandle(image, nameof(image), false), patternSize, ValidationHelper.GetHandle(centers, nameof(centers), false), flags, blobDetector);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (centers == null) throw new ArgumentNullException(nameof(centers));
+                centers.ThrowIfDisposed();
+                var res = NativeMethods.cv_findCirclesGrid_1(image.Handle, patternSize, centers.Handle, flags, blobDetector);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(centers);
@@ -229,7 +268,10 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ArucoDrawDetectedMarkers(Mat image, IntPtr corners, Mat? ids, Scalar borderColor)
             {
-                NativeMethods.cv_aruco_drawDetectedMarkers_0(ValidationHelper.GetHandle(image, nameof(image), false), corners, ValidationHelper.GetHandle(ids, nameof(ids), true), borderColor);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (ids != null) ids.ThrowIfDisposed();
+                NativeMethods.cv_aruco_drawDetectedMarkers_0(image.Handle, corners, ValidationHelper.GetHandle(ids, nameof(ids), true), borderColor);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(ids);
@@ -248,7 +290,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ArucoGenerateImageMarker(ArucoDictionary dictionary, int id, int sidePixels, Mat img, int borderBits)
             {
-                NativeMethods.cv_aruco_generateImageMarker_0(ValidationHelper.GetHandle(dictionary, nameof(dictionary), false), id, sidePixels, ValidationHelper.GetHandle(img, nameof(img), false), borderBits);
+                if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
+                dictionary.ThrowIfDisposed();
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                NativeMethods.cv_aruco_generateImageMarker_0(dictionary.Handle, id, sidePixels, img.Handle, borderBits);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dictionary);
                 GC.KeepAlive(img);
@@ -269,7 +315,7 @@ namespace OpenCV5Sharp
                 ArucoDictionary? resultObj = null;
                 try
                 {
-                    resultObj = new ArucoDictionary(res);
+                    resultObj = new ArucoDictionary(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -299,6 +345,7 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static ArucoDictionary? ArucoExtendDictionary(int nMarkers, int markerSize, ArucoDictionary? baseDictionary, int randomSeed)
             {
+                if (baseDictionary != null) baseDictionary.ThrowIfDisposed();
                 IntPtr res = NativeMethods.cv_aruco_extendDictionary_0(nMarkers, markerSize, ValidationHelper.GetHandle(baseDictionary, nameof(baseDictionary), true), randomSeed);
                 if (res == IntPtr.Zero)
                 {
@@ -308,7 +355,7 @@ namespace OpenCV5Sharp
                 ArucoDictionary? resultObj = null;
                 try
                 {
-                    resultObj = new ArucoDictionary(res);
+                    resultObj = new ArucoDictionary(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -337,7 +384,12 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ArucoDrawDetectedCornersCharuco(Mat image, Mat charucoCorners, Mat? charucoIds, Scalar cornerColor)
             {
-                NativeMethods.cv_aruco_drawDetectedCornersCharuco_0(ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(charucoCorners, nameof(charucoCorners), false), ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), true), cornerColor);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (charucoCorners == null) throw new ArgumentNullException(nameof(charucoCorners));
+                charucoCorners.ThrowIfDisposed();
+                if (charucoIds != null) charucoIds.ThrowIfDisposed();
+                NativeMethods.cv_aruco_drawDetectedCornersCharuco_0(image.Handle, charucoCorners.Handle, ValidationHelper.GetHandle(charucoIds, nameof(charucoIds), true), cornerColor);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(charucoCorners);
@@ -356,7 +408,10 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ArucoDrawDetectedDiamonds(Mat image, IntPtr diamondCorners, Mat? diamondIds, Scalar borderColor)
             {
-                NativeMethods.cv_aruco_drawDetectedDiamonds_0(ValidationHelper.GetHandle(image, nameof(image), false), diamondCorners, ValidationHelper.GetHandle(diamondIds, nameof(diamondIds), true), borderColor);
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (diamondIds != null) diamondIds.ThrowIfDisposed();
+                NativeMethods.cv_aruco_drawDetectedDiamonds_0(image.Handle, diamondCorners, ValidationHelper.GetHandle(diamondIds, nameof(diamondIds), true), borderColor);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(image);
                 GC.KeepAlive(diamondIds);

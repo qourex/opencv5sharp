@@ -20,29 +20,31 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Aliked : Feature2D
     {
-        internal Aliked(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ALIKED_Delete(handle);
-        }
+        public new AlikedHandle Handle => (AlikedHandle)base.Handle;
+        internal Aliked(IntPtr handle, bool ownsHandle = true) : base(new AlikedHandle(handle, ownsHandle)) {}
+        internal Aliked(AlikedHandle handle) : base(handle) {}
         /// <summary>
         /// Creates ALIKED from a model file path.
         /// </summary>
         /// <param name="modelPath">Path to the ONNX model file.</param>
         /// <param name="params">ALIKED parameters.</param>
         /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Aliked? Create(string modelPath, IntPtr @params)
+        public static Aliked? Create(string modelPath, AlikedParams? @params)
         {
-            IntPtr res = NativeMethods.ALIKED_create_0(modelPath, @params);
+            if (@params != null) @params.ThrowIfDisposed();
+            IntPtr res = NativeMethods.ALIKED_create_0(modelPath, ValidationHelper.GetHandle(@params, nameof(@params), true));
             if (res == IntPtr.Zero)
             {
+                GC.KeepAlive(@params);
                 return null;
             }
             Aliked? resultObj = null;
             try
             {
-                resultObj = new Aliked(res);
+                resultObj = new Aliked(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -56,6 +58,7 @@ namespace OpenCV5Sharp
             }
             finally
             {
+                GC.KeepAlive(@params);
             }
         }
     }
@@ -66,17 +69,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class AlikedParams : DisposableOpenCVObject
     {
-        internal AlikedParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ALIKED_Params_Delete(handle);
-        }
+        public new AlikedParamsHandle Handle => (AlikedParamsHandle)base.Handle;
+        internal AlikedParams(IntPtr handle, bool ownsHandle = true) : base(new AlikedParamsHandle(handle, ownsHandle)) {}
+        internal AlikedParams(AlikedParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public AlikedParams()
-            : base(NativeMethods.ALIKED_Params_New_0())
+            : base(new AlikedParamsHandle(NativeMethods.ALIKED_Params_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -127,11 +128,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class ANNIndex : DisposableOpenCVObject
     {
-        internal ANNIndex(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ANNIndex_Delete(handle);
-        }
+        public new ANNIndexHandle Handle => (ANNIndexHandle)base.Handle;
+        internal ANNIndex(IntPtr handle, bool ownsHandle = true) : base(new ANNIndexHandle(handle, ownsHandle)) {}
+        internal ANNIndex(ANNIndexHandle handle) : base(handle) {}
         /// <summary>
         /// Add feature vectors to index.
         /// *
@@ -143,7 +142,9 @@ namespace OpenCV5Sharp
         public void AddItems(Mat features)
         {
             ThrowIfDisposed();
-            NativeMethods.ANNIndex_addItems_0(Handle, ValidationHelper.GetHandle(features, nameof(features), false));
+            if (features == null) throw new ArgumentNullException(nameof(features));
+            features.ThrowIfDisposed();
+            NativeMethods.ANNIndex_addItems_0(Handle, features.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(features);
@@ -176,7 +177,13 @@ namespace OpenCV5Sharp
         public void KnnSearch(Mat query, Mat indices, Mat dists, int knn, int search_k)
         {
             ThrowIfDisposed();
-            NativeMethods.ANNIndex_knnSearch_0(Handle, ValidationHelper.GetHandle(query, nameof(query), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(dists, nameof(dists), false), knn, search_k);
+            if (query == null) throw new ArgumentNullException(nameof(query));
+            query.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (dists == null) throw new ArgumentNullException(nameof(dists));
+            dists.ThrowIfDisposed();
+            NativeMethods.ANNIndex_knnSearch_0(Handle, query.Handle, indices.Handle, dists.Handle, knn, search_k);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(query);
@@ -275,9 +282,9 @@ namespace OpenCV5Sharp
         /// <param name="distType">Metric to calculate the distance between two feature vectors, can be DIST_EUCLIDEAN, DIST_MANHATTAN, DIST_ANGULAR, DIST_HAMMING, or DIST_DOTPRODUCT.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static ANNIndex? Create(int dim, IntPtr distType)
+        public static ANNIndex? Create(int dim, int distType)
         {
-            IntPtr res = NativeMethods.ANNIndex_create_0(dim, distType);
+            IntPtr res = NativeMethods.ANNIndex_create_0(dim, (int)distType);
             if (res == IntPtr.Zero)
             {
                 return null;
@@ -285,7 +292,7 @@ namespace OpenCV5Sharp
             ANNIndex? resultObj = null;
             try
             {
-                resultObj = new ANNIndex(res);
+                resultObj = new ANNIndex(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -310,11 +317,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class AffineFeature : Feature2D
     {
-        internal AffineFeature(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.AffineFeature_Delete(handle);
-        }
+        public new AffineFeatureHandle Handle => (AffineFeatureHandle)base.Handle;
+        internal AffineFeature(IntPtr handle, bool ownsHandle = true) : base(new AffineFeatureHandle(handle, ownsHandle)) {}
+        internal AffineFeature(AffineFeatureHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -329,7 +334,9 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static AffineFeature? Create(Feature2D backend, int maxTilt, int minTilt, float tiltStep, float rotateStepBase)
         {
-            IntPtr res = NativeMethods.AffineFeature_create_0(ValidationHelper.GetHandle(backend, nameof(backend), false), maxTilt, minTilt, tiltStep, rotateStepBase);
+            if (backend == null) throw new ArgumentNullException(nameof(backend));
+            backend.ThrowIfDisposed();
+            IntPtr res = NativeMethods.AffineFeature_create_0(backend.Handle, maxTilt, minTilt, tiltStep, rotateStepBase);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(backend);
@@ -338,7 +345,7 @@ namespace OpenCV5Sharp
             AffineFeature? resultObj = null;
             try
             {
-                resultObj = new AffineFeature(res);
+                resultObj = new AffineFeature(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -420,11 +427,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class BFMatcher : DescriptorMatcher
     {
-        internal BFMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.BFMatcher_Delete(handle);
-        }
+        public new BFMatcherHandle Handle => (BFMatcherHandle)base.Handle;
+        internal BFMatcher(IntPtr handle, bool ownsHandle = true) : base(new BFMatcherHandle(handle, ownsHandle)) {}
+        internal BFMatcher(BFMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Brute-force matcher constructor (obsolete). Please use BFMatcher.create()
         /// *
@@ -434,7 +439,7 @@ namespace OpenCV5Sharp
         /// <param name="crossCheck">The crossCheck parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public BFMatcher(int normType, bool crossCheck)
-            : base(NativeMethods.BFMatcher_New_0(normType, crossCheck))
+            : base(new BFMatcherHandle(NativeMethods.BFMatcher_New_0(normType, crossCheck)))
         {
             ErrorHelper.CheckError();
         }
@@ -455,7 +460,7 @@ namespace OpenCV5Sharp
             BFMatcher? resultObj = null;
             try
             {
-                resultObj = new BFMatcher(res);
+                resultObj = new BFMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -483,11 +488,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DescriptorMatcher : Algorithm
     {
-        internal DescriptorMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.DescriptorMatcher_Delete(handle);
-        }
+        public new DescriptorMatcherHandle Handle => (DescriptorMatcherHandle)base.Handle;
+        internal DescriptorMatcher(IntPtr handle, bool ownsHandle = true) : base(new DescriptorMatcherHandle(handle, ownsHandle)) {}
+        internal DescriptorMatcher(DescriptorMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Adds descriptors to train a CPU(trainDescCollectionis) or GPU(utrainDescCollectionis) descriptor
         /// collection.
@@ -584,7 +587,12 @@ namespace OpenCV5Sharp
         public void Match(Mat queryDescriptors, Mat trainDescriptors, IntPtr matches, Mat? mask)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_match_0(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), ValidationHelper.GetHandle(trainDescriptors, nameof(trainDescriptors), false), matches, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            if (trainDescriptors == null) throw new ArgumentNullException(nameof(trainDescriptors));
+            trainDescriptors.ThrowIfDisposed();
+            if (mask != null) mask.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_match_0(Handle, queryDescriptors.Handle, trainDescriptors.Handle, matches, ValidationHelper.GetHandle(mask, nameof(mask), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -606,7 +614,12 @@ namespace OpenCV5Sharp
         public void KnnMatch(Mat queryDescriptors, Mat trainDescriptors, IntPtr matches, int k, Mat? mask, bool compactResult)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_knnMatch_0(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), ValidationHelper.GetHandle(trainDescriptors, nameof(trainDescriptors), false), matches, k, ValidationHelper.GetHandle(mask, nameof(mask), true), compactResult);
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            if (trainDescriptors == null) throw new ArgumentNullException(nameof(trainDescriptors));
+            trainDescriptors.ThrowIfDisposed();
+            if (mask != null) mask.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_knnMatch_0(Handle, queryDescriptors.Handle, trainDescriptors.Handle, matches, k, ValidationHelper.GetHandle(mask, nameof(mask), true), compactResult);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -628,7 +641,12 @@ namespace OpenCV5Sharp
         public void RadiusMatch(Mat queryDescriptors, Mat trainDescriptors, IntPtr matches, float maxDistance, Mat? mask, bool compactResult)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_radiusMatch_0(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), ValidationHelper.GetHandle(trainDescriptors, nameof(trainDescriptors), false), matches, maxDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), compactResult);
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            if (trainDescriptors == null) throw new ArgumentNullException(nameof(trainDescriptors));
+            trainDescriptors.ThrowIfDisposed();
+            if (mask != null) mask.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_radiusMatch_0(Handle, queryDescriptors.Handle, trainDescriptors.Handle, matches, maxDistance, ValidationHelper.GetHandle(mask, nameof(mask), true), compactResult);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -647,7 +665,9 @@ namespace OpenCV5Sharp
         public void Match(Mat queryDescriptors, IntPtr matches, IntPtr masks)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_match_1(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), matches, masks);
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_match_1(Handle, queryDescriptors.Handle, matches, masks);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -666,7 +686,9 @@ namespace OpenCV5Sharp
         public void KnnMatch(Mat queryDescriptors, IntPtr matches, int k, IntPtr masks, bool compactResult)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_knnMatch_1(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), matches, k, masks, compactResult);
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_knnMatch_1(Handle, queryDescriptors.Handle, matches, k, masks, compactResult);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -685,7 +707,9 @@ namespace OpenCV5Sharp
         public void RadiusMatch(Mat queryDescriptors, IntPtr matches, float maxDistance, IntPtr masks, bool compactResult)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_radiusMatch_1(Handle, ValidationHelper.GetHandle(queryDescriptors, nameof(queryDescriptors), false), matches, maxDistance, masks, compactResult);
+            if (queryDescriptors == null) throw new ArgumentNullException(nameof(queryDescriptors));
+            queryDescriptors.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_radiusMatch_1(Handle, queryDescriptors.Handle, matches, maxDistance, masks, compactResult);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryDescriptors);
@@ -724,7 +748,9 @@ namespace OpenCV5Sharp
         public new void Read(FileNode arg1)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_read_1(Handle, ValidationHelper.GetHandle(arg1, nameof(arg1), false));
+            if (arg1 == null) throw new ArgumentNullException(nameof(arg1));
+            arg1.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_read_1(Handle, arg1.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(arg1);
@@ -747,7 +773,7 @@ namespace OpenCV5Sharp
             DescriptorMatcher? resultObj = null;
             try
             {
-                resultObj = new DescriptorMatcher(res);
+                resultObj = new DescriptorMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -781,7 +807,7 @@ namespace OpenCV5Sharp
             DescriptorMatcher? resultObj = null;
             try
             {
-                resultObj = new DescriptorMatcher(res);
+                resultObj = new DescriptorMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -803,9 +829,9 @@ namespace OpenCV5Sharp
         /// <param name="matcherType">The matcherType parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static DescriptorMatcher? Create(IntPtr matcherType)
+        public static DescriptorMatcher? Create(int matcherType)
         {
-            IntPtr res = NativeMethods.DescriptorMatcher_create_1(matcherType);
+            IntPtr res = NativeMethods.DescriptorMatcher_create_1((int)matcherType);
             if (res == IntPtr.Zero)
             {
                 return null;
@@ -813,7 +839,7 @@ namespace OpenCV5Sharp
             DescriptorMatcher? resultObj = null;
             try
             {
-                resultObj = new DescriptorMatcher(res);
+                resultObj = new DescriptorMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -840,7 +866,9 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
-            NativeMethods.DescriptorMatcher_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.DescriptorMatcher_write_1(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -856,11 +884,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class FastFeatureDetector : Feature2D
     {
-        internal FastFeatureDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.FastFeatureDetector_Delete(handle);
-        }
+        public new FastFeatureDetectorHandle Handle => (FastFeatureDetectorHandle)base.Handle;
+        internal FastFeatureDetector(IntPtr handle, bool ownsHandle = true) : base(new FastFeatureDetectorHandle(handle, ownsHandle)) {}
+        internal FastFeatureDetector(FastFeatureDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -869,9 +895,9 @@ namespace OpenCV5Sharp
         /// <param name="type">The type parameter.</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static FastFeatureDetector? Create(int threshold, bool nonmaxSuppression, IntPtr type)
+        public static FastFeatureDetector? Create(int threshold, bool nonmaxSuppression, int type)
         {
-            IntPtr res = NativeMethods.FastFeatureDetector_create_0(threshold, nonmaxSuppression, type);
+            IntPtr res = NativeMethods.FastFeatureDetector_create_0(threshold, nonmaxSuppression, (int)type);
             if (res == IntPtr.Zero)
             {
                 return null;
@@ -879,7 +905,7 @@ namespace OpenCV5Sharp
             FastFeatureDetector? resultObj = null;
             try
             {
-                resultObj = new FastFeatureDetector(res);
+                resultObj = new FastFeatureDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -950,10 +976,10 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <param name="type">The type parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void SetType(IntPtr type)
+        public void SetType(int type)
         {
             ThrowIfDisposed();
-            NativeMethods.FastFeatureDetector_setType_0(Handle, type);
+            NativeMethods.FastFeatureDetector_setType_0(Handle, (int)type);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
         }
@@ -962,13 +988,13 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public new IntPtr GetType()
+        public new int GetType()
         {
             ThrowIfDisposed();
             var res = NativeMethods.FastFeatureDetector_getType_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -1004,11 +1030,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Feature2D : Algorithm
     {
-        internal Feature2D(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Feature2D_Delete(handle);
-        }
+        public new Feature2DHandle Handle => (Feature2DHandle)base.Handle;
+        internal Feature2D(IntPtr handle, bool ownsHandle = true) : base(new Feature2DHandle(handle, ownsHandle)) {}
+        internal Feature2D(Feature2DHandle handle) : base(handle) {}
         /// <summary>
         /// Detects keypoints in an image (first variant) or image set (second variant).
         /// </summary>
@@ -1021,7 +1045,10 @@ namespace OpenCV5Sharp
         public void Detect(Mat image, IntPtr keypoints, Mat? mask)
         {
             ThrowIfDisposed();
-            NativeMethods.Feature2D_detect_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), keypoints, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask != null) mask.ThrowIfDisposed();
+            NativeMethods.Feature2D_detect_0(Handle, image.Handle, keypoints, ValidationHelper.GetHandle(mask, nameof(mask), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1054,7 +1081,11 @@ namespace OpenCV5Sharp
         public void Compute(Mat image, IntPtr keypoints, Mat descriptors)
         {
             ThrowIfDisposed();
-            NativeMethods.Feature2D_compute_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), keypoints, ValidationHelper.GetHandle(descriptors, nameof(descriptors), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (descriptors == null) throw new ArgumentNullException(nameof(descriptors));
+            descriptors.ThrowIfDisposed();
+            NativeMethods.Feature2D_compute_0(Handle, image.Handle, keypoints, descriptors.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1088,7 +1119,13 @@ namespace OpenCV5Sharp
         public void DetectAndCompute(Mat image, Mat mask, IntPtr keypoints, Mat descriptors, bool useProvidedKeypoints)
         {
             ThrowIfDisposed();
-            NativeMethods.Feature2D_detectAndCompute_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false), keypoints, ValidationHelper.GetHandle(descriptors, nameof(descriptors), false), useProvidedKeypoints);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            if (descriptors == null) throw new ArgumentNullException(nameof(descriptors));
+            descriptors.ThrowIfDisposed();
+            NativeMethods.Feature2D_detectAndCompute_0(Handle, image.Handle, mask.Handle, keypoints, descriptors.Handle, useProvidedKeypoints);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1168,7 +1205,9 @@ namespace OpenCV5Sharp
         public new void Read(FileNode arg1)
         {
             ThrowIfDisposed();
-            NativeMethods.Feature2D_read_1(Handle, ValidationHelper.GetHandle(arg1, nameof(arg1), false));
+            if (arg1 == null) throw new ArgumentNullException(nameof(arg1));
+            arg1.ThrowIfDisposed();
+            NativeMethods.Feature2D_read_1(Handle, arg1.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(arg1);
@@ -1223,7 +1262,9 @@ namespace OpenCV5Sharp
         public new void Write(FileStorage fs, string name)
         {
             ThrowIfDisposed();
-            NativeMethods.Feature2D_write_1(Handle, ValidationHelper.GetHandle(fs, nameof(fs), false), name);
+            if (fs == null) throw new ArgumentNullException(nameof(fs));
+            fs.ThrowIfDisposed();
+            NativeMethods.Feature2D_write_1(Handle, fs.Handle, name);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(fs);
@@ -1236,11 +1277,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class GFTTDetector : Feature2D
     {
-        internal GFTTDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.GFTTDetector_Delete(handle);
-        }
+        public new GFTTDetectorHandle Handle => (GFTTDetectorHandle)base.Handle;
+        internal GFTTDetector(IntPtr handle, bool ownsHandle = true) : base(new GFTTDetectorHandle(handle, ownsHandle)) {}
+        internal GFTTDetector(GFTTDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1262,7 +1301,7 @@ namespace OpenCV5Sharp
             GFTTDetector? resultObj = null;
             try
             {
-                resultObj = new GFTTDetector(res);
+                resultObj = new GFTTDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1300,7 +1339,7 @@ namespace OpenCV5Sharp
             GFTTDetector? resultObj = null;
             try
             {
-                resultObj = new GFTTDetector(res);
+                resultObj = new GFTTDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1534,11 +1573,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class LightGlueMatcher : DescriptorMatcher
     {
-        internal LightGlueMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.LightGlueMatcher_Delete(handle);
-        }
+        public new LightGlueMatcherHandle Handle => (LightGlueMatcherHandle)base.Handle;
+        internal LightGlueMatcher(IntPtr handle, bool ownsHandle = true) : base(new LightGlueMatcherHandle(handle, ownsHandle)) {}
+        internal LightGlueMatcher(LightGlueMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Creates LightGlueMatcher from a model file path.
         /// </summary>
@@ -1558,7 +1595,7 @@ namespace OpenCV5Sharp
             LightGlueMatcher? resultObj = null;
             try
             {
-                resultObj = new LightGlueMatcher(res);
+                resultObj = new LightGlueMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1592,7 +1629,11 @@ namespace OpenCV5Sharp
         public void SetPairInfo(Mat queryKpts, Mat trainKpts, Size queryImageSize, Size trainImageSize)
         {
             ThrowIfDisposed();
-            NativeMethods.LightGlueMatcher_setPairInfo_0(Handle, ValidationHelper.GetHandle(queryKpts, nameof(queryKpts), false), ValidationHelper.GetHandle(trainKpts, nameof(trainKpts), false), queryImageSize, trainImageSize);
+            if (queryKpts == null) throw new ArgumentNullException(nameof(queryKpts));
+            queryKpts.ThrowIfDisposed();
+            if (trainKpts == null) throw new ArgumentNullException(nameof(trainKpts));
+            trainKpts.ThrowIfDisposed();
+            NativeMethods.LightGlueMatcher_setPairInfo_0(Handle, queryKpts.Handle, trainKpts.Handle, queryImageSize, trainImageSize);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(queryKpts);
@@ -1627,11 +1668,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Mser : Feature2D
     {
-        internal Mser(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MSER_Delete(handle);
-        }
+        public new MserHandle Handle => (MserHandle)base.Handle;
+        internal Mser(IntPtr handle, bool ownsHandle = true) : base(new MserHandle(handle, ownsHandle)) {}
+        internal Mser(MserHandle handle) : base(handle) {}
         /// <summary>
         /// Full constructor for %MSER detector
         /// </summary>
@@ -1656,7 +1695,7 @@ namespace OpenCV5Sharp
             Mser? resultObj = null;
             try
             {
-                resultObj = new Mser(res);
+                resultObj = new Mser(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1684,7 +1723,9 @@ namespace OpenCV5Sharp
         public void DetectRegions(Mat image, IntPtr msers, IntPtr bboxes)
         {
             ThrowIfDisposed();
-            NativeMethods.MSER_detectRegions_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), msers, bboxes);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            NativeMethods.MSER_detectRegions_0(Handle, image.Handle, msers, bboxes);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1979,11 +2020,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Orb : Feature2D
     {
-        internal Orb(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.ORB_Delete(handle);
-        }
+        public new OrbHandle Handle => (OrbHandle)base.Handle;
+        internal Orb(IntPtr handle, bool ownsHandle = true) : base(new OrbHandle(handle, ownsHandle)) {}
+        internal Orb(OrbHandle handle) : base(handle) {}
         /// <summary>
         /// The ORB constructor
         /// </summary>
@@ -1998,9 +2037,9 @@ namespace OpenCV5Sharp
         /// <param name="fastThreshold">the fast threshold</param>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static Orb? Create(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, IntPtr scoreType, int patchSize, int fastThreshold)
+        public static Orb? Create(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold)
         {
-            IntPtr res = NativeMethods.ORB_create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, scoreType, patchSize, fastThreshold);
+            IntPtr res = NativeMethods.ORB_create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, (int)scoreType, patchSize, fastThreshold);
             if (res == IntPtr.Zero)
             {
                 return null;
@@ -2008,7 +2047,7 @@ namespace OpenCV5Sharp
             Orb? resultObj = null;
             try
             {
-                resultObj = new Orb(res);
+                resultObj = new Orb(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2179,10 +2218,10 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <param name="scoreType">The scoreType parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void SetScoreType(IntPtr scoreType)
+        public void SetScoreType(int scoreType)
         {
             ThrowIfDisposed();
-            NativeMethods.ORB_setScoreType_0(Handle, scoreType);
+            NativeMethods.ORB_setScoreType_0(Handle, (int)scoreType);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
         }
@@ -2191,13 +2230,13 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetScoreType()
+        public int GetScoreType()
         {
             ThrowIfDisposed();
             var res = NativeMethods.ORB_getScoreType_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -2284,11 +2323,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Sift : Feature2D
     {
-        internal Sift(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.SIFT_Delete(handle);
-        }
+        public new SiftHandle Handle => (SiftHandle)base.Handle;
+        internal Sift(IntPtr handle, bool ownsHandle = true) : base(new SiftHandle(handle, ownsHandle)) {}
+        internal Sift(SiftHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2315,7 +2352,7 @@ namespace OpenCV5Sharp
             Sift? resultObj = null;
             try
             {
-                resultObj = new Sift(res);
+                resultObj = new Sift(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2358,7 +2395,7 @@ namespace OpenCV5Sharp
             Sift? resultObj = null;
             try
             {
-                resultObj = new Sift(res);
+                resultObj = new Sift(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2559,11 +2596,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class SimpleBlobDetector : Feature2D
     {
-        internal SimpleBlobDetector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.SimpleBlobDetector_Delete(handle);
-        }
+        public new SimpleBlobDetectorHandle Handle => (SimpleBlobDetectorHandle)base.Handle;
+        internal SimpleBlobDetector(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorHandle(handle, ownsHandle)) {}
+        internal SimpleBlobDetector(SimpleBlobDetectorHandle handle) : base(handle) {}
         /// <summary>
         /// Flag to enable contour collection.
         /// If set to true, the detector will store the contours of the detected blobs in memory,
@@ -2571,21 +2606,25 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <param name="parameters">The parameters parameter.</param>
         /// <returns>The returned value.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         /// <remarks>
         /// Default value is false.
         /// </remarks>
-        public static SimpleBlobDetector? Create(IntPtr parameters)
+        public static SimpleBlobDetector? Create(SimpleBlobDetectorParams? parameters)
         {
-            IntPtr res = NativeMethods.SimpleBlobDetector_create_0(parameters);
+            if (parameters != null) parameters.ThrowIfDisposed();
+            IntPtr res = NativeMethods.SimpleBlobDetector_create_0(ValidationHelper.GetHandle(parameters, nameof(parameters), true));
             if (res == IntPtr.Zero)
             {
+                GC.KeepAlive(parameters);
                 return null;
             }
             SimpleBlobDetector? resultObj = null;
             try
             {
-                resultObj = new SimpleBlobDetector(res);
+                resultObj = new SimpleBlobDetector(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2599,32 +2638,59 @@ namespace OpenCV5Sharp
             }
             finally
             {
+                GC.KeepAlive(parameters);
             }
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="params">The @params parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void SetParams(IntPtr @params)
+        public void SetParams(SimpleBlobDetectorParams @params)
         {
             ThrowIfDisposed();
-            NativeMethods.SimpleBlobDetector_setParams_0(Handle, @params);
+            if (@params == null) throw new ArgumentNullException(nameof(@params));
+            @params.ThrowIfDisposed();
+            NativeMethods.SimpleBlobDetector_setParams_0(Handle, @params.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
+            GC.KeepAlive(@params);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetParams()
+        public SimpleBlobDetectorParams? GetParams()
         {
             ThrowIfDisposed();
-            var res = NativeMethods.SimpleBlobDetector_getParams_0(Handle);
-            ErrorHelper.CheckError();
-            GC.KeepAlive(this);
-            return res;
+            IntPtr res = NativeMethods.SimpleBlobDetector_getParams_0(Handle);
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(this);
+                return null;
+            }
+            SimpleBlobDetectorParams? resultObj = null;
+            try
+            {
+                resultObj = new SimpleBlobDetectorParams(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.SimpleBlobDetector_Params_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(this);
+            }
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -2677,17 +2743,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class SimpleBlobDetectorParams : DisposableOpenCVObject
     {
-        internal SimpleBlobDetectorParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.SimpleBlobDetector_Params_Delete(handle);
-        }
+        public new SimpleBlobDetectorParamsHandle Handle => (SimpleBlobDetectorParamsHandle)base.Handle;
+        internal SimpleBlobDetectorParams(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorParamsHandle(handle, ownsHandle)) {}
+        internal SimpleBlobDetectorParams(SimpleBlobDetectorParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public SimpleBlobDetectorParams()
-            : base(NativeMethods.SimpleBlobDetector_Params_New_0())
+            : base(new SimpleBlobDetectorParamsHandle(NativeMethods.SimpleBlobDetector_Params_New_0()))
         {
             ErrorHelper.CheckError();
         }

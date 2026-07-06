@@ -23,7 +23,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailFocalsFromHomography(Mat H, double f0, double f1, bool f0_ok, bool f1_ok)
             {
-                NativeMethods.cv_detail_focalsFromHomography_0(ValidationHelper.GetHandle(H, nameof(H), false), f0, f1, f0_ok, f1_ok);
+                if (H == null) throw new ArgumentNullException(nameof(H));
+                H.ThrowIfDisposed();
+                NativeMethods.cv_detail_focalsFromHomography_0(H.Handle, f0, f1, f0_ok, f1_ok);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(H);
             }
@@ -38,7 +40,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool DetailCalibrateRotatingCamera(IntPtr Hs, Mat K)
             {
-                var res = NativeMethods.cv_detail_calibrateRotatingCamera_0(Hs, ValidationHelper.GetHandle(K, nameof(K), false));
+                if (K == null) throw new ArgumentNullException(nameof(K));
+                K.ThrowIfDisposed();
+                var res = NativeMethods.cv_detail_calibrateRotatingCamera_0(Hs, K.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(K);
                 return res;
@@ -53,7 +57,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailNormalizeUsingWeightMap(Mat weight, Mat src)
             {
-                NativeMethods.cv_detail_normalizeUsingWeightMap_0(ValidationHelper.GetHandle(weight, nameof(weight), false), ValidationHelper.GetHandle(src, nameof(src), false));
+                if (weight == null) throw new ArgumentNullException(nameof(weight));
+                weight.ThrowIfDisposed();
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                NativeMethods.cv_detail_normalizeUsingWeightMap_0(weight.Handle, src.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(weight);
                 GC.KeepAlive(src);
@@ -69,7 +77,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailCreateWeightMap(Mat mask, float sharpness, Mat weight)
             {
-                NativeMethods.cv_detail_createWeightMap_0(ValidationHelper.GetHandle(mask, nameof(mask), false), sharpness, ValidationHelper.GetHandle(weight, nameof(weight), false));
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (weight == null) throw new ArgumentNullException(nameof(weight));
+                weight.ThrowIfDisposed();
+                NativeMethods.cv_detail_createWeightMap_0(mask.Handle, sharpness, weight.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(mask);
                 GC.KeepAlive(weight);
@@ -85,7 +97,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailCreateLaplacePyr(Mat img, int num_levels, IntPtr pyr)
             {
-                NativeMethods.cv_detail_createLaplacePyr_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                NativeMethods.cv_detail_createLaplacePyr_0(img.Handle, num_levels, pyr);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
             }
@@ -100,7 +114,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailCreateLaplacePyrGpu(Mat img, int num_levels, IntPtr pyr)
             {
-                NativeMethods.cv_detail_createLaplacePyrGpu_0(ValidationHelper.GetHandle(img, nameof(img), false), num_levels, pyr);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                NativeMethods.cv_detail_createLaplacePyrGpu_0(img.Handle, num_levels, pyr);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
             }
@@ -136,7 +152,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailComputeImageFeatures(Feature2D featuresFinder, IntPtr images, IntPtr features, IntPtr masks)
             {
-                NativeMethods.cv_detail_computeImageFeatures_0(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), images, features, masks);
+                if (featuresFinder == null) throw new ArgumentNullException(nameof(featuresFinder));
+                featuresFinder.ThrowIfDisposed();
+                NativeMethods.cv_detail_computeImageFeatures_0(featuresFinder.Handle, images, features, masks);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(featuresFinder);
             }
@@ -152,7 +170,14 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailComputeImageFeatures(Feature2D featuresFinder, Mat image, DetailImageFeatures features, Mat? mask)
             {
-                NativeMethods.cv_detail_computeImageFeatures_1(ValidationHelper.GetHandle(featuresFinder, nameof(featuresFinder), false), ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(features, nameof(features), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (featuresFinder == null) throw new ArgumentNullException(nameof(featuresFinder));
+                featuresFinder.ThrowIfDisposed();
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (features == null) throw new ArgumentNullException(nameof(features));
+                features.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_detail_computeImageFeatures_1(featuresFinder.Handle, image.Handle, features.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(featuresFinder);
                 GC.KeepAlive(image);

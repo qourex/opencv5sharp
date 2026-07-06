@@ -69,7 +69,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -101,7 +101,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Imread(string filename, Mat dst, int flags)
             {
-                NativeMethods.cv_imread_1(filename, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_imread_1(filename, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -130,7 +132,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -201,7 +203,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imreadanimation(string filename, Animation animation, int start, int count)
             {
-                var res = NativeMethods.cv_imreadanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
+                if (animation == null) throw new ArgumentNullException(nameof(animation));
+                animation.ThrowIfDisposed();
+                var res = NativeMethods.cv_imreadanimation_0(filename, animation.Handle, start, count);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(animation);
                 return res;
@@ -222,7 +226,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imdecodeanimation(Mat buf, Animation animation, int start, int count)
             {
-                var res = NativeMethods.cv_imdecodeanimation_0(ValidationHelper.GetHandle(buf, nameof(buf), false), ValidationHelper.GetHandle(animation, nameof(animation), false), start, count);
+                if (buf == null) throw new ArgumentNullException(nameof(buf));
+                buf.ThrowIfDisposed();
+                if (animation == null) throw new ArgumentNullException(nameof(animation));
+                animation.ThrowIfDisposed();
+                var res = NativeMethods.cv_imdecodeanimation_0(buf.Handle, animation.Handle, start, count);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(buf);
                 GC.KeepAlive(animation);
@@ -244,7 +252,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imwriteanimation(string filename, Animation animation, IntPtr @params)
             {
-                var res = NativeMethods.cv_imwriteanimation_0(filename, ValidationHelper.GetHandle(animation, nameof(animation), false), @params);
+                if (animation == null) throw new ArgumentNullException(nameof(animation));
+                animation.ThrowIfDisposed();
+                var res = NativeMethods.cv_imwriteanimation_0(filename, animation.Handle, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(animation);
                 return res;
@@ -267,7 +277,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imencodeanimation(string ext, Animation animation, IntPtr buf, IntPtr @params)
             {
-                var res = NativeMethods.cv_imencodeanimation_0(ext, ValidationHelper.GetHandle(animation, nameof(animation), false), buf, @params);
+                if (animation == null) throw new ArgumentNullException(nameof(animation));
+                animation.ThrowIfDisposed();
+                var res = NativeMethods.cv_imencodeanimation_0(ext, animation.Handle, buf, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(animation);
                 return res;
@@ -356,7 +368,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imwrite(string filename, Mat img, IntPtr @params)
             {
-                var res = NativeMethods.cv_imwrite_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), @params);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_imwrite_0(filename, img.Handle, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -378,7 +392,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool ImwriteWithMetadata(string filename, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr @params)
             {
-                var res = NativeMethods.cv_imwriteWithMetadata_0(filename, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, @params);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_imwriteWithMetadata_0(filename, img.Handle, metadataTypes, metadata, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -414,7 +430,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Mat? Imdecode(Mat buf, int flags)
             {
-                IntPtr res = NativeMethods.cv_imdecode_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags);
+                if (buf == null) throw new ArgumentNullException(nameof(buf));
+                buf.ThrowIfDisposed();
+                IntPtr res = NativeMethods.cv_imdecode_0(buf.Handle, flags);
                 if (res == IntPtr.Zero)
                 {
                     GC.KeepAlive(buf);
@@ -423,7 +441,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -459,7 +477,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Mat? ImdecodeWithMetadata(Mat buf, IntPtr metadataTypes, IntPtr metadata, int flags)
             {
-                IntPtr res = NativeMethods.cv_imdecodeWithMetadata_0(ValidationHelper.GetHandle(buf, nameof(buf), false), metadataTypes, metadata, flags);
+                if (buf == null) throw new ArgumentNullException(nameof(buf));
+                buf.ThrowIfDisposed();
+                IntPtr res = NativeMethods.cv_imdecodeWithMetadata_0(buf.Handle, metadataTypes, metadata, flags);
                 if (res == IntPtr.Zero)
                 {
                     GC.KeepAlive(buf);
@@ -468,7 +488,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -504,7 +524,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imdecodemulti(Mat buf, int flags, IntPtr mats, Range range)
             {
-                var res = NativeMethods.cv_imdecodemulti_0(ValidationHelper.GetHandle(buf, nameof(buf), false), flags, mats, range);
+                if (buf == null) throw new ArgumentNullException(nameof(buf));
+                buf.ThrowIfDisposed();
+                var res = NativeMethods.cv_imdecodemulti_0(buf.Handle, flags, mats, range);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(buf);
                 return res;
@@ -526,7 +548,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Imencode(string ext, Mat img, IntPtr buf, IntPtr @params)
             {
-                var res = NativeMethods.cv_imencode_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), buf, @params);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_imencode_0(ext, img.Handle, buf, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -550,7 +574,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool ImencodeWithMetadata(string ext, Mat img, IntPtr metadataTypes, IntPtr metadata, IntPtr buf, IntPtr @params)
             {
-                var res = NativeMethods.cv_imencodeWithMetadata_0(ext, ValidationHelper.GetHandle(img, nameof(img), false), metadataTypes, metadata, buf, @params);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_imencodeWithMetadata_0(ext, img.Handle, metadataTypes, metadata, buf, @params);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;

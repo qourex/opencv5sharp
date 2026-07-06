@@ -34,7 +34,29 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void StereoRectify(Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, double alpha, Size newImageSize, IntPtr validPixROI1, IntPtr validPixROI2)
             {
-                NativeMethods.cv_stereoRectify_0(ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, alpha, newImageSize, validPixROI1, validPixROI2);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (R1 == null) throw new ArgumentNullException(nameof(R1));
+                R1.ThrowIfDisposed();
+                if (R2 == null) throw new ArgumentNullException(nameof(R2));
+                R2.ThrowIfDisposed();
+                if (P1 == null) throw new ArgumentNullException(nameof(P1));
+                P1.ThrowIfDisposed();
+                if (P2 == null) throw new ArgumentNullException(nameof(P2));
+                P2.ThrowIfDisposed();
+                if (Q == null) throw new ArgumentNullException(nameof(Q));
+                Q.ThrowIfDisposed();
+                NativeMethods.cv_stereoRectify_0(cameraMatrix1.Handle, distCoeffs1.Handle, cameraMatrix2.Handle, distCoeffs2.Handle, imageSize, R.Handle, T.Handle, R1.Handle, R2.Handle, P1.Handle, P2.Handle, Q.Handle, flags, alpha, newImageSize, validPixROI1, validPixROI2);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -73,7 +95,17 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool StereoRectifyUncalibrated(Mat points1, Mat points2, Mat F, Size imgSize, Mat H1, Mat H2, double threshold)
             {
-                var res = NativeMethods.cv_stereoRectifyUncalibrated_0(ValidationHelper.GetHandle(points1, nameof(points1), false), ValidationHelper.GetHandle(points2, nameof(points2), false), ValidationHelper.GetHandle(F, nameof(F), false), imgSize, ValidationHelper.GetHandle(H1, nameof(H1), false), ValidationHelper.GetHandle(H2, nameof(H2), false), threshold);
+                if (points1 == null) throw new ArgumentNullException(nameof(points1));
+                points1.ThrowIfDisposed();
+                if (points2 == null) throw new ArgumentNullException(nameof(points2));
+                points2.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                if (H1 == null) throw new ArgumentNullException(nameof(H1));
+                H1.ThrowIfDisposed();
+                if (H2 == null) throw new ArgumentNullException(nameof(H2));
+                H2.ThrowIfDisposed();
+                var res = NativeMethods.cv_stereoRectifyUncalibrated_0(points1.Handle, points2.Handle, F.Handle, imgSize, H1.Handle, H2.Handle, threshold);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(points1);
                 GC.KeepAlive(points2);
@@ -106,7 +138,29 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FisheyeStereoRectify(Mat K1, Mat D1, Mat K2, Mat D2, Size imageSize, Mat R, Mat tvec, Mat R1, Mat R2, Mat P1, Mat P2, Mat Q, int flags, Size newImageSize, double balance, double fov_scale)
             {
-                NativeMethods.cv_fisheye_stereoRectify_0(ValidationHelper.GetHandle(K1, nameof(K1), false), ValidationHelper.GetHandle(D1, nameof(D1), false), ValidationHelper.GetHandle(K2, nameof(K2), false), ValidationHelper.GetHandle(D2, nameof(D2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(tvec, nameof(tvec), false), ValidationHelper.GetHandle(R1, nameof(R1), false), ValidationHelper.GetHandle(R2, nameof(R2), false), ValidationHelper.GetHandle(P1, nameof(P1), false), ValidationHelper.GetHandle(P2, nameof(P2), false), ValidationHelper.GetHandle(Q, nameof(Q), false), flags, newImageSize, balance, fov_scale);
+                if (K1 == null) throw new ArgumentNullException(nameof(K1));
+                K1.ThrowIfDisposed();
+                if (D1 == null) throw new ArgumentNullException(nameof(D1));
+                D1.ThrowIfDisposed();
+                if (K2 == null) throw new ArgumentNullException(nameof(K2));
+                K2.ThrowIfDisposed();
+                if (D2 == null) throw new ArgumentNullException(nameof(D2));
+                D2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (tvec == null) throw new ArgumentNullException(nameof(tvec));
+                tvec.ThrowIfDisposed();
+                if (R1 == null) throw new ArgumentNullException(nameof(R1));
+                R1.ThrowIfDisposed();
+                if (R2 == null) throw new ArgumentNullException(nameof(R2));
+                R2.ThrowIfDisposed();
+                if (P1 == null) throw new ArgumentNullException(nameof(P1));
+                P1.ThrowIfDisposed();
+                if (P2 == null) throw new ArgumentNullException(nameof(P2));
+                P2.ThrowIfDisposed();
+                if (Q == null) throw new ArgumentNullException(nameof(Q));
+                Q.ThrowIfDisposed();
+                NativeMethods.cv_fisheye_stereoRectify_0(K1.Handle, D1.Handle, K2.Handle, D2.Handle, imageSize, R.Handle, tvec.Handle, R1.Handle, R2.Handle, P1.Handle, P2.Handle, Q.Handle, flags, newImageSize, balance, fov_scale);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(K1);
                 GC.KeepAlive(D1);
@@ -133,7 +187,10 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FilterSpeckles(Mat img, double newVal, int maxSpeckleSize, double maxDiff, Mat? buf)
             {
-                NativeMethods.cv_filterSpeckles_0(ValidationHelper.GetHandle(img, nameof(img), false), newVal, maxSpeckleSize, maxDiff, ValidationHelper.GetHandle(buf, nameof(buf), true));
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                if (buf != null) buf.ThrowIfDisposed();
+                NativeMethods.cv_filterSpeckles_0(img.Handle, newVal, maxSpeckleSize, maxDiff, ValidationHelper.GetHandle(buf, nameof(buf), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 GC.KeepAlive(buf);
@@ -167,7 +224,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ValidateDisparity(Mat disparity, Mat cost, int minDisparity, int numberOfDisparities, int disp12MaxDisp)
             {
-                NativeMethods.cv_validateDisparity_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(cost, nameof(cost), false), minDisparity, numberOfDisparities, disp12MaxDisp);
+                if (disparity == null) throw new ArgumentNullException(nameof(disparity));
+                disparity.ThrowIfDisposed();
+                if (cost == null) throw new ArgumentNullException(nameof(cost));
+                cost.ThrowIfDisposed();
+                NativeMethods.cv_validateDisparity_0(disparity.Handle, cost.Handle, minDisparity, numberOfDisparities, disp12MaxDisp);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(disparity);
                 GC.KeepAlive(cost);
@@ -189,7 +250,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ReprojectImageTo3D(Mat disparity, Mat _3dImage, Mat Q, bool handleMissingValues, int ddepth)
             {
-                NativeMethods.cv_reprojectImageTo3D_0(ValidationHelper.GetHandle(disparity, nameof(disparity), false), ValidationHelper.GetHandle(_3dImage, nameof(_3dImage), false), ValidationHelper.GetHandle(Q, nameof(Q), false), handleMissingValues, ddepth);
+                if (disparity == null) throw new ArgumentNullException(nameof(disparity));
+                disparity.ThrowIfDisposed();
+                if (_3dImage == null) throw new ArgumentNullException(nameof(_3dImage));
+                _3dImage.ThrowIfDisposed();
+                if (Q == null) throw new ArgumentNullException(nameof(Q));
+                Q.ThrowIfDisposed();
+                NativeMethods.cv_reprojectImageTo3D_0(disparity.Handle, _3dImage.Handle, Q.Handle, handleMissingValues, ddepth);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(disparity);
                 GC.KeepAlive(_3dImage);

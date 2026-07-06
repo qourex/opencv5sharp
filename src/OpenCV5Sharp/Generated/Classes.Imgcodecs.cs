@@ -16,11 +16,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Animation : DisposableOpenCVObject
     {
-        internal Animation(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Animation_Delete(handle);
-        }
+        public new AnimationHandle Handle => (AnimationHandle)base.Handle;
+        internal Animation(IntPtr handle, bool ownsHandle = true) : base(new AnimationHandle(handle, ownsHandle)) {}
+        internal Animation(AnimationHandle handle) : base(handle) {}
         /// <summary>
         /// Constructs an Animation object with optional loop count and background color.
         /// </summary>
@@ -28,7 +26,7 @@ namespace OpenCV5Sharp
         /// <param name="bgColor">A `Scalar` object representing the background color in BGR format: - Defaults to `Scalar()`, indicating an empty color (usually transparent if supported). - This background color provides a solid fill behind frames that have transparency, ensuring a consistent display appearance.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Animation(int loopCount, Scalar bgColor)
-            : base(NativeMethods.Animation_New_0(loopCount, bgColor))
+            : base(new AnimationHandle(NativeMethods.Animation_New_0(loopCount, bgColor)))
         {
             ErrorHelper.CheckError();
         }
@@ -105,7 +103,7 @@ namespace OpenCV5Sharp
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
                 for (int i = 0; i < value.Length; i++) {
-                    handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle;
+                    handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle.DangerousGetHandle();
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
                 try {
@@ -144,7 +142,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.Animation_still_image_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.Animation_still_image_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
     }
 

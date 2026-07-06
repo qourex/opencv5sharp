@@ -43,11 +43,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Octree : DisposableOpenCVObject
     {
-        internal Octree(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Octree_Delete(handle);
-        }
+        public new OctreeHandle Handle => (OctreeHandle)base.Handle;
+        internal Octree(IntPtr handle, bool ownsHandle = true) : base(new OctreeHandle(handle, ownsHandle)) {}
+        internal Octree(OctreeHandle handle) : base(handle) {}
         /// <summary>
         /// This is an overloaded member function, provided for convenience.
         /// Creates an empty Octree with given maximum depth
@@ -69,7 +67,7 @@ namespace OpenCV5Sharp
             Octree? resultObj = null;
             try
             {
-                resultObj = new Octree(res);
+                resultObj = new Octree(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -99,7 +97,10 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Octree? CreateWithDepth(int maxDepth, Mat pointCloud, Mat? colors)
         {
-            IntPtr res = NativeMethods.Octree_createWithDepth_1(maxDepth, ValidationHelper.GetHandle(pointCloud, nameof(pointCloud), false), ValidationHelper.GetHandle(colors, nameof(colors), true));
+            if (pointCloud == null) throw new ArgumentNullException(nameof(pointCloud));
+            pointCloud.ThrowIfDisposed();
+            if (colors != null) colors.ThrowIfDisposed();
+            IntPtr res = NativeMethods.Octree_createWithDepth_1(maxDepth, pointCloud.Handle, ValidationHelper.GetHandle(colors, nameof(colors), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(pointCloud);
@@ -109,7 +110,7 @@ namespace OpenCV5Sharp
             Octree? resultObj = null;
             try
             {
-                resultObj = new Octree(res);
+                resultObj = new Octree(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -148,7 +149,7 @@ namespace OpenCV5Sharp
             Octree? resultObj = null;
             try
             {
-                resultObj = new Octree(res);
+                resultObj = new Octree(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -178,7 +179,10 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Octree? CreateWithResolution(double resolution, Mat pointCloud, Mat? colors)
         {
-            IntPtr res = NativeMethods.Octree_createWithResolution_1(resolution, ValidationHelper.GetHandle(pointCloud, nameof(pointCloud), false), ValidationHelper.GetHandle(colors, nameof(colors), true));
+            if (pointCloud == null) throw new ArgumentNullException(nameof(pointCloud));
+            pointCloud.ThrowIfDisposed();
+            if (colors != null) colors.ThrowIfDisposed();
+            IntPtr res = NativeMethods.Octree_createWithResolution_1(resolution, pointCloud.Handle, ValidationHelper.GetHandle(colors, nameof(colors), true));
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(pointCloud);
@@ -188,7 +192,7 @@ namespace OpenCV5Sharp
             Octree? resultObj = null;
             try
             {
-                resultObj = new Octree(res);
+                resultObj = new Octree(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -296,7 +300,10 @@ namespace OpenCV5Sharp
         public void GetPointCloudByOctree(Mat restoredPointCloud, Mat? restoredColor)
         {
             ThrowIfDisposed();
-            NativeMethods.Octree_getPointCloudByOctree_0(Handle, ValidationHelper.GetHandle(restoredPointCloud, nameof(restoredPointCloud), false), ValidationHelper.GetHandle(restoredColor, nameof(restoredColor), true));
+            if (restoredPointCloud == null) throw new ArgumentNullException(nameof(restoredPointCloud));
+            restoredPointCloud.ThrowIfDisposed();
+            if (restoredColor != null) restoredColor.ThrowIfDisposed();
+            NativeMethods.Octree_getPointCloudByOctree_0(Handle, restoredPointCloud.Handle, ValidationHelper.GetHandle(restoredColor, nameof(restoredColor), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(restoredPointCloud);
@@ -319,7 +326,10 @@ namespace OpenCV5Sharp
         public int RadiusNNSearch(IntPtr query, float radius, Mat points, Mat? squareDists)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Octree_radiusNNSearch_0(Handle, query, radius, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(squareDists, nameof(squareDists), true));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (squareDists != null) squareDists.ThrowIfDisposed();
+            var res = NativeMethods.Octree_radiusNNSearch_0(Handle, query, radius, points.Handle, ValidationHelper.GetHandle(squareDists, nameof(squareDists), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -345,7 +355,13 @@ namespace OpenCV5Sharp
         public int RadiusNNSearch(IntPtr query, float radius, Mat points, Mat colors, Mat squareDists)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Octree_radiusNNSearch_1(Handle, query, radius, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(colors, nameof(colors), false), ValidationHelper.GetHandle(squareDists, nameof(squareDists), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            if (squareDists == null) throw new ArgumentNullException(nameof(squareDists));
+            squareDists.ThrowIfDisposed();
+            var res = NativeMethods.Octree_radiusNNSearch_1(Handle, query, radius, points.Handle, colors.Handle, squareDists.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -368,7 +384,10 @@ namespace OpenCV5Sharp
         public void KNNSearch(IntPtr query, int K, Mat points, Mat? squareDists)
         {
             ThrowIfDisposed();
-            NativeMethods.Octree_KNNSearch_0(Handle, query, K, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(squareDists, nameof(squareDists), true));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (squareDists != null) squareDists.ThrowIfDisposed();
+            NativeMethods.Octree_KNNSearch_0(Handle, query, K, points.Handle, ValidationHelper.GetHandle(squareDists, nameof(squareDists), true));
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -391,7 +410,13 @@ namespace OpenCV5Sharp
         public void KNNSearch(IntPtr query, int K, Mat points, Mat colors, Mat squareDists)
         {
             ThrowIfDisposed();
-            NativeMethods.Octree_KNNSearch_1(Handle, query, K, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(colors, nameof(colors), false), ValidationHelper.GetHandle(squareDists, nameof(squareDists), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            if (squareDists == null) throw new ArgumentNullException(nameof(squareDists));
+            squareDists.ThrowIfDisposed();
+            NativeMethods.Octree_KNNSearch_1(Handle, query, K, points.Handle, colors.Handle, squareDists.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -406,17 +431,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Odometry : DisposableOpenCVObject
     {
-        internal Odometry(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Odometry_Delete(handle);
-        }
+        public new OdometryHandle Handle => (OdometryHandle)base.Handle;
+        internal Odometry(IntPtr handle, bool ownsHandle = true) : base(new OdometryHandle(handle, ownsHandle)) {}
+        internal Odometry(OdometryHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Odometry()
-            : base(NativeMethods.Odometry_New_0())
+            : base(new OdometryHandle(NativeMethods.Odometry_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -426,7 +449,7 @@ namespace OpenCV5Sharp
         /// <param name="otype">The otype parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Odometry(OdometryType otype)
-            : base(NativeMethods.Odometry_New_1((int)otype))
+            : base(new OdometryHandle(NativeMethods.Odometry_New_1((int)otype)))
         {
             ErrorHelper.CheckError();
         }
@@ -440,7 +463,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Odometry(OdometryType otype, OdometrySettings settings, OdometryAlgoType algtype)
-            : base(NativeMethods.Odometry_New_2((int)otype, ValidationHelper.GetHandle(settings, nameof(settings), false), (int)algtype))
+            : base(new OdometryHandle(NativeMethods.Odometry_New_2((int)otype, ValidationHelper.GetHandle<OdometrySettingsHandle>(settings, nameof(settings), false), (int)algtype)))
         {
             ErrorHelper.CheckError();
         }
@@ -454,7 +477,9 @@ namespace OpenCV5Sharp
         public void PrepareFrame(OdometryFrame frame)
         {
             ThrowIfDisposed();
-            NativeMethods.Odometry_prepareFrame_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false));
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            NativeMethods.Odometry_prepareFrame_0(Handle, frame.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -470,7 +495,11 @@ namespace OpenCV5Sharp
         public void PrepareFrames(OdometryFrame srcFrame, OdometryFrame dstFrame)
         {
             ThrowIfDisposed();
-            NativeMethods.Odometry_prepareFrames_0(Handle, ValidationHelper.GetHandle(srcFrame, nameof(srcFrame), false), ValidationHelper.GetHandle(dstFrame, nameof(dstFrame), false));
+            if (srcFrame == null) throw new ArgumentNullException(nameof(srcFrame));
+            srcFrame.ThrowIfDisposed();
+            if (dstFrame == null) throw new ArgumentNullException(nameof(dstFrame));
+            dstFrame.ThrowIfDisposed();
+            NativeMethods.Odometry_prepareFrames_0(Handle, srcFrame.Handle, dstFrame.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(srcFrame);
@@ -493,7 +522,13 @@ namespace OpenCV5Sharp
         public bool Compute(OdometryFrame srcFrame, OdometryFrame dstFrame, Mat Rt)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Odometry_compute_0(Handle, ValidationHelper.GetHandle(srcFrame, nameof(srcFrame), false), ValidationHelper.GetHandle(dstFrame, nameof(dstFrame), false), ValidationHelper.GetHandle(Rt, nameof(Rt), false));
+            if (srcFrame == null) throw new ArgumentNullException(nameof(srcFrame));
+            srcFrame.ThrowIfDisposed();
+            if (dstFrame == null) throw new ArgumentNullException(nameof(dstFrame));
+            dstFrame.ThrowIfDisposed();
+            if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+            Rt.ThrowIfDisposed();
+            var res = NativeMethods.Odometry_compute_0(Handle, srcFrame.Handle, dstFrame.Handle, Rt.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(srcFrame);
@@ -515,7 +550,13 @@ namespace OpenCV5Sharp
         public bool Compute(Mat srcDepth, Mat dstDepth, Mat Rt)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Odometry_compute_1(Handle, ValidationHelper.GetHandle(srcDepth, nameof(srcDepth), false), ValidationHelper.GetHandle(dstDepth, nameof(dstDepth), false), ValidationHelper.GetHandle(Rt, nameof(Rt), false));
+            if (srcDepth == null) throw new ArgumentNullException(nameof(srcDepth));
+            srcDepth.ThrowIfDisposed();
+            if (dstDepth == null) throw new ArgumentNullException(nameof(dstDepth));
+            dstDepth.ThrowIfDisposed();
+            if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+            Rt.ThrowIfDisposed();
+            var res = NativeMethods.Odometry_compute_1(Handle, srcDepth.Handle, dstDepth.Handle, Rt.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(srcDepth);
@@ -539,7 +580,17 @@ namespace OpenCV5Sharp
         public bool Compute(Mat srcDepth, Mat srcRGB, Mat dstDepth, Mat dstRGB, Mat Rt)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Odometry_compute_2(Handle, ValidationHelper.GetHandle(srcDepth, nameof(srcDepth), false), ValidationHelper.GetHandle(srcRGB, nameof(srcRGB), false), ValidationHelper.GetHandle(dstDepth, nameof(dstDepth), false), ValidationHelper.GetHandle(dstRGB, nameof(dstRGB), false), ValidationHelper.GetHandle(Rt, nameof(Rt), false));
+            if (srcDepth == null) throw new ArgumentNullException(nameof(srcDepth));
+            srcDepth.ThrowIfDisposed();
+            if (srcRGB == null) throw new ArgumentNullException(nameof(srcRGB));
+            srcRGB.ThrowIfDisposed();
+            if (dstDepth == null) throw new ArgumentNullException(nameof(dstDepth));
+            dstDepth.ThrowIfDisposed();
+            if (dstRGB == null) throw new ArgumentNullException(nameof(dstRGB));
+            dstRGB.ThrowIfDisposed();
+            if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+            Rt.ThrowIfDisposed();
+            var res = NativeMethods.Odometry_compute_2(Handle, srcDepth.Handle, srcRGB.Handle, dstDepth.Handle, dstRGB.Handle, Rt.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(srcDepth);
@@ -568,7 +619,7 @@ namespace OpenCV5Sharp
             RgbdNormals? resultObj = null;
             try
             {
-                resultObj = new RgbdNormals(res);
+                resultObj = new RgbdNormals(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -597,11 +648,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class OdometryFrame : DisposableOpenCVObject
     {
-        internal OdometryFrame(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.OdometryFrame_Delete(handle);
-        }
+        public new OdometryFrameHandle Handle => (OdometryFrameHandle)base.Handle;
+        internal OdometryFrame(IntPtr handle, bool ownsHandle = true) : base(new OdometryFrameHandle(handle, ownsHandle)) {}
+        internal OdometryFrame(OdometryFrameHandle handle) : base(handle) {}
         /// <summary>
         /// Construct a new OdometryFrame object. All non-empty images should have the same size.
         /// *
@@ -614,7 +663,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public OdometryFrame(Mat? depth, Mat? image, Mat? mask, Mat? normals)
-            : base(NativeMethods.OdometryFrame_New_0(ValidationHelper.GetHandle(depth, nameof(depth), true), ValidationHelper.GetHandle(image, nameof(image), true), ValidationHelper.GetHandle(mask, nameof(mask), true), ValidationHelper.GetHandle(normals, nameof(normals), true)))
+            : base(new OdometryFrameHandle(NativeMethods.OdometryFrame_New_0(ValidationHelper.GetHandle<MatHandle>(depth, nameof(depth), true), ValidationHelper.GetHandle<MatHandle>(image, nameof(image), true), ValidationHelper.GetHandle<MatHandle>(mask, nameof(mask), true), ValidationHelper.GetHandle<MatHandle>(normals, nameof(normals), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -629,7 +678,9 @@ namespace OpenCV5Sharp
         public void GetImage(Mat image)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getImage_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getImage_0(Handle, image.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -645,7 +696,9 @@ namespace OpenCV5Sharp
         public void GetGrayImage(Mat image)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getGrayImage_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getGrayImage_0(Handle, image.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -661,7 +714,9 @@ namespace OpenCV5Sharp
         public void GetDepth(Mat depth)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getDepth_0(Handle, ValidationHelper.GetHandle(depth, nameof(depth), false));
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getDepth_0(Handle, depth.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(depth);
@@ -677,7 +732,9 @@ namespace OpenCV5Sharp
         public void GetProcessedDepth(Mat depth)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getProcessedDepth_0(Handle, ValidationHelper.GetHandle(depth, nameof(depth), false));
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getProcessedDepth_0(Handle, depth.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(depth);
@@ -693,7 +750,9 @@ namespace OpenCV5Sharp
         public void GetMask(Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getMask_0(Handle, ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getMask_0(Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(mask);
@@ -709,7 +768,9 @@ namespace OpenCV5Sharp
         public void GetNormals(Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getNormals_0(Handle, ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getNormals_0(Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(normals);
@@ -742,7 +803,9 @@ namespace OpenCV5Sharp
         public void GetPyramidAt(Mat img, OdometryFramePyramidType pyrType, long level)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometryFrame_getPyramidAt_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), (int)pyrType, level);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            NativeMethods.OdometryFrame_getPyramidAt_0(Handle, img.Handle, (int)pyrType, level);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -755,17 +818,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class OdometrySettings : DisposableOpenCVObject
     {
-        internal OdometrySettings(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.OdometrySettings_Delete(handle);
-        }
+        public new OdometrySettingsHandle Handle => (OdometrySettingsHandle)base.Handle;
+        internal OdometrySettings(IntPtr handle, bool ownsHandle = true) : base(new OdometrySettingsHandle(handle, ownsHandle)) {}
+        internal OdometrySettings(OdometrySettingsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public OdometrySettings()
-            : base(NativeMethods.OdometrySettings_New_0())
+            : base(new OdometrySettingsHandle(NativeMethods.OdometrySettings_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -779,7 +840,9 @@ namespace OpenCV5Sharp
         public void SetCameraMatrix(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_setCameraMatrix_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_setCameraMatrix_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -794,7 +857,9 @@ namespace OpenCV5Sharp
         public void GetCameraMatrix(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_getCameraMatrix_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_getCameraMatrix_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -809,7 +874,9 @@ namespace OpenCV5Sharp
         public void SetIterCounts(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_setIterCounts_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_setIterCounts_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -824,7 +891,9 @@ namespace OpenCV5Sharp
         public void GetIterCounts(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_getIterCounts_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_getIterCounts_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1034,10 +1103,10 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <param name="nm">The nm parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public void SetNormalMethod(IntPtr nm)
+        public void SetNormalMethod(int nm)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_setNormalMethod_0(Handle, nm);
+            NativeMethods.OdometrySettings_setNormalMethod_0(Handle, (int)nm);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
         }
@@ -1046,13 +1115,13 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetNormalMethod()
+        public int GetNormalMethod()
         {
             ThrowIfDisposed();
             var res = NativeMethods.OdometrySettings_getNormalMethod_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -1164,7 +1233,9 @@ namespace OpenCV5Sharp
         public void SetMinGradientMagnitudes(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_setMinGradientMagnitudes_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_setMinGradientMagnitudes_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1179,7 +1250,9 @@ namespace OpenCV5Sharp
         public void GetMinGradientMagnitudes(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.OdometrySettings_getMinGradientMagnitudes_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.OdometrySettings_getMinGradientMagnitudes_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1202,11 +1275,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class RgbdNormals : DisposableOpenCVObject
     {
-        internal RgbdNormals(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.RgbdNormals_Delete(handle);
-        }
+        public new RgbdNormalsHandle Handle => (RgbdNormalsHandle)base.Handle;
+        internal RgbdNormals(IntPtr handle, bool ownsHandle = true) : base(new RgbdNormalsHandle(handle, ownsHandle)) {}
+        internal RgbdNormals(RgbdNormalsHandle handle) : base(handle) {}
         /// <summary>
         /// Creates new RgbdNormals object
         /// </summary>
@@ -1221,9 +1292,10 @@ namespace OpenCV5Sharp
         /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public static RgbdNormals? Create(int rows, int cols, int depth, Mat? K, int window_size, float diff_threshold, IntPtr method)
+        public static RgbdNormals? Create(int rows, int cols, int depth, Mat? K, int window_size, float diff_threshold, int method)
         {
-            IntPtr res = NativeMethods.RgbdNormals_create_0(rows, cols, depth, ValidationHelper.GetHandle(K, nameof(K), true), window_size, diff_threshold, method);
+            if (K != null) K.ThrowIfDisposed();
+            IntPtr res = NativeMethods.RgbdNormals_create_0(rows, cols, depth, ValidationHelper.GetHandle(K, nameof(K), true), window_size, diff_threshold, (int)method);
             if (res == IntPtr.Zero)
             {
                 GC.KeepAlive(K);
@@ -1232,7 +1304,7 @@ namespace OpenCV5Sharp
             RgbdNormals? resultObj = null;
             try
             {
-                resultObj = new RgbdNormals(res);
+                resultObj = new RgbdNormals(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1260,7 +1332,11 @@ namespace OpenCV5Sharp
         public void Apply(Mat points, Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.RgbdNormals_apply_0(Handle, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.RgbdNormals_apply_0(Handle, points.Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -1378,7 +1454,9 @@ namespace OpenCV5Sharp
         public void GetK(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.RgbdNormals_getK_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.RgbdNormals_getK_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1393,7 +1471,9 @@ namespace OpenCV5Sharp
         public void SetK(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.RgbdNormals_setK_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.RgbdNormals_setK_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -1403,13 +1483,13 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <returns>The returned value.</returns>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-        public IntPtr GetMethod()
+        public int GetMethod()
         {
             ThrowIfDisposed();
             var res = NativeMethods.RgbdNormals_getMethod_0(Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
-            return res;
+            return (int)res;
         }
     }
 
@@ -1419,11 +1499,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class TriangleRasterizeSettings : DisposableOpenCVObject
     {
-        internal TriangleRasterizeSettings(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.TriangleRasterizeSettings_Delete(handle);
-        }
+        public new TriangleRasterizeSettingsHandle Handle => (TriangleRasterizeSettingsHandle)base.Handle;
+        internal TriangleRasterizeSettings(IntPtr handle, bool ownsHandle = true) : base(new TriangleRasterizeSettingsHandle(handle, ownsHandle)) {}
+        internal TriangleRasterizeSettings(TriangleRasterizeSettingsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1442,7 +1520,7 @@ namespace OpenCV5Sharp
             TriangleRasterizeSettings? resultObj = null;
             try
             {
-                resultObj = new TriangleRasterizeSettings(res);
+                resultObj = new TriangleRasterizeSettings(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1477,7 +1555,7 @@ namespace OpenCV5Sharp
             TriangleRasterizeSettings? resultObj = null;
             try
             {
-                resultObj = new TriangleRasterizeSettings(res);
+                resultObj = new TriangleRasterizeSettings(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1512,7 +1590,7 @@ namespace OpenCV5Sharp
             TriangleRasterizeSettings? resultObj = null;
             try
             {
-                resultObj = new TriangleRasterizeSettings(res);
+                resultObj = new TriangleRasterizeSettings(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1537,11 +1615,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Volume : DisposableOpenCVObject
     {
-        internal Volume(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Volume_Delete(handle);
-        }
+        public new VolumeHandle Handle => (VolumeHandle)base.Handle;
+        internal Volume(IntPtr handle, bool ownsHandle = true) : base(new VolumeHandle(handle, ownsHandle)) {}
+        internal Volume(VolumeHandle handle) : base(handle) {}
         /// <summary>
         /// Constructor of custom volume.
         /// </summary>
@@ -1551,7 +1627,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Volume(VolumeType vtype, VolumeSettings? settings)
-            : base(NativeMethods.Volume_New_0((int)vtype, ValidationHelper.GetHandle(settings, nameof(settings), true)))
+            : base(new VolumeHandle(NativeMethods.Volume_New_0((int)vtype, ValidationHelper.GetHandle<VolumeSettingsHandle>(settings, nameof(settings), true))))
         {
             ErrorHelper.CheckError();
         }
@@ -1569,7 +1645,11 @@ namespace OpenCV5Sharp
         public void Integrate(OdometryFrame frame, Mat pose)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_integrate_0(Handle, ValidationHelper.GetHandle(frame, nameof(frame), false), ValidationHelper.GetHandle(pose, nameof(pose), false));
+            if (frame == null) throw new ArgumentNullException(nameof(frame));
+            frame.ThrowIfDisposed();
+            if (pose == null) throw new ArgumentNullException(nameof(pose));
+            pose.ThrowIfDisposed();
+            NativeMethods.Volume_integrate_0(Handle, frame.Handle, pose.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(frame);
@@ -1589,7 +1669,11 @@ namespace OpenCV5Sharp
         public void Integrate(Mat depth, Mat pose)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_integrate_1(Handle, ValidationHelper.GetHandle(depth, nameof(depth), false), ValidationHelper.GetHandle(pose, nameof(pose), false));
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            if (pose == null) throw new ArgumentNullException(nameof(pose));
+            pose.ThrowIfDisposed();
+            NativeMethods.Volume_integrate_1(Handle, depth.Handle, pose.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(depth);
@@ -1610,7 +1694,13 @@ namespace OpenCV5Sharp
         public void Integrate(Mat depth, Mat image, Mat pose)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_integrate_2(Handle, ValidationHelper.GetHandle(depth, nameof(depth), false), ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(pose, nameof(pose), false));
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (pose == null) throw new ArgumentNullException(nameof(pose));
+            pose.ThrowIfDisposed();
+            NativeMethods.Volume_integrate_2(Handle, depth.Handle, image.Handle, pose.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(depth);
@@ -1632,7 +1722,13 @@ namespace OpenCV5Sharp
         public void Raycast(Mat cameraPose, Mat points, Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_raycast_0(Handle, ValidationHelper.GetHandle(cameraPose, nameof(cameraPose), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (cameraPose == null) throw new ArgumentNullException(nameof(cameraPose));
+            cameraPose.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.Volume_raycast_0(Handle, cameraPose.Handle, points.Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(cameraPose);
@@ -1655,7 +1751,15 @@ namespace OpenCV5Sharp
         public void Raycast(Mat cameraPose, Mat points, Mat normals, Mat colors)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_raycast_1(Handle, ValidationHelper.GetHandle(cameraPose, nameof(cameraPose), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false), ValidationHelper.GetHandle(colors, nameof(colors), false));
+            if (cameraPose == null) throw new ArgumentNullException(nameof(cameraPose));
+            cameraPose.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            NativeMethods.Volume_raycast_1(Handle, cameraPose.Handle, points.Handle, normals.Handle, colors.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(cameraPose);
@@ -1681,7 +1785,15 @@ namespace OpenCV5Sharp
         public void Raycast(Mat cameraPose, int height, int width, Mat K, Mat points, Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_raycast_2(Handle, ValidationHelper.GetHandle(cameraPose, nameof(cameraPose), false), height, width, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (cameraPose == null) throw new ArgumentNullException(nameof(cameraPose));
+            cameraPose.ThrowIfDisposed();
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.Volume_raycast_2(Handle, cameraPose.Handle, height, width, K.Handle, points.Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(cameraPose);
@@ -1708,7 +1820,17 @@ namespace OpenCV5Sharp
         public void Raycast(Mat cameraPose, int height, int width, Mat K, Mat points, Mat normals, Mat colors)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_raycast_3(Handle, ValidationHelper.GetHandle(cameraPose, nameof(cameraPose), false), height, width, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false), ValidationHelper.GetHandle(colors, nameof(colors), false));
+            if (cameraPose == null) throw new ArgumentNullException(nameof(cameraPose));
+            cameraPose.ThrowIfDisposed();
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            NativeMethods.Volume_raycast_3(Handle, cameraPose.Handle, height, width, K.Handle, points.Handle, normals.Handle, colors.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(cameraPose);
@@ -1728,7 +1850,11 @@ namespace OpenCV5Sharp
         public void FetchNormals(Mat points, Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_fetchNormals_0(Handle, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.Volume_fetchNormals_0(Handle, points.Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -1745,7 +1871,11 @@ namespace OpenCV5Sharp
         public void FetchPointsNormals(Mat points, Mat normals)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_fetchPointsNormals_0(Handle, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            NativeMethods.Volume_fetchPointsNormals_0(Handle, points.Handle, normals.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -1763,7 +1893,13 @@ namespace OpenCV5Sharp
         public void FetchPointsNormalsColors(Mat points, Mat normals, Mat colors)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_fetchPointsNormalsColors_0(Handle, ValidationHelper.GetHandle(points, nameof(points), false), ValidationHelper.GetHandle(normals, nameof(normals), false), ValidationHelper.GetHandle(colors, nameof(colors), false));
+            if (points == null) throw new ArgumentNullException(nameof(points));
+            points.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            NativeMethods.Volume_fetchPointsNormalsColors_0(Handle, points.Handle, normals.Handle, colors.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(points);
@@ -1820,7 +1956,9 @@ namespace OpenCV5Sharp
         public void GetBoundingBox(Mat bb, int precision)
         {
             ThrowIfDisposed();
-            NativeMethods.Volume_getBoundingBox_0(Handle, ValidationHelper.GetHandle(bb, nameof(bb), false), precision);
+            if (bb == null) throw new ArgumentNullException(nameof(bb));
+            bb.ThrowIfDisposed();
+            NativeMethods.Volume_getBoundingBox_0(Handle, bb.Handle, precision);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(bb);
@@ -1860,18 +1998,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class VolumeSettings : DisposableOpenCVObject
     {
-        internal VolumeSettings(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.VolumeSettings_Delete(handle);
-        }
+        public new VolumeSettingsHandle Handle => (VolumeSettingsHandle)base.Handle;
+        internal VolumeSettings(IntPtr handle, bool ownsHandle = true) : base(new VolumeSettingsHandle(handle, ownsHandle)) {}
+        internal VolumeSettings(VolumeSettingsHandle handle) : base(handle) {}
         /// <summary>
         /// Constructor of settings for custom Volume type.
         /// </summary>
         /// <param name="volumeType">volume type.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public VolumeSettings(VolumeType volumeType)
-            : base(NativeMethods.VolumeSettings_New_0((int)volumeType))
+            : base(new VolumeSettingsHandle(NativeMethods.VolumeSettings_New_0((int)volumeType)))
         {
             ErrorHelper.CheckError();
         }
@@ -2139,7 +2275,9 @@ namespace OpenCV5Sharp
         public void SetVolumePose(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_setVolumePose_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_setVolumePose_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2154,7 +2292,9 @@ namespace OpenCV5Sharp
         public void GetVolumePose(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_getVolumePose_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_getVolumePose_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2172,7 +2312,9 @@ namespace OpenCV5Sharp
         public void SetVolumeResolution(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_setVolumeResolution_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_setVolumeResolution_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2190,7 +2332,9 @@ namespace OpenCV5Sharp
         public void GetVolumeResolution(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_getVolumeResolution_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_getVolumeResolution_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2206,7 +2350,9 @@ namespace OpenCV5Sharp
         public void GetVolumeStrides(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_getVolumeStrides_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_getVolumeStrides_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2226,7 +2372,9 @@ namespace OpenCV5Sharp
         public void SetCameraIntegrateIntrinsics(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_setCameraIntegrateIntrinsics_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_setCameraIntegrateIntrinsics_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2246,7 +2394,9 @@ namespace OpenCV5Sharp
         public void GetCameraIntegrateIntrinsics(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_getCameraIntegrateIntrinsics_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_getCameraIntegrateIntrinsics_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2266,7 +2416,9 @@ namespace OpenCV5Sharp
         public void SetCameraRaycastIntrinsics(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_setCameraRaycastIntrinsics_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_setCameraRaycastIntrinsics_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2286,7 +2438,9 @@ namespace OpenCV5Sharp
         public void GetCameraRaycastIntrinsics(Mat val)
         {
             ThrowIfDisposed();
-            NativeMethods.VolumeSettings_getCameraRaycastIntrinsics_0(Handle, ValidationHelper.GetHandle(val, nameof(val), false));
+            if (val == null) throw new ArgumentNullException(nameof(val));
+            val.ThrowIfDisposed();
+            NativeMethods.VolumeSettings_getCameraRaycastIntrinsics_0(Handle, val.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(val);
@@ -2299,11 +2453,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailPoseGraph : DisposableOpenCVObject
     {
-        internal DetailPoseGraph(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_PoseGraph_Delete(handle);
-        }
+        public new DetailPoseGraphHandle Handle => (DetailPoseGraphHandle)base.Handle;
+        internal DetailPoseGraph(IntPtr handle, bool ownsHandle = true) : base(new DetailPoseGraphHandle(handle, ownsHandle)) {}
+        internal DetailPoseGraph(DetailPoseGraphHandle handle) : base(handle) {}
     }
 
 }

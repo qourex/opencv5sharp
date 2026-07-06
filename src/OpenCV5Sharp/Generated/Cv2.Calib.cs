@@ -28,7 +28,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -80,7 +80,17 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double CalibrateCamera(IntPtr objectPoints, IntPtr imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateCamera_0(objectPoints, imagePoints, imageSize, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, ValidationHelper.GetHandle(stdDeviationsIntrinsics, nameof(stdDeviationsIntrinsics), false), ValidationHelper.GetHandle(stdDeviationsExtrinsics, nameof(stdDeviationsExtrinsics), false), ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+                cameraMatrix.ThrowIfDisposed();
+                if (distCoeffs == null) throw new ArgumentNullException(nameof(distCoeffs));
+                distCoeffs.ThrowIfDisposed();
+                if (stdDeviationsIntrinsics == null) throw new ArgumentNullException(nameof(stdDeviationsIntrinsics));
+                stdDeviationsIntrinsics.ThrowIfDisposed();
+                if (stdDeviationsExtrinsics == null) throw new ArgumentNullException(nameof(stdDeviationsExtrinsics));
+                stdDeviationsExtrinsics.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateCamera_0(objectPoints, imagePoints, imageSize, cameraMatrix.Handle, distCoeffs.Handle, rvecs, tvecs, stdDeviationsIntrinsics.Handle, stdDeviationsExtrinsics.Handle, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix);
                 GC.KeepAlive(distCoeffs);
@@ -107,7 +117,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double CalibrateCamera(IntPtr objectPoints, IntPtr imagePoints, Size imageSize, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateCamera_1(objectPoints, imagePoints, imageSize, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, flags, criteria);
+                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+                cameraMatrix.ThrowIfDisposed();
+                if (distCoeffs == null) throw new ArgumentNullException(nameof(distCoeffs));
+                distCoeffs.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateCamera_1(objectPoints, imagePoints, imageSize, cameraMatrix.Handle, distCoeffs.Handle, rvecs, tvecs, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix);
                 GC.KeepAlive(distCoeffs);
@@ -147,7 +161,21 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double CalibrateCameraRO(IntPtr objectPoints, IntPtr imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, Mat newObjPoints, Mat stdDeviationsIntrinsics, Mat stdDeviationsExtrinsics, Mat stdDeviationsObjPoints, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateCameraRO_0(objectPoints, imagePoints, imageSize, iFixedPoint, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, ValidationHelper.GetHandle(newObjPoints, nameof(newObjPoints), false), ValidationHelper.GetHandle(stdDeviationsIntrinsics, nameof(stdDeviationsIntrinsics), false), ValidationHelper.GetHandle(stdDeviationsExtrinsics, nameof(stdDeviationsExtrinsics), false), ValidationHelper.GetHandle(stdDeviationsObjPoints, nameof(stdDeviationsObjPoints), false), ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+                cameraMatrix.ThrowIfDisposed();
+                if (distCoeffs == null) throw new ArgumentNullException(nameof(distCoeffs));
+                distCoeffs.ThrowIfDisposed();
+                if (newObjPoints == null) throw new ArgumentNullException(nameof(newObjPoints));
+                newObjPoints.ThrowIfDisposed();
+                if (stdDeviationsIntrinsics == null) throw new ArgumentNullException(nameof(stdDeviationsIntrinsics));
+                stdDeviationsIntrinsics.ThrowIfDisposed();
+                if (stdDeviationsExtrinsics == null) throw new ArgumentNullException(nameof(stdDeviationsExtrinsics));
+                stdDeviationsExtrinsics.ThrowIfDisposed();
+                if (stdDeviationsObjPoints == null) throw new ArgumentNullException(nameof(stdDeviationsObjPoints));
+                stdDeviationsObjPoints.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateCameraRO_0(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix.Handle, distCoeffs.Handle, rvecs, tvecs, newObjPoints.Handle, stdDeviationsIntrinsics.Handle, stdDeviationsExtrinsics.Handle, stdDeviationsObjPoints.Handle, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix);
                 GC.KeepAlive(distCoeffs);
@@ -178,7 +206,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double CalibrateCameraRO(IntPtr objectPoints, IntPtr imagePoints, Size imageSize, int iFixedPoint, Mat cameraMatrix, Mat distCoeffs, IntPtr rvecs, IntPtr tvecs, Mat newObjPoints, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateCameraRO_1(objectPoints, imagePoints, imageSize, iFixedPoint, ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(distCoeffs, nameof(distCoeffs), false), rvecs, tvecs, ValidationHelper.GetHandle(newObjPoints, nameof(newObjPoints), false), flags, criteria);
+                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+                cameraMatrix.ThrowIfDisposed();
+                if (distCoeffs == null) throw new ArgumentNullException(nameof(distCoeffs));
+                distCoeffs.ThrowIfDisposed();
+                if (newObjPoints == null) throw new ArgumentNullException(nameof(newObjPoints));
+                newObjPoints.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateCameraRO_1(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix.Handle, distCoeffs.Handle, rvecs, tvecs, newObjPoints.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix);
                 GC.KeepAlive(distCoeffs);
@@ -212,7 +246,25 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double StereoCalibrate(IntPtr objectPoints, IntPtr imagePoints1, IntPtr imagePoints2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat E, Mat F, IntPtr rvecs, IntPtr tvecs, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_stereoCalibrate_0(objectPoints, imagePoints1, imagePoints2, ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(F, nameof(F), false), rvecs, tvecs, ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (E == null) throw new ArgumentNullException(nameof(E));
+                E.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_stereoCalibrate_0(objectPoints, imagePoints1, imagePoints2, cameraMatrix1.Handle, distCoeffs1.Handle, cameraMatrix2.Handle, distCoeffs2.Handle, imageSize, R.Handle, T.Handle, E.Handle, F.Handle, rvecs, tvecs, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -248,7 +300,23 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double StereoCalibrate(IntPtr objectPoints, IntPtr imagePoints1, IntPtr imagePoints2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat E, Mat F, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_stereoCalibrate_1(objectPoints, imagePoints1, imagePoints2, ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(F, nameof(F), false), flags, criteria);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (E == null) throw new ArgumentNullException(nameof(E));
+                E.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                var res = NativeMethods.cv_stereoCalibrate_1(objectPoints, imagePoints1, imagePoints2, cameraMatrix1.Handle, distCoeffs1.Handle, cameraMatrix2.Handle, distCoeffs2.Handle, imageSize, R.Handle, T.Handle, E.Handle, F.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -284,7 +352,25 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double StereoCalibrate(IntPtr objectPoints, IntPtr imagePoints1, IntPtr imagePoints2, Mat cameraMatrix1, Mat distCoeffs1, Mat cameraMatrix2, Mat distCoeffs2, Size imageSize, Mat R, Mat T, Mat E, Mat F, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_stereoCalibrate_2(objectPoints, imagePoints1, imagePoints2, ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (E == null) throw new ArgumentNullException(nameof(E));
+                E.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_stereoCalibrate_2(objectPoints, imagePoints1, imagePoints2, cameraMatrix1.Handle, distCoeffs1.Handle, cameraMatrix2.Handle, distCoeffs2.Handle, imageSize, R.Handle, T.Handle, E.Handle, F.Handle, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -328,7 +414,25 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double RegisterCameras(IntPtr objectPoints1, IntPtr objectPoints2, IntPtr imagePoints1, IntPtr imagePoints2, Mat cameraMatrix1, Mat distCoeffs1, CameraModel cameraModel1, Mat cameraMatrix2, Mat distCoeffs2, CameraModel cameraModel2, Mat R, Mat T, Mat E, Mat F, IntPtr rvecs, IntPtr tvecs, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_registerCameras_0(objectPoints1, objectPoints2, imagePoints1, imagePoints2, ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), (int)cameraModel1, ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), (int)cameraModel2, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(F, nameof(F), false), rvecs, tvecs, ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (E == null) throw new ArgumentNullException(nameof(E));
+                E.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_registerCameras_0(objectPoints1, objectPoints2, imagePoints1, imagePoints2, cameraMatrix1.Handle, distCoeffs1.Handle, (int)cameraModel1, cameraMatrix2.Handle, distCoeffs2.Handle, (int)cameraModel2, R.Handle, T.Handle, E.Handle, F.Handle, rvecs, tvecs, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -367,7 +471,25 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double RegisterCameras(IntPtr objectPoints1, IntPtr objectPoints2, IntPtr imagePoints1, IntPtr imagePoints2, Mat cameraMatrix1, Mat distCoeffs1, CameraModel cameraModel1, Mat cameraMatrix2, Mat distCoeffs2, CameraModel cameraModel2, Mat R, Mat T, Mat E, Mat F, Mat perViewErrors, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_registerCameras_1(objectPoints1, objectPoints2, imagePoints1, imagePoints2, ValidationHelper.GetHandle(cameraMatrix1, nameof(cameraMatrix1), false), ValidationHelper.GetHandle(distCoeffs1, nameof(distCoeffs1), false), (int)cameraModel1, ValidationHelper.GetHandle(cameraMatrix2, nameof(cameraMatrix2), false), ValidationHelper.GetHandle(distCoeffs2, nameof(distCoeffs2), false), (int)cameraModel2, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), ValidationHelper.GetHandle(E, nameof(E), false), ValidationHelper.GetHandle(F, nameof(F), false), ValidationHelper.GetHandle(perViewErrors, nameof(perViewErrors), false), flags, criteria);
+                if (cameraMatrix1 == null) throw new ArgumentNullException(nameof(cameraMatrix1));
+                cameraMatrix1.ThrowIfDisposed();
+                if (distCoeffs1 == null) throw new ArgumentNullException(nameof(distCoeffs1));
+                distCoeffs1.ThrowIfDisposed();
+                if (cameraMatrix2 == null) throw new ArgumentNullException(nameof(cameraMatrix2));
+                cameraMatrix2.ThrowIfDisposed();
+                if (distCoeffs2 == null) throw new ArgumentNullException(nameof(distCoeffs2));
+                distCoeffs2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                if (E == null) throw new ArgumentNullException(nameof(E));
+                E.ThrowIfDisposed();
+                if (F == null) throw new ArgumentNullException(nameof(F));
+                F.ThrowIfDisposed();
+                if (perViewErrors == null) throw new ArgumentNullException(nameof(perViewErrors));
+                perViewErrors.ThrowIfDisposed();
+                var res = NativeMethods.cv_registerCameras_1(objectPoints1, objectPoints2, imagePoints1, imagePoints2, cameraMatrix1.Handle, distCoeffs1.Handle, (int)cameraModel1, cameraMatrix2.Handle, distCoeffs2.Handle, (int)cameraModel2, R.Handle, T.Handle, E.Handle, F.Handle, perViewErrors.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(cameraMatrix1);
                 GC.KeepAlive(distCoeffs1);
@@ -408,7 +530,16 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double CalibrateMultiview(IntPtr objPoints, IntPtr imagePoints, IntPtr imageSize, Mat detectionMask, Mat models, IntPtr Ks, IntPtr distortions, IntPtr Rs, IntPtr Ts, Mat initializationPairs, IntPtr rvecs0, IntPtr tvecs0, Mat perFrameErrors, Mat? flagsForIntrinsics, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateMultiview_0(objPoints, imagePoints, imageSize, ValidationHelper.GetHandle(detectionMask, nameof(detectionMask), false), ValidationHelper.GetHandle(models, nameof(models), false), Ks, distortions, Rs, Ts, ValidationHelper.GetHandle(initializationPairs, nameof(initializationPairs), false), rvecs0, tvecs0, ValidationHelper.GetHandle(perFrameErrors, nameof(perFrameErrors), false), ValidationHelper.GetHandle(flagsForIntrinsics, nameof(flagsForIntrinsics), true), flags, criteria);
+                if (detectionMask == null) throw new ArgumentNullException(nameof(detectionMask));
+                detectionMask.ThrowIfDisposed();
+                if (models == null) throw new ArgumentNullException(nameof(models));
+                models.ThrowIfDisposed();
+                if (initializationPairs == null) throw new ArgumentNullException(nameof(initializationPairs));
+                initializationPairs.ThrowIfDisposed();
+                if (perFrameErrors == null) throw new ArgumentNullException(nameof(perFrameErrors));
+                perFrameErrors.ThrowIfDisposed();
+                if (flagsForIntrinsics != null) flagsForIntrinsics.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateMultiview_0(objPoints, imagePoints, imageSize, detectionMask.Handle, models.Handle, Ks, distortions, Rs, Ts, initializationPairs.Handle, rvecs0, tvecs0, perFrameErrors.Handle, ValidationHelper.GetHandle(flagsForIntrinsics, nameof(flagsForIntrinsics), true), flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(detectionMask);
                 GC.KeepAlive(models);
@@ -438,7 +569,12 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double CalibrateMultiview(IntPtr objPoints, IntPtr imagePoints, IntPtr imageSize, Mat detectionMask, Mat models, IntPtr Ks, IntPtr distortions, IntPtr Rs, IntPtr Ts, Mat? flagsForIntrinsics, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_calibrateMultiview_1(objPoints, imagePoints, imageSize, ValidationHelper.GetHandle(detectionMask, nameof(detectionMask), false), ValidationHelper.GetHandle(models, nameof(models), false), Ks, distortions, Rs, Ts, ValidationHelper.GetHandle(flagsForIntrinsics, nameof(flagsForIntrinsics), true), flags, criteria);
+                if (detectionMask == null) throw new ArgumentNullException(nameof(detectionMask));
+                detectionMask.ThrowIfDisposed();
+                if (models == null) throw new ArgumentNullException(nameof(models));
+                models.ThrowIfDisposed();
+                if (flagsForIntrinsics != null) flagsForIntrinsics.ThrowIfDisposed();
+                var res = NativeMethods.cv_calibrateMultiview_1(objPoints, imagePoints, imageSize, detectionMask.Handle, models.Handle, Ks, distortions, Rs, Ts, ValidationHelper.GetHandle(flagsForIntrinsics, nameof(flagsForIntrinsics), true), flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(detectionMask);
                 GC.KeepAlive(models);
@@ -463,7 +599,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double FisheyeCalibrate(IntPtr objectPoints, IntPtr imagePoints, Size image_size, Mat K, Mat D, IntPtr rvecs, IntPtr tvecs, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_fisheye_calibrate_0(objectPoints, imagePoints, image_size, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(D, nameof(D), false), rvecs, tvecs, flags, criteria);
+                if (K == null) throw new ArgumentNullException(nameof(K));
+                K.ThrowIfDisposed();
+                if (D == null) throw new ArgumentNullException(nameof(D));
+                D.ThrowIfDisposed();
+                var res = NativeMethods.cv_fisheye_calibrate_0(objectPoints, imagePoints, image_size, K.Handle, D.Handle, rvecs, tvecs, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(K);
                 GC.KeepAlive(D);
@@ -492,7 +632,19 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double FisheyeStereoCalibrate(IntPtr objectPoints, IntPtr imagePoints1, IntPtr imagePoints2, Mat K1, Mat D1, Mat K2, Mat D2, Size imageSize, Mat R, Mat T, IntPtr rvecs, IntPtr tvecs, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_fisheye_stereoCalibrate_0(objectPoints, imagePoints1, imagePoints2, ValidationHelper.GetHandle(K1, nameof(K1), false), ValidationHelper.GetHandle(D1, nameof(D1), false), ValidationHelper.GetHandle(K2, nameof(K2), false), ValidationHelper.GetHandle(D2, nameof(D2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), rvecs, tvecs, flags, criteria);
+                if (K1 == null) throw new ArgumentNullException(nameof(K1));
+                K1.ThrowIfDisposed();
+                if (D1 == null) throw new ArgumentNullException(nameof(D1));
+                D1.ThrowIfDisposed();
+                if (K2 == null) throw new ArgumentNullException(nameof(K2));
+                K2.ThrowIfDisposed();
+                if (D2 == null) throw new ArgumentNullException(nameof(D2));
+                D2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                var res = NativeMethods.cv_fisheye_stereoCalibrate_0(objectPoints, imagePoints1, imagePoints2, K1.Handle, D1.Handle, K2.Handle, D2.Handle, imageSize, R.Handle, T.Handle, rvecs, tvecs, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(K1);
                 GC.KeepAlive(D1);
@@ -523,7 +675,19 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double FisheyeStereoCalibrate(IntPtr objectPoints, IntPtr imagePoints1, IntPtr imagePoints2, Mat K1, Mat D1, Mat K2, Mat D2, Size imageSize, Mat R, Mat T, int flags, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_fisheye_stereoCalibrate_1(objectPoints, imagePoints1, imagePoints2, ValidationHelper.GetHandle(K1, nameof(K1), false), ValidationHelper.GetHandle(D1, nameof(D1), false), ValidationHelper.GetHandle(K2, nameof(K2), false), ValidationHelper.GetHandle(D2, nameof(D2), false), imageSize, ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(T, nameof(T), false), flags, criteria);
+                if (K1 == null) throw new ArgumentNullException(nameof(K1));
+                K1.ThrowIfDisposed();
+                if (D1 == null) throw new ArgumentNullException(nameof(D1));
+                D1.ThrowIfDisposed();
+                if (K2 == null) throw new ArgumentNullException(nameof(K2));
+                K2.ThrowIfDisposed();
+                if (D2 == null) throw new ArgumentNullException(nameof(D2));
+                D2.ThrowIfDisposed();
+                if (R == null) throw new ArgumentNullException(nameof(R));
+                R.ThrowIfDisposed();
+                if (T == null) throw new ArgumentNullException(nameof(T));
+                T.ThrowIfDisposed();
+                var res = NativeMethods.cv_fisheye_stereoCalibrate_1(objectPoints, imagePoints1, imagePoints2, K1.Handle, D1.Handle, K2.Handle, D2.Handle, imageSize, R.Handle, T.Handle, flags, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(K1);
                 GC.KeepAlive(D1);

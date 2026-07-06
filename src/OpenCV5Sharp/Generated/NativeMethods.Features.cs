@@ -18,59 +18,59 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ALIKED_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size ALIKED_Params_inputSize_get(IntPtr self);
+        public static extern Size ALIKED_Params_inputSize_get(AlikedParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ALIKED_Params_inputSize_set(IntPtr self, Size val);
+        public static extern void ALIKED_Params_inputSize_set(AlikedParamsHandle self, Size val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool ALIKED_Params_normalizeDescriptors_get(IntPtr self);
+        public static extern bool ALIKED_Params_normalizeDescriptors_get(AlikedParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ALIKED_Params_normalizeDescriptors_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void ALIKED_Params_normalizeDescriptors_set(AlikedParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ALIKED_Params_engine_get(IntPtr self);
+        public static extern int ALIKED_Params_engine_get(AlikedParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ALIKED_Params_engine_set(IntPtr self, int val);
+        public static extern void ALIKED_Params_engine_set(AlikedParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ALIKED_Params_backend_get(IntPtr self);
+        public static extern int ALIKED_Params_backend_get(AlikedParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ALIKED_Params_backend_set(IntPtr self, int val);
+        public static extern void ALIKED_Params_backend_set(AlikedParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ALIKED_Params_target_get(IntPtr self);
+        public static extern int ALIKED_Params_target_get(AlikedParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ALIKED_Params_target_set(IntPtr self, int val);
+        public static extern void ALIKED_Params_target_set(AlikedParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ANNIndex_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_addItems_0(IntPtr self, IntPtr features);
+        public static extern void ANNIndex_addItems_0(ANNIndexHandle self, MatHandle features);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_build_0(IntPtr self, int trees);
+        public static extern void ANNIndex_build_0(ANNIndexHandle self, int trees);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_knnSearch_0(IntPtr self, IntPtr query, IntPtr indices, IntPtr dists, int knn, int search_k);
+        public static extern void ANNIndex_knnSearch_0(ANNIndexHandle self, MatHandle query, MatHandle indices, MatHandle dists, int knn, int search_k);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_save_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, [MarshalAs(UnmanagedType.U1)] bool prefault);
+        public static extern void ANNIndex_save_0(ANNIndexHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, [MarshalAs(UnmanagedType.U1)] bool prefault);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_load_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, [MarshalAs(UnmanagedType.U1)] bool prefault);
+        public static extern void ANNIndex_load_0(ANNIndexHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename, [MarshalAs(UnmanagedType.U1)] bool prefault);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ANNIndex_getTreeNumber_0(IntPtr self);
+        public static extern int ANNIndex_getTreeNumber_0(ANNIndexHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ANNIndex_getItemNumber_0(IntPtr self);
+        public static extern int ANNIndex_getItemNumber_0(ANNIndexHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool ANNIndex_setOnDiskBuild_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
+        public static extern bool ANNIndex_setOnDiskBuild_0(ANNIndexHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ANNIndex_setSeed_0(IntPtr self, int seed);
+        public static extern void ANNIndex_setSeed_0(ANNIndexHandle self, int seed);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ANNIndex_create_0(int dim, IntPtr distType);
+        public static extern IntPtr ANNIndex_create_0(int dim, int distType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void AffineFeature_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr AffineFeature_create_0(IntPtr backend, int maxTilt, int minTilt, float tiltStep, float rotateStepBase);
+        public static extern IntPtr AffineFeature_create_0(Feature2DHandle backend, int maxTilt, int minTilt, float tiltStep, float rotateStepBase);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void AffineFeature_setViewParams_0(IntPtr self, IntPtr tilts, IntPtr rolls);
+        public static extern void AffineFeature_setViewParams_0(AffineFeatureHandle self, IntPtr tilts, IntPtr rolls);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void AffineFeature_getViewParams_0(IntPtr self, IntPtr tilts, IntPtr rolls);
+        public static extern void AffineFeature_getViewParams_0(AffineFeatureHandle self, IntPtr tilts, IntPtr rolls);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr AffineFeature_getDefaultName_0(IntPtr self);
+        public static extern IntPtr AffineFeature_getDefaultName_0(AffineFeatureHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void BFMatcher_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -80,95 +80,95 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void DescriptorMatcher_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_add_0(IntPtr self, IntPtr descriptors);
+        public static extern void DescriptorMatcher_add_0(DescriptorMatcherHandle self, IntPtr descriptors);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DescriptorMatcher_getTrainDescriptors_0(IntPtr self);
+        public static extern IntPtr DescriptorMatcher_getTrainDescriptors_0(DescriptorMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_clear_0(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool DescriptorMatcher_empty_0(IntPtr self);
+        public static extern void DescriptorMatcher_clear_0(DescriptorMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool DescriptorMatcher_isMaskSupported_0(IntPtr self);
+        public static extern bool DescriptorMatcher_empty_0(DescriptorMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_train_0(IntPtr self);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool DescriptorMatcher_isMaskSupported_0(DescriptorMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_match_0(IntPtr self, IntPtr queryDescriptors, IntPtr trainDescriptors, IntPtr matches, IntPtr mask);
+        public static extern void DescriptorMatcher_train_0(DescriptorMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_knnMatch_0(IntPtr self, IntPtr queryDescriptors, IntPtr trainDescriptors, IntPtr matches, int k, IntPtr mask, [MarshalAs(UnmanagedType.U1)] bool compactResult);
+        public static extern void DescriptorMatcher_match_0(DescriptorMatcherHandle self, MatHandle queryDescriptors, MatHandle trainDescriptors, IntPtr matches, IntPtr mask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_radiusMatch_0(IntPtr self, IntPtr queryDescriptors, IntPtr trainDescriptors, IntPtr matches, float maxDistance, IntPtr mask, [MarshalAs(UnmanagedType.U1)] bool compactResult);
+        public static extern void DescriptorMatcher_knnMatch_0(DescriptorMatcherHandle self, MatHandle queryDescriptors, MatHandle trainDescriptors, IntPtr matches, int k, IntPtr mask, [MarshalAs(UnmanagedType.U1)] bool compactResult);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_match_1(IntPtr self, IntPtr queryDescriptors, IntPtr matches, IntPtr masks);
+        public static extern void DescriptorMatcher_radiusMatch_0(DescriptorMatcherHandle self, MatHandle queryDescriptors, MatHandle trainDescriptors, IntPtr matches, float maxDistance, IntPtr mask, [MarshalAs(UnmanagedType.U1)] bool compactResult);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_knnMatch_1(IntPtr self, IntPtr queryDescriptors, IntPtr matches, int k, IntPtr masks, [MarshalAs(UnmanagedType.U1)] bool compactResult);
+        public static extern void DescriptorMatcher_match_1(DescriptorMatcherHandle self, MatHandle queryDescriptors, IntPtr matches, IntPtr masks);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_radiusMatch_1(IntPtr self, IntPtr queryDescriptors, IntPtr matches, float maxDistance, IntPtr masks, [MarshalAs(UnmanagedType.U1)] bool compactResult);
+        public static extern void DescriptorMatcher_knnMatch_1(DescriptorMatcherHandle self, MatHandle queryDescriptors, IntPtr matches, int k, IntPtr masks, [MarshalAs(UnmanagedType.U1)] bool compactResult);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_write_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
+        public static extern void DescriptorMatcher_radiusMatch_1(DescriptorMatcherHandle self, MatHandle queryDescriptors, IntPtr matches, float maxDistance, IntPtr masks, [MarshalAs(UnmanagedType.U1)] bool compactResult);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_read_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
+        public static extern void DescriptorMatcher_write_0(DescriptorMatcherHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_read_1(IntPtr self, IntPtr arg1);
+        public static extern void DescriptorMatcher_read_0(DescriptorMatcherHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DescriptorMatcher_clone_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool emptyTrainData);
+        public static extern void DescriptorMatcher_read_1(DescriptorMatcherHandle self, FileNodeHandle arg1);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr DescriptorMatcher_clone_0(DescriptorMatcherHandle self, [MarshalAs(UnmanagedType.U1)] bool emptyTrainData);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr DescriptorMatcher_create_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? descriptorMatcherType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr DescriptorMatcher_create_1(IntPtr matcherType);
+        public static extern IntPtr DescriptorMatcher_create_1(int matcherType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void DescriptorMatcher_write_1(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
+        public static extern void DescriptorMatcher_write_1(DescriptorMatcherHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void FastFeatureDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr FastFeatureDetector_create_0(int threshold, [MarshalAs(UnmanagedType.U1)] bool nonmaxSuppression, IntPtr type);
+        public static extern IntPtr FastFeatureDetector_create_0(int threshold, [MarshalAs(UnmanagedType.U1)] bool nonmaxSuppression, int type);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FastFeatureDetector_setThreshold_0(IntPtr self, int threshold);
+        public static extern void FastFeatureDetector_setThreshold_0(FastFeatureDetectorHandle self, int threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FastFeatureDetector_getThreshold_0(IntPtr self);
+        public static extern int FastFeatureDetector_getThreshold_0(FastFeatureDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FastFeatureDetector_setNonmaxSuppression_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool f);
+        public static extern void FastFeatureDetector_setNonmaxSuppression_0(FastFeatureDetectorHandle self, [MarshalAs(UnmanagedType.U1)] bool f);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool FastFeatureDetector_getNonmaxSuppression_0(IntPtr self);
+        public static extern bool FastFeatureDetector_getNonmaxSuppression_0(FastFeatureDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FastFeatureDetector_setType_0(IntPtr self, IntPtr type);
+        public static extern void FastFeatureDetector_setType_0(FastFeatureDetectorHandle self, int type);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr FastFeatureDetector_getType_0(IntPtr self);
+        public static extern int FastFeatureDetector_getType_0(FastFeatureDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr FastFeatureDetector_getDefaultName_0(IntPtr self);
+        public static extern IntPtr FastFeatureDetector_getDefaultName_0(FastFeatureDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Feature2D_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_detect_0(IntPtr self, IntPtr image, IntPtr keypoints, IntPtr mask);
+        public static extern void Feature2D_detect_0(Feature2DHandle self, MatHandle image, IntPtr keypoints, IntPtr mask);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_detect_1(IntPtr self, IntPtr images, IntPtr keypoints, IntPtr masks);
+        public static extern void Feature2D_detect_1(Feature2DHandle self, IntPtr images, IntPtr keypoints, IntPtr masks);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_compute_0(IntPtr self, IntPtr image, IntPtr keypoints, IntPtr descriptors);
+        public static extern void Feature2D_compute_0(Feature2DHandle self, MatHandle image, IntPtr keypoints, MatHandle descriptors);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_compute_1(IntPtr self, IntPtr images, IntPtr keypoints, IntPtr descriptors);
+        public static extern void Feature2D_compute_1(Feature2DHandle self, IntPtr images, IntPtr keypoints, IntPtr descriptors);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_detectAndCompute_0(IntPtr self, IntPtr image, IntPtr mask, IntPtr keypoints, IntPtr descriptors, [MarshalAs(UnmanagedType.U1)] bool useProvidedKeypoints);
+        public static extern void Feature2D_detectAndCompute_0(Feature2DHandle self, MatHandle image, MatHandle mask, IntPtr keypoints, MatHandle descriptors, [MarshalAs(UnmanagedType.U1)] bool useProvidedKeypoints);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Feature2D_descriptorSize_0(IntPtr self);
+        public static extern int Feature2D_descriptorSize_0(Feature2DHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Feature2D_descriptorType_0(IntPtr self);
+        public static extern int Feature2D_descriptorType_0(Feature2DHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Feature2D_defaultNorm_0(IntPtr self);
+        public static extern int Feature2D_defaultNorm_0(Feature2DHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_write_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
+        public static extern void Feature2D_write_0(Feature2DHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_read_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
+        public static extern void Feature2D_read_0(Feature2DHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? fileName);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_read_1(IntPtr self, IntPtr arg1);
+        public static extern void Feature2D_read_1(Feature2DHandle self, FileNodeHandle arg1);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool Feature2D_empty_0(IntPtr self);
+        public static extern bool Feature2D_empty_0(Feature2DHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr Feature2D_getDefaultName_0(IntPtr self);
+        public static extern IntPtr Feature2D_getDefaultName_0(Feature2DHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Feature2D_write_1(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
+        public static extern void Feature2D_write_1(Feature2DHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void GFTTDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -176,135 +176,135 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr GFTTDetector_create_1(int maxCorners, double qualityLevel, double minDistance, int blockSize, int gradientSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setMaxFeatures_0(IntPtr self, int maxFeatures);
+        public static extern void GFTTDetector_setMaxFeatures_0(GFTTDetectorHandle self, int maxFeatures);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GFTTDetector_getMaxFeatures_0(IntPtr self);
+        public static extern int GFTTDetector_getMaxFeatures_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setQualityLevel_0(IntPtr self, double qlevel);
+        public static extern void GFTTDetector_setQualityLevel_0(GFTTDetectorHandle self, double qlevel);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double GFTTDetector_getQualityLevel_0(IntPtr self);
+        public static extern double GFTTDetector_getQualityLevel_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setMinDistance_0(IntPtr self, double minDistance);
+        public static extern void GFTTDetector_setMinDistance_0(GFTTDetectorHandle self, double minDistance);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double GFTTDetector_getMinDistance_0(IntPtr self);
+        public static extern double GFTTDetector_getMinDistance_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setBlockSize_0(IntPtr self, int blockSize);
+        public static extern void GFTTDetector_setBlockSize_0(GFTTDetectorHandle self, int blockSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GFTTDetector_getBlockSize_0(IntPtr self);
+        public static extern int GFTTDetector_getBlockSize_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setGradientSize_0(IntPtr self, int gradientSize_);
+        public static extern void GFTTDetector_setGradientSize_0(GFTTDetectorHandle self, int gradientSize_);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int GFTTDetector_getGradientSize_0(IntPtr self);
+        public static extern int GFTTDetector_getGradientSize_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setHarrisDetector_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void GFTTDetector_setHarrisDetector_0(GFTTDetectorHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool GFTTDetector_getHarrisDetector_0(IntPtr self);
+        public static extern bool GFTTDetector_getHarrisDetector_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void GFTTDetector_setK_0(IntPtr self, double k);
+        public static extern void GFTTDetector_setK_0(GFTTDetectorHandle self, double k);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double GFTTDetector_getK_0(IntPtr self);
+        public static extern double GFTTDetector_getK_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr GFTTDetector_getDefaultName_0(IntPtr self);
+        public static extern IntPtr GFTTDetector_getDefaultName_0(GFTTDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void LightGlueMatcher_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr LightGlueMatcher_create_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? modelPath, float scoreThreshold, int backend, int target);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void LightGlueMatcher_setPairInfo_0(IntPtr self, IntPtr queryKpts, IntPtr trainKpts, Size queryImageSize, Size trainImageSize);
+        public static extern void LightGlueMatcher_setPairInfo_0(LightGlueMatcherHandle self, MatHandle queryKpts, MatHandle trainKpts, Size queryImageSize, Size trainImageSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void LightGlueMatcher_clearPairInfo_0(IntPtr self);
+        public static extern void LightGlueMatcher_clearPairInfo_0(LightGlueMatcherHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void MSER_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MSER_create_0(int delta, int min_area, int max_area, double max_variation, double min_diversity, int max_evolution, double area_threshold, double min_margin, int edge_blur_size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_detectRegions_0(IntPtr self, IntPtr image, IntPtr msers, IntPtr bboxes);
+        public static extern void MSER_detectRegions_0(MserHandle self, MatHandle image, IntPtr msers, IntPtr bboxes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setDelta_0(IntPtr self, int delta);
+        public static extern void MSER_setDelta_0(MserHandle self, int delta);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSER_getDelta_0(IntPtr self);
+        public static extern int MSER_getDelta_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMinArea_0(IntPtr self, int minArea);
+        public static extern void MSER_setMinArea_0(MserHandle self, int minArea);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSER_getMinArea_0(IntPtr self);
+        public static extern int MSER_getMinArea_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMaxArea_0(IntPtr self, int maxArea);
+        public static extern void MSER_setMaxArea_0(MserHandle self, int maxArea);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSER_getMaxArea_0(IntPtr self);
+        public static extern int MSER_getMaxArea_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMaxVariation_0(IntPtr self, double maxVariation);
+        public static extern void MSER_setMaxVariation_0(MserHandle self, double maxVariation);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MSER_getMaxVariation_0(IntPtr self);
+        public static extern double MSER_getMaxVariation_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMinDiversity_0(IntPtr self, double minDiversity);
+        public static extern void MSER_setMinDiversity_0(MserHandle self, double minDiversity);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MSER_getMinDiversity_0(IntPtr self);
+        public static extern double MSER_getMinDiversity_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMaxEvolution_0(IntPtr self, int maxEvolution);
+        public static extern void MSER_setMaxEvolution_0(MserHandle self, int maxEvolution);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSER_getMaxEvolution_0(IntPtr self);
+        public static extern int MSER_getMaxEvolution_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setAreaThreshold_0(IntPtr self, double areaThreshold);
+        public static extern void MSER_setAreaThreshold_0(MserHandle self, double areaThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MSER_getAreaThreshold_0(IntPtr self);
+        public static extern double MSER_getAreaThreshold_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setMinMargin_0(IntPtr self, double min_margin);
+        public static extern void MSER_setMinMargin_0(MserHandle self, double min_margin);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MSER_getMinMargin_0(IntPtr self);
+        public static extern double MSER_getMinMargin_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setEdgeBlurSize_0(IntPtr self, int edge_blur_size);
+        public static extern void MSER_setEdgeBlurSize_0(MserHandle self, int edge_blur_size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSER_getEdgeBlurSize_0(IntPtr self);
+        public static extern int MSER_getEdgeBlurSize_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSER_setPass2Only_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool f);
+        public static extern void MSER_setPass2Only_0(MserHandle self, [MarshalAs(UnmanagedType.U1)] bool f);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool MSER_getPass2Only_0(IntPtr self);
+        public static extern bool MSER_getPass2Only_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MSER_getDefaultName_0(IntPtr self);
+        public static extern IntPtr MSER_getDefaultName_0(MserHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ORB_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ORB_create_0(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, IntPtr scoreType, int patchSize, int fastThreshold);
+        public static extern IntPtr ORB_create_0(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setMaxFeatures_0(IntPtr self, int maxFeatures);
+        public static extern void ORB_setMaxFeatures_0(OrbHandle self, int maxFeatures);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getMaxFeatures_0(IntPtr self);
+        public static extern int ORB_getMaxFeatures_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setScaleFactor_0(IntPtr self, double scaleFactor);
+        public static extern void ORB_setScaleFactor_0(OrbHandle self, double scaleFactor);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double ORB_getScaleFactor_0(IntPtr self);
+        public static extern double ORB_getScaleFactor_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setNLevels_0(IntPtr self, int nlevels);
+        public static extern void ORB_setNLevels_0(OrbHandle self, int nlevels);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getNLevels_0(IntPtr self);
+        public static extern int ORB_getNLevels_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setEdgeThreshold_0(IntPtr self, int edgeThreshold);
+        public static extern void ORB_setEdgeThreshold_0(OrbHandle self, int edgeThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getEdgeThreshold_0(IntPtr self);
+        public static extern int ORB_getEdgeThreshold_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setFirstLevel_0(IntPtr self, int firstLevel);
+        public static extern void ORB_setFirstLevel_0(OrbHandle self, int firstLevel);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getFirstLevel_0(IntPtr self);
+        public static extern int ORB_getFirstLevel_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setWTA_K_0(IntPtr self, int wta_k);
+        public static extern void ORB_setWTA_K_0(OrbHandle self, int wta_k);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getWTA_K_0(IntPtr self);
+        public static extern int ORB_getWTA_K_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setScoreType_0(IntPtr self, IntPtr scoreType);
+        public static extern void ORB_setScoreType_0(OrbHandle self, int scoreType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ORB_getScoreType_0(IntPtr self);
+        public static extern int ORB_getScoreType_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setPatchSize_0(IntPtr self, int patchSize);
+        public static extern void ORB_setPatchSize_0(OrbHandle self, int patchSize);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getPatchSize_0(IntPtr self);
+        public static extern int ORB_getPatchSize_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ORB_setFastThreshold_0(IntPtr self, int fastThreshold);
+        public static extern void ORB_setFastThreshold_0(OrbHandle self, int fastThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int ORB_getFastThreshold_0(IntPtr self);
+        public static extern int ORB_getFastThreshold_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ORB_getDefaultName_0(IntPtr self);
+        public static extern IntPtr ORB_getDefaultName_0(OrbHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SIFT_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -312,140 +312,140 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr SIFT_create_1(int nfeatures, int nOctaveLayers, double contrastThreshold, double edgeThreshold, double sigma, int descriptorType, [MarshalAs(UnmanagedType.U1)] bool enable_precise_upscale);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr SIFT_getDefaultName_0(IntPtr self);
+        public static extern IntPtr SIFT_getDefaultName_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SIFT_setNFeatures_0(IntPtr self, int maxFeatures);
+        public static extern void SIFT_setNFeatures_0(SiftHandle self, int maxFeatures);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SIFT_getNFeatures_0(IntPtr self);
+        public static extern int SIFT_getNFeatures_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SIFT_setNOctaveLayers_0(IntPtr self, int nOctaveLayers);
+        public static extern void SIFT_setNOctaveLayers_0(SiftHandle self, int nOctaveLayers);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SIFT_getNOctaveLayers_0(IntPtr self);
+        public static extern int SIFT_getNOctaveLayers_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SIFT_setContrastThreshold_0(IntPtr self, double contrastThreshold);
+        public static extern void SIFT_setContrastThreshold_0(SiftHandle self, double contrastThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double SIFT_getContrastThreshold_0(IntPtr self);
+        public static extern double SIFT_getContrastThreshold_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SIFT_setEdgeThreshold_0(IntPtr self, double edgeThreshold);
+        public static extern void SIFT_setEdgeThreshold_0(SiftHandle self, double edgeThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double SIFT_getEdgeThreshold_0(IntPtr self);
+        public static extern double SIFT_getEdgeThreshold_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SIFT_setSigma_0(IntPtr self, double sigma);
+        public static extern void SIFT_setSigma_0(SiftHandle self, double sigma);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double SIFT_getSigma_0(IntPtr self);
+        public static extern double SIFT_getSigma_0(SiftHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SimpleBlobDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr SimpleBlobDetector_create_0(IntPtr parameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_setParams_0(IntPtr self, IntPtr @params);
+        public static extern void SimpleBlobDetector_setParams_0(SimpleBlobDetectorHandle self, SimpleBlobDetectorParamsHandle @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr SimpleBlobDetector_getParams_0(IntPtr self);
+        public static extern IntPtr SimpleBlobDetector_getParams_0(SimpleBlobDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr SimpleBlobDetector_getDefaultName_0(IntPtr self);
+        public static extern IntPtr SimpleBlobDetector_getDefaultName_0(SimpleBlobDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr SimpleBlobDetector_getBlobContours_0(IntPtr self);
+        public static extern IntPtr SimpleBlobDetector_getBlobContours_0(SimpleBlobDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SimpleBlobDetector_Params_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr SimpleBlobDetector_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_thresholdStep_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_thresholdStep_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_thresholdStep_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_thresholdStep_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minThreshold_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_minThreshold_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minThreshold_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_minThreshold_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_maxThreshold_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_maxThreshold_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_maxThreshold_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_maxThreshold_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern long SimpleBlobDetector_Params_minRepeatability_get(IntPtr self);
+        public static extern long SimpleBlobDetector_Params_minRepeatability_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minRepeatability_set(IntPtr self, long val);
+        public static extern void SimpleBlobDetector_Params_minRepeatability_set(SimpleBlobDetectorParamsHandle self, long val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minDistBetweenBlobs_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_minDistBetweenBlobs_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minDistBetweenBlobs_set(IntPtr self, float val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_filterByColor_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_filterByColor_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern byte SimpleBlobDetector_Params_blobColor_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_blobColor_set(IntPtr self, byte val);
+        public static extern void SimpleBlobDetector_Params_minDistBetweenBlobs_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_filterByArea_get(IntPtr self);
+        public static extern bool SimpleBlobDetector_Params_filterByColor_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_filterByArea_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void SimpleBlobDetector_Params_filterByColor_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minArea_get(IntPtr self);
+        public static extern byte SimpleBlobDetector_Params_blobColor_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minArea_set(IntPtr self, float val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_maxArea_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_maxArea_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_blobColor_set(SimpleBlobDetectorParamsHandle self, byte val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_filterByCircularity_get(IntPtr self);
+        public static extern bool SimpleBlobDetector_Params_filterByArea_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_filterByCircularity_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void SimpleBlobDetector_Params_filterByArea_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minCircularity_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_minArea_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minCircularity_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_minArea_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_maxCircularity_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_maxArea_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_maxCircularity_set(IntPtr self, float val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_filterByInertia_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_filterByInertia_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minInertiaRatio_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minInertiaRatio_set(IntPtr self, float val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_maxInertiaRatio_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_maxInertiaRatio_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_maxArea_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_filterByConvexity_get(IntPtr self);
+        public static extern bool SimpleBlobDetector_Params_filterByCircularity_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_filterByConvexity_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void SimpleBlobDetector_Params_filterByCircularity_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_minConvexity_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_minCircularity_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_minConvexity_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_minCircularity_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float SimpleBlobDetector_Params_maxConvexity_get(IntPtr self);
+        public static extern float SimpleBlobDetector_Params_maxCircularity_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_maxConvexity_set(IntPtr self, float val);
+        public static extern void SimpleBlobDetector_Params_maxCircularity_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool SimpleBlobDetector_Params_collectContours_get(IntPtr self);
+        public static extern bool SimpleBlobDetector_Params_filterByInertia_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SimpleBlobDetector_Params_collectContours_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void SimpleBlobDetector_Params_filterByInertia_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_goodFeaturesToTrack_0(IntPtr image, IntPtr corners, int maxCorners, double qualityLevel, double minDistance, IntPtr mask, int blockSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        public static extern float SimpleBlobDetector_Params_minInertiaRatio_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_goodFeaturesToTrack_1(IntPtr image, IntPtr corners, int maxCorners, double qualityLevel, double minDistance, IntPtr mask, int blockSize, int gradientSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        public static extern void SimpleBlobDetector_Params_minInertiaRatio_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_goodFeaturesToTrack_2(IntPtr image, IntPtr corners, int maxCorners, double qualityLevel, double minDistance, IntPtr mask, IntPtr cornersQuality, int blockSize, int gradientSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        public static extern float SimpleBlobDetector_Params_maxInertiaRatio_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_drawKeypoints_0(IntPtr image, IntPtr keypoints, IntPtr outImage, Scalar color, int flags);
+        public static extern void SimpleBlobDetector_Params_maxInertiaRatio_set(SimpleBlobDetectorParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_drawMatches_0(IntPtr img1, IntPtr keypoints1, IntPtr img2, IntPtr keypoints2, IntPtr matches1to2, IntPtr outImg, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, int flags);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SimpleBlobDetector_Params_filterByConvexity_get(SimpleBlobDetectorParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_drawMatches_1(IntPtr img1, IntPtr keypoints1, IntPtr img2, IntPtr keypoints2, IntPtr matches1to2, IntPtr outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, int flags);
+        public static extern void SimpleBlobDetector_Params_filterByConvexity_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern float SimpleBlobDetector_Params_minConvexity_get(SimpleBlobDetectorParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SimpleBlobDetector_Params_minConvexity_set(SimpleBlobDetectorParamsHandle self, float val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern float SimpleBlobDetector_Params_maxConvexity_get(SimpleBlobDetectorParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SimpleBlobDetector_Params_maxConvexity_set(SimpleBlobDetectorParamsHandle self, float val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool SimpleBlobDetector_Params_collectContours_get(SimpleBlobDetectorParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SimpleBlobDetector_Params_collectContours_set(SimpleBlobDetectorParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_goodFeaturesToTrack_0(MatHandle image, MatHandle corners, int maxCorners, double qualityLevel, double minDistance, IntPtr mask, int blockSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_goodFeaturesToTrack_1(MatHandle image, MatHandle corners, int maxCorners, double qualityLevel, double minDistance, MatHandle mask, int blockSize, int gradientSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_goodFeaturesToTrack_2(MatHandle image, MatHandle corners, int maxCorners, double qualityLevel, double minDistance, MatHandle mask, MatHandle cornersQuality, int blockSize, int gradientSize, [MarshalAs(UnmanagedType.U1)] bool useHarrisDetector, double k);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_drawKeypoints_0(MatHandle image, IntPtr keypoints, MatHandle outImage, Scalar color, int flags);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_drawMatches_0(MatHandle img1, IntPtr keypoints1, MatHandle img2, IntPtr keypoints2, IntPtr matches1to2, MatHandle outImg, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, int flags);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_drawMatches_1(MatHandle img1, IntPtr keypoints1, MatHandle img2, IntPtr keypoints2, IntPtr matches1to2, MatHandle outImg, int matchesThickness, Scalar matchColor, Scalar singlePointColor, IntPtr matchesMask, int flags);
     }
 }

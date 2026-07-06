@@ -26,7 +26,7 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern int cv_pollKey_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_imshow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? winname, IntPtr mat);
+        public static extern void cv_imshow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? winname, MatHandle mat);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_resizeWindow_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? winname, int width, int height);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -42,11 +42,11 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern Rect cv_getWindowImageRect_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? winname);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect cv_selectROI_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? windowName, IntPtr img, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
+        public static extern Rect cv_selectROI_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? windowName, MatHandle img, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect cv_selectROI_1(IntPtr img, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
+        public static extern Rect cv_selectROI_1(MatHandle img, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_selectROIs_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? windowName, IntPtr img, IntPtr boundingBoxes, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
+        public static extern void cv_selectROIs_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? windowName, MatHandle img, IntPtr boundingBoxes, [MarshalAs(UnmanagedType.U1)] bool showCrosshair, [MarshalAs(UnmanagedType.U1)] bool fromCenter, [MarshalAs(UnmanagedType.U1)] bool printNotice);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern int cv_getTrackbarPos_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? trackbarname, [MarshalAs(UnmanagedType.LPUTF8Str)] string? winname);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -56,7 +56,7 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_setTrackbarMin_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? trackbarname, [MarshalAs(UnmanagedType.LPUTF8Str)] string? winname, int minval);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_addText_0(IntPtr img, [MarshalAs(UnmanagedType.LPUTF8Str)] string? text, Point org, [MarshalAs(UnmanagedType.LPUTF8Str)] string? nameFont, int pointSize, Scalar color, int weight, int style, int spacing);
+        public static extern void cv_addText_0(MatHandle img, [MarshalAs(UnmanagedType.LPUTF8Str)] string? text, Point org, [MarshalAs(UnmanagedType.LPUTF8Str)] string? nameFont, int pointSize, Scalar color, int weight, int style, int spacing);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void cv_displayOverlay_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? winname, [MarshalAs(UnmanagedType.LPUTF8Str)] string? text, int delayms);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]

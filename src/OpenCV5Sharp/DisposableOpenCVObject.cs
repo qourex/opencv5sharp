@@ -19,27 +19,28 @@ namespace OpenCV5Sharp
             PlatformGuard.EnsureSupported();
         }
 
-        private volatile IntPtr _handle;
+        private readonly OpenCVHandle _handle;
 
-        /// <summary>Gets the native handle to the underlying OpenCV object.</summary>
-        /// <value>A pointer to the unmanaged object, or <see cref="IntPtr.Zero"/> if disposed.</value>
-        public IntPtr Handle => _handle;
+        /// <summary>Gets the type-safe SafeHandle to the underlying OpenCV object.</summary>
+        /// <value>The unmanaged object's SafeHandle.</value>
+        public OpenCVHandle Handle => _handle;
 
         /// <summary>Gets a value indicating whether this object has been disposed.</summary>
-        /// <value><c>true</c> if the object is disposed and the native handle is zero; otherwise, <c>false</c>.</value>
-        public bool IsDisposed => _handle == IntPtr.Zero;
+        /// <value><c>true</c> if the object is disposed or the native handle is invalid; otherwise, <c>false</c>.</value>
+        public bool IsDisposed => _handle.IsClosed || _handle.IsInvalid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DisposableOpenCVObject"/> class
-        /// with the specified native handle.
+        /// with the specified unmanaged SafeHandle.
         /// </summary>
-        /// <param name="handle">The native handle to the unmanaged OpenCV object.</param>
-        /// <exception cref="OpenCVException">Thrown when the native handle is null (IntPtr.Zero).</exception>
-        protected DisposableOpenCVObject(IntPtr handle)
+        /// <param name="handle">The unmanaged SafeHandle to the native OpenCV object.</param>
+        /// <exception cref="OpenCVException">Thrown when the handle is null or invalid.</exception>
+        protected DisposableOpenCVObject(OpenCVHandle handle)
         {
-            if (handle == IntPtr.Zero)
+            if (handle == null || handle.IsInvalid)
             {
-                throw new OpenCVException("Failed to allocate or retrieve native OpenCV object (received null pointer).");
+                ErrorHelper.CheckError();
+                throw new OpenCVException("Failed to allocate or retrieve native OpenCV object (received null or invalid handle).");
             }
             _handle = handle;
         }
@@ -51,7 +52,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when the object has been disposed.</exception>
         public void ThrowIfDisposed()
         {
-            if (_handle == IntPtr.Zero)
+            if (_handle.IsClosed || _handle.IsInvalid)
                 throw new ObjectDisposedException(GetType().Name);
         }
 
@@ -63,37 +64,16 @@ namespace OpenCV5Sharp
         }
 
         /// <summary>
-        /// Releases unmanaged resources. Uses <see cref="Interlocked.Exchange(ref IntPtr, IntPtr)"/>
-        /// to atomically swap the handle to <see cref="IntPtr.Zero"/>, preventing double-free.
+        /// Releases managed and unmanaged resources.
         /// </summary>
-        /// <param name="disposing">
-        /// <c>true</c> if called from <see cref="Dispose()"/>; <c>false</c> if called from the finalizer.
-        /// </param>
+        /// <param name="disposing">true if called from Dispose; false if called from finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            IntPtr h = Interlocked.Exchange(ref _handle, IntPtr.Zero);
-            if (h != IntPtr.Zero)
+            if (disposing)
             {
-                try
-                {
-                    DisposeUnmanaged(h);
-                }
-                catch
-                {
-                    if (disposing) throw;
-                }
+                _handle.Dispose();
             }
         }
-
-        /// <summary>
-        /// When overridden in a derived class, releases the native resource identified by <paramref name="handle"/>.
-        /// The handle is guaranteed to be non-zero and this method is called exactly once.
-        /// </summary>
-        /// <param name="handle">The native handle to release. Guaranteed non-zero.</param>
-        protected abstract void DisposeUnmanaged(IntPtr handle);
-
-        /// <summary>Finalizer. Releases unmanaged resources if Dispose was not called.</summary>
-        ~DisposableOpenCVObject() { Dispose(false); }
     }
 
     /// <summary>
@@ -117,12 +97,37 @@ namespace OpenCV5Sharp
                 if (isOptional) return IntPtr.Zero;
                 throw new ArgumentNullException(paramName);
             }
-            IntPtr handle = obj.Handle;
-            if (handle == IntPtr.Zero)
+            var safeHandle = obj.Handle;
+            if (safeHandle == null || safeHandle.IsInvalid)
             {
                 throw new ObjectDisposedException(obj.GetType().Name);
             }
-            return handle;
+            return safeHandle.DangerousGetHandle();
+        }
+
+        /// <summary>
+        /// Gets the strongly-typed OpenCVHandle from a disposable OpenCV object, validating that it is not null (if not optional) and not disposed.
+        /// </summary>
+        /// <typeparam name="T">The specific OpenCVHandle subclass.</typeparam>
+        /// <param name="obj">The disposable OpenCV object.</param>
+        /// <param name="paramName">The parameter name to report in exceptions.</param>
+        /// <param name="isOptional">True if the parameter can be null; false if it is required.</param>
+        /// <returns>The strongly-typed unmanaged handle of the object, or null if null and optional.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="obj"/> is null and <paramref name="isOptional"/> is false.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when <paramref name="obj"/> has been disposed.</exception>
+        public static T GetHandle<T>(DisposableOpenCVObject? obj, string paramName, bool isOptional) where T : OpenCVHandle
+        {
+            if (obj is null)
+            {
+                if (isOptional) return null!;
+                throw new ArgumentNullException(paramName);
+            }
+            var safeHandle = obj.Handle;
+            if (safeHandle == null || safeHandle.IsInvalid)
+            {
+                throw new ObjectDisposedException(obj.GetType().Name);
+            }
+            return (T)safeHandle;
         }
 
         /// <summary>Reinterprets a ulong as an unmanaged struct value (e.g. Size2F, Point2F, Size, Point).</summary>
@@ -131,6 +136,10 @@ namespace OpenCV5Sharp
         /// <returns>The reinterpreted struct of type <typeparamref name="T"/>.</returns>
         public static unsafe T Reinterpret<T>(ulong val) where T : unmanaged
         {
+            if (sizeof(T) > sizeof(ulong))
+            {
+                throw new ArgumentException($"Cannot reinterpret ulong as type {typeof(T).Name} because its size ({sizeof(T)} bytes) exceeds the size of a ulong ({sizeof(ulong)} bytes).");
+            }
             return *(T*)&val;
         }
     }

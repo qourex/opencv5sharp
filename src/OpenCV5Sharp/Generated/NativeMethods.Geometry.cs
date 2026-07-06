@@ -12,17 +12,17 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void MSTEdge_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSTEdge_source_get(IntPtr self);
+        public static extern int MSTEdge_source_get(MSTEdgeHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSTEdge_source_set(IntPtr self, int val);
+        public static extern void MSTEdge_source_set(MSTEdgeHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MSTEdge_target_get(IntPtr self);
+        public static extern int MSTEdge_target_get(MSTEdgeHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSTEdge_target_set(IntPtr self, int val);
+        public static extern void MSTEdge_target_set(MSTEdgeHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double MSTEdge_weight_get(IntPtr self);
+        public static extern double MSTEdge_weight_get(MSTEdgeHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MSTEdge_weight_set(IntPtr self, double val);
+        public static extern void MSTEdge_weight_set(MSTEdgeHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void Subdiv2D_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -32,270 +32,270 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Subdiv2D_New_2(Rect2F rect2f);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_initDelaunay_0(IntPtr self, Rect rect);
+        public static extern void Subdiv2D_initDelaunay_0(Subdiv2DHandle self, Rect rect);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_initDelaunay_1(IntPtr self, Rect2F rect);
+        public static extern void Subdiv2D_initDelaunay_1(Subdiv2DHandle self, Rect2F rect);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_insert_0(IntPtr self, Point2F pt);
+        public static extern int Subdiv2D_insert_0(Subdiv2DHandle self, Point2F pt);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_insert_1(IntPtr self, IntPtr ptvec);
+        public static extern void Subdiv2D_insert_1(Subdiv2DHandle self, IntPtr ptvec);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_locate_0(IntPtr self, Point2F pt, int edge, int vertex);
+        public static extern int Subdiv2D_locate_0(Subdiv2DHandle self, Point2F pt, int edge, int vertex);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_findNearest_0(IntPtr self, Point2F pt, IntPtr nearestPt);
+        public static extern int Subdiv2D_findNearest_0(Subdiv2DHandle self, Point2F pt, IntPtr nearestPt);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_getEdgeList_0(IntPtr self, IntPtr edgeList);
+        public static extern void Subdiv2D_getEdgeList_0(Subdiv2DHandle self, IntPtr edgeList);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_getLeadingEdgeList_0(IntPtr self, IntPtr leadingEdgeList);
+        public static extern void Subdiv2D_getLeadingEdgeList_0(Subdiv2DHandle self, IntPtr leadingEdgeList);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_getTriangleList_0(IntPtr self, IntPtr triangleList);
+        public static extern void Subdiv2D_getTriangleList_0(Subdiv2DHandle self, IntPtr triangleList);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Subdiv2D_getVoronoiFacetList_0(IntPtr self, IntPtr idx, IntPtr facetList, IntPtr facetCenters);
+        public static extern void Subdiv2D_getVoronoiFacetList_0(Subdiv2DHandle self, IntPtr idx, IntPtr facetList, IntPtr facetCenters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Point2F Subdiv2D_getVertex_0(IntPtr self, int vertex, IntPtr firstEdge);
+        public static extern Point2F Subdiv2D_getVertex_0(Subdiv2DHandle self, int vertex, IntPtr firstEdge);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_getEdge_0(IntPtr self, int edge, int nextEdgeType);
+        public static extern int Subdiv2D_getEdge_0(Subdiv2DHandle self, int edge, int nextEdgeType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_nextEdge_0(IntPtr self, int edge);
+        public static extern int Subdiv2D_nextEdge_0(Subdiv2DHandle self, int edge);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_rotateEdge_0(IntPtr self, int edge, int rotate);
+        public static extern int Subdiv2D_rotateEdge_0(Subdiv2DHandle self, int edge, int rotate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_symEdge_0(IntPtr self, int edge);
+        public static extern int Subdiv2D_symEdge_0(Subdiv2DHandle self, int edge);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_edgeOrg_0(IntPtr self, int edge, IntPtr orgpt);
+        public static extern int Subdiv2D_edgeOrg_0(Subdiv2DHandle self, int edge, IntPtr orgpt);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int Subdiv2D_edgeDst_0(IntPtr self, int edge, IntPtr dstpt);
+        public static extern int Subdiv2D_edgeDst_0(Subdiv2DHandle self, int edge, IntPtr dstpt);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void UsacParams_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr UsacParams_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double UsacParams_confidence_get(IntPtr self);
+        public static extern double UsacParams_confidence_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_confidence_set(IntPtr self, double val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool UsacParams_isParallel_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_isParallel_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_loIterations_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_loIterations_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_loMethod_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_loMethod_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_loSampleSize_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_loSampleSize_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_maxIterations_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_maxIterations_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_neighborsSearch_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_neighborsSearch_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_randomGeneratorState_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_randomGeneratorState_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_sampler_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_sampler_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_score_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_score_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double UsacParams_threshold_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_threshold_set(IntPtr self, double val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_final_polisher_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_final_polisher_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int UsacParams_final_polisher_iterations_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void UsacParams_final_polisher_iterations_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_approxPolyDP_0(IntPtr curve, IntPtr approxCurve, double epsilon, [MarshalAs(UnmanagedType.U1)] bool closed);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_approxPolyN_0(IntPtr curve, IntPtr approxCurve, int nsides, float epsilon_percentage, [MarshalAs(UnmanagedType.U1)] bool ensure_convex);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_minAreaRect_0(IntPtr points);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_boxPoints_0(IntPtr box, IntPtr points);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_minEnclosingCircle_0(IntPtr points, Point2F center, float radius);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_minEnclosingTriangle_0(IntPtr points, IntPtr triangle);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_minEnclosingConvexPolygon_0(IntPtr points, IntPtr polygon, int k);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_moments_0(IntPtr array, [MarshalAs(UnmanagedType.U1)] bool binaryImage);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_HuMoments_0(IntPtr m, IntPtr hu);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_matchShapes_0(IntPtr contour1, IntPtr contour2, int method, double parameter);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_convexHull_0(IntPtr points, IntPtr hull, [MarshalAs(UnmanagedType.U1)] bool clockwise, [MarshalAs(UnmanagedType.U1)] bool returnPoints);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_convexityDefects_0(IntPtr contour, IntPtr convexhull, IntPtr convexityDefects);
+        public static extern void UsacParams_confidence_set(UsacParamsHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_isContourConvex_0(IntPtr contour);
+        public static extern bool UsacParams_isParallel_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float cv_intersectConvexConvex_0(IntPtr p1, IntPtr p2, IntPtr p12, [MarshalAs(UnmanagedType.U1)] bool handleNested);
+        public static extern void UsacParams_isParallel_set(UsacParamsHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_fitEllipse_0(IntPtr points);
+        public static extern int UsacParams_loIterations_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_fitEllipseAMS_0(IntPtr points);
+        public static extern void UsacParams_loIterations_set(UsacParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_fitEllipseDirect_0(IntPtr points);
+        public static extern int UsacParams_loMethod_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_getClosestEllipsePoints_0(IntPtr ellipse_params, IntPtr points, IntPtr closest_pts);
+        public static extern void UsacParams_loMethod_set(UsacParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fitLine_0(IntPtr points, IntPtr line, int distType, double param, double reps, double aeps);
+        public static extern int UsacParams_loSampleSize_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_pointPolygonTest_0(IntPtr contour, Point2F pt, [MarshalAs(UnmanagedType.U1)] bool measureDist);
+        public static extern void UsacParams_loSampleSize_set(UsacParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_rotatedRectangleIntersection_0(IntPtr rect1, IntPtr rect2, IntPtr intersectingRegion);
+        public static extern int UsacParams_maxIterations_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_arcLength_0(IntPtr curve, [MarshalAs(UnmanagedType.U1)] bool closed);
+        public static extern void UsacParams_maxIterations_set(UsacParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_contourArea_0(IntPtr contour, [MarshalAs(UnmanagedType.U1)] bool oriented);
+        public static extern int UsacParams_neighborsSearch_get(UsacParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Rect cv_boundingRect_0(IntPtr array);
+        public static extern void UsacParams_neighborsSearch_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int UsacParams_randomGeneratorState_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_randomGeneratorState_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int UsacParams_sampler_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_sampler_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int UsacParams_score_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_score_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double UsacParams_threshold_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_threshold_set(UsacParamsHandle self, double val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int UsacParams_final_polisher_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_final_polisher_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int UsacParams_final_polisher_iterations_get(UsacParamsHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void UsacParams_final_polisher_iterations_set(UsacParamsHandle self, int val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_approxPolyDP_0(MatHandle curve, MatHandle approxCurve, double epsilon, [MarshalAs(UnmanagedType.U1)] bool closed);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_approxPolyN_0(MatHandle curve, MatHandle approxCurve, int nsides, float epsilon_percentage, [MarshalAs(UnmanagedType.U1)] bool ensure_convex);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_minAreaRect_0(MatHandle points);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_boxPoints_0(RotatedRectHandle box, MatHandle points);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_minEnclosingCircle_0(MatHandle points, Point2F center, float radius);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_minEnclosingTriangle_0(MatHandle points, MatHandle triangle);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_minEnclosingConvexPolygon_0(MatHandle points, MatHandle polygon, int k);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_moments_0(MatHandle array, [MarshalAs(UnmanagedType.U1)] bool binaryImage);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_HuMoments_0(MomentsHandle m, MatHandle hu);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_matchShapes_0(MatHandle contour1, MatHandle contour2, int method, double parameter);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_convexHull_0(MatHandle points, MatHandle hull, [MarshalAs(UnmanagedType.U1)] bool clockwise, [MarshalAs(UnmanagedType.U1)] bool returnPoints);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_convexityDefects_0(MatHandle contour, MatHandle convexhull, MatHandle convexityDefects);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool cv_isContourConvex_0(MatHandle contour);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern float cv_intersectConvexConvex_0(MatHandle p1, MatHandle p2, MatHandle p12, [MarshalAs(UnmanagedType.U1)] bool handleNested);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_fitEllipse_0(MatHandle points);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_fitEllipseAMS_0(MatHandle points);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_fitEllipseDirect_0(MatHandle points);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_getClosestEllipsePoints_0(RotatedRectHandle ellipse_params, MatHandle points, MatHandle closest_pts);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fitLine_0(MatHandle points, MatHandle line, int distType, double param, double reps, double aeps);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_pointPolygonTest_0(MatHandle contour, Point2F pt, [MarshalAs(UnmanagedType.U1)] bool measureDist);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_rotatedRectangleIntersection_0(RotatedRectHandle rect1, RotatedRectHandle rect2, MatHandle intersectingRegion);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_arcLength_0(MatHandle curve, [MarshalAs(UnmanagedType.U1)] bool closed);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_contourArea_0(MatHandle contour, [MarshalAs(UnmanagedType.U1)] bool oriented);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern Rect cv_boundingRect_0(MatHandle array);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_getRotationMatrix2D_0(Point2F center, double angle, double scale);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_invertAffineTransform_0(IntPtr M, IntPtr iM);
+        public static extern void cv_invertAffineTransform_0(MatHandle M, MatHandle iM);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_getPerspectiveTransform_0(IntPtr src, IntPtr dst, int solveMethod);
+        public static extern IntPtr cv_getPerspectiveTransform_0(MatHandle src, MatHandle dst, int solveMethod);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_getAffineTransform_0(IntPtr src, IntPtr dst);
+        public static extern IntPtr cv_getAffineTransform_0(MatHandle src, MatHandle dst);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_Rodrigues_0(IntPtr src, IntPtr dst, IntPtr jacobian);
+        public static extern void cv_Rodrigues_0(MatHandle src, MatHandle dst, IntPtr jacobian);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findHomography_0(IntPtr srcPoints, IntPtr dstPoints, int method, double ransacReprojThreshold, IntPtr mask, int maxIters, double confidence);
+        public static extern IntPtr cv_findHomography_0(MatHandle srcPoints, MatHandle dstPoints, int method, double ransacReprojThreshold, IntPtr mask, int maxIters, double confidence);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findHomography_1(IntPtr srcPoints, IntPtr dstPoints, IntPtr mask, IntPtr @params);
+        public static extern IntPtr cv_findHomography_1(MatHandle srcPoints, MatHandle dstPoints, MatHandle mask, UsacParamsHandle @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_RQDecomp3x3_0(IntPtr src, IntPtr mtxR, IntPtr mtxQ, IntPtr Qx, IntPtr Qy, IntPtr Qz);
+        public static extern IntPtr cv_RQDecomp3x3_0(MatHandle src, MatHandle mtxR, MatHandle mtxQ, IntPtr Qx, IntPtr Qy, IntPtr Qz);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_decomposeProjectionMatrix_0(IntPtr projMatrix, IntPtr cameraMatrix, IntPtr rotMatrix, IntPtr transVect, IntPtr rotMatrixX, IntPtr rotMatrixY, IntPtr rotMatrixZ, IntPtr eulerAngles);
+        public static extern void cv_decomposeProjectionMatrix_0(MatHandle projMatrix, MatHandle cameraMatrix, MatHandle rotMatrix, MatHandle transVect, IntPtr rotMatrixX, IntPtr rotMatrixY, IntPtr rotMatrixZ, IntPtr eulerAngles);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_matMulDeriv_0(IntPtr A, IntPtr B, IntPtr dABdA, IntPtr dABdB);
+        public static extern void cv_matMulDeriv_0(MatHandle A, MatHandle B, MatHandle dABdA, MatHandle dABdB);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_composeRT_0(IntPtr rvec1, IntPtr tvec1, IntPtr rvec2, IntPtr tvec2, IntPtr rvec3, IntPtr tvec3, IntPtr dr3dr1, IntPtr dr3dt1, IntPtr dr3dr2, IntPtr dr3dt2, IntPtr dt3dr1, IntPtr dt3dt1, IntPtr dt3dr2, IntPtr dt3dt2);
+        public static extern void cv_composeRT_0(MatHandle rvec1, MatHandle tvec1, MatHandle rvec2, MatHandle tvec2, MatHandle rvec3, MatHandle tvec3, IntPtr dr3dr1, IntPtr dr3dt1, IntPtr dr3dr2, IntPtr dr3dt2, IntPtr dt3dr1, IntPtr dt3dt1, IntPtr dt3dr2, IntPtr dt3dt2);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_projectPoints_0(IntPtr objectPoints, IntPtr rvec, IntPtr tvec, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr imagePoints, IntPtr jacobian, double aspectRatio);
+        public static extern void cv_projectPoints_0(MatHandle objectPoints, MatHandle rvec, MatHandle tvec, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle imagePoints, IntPtr jacobian, double aspectRatio);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_projectPoints_1(IntPtr objectPoints, IntPtr rvec, IntPtr tvec, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr imagePoints, IntPtr dpdr, IntPtr dpdt, IntPtr dpdf, IntPtr dpdc, IntPtr dpdk, IntPtr dpdo, double aspectRatio);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_solvePnP_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags);
+        public static extern void cv_projectPoints_1(MatHandle objectPoints, MatHandle rvec, MatHandle tvec, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle imagePoints, MatHandle dpdr, MatHandle dpdt, IntPtr dpdf, IntPtr dpdc, IntPtr dpdk, IntPtr dpdo, double aspectRatio);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_solvePnPRansac_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, IntPtr inliers, int flags);
+        public static extern bool cv_solvePnP_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_solvePnPRansac_1(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, IntPtr inliers, IntPtr @params);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_solveP3P_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvecs, IntPtr tvecs, int flags);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_solvePnPRefineLM_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, TermCriteria criteria);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_solvePnPRefineVVS_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, TermCriteria criteria, double VVSlambda);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_solvePnPGeneric_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvecs, IntPtr tvecs, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags, IntPtr rvec, IntPtr tvec, IntPtr reprojectionError);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_convertPointsToHomogeneous_0(IntPtr src, IntPtr dst, int dtype);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_convertPointsFromHomogeneous_0(IntPtr src, IntPtr dst, int dtype);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findFundamentalMat_0(IntPtr points1, IntPtr points2, int method, double ransacReprojThreshold, double confidence, int maxIters, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findFundamentalMat_1(IntPtr points1, IntPtr points2, int method, double ransacReprojThreshold, double confidence, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findFundamentalMat_2(IntPtr points1, IntPtr points2, IntPtr mask, IntPtr @params);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findEssentialMat_0(IntPtr points1, IntPtr points2, IntPtr cameraMatrix, int method, double prob, double threshold, int maxIters, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findEssentialMat_1(IntPtr points1, IntPtr points2, double focal, IntPtr pp, int method, double prob, double threshold, int maxIters, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findEssentialMat_2(IntPtr points1, IntPtr points2, IntPtr cameraMatrix1, IntPtr distCoeffs1, IntPtr cameraMatrix2, IntPtr distCoeffs2, int method, double prob, double threshold, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_findEssentialMat_3(IntPtr points1, IntPtr points2, IntPtr cameraMatrix1, IntPtr cameraMatrix2, IntPtr dist_coeff1, IntPtr dist_coeff2, IntPtr mask, IntPtr @params);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_decomposeEssentialMat_0(IntPtr E, IntPtr R1, IntPtr R2, IntPtr t);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_recoverPose_0(IntPtr points1, IntPtr points2, IntPtr cameraMatrix1, IntPtr distCoeffs1, IntPtr cameraMatrix2, IntPtr distCoeffs2, IntPtr E, IntPtr R, IntPtr t, int method, double prob, double threshold, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_recoverPose_1(IntPtr E, IntPtr points1, IntPtr points2, IntPtr cameraMatrix, IntPtr R, IntPtr t, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_recoverPose_2(IntPtr E, IntPtr points1, IntPtr points2, IntPtr R, IntPtr t, double focal, IntPtr pp, IntPtr mask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_recoverPose_3(IntPtr E, IntPtr points1, IntPtr points2, IntPtr cameraMatrix, IntPtr R, IntPtr t, double distanceThresh, IntPtr mask, IntPtr triangulatedPoints);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_computeCorrespondEpilines_0(IntPtr points, int whichImage, IntPtr F, IntPtr lines);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_triangulatePoints_0(IntPtr projMatr1, IntPtr projMatr2, IntPtr projPoints1, IntPtr projPoints2, IntPtr points4D);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_correctMatches_0(IntPtr F, IntPtr points1, IntPtr points2, IntPtr newPoints1, IntPtr newPoints2);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double cv_sampsonDistance_0(IntPtr pt1, IntPtr pt2, IntPtr F);
+        public static extern bool cv_solvePnPRansac_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, IntPtr inliers, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_estimateAffine3D_0(IntPtr src, IntPtr dst, IntPtr @out, IntPtr inliers, double ransacThreshold, double confidence);
+        public static extern bool cv_solvePnPRansac_1(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, MatHandle inliers, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_estimateAffine3D_1(IntPtr src, IntPtr dst, IntPtr scale, [MarshalAs(UnmanagedType.U1)] bool force_rotation);
+        public static extern int cv_solveP3P_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, IntPtr rvecs, IntPtr tvecs, int flags);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_solvePnPRefineLM_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, TermCriteria criteria);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_solvePnPRefineVVS_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, TermCriteria criteria, double VVSlambda);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_solvePnPGeneric_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, IntPtr rvecs, IntPtr tvecs, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags, IntPtr rvec, IntPtr tvec, IntPtr reprojectionError);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_convertPointsToHomogeneous_0(MatHandle src, MatHandle dst, int dtype);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_convertPointsFromHomogeneous_0(MatHandle src, MatHandle dst, int dtype);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findFundamentalMat_0(MatHandle points1, MatHandle points2, int method, double ransacReprojThreshold, double confidence, int maxIters, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findFundamentalMat_1(MatHandle points1, MatHandle points2, int method, double ransacReprojThreshold, double confidence, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findFundamentalMat_2(MatHandle points1, MatHandle points2, MatHandle mask, UsacParamsHandle @params);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findEssentialMat_0(MatHandle points1, MatHandle points2, MatHandle cameraMatrix, int method, double prob, double threshold, int maxIters, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findEssentialMat_1(MatHandle points1, MatHandle points2, double focal, IntPtr pp, int method, double prob, double threshold, int maxIters, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findEssentialMat_2(MatHandle points1, MatHandle points2, MatHandle cameraMatrix1, MatHandle distCoeffs1, MatHandle cameraMatrix2, MatHandle distCoeffs2, int method, double prob, double threshold, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_findEssentialMat_3(MatHandle points1, MatHandle points2, MatHandle cameraMatrix1, MatHandle cameraMatrix2, MatHandle dist_coeff1, MatHandle dist_coeff2, MatHandle mask, UsacParamsHandle @params);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_decomposeEssentialMat_0(MatHandle E, MatHandle R1, MatHandle R2, MatHandle t);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_recoverPose_0(MatHandle points1, MatHandle points2, MatHandle cameraMatrix1, MatHandle distCoeffs1, MatHandle cameraMatrix2, MatHandle distCoeffs2, MatHandle E, MatHandle R, MatHandle t, int method, double prob, double threshold, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_recoverPose_1(MatHandle E, MatHandle points1, MatHandle points2, MatHandle cameraMatrix, MatHandle R, MatHandle t, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_recoverPose_2(MatHandle E, MatHandle points1, MatHandle points2, MatHandle R, MatHandle t, double focal, IntPtr pp, IntPtr mask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_recoverPose_3(MatHandle E, MatHandle points1, MatHandle points2, MatHandle cameraMatrix, MatHandle R, MatHandle t, double distanceThresh, IntPtr mask, IntPtr triangulatedPoints);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_computeCorrespondEpilines_0(MatHandle points, int whichImage, MatHandle F, MatHandle lines);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_triangulatePoints_0(MatHandle projMatr1, MatHandle projMatr2, MatHandle projPoints1, MatHandle projPoints2, MatHandle points4D);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_correctMatches_0(MatHandle F, MatHandle points1, MatHandle points2, MatHandle newPoints1, MatHandle newPoints2);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double cv_sampsonDistance_0(MatHandle pt1, MatHandle pt2, MatHandle F);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_estimateTranslation3D_0(IntPtr src, IntPtr dst, IntPtr @out, IntPtr inliers, double ransacThreshold, double confidence);
+        public static extern bool cv_estimateAffine3D_0(MatHandle src, MatHandle dst, MatHandle @out, MatHandle inliers, double ransacThreshold, double confidence);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_estimateAffine2D_0(IntPtr from, IntPtr to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_estimateAffine2D_1(IntPtr pts1, IntPtr pts2, IntPtr inliers, IntPtr @params);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_estimateAffinePartial2D_0(IntPtr from, IntPtr to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_estimateTranslation2D_0(IntPtr from, IntPtr to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int cv_decomposeHomographyMat_0(IntPtr H, IntPtr K, IntPtr rotations, IntPtr translations, IntPtr normals);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_filterHomographyDecompByVisibleRefpoints_0(IntPtr rotations, IntPtr normals, IntPtr beforePoints, IntPtr afterPoints, IntPtr possibleSolutions, IntPtr pointsMask);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_calibrationMatrixValues_0(IntPtr cameraMatrix, Size imageSize, double apertureWidth, double apertureHeight, double fovx, double fovy, double focalLength, IntPtr principalPoint, double aspectRatio);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_getDefaultNewCameraMatrix_0(IntPtr cameraMatrix, Size imgsize, [MarshalAs(UnmanagedType.U1)] bool centerPrincipalPoint);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr cv_getOptimalNewCameraMatrix_0(IntPtr cameraMatrix, IntPtr distCoeffs, Size imageSize, double alpha, Size newImgSize, IntPtr validPixROI, [MarshalAs(UnmanagedType.U1)] bool centerPrincipalPoint);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_undistortPoints_0(IntPtr src, IntPtr dst, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr R, IntPtr P, TermCriteria criteria);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_undistortImagePoints_0(IntPtr src, IntPtr dst, IntPtr cameraMatrix, IntPtr distCoeffs, TermCriteria arg1);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fisheye_projectPoints_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr rvec, IntPtr tvec, IntPtr K, IntPtr D, double alpha, IntPtr jacobian);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fisheye_distortPoints_0(IntPtr undistorted, IntPtr distorted, IntPtr K, IntPtr D, double alpha);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fisheye_distortPoints_1(IntPtr undistorted, IntPtr distorted, IntPtr Kundistorted, IntPtr K, IntPtr D, double alpha);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fisheye_undistortPoints_0(IntPtr distorted, IntPtr undistorted, IntPtr K, IntPtr D, IntPtr R, IntPtr P, TermCriteria criteria);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_fisheye_estimateNewCameraMatrixForUndistortRectify_0(IntPtr K, IntPtr D, Size image_size, IntPtr R, IntPtr P, double balance, Size new_size, double fov_scale);
+        public static extern IntPtr cv_estimateAffine3D_1(MatHandle src, MatHandle dst, IntPtr scale, [MarshalAs(UnmanagedType.U1)] bool force_rotation);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_fisheye_solvePnP_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags, TermCriteria criteria);
+        public static extern bool cv_estimateTranslation3D_0(MatHandle src, MatHandle dst, MatHandle @out, MatHandle inliers, double ransacThreshold, double confidence);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_estimateAffine2D_0(MatHandle from, MatHandle to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_estimateAffine2D_1(MatHandle pts1, MatHandle pts2, MatHandle inliers, UsacParamsHandle @params);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_estimateAffinePartial2D_0(MatHandle from, MatHandle to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_estimateTranslation2D_0(MatHandle from, MatHandle to, IntPtr inliers, int method, double ransacReprojThreshold, long maxIters, double confidence, long refineIters);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int cv_decomposeHomographyMat_0(MatHandle H, MatHandle K, IntPtr rotations, IntPtr translations, IntPtr normals);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_filterHomographyDecompByVisibleRefpoints_0(IntPtr rotations, IntPtr normals, MatHandle beforePoints, MatHandle afterPoints, MatHandle possibleSolutions, IntPtr pointsMask);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_calibrationMatrixValues_0(MatHandle cameraMatrix, Size imageSize, double apertureWidth, double apertureHeight, double fovx, double fovy, double focalLength, IntPtr principalPoint, double aspectRatio);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_getDefaultNewCameraMatrix_0(MatHandle cameraMatrix, Size imgsize, [MarshalAs(UnmanagedType.U1)] bool centerPrincipalPoint);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr cv_getOptimalNewCameraMatrix_0(MatHandle cameraMatrix, MatHandle distCoeffs, Size imageSize, double alpha, Size newImgSize, IntPtr validPixROI, [MarshalAs(UnmanagedType.U1)] bool centerPrincipalPoint);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_undistortPoints_0(MatHandle src, MatHandle dst, MatHandle cameraMatrix, MatHandle distCoeffs, IntPtr R, IntPtr P, TermCriteria criteria);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_undistortImagePoints_0(MatHandle src, MatHandle dst, MatHandle cameraMatrix, MatHandle distCoeffs, TermCriteria arg1);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fisheye_projectPoints_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle rvec, MatHandle tvec, MatHandle K, MatHandle D, double alpha, IntPtr jacobian);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fisheye_distortPoints_0(MatHandle undistorted, MatHandle distorted, MatHandle K, MatHandle D, double alpha);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fisheye_distortPoints_1(MatHandle undistorted, MatHandle distorted, MatHandle Kundistorted, MatHandle K, MatHandle D, double alpha);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fisheye_undistortPoints_0(MatHandle distorted, MatHandle undistorted, MatHandle K, MatHandle D, IntPtr R, IntPtr P, TermCriteria criteria);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_fisheye_estimateNewCameraMatrixForUndistortRectify_0(MatHandle K, MatHandle D, Size image_size, MatHandle R, MatHandle P, double balance, Size new_size, double fov_scale);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_fisheye_solvePnPRansac_0(IntPtr objectPoints, IntPtr imagePoints, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr rvec, IntPtr tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, IntPtr inliers, int flags, TermCriteria criteria);
+        public static extern bool cv_fisheye_solvePnP_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int flags, TermCriteria criteria);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool cv_fisheye_solvePnPRansac_0(MatHandle objectPoints, MatHandle imagePoints, MatHandle cameraMatrix, MatHandle distCoeffs, MatHandle rvec, MatHandle tvec, [MarshalAs(UnmanagedType.U1)] bool useExtrinsicGuess, int iterationsCount, float reprojectionError, double confidence, IntPtr inliers, int flags, TermCriteria criteria);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         public static extern bool cv_buildMST_0(int numNodes, IntPtr inputEdges, IntPtr resultingEdges, int algorithm, int root);

@@ -158,6 +158,7 @@ namespace OpenCV5Sharp
             if (processor == null) throw new ArgumentNullException(nameof(processor));
 
             int count = inputs.Count;
+            var inputsCopy = new Mat[count];
             for (int i = 0; i < count; i++)
             {
                 var input = inputs[i];
@@ -166,6 +167,7 @@ namespace OpenCV5Sharp
                     throw new ArgumentNullException(nameof(inputs), $"Matrix at index {i} in the inputs list is null.");
                 }
                 input.ThrowIfDisposed();
+                inputsCopy[i] = input;
             }
 
             var results = new Mat[count];
@@ -175,7 +177,7 @@ namespace OpenCV5Sharp
                 Parallel.For(0, count, i =>
                 {
                     ErrorHelper.ClearStaleErrors();
-                    results[i] = processor(inputs[i]);
+                    results[i] = processor(inputsCopy[i]);
                 });
                 return results;
             }
@@ -191,9 +193,9 @@ namespace OpenCV5Sharp
             {
                 for (int i = 0; i < count; i++)
                 {
-                    if (inputs[i] != null)
+                    if (inputsCopy[i] != null)
                     {
-                        GC.KeepAlive(inputs[i]);
+                        GC.KeepAlive(inputsCopy[i]);
                     }
                 }
             }

@@ -15,11 +15,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class StereoBM : StereoMatcher
     {
-        internal StereoBM(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.StereoBM_Delete(handle);
-        }
+        public new StereoBMHandle Handle => (StereoBMHandle)base.Handle;
+        internal StereoBM(IntPtr handle, bool ownsHandle = true) : base(new StereoBMHandle(handle, ownsHandle)) {}
+        internal StereoBM(StereoBMHandle handle) : base(handle) {}
         /// <summary>
         /// Computes stereo disparity using the block matching algorithm.
         /// </summary>
@@ -239,7 +237,7 @@ namespace OpenCV5Sharp
             StereoBM? resultObj = null;
             try
             {
-                resultObj = new StereoBM(res);
+                resultObj = new StereoBM(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -263,11 +261,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class StereoMatcher : Algorithm
     {
-        internal StereoMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.StereoMatcher_Delete(handle);
-        }
+        public new StereoMatcherHandle Handle => (StereoMatcherHandle)base.Handle;
+        internal StereoMatcher(IntPtr handle, bool ownsHandle = true) : base(new StereoMatcherHandle(handle, ownsHandle)) {}
+        internal StereoMatcher(StereoMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Computes disparity map for the specified stereo pair
         /// </summary>
@@ -280,7 +276,13 @@ namespace OpenCV5Sharp
         public void Compute(Mat left, Mat right, Mat disparity)
         {
             ThrowIfDisposed();
-            NativeMethods.StereoMatcher_compute_0(Handle, ValidationHelper.GetHandle(left, nameof(left), false), ValidationHelper.GetHandle(right, nameof(right), false), ValidationHelper.GetHandle(disparity, nameof(disparity), false));
+            if (left == null) throw new ArgumentNullException(nameof(left));
+            left.ThrowIfDisposed();
+            if (right == null) throw new ArgumentNullException(nameof(right));
+            right.ThrowIfDisposed();
+            if (disparity == null) throw new ArgumentNullException(nameof(disparity));
+            disparity.ThrowIfDisposed();
+            NativeMethods.StereoMatcher_compute_0(Handle, left.Handle, right.Handle, disparity.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(left);
@@ -461,11 +463,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class StereoSGBM : StereoMatcher
     {
-        internal StereoSGBM(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.StereoSGBM_Delete(handle);
-        }
+        public new StereoSGBMHandle Handle => (StereoSGBMHandle)base.Handle;
+        internal StereoSGBM(IntPtr handle, bool ownsHandle = true) : base(new StereoSGBMHandle(handle, ownsHandle)) {}
+        internal StereoSGBM(StereoSGBMHandle handle) : base(handle) {}
         /// <summary>
         /// Computes stereo disparity using the semi-global block matching algorithm.
         /// </summary>
@@ -617,7 +617,7 @@ namespace OpenCV5Sharp
             StereoSGBM? resultObj = null;
             try
             {
-                resultObj = new StereoSGBM(res);
+                resultObj = new StereoSGBM(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }

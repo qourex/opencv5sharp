@@ -32,7 +32,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void LoadPointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
             {
-                NativeMethods.cv_loadPointCloud_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (normals != null) normals.ThrowIfDisposed();
+                if (rgb != null) rgb.ThrowIfDisposed();
+                NativeMethods.cv_loadPointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(normals);
@@ -54,7 +58,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void SavePointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
             {
-                NativeMethods.cv_savePointCloud_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (normals != null) normals.ThrowIfDisposed();
+                if (rgb != null) rgb.ThrowIfDisposed();
+                NativeMethods.cv_savePointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(normals);
@@ -85,7 +93,12 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void LoadMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
             {
-                NativeMethods.cv_loadMesh_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (normals != null) normals.ThrowIfDisposed();
+                if (colors != null) colors.ThrowIfDisposed();
+                if (texCoords != null) texCoords.ThrowIfDisposed();
+                NativeMethods.cv_loadMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(normals);
@@ -110,7 +123,12 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void SaveMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
             {
-                NativeMethods.cv_saveMesh_0(filename, ValidationHelper.GetHandle(vertices, nameof(vertices), false), indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (normals != null) normals.ThrowIfDisposed();
+                if (colors != null) colors.ThrowIfDisposed();
+                if (texCoords != null) texCoords.ThrowIfDisposed();
+                NativeMethods.cv_saveMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(normals);
@@ -159,7 +177,20 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void TriangleRasterize(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
             {
-                NativeMethods.cv_triangleRasterize_0(ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(colors, nameof(colors), false), ValidationHelper.GetHandle(colorBuf, nameof(colorBuf), false), ValidationHelper.GetHandle(depthBuf, nameof(depthBuf), false), ValidationHelper.GetHandle(world2cam, nameof(world2cam), false), fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (indices == null) throw new ArgumentNullException(nameof(indices));
+                indices.ThrowIfDisposed();
+                if (colors == null) throw new ArgumentNullException(nameof(colors));
+                colors.ThrowIfDisposed();
+                if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
+                colorBuf.ThrowIfDisposed();
+                if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
+                depthBuf.ThrowIfDisposed();
+                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+                world2cam.ThrowIfDisposed();
+                if (settings != null) settings.ThrowIfDisposed();
+                NativeMethods.cv_triangleRasterize_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(indices);
@@ -186,7 +217,16 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void TriangleRasterizeDepth(Mat vertices, Mat indices, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
             {
-                NativeMethods.cv_triangleRasterizeDepth_0(ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(depthBuf, nameof(depthBuf), false), ValidationHelper.GetHandle(world2cam, nameof(world2cam), false), fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (indices == null) throw new ArgumentNullException(nameof(indices));
+                indices.ThrowIfDisposed();
+                if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
+                depthBuf.ThrowIfDisposed();
+                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+                world2cam.ThrowIfDisposed();
+                if (settings != null) settings.ThrowIfDisposed();
+                NativeMethods.cv_triangleRasterizeDepth_0(vertices.Handle, indices.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(indices);
@@ -212,7 +252,18 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void TriangleRasterizeColor(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
             {
-                NativeMethods.cv_triangleRasterizeColor_0(ValidationHelper.GetHandle(vertices, nameof(vertices), false), ValidationHelper.GetHandle(indices, nameof(indices), false), ValidationHelper.GetHandle(colors, nameof(colors), false), ValidationHelper.GetHandle(colorBuf, nameof(colorBuf), false), ValidationHelper.GetHandle(world2cam, nameof(world2cam), false), fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+                vertices.ThrowIfDisposed();
+                if (indices == null) throw new ArgumentNullException(nameof(indices));
+                indices.ThrowIfDisposed();
+                if (colors == null) throw new ArgumentNullException(nameof(colors));
+                colors.ThrowIfDisposed();
+                if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
+                colorBuf.ThrowIfDisposed();
+                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+                world2cam.ThrowIfDisposed();
+                if (settings != null) settings.ThrowIfDisposed();
+                NativeMethods.cv_triangleRasterizeColor_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(vertices);
                 GC.KeepAlive(indices);
@@ -247,7 +298,19 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void RegisterDepth(Mat unregisteredCameraMatrix, Mat registeredCameraMatrix, Mat registeredDistCoeffs, Mat Rt, Mat unregisteredDepth, Size outputImagePlaneSize, Mat registeredDepth, bool depthDilation)
             {
-                NativeMethods.cv_registerDepth_0(ValidationHelper.GetHandle(unregisteredCameraMatrix, nameof(unregisteredCameraMatrix), false), ValidationHelper.GetHandle(registeredCameraMatrix, nameof(registeredCameraMatrix), false), ValidationHelper.GetHandle(registeredDistCoeffs, nameof(registeredDistCoeffs), false), ValidationHelper.GetHandle(Rt, nameof(Rt), false), ValidationHelper.GetHandle(unregisteredDepth, nameof(unregisteredDepth), false), outputImagePlaneSize, ValidationHelper.GetHandle(registeredDepth, nameof(registeredDepth), false), depthDilation);
+                if (unregisteredCameraMatrix == null) throw new ArgumentNullException(nameof(unregisteredCameraMatrix));
+                unregisteredCameraMatrix.ThrowIfDisposed();
+                if (registeredCameraMatrix == null) throw new ArgumentNullException(nameof(registeredCameraMatrix));
+                registeredCameraMatrix.ThrowIfDisposed();
+                if (registeredDistCoeffs == null) throw new ArgumentNullException(nameof(registeredDistCoeffs));
+                registeredDistCoeffs.ThrowIfDisposed();
+                if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+                Rt.ThrowIfDisposed();
+                if (unregisteredDepth == null) throw new ArgumentNullException(nameof(unregisteredDepth));
+                unregisteredDepth.ThrowIfDisposed();
+                if (registeredDepth == null) throw new ArgumentNullException(nameof(registeredDepth));
+                registeredDepth.ThrowIfDisposed();
+                NativeMethods.cv_registerDepth_0(unregisteredCameraMatrix.Handle, registeredCameraMatrix.Handle, registeredDistCoeffs.Handle, Rt.Handle, unregisteredDepth.Handle, outputImagePlaneSize, registeredDepth.Handle, depthDilation);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(unregisteredCameraMatrix);
                 GC.KeepAlive(registeredCameraMatrix);
@@ -268,7 +331,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DepthTo3dSparse(Mat depth, Mat in_K, Mat in_points, Mat points3d)
             {
-                NativeMethods.cv_depthTo3dSparse_0(ValidationHelper.GetHandle(depth, nameof(depth), false), ValidationHelper.GetHandle(in_K, nameof(in_K), false), ValidationHelper.GetHandle(in_points, nameof(in_points), false), ValidationHelper.GetHandle(points3d, nameof(points3d), false));
+                if (depth == null) throw new ArgumentNullException(nameof(depth));
+                depth.ThrowIfDisposed();
+                if (in_K == null) throw new ArgumentNullException(nameof(in_K));
+                in_K.ThrowIfDisposed();
+                if (in_points == null) throw new ArgumentNullException(nameof(in_points));
+                in_points.ThrowIfDisposed();
+                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+                points3d.ThrowIfDisposed();
+                NativeMethods.cv_depthTo3dSparse_0(depth.Handle, in_K.Handle, in_points.Handle, points3d.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(depth);
                 GC.KeepAlive(in_K);
@@ -291,7 +362,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void DepthTo3d(Mat depth, Mat K, Mat points3d, Mat? mask)
             {
-                NativeMethods.cv_depthTo3d_0(ValidationHelper.GetHandle(depth, nameof(depth), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(points3d, nameof(points3d), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (depth == null) throw new ArgumentNullException(nameof(depth));
+                depth.ThrowIfDisposed();
+                if (K == null) throw new ArgumentNullException(nameof(K));
+                K.ThrowIfDisposed();
+                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+                points3d.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_depthTo3d_0(depth.Handle, K.Handle, points3d.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(depth);
                 GC.KeepAlive(K);
@@ -314,7 +392,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void RescaleDepth(Mat @in, int type, Mat @out, double depth_factor)
             {
-                NativeMethods.cv_rescaleDepth_0(ValidationHelper.GetHandle(@in, nameof(@in), false), type, ValidationHelper.GetHandle(@out, nameof(@out), false), depth_factor);
+                if (@in == null) throw new ArgumentNullException(nameof(@in));
+                @in.ThrowIfDisposed();
+                if (@out == null) throw new ArgumentNullException(nameof(@out));
+                @out.ThrowIfDisposed();
+                NativeMethods.cv_rescaleDepth_0(@in.Handle, type, @out.Handle, depth_factor);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(@in);
                 GC.KeepAlive(@out);
@@ -339,7 +421,20 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void WarpFrame(Mat depth, Mat image, Mat mask, Mat Rt, Mat cameraMatrix, Mat? warpedDepth, Mat? warpedImage, Mat? warpedMask)
             {
-                NativeMethods.cv_warpFrame_0(ValidationHelper.GetHandle(depth, nameof(depth), false), ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(Rt, nameof(Rt), false), ValidationHelper.GetHandle(cameraMatrix, nameof(cameraMatrix), false), ValidationHelper.GetHandle(warpedDepth, nameof(warpedDepth), true), ValidationHelper.GetHandle(warpedImage, nameof(warpedImage), true), ValidationHelper.GetHandle(warpedMask, nameof(warpedMask), true));
+                if (depth == null) throw new ArgumentNullException(nameof(depth));
+                depth.ThrowIfDisposed();
+                if (image == null) throw new ArgumentNullException(nameof(image));
+                image.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+                Rt.ThrowIfDisposed();
+                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+                cameraMatrix.ThrowIfDisposed();
+                if (warpedDepth != null) warpedDepth.ThrowIfDisposed();
+                if (warpedImage != null) warpedImage.ThrowIfDisposed();
+                if (warpedMask != null) warpedMask.ThrowIfDisposed();
+                NativeMethods.cv_warpFrame_0(depth.Handle, image.Handle, mask.Handle, Rt.Handle, cameraMatrix.Handle, ValidationHelper.GetHandle(warpedDepth, nameof(warpedDepth), true), ValidationHelper.GetHandle(warpedImage, nameof(warpedImage), true), ValidationHelper.GetHandle(warpedMask, nameof(warpedMask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(depth);
                 GC.KeepAlive(image);
@@ -369,7 +464,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FindPlanes(Mat points3d, Mat normals, Mat mask, Mat plane_coefficients, int block_size, int min_size, double threshold, double sensor_error_a, double sensor_error_b, double sensor_error_c, RgbdPlaneMethod method)
             {
-                NativeMethods.cv_findPlanes_0(ValidationHelper.GetHandle(points3d, nameof(points3d), false), ValidationHelper.GetHandle(normals, nameof(normals), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(plane_coefficients, nameof(plane_coefficients), false), block_size, min_size, threshold, sensor_error_a, sensor_error_b, sensor_error_c, (int)method);
+                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+                points3d.ThrowIfDisposed();
+                if (normals == null) throw new ArgumentNullException(nameof(normals));
+                normals.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (plane_coefficients == null) throw new ArgumentNullException(nameof(plane_coefficients));
+                plane_coefficients.ThrowIfDisposed();
+                NativeMethods.cv_findPlanes_0(points3d.Handle, normals.Handle, mask.Handle, plane_coefficients.Handle, block_size, min_size, threshold, sensor_error_a, sensor_error_b, sensor_error_c, (int)method);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(points3d);
                 GC.KeepAlive(normals);

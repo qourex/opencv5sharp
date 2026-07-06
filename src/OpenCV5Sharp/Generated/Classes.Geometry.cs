@@ -16,11 +16,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class MSTEdge : DisposableOpenCVObject
     {
-        internal MSTEdge(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.MSTEdge_Delete(handle);
-        }
+        public new MSTEdgeHandle Handle => (MSTEdgeHandle)base.Handle;
+        internal MSTEdge(IntPtr handle, bool ownsHandle = true) : base(new MSTEdgeHandle(handle, ownsHandle)) {}
+        internal MSTEdge(MSTEdgeHandle handle) : base(handle) {}
         /// <summary>Gets or sets the source property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int Source
@@ -50,11 +48,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class Subdiv2D : DisposableOpenCVObject
     {
-        internal Subdiv2D(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Subdiv2D_Delete(handle);
-        }
+        public new Subdiv2DHandle Handle => (Subdiv2DHandle)base.Handle;
+        internal Subdiv2D(IntPtr handle, bool ownsHandle = true) : base(new Subdiv2DHandle(handle, ownsHandle)) {}
+        internal Subdiv2D(Subdiv2DHandle handle) : base(handle) {}
         /// <summary>
         /// creates an empty Subdiv2D object.
         /// </summary>
@@ -63,7 +59,7 @@ namespace OpenCV5Sharp
         /// *    To create a new empty Delaunay subdivision you need to use the #initDelaunay function.
         /// </remarks>
         public Subdiv2D()
-            : base(NativeMethods.Subdiv2D_New_0())
+            : base(new Subdiv2DHandle(NativeMethods.Subdiv2D_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -76,7 +72,7 @@ namespace OpenCV5Sharp
         /// *
         /// </remarks>
         public Subdiv2D(Rect rect)
-            : base(NativeMethods.Subdiv2D_New_1(rect))
+            : base(new Subdiv2DHandle(NativeMethods.Subdiv2D_New_1(rect)))
         {
             ErrorHelper.CheckError();
         }
@@ -86,7 +82,7 @@ namespace OpenCV5Sharp
         /// <param name="rect2f">The rect2f parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Subdiv2D(Rect2F rect2f)
-            : base(NativeMethods.Subdiv2D_New_2(rect2f))
+            : base(new Subdiv2DHandle(NativeMethods.Subdiv2D_New_2(rect2f)))
         {
             ErrorHelper.CheckError();
         }
@@ -359,17 +355,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class UsacParams : DisposableOpenCVObject
     {
-        internal UsacParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.UsacParams_Delete(handle);
-        }
+        public new UsacParamsHandle Handle => (UsacParamsHandle)base.Handle;
+        internal UsacParams(IntPtr handle, bool ownsHandle = true) : base(new UsacParamsHandle(handle, ownsHandle)) {}
+        internal UsacParams(UsacParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public UsacParams()
-            : base(NativeMethods.UsacParams_New_0())
+            : base(new UsacParamsHandle(NativeMethods.UsacParams_New_0()))
         {
             ErrorHelper.CheckError();
         }

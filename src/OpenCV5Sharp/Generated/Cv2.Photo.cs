@@ -29,7 +29,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Inpaint(Mat src, Mat inpaintMask, Mat dst, double inpaintRadius, int flags)
             {
-                NativeMethods.cv_inpaint_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(inpaintMask, nameof(inpaintMask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), inpaintRadius, flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (inpaintMask == null) throw new ArgumentNullException(nameof(inpaintMask));
+                inpaintMask.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_inpaint_0(src.Handle, inpaintMask.Handle, dst.Handle, inpaintRadius, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(inpaintMask);
@@ -50,7 +56,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoising(Mat src, Mat dst, float h, int templateWindowSize, int searchWindowSize)
             {
-                NativeMethods.cv_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoising_0(src.Handle, dst.Handle, h, templateWindowSize, searchWindowSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -71,7 +81,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoising(Mat src, Mat dst, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
             {
-                NativeMethods.cv_fastNlMeansDenoising_1(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, templateWindowSize, searchWindowSize, normType);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoising_1(src.Handle, dst.Handle, h, templateWindowSize, searchWindowSize, normType);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -90,7 +104,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoisingColored(Mat src, Mat dst, float h, float hColor, int templateWindowSize, int searchWindowSize)
             {
-                NativeMethods.cv_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, hColor, templateWindowSize, searchWindowSize);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoisingColored_0(src.Handle, dst.Handle, h, hColor, templateWindowSize, searchWindowSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -113,7 +131,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, int templateWindowSize, int searchWindowSize)
             {
-                NativeMethods.cv_fastNlMeansDenoisingMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoisingMulti_0(srcImgs, dst.Handle, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -136,7 +156,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoisingMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, IntPtr h, int templateWindowSize, int searchWindowSize, int normType)
             {
-                NativeMethods.cv_fastNlMeansDenoisingMulti_1(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType);
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoisingMulti_1(srcImgs, dst.Handle, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -156,7 +178,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FastNlMeansDenoisingColoredMulti(IntPtr srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, float h, float hColor, int templateWindowSize, int searchWindowSize)
             {
-                NativeMethods.cv_fastNlMeansDenoisingColoredMulti_0(srcImgs, ValidationHelper.GetHandle(dst, nameof(dst), false), imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_fastNlMeansDenoisingColoredMulti_0(srcImgs, dst.Handle, imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -193,7 +217,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void DenoiseTVL1(IntPtr observations, Mat result, double lambda, int niters)
             {
-                NativeMethods.cv_denoise_TVL1_0(observations, ValidationHelper.GetHandle(result, nameof(result), false), lambda, niters);
+                if (result == null) throw new ArgumentNullException(nameof(result));
+                result.ThrowIfDisposed();
+                NativeMethods.cv_denoise_TVL1_0(observations, result.Handle, lambda, niters);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(result);
             }
@@ -213,7 +239,7 @@ namespace OpenCV5Sharp
                 Tonemap? resultObj = null;
                 try
                 {
-                    resultObj = new Tonemap(res);
+                    resultObj = new Tonemap(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -247,7 +273,7 @@ namespace OpenCV5Sharp
                 TonemapDrago? resultObj = null;
                 try
                 {
-                    resultObj = new TonemapDrago(res);
+                    resultObj = new TonemapDrago(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -282,7 +308,7 @@ namespace OpenCV5Sharp
                 TonemapReinhard? resultObj = null;
                 try
                 {
-                    resultObj = new TonemapReinhard(res);
+                    resultObj = new TonemapReinhard(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -316,7 +342,7 @@ namespace OpenCV5Sharp
                 TonemapMantiuk? resultObj = null;
                 try
                 {
-                    resultObj = new TonemapMantiuk(res);
+                    resultObj = new TonemapMantiuk(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -350,7 +376,7 @@ namespace OpenCV5Sharp
                 AlignMTB? resultObj = null;
                 try
                 {
-                    resultObj = new AlignMTB(res);
+                    resultObj = new AlignMTB(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -384,7 +410,7 @@ namespace OpenCV5Sharp
                 CalibrateDebevec? resultObj = null;
                 try
                 {
-                    resultObj = new CalibrateDebevec(res);
+                    resultObj = new CalibrateDebevec(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -417,7 +443,7 @@ namespace OpenCV5Sharp
                 CalibrateRobertson? resultObj = null;
                 try
                 {
-                    resultObj = new CalibrateRobertson(res);
+                    resultObj = new CalibrateRobertson(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -448,7 +474,7 @@ namespace OpenCV5Sharp
                 MergeDebevec? resultObj = null;
                 try
                 {
-                    resultObj = new MergeDebevec(res);
+                    resultObj = new MergeDebevec(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -482,7 +508,7 @@ namespace OpenCV5Sharp
                 MergeMertens? resultObj = null;
                 try
                 {
-                    resultObj = new MergeMertens(res);
+                    resultObj = new MergeMertens(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -513,7 +539,7 @@ namespace OpenCV5Sharp
                 MergeRobertson? resultObj = null;
                 try
                 {
-                    resultObj = new MergeRobertson(res);
+                    resultObj = new MergeRobertson(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -542,7 +568,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Decolor(Mat src, Mat grayscale, Mat color_boost)
             {
-                NativeMethods.cv_decolor_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(grayscale, nameof(grayscale), false), ValidationHelper.GetHandle(color_boost, nameof(color_boost), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (grayscale == null) throw new ArgumentNullException(nameof(grayscale));
+                grayscale.ThrowIfDisposed();
+                if (color_boost == null) throw new ArgumentNullException(nameof(color_boost));
+                color_boost.ThrowIfDisposed();
+                NativeMethods.cv_decolor_0(src.Handle, grayscale.Handle, color_boost.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(grayscale);
@@ -565,7 +597,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void SeamlessClone(Mat src, Mat dst, Mat mask, Point p, Mat blend, int flags)
             {
-                NativeMethods.cv_seamlessClone_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false), p, ValidationHelper.GetHandle(blend, nameof(blend), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (blend == null) throw new ArgumentNullException(nameof(blend));
+                blend.ThrowIfDisposed();
+                NativeMethods.cv_seamlessClone_0(src.Handle, dst.Handle, mask.Handle, p, blend.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -587,7 +627,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void ColorChange(Mat src, Mat mask, Mat dst, float red_mul, float green_mul, float blue_mul)
             {
-                NativeMethods.cv_colorChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), red_mul, green_mul, blue_mul);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_colorChange_0(src.Handle, mask.Handle, dst.Handle, red_mul, green_mul, blue_mul);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -607,7 +653,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void IlluminationChange(Mat src, Mat mask, Mat dst, float alpha, float beta)
             {
-                NativeMethods.cv_illuminationChange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_illuminationChange_0(src.Handle, mask.Handle, dst.Handle, alpha, beta);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -634,7 +686,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void TextureFlattening(Mat src, Mat mask, Mat dst, float low_threshold, float high_threshold, int kernel_size)
             {
-                NativeMethods.cv_textureFlattening_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false), ValidationHelper.GetHandle(dst, nameof(dst), false), low_threshold, high_threshold, kernel_size);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_textureFlattening_0(src.Handle, mask.Handle, dst.Handle, low_threshold, high_threshold, kernel_size);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -654,7 +712,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void EdgePreservingFilter(Mat src, Mat dst, int flags, float sigma_s, float sigma_r)
             {
-                NativeMethods.cv_edgePreservingFilter_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, sigma_s, sigma_r);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_edgePreservingFilter_0(src.Handle, dst.Handle, flags, sigma_s, sigma_r);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -671,7 +733,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DetailEnhance(Mat src, Mat dst, float sigma_s, float sigma_r)
             {
-                NativeMethods.cv_detailEnhance_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_detailEnhance_0(src.Handle, dst.Handle, sigma_s, sigma_r);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -690,7 +756,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PencilSketch(Mat src, Mat dst1, Mat dst2, float sigma_s, float sigma_r, float shade_factor)
             {
-                NativeMethods.cv_pencilSketch_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst1, nameof(dst1), false), ValidationHelper.GetHandle(dst2, nameof(dst2), false), sigma_s, sigma_r, shade_factor);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst1 == null) throw new ArgumentNullException(nameof(dst1));
+                dst1.ThrowIfDisposed();
+                if (dst2 == null) throw new ArgumentNullException(nameof(dst2));
+                dst2.ThrowIfDisposed();
+                NativeMethods.cv_pencilSketch_0(src.Handle, dst1.Handle, dst2.Handle, sigma_s, sigma_r, shade_factor);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst1);
@@ -710,7 +782,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Stylization(Mat src, Mat dst, float sigma_s, float sigma_r)
             {
-                NativeMethods.cv_stylization_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), sigma_s, sigma_r);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_stylization_0(src.Handle, dst.Handle, sigma_s, sigma_r);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -744,7 +820,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CorrectChromaticAberration(Mat input_image, Mat coefficients, Mat output_image, Size image_size, int calib_degree, int bayer_pattern)
             {
-                NativeMethods.cv_correctChromaticAberration_0(ValidationHelper.GetHandle(input_image, nameof(input_image), false), ValidationHelper.GetHandle(coefficients, nameof(coefficients), false), ValidationHelper.GetHandle(output_image, nameof(output_image), false), image_size, calib_degree, bayer_pattern);
+                if (input_image == null) throw new ArgumentNullException(nameof(input_image));
+                input_image.ThrowIfDisposed();
+                if (coefficients == null) throw new ArgumentNullException(nameof(coefficients));
+                coefficients.ThrowIfDisposed();
+                if (output_image == null) throw new ArgumentNullException(nameof(output_image));
+                output_image.ThrowIfDisposed();
+                NativeMethods.cv_correctChromaticAberration_0(input_image.Handle, coefficients.Handle, output_image.Handle, image_size, calib_degree, bayer_pattern);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(input_image);
                 GC.KeepAlive(coefficients);
@@ -772,7 +854,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void LoadChromaticAberrationParams(FileNode node, Mat coeffMat, Size calib_size, int degree)
             {
-                NativeMethods.cv_loadChromaticAberrationParams_0(ValidationHelper.GetHandle(node, nameof(node), false), ValidationHelper.GetHandle(coeffMat, nameof(coeffMat), false), calib_size, degree);
+                if (node == null) throw new ArgumentNullException(nameof(node));
+                node.ThrowIfDisposed();
+                if (coeffMat == null) throw new ArgumentNullException(nameof(coeffMat));
+                coeffMat.ThrowIfDisposed();
+                NativeMethods.cv_loadChromaticAberrationParams_0(node.Handle, coeffMat.Handle, calib_size, degree);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(node);
                 GC.KeepAlive(coeffMat);
@@ -788,7 +874,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CcmGammaCorrection(Mat src, Mat dst, double gamma)
             {
-                NativeMethods.cv_ccm_gammaCorrection_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), gamma);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_ccm_gammaCorrection_0(src.Handle, dst.Handle, gamma);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -812,7 +902,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CudaNonLocalMeans(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, int borderMode, CudaStream? stream)
             {
-                NativeMethods.cv_cuda_nonLocalMeans_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, borderMode, ValidationHelper.GetHandle(stream, nameof(stream), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (stream != null) stream.ThrowIfDisposed();
+                NativeMethods.cv_cuda_nonLocalMeans_0(src.Handle, dst.Handle, h, search_window, block_size, borderMode, ValidationHelper.GetHandle(stream, nameof(stream), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -838,7 +933,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CudaFastNlMeansDenoising(CudaGpuMat src, CudaGpuMat dst, float h, int search_window, int block_size, CudaStream? stream)
             {
-                NativeMethods.cv_cuda_fastNlMeansDenoising_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (stream != null) stream.ThrowIfDisposed();
+                NativeMethods.cv_cuda_fastNlMeansDenoising_0(src.Handle, dst.Handle, h, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -863,7 +963,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CudaFastNlMeansDenoisingColored(CudaGpuMat src, CudaGpuMat dst, float h_luminance, float photo_render, int search_window, int block_size, CudaStream? stream)
             {
-                NativeMethods.cv_cuda_fastNlMeansDenoisingColored_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), h_luminance, photo_render, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (stream != null) stream.ThrowIfDisposed();
+                NativeMethods.cv_cuda_fastNlMeansDenoisingColored_0(src.Handle, dst.Handle, h_luminance, photo_render, search_window, block_size, ValidationHelper.GetHandle(stream, nameof(stream), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);

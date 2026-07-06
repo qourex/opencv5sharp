@@ -80,7 +80,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CopyMakeBorder(Mat src, Mat dst, int top, int bottom, int left, int right, int borderType, Scalar value)
             {
-                NativeMethods.cv_copyMakeBorder_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), top, bottom, left, right, borderType, value);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_copyMakeBorder_0(src.Handle, dst.Handle, top, bottom, left, right, borderType, value);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -128,7 +132,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Add(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
             {
-                NativeMethods.cv_add_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_add_0(src1.Handle, src2.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -180,7 +191,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Subtract(Mat src1, Mat src2, Mat dst, Mat? mask, int dtype)
             {
-                NativeMethods.cv_subtract_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_subtract_0(src1.Handle, src2.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true), dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -214,7 +232,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Multiply(Mat src1, Mat src2, Mat dst, double scale, int dtype)
             {
-                NativeMethods.cv_multiply_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_multiply_0(src1.Handle, src2.Handle, dst.Handle, scale, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -250,7 +274,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Divide(Mat src1, Mat src2, Mat dst, double scale, int dtype)
             {
-                NativeMethods.cv_divide_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), scale, dtype);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_divide_0(src1.Handle, src2.Handle, dst.Handle, scale, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -268,7 +298,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Divide(double scale, Mat src2, Mat dst, int dtype)
             {
-                NativeMethods.cv_divide_1(scale, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_divide_1(scale, src2.Handle, dst.Handle, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src2);
                 GC.KeepAlive(dst);
@@ -298,7 +332,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ScaleAdd(Mat src1, double alpha, Mat src2, Mat dst)
             {
-                NativeMethods.cv_scaleAdd_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_scaleAdd_0(src1.Handle, alpha, src2.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -332,7 +372,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void AddWeighted(Mat src1, double alpha, Mat src2, double beta, double gamma, Mat dst, int dtype)
             {
-                NativeMethods.cv_addWeighted_0(ValidationHelper.GetHandle(src1, nameof(src1), false), alpha, ValidationHelper.GetHandle(src2, nameof(src2), false), beta, gamma, ValidationHelper.GetHandle(dst, nameof(dst), false), dtype);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_addWeighted_0(src1.Handle, alpha, src2.Handle, beta, gamma, dst.Handle, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -370,7 +416,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ConvertScaleAbs(Mat src, Mat dst, double alpha, double beta)
             {
-                NativeMethods.cv_convertScaleAbs_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_convertScaleAbs_0(src.Handle, dst.Handle, alpha, beta);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -394,7 +444,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Lut(Mat src, Mat lut, Mat dst)
             {
-                NativeMethods.cv_LUT_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lut, nameof(lut), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (lut == null) throw new ArgumentNullException(nameof(lut));
+                lut.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_LUT_0(src.Handle, lut.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(lut);
@@ -415,7 +471,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Scalar Sum(Mat src)
             {
-                var res = NativeMethods.cv_sum_0(ValidationHelper.GetHandle(src, nameof(src), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                var res = NativeMethods.cv_sum_0(src.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 return res;
@@ -443,7 +501,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool HasNonZero(Mat src)
             {
-                var res = NativeMethods.cv_hasNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                var res = NativeMethods.cv_hasNonZero_0(src.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 return res;
@@ -472,7 +532,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static int CountNonZero(Mat src)
             {
-                var res = NativeMethods.cv_countNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                var res = NativeMethods.cv_countNonZero_0(src.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 return res;
@@ -517,7 +579,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void FindNonZero(Mat src, Mat idx)
             {
-                NativeMethods.cv_findNonZero_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(idx, nameof(idx), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (idx == null) throw new ArgumentNullException(nameof(idx));
+                idx.ThrowIfDisposed();
+                NativeMethods.cv_findNonZero_0(src.Handle, idx.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(idx);
@@ -540,7 +606,10 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Scalar Mean(Mat src, Mat? mask)
             {
-                var res = NativeMethods.cv_mean_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                var res = NativeMethods.cv_mean_0(src.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -572,7 +641,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void MeanStdDev(Mat src, Mat mean, Mat stddev, Mat? mask)
             {
-                NativeMethods.cv_meanStdDev_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (stddev == null) throw new ArgumentNullException(nameof(stddev));
+                stddev.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_meanStdDev_0(src.Handle, mean.Handle, stddev.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mean);
@@ -617,7 +693,10 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Norm(Mat src1, int normType, Mat? mask)
             {
-                var res = NativeMethods.cv_norm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                var res = NativeMethods.cv_norm_0(src1.Handle, normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(mask);
@@ -641,7 +720,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Norm(Mat src1, Mat src2, int normType, Mat? mask)
             {
-                var res = NativeMethods.cv_norm_1(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                var res = NativeMethods.cv_norm_1(src1.Handle, src2.Handle, normType, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -670,7 +754,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Psnr(Mat src1, Mat src2, double R)
             {
-                var res = NativeMethods.cv_PSNR_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), R);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                var res = NativeMethods.cv_PSNR_0(src1.Handle, src2.Handle, R);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -698,7 +786,16 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void BatchDistance(Mat src1, Mat src2, Mat dist, int dtype, Mat nidx, int normType, int K, Mat? mask, int update, bool crosscheck)
             {
-                NativeMethods.cv_batchDistance_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dist, nameof(dist), false), dtype, ValidationHelper.GetHandle(nidx, nameof(nidx), false), normType, K, ValidationHelper.GetHandle(mask, nameof(mask), true), update, crosscheck);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dist == null) throw new ArgumentNullException(nameof(dist));
+                dist.ThrowIfDisposed();
+                if (nidx == null) throw new ArgumentNullException(nameof(nidx));
+                nidx.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_batchDistance_0(src1.Handle, src2.Handle, dist.Handle, dtype, nidx.Handle, normType, K, ValidationHelper.GetHandle(mask, nameof(mask), true), update, crosscheck);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -764,7 +861,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Normalize(Mat src, Mat dst, double alpha, double beta, int norm_type, int dtype, Mat? mask)
             {
-                NativeMethods.cv_normalize_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), alpha, beta, norm_type, dtype, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_normalize_0(src.Handle, dst.Handle, alpha, beta, norm_type, dtype, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -801,7 +903,10 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void MinMaxLoc(Mat src, IntPtr minVal, IntPtr maxVal, IntPtr minLoc, IntPtr maxLoc, Mat? mask)
             {
-                NativeMethods.cv_minMaxLoc_0(ValidationHelper.GetHandle(src, nameof(src), false), minVal, maxVal, minLoc, maxLoc, ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_minMaxLoc_0(src.Handle, minVal, maxVal, minLoc, maxLoc, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -827,7 +932,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ReduceArgMin(Mat src, Mat dst, int axis, bool lastIndex)
             {
-                NativeMethods.cv_reduceArgMin_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_reduceArgMin_0(src.Handle, dst.Handle, axis, lastIndex);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -853,7 +962,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ReduceArgMax(Mat src, Mat dst, int axis, bool lastIndex)
             {
-                NativeMethods.cv_reduceArgMax_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis, lastIndex);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_reduceArgMax_0(src.Handle, dst.Handle, axis, lastIndex);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -882,7 +995,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Reduce(Mat src, Mat dst, int dim, int rtype, int dtype)
             {
-                NativeMethods.cv_reduce_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), dim, rtype, dtype);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_reduce_0(src.Handle, dst.Handle, dim, rtype, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -897,7 +1014,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Merge(IntPtr mv, Mat dst)
             {
-                NativeMethods.cv_merge_0(mv, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_merge_0(mv, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -911,7 +1030,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Split(Mat m, IntPtr mv)
             {
-                NativeMethods.cv_split_0(ValidationHelper.GetHandle(m, nameof(m), false), mv);
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_split_0(m.Handle, mv);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(m);
             }
@@ -941,7 +1062,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void ExtractChannel(Mat src, Mat dst, int coi)
             {
-                NativeMethods.cv_extractChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_extractChannel_0(src.Handle, dst.Handle, coi);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -960,7 +1085,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void InsertChannel(Mat src, Mat dst, int coi)
             {
-                NativeMethods.cv_insertChannel_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), coi);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_insertChannel_0(src.Handle, dst.Handle, coi);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1001,7 +1130,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Flip(Mat src, Mat dst, int flipCode)
             {
-                NativeMethods.cv_flip_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flipCode);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_flip_0(src.Handle, dst.Handle, flipCode);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1017,7 +1150,11 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void FlipND(Mat src, Mat dst, int axis)
             {
-                NativeMethods.cv_flipND_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), axis);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_flipND_0(src.Handle, dst.Handle, axis);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1033,7 +1170,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void Broadcast(Mat src, Mat shape, Mat dst)
             {
-                NativeMethods.cv_broadcast_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(shape, nameof(shape), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (shape == null) throw new ArgumentNullException(nameof(shape));
+                shape.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_broadcast_0(src.Handle, shape.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(shape);
@@ -1057,7 +1200,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Rotate(Mat src, Mat dst, int rotateCode)
             {
-                NativeMethods.cv_rotate_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), rotateCode);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_rotate_0(src.Handle, dst.Handle, rotateCode);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1080,7 +1227,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Repeat(Mat src, int ny, int nx, Mat dst)
             {
-                NativeMethods.cv_repeat_0(ValidationHelper.GetHandle(src, nameof(src), false), ny, nx, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_repeat_0(src.Handle, ny, nx, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1109,7 +1260,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Hconcat(IntPtr src, Mat dst)
             {
-                NativeMethods.cv_hconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_hconcat_0(src, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -1136,7 +1289,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Vconcat(IntPtr src, Mat dst)
             {
-                NativeMethods.cv_vconcat_0(src, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_vconcat_0(src, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -1170,7 +1325,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void BitwiseAnd(Mat src1, Mat src2, Mat dst, Mat? mask)
             {
-                NativeMethods.cv_bitwise_and_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_bitwise_and_0(src1.Handle, src2.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1206,7 +1368,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void BitwiseOr(Mat src1, Mat src2, Mat dst, Mat? mask)
             {
-                NativeMethods.cv_bitwise_or_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_bitwise_or_0(src1.Handle, src2.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1243,7 +1412,14 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void BitwiseXor(Mat src1, Mat src2, Mat dst, Mat? mask)
             {
-                NativeMethods.cv_bitwise_xor_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_bitwise_xor_0(src1.Handle, src2.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1269,7 +1445,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void BitwiseNot(Mat src, Mat dst, Mat? mask)
             {
-                NativeMethods.cv_bitwise_not_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask != null) mask.ThrowIfDisposed();
+                NativeMethods.cv_bitwise_not_0(src.Handle, dst.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1308,7 +1489,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Absdiff(Mat src1, Mat src2, Mat dst)
             {
-                NativeMethods.cv_absdiff_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_absdiff_0(src1.Handle, src2.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1327,7 +1514,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CopyTo(Mat src, Mat dst, Mat mask)
             {
-                NativeMethods.cv_copyTo_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                NativeMethods.cv_copyTo_0(src.Handle, dst.Handle, mask.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1357,7 +1550,15 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void InRange(Mat src, Mat lowerb, Mat upperb, Mat dst)
             {
-                NativeMethods.cv_inRange_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(lowerb, nameof(lowerb), false), ValidationHelper.GetHandle(upperb, nameof(upperb), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (lowerb == null) throw new ArgumentNullException(nameof(lowerb));
+                lowerb.ThrowIfDisposed();
+                if (upperb == null) throw new ArgumentNullException(nameof(upperb));
+                upperb.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_inRange_0(src.Handle, lowerb.Handle, upperb.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(lowerb);
@@ -1396,7 +1597,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Compare(Mat src1, Mat src2, Mat dst, int cmpop)
             {
-                NativeMethods.cv_compare_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), cmpop);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_compare_0(src1.Handle, src2.Handle, dst.Handle, cmpop);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1420,7 +1627,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Min(Mat src1, Mat src2, Mat dst)
             {
-                NativeMethods.cv_min_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_min_0(src1.Handle, src2.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1444,7 +1657,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Max(Mat src1, Mat src2, Mat dst)
             {
-                NativeMethods.cv_max_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_max_0(src1.Handle, src2.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1466,7 +1685,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Sqrt(Mat src, Mat dst)
             {
-                NativeMethods.cv_sqrt_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_sqrt_0(src.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1499,7 +1722,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Pow(Mat src, double power, Mat dst)
             {
-                NativeMethods.cv_pow_0(ValidationHelper.GetHandle(src, nameof(src), false), power, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_pow_0(src.Handle, power, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1524,7 +1751,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Exp(Mat src, Mat dst)
             {
-                NativeMethods.cv_exp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_exp_0(src.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1545,7 +1776,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Log(Mat src, Mat dst)
             {
-                NativeMethods.cv_log_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_log_0(src.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1570,7 +1805,15 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void PolarToCart(Mat magnitude, Mat angle, Mat x, Mat y, bool angleInDegrees)
             {
-                NativeMethods.cv_polarToCart_0(ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), angleInDegrees);
+                if (magnitude == null) throw new ArgumentNullException(nameof(magnitude));
+                magnitude.ThrowIfDisposed();
+                if (angle == null) throw new ArgumentNullException(nameof(angle));
+                angle.ThrowIfDisposed();
+                if (x == null) throw new ArgumentNullException(nameof(x));
+                x.ThrowIfDisposed();
+                if (y == null) throw new ArgumentNullException(nameof(y));
+                y.ThrowIfDisposed();
+                NativeMethods.cv_polarToCart_0(magnitude.Handle, angle.Handle, x.Handle, y.Handle, angleInDegrees);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(magnitude);
                 GC.KeepAlive(angle);
@@ -1598,7 +1841,15 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CartToPolar(Mat x, Mat y, Mat magnitude, Mat angle, bool angleInDegrees)
             {
-                NativeMethods.cv_cartToPolar_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
+                if (x == null) throw new ArgumentNullException(nameof(x));
+                x.ThrowIfDisposed();
+                if (y == null) throw new ArgumentNullException(nameof(y));
+                y.ThrowIfDisposed();
+                if (magnitude == null) throw new ArgumentNullException(nameof(magnitude));
+                magnitude.ThrowIfDisposed();
+                if (angle == null) throw new ArgumentNullException(nameof(angle));
+                angle.ThrowIfDisposed();
+                NativeMethods.cv_cartToPolar_0(x.Handle, y.Handle, magnitude.Handle, angle.Handle, angleInDegrees);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(x);
                 GC.KeepAlive(y);
@@ -1624,7 +1875,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Phase(Mat x, Mat y, Mat angle, bool angleInDegrees)
             {
-                NativeMethods.cv_phase_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(angle, nameof(angle), false), angleInDegrees);
+                if (x == null) throw new ArgumentNullException(nameof(x));
+                x.ThrowIfDisposed();
+                if (y == null) throw new ArgumentNullException(nameof(y));
+                y.ThrowIfDisposed();
+                if (angle == null) throw new ArgumentNullException(nameof(angle));
+                angle.ThrowIfDisposed();
+                NativeMethods.cv_phase_0(x.Handle, y.Handle, angle.Handle, angleInDegrees);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(x);
                 GC.KeepAlive(y);
@@ -1647,7 +1904,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Magnitude(Mat x, Mat y, Mat magnitude)
             {
-                NativeMethods.cv_magnitude_0(ValidationHelper.GetHandle(x, nameof(x), false), ValidationHelper.GetHandle(y, nameof(y), false), ValidationHelper.GetHandle(magnitude, nameof(magnitude), false));
+                if (x == null) throw new ArgumentNullException(nameof(x));
+                x.ThrowIfDisposed();
+                if (y == null) throw new ArgumentNullException(nameof(y));
+                y.ThrowIfDisposed();
+                if (magnitude == null) throw new ArgumentNullException(nameof(magnitude));
+                magnitude.ThrowIfDisposed();
+                NativeMethods.cv_magnitude_0(x.Handle, y.Handle, magnitude.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(x);
                 GC.KeepAlive(y);
@@ -1674,7 +1937,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool CheckRange(Mat a, bool quiet, IntPtr pos, double minVal, double maxVal)
             {
-                var res = NativeMethods.cv_checkRange_0(ValidationHelper.GetHandle(a, nameof(a), false), quiet, pos, minVal, maxVal);
+                if (a == null) throw new ArgumentNullException(nameof(a));
+                a.ThrowIfDisposed();
+                var res = NativeMethods.cv_checkRange_0(a.Handle, quiet, pos, minVal, maxVal);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(a);
                 return res;
@@ -1693,7 +1958,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void PatchNaNs(Mat a, double val)
             {
-                NativeMethods.cv_patchNaNs_0(ValidationHelper.GetHandle(a, nameof(a), false), val);
+                if (a == null) throw new ArgumentNullException(nameof(a));
+                a.ThrowIfDisposed();
+                NativeMethods.cv_patchNaNs_0(a.Handle, val);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(a);
             }
@@ -1710,7 +1977,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void FiniteMask(Mat src, Mat mask)
             {
-                NativeMethods.cv_finiteMask_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (mask == null) throw new ArgumentNullException(nameof(mask));
+                mask.ThrowIfDisposed();
+                NativeMethods.cv_finiteMask_0(src.Handle, mask.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(mask);
@@ -1745,7 +2016,15 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Gemm(Mat src1, Mat src2, double alpha, Mat src3, double beta, Mat dst, int flags)
             {
-                NativeMethods.cv_gemm_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), alpha, ValidationHelper.GetHandle(src3, nameof(src3), false), beta, ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (src3 == null) throw new ArgumentNullException(nameof(src3));
+                src3.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_gemm_0(src1.Handle, src2.Handle, alpha, src3.Handle, beta, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -1777,7 +2056,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void MulTransposed(Mat src, Mat dst, bool aTa, Mat? delta, double scale, int dtype)
             {
-                NativeMethods.cv_mulTransposed_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), aTa, ValidationHelper.GetHandle(delta, nameof(delta), true), scale, dtype);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (delta != null) delta.ThrowIfDisposed();
+                NativeMethods.cv_mulTransposed_0(src.Handle, dst.Handle, aTa, ValidationHelper.GetHandle(delta, nameof(delta), true), scale, dtype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1799,7 +2083,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Transpose(Mat src, Mat dst)
             {
-                NativeMethods.cv_transpose_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_transpose_0(src.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1819,7 +2107,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void TransposeND(Mat src, IntPtr order, Mat dst)
             {
-                NativeMethods.cv_transposeND_0(ValidationHelper.GetHandle(src, nameof(src), false), order, ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_transposeND_0(src.Handle, order, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1851,7 +2143,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Transform(Mat src, Mat dst, Mat m)
             {
-                NativeMethods.cv_transform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_transform_0(src.Handle, dst.Handle, m.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1886,7 +2184,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void PerspectiveTransform(Mat src, Mat dst, Mat m)
             {
-                NativeMethods.cv_perspectiveTransform_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(m, nameof(m), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_perspectiveTransform_0(src.Handle, dst.Handle, m.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -1911,7 +2215,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CompleteSymm(Mat m, bool lowerToUpper)
             {
-                NativeMethods.cv_completeSymm_0(ValidationHelper.GetHandle(m, nameof(m), false), lowerToUpper);
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_completeSymm_0(m.Handle, lowerToUpper);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(m);
             }
@@ -1936,7 +2242,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void SetIdentity(Mat mtx, Scalar s)
             {
-                NativeMethods.cv_setIdentity_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false), s);
+                if (mtx == null) throw new ArgumentNullException(nameof(mtx));
+                mtx.ThrowIfDisposed();
+                NativeMethods.cv_setIdentity_0(mtx.Handle, s);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(mtx);
             }
@@ -1959,7 +2267,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Determinant(Mat mtx)
             {
-                var res = NativeMethods.cv_determinant_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
+                if (mtx == null) throw new ArgumentNullException(nameof(mtx));
+                mtx.ThrowIfDisposed();
+                var res = NativeMethods.cv_determinant_0(mtx.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(mtx);
                 return res;
@@ -1979,7 +2289,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Scalar Trace(Mat mtx)
             {
-                var res = NativeMethods.cv_trace_0(ValidationHelper.GetHandle(mtx, nameof(mtx), false));
+                if (mtx == null) throw new ArgumentNullException(nameof(mtx));
+                mtx.ThrowIfDisposed();
+                var res = NativeMethods.cv_trace_0(mtx.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(mtx);
                 return res;
@@ -2013,7 +2325,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Invert(Mat src, Mat dst, int flags)
             {
-                var res = NativeMethods.cv_invert_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                var res = NativeMethods.cv_invert_0(src.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2046,7 +2362,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Solve(Mat src1, Mat src2, Mat dst, int flags)
             {
-                var res = NativeMethods.cv_solve_0(ValidationHelper.GetHandle(src1, nameof(src1), false), ValidationHelper.GetHandle(src2, nameof(src2), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src1 == null) throw new ArgumentNullException(nameof(src1));
+                src1.ThrowIfDisposed();
+                if (src2 == null) throw new ArgumentNullException(nameof(src2));
+                src2.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                var res = NativeMethods.cv_solve_0(src1.Handle, src2.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src1);
                 GC.KeepAlive(src2);
@@ -2072,7 +2394,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Sort(Mat src, Mat dst, int flags)
             {
-                NativeMethods.cv_sort_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_sort_0(src.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2102,7 +2428,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void SortIdx(Mat src, Mat dst, int flags)
             {
-                NativeMethods.cv_sortIdx_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_sortIdx_0(src.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2126,7 +2456,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static int SolveCubic(Mat coeffs, Mat roots)
             {
-                var res = NativeMethods.cv_solveCubic_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false));
+                if (coeffs == null) throw new ArgumentNullException(nameof(coeffs));
+                coeffs.ThrowIfDisposed();
+                if (roots == null) throw new ArgumentNullException(nameof(roots));
+                roots.ThrowIfDisposed();
+                var res = NativeMethods.cv_solveCubic_0(coeffs.Handle, roots.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(coeffs);
                 GC.KeepAlive(roots);
@@ -2148,7 +2482,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double SolvePoly(Mat coeffs, Mat roots, int maxIters)
             {
-                var res = NativeMethods.cv_solvePoly_0(ValidationHelper.GetHandle(coeffs, nameof(coeffs), false), ValidationHelper.GetHandle(roots, nameof(roots), false), maxIters);
+                if (coeffs == null) throw new ArgumentNullException(nameof(coeffs));
+                coeffs.ThrowIfDisposed();
+                if (roots == null) throw new ArgumentNullException(nameof(roots));
+                roots.ThrowIfDisposed();
+                var res = NativeMethods.cv_solvePoly_0(coeffs.Handle, roots.Handle, maxIters);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(coeffs);
                 GC.KeepAlive(roots);
@@ -2175,7 +2513,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static bool Eigen(Mat src, Mat eigenvalues, Mat? eigenvectors)
             {
-                var res = NativeMethods.cv_eigen_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), true));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (eigenvalues == null) throw new ArgumentNullException(nameof(eigenvalues));
+                eigenvalues.ThrowIfDisposed();
+                if (eigenvectors != null) eigenvectors.ThrowIfDisposed();
+                var res = NativeMethods.cv_eigen_0(src.Handle, eigenvalues.Handle, ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(eigenvalues);
@@ -2201,7 +2544,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void EigenNonSymmetric(Mat src, Mat eigenvalues, Mat eigenvectors)
             {
-                NativeMethods.cv_eigenNonSymmetric_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false));
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (eigenvalues == null) throw new ArgumentNullException(nameof(eigenvalues));
+                eigenvalues.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                NativeMethods.cv_eigenNonSymmetric_0(src.Handle, eigenvalues.Handle, eigenvectors.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(eigenvalues);
@@ -2223,7 +2572,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CalcCovarMatrix(Mat samples, Mat covar, Mat mean, int flags, int ctype)
             {
-                NativeMethods.cv_calcCovarMatrix_0(ValidationHelper.GetHandle(samples, nameof(samples), false), ValidationHelper.GetHandle(covar, nameof(covar), false), ValidationHelper.GetHandle(mean, nameof(mean), false), flags, ctype);
+                if (samples == null) throw new ArgumentNullException(nameof(samples));
+                samples.ThrowIfDisposed();
+                if (covar == null) throw new ArgumentNullException(nameof(covar));
+                covar.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                NativeMethods.cv_calcCovarMatrix_0(samples.Handle, covar.Handle, mean.Handle, flags, ctype);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(samples);
                 GC.KeepAlive(covar);
@@ -2241,7 +2596,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, int maxComponents)
             {
-                NativeMethods.cv_PCACompute_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), maxComponents);
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                NativeMethods.cv_PCACompute_0(data.Handle, mean.Handle, eigenvectors.Handle, maxComponents);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2260,7 +2621,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, int maxComponents)
             {
-                NativeMethods.cv_PCACompute_1(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), maxComponents);
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                if (eigenvalues == null) throw new ArgumentNullException(nameof(eigenvalues));
+                eigenvalues.ThrowIfDisposed();
+                NativeMethods.cv_PCACompute_1(data.Handle, mean.Handle, eigenvectors.Handle, eigenvalues.Handle, maxComponents);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2279,7 +2648,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, double retainedVariance)
             {
-                NativeMethods.cv_PCACompute_2(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), retainedVariance);
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                NativeMethods.cv_PCACompute_2(data.Handle, mean.Handle, eigenvectors.Handle, retainedVariance);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2298,7 +2673,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCACompute(Mat data, Mat mean, Mat eigenvectors, Mat eigenvalues, double retainedVariance)
             {
-                NativeMethods.cv_PCACompute_3(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(eigenvalues, nameof(eigenvalues), false), retainedVariance);
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                if (eigenvalues == null) throw new ArgumentNullException(nameof(eigenvalues));
+                eigenvalues.ThrowIfDisposed();
+                NativeMethods.cv_PCACompute_3(data.Handle, mean.Handle, eigenvectors.Handle, eigenvalues.Handle, retainedVariance);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2317,7 +2700,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCAProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
             {
-                NativeMethods.cv_PCAProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                if (result == null) throw new ArgumentNullException(nameof(result));
+                result.ThrowIfDisposed();
+                NativeMethods.cv_PCAProject_0(data.Handle, mean.Handle, eigenvectors.Handle, result.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2336,7 +2727,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void PCABackProject(Mat data, Mat mean, Mat eigenvectors, Mat result)
             {
-                NativeMethods.cv_PCABackProject_0(ValidationHelper.GetHandle(data, nameof(data), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(eigenvectors, nameof(eigenvectors), false), ValidationHelper.GetHandle(result, nameof(result), false));
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (eigenvectors == null) throw new ArgumentNullException(nameof(eigenvectors));
+                eigenvectors.ThrowIfDisposed();
+                if (result == null) throw new ArgumentNullException(nameof(result));
+                result.ThrowIfDisposed();
+                NativeMethods.cv_PCABackProject_0(data.Handle, mean.Handle, eigenvectors.Handle, result.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(mean);
@@ -2356,7 +2755,15 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void SVDecomp(Mat src, Mat w, Mat u, Mat vt, int flags)
             {
-                NativeMethods.cv_SVDecomp_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (w == null) throw new ArgumentNullException(nameof(w));
+                w.ThrowIfDisposed();
+                if (u == null) throw new ArgumentNullException(nameof(u));
+                u.ThrowIfDisposed();
+                if (vt == null) throw new ArgumentNullException(nameof(vt));
+                vt.ThrowIfDisposed();
+                NativeMethods.cv_SVDecomp_0(src.Handle, w.Handle, u.Handle, vt.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(w);
@@ -2376,7 +2783,17 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void SVBackSubst(Mat w, Mat u, Mat vt, Mat rhs, Mat dst)
             {
-                NativeMethods.cv_SVBackSubst_0(ValidationHelper.GetHandle(w, nameof(w), false), ValidationHelper.GetHandle(u, nameof(u), false), ValidationHelper.GetHandle(vt, nameof(vt), false), ValidationHelper.GetHandle(rhs, nameof(rhs), false), ValidationHelper.GetHandle(dst, nameof(dst), false));
+                if (w == null) throw new ArgumentNullException(nameof(w));
+                w.ThrowIfDisposed();
+                if (u == null) throw new ArgumentNullException(nameof(u));
+                u.ThrowIfDisposed();
+                if (vt == null) throw new ArgumentNullException(nameof(vt));
+                vt.ThrowIfDisposed();
+                if (rhs == null) throw new ArgumentNullException(nameof(rhs));
+                rhs.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_SVBackSubst_0(w.Handle, u.Handle, vt.Handle, rhs.Handle, dst.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(w);
                 GC.KeepAlive(u);
@@ -2402,7 +2819,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Mahalanobis(Mat v1, Mat v2, Mat icovar)
             {
-                var res = NativeMethods.cv_Mahalanobis_0(ValidationHelper.GetHandle(v1, nameof(v1), false), ValidationHelper.GetHandle(v2, nameof(v2), false), ValidationHelper.GetHandle(icovar, nameof(icovar), false));
+                if (v1 == null) throw new ArgumentNullException(nameof(v1));
+                v1.ThrowIfDisposed();
+                if (v2 == null) throw new ArgumentNullException(nameof(v2));
+                v2.ThrowIfDisposed();
+                if (icovar == null) throw new ArgumentNullException(nameof(icovar));
+                icovar.ThrowIfDisposed();
+                var res = NativeMethods.cv_Mahalanobis_0(v1.Handle, v2.Handle, icovar.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(v1);
                 GC.KeepAlive(v2);
@@ -2497,7 +2920,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Dft(Mat src, Mat dst, int flags, int nonzeroRows)
             {
-                NativeMethods.cv_dft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_dft_0(src.Handle, dst.Handle, flags, nonzeroRows);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2520,7 +2947,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Idft(Mat src, Mat dst, int flags, int nonzeroRows)
             {
-                NativeMethods.cv_idft_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags, nonzeroRows);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_idft_0(src.Handle, dst.Handle, flags, nonzeroRows);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2569,7 +3000,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Dct(Mat src, Mat dst, int flags)
             {
-                NativeMethods.cv_dct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_dct_0(src.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2589,7 +3024,11 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Idct(Mat src, Mat dst, int flags)
             {
-                NativeMethods.cv_idct_0(ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(dst, nameof(dst), false), flags);
+                if (src == null) throw new ArgumentNullException(nameof(src));
+                src.ThrowIfDisposed();
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_idct_0(src.Handle, dst.Handle, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(src);
                 GC.KeepAlive(dst);
@@ -2615,7 +3054,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void MulSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
             {
-                NativeMethods.cv_mulSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
+                if (a == null) throw new ArgumentNullException(nameof(a));
+                a.ThrowIfDisposed();
+                if (b == null) throw new ArgumentNullException(nameof(b));
+                b.ThrowIfDisposed();
+                if (c == null) throw new ArgumentNullException(nameof(c));
+                c.ThrowIfDisposed();
+                NativeMethods.cv_mulSpectrums_0(a.Handle, b.Handle, c.Handle, flags, conjB);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(a);
                 GC.KeepAlive(b);
@@ -2638,7 +3083,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void DivSpectrums(Mat a, Mat b, Mat c, int flags, bool conjB)
             {
-                NativeMethods.cv_divSpectrums_0(ValidationHelper.GetHandle(a, nameof(a), false), ValidationHelper.GetHandle(b, nameof(b), false), ValidationHelper.GetHandle(c, nameof(c), false), flags, conjB);
+                if (a == null) throw new ArgumentNullException(nameof(a));
+                a.ThrowIfDisposed();
+                if (b == null) throw new ArgumentNullException(nameof(b));
+                b.ThrowIfDisposed();
+                if (c == null) throw new ArgumentNullException(nameof(c));
+                c.ThrowIfDisposed();
+                NativeMethods.cv_divSpectrums_0(a.Handle, b.Handle, c.Handle, flags, conjB);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(a);
                 GC.KeepAlive(b);
@@ -2703,7 +3154,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Randu(Mat dst, Mat low, Mat high)
             {
-                NativeMethods.cv_randu_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(low, nameof(low), false), ValidationHelper.GetHandle(high, nameof(high), false));
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (low == null) throw new ArgumentNullException(nameof(low));
+                low.ThrowIfDisposed();
+                if (high == null) throw new ArgumentNullException(nameof(high));
+                high.ThrowIfDisposed();
+                NativeMethods.cv_randu_0(dst.Handle, low.Handle, high.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
                 GC.KeepAlive(low);
@@ -2726,7 +3183,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Randn(Mat dst, Mat mean, Mat stddev)
             {
-                NativeMethods.cv_randn_0(ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(mean, nameof(mean), false), ValidationHelper.GetHandle(stddev, nameof(stddev), false));
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                if (mean == null) throw new ArgumentNullException(nameof(mean));
+                mean.ThrowIfDisposed();
+                if (stddev == null) throw new ArgumentNullException(nameof(stddev));
+                stddev.ThrowIfDisposed();
+                NativeMethods.cv_randn_0(dst.Handle, mean.Handle, stddev.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
                 GC.KeepAlive(mean);
@@ -2748,7 +3211,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void RandShuffle(Mat dst, double iterFactor, IntPtr rng)
             {
-                NativeMethods.cv_randShuffle_0(ValidationHelper.GetHandle(dst, nameof(dst), false), iterFactor, rng);
+                if (dst == null) throw new ArgumentNullException(nameof(dst));
+                dst.ThrowIfDisposed();
+                NativeMethods.cv_randShuffle_0(dst.Handle, iterFactor, rng);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(dst);
             }
@@ -2776,7 +3241,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double Kmeans(Mat data, int K, Mat bestLabels, TermCriteria criteria, int attempts, int flags, Mat? centers)
             {
-                var res = NativeMethods.cv_kmeans_0(ValidationHelper.GetHandle(data, nameof(data), false), K, ValidationHelper.GetHandle(bestLabels, nameof(bestLabels), false), criteria, attempts, flags, ValidationHelper.GetHandle(centers, nameof(centers), true));
+                if (data == null) throw new ArgumentNullException(nameof(data));
+                data.ThrowIfDisposed();
+                if (bestLabels == null) throw new ArgumentNullException(nameof(bestLabels));
+                bestLabels.ThrowIfDisposed();
+                if (centers != null) centers.ThrowIfDisposed();
+                var res = NativeMethods.cv_kmeans_0(data.Handle, K, bestLabels.Handle, criteria, attempts, flags, ValidationHelper.GetHandle(centers, nameof(centers), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(data);
                 GC.KeepAlive(bestLabels);
@@ -2894,7 +3364,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CudaCreateContinuous(int rows, int cols, int type, Mat arr)
             {
-                NativeMethods.cv_cuda_createContinuous_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
+                if (arr == null) throw new ArgumentNullException(nameof(arr));
+                arr.ThrowIfDisposed();
+                NativeMethods.cv_cuda_createContinuous_0(rows, cols, type, arr.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(arr);
             }
@@ -2910,7 +3382,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CudaEnsureSizeIsEnough(int rows, int cols, int type, Mat arr)
             {
-                NativeMethods.cv_cuda_ensureSizeIsEnough_0(rows, cols, type, ValidationHelper.GetHandle(arr, nameof(arr), false));
+                if (arr == null) throw new ArgumentNullException(nameof(arr));
+                arr.ThrowIfDisposed();
+                NativeMethods.cv_cuda_ensureSizeIsEnough_0(rows, cols, type, arr.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(arr);
             }
@@ -2937,7 +3411,7 @@ namespace OpenCV5Sharp
                 CudaGpuMat? resultObj = null;
                 try
                 {
-                    resultObj = new CudaGpuMat(res);
+                    resultObj = new CudaGpuMat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -2975,7 +3449,7 @@ namespace OpenCV5Sharp
                 CudaGpuMat? resultObj = null;
                 try
                 {
-                    resultObj = new CudaGpuMat(res);
+                    resultObj = new CudaGpuMat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -3022,7 +3496,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CudaRegisterPageLocked(Mat m)
             {
-                NativeMethods.cv_cuda_registerPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_cuda_registerPageLocked_0(m.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(m);
             }
@@ -3035,7 +3511,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void CudaUnregisterPageLocked(Mat m)
             {
-                NativeMethods.cv_cuda_unregisterPageLocked_0(ValidationHelper.GetHandle(m, nameof(m), false));
+                if (m == null) throw new ArgumentNullException(nameof(m));
+                m.ThrowIfDisposed();
+                NativeMethods.cv_cuda_unregisterPageLocked_0(m.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(m);
             }
@@ -3058,7 +3536,7 @@ namespace OpenCV5Sharp
                 CudaStream? resultObj = null;
                 try
                 {
-                    resultObj = new CudaStream(res);
+                    resultObj = new CudaStream(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -3237,7 +3715,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static int SolveLP(Mat Func, Mat Constr, Mat z, double constr_eps)
             {
-                var res = NativeMethods.cv_solveLP_0(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false), constr_eps);
+                if (Func == null) throw new ArgumentNullException(nameof(Func));
+                Func.ThrowIfDisposed();
+                if (Constr == null) throw new ArgumentNullException(nameof(Constr));
+                Constr.ThrowIfDisposed();
+                if (z == null) throw new ArgumentNullException(nameof(z));
+                z.ThrowIfDisposed();
+                var res = NativeMethods.cv_solveLP_0(Func.Handle, Constr.Handle, z.Handle, constr_eps);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(Func);
                 GC.KeepAlive(Constr);
@@ -3256,7 +3740,13 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static int SolveLP(Mat Func, Mat Constr, Mat z)
             {
-                var res = NativeMethods.cv_solveLP_1(ValidationHelper.GetHandle(Func, nameof(Func), false), ValidationHelper.GetHandle(Constr, nameof(Constr), false), ValidationHelper.GetHandle(z, nameof(z), false));
+                if (Func == null) throw new ArgumentNullException(nameof(Func));
+                Func.ThrowIfDisposed();
+                if (Constr == null) throw new ArgumentNullException(nameof(Constr));
+                Constr.ThrowIfDisposed();
+                if (z == null) throw new ArgumentNullException(nameof(z));
+                z.ThrowIfDisposed();
+                var res = NativeMethods.cv_solveLP_1(Func.Handle, Constr.Handle, z.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(Func);
                 GC.KeepAlive(Constr);

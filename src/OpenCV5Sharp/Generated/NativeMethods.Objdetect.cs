@@ -14,89 +14,89 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr CirclesGridFinderParameters_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size2F CirclesGridFinderParameters_densityNeighborhoodSize_get(IntPtr self);
+        public static extern Size2F CirclesGridFinderParameters_densityNeighborhoodSize_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_densityNeighborhoodSize_set(IntPtr self, Size2F val);
+        public static extern void CirclesGridFinderParameters_densityNeighborhoodSize_set(CirclesGridFinderParametersHandle self, Size2F val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_minDensity_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_minDensity_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_minDensity_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_minDensity_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int CirclesGridFinderParameters_kmeansAttempts_get(IntPtr self);
+        public static extern int CirclesGridFinderParameters_kmeansAttempts_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_kmeansAttempts_set(IntPtr self, int val);
+        public static extern void CirclesGridFinderParameters_kmeansAttempts_set(CirclesGridFinderParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int CirclesGridFinderParameters_minDistanceToAddKeypoint_get(IntPtr self);
+        public static extern int CirclesGridFinderParameters_minDistanceToAddKeypoint_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_minDistanceToAddKeypoint_set(IntPtr self, int val);
+        public static extern void CirclesGridFinderParameters_minDistanceToAddKeypoint_set(CirclesGridFinderParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int CirclesGridFinderParameters_keypointScale_get(IntPtr self);
+        public static extern int CirclesGridFinderParameters_keypointScale_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_keypointScale_set(IntPtr self, int val);
+        public static extern void CirclesGridFinderParameters_keypointScale_set(CirclesGridFinderParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_minGraphConfidence_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_minGraphConfidence_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_minGraphConfidence_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_minGraphConfidence_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_vertexGain_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_vertexGain_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_vertexGain_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_vertexGain_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_vertexPenalty_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_vertexPenalty_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_vertexPenalty_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_vertexPenalty_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_existingVertexGain_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_existingVertexGain_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_existingVertexGain_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_existingVertexGain_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_edgeGain_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_edgeGain_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_edgeGain_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_edgeGain_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_edgePenalty_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_edgePenalty_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_edgePenalty_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_edgePenalty_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_convexHullFactor_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_convexHullFactor_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_convexHullFactor_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_convexHullFactor_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_minRNGEdgeSwitchDist_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_minRNGEdgeSwitchDist_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_minRNGEdgeSwitchDist_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_minRNGEdgeSwitchDist_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int CirclesGridFinderParameters_gridType_get(IntPtr self);
+        public static extern int CirclesGridFinderParameters_gridType_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_gridType_set(IntPtr self, int val);
+        public static extern void CirclesGridFinderParameters_gridType_set(CirclesGridFinderParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_squareSize_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_squareSize_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_squareSize_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_squareSize_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float CirclesGridFinderParameters_maxRectifiedDistance_get(IntPtr self);
+        public static extern float CirclesGridFinderParameters_maxRectifiedDistance_get(CirclesGridFinderParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CirclesGridFinderParameters_maxRectifiedDistance_set(IntPtr self, float val);
+        public static extern void CirclesGridFinderParameters_maxRectifiedDistance_set(CirclesGridFinderParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void FaceDetectorYN_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceDetectorYN_setInputSize_0(IntPtr self, Size input_size);
+        public static extern void FaceDetectorYN_setInputSize_0(FaceDetectorYNHandle self, Size input_size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size FaceDetectorYN_getInputSize_0(IntPtr self);
+        public static extern Size FaceDetectorYN_getInputSize_0(FaceDetectorYNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceDetectorYN_setScoreThreshold_0(IntPtr self, float score_threshold);
+        public static extern void FaceDetectorYN_setScoreThreshold_0(FaceDetectorYNHandle self, float score_threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float FaceDetectorYN_getScoreThreshold_0(IntPtr self);
+        public static extern float FaceDetectorYN_getScoreThreshold_0(FaceDetectorYNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceDetectorYN_setNMSThreshold_0(IntPtr self, float nms_threshold);
+        public static extern void FaceDetectorYN_setNMSThreshold_0(FaceDetectorYNHandle self, float nms_threshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float FaceDetectorYN_getNMSThreshold_0(IntPtr self);
+        public static extern float FaceDetectorYN_getNMSThreshold_0(FaceDetectorYNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceDetectorYN_setTopK_0(IntPtr self, int top_k);
+        public static extern void FaceDetectorYN_setTopK_0(FaceDetectorYNHandle self, int top_k);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FaceDetectorYN_getTopK_0(IntPtr self);
+        public static extern int FaceDetectorYN_getTopK_0(FaceDetectorYNHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int FaceDetectorYN_detect_0(IntPtr self, IntPtr image, IntPtr faces);
+        public static extern int FaceDetectorYN_detect_0(FaceDetectorYNHandle self, MatHandle image, MatHandle faces);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr FaceDetectorYN_create_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config, Size input_size, float score_threshold, float nms_threshold, int top_k, int backend_id, int target_id);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -104,11 +104,11 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void FaceRecognizerSF_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceRecognizerSF_alignCrop_0(IntPtr self, IntPtr src_img, IntPtr face_box, IntPtr aligned_img);
+        public static extern void FaceRecognizerSF_alignCrop_0(FaceRecognizerSFHandle self, MatHandle src_img, MatHandle face_box, MatHandle aligned_img);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void FaceRecognizerSF_feature_0(IntPtr self, IntPtr aligned_img, IntPtr face_feature);
+        public static extern void FaceRecognizerSF_feature_0(FaceRecognizerSFHandle self, MatHandle aligned_img, MatHandle face_feature);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double FaceRecognizerSF_match_0(IntPtr self, IntPtr face_feature1, IntPtr face_feature2, int dis_type);
+        public static extern double FaceRecognizerSF_match_0(FaceRecognizerSFHandle self, MatHandle face_feature1, MatHandle face_feature2, int dis_type);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr FaceRecognizerSF_create_0([MarshalAs(UnmanagedType.LPUTF8Str)] string? model, [MarshalAs(UnmanagedType.LPUTF8Str)] string? config, int backend_id, int target_id);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -117,108 +117,108 @@ namespace OpenCV5Sharp
         public static extern void GraphicalCodeDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool GraphicalCodeDetector_detect_0(IntPtr self, IntPtr img, IntPtr points);
+        public static extern bool GraphicalCodeDetector_detect_0(GraphicalCodeDetectorHandle self, MatHandle img, MatHandle points);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr GraphicalCodeDetector_decode_0(IntPtr self, IntPtr img, IntPtr points, IntPtr straight_code);
+        public static extern IntPtr GraphicalCodeDetector_decode_0(GraphicalCodeDetectorHandle self, MatHandle img, MatHandle points, IntPtr straight_code);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr GraphicalCodeDetector_detectAndDecode_0(IntPtr self, IntPtr img, IntPtr points, IntPtr straight_code);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool GraphicalCodeDetector_detectMulti_0(IntPtr self, IntPtr img, IntPtr points);
+        public static extern IntPtr GraphicalCodeDetector_detectAndDecode_0(GraphicalCodeDetectorHandle self, MatHandle img, IntPtr points, IntPtr straight_code);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool GraphicalCodeDetector_decodeMulti_0(IntPtr self, IntPtr img, IntPtr points, IntPtr decoded_info, IntPtr straight_code);
+        public static extern bool GraphicalCodeDetector_detectMulti_0(GraphicalCodeDetectorHandle self, MatHandle img, MatHandle points);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool GraphicalCodeDetector_detectAndDecodeMulti_0(IntPtr self, IntPtr img, IntPtr decoded_info, IntPtr points, IntPtr straight_code);
+        public static extern bool GraphicalCodeDetector_decodeMulti_0(GraphicalCodeDetectorHandle self, MatHandle img, MatHandle points, IntPtr decoded_info, IntPtr straight_code);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool GraphicalCodeDetector_detectAndDecodeMulti_0(GraphicalCodeDetectorHandle self, MatHandle img, IntPtr decoded_info, IntPtr points, IntPtr straight_code);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void QRCodeDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QRCodeDetector_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_setEpsX_0(IntPtr self, double epsX);
+        public static extern IntPtr QRCodeDetector_setEpsX_0(QRCodeDetectorHandle self, double epsX);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_setEpsY_0(IntPtr self, double epsY);
+        public static extern IntPtr QRCodeDetector_setEpsY_0(QRCodeDetectorHandle self, double epsY);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_setUseAlignmentMarkers_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool useAlignmentMarkers);
+        public static extern IntPtr QRCodeDetector_setUseAlignmentMarkers_0(QRCodeDetectorHandle self, [MarshalAs(UnmanagedType.U1)] bool useAlignmentMarkers);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_decodeCurved_0(IntPtr self, IntPtr img, IntPtr points, IntPtr straight_qrcode);
+        public static extern IntPtr QRCodeDetector_decodeCurved_0(QRCodeDetectorHandle self, MatHandle img, MatHandle points, IntPtr straight_qrcode);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_detectAndDecodeCurved_0(IntPtr self, IntPtr img, IntPtr points, IntPtr straight_qrcode);
+        public static extern IntPtr QRCodeDetector_detectAndDecodeCurved_0(QRCodeDetectorHandle self, MatHandle img, IntPtr points, IntPtr straight_qrcode);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetector_getEncoding_0(IntPtr self, int codeIdx);
+        public static extern int QRCodeDetector_getEncoding_0(QRCodeDetectorHandle self, int codeIdx);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void QRCodeDetectorAruco_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QRCodeDetectorAruco_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetectorAruco_getDetectorParameters_0(IntPtr self);
+        public static extern IntPtr QRCodeDetectorAruco_getDetectorParameters_0(QRCodeDetectorArucoHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetectorAruco_setDetectorParameters_0(IntPtr self, IntPtr @params);
+        public static extern IntPtr QRCodeDetectorAruco_setDetectorParameters_0(QRCodeDetectorArucoHandle self, QRCodeDetectorArucoParamsHandle @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeDetectorAruco_getArucoParameters_0(IntPtr self);
+        public static extern IntPtr QRCodeDetectorAruco_getArucoParameters_0(QRCodeDetectorArucoHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_setArucoParameters_0(IntPtr self, IntPtr @params);
+        public static extern void QRCodeDetectorAruco_setArucoParameters_0(QRCodeDetectorArucoHandle self, ArucoDetectorParametersHandle @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void QRCodeDetectorAruco_Params_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QRCodeDetectorAruco_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_minModuleSizeInPyramid_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_minModuleSizeInPyramid_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_minModuleSizeInPyramid_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_minModuleSizeInPyramid_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_maxRotation_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_maxRotation_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_maxRotation_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_maxRotation_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_maxModuleSizeMismatch_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_maxModuleSizeMismatch_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_maxModuleSizeMismatch_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_maxModuleSizeMismatch_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_maxTimingPatternMismatch_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_maxTimingPatternMismatch_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_maxTimingPatternMismatch_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_maxTimingPatternMismatch_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_maxPenalties_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_maxPenalties_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_maxPenalties_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_maxPenalties_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_maxColorsMismatch_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_maxColorsMismatch_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_maxColorsMismatch_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_maxColorsMismatch_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float QRCodeDetectorAruco_Params_scaleTimingPatternScore_get(IntPtr self);
+        public static extern float QRCodeDetectorAruco_Params_scaleTimingPatternScore_get(QRCodeDetectorArucoParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeDetectorAruco_Params_scaleTimingPatternScore_set(IntPtr self, float val);
+        public static extern void QRCodeDetectorAruco_Params_scaleTimingPatternScore_set(QRCodeDetectorArucoParamsHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void QRCodeEncoder_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QRCodeEncoder_create_0(IntPtr parameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_encode_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? encoded_info, IntPtr qrcode);
+        public static extern void QRCodeEncoder_encode_0(QRCodeEncoderHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? encoded_info, MatHandle qrcode);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_encodeStructuredAppend_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? encoded_info, IntPtr qrcodes);
+        public static extern void QRCodeEncoder_encodeStructuredAppend_0(QRCodeEncoderHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? encoded_info, IntPtr qrcodes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void QRCodeEncoder_Params_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr QRCodeEncoder_Params_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int QRCodeEncoder_Params_version_get(IntPtr self);
+        public static extern int QRCodeEncoder_Params_version_get(QRCodeEncoderParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_Params_version_set(IntPtr self, int val);
+        public static extern void QRCodeEncoder_Params_version_set(QRCodeEncoderParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeEncoder_Params_correction_level_get(IntPtr self);
+        public static extern int QRCodeEncoder_Params_correction_level_get(QRCodeEncoderParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_Params_correction_level_set(IntPtr self, IntPtr val);
+        public static extern void QRCodeEncoder_Params_correction_level_set(QRCodeEncoderParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr QRCodeEncoder_Params_mode_get(IntPtr self);
+        public static extern int QRCodeEncoder_Params_mode_get(QRCodeEncoderParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_Params_mode_set(IntPtr self, IntPtr val);
+        public static extern void QRCodeEncoder_Params_mode_set(QRCodeEncoderParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int QRCodeEncoder_Params_structure_number_get(IntPtr self);
+        public static extern int QRCodeEncoder_Params_structure_number_get(QRCodeEncoderParamsHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void QRCodeEncoder_Params_structure_number_set(IntPtr self, int val);
+        public static extern void QRCodeEncoder_Params_structure_number_set(QRCodeEncoderParamsHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_ArucoDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -226,343 +226,343 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_ArucoDetector_New_1(IntPtr dictionaries, IntPtr detectorParams, IntPtr refineParams);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_detectMarkers_0(IntPtr self, IntPtr image, IntPtr corners, IntPtr ids, IntPtr rejectedImgPoints);
+        public static extern void aruco_ArucoDetector_detectMarkers_0(ArucoArucoDetectorHandle self, MatHandle image, IntPtr corners, MatHandle ids, IntPtr rejectedImgPoints);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_detectMarkersWithConfidence_0(IntPtr self, IntPtr image, IntPtr corners, IntPtr ids, IntPtr markersConfidence, IntPtr rejectedImgPoints);
+        public static extern void aruco_ArucoDetector_detectMarkersWithConfidence_0(ArucoArucoDetectorHandle self, MatHandle image, IntPtr corners, MatHandle ids, MatHandle markersConfidence, IntPtr rejectedImgPoints);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_refineDetectedMarkers_0(IntPtr self, IntPtr image, IntPtr board, IntPtr detectedCorners, IntPtr detectedIds, IntPtr rejectedCorners, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr recoveredIdxs);
+        public static extern void aruco_ArucoDetector_refineDetectedMarkers_0(ArucoArucoDetectorHandle self, MatHandle image, IntPtr board, IntPtr detectedCorners, MatHandle detectedIds, IntPtr rejectedCorners, IntPtr cameraMatrix, IntPtr distCoeffs, IntPtr recoveredIdxs);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_detectMarkersMultiDict_0(IntPtr self, IntPtr image, IntPtr corners, IntPtr ids, IntPtr rejectedImgPoints, IntPtr dictIndices);
+        public static extern void aruco_ArucoDetector_detectMarkersMultiDict_0(ArucoArucoDetectorHandle self, MatHandle image, IntPtr corners, MatHandle ids, IntPtr rejectedImgPoints, IntPtr dictIndices);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_ArucoDetector_getDictionary_0(IntPtr self);
+        public static extern IntPtr aruco_ArucoDetector_getDictionary_0(ArucoArucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_setDictionary_0(IntPtr self, IntPtr dictionary);
+        public static extern void aruco_ArucoDetector_setDictionary_0(ArucoArucoDetectorHandle self, IntPtr dictionary);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_ArucoDetector_getDictionaries_0(IntPtr self);
+        public static extern IntPtr aruco_ArucoDetector_getDictionaries_0(ArucoArucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_setDictionaries_0(IntPtr self, IntPtr dictionaries);
+        public static extern void aruco_ArucoDetector_setDictionaries_0(ArucoArucoDetectorHandle self, IntPtr dictionaries);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_ArucoDetector_getDetectorParameters_0(IntPtr self);
+        public static extern IntPtr aruco_ArucoDetector_getDetectorParameters_0(ArucoArucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_setDetectorParameters_0(IntPtr self, IntPtr detectorParameters);
+        public static extern void aruco_ArucoDetector_setDetectorParameters_0(ArucoArucoDetectorHandle self, IntPtr detectorParameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_ArucoDetector_getRefineParameters_0(IntPtr self);
+        public static extern IntPtr aruco_ArucoDetector_getRefineParameters_0(ArucoArucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_setRefineParameters_0(IntPtr self, IntPtr refineParameters);
+        public static extern void aruco_ArucoDetector_setRefineParameters_0(ArucoArucoDetectorHandle self, IntPtr refineParameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_write_0(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
+        public static extern void aruco_ArucoDetector_write_0(ArucoArucoDetectorHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_ArucoDetector_read_0(IntPtr self, IntPtr fn);
+        public static extern void aruco_ArucoDetector_read_0(ArucoArucoDetectorHandle self, FileNodeHandle fn);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_Board_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Board_New_0(IntPtr objPoints, IntPtr dictionary, IntPtr ids);
+        public static extern IntPtr aruco_Board_New_0(IntPtr objPoints, IntPtr dictionary, MatHandle ids);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Board_getDictionary_0(IntPtr self);
+        public static extern IntPtr aruco_Board_getDictionary_0(ArucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Board_getObjPoints_0(IntPtr self);
+        public static extern IntPtr aruco_Board_getObjPoints_0(ArucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Board_getIds_0(IntPtr self);
+        public static extern IntPtr aruco_Board_getIds_0(ArucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Board_getRightBottomCorner_0(IntPtr self);
+        public static extern IntPtr aruco_Board_getRightBottomCorner_0(ArucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Board_matchImagePoints_0(IntPtr self, IntPtr detectedCorners, IntPtr detectedIds, IntPtr objPoints, IntPtr imgPoints);
+        public static extern void aruco_Board_matchImagePoints_0(ArucoBoardHandle self, IntPtr detectedCorners, MatHandle detectedIds, MatHandle objPoints, MatHandle imgPoints);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Board_generateImage_0(IntPtr self, Size outSize, IntPtr img, int marginSize, int borderBits);
+        public static extern void aruco_Board_generateImage_0(ArucoBoardHandle self, Size outSize, MatHandle img, int marginSize, int borderBits);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_CharucoBoard_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_CharucoBoard_New_0(Size size, float squareLength, float markerLength, IntPtr dictionary, IntPtr ids);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoBoard_setLegacyPattern_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool legacyPattern);
+        public static extern void aruco_CharucoBoard_setLegacyPattern_0(ArucoCharucoBoardHandle self, [MarshalAs(UnmanagedType.U1)] bool legacyPattern);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_CharucoBoard_getLegacyPattern_0(IntPtr self);
+        public static extern bool aruco_CharucoBoard_getLegacyPattern_0(ArucoCharucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size aruco_CharucoBoard_getChessboardSize_0(IntPtr self);
+        public static extern Size aruco_CharucoBoard_getChessboardSize_0(ArucoCharucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_CharucoBoard_getSquareLength_0(IntPtr self);
+        public static extern float aruco_CharucoBoard_getSquareLength_0(ArucoCharucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_CharucoBoard_getMarkerLength_0(IntPtr self);
+        public static extern float aruco_CharucoBoard_getMarkerLength_0(ArucoCharucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoBoard_getChessboardCorners_0(IntPtr self);
+        public static extern IntPtr aruco_CharucoBoard_getChessboardCorners_0(ArucoCharucoBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_CharucoBoard_checkCharucoCornersCollinear_0(IntPtr self, IntPtr charucoIds);
+        public static extern bool aruco_CharucoBoard_checkCharucoCornersCollinear_0(ArucoCharucoBoardHandle self, MatHandle charucoIds);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_CharucoDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_CharucoDetector_New_0(IntPtr board, IntPtr charucoParams, IntPtr detectorParams, IntPtr refineParams);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoDetector_getBoard_0(IntPtr self);
+        public static extern IntPtr aruco_CharucoDetector_getBoard_0(ArucoCharucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_setBoard_0(IntPtr self, IntPtr board);
+        public static extern void aruco_CharucoDetector_setBoard_0(ArucoCharucoDetectorHandle self, IntPtr board);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoDetector_getCharucoParameters_0(IntPtr self);
+        public static extern IntPtr aruco_CharucoDetector_getCharucoParameters_0(ArucoCharucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_setCharucoParameters_0(IntPtr self, IntPtr charucoParameters);
+        public static extern void aruco_CharucoDetector_setCharucoParameters_0(ArucoCharucoDetectorHandle self, IntPtr charucoParameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoDetector_getDetectorParameters_0(IntPtr self);
+        public static extern IntPtr aruco_CharucoDetector_getDetectorParameters_0(ArucoCharucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_setDetectorParameters_0(IntPtr self, IntPtr detectorParameters);
+        public static extern void aruco_CharucoDetector_setDetectorParameters_0(ArucoCharucoDetectorHandle self, IntPtr detectorParameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoDetector_getRefineParameters_0(IntPtr self);
+        public static extern IntPtr aruco_CharucoDetector_getRefineParameters_0(ArucoCharucoDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_setRefineParameters_0(IntPtr self, IntPtr refineParameters);
+        public static extern void aruco_CharucoDetector_setRefineParameters_0(ArucoCharucoDetectorHandle self, IntPtr refineParameters);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_detectBoard_0(IntPtr self, IntPtr image, IntPtr charucoCorners, IntPtr charucoIds, IntPtr markerCorners, IntPtr markerIds);
+        public static extern void aruco_CharucoDetector_detectBoard_0(ArucoCharucoDetectorHandle self, MatHandle image, MatHandle charucoCorners, MatHandle charucoIds, IntPtr markerCorners, IntPtr markerIds);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoDetector_detectDiamonds_0(IntPtr self, IntPtr image, IntPtr diamondCorners, IntPtr diamondIds, IntPtr markerCorners, IntPtr markerIds);
+        public static extern void aruco_CharucoDetector_detectDiamonds_0(ArucoCharucoDetectorHandle self, MatHandle image, IntPtr diamondCorners, MatHandle diamondIds, IntPtr markerCorners, IntPtr markerIds);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_CharucoParameters_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_CharucoParameters_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoParameters_cameraMatrix_get(IntPtr self);
+        public static extern IntPtr aruco_CharucoParameters_cameraMatrix_get(ArucoCharucoParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoParameters_cameraMatrix_set(IntPtr self, IntPtr val);
+        public static extern void aruco_CharucoParameters_cameraMatrix_set(ArucoCharucoParametersHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_CharucoParameters_distCoeffs_get(IntPtr self);
+        public static extern IntPtr aruco_CharucoParameters_distCoeffs_get(ArucoCharucoParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoParameters_distCoeffs_set(IntPtr self, IntPtr val);
+        public static extern void aruco_CharucoParameters_distCoeffs_set(ArucoCharucoParametersHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_CharucoParameters_minMarkers_get(IntPtr self);
+        public static extern int aruco_CharucoParameters_minMarkers_get(ArucoCharucoParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoParameters_minMarkers_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_CharucoParameters_tryRefineMarkers_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoParameters_tryRefineMarkers_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void aruco_CharucoParameters_minMarkers_set(ArucoCharucoParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_CharucoParameters_checkMarkers_get(IntPtr self);
+        public static extern bool aruco_CharucoParameters_tryRefineMarkers_get(ArucoCharucoParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_CharucoParameters_checkMarkers_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void aruco_CharucoParameters_tryRefineMarkers_set(ArucoCharucoParametersHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool aruco_CharucoParameters_checkMarkers_get(ArucoCharucoParametersHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void aruco_CharucoParameters_checkMarkers_set(ArucoCharucoParametersHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_DetectorParameters_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_DetectorParameters_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_DetectorParameters_readDetectorParameters_0(IntPtr self, IntPtr fn);
+        public static extern bool aruco_DetectorParameters_readDetectorParameters_0(ArucoDetectorParametersHandle self, FileNodeHandle fn);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_DetectorParameters_writeDetectorParameters_0(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
+        public static extern bool aruco_DetectorParameters_writeDetectorParameters_0(ArucoDetectorParametersHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeMin_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeMin_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeMin_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeMin_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeMax_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeMax_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeMax_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeMax_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeStep_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_adaptiveThreshWinSizeStep_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeStep_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_adaptiveThreshWinSizeStep_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_adaptiveThreshConstant_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_adaptiveThreshConstant_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_adaptiveThreshConstant_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_adaptiveThreshConstant_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_minMarkerPerimeterRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_minMarkerPerimeterRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minMarkerPerimeterRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_minMarkerPerimeterRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_maxMarkerPerimeterRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_maxMarkerPerimeterRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_maxMarkerPerimeterRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_maxMarkerPerimeterRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_polygonalApproxAccuracyRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_polygonalApproxAccuracyRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_polygonalApproxAccuracyRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_polygonalApproxAccuracyRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_minCornerDistanceRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_minCornerDistanceRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minCornerDistanceRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_minCornerDistanceRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_minDistanceToBorder_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_minDistanceToBorder_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minDistanceToBorder_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_minDistanceToBorder_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_minMarkerDistanceRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_minMarkerDistanceRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minMarkerDistanceRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_minMarkerDistanceRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_minGroupDistance_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_minGroupDistance_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minGroupDistance_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_minGroupDistance_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_cornerRefinementMethod_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_cornerRefinementMethod_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_cornerRefinementMethod_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_cornerRefinementMethod_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_cornerRefinementWinSize_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_cornerRefinementWinSize_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_cornerRefinementWinSize_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_cornerRefinementWinSize_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_relativeCornerRefinmentWinSize_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_relativeCornerRefinmentWinSize_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_relativeCornerRefinmentWinSize_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_relativeCornerRefinmentWinSize_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_cornerRefinementMaxIterations_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_cornerRefinementMaxIterations_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_cornerRefinementMaxIterations_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_cornerRefinementMaxIterations_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_cornerRefinementMinAccuracy_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_cornerRefinementMinAccuracy_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_cornerRefinementMinAccuracy_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_cornerRefinementMinAccuracy_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_markerBorderBits_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_markerBorderBits_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_markerBorderBits_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_markerBorderBits_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_perspectiveRemovePixelPerCell_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_perspectiveRemovePixelPerCell_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_perspectiveRemovePixelPerCell_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_perspectiveRemovePixelPerCell_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_perspectiveRemoveIgnoredMarginPerCell_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_perspectiveRemoveIgnoredMarginPerCell_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_perspectiveRemoveIgnoredMarginPerCell_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_perspectiveRemoveIgnoredMarginPerCell_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_maxErroneousBitsInBorderRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_maxErroneousBitsInBorderRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_maxErroneousBitsInBorderRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_maxErroneousBitsInBorderRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_minOtsuStdDev_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_minOtsuStdDev_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minOtsuStdDev_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_minOtsuStdDev_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double aruco_DetectorParameters_errorCorrectionRate_get(IntPtr self);
+        public static extern double aruco_DetectorParameters_errorCorrectionRate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_errorCorrectionRate_set(IntPtr self, double val);
+        public static extern void aruco_DetectorParameters_errorCorrectionRate_set(ArucoDetectorParametersHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_aprilTagQuadDecimate_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_aprilTagQuadDecimate_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagQuadDecimate_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_aprilTagQuadDecimate_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_aprilTagQuadSigma_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_aprilTagQuadSigma_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagQuadSigma_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_aprilTagQuadSigma_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_aprilTagMinClusterPixels_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_aprilTagMinClusterPixels_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagMinClusterPixels_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_aprilTagMinClusterPixels_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_aprilTagMaxNmaxima_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_aprilTagMaxNmaxima_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagMaxNmaxima_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_aprilTagMaxNmaxima_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_aprilTagCriticalRad_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_aprilTagCriticalRad_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagCriticalRad_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_aprilTagCriticalRad_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_aprilTagMaxLineFitMse_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_aprilTagMaxLineFitMse_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagMaxLineFitMse_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_aprilTagMaxLineFitMse_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_aprilTagMinWhiteBlackDiff_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_aprilTagMinWhiteBlackDiff_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagMinWhiteBlackDiff_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_aprilTagMinWhiteBlackDiff_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_aprilTagDeglitch_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_aprilTagDeglitch_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_aprilTagDeglitch_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_DetectorParameters_detectInvertedMarker_get(IntPtr self);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_detectInvertedMarker_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void aruco_DetectorParameters_aprilTagDeglitch_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_DetectorParameters_useAruco3Detection_get(IntPtr self);
+        public static extern bool aruco_DetectorParameters_detectInvertedMarker_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_useAruco3Detection_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void aruco_DetectorParameters_detectInvertedMarker_set(ArucoDetectorParametersHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_DetectorParameters_minSideLengthCanonicalImg_get(IntPtr self);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool aruco_DetectorParameters_useAruco3Detection_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minSideLengthCanonicalImg_set(IntPtr self, int val);
+        public static extern void aruco_DetectorParameters_useAruco3Detection_set(ArucoDetectorParametersHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_minMarkerLengthRatioOriginalImg_get(IntPtr self);
+        public static extern int aruco_DetectorParameters_minSideLengthCanonicalImg_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_minMarkerLengthRatioOriginalImg_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_minSideLengthCanonicalImg_set(ArucoDetectorParametersHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_DetectorParameters_validBitIdThreshold_get(IntPtr self);
+        public static extern float aruco_DetectorParameters_minMarkerLengthRatioOriginalImg_get(ArucoDetectorParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_DetectorParameters_validBitIdThreshold_set(IntPtr self, float val);
+        public static extern void aruco_DetectorParameters_minMarkerLengthRatioOriginalImg_set(ArucoDetectorParametersHandle self, float val);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern float aruco_DetectorParameters_validBitIdThreshold_get(ArucoDetectorParametersHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void aruco_DetectorParameters_validBitIdThreshold_set(ArucoDetectorParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_Dictionary_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_Dictionary_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Dictionary_New_1(IntPtr bytesList, int _markerSize, int maxcorr);
+        public static extern IntPtr aruco_Dictionary_New_1(MatHandle bytesList, int _markerSize, int maxcorr);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_Dictionary_readDictionary_0(IntPtr self, IntPtr fn);
+        public static extern bool aruco_Dictionary_readDictionary_0(ArucoDictionaryHandle self, FileNodeHandle fn);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Dictionary_writeDictionary_0(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_Dictionary_identify_0(IntPtr self, IntPtr onlyBits, int idx, int rotation, double maxCorrectionRate);
+        public static extern void aruco_Dictionary_writeDictionary_0(ArucoDictionaryHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_Dictionary_identify_1(IntPtr self, IntPtr onlyCellPixelRatio, int idx, int rotation, double maxCorrectionRate, float validBitIdThreshold);
+        public static extern bool aruco_Dictionary_identify_0(ArucoDictionaryHandle self, MatHandle onlyBits, int idx, int rotation, double maxCorrectionRate);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_Dictionary_getDistanceToId_0(IntPtr self, IntPtr bits, int id, [MarshalAs(UnmanagedType.U1)] bool allRotations);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool aruco_Dictionary_identify_1(ArucoDictionaryHandle self, MatHandle onlyCellPixelRatio, int idx, int rotation, double maxCorrectionRate, float validBitIdThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Dictionary_generateImageMarker_0(IntPtr self, int id, int sidePixels, IntPtr _img, int borderBits);
+        public static extern int aruco_Dictionary_getDistanceToId_0(ArucoDictionaryHandle self, MatHandle bits, int id, [MarshalAs(UnmanagedType.U1)] bool allRotations);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Dictionary_getByteListFromBits_0(IntPtr bits);
+        public static extern void aruco_Dictionary_generateImageMarker_0(ArucoDictionaryHandle self, int id, int sidePixels, MatHandle _img, int borderBits);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Dictionary_getBitsFromByteList_0(IntPtr byteList, int markerSize, int rotationId);
+        public static extern IntPtr aruco_Dictionary_getByteListFromBits_0(MatHandle bits);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Dictionary_getMarkerBits_0(IntPtr self, int markerId, int rotationId);
+        public static extern IntPtr aruco_Dictionary_getBitsFromByteList_0(MatHandle byteList, int markerSize, int rotationId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr aruco_Dictionary_bytesList_get(IntPtr self);
+        public static extern IntPtr aruco_Dictionary_getMarkerBits_0(ArucoDictionaryHandle self, int markerId, int rotationId);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Dictionary_bytesList_set(IntPtr self, IntPtr val);
+        public static extern IntPtr aruco_Dictionary_bytesList_get(ArucoDictionaryHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_Dictionary_markerSize_get(IntPtr self);
+        public static extern void aruco_Dictionary_bytesList_set(ArucoDictionaryHandle self, IntPtr val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Dictionary_markerSize_set(IntPtr self, int val);
+        public static extern int aruco_Dictionary_markerSize_get(ArucoDictionaryHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int aruco_Dictionary_maxCorrectionBits_get(IntPtr self);
+        public static extern void aruco_Dictionary_markerSize_set(ArucoDictionaryHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_Dictionary_maxCorrectionBits_set(IntPtr self, int val);
+        public static extern int aruco_Dictionary_maxCorrectionBits_get(ArucoDictionaryHandle self);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void aruco_Dictionary_maxCorrectionBits_set(ArucoDictionaryHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_GridBoard_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_GridBoard_New_0(Size size, float markerLength, float markerSeparation, IntPtr dictionary, IntPtr ids);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Size aruco_GridBoard_getGridSize_0(IntPtr self);
+        public static extern Size aruco_GridBoard_getGridSize_0(ArucoGridBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_GridBoard_getMarkerLength_0(IntPtr self);
+        public static extern float aruco_GridBoard_getMarkerLength_0(ArucoGridBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_GridBoard_getMarkerSeparation_0(IntPtr self);
+        public static extern float aruco_GridBoard_getMarkerSeparation_0(ArucoGridBoardHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void aruco_RefineParameters_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr aruco_RefineParameters_New_0(float minRepDistance, float errorCorrectionRate, [MarshalAs(UnmanagedType.U1)] bool checkAllOrders);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_RefineParameters_readRefineParameters_0(IntPtr self, IntPtr fn);
+        public static extern bool aruco_RefineParameters_readRefineParameters_0(ArucoRefineParametersHandle self, FileNodeHandle fn);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_RefineParameters_writeRefineParameters_0(IntPtr self, IntPtr fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
+        public static extern bool aruco_RefineParameters_writeRefineParameters_0(ArucoRefineParametersHandle self, FileStorageHandle fs, [MarshalAs(UnmanagedType.LPUTF8Str)] string? name);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_RefineParameters_minRepDistance_get(IntPtr self);
+        public static extern float aruco_RefineParameters_minRepDistance_get(ArucoRefineParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_RefineParameters_minRepDistance_set(IntPtr self, float val);
+        public static extern void aruco_RefineParameters_minRepDistance_set(ArucoRefineParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float aruco_RefineParameters_errorCorrectionRate_get(IntPtr self);
+        public static extern float aruco_RefineParameters_errorCorrectionRate_get(ArucoRefineParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_RefineParameters_errorCorrectionRate_set(IntPtr self, float val);
+        public static extern void aruco_RefineParameters_errorCorrectionRate_set(ArucoRefineParametersHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool aruco_RefineParameters_checkAllOrders_get(IntPtr self);
+        public static extern bool aruco_RefineParameters_checkAllOrders_get(ArucoRefineParametersHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void aruco_RefineParameters_checkAllOrders_set(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool val);
+        public static extern void aruco_RefineParameters_checkAllOrders_set(ArucoRefineParametersHandle self, [MarshalAs(UnmanagedType.U1)] bool val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void barcode_BarcodeDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
@@ -571,190 +571,190 @@ namespace OpenCV5Sharp
         public static extern IntPtr barcode_BarcodeDetector_New_1([MarshalAs(UnmanagedType.LPUTF8Str)] string? super_resolution_model_path);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool barcode_BarcodeDetector_decodeWithType_0(IntPtr self, IntPtr img, IntPtr points, IntPtr decoded_info, IntPtr decoded_type);
+        public static extern bool barcode_BarcodeDetector_decodeWithType_0(BarcodeBarcodeDetectorHandle self, MatHandle img, MatHandle points, IntPtr decoded_info, IntPtr decoded_type);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool barcode_BarcodeDetector_detectAndDecodeWithType_0(IntPtr self, IntPtr img, IntPtr decoded_info, IntPtr decoded_type, IntPtr points);
+        public static extern bool barcode_BarcodeDetector_detectAndDecodeWithType_0(BarcodeBarcodeDetectorHandle self, MatHandle img, IntPtr decoded_info, IntPtr decoded_type, IntPtr points);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double barcode_BarcodeDetector_getDownsamplingThreshold_0(IntPtr self);
+        public static extern double barcode_BarcodeDetector_getDownsamplingThreshold_0(BarcodeBarcodeDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr barcode_BarcodeDetector_setDownsamplingThreshold_0(IntPtr self, double thresh);
+        public static extern IntPtr barcode_BarcodeDetector_setDownsamplingThreshold_0(BarcodeBarcodeDetectorHandle self, double thresh);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void barcode_BarcodeDetector_getDetectorScales_0(IntPtr self, IntPtr sizes);
+        public static extern void barcode_BarcodeDetector_getDetectorScales_0(BarcodeBarcodeDetectorHandle self, IntPtr sizes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr barcode_BarcodeDetector_setDetectorScales_0(IntPtr self, IntPtr sizes);
+        public static extern IntPtr barcode_BarcodeDetector_setDetectorScales_0(BarcodeBarcodeDetectorHandle self, IntPtr sizes);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double barcode_BarcodeDetector_getGradientThreshold_0(IntPtr self);
+        public static extern double barcode_BarcodeDetector_getGradientThreshold_0(BarcodeBarcodeDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr barcode_BarcodeDetector_setGradientThreshold_0(IntPtr self, double thresh);
+        public static extern IntPtr barcode_BarcodeDetector_setGradientThreshold_0(BarcodeBarcodeDetectorHandle self, double thresh);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mcc_CChecker_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr mcc_CChecker_create_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setTarget_0(IntPtr self, int _target);
+        public static extern void mcc_CChecker_setTarget_0(MccCCheckerHandle self, int _target);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setBox_0(IntPtr self, IntPtr _box);
+        public static extern void mcc_CChecker_setBox_0(MccCCheckerHandle self, IntPtr _box);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setChartsRGB_0(IntPtr self, IntPtr _chartsRGB);
+        public static extern void mcc_CChecker_setChartsRGB_0(MccCCheckerHandle self, MatHandle _chartsRGB);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setChartsYCbCr_0(IntPtr self, IntPtr _chartsYCbCr);
+        public static extern void mcc_CChecker_setChartsYCbCr_0(MccCCheckerHandle self, MatHandle _chartsYCbCr);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setCost_0(IntPtr self, float _cost);
+        public static extern void mcc_CChecker_setCost_0(MccCCheckerHandle self, float _cost);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CChecker_setCenter_0(IntPtr self, Point2F _center);
+        public static extern void mcc_CChecker_setCenter_0(MccCCheckerHandle self, Point2F _center);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_CChecker_getTarget_0(IntPtr self);
+        public static extern int mcc_CChecker_getTarget_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CChecker_getBox_0(IntPtr self);
+        public static extern IntPtr mcc_CChecker_getBox_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CChecker_getColorCharts_0(IntPtr self);
+        public static extern IntPtr mcc_CChecker_getColorCharts_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CChecker_getChartsRGB_0(IntPtr self, [MarshalAs(UnmanagedType.U1)] bool getStats);
+        public static extern IntPtr mcc_CChecker_getChartsRGB_0(MccCCheckerHandle self, [MarshalAs(UnmanagedType.U1)] bool getStats);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CChecker_getChartsYCbCr_0(IntPtr self);
+        public static extern IntPtr mcc_CChecker_getChartsYCbCr_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float mcc_CChecker_getCost_0(IntPtr self);
+        public static extern float mcc_CChecker_getCost_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Point2F mcc_CChecker_getCenter_0(IntPtr self);
+        public static extern Point2F mcc_CChecker_getCenter_0(MccCCheckerHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mcc_CCheckerDetector_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool mcc_CCheckerDetector_process_0(IntPtr self, IntPtr image, IntPtr regionsOfInterest, int nc);
+        public static extern bool mcc_CCheckerDetector_process_0(MccCCheckerDetectorHandle self, MatHandle image, IntPtr regionsOfInterest, int nc);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool mcc_CCheckerDetector_process_1(IntPtr self, IntPtr image, int nc);
+        public static extern bool mcc_CCheckerDetector_process_1(MccCCheckerDetectorHandle self, MatHandle image, int nc);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CCheckerDetector_getBestColorChecker_0(IntPtr self);
+        public static extern IntPtr mcc_CCheckerDetector_getBestColorChecker_0(MccCCheckerDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CCheckerDetector_getListColorChecker_0(IntPtr self);
+        public static extern IntPtr mcc_CCheckerDetector_getListColorChecker_0(MccCCheckerDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr mcc_CCheckerDetector_create_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CCheckerDetector_draw_0(IntPtr self, IntPtr checkers, IntPtr img, Scalar color, int thickness);
+        public static extern void mcc_CCheckerDetector_draw_0(MccCCheckerDetectorHandle self, IntPtr checkers, MatHandle img, Scalar color, int thickness);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CCheckerDetector_getRefColors_0(IntPtr self);
+        public static extern IntPtr mcc_CCheckerDetector_getRefColors_0(MccCCheckerDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CCheckerDetector_setDetectionParams_0(IntPtr self, IntPtr @params);
+        public static extern void mcc_CCheckerDetector_setDetectionParams_0(MccCCheckerDetectorHandle self, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_CCheckerDetector_setColorChartType_0(IntPtr self, int chartType);
+        public static extern void mcc_CCheckerDetector_setColorChartType_0(MccCCheckerDetectorHandle self, int chartType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr mcc_CCheckerDetector_getDetectionParams_0(IntPtr self);
+        public static extern IntPtr mcc_CCheckerDetector_getDetectionParams_0(MccCCheckerDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_CCheckerDetector_getColorChartType_0(IntPtr self);
+        public static extern int mcc_CCheckerDetector_getColorChartType_0(MccCCheckerDetectorHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void mcc_DetectorParametersMCC_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr mcc_DetectorParametersMCC_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeMin_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeMin_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeMin_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeMin_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeMax_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeMax_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeMax_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeMax_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeStep_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_adaptiveThreshWinSizeStep_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeStep_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_adaptiveThreshWinSizeStep_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_adaptiveThreshConstant_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_adaptiveThreshConstant_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_adaptiveThreshConstant_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_adaptiveThreshConstant_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_minContoursAreaRate_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_minContoursAreaRate_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minContoursAreaRate_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_minContoursAreaRate_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_minContoursArea_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_minContoursArea_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minContoursArea_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_minContoursArea_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_confidenceThreshold_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_confidenceThreshold_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_confidenceThreshold_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_confidenceThreshold_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_minContourSolidity_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_minContourSolidity_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minContourSolidity_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_minContourSolidity_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern double mcc_DetectorParametersMCC_findCandidatesApproxPolyDPEpsMultiplier_get(IntPtr self);
+        public static extern double mcc_DetectorParametersMCC_findCandidatesApproxPolyDPEpsMultiplier_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_findCandidatesApproxPolyDPEpsMultiplier_set(IntPtr self, double val);
+        public static extern void mcc_DetectorParametersMCC_findCandidatesApproxPolyDPEpsMultiplier_set(MccDetectorParametersMCCHandle self, double val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_borderWidth_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_borderWidth_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_borderWidth_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_borderWidth_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float mcc_DetectorParametersMCC_B0factor_get(IntPtr self);
+        public static extern float mcc_DetectorParametersMCC_B0factor_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_B0factor_set(IntPtr self, float val);
+        public static extern void mcc_DetectorParametersMCC_B0factor_set(MccDetectorParametersMCCHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern float mcc_DetectorParametersMCC_maxError_get(IntPtr self);
+        public static extern float mcc_DetectorParametersMCC_maxError_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_maxError_set(IntPtr self, float val);
+        public static extern void mcc_DetectorParametersMCC_maxError_set(MccDetectorParametersMCCHandle self, float val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minContourPointsAllowed_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minContourPointsAllowed_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minContourPointsAllowed_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_minContourPointsAllowed_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minContourLengthAllowed_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minContourLengthAllowed_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minContourLengthAllowed_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_minContourLengthAllowed_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minInterContourDistance_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minInterContourDistance_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minInterContourDistance_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_minInterContourDistance_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minInterCheckerDistance_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minInterCheckerDistance_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minInterCheckerDistance_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_minInterCheckerDistance_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minImageSize_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minImageSize_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minImageSize_set(IntPtr self, int val);
+        public static extern void mcc_DetectorParametersMCC_minImageSize_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int mcc_DetectorParametersMCC_minGroupSize_get(IntPtr self);
+        public static extern int mcc_DetectorParametersMCC_minGroupSize_get(MccDetectorParametersMCCHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void mcc_DetectorParametersMCC_minGroupSize_set(IntPtr self, int val);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_findChessboardCorners_0(IntPtr image, Size patternSize, IntPtr corners, int flags);
+        public static extern void mcc_DetectorParametersMCC_minGroupSize_set(MccDetectorParametersMCCHandle self, int val);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_checkChessboard_0(IntPtr img, Size size);
+        public static extern bool cv_findChessboardCorners_0(MatHandle image, Size patternSize, MatHandle corners, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_findChessboardCornersSB_0(IntPtr image, Size patternSize, IntPtr corners, int flags, IntPtr meta);
+        public static extern bool cv_checkChessboard_0(MatHandle img, Size size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_findChessboardCornersSB_1(IntPtr image, Size patternSize, IntPtr corners, int flags);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Scalar cv_estimateChessboardSharpness_0(IntPtr image, Size patternSize, IntPtr corners, float rise_distance, [MarshalAs(UnmanagedType.U1)] bool vertical, IntPtr sharpness);
+        public static extern bool cv_findChessboardCornersSB_0(MatHandle image, Size patternSize, MatHandle corners, int flags, MatHandle meta);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_find4QuadCornerSubpix_0(IntPtr img, IntPtr corners, Size region_size);
+        public static extern bool cv_findChessboardCornersSB_1(MatHandle image, Size patternSize, MatHandle corners, int flags);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_drawChessboardCorners_0(IntPtr image, Size patternSize, IntPtr corners, [MarshalAs(UnmanagedType.U1)] bool patternWasFound);
-        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_findCirclesGrid_0(IntPtr image, Size patternSize, IntPtr centers, int flags, IntPtr blobDetector, IntPtr parameters);
+        public static extern Scalar cv_estimateChessboardSharpness_0(MatHandle image, Size patternSize, MatHandle corners, float rise_distance, [MarshalAs(UnmanagedType.U1)] bool vertical, IntPtr sharpness);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool cv_findCirclesGrid_1(IntPtr image, Size patternSize, IntPtr centers, int flags, IntPtr blobDetector);
+        public static extern bool cv_find4QuadCornerSubpix_0(MatHandle img, MatHandle corners, Size region_size);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_aruco_drawDetectedMarkers_0(IntPtr image, IntPtr corners, IntPtr ids, Scalar borderColor);
+        public static extern void cv_drawChessboardCorners_0(MatHandle image, Size patternSize, MatHandle corners, [MarshalAs(UnmanagedType.U1)] bool patternWasFound);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_aruco_generateImageMarker_0(IntPtr dictionary, int id, int sidePixels, IntPtr img, int borderBits);
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool cv_findCirclesGrid_0(MatHandle image, Size patternSize, MatHandle centers, int flags, IntPtr blobDetector, CirclesGridFinderParametersHandle parameters);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool cv_findCirclesGrid_1(MatHandle image, Size patternSize, MatHandle centers, int flags, IntPtr blobDetector);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_aruco_drawDetectedMarkers_0(MatHandle image, IntPtr corners, IntPtr ids, Scalar borderColor);
+        [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void cv_aruco_generateImageMarker_0(IntPtr dictionary, int id, int sidePixels, MatHandle img, int borderBits);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_aruco_getPredefinedDictionary_0(int dict);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr cv_aruco_extendDictionary_0(int nMarkers, int markerSize, IntPtr baseDictionary, int randomSeed);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_aruco_drawDetectedCornersCharuco_0(IntPtr image, IntPtr charucoCorners, IntPtr charucoIds, Scalar cornerColor);
+        public static extern void cv_aruco_drawDetectedCornersCharuco_0(MatHandle image, MatHandle charucoCorners, IntPtr charucoIds, Scalar cornerColor);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void cv_aruco_drawDetectedDiamonds_0(IntPtr image, IntPtr diamondCorners, IntPtr diamondIds, Scalar borderColor);
+        public static extern void cv_aruco_drawDetectedDiamonds_0(MatHandle image, IntPtr diamondCorners, IntPtr diamondIds, Scalar borderColor);
     }
 }

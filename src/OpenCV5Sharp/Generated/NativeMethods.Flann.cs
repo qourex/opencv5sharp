@@ -14,24 +14,24 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr flann_Index_New_0();
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr flann_Index_New_1(IntPtr features, IntPtr @params, IntPtr distType);
+        public static extern IntPtr flann_Index_New_1(MatHandle features, IntPtr @params, int distType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flann_Index_build_0(IntPtr self, IntPtr features, IntPtr @params, IntPtr distType);
+        public static extern void flann_Index_build_0(FlannIndexHandle self, MatHandle features, IntPtr @params, int distType);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flann_Index_knnSearch_0(IntPtr self, IntPtr query, IntPtr indices, IntPtr dists, int knn, IntPtr @params);
+        public static extern void flann_Index_knnSearch_0(FlannIndexHandle self, MatHandle query, MatHandle indices, MatHandle dists, int knn, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int flann_Index_radiusSearch_0(IntPtr self, IntPtr query, IntPtr indices, IntPtr dists, double radius, int maxResults, IntPtr @params);
+        public static extern int flann_Index_radiusSearch_0(FlannIndexHandle self, MatHandle query, MatHandle indices, MatHandle dists, double radius, int maxResults, IntPtr @params);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flann_Index_save_0(IntPtr self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
+        public static extern void flann_Index_save_0(FlannIndexHandle self, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-        public static extern bool flann_Index_load_0(IntPtr self, IntPtr features, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
+        public static extern bool flann_Index_load_0(FlannIndexHandle self, MatHandle features, [MarshalAs(UnmanagedType.LPUTF8Str)] string? filename);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void flann_Index_release_0(IntPtr self);
+        public static extern void flann_Index_release_0(FlannIndexHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr flann_Index_getDistance_0(IntPtr self);
+        public static extern int flann_Index_getDistance_0(FlannIndexHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr flann_Index_getAlgorithm_0(IntPtr self);
+        public static extern int flann_Index_getAlgorithm_0(FlannIndexHandle self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void flann_IndexParams_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]

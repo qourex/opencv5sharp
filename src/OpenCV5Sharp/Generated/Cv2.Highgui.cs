@@ -198,7 +198,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void Imshow(string winname, Mat mat)
             {
-                NativeMethods.cv_imshow_0(winname, ValidationHelper.GetHandle(mat, nameof(mat), false));
+                if (mat == null) throw new ArgumentNullException(nameof(mat));
+                mat.ThrowIfDisposed();
+                NativeMethods.cv_imshow_0(winname, mat.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(mat);
             }
@@ -326,7 +328,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static Rect SelectROI(string windowName, Mat img, bool showCrosshair, bool fromCenter, bool printNotice)
             {
-                var res = NativeMethods.cv_selectROI_0(windowName, ValidationHelper.GetHandle(img, nameof(img), false), showCrosshair, fromCenter, printNotice);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_selectROI_0(windowName, img.Handle, showCrosshair, fromCenter, printNotice);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -344,7 +348,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static Rect SelectROI(Mat img, bool showCrosshair, bool fromCenter, bool printNotice)
             {
-                var res = NativeMethods.cv_selectROI_1(ValidationHelper.GetHandle(img, nameof(img), false), showCrosshair, fromCenter, printNotice);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_selectROI_1(img.Handle, showCrosshair, fromCenter, printNotice);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -370,7 +376,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void SelectROIs(string windowName, Mat img, IntPtr boundingBoxes, bool showCrosshair, bool fromCenter, bool printNotice)
             {
-                NativeMethods.cv_selectROIs_0(windowName, ValidationHelper.GetHandle(img, nameof(img), false), boundingBoxes, showCrosshair, fromCenter, printNotice);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                NativeMethods.cv_selectROIs_0(windowName, img.Handle, boundingBoxes, showCrosshair, fromCenter, printNotice);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
             }
@@ -460,7 +468,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static void AddText(Mat img, string text, Point org, string nameFont, int pointSize, Scalar color, int weight, int style, int spacing)
             {
-                NativeMethods.cv_addText_0(ValidationHelper.GetHandle(img, nameof(img), false), text, org, nameFont, pointSize, color, weight, style, spacing);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                NativeMethods.cv_addText_0(img.Handle, text, org, nameFont, pointSize, color, weight, style, spacing);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
             }

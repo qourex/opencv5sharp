@@ -27,7 +27,7 @@ namespace OpenCV5Sharp
                 BackgroundSubtractorMOG2? resultObj = null;
                 try
                 {
-                    resultObj = new BackgroundSubtractorMOG2(res);
+                    resultObj = new BackgroundSubtractorMOG2(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -61,7 +61,7 @@ namespace OpenCV5Sharp
                 BackgroundSubtractorKNN? resultObj = null;
                 try
                 {
-                    resultObj = new BackgroundSubtractorKNN(res);
+                    resultObj = new BackgroundSubtractorKNN(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -94,7 +94,9 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static RotatedRect? CamShift(Mat probImage, Rect window, TermCriteria criteria)
             {
-                IntPtr res = NativeMethods.cv_CamShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
+                if (probImage == null) throw new ArgumentNullException(nameof(probImage));
+                probImage.ThrowIfDisposed();
+                IntPtr res = NativeMethods.cv_CamShift_0(probImage.Handle, window, criteria);
                 if (res == IntPtr.Zero)
                 {
                     GC.KeepAlive(probImage);
@@ -103,7 +105,7 @@ namespace OpenCV5Sharp
                 RotatedRect? resultObj = null;
                 try
                 {
-                    resultObj = new RotatedRect(res);
+                    resultObj = new RotatedRect(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -132,7 +134,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static int MeanShift(Mat probImage, Rect window, TermCriteria criteria)
             {
-                var res = NativeMethods.cv_meanShift_0(ValidationHelper.GetHandle(probImage, nameof(probImage), false), window, criteria);
+                if (probImage == null) throw new ArgumentNullException(nameof(probImage));
+                probImage.ThrowIfDisposed();
+                var res = NativeMethods.cv_meanShift_0(probImage.Handle, window, criteria);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(probImage);
                 return res;
@@ -154,7 +158,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static int BuildOpticalFlowPyramid(Mat img, IntPtr pyramid, Size winSize, int maxLevel, bool withDerivatives, int pyrBorder, int derivBorder, bool tryReuseInputImage)
             {
-                var res = NativeMethods.cv_buildOpticalFlowPyramid_0(ValidationHelper.GetHandle(img, nameof(img), false), pyramid, winSize, maxLevel, withDerivatives, pyrBorder, derivBorder, tryReuseInputImage);
+                if (img == null) throw new ArgumentNullException(nameof(img));
+                img.ThrowIfDisposed();
+                var res = NativeMethods.cv_buildOpticalFlowPyramid_0(img.Handle, pyramid, winSize, maxLevel, withDerivatives, pyrBorder, derivBorder, tryReuseInputImage);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(img);
                 return res;
@@ -188,7 +194,19 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CalcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, Mat prevPts, Mat nextPts, Mat status, Mat err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold)
             {
-                NativeMethods.cv_calcOpticalFlowPyrLK_0(ValidationHelper.GetHandle(prevImg, nameof(prevImg), false), ValidationHelper.GetHandle(nextImg, nameof(nextImg), false), ValidationHelper.GetHandle(prevPts, nameof(prevPts), false), ValidationHelper.GetHandle(nextPts, nameof(nextPts), false), ValidationHelper.GetHandle(status, nameof(status), false), ValidationHelper.GetHandle(err, nameof(err), false), winSize, maxLevel, criteria, flags, minEigThreshold);
+                if (prevImg == null) throw new ArgumentNullException(nameof(prevImg));
+                prevImg.ThrowIfDisposed();
+                if (nextImg == null) throw new ArgumentNullException(nameof(nextImg));
+                nextImg.ThrowIfDisposed();
+                if (prevPts == null) throw new ArgumentNullException(nameof(prevPts));
+                prevPts.ThrowIfDisposed();
+                if (nextPts == null) throw new ArgumentNullException(nameof(nextPts));
+                nextPts.ThrowIfDisposed();
+                if (status == null) throw new ArgumentNullException(nameof(status));
+                status.ThrowIfDisposed();
+                if (err == null) throw new ArgumentNullException(nameof(err));
+                err.ThrowIfDisposed();
+                NativeMethods.cv_calcOpticalFlowPyrLK_0(prevImg.Handle, nextImg.Handle, prevPts.Handle, nextPts.Handle, status.Handle, err.Handle, winSize, maxLevel, criteria, flags, minEigThreshold);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(prevImg);
                 GC.KeepAlive(nextImg);
@@ -222,7 +240,13 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static void CalcOpticalFlowFarneback(Mat prev, Mat next, Mat flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags)
             {
-                NativeMethods.cv_calcOpticalFlowFarneback_0(ValidationHelper.GetHandle(prev, nameof(prev), false), ValidationHelper.GetHandle(next, nameof(next), false), ValidationHelper.GetHandle(flow, nameof(flow), false), pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags);
+                if (prev == null) throw new ArgumentNullException(nameof(prev));
+                prev.ThrowIfDisposed();
+                if (next == null) throw new ArgumentNullException(nameof(next));
+                next.ThrowIfDisposed();
+                if (flow == null) throw new ArgumentNullException(nameof(flow));
+                flow.ThrowIfDisposed();
+                NativeMethods.cv_calcOpticalFlowFarneback_0(prev.Handle, next.Handle, flow.Handle, pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(prev);
                 GC.KeepAlive(next);
@@ -263,7 +287,12 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double ComputeECC(Mat templateImage, Mat inputImage, Mat? inputMask)
             {
-                var res = NativeMethods.cv_computeECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
+                if (templateImage == null) throw new ArgumentNullException(nameof(templateImage));
+                templateImage.ThrowIfDisposed();
+                if (inputImage == null) throw new ArgumentNullException(nameof(inputImage));
+                inputImage.ThrowIfDisposed();
+                if (inputMask != null) inputMask.ThrowIfDisposed();
+                var res = NativeMethods.cv_computeECC_0(templateImage.Handle, inputImage.Handle, ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(templateImage);
                 GC.KeepAlive(inputImage);
@@ -290,7 +319,15 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat inputMask, int gaussFiltSize)
             {
-                var res = NativeMethods.cv_findTransformECC_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), gaussFiltSize);
+                if (templateImage == null) throw new ArgumentNullException(nameof(templateImage));
+                templateImage.ThrowIfDisposed();
+                if (inputImage == null) throw new ArgumentNullException(nameof(inputImage));
+                inputImage.ThrowIfDisposed();
+                if (warpMatrix == null) throw new ArgumentNullException(nameof(warpMatrix));
+                warpMatrix.ThrowIfDisposed();
+                if (inputMask == null) throw new ArgumentNullException(nameof(inputMask));
+                inputMask.ThrowIfDisposed();
+                var res = NativeMethods.cv_findTransformECC_0(templateImage.Handle, inputImage.Handle, warpMatrix.Handle, motionType, criteria, inputMask.Handle, gaussFiltSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(templateImage);
                 GC.KeepAlive(inputImage);
@@ -313,7 +350,14 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static double FindTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat? inputMask)
             {
-                var res = NativeMethods.cv_findTransformECC_1(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
+                if (templateImage == null) throw new ArgumentNullException(nameof(templateImage));
+                templateImage.ThrowIfDisposed();
+                if (inputImage == null) throw new ArgumentNullException(nameof(inputImage));
+                inputImage.ThrowIfDisposed();
+                if (warpMatrix == null) throw new ArgumentNullException(nameof(warpMatrix));
+                warpMatrix.ThrowIfDisposed();
+                if (inputMask != null) inputMask.ThrowIfDisposed();
+                var res = NativeMethods.cv_findTransformECC_1(templateImage.Handle, inputImage.Handle, warpMatrix.Handle, motionType, criteria, ValidationHelper.GetHandle(inputMask, nameof(inputMask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(templateImage);
                 GC.KeepAlive(inputImage);
@@ -347,7 +391,17 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double FindTransformECCWithMask(Mat templateImage, Mat inputImage, Mat templateMask, Mat inputMask, Mat warpMatrix, int motionType, TermCriteria criteria, int gaussFiltSize)
             {
-                var res = NativeMethods.cv_findTransformECCWithMask_0(ValidationHelper.GetHandle(templateImage, nameof(templateImage), false), ValidationHelper.GetHandle(inputImage, nameof(inputImage), false), ValidationHelper.GetHandle(templateMask, nameof(templateMask), false), ValidationHelper.GetHandle(inputMask, nameof(inputMask), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), motionType, criteria, gaussFiltSize);
+                if (templateImage == null) throw new ArgumentNullException(nameof(templateImage));
+                templateImage.ThrowIfDisposed();
+                if (inputImage == null) throw new ArgumentNullException(nameof(inputImage));
+                inputImage.ThrowIfDisposed();
+                if (templateMask == null) throw new ArgumentNullException(nameof(templateMask));
+                templateMask.ThrowIfDisposed();
+                if (inputMask == null) throw new ArgumentNullException(nameof(inputMask));
+                inputMask.ThrowIfDisposed();
+                if (warpMatrix == null) throw new ArgumentNullException(nameof(warpMatrix));
+                warpMatrix.ThrowIfDisposed();
+                var res = NativeMethods.cv_findTransformECCWithMask_0(templateImage.Handle, inputImage.Handle, templateMask.Handle, inputMask.Handle, warpMatrix.Handle, motionType, criteria, gaussFiltSize);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(templateImage);
                 GC.KeepAlive(inputImage);
@@ -375,7 +429,16 @@ namespace OpenCV5Sharp
             /// </remarks>
             public static double FindTransformECCMultiScale(Mat reference, Mat sample, Mat warpMatrix, ECCParameters? eccParams, Mat? referenceMask, Mat? sampleMask)
             {
-                var res = NativeMethods.cv_findTransformECCMultiScale_0(ValidationHelper.GetHandle(reference, nameof(reference), false), ValidationHelper.GetHandle(sample, nameof(sample), false), ValidationHelper.GetHandle(warpMatrix, nameof(warpMatrix), false), ValidationHelper.GetHandle(eccParams, nameof(eccParams), true), ValidationHelper.GetHandle(referenceMask, nameof(referenceMask), true), ValidationHelper.GetHandle(sampleMask, nameof(sampleMask), true));
+                if (reference == null) throw new ArgumentNullException(nameof(reference));
+                reference.ThrowIfDisposed();
+                if (sample == null) throw new ArgumentNullException(nameof(sample));
+                sample.ThrowIfDisposed();
+                if (warpMatrix == null) throw new ArgumentNullException(nameof(warpMatrix));
+                warpMatrix.ThrowIfDisposed();
+                if (eccParams != null) eccParams.ThrowIfDisposed();
+                if (referenceMask != null) referenceMask.ThrowIfDisposed();
+                if (sampleMask != null) sampleMask.ThrowIfDisposed();
+                var res = NativeMethods.cv_findTransformECCMultiScale_0(reference.Handle, sample.Handle, warpMatrix.Handle, ValidationHelper.GetHandle(eccParams, nameof(eccParams), true), ValidationHelper.GetHandle(referenceMask, nameof(referenceMask), true), ValidationHelper.GetHandle(sampleMask, nameof(sampleMask), true));
                 ErrorHelper.CheckError();
                 GC.KeepAlive(reference);
                 GC.KeepAlive(sample);
@@ -401,7 +464,7 @@ namespace OpenCV5Sharp
                 Mat? resultObj = null;
                 try
                 {
-                    resultObj = new Mat(res);
+                    resultObj = new Mat(res, true);
                     ErrorHelper.CheckError();
                     return resultObj;
                 }
@@ -428,7 +491,9 @@ namespace OpenCV5Sharp
             /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
             public static bool WriteOpticalFlow(string path, Mat flow)
             {
-                var res = NativeMethods.cv_writeOpticalFlow_0(path, ValidationHelper.GetHandle(flow, nameof(flow), false));
+                if (flow == null) throw new ArgumentNullException(nameof(flow));
+                flow.ThrowIfDisposed();
+                var res = NativeMethods.cv_writeOpticalFlow_0(path, flow.Handle);
                 ErrorHelper.CheckError();
                 GC.KeepAlive(flow);
                 return res;

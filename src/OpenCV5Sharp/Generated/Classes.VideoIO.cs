@@ -27,17 +27,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class VideoCapture : DisposableOpenCVObject
     {
-        internal VideoCapture(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.VideoCapture_Delete(handle);
-        }
+        public new VideoCaptureHandle Handle => (VideoCaptureHandle)base.Handle;
+        internal VideoCapture(IntPtr handle, bool ownsHandle = true) : base(new VideoCaptureHandle(handle, ownsHandle)) {}
+        internal VideoCapture(VideoCaptureHandle handle) : base(handle) {}
         /// <summary>
         /// Default constructor
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public VideoCapture()
-            : base(NativeMethods.VideoCapture_New_0())
+            : base(new VideoCaptureHandle(NativeMethods.VideoCapture_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -52,7 +50,7 @@ namespace OpenCV5Sharp
         /// VideoCaptureAPIs
         /// </remarks>
         public VideoCapture(string filename, int apiPreference)
-            : base(NativeMethods.VideoCapture_New_1(filename, apiPreference))
+            : base(new VideoCaptureHandle(NativeMethods.VideoCapture_New_1(filename, apiPreference)))
         {
             ErrorHelper.CheckError();
         }
@@ -69,7 +67,7 @@ namespace OpenCV5Sharp
         /// See VideoCaptureProperties
         /// </remarks>
         public VideoCapture(string filename, int apiPreference, IntPtr @params)
-            : base(NativeMethods.VideoCapture_New_2(filename, apiPreference, @params))
+            : base(new VideoCaptureHandle(NativeMethods.VideoCapture_New_2(filename, apiPreference, @params)))
         {
             ErrorHelper.CheckError();
         }
@@ -84,7 +82,7 @@ namespace OpenCV5Sharp
         /// VideoCaptureAPIs
         /// </remarks>
         public VideoCapture(int index, int apiPreference)
-            : base(NativeMethods.VideoCapture_New_3(index, apiPreference))
+            : base(new VideoCaptureHandle(NativeMethods.VideoCapture_New_3(index, apiPreference)))
         {
             ErrorHelper.CheckError();
         }
@@ -101,7 +99,7 @@ namespace OpenCV5Sharp
         /// See VideoCaptureProperties
         /// </remarks>
         public VideoCapture(int index, int apiPreference, IntPtr @params)
-            : base(NativeMethods.VideoCapture_New_4(index, apiPreference, @params))
+            : base(new VideoCaptureHandle(NativeMethods.VideoCapture_New_4(index, apiPreference, @params)))
         {
             ErrorHelper.CheckError();
         }
@@ -246,7 +244,9 @@ namespace OpenCV5Sharp
         public bool Retrieve(Mat image, int flag)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.VideoCapture_retrieve_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false), flag);
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            var res = NativeMethods.VideoCapture_retrieve_0(Handle, image.Handle, flag);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -263,7 +263,9 @@ namespace OpenCV5Sharp
         public bool Read(Mat image)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.VideoCapture_read_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            var res = NativeMethods.VideoCapture_read_0(Handle, image.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -395,11 +397,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class VideoWriter : DisposableOpenCVObject
     {
-        internal VideoWriter(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.VideoWriter_Delete(handle);
-        }
+        public new VideoWriterHandle Handle => (VideoWriterHandle)base.Handle;
+        internal VideoWriter(IntPtr handle, bool ownsHandle = true) : base(new VideoWriterHandle(handle, ownsHandle)) {}
+        internal VideoWriter(VideoWriterHandle handle) : base(handle) {}
         /// <summary>
         /// Default constructors
         /// </summary>
@@ -411,7 +411,7 @@ namespace OpenCV5Sharp
         /// -   On MacOSX AVFoundation is used.
         /// </remarks>
         public VideoWriter()
-            : base(NativeMethods.VideoWriter_New_0())
+            : base(new VideoWriterHandle(NativeMethods.VideoWriter_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -425,7 +425,7 @@ namespace OpenCV5Sharp
         /// <param name="isColor">If it is not zero, the encoder will expect and encode color frames, otherwise it will work with grayscale frames. @b Tips: - With some backends `fourcc=-1` pops up the codec selection dialog from the system. - To save image sequence use a proper filename (eg. `img_%02d.jpg`) and `fourcc=0` OR `fps=0`. Use uncompressed image format (eg. `img_%02d.BMP`) to save raw frames. - Most codecs are lossy. If you want lossless video file you need to use a lossless codecs (eg. FFMPEG FFV1, Huffman HFYU, Lagarith LAGS, etc...) - If FFMPEG is enabled, using `codec=0; fps=0;` you can create an uncompressed (raw) video file. - If FFMPEG is used, we allow frames of odd width or height, but in this case we truncate the rightmost column/the bottom row. Probably, this should be handled more elegantly, but some internal functions inside FFMPEG swscale require even width/height.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public VideoWriter(string filename, int fourcc, double fps, Size frameSize, bool isColor)
-            : base(NativeMethods.VideoWriter_New_1(filename, fourcc, fps, frameSize, isColor))
+            : base(new VideoWriterHandle(NativeMethods.VideoWriter_New_1(filename, fourcc, fps, frameSize, isColor)))
         {
             ErrorHelper.CheckError();
         }
@@ -444,7 +444,7 @@ namespace OpenCV5Sharp
         /// if multiple are available: e.g. CAP_FFMPEG or CAP_GSTREAMER.
         /// </remarks>
         public VideoWriter(string filename, int apiPreference, int fourcc, double fps, Size frameSize, bool isColor)
-            : base(NativeMethods.VideoWriter_New_2(filename, apiPreference, fourcc, fps, frameSize, isColor))
+            : base(new VideoWriterHandle(NativeMethods.VideoWriter_New_2(filename, apiPreference, fourcc, fps, frameSize, isColor)))
         {
             ErrorHelper.CheckError();
         }
@@ -462,7 +462,7 @@ namespace OpenCV5Sharp
         /// * see VideoWriterProperties
         /// </remarks>
         public VideoWriter(string filename, int fourcc, double fps, Size frameSize, IntPtr @params)
-            : base(NativeMethods.VideoWriter_New_3(filename, fourcc, fps, frameSize, @params))
+            : base(new VideoWriterHandle(NativeMethods.VideoWriter_New_3(filename, fourcc, fps, frameSize, @params)))
         {
             ErrorHelper.CheckError();
         }
@@ -477,7 +477,7 @@ namespace OpenCV5Sharp
         /// <param name="params">The @params parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public VideoWriter(string filename, int apiPreference, int fourcc, double fps, Size frameSize, IntPtr @params)
-            : base(NativeMethods.VideoWriter_New_4(filename, apiPreference, fourcc, fps, frameSize, @params))
+            : base(new VideoWriterHandle(NativeMethods.VideoWriter_New_4(filename, apiPreference, fourcc, fps, frameSize, @params)))
         {
             ErrorHelper.CheckError();
         }
@@ -598,7 +598,9 @@ namespace OpenCV5Sharp
         public bool Write(Mat image)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.VideoWriter_write_0(Handle, ValidationHelper.GetHandle(image, nameof(image), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            var res = NativeMethods.VideoWriter_write_0(Handle, image.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);

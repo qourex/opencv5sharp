@@ -14,11 +14,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class PyRotationWarper : DisposableOpenCVObject
     {
-        internal PyRotationWarper(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.PyRotationWarper_Delete(handle);
-        }
+        public new PyRotationWarperHandle Handle => (PyRotationWarperHandle)base.Handle;
+        internal PyRotationWarper(IntPtr handle, bool ownsHandle = true) : base(new PyRotationWarperHandle(handle, ownsHandle)) {}
+        internal PyRotationWarper(PyRotationWarperHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -26,7 +24,7 @@ namespace OpenCV5Sharp
         /// <param name="scale">The scale parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public PyRotationWarper(string type, float scale)
-            : base(NativeMethods.PyRotationWarper_New_0(type, scale))
+            : base(new PyRotationWarperHandle(NativeMethods.PyRotationWarper_New_0(type, scale)))
         {
             ErrorHelper.CheckError();
         }
@@ -35,7 +33,7 @@ namespace OpenCV5Sharp
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public PyRotationWarper()
-            : base(NativeMethods.PyRotationWarper_New_1())
+            : base(new PyRotationWarperHandle(NativeMethods.PyRotationWarper_New_1()))
         {
             ErrorHelper.CheckError();
         }
@@ -52,7 +50,11 @@ namespace OpenCV5Sharp
         public Point2F WarpPoint(Point2F pt, Mat K, Mat R)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.PyRotationWarper_warpPoint_0(Handle, pt, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false));
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            var res = NativeMethods.PyRotationWarper_warpPoint_0(Handle, pt, K.Handle, R.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(K);
@@ -72,7 +74,11 @@ namespace OpenCV5Sharp
         public Point2F WarpPointBackward(Point2F pt, Mat K, Mat R)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.PyRotationWarper_warpPointBackward_0(Handle, pt, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false));
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            var res = NativeMethods.PyRotationWarper_warpPointBackward_0(Handle, pt, K.Handle, R.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(K);
@@ -94,7 +100,15 @@ namespace OpenCV5Sharp
         public Rect BuildMaps(Size src_size, Mat K, Mat R, Mat xmap, Mat ymap)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.PyRotationWarper_buildMaps_0(Handle, src_size, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false), ValidationHelper.GetHandle(xmap, nameof(xmap), false), ValidationHelper.GetHandle(ymap, nameof(ymap), false));
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            if (xmap == null) throw new ArgumentNullException(nameof(xmap));
+            xmap.ThrowIfDisposed();
+            if (ymap == null) throw new ArgumentNullException(nameof(ymap));
+            ymap.ThrowIfDisposed();
+            var res = NativeMethods.PyRotationWarper_buildMaps_0(Handle, src_size, K.Handle, R.Handle, xmap.Handle, ymap.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(K);
@@ -119,7 +133,15 @@ namespace OpenCV5Sharp
         public Point Warp(Mat src, Mat K, Mat R, int interp_mode, int border_mode, Mat dst)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.PyRotationWarper_warp_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false), interp_mode, border_mode, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            var res = NativeMethods.PyRotationWarper_warp_0(Handle, src.Handle, K.Handle, R.Handle, interp_mode, border_mode, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -144,7 +166,15 @@ namespace OpenCV5Sharp
         public void WarpBackward(Mat src, Mat K, Mat R, int interp_mode, int border_mode, Size dst_size, Mat dst)
         {
             ThrowIfDisposed();
-            NativeMethods.PyRotationWarper_warpBackward_0(Handle, ValidationHelper.GetHandle(src, nameof(src), false), ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false), interp_mode, border_mode, dst_size, ValidationHelper.GetHandle(dst, nameof(dst), false));
+            if (src == null) throw new ArgumentNullException(nameof(src));
+            src.ThrowIfDisposed();
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            NativeMethods.PyRotationWarper_warpBackward_0(Handle, src.Handle, K.Handle, R.Handle, interp_mode, border_mode, dst_size, dst.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(src);
@@ -165,7 +195,11 @@ namespace OpenCV5Sharp
         public Rect WarpRoi(Size src_size, Mat K, Mat R)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.PyRotationWarper_warpRoi_0(Handle, src_size, ValidationHelper.GetHandle(K, nameof(K), false), ValidationHelper.GetHandle(R, nameof(R), false));
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (R == null) throw new ArgumentNullException(nameof(R));
+            R.ThrowIfDisposed();
+            var res = NativeMethods.PyRotationWarper_warpRoi_0(Handle, src_size, K.Handle, R.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(K);
@@ -217,11 +251,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class Stitcher : DisposableOpenCVObject
     {
-        internal Stitcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.Stitcher_Delete(handle);
-        }
+        public new StitcherHandle Handle => (StitcherHandle)base.Handle;
+        internal Stitcher(IntPtr handle, bool ownsHandle = true) : base(new StitcherHandle(handle, ownsHandle)) {}
+        internal Stitcher(StitcherHandle handle) : base(handle) {}
         /// <summary>
         /// Creates a Stitcher configured in one of the stitching modes.
         /// </summary>
@@ -238,7 +270,7 @@ namespace OpenCV5Sharp
             Stitcher? resultObj = null;
             try
             {
-                resultObj = new Stitcher(res);
+                resultObj = new Stitcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -434,7 +466,9 @@ namespace OpenCV5Sharp
         public StitcherStatus ComposePanorama(Mat pano)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Stitcher_composePanorama_0(Handle, ValidationHelper.GetHandle(pano, nameof(pano), false));
+            if (pano == null) throw new ArgumentNullException(nameof(pano));
+            pano.ThrowIfDisposed();
+            var res = NativeMethods.Stitcher_composePanorama_0(Handle, pano.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(pano);
@@ -458,7 +492,9 @@ namespace OpenCV5Sharp
         public StitcherStatus ComposePanorama(IntPtr images, Mat pano)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Stitcher_composePanorama_1(Handle, images, ValidationHelper.GetHandle(pano, nameof(pano), false));
+            if (pano == null) throw new ArgumentNullException(nameof(pano));
+            pano.ThrowIfDisposed();
+            var res = NativeMethods.Stitcher_composePanorama_1(Handle, images, pano.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(pano);
@@ -476,7 +512,9 @@ namespace OpenCV5Sharp
         public StitcherStatus Stitch(IntPtr images, Mat pano)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Stitcher_stitch_0(Handle, images, ValidationHelper.GetHandle(pano, nameof(pano), false));
+            if (pano == null) throw new ArgumentNullException(nameof(pano));
+            pano.ThrowIfDisposed();
+            var res = NativeMethods.Stitcher_stitch_0(Handle, images, pano.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(pano);
@@ -495,7 +533,9 @@ namespace OpenCV5Sharp
         public StitcherStatus Stitch(IntPtr images, IntPtr masks, Mat pano)
         {
             ThrowIfDisposed();
-            var res = NativeMethods.Stitcher_stitch_1(Handle, images, masks, ValidationHelper.GetHandle(pano, nameof(pano), false));
+            if (pano == null) throw new ArgumentNullException(nameof(pano));
+            pano.ThrowIfDisposed();
+            var res = NativeMethods.Stitcher_stitch_1(Handle, images, masks, pano.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(pano);
@@ -548,11 +588,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class WarperCreator : DisposableOpenCVObject
     {
-        internal WarperCreator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.WarperCreator_Delete(handle);
-        }
+        public new WarperCreatorHandle Handle => (WarperCreatorHandle)base.Handle;
+        internal WarperCreator(IntPtr handle, bool ownsHandle = true) : base(new WarperCreatorHandle(handle, ownsHandle)) {}
+        internal WarperCreator(WarperCreatorHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -566,17 +604,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailAffineBasedEstimator : DetailEstimator
     {
-        internal DetailAffineBasedEstimator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_AffineBasedEstimator_Delete(handle);
-        }
+        public new DetailAffineBasedEstimatorHandle Handle => (DetailAffineBasedEstimatorHandle)base.Handle;
+        internal DetailAffineBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBasedEstimatorHandle(handle, ownsHandle)) {}
+        internal DetailAffineBasedEstimator(DetailAffineBasedEstimatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailAffineBasedEstimator()
-            : base(NativeMethods.detail_AffineBasedEstimator_New_0())
+            : base(new DetailAffineBasedEstimatorHandle(NativeMethods.detail_AffineBasedEstimator_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -595,11 +631,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailAffineBestOf2NearestMatcher : DetailBestOf2NearestMatcher
     {
-        internal DetailAffineBestOf2NearestMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_AffineBestOf2NearestMatcher_Delete(handle);
-        }
+        public new DetailAffineBestOf2NearestMatcherHandle Handle => (DetailAffineBestOf2NearestMatcherHandle)base.Handle;
+        internal DetailAffineBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBestOf2NearestMatcherHandle(handle, ownsHandle)) {}
+        internal DetailAffineBestOf2NearestMatcher(DetailAffineBestOf2NearestMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Constructs a "best of 2 nearest" matcher that expects affine transformation
         /// between images
@@ -613,7 +647,7 @@ namespace OpenCV5Sharp
         /// <see cref="Cv2.EstimateAffine2D(Mat, Mat, Mat, int, double, long, double, long)"/> estimateAffinePartial2D
         /// </remarks>
         public DetailAffineBestOf2NearestMatcher(bool full_affine, bool try_use_gpu, float match_conf, int num_matches_thresh1)
-            : base(NativeMethods.detail_AffineBestOf2NearestMatcher_New_0(full_affine, try_use_gpu, match_conf, num_matches_thresh1))
+            : base(new DetailAffineBestOf2NearestMatcherHandle(NativeMethods.detail_AffineBestOf2NearestMatcher_New_0(full_affine, try_use_gpu, match_conf, num_matches_thresh1)))
         {
             ErrorHelper.CheckError();
         }
@@ -629,11 +663,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBestOf2NearestMatcher : DetailFeaturesMatcher
     {
-        internal DetailBestOf2NearestMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BestOf2NearestMatcher_Delete(handle);
-        }
+        public new DetailBestOf2NearestMatcherHandle Handle => (DetailBestOf2NearestMatcherHandle)base.Handle;
+        internal DetailBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestMatcherHandle(handle, ownsHandle)) {}
+        internal DetailBestOf2NearestMatcher(DetailBestOf2NearestMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Constructs a "best of 2 nearest" matcher.
         /// </summary>
@@ -644,7 +676,7 @@ namespace OpenCV5Sharp
         /// <param name="matches_confidence_thresh">Matching confidence threshold to take the match into account. The threshold was determined experimentally and set to 3 by default.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBestOf2NearestMatcher(bool try_use_gpu, float match_conf, int num_matches_thresh1, int num_matches_thresh2, double matches_confidence_thresh)
-            : base(NativeMethods.detail_BestOf2NearestMatcher_New_0(try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2, matches_confidence_thresh))
+            : base(new DetailBestOf2NearestMatcherHandle(NativeMethods.detail_BestOf2NearestMatcher_New_0(try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2, matches_confidence_thresh)))
         {
             ErrorHelper.CheckError();
         }
@@ -679,7 +711,7 @@ namespace OpenCV5Sharp
             DetailBestOf2NearestMatcher? resultObj = null;
             try
             {
-                resultObj = new DetailBestOf2NearestMatcher(res);
+                resultObj = new DetailBestOf2NearestMatcher(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -703,11 +735,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailBestOf2NearestRangeMatcher : DetailBestOf2NearestMatcher
     {
-        internal DetailBestOf2NearestRangeMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BestOf2NearestRangeMatcher_Delete(handle);
-        }
+        public new DetailBestOf2NearestRangeMatcherHandle Handle => (DetailBestOf2NearestRangeMatcherHandle)base.Handle;
+        internal DetailBestOf2NearestRangeMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestRangeMatcherHandle(handle, ownsHandle)) {}
+        internal DetailBestOf2NearestRangeMatcher(DetailBestOf2NearestRangeMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -718,7 +748,7 @@ namespace OpenCV5Sharp
         /// <param name="num_matches_thresh2">The num_matches_thresh2 parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBestOf2NearestRangeMatcher(int range_width, bool try_use_gpu, float match_conf, int num_matches_thresh1, int num_matches_thresh2)
-            : base(NativeMethods.detail_BestOf2NearestRangeMatcher_New_0(range_width, try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2))
+            : base(new DetailBestOf2NearestRangeMatcherHandle(NativeMethods.detail_BestOf2NearestRangeMatcher_New_0(range_width, try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2)))
         {
             ErrorHelper.CheckError();
         }
@@ -733,11 +763,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBlender : DisposableOpenCVObject
     {
-        internal DetailBlender(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_Blender_Delete(handle);
-        }
+        public new DetailBlenderHandle Handle => (DetailBlenderHandle)base.Handle;
+        internal DetailBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailBlenderHandle(handle, ownsHandle)) {}
+        internal DetailBlender(DetailBlenderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -755,7 +783,7 @@ namespace OpenCV5Sharp
             DetailBlender? resultObj = null;
             try
             {
-                resultObj = new DetailBlender(res);
+                resultObj = new DetailBlender(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -808,7 +836,11 @@ namespace OpenCV5Sharp
         public void Feed(Mat img, Mat mask, Point tl)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_Blender_feed_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), tl);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_Blender_feed_0(Handle, img.Handle, mask.Handle, tl);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -825,7 +857,11 @@ namespace OpenCV5Sharp
         public void Blend(Mat dst, Mat dst_mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_Blender_blend_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(dst_mask, nameof(dst_mask), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (dst_mask == null) throw new ArgumentNullException(nameof(dst_mask));
+            dst_mask.ThrowIfDisposed();
+            NativeMethods.detail_Blender_blend_0(Handle, dst.Handle, dst_mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -840,11 +876,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailBlocksChannelsCompensator : DetailBlocksCompensator
     {
-        internal DetailBlocksChannelsCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BlocksChannelsCompensator_Delete(handle);
-        }
+        public new DetailBlocksChannelsCompensatorHandle Handle => (DetailBlocksChannelsCompensatorHandle)base.Handle;
+        internal DetailBlocksChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksChannelsCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailBlocksChannelsCompensator(DetailBlocksChannelsCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -853,7 +887,7 @@ namespace OpenCV5Sharp
         /// <param name="nr_feeds">The nr_feeds parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBlocksChannelsCompensator(int bl_width, int bl_height, int nr_feeds)
-            : base(NativeMethods.detail_BlocksChannelsCompensator_New_0(bl_width, bl_height, nr_feeds))
+            : base(new DetailBlocksChannelsCompensatorHandle(NativeMethods.detail_BlocksChannelsCompensator_New_0(bl_width, bl_height, nr_feeds)))
         {
             ErrorHelper.CheckError();
         }
@@ -865,11 +899,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailBlocksCompensator : DetailExposureCompensator
     {
-        internal DetailBlocksCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BlocksCompensator_Delete(handle);
-        }
+        public new DetailBlocksCompensatorHandle Handle => (DetailBlocksCompensatorHandle)base.Handle;
+        internal DetailBlocksCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailBlocksCompensator(DetailBlocksCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -883,7 +915,11 @@ namespace OpenCV5Sharp
         public new void Apply(int index, Point corner, Mat image, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_BlocksCompensator_apply_0(Handle, index, corner, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_BlocksCompensator_apply_0(Handle, index, corner, image.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1035,11 +1071,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailBlocksGainCompensator : DetailBlocksCompensator
     {
-        internal DetailBlocksGainCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BlocksGainCompensator_Delete(handle);
-        }
+        public new DetailBlocksGainCompensatorHandle Handle => (DetailBlocksGainCompensatorHandle)base.Handle;
+        internal DetailBlocksGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksGainCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailBlocksGainCompensator(DetailBlocksGainCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1047,7 +1081,7 @@ namespace OpenCV5Sharp
         /// <param name="bl_height">The bl_height parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBlocksGainCompensator(int bl_width, int bl_height)
-            : base(NativeMethods.detail_BlocksGainCompensator_New_0(bl_width, bl_height))
+            : base(new DetailBlocksGainCompensatorHandle(NativeMethods.detail_BlocksGainCompensator_New_0(bl_width, bl_height)))
         {
             ErrorHelper.CheckError();
         }
@@ -1059,7 +1093,7 @@ namespace OpenCV5Sharp
         /// <param name="nr_feeds">The nr_feeds parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBlocksGainCompensator(int bl_width, int bl_height, int nr_feeds)
-            : base(NativeMethods.detail_BlocksGainCompensator_New_1(bl_width, bl_height, nr_feeds))
+            : base(new DetailBlocksGainCompensatorHandle(NativeMethods.detail_BlocksGainCompensator_New_1(bl_width, bl_height, nr_feeds)))
         {
             ErrorHelper.CheckError();
         }
@@ -1076,7 +1110,11 @@ namespace OpenCV5Sharp
         public new void Apply(int index, Point corner, Mat image, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_BlocksGainCompensator_apply_0(Handle, index, corner, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_BlocksGainCompensator_apply_0(Handle, index, corner, image.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1121,17 +1159,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBundleAdjusterAffine : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterAffine(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BundleAdjusterAffine_Delete(handle);
-        }
+        public new DetailBundleAdjusterAffineHandle Handle => (DetailBundleAdjusterAffineHandle)base.Handle;
+        internal DetailBundleAdjusterAffine(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffineHandle(handle, ownsHandle)) {}
+        internal DetailBundleAdjusterAffine(DetailBundleAdjusterAffineHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBundleAdjusterAffine()
-            : base(NativeMethods.detail_BundleAdjusterAffine_New_0())
+            : base(new DetailBundleAdjusterAffineHandle(NativeMethods.detail_BundleAdjusterAffine_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1150,17 +1186,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBundleAdjusterAffinePartial : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterAffinePartial(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BundleAdjusterAffinePartial_Delete(handle);
-        }
+        public new DetailBundleAdjusterAffinePartialHandle Handle => (DetailBundleAdjusterAffinePartialHandle)base.Handle;
+        internal DetailBundleAdjusterAffinePartial(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffinePartialHandle(handle, ownsHandle)) {}
+        internal DetailBundleAdjusterAffinePartial(DetailBundleAdjusterAffinePartialHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBundleAdjusterAffinePartial()
-            : base(NativeMethods.detail_BundleAdjusterAffinePartial_New_0())
+            : base(new DetailBundleAdjusterAffinePartialHandle(NativeMethods.detail_BundleAdjusterAffinePartial_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1172,11 +1206,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailBundleAdjusterBase : DetailEstimator
     {
-        internal DetailBundleAdjusterBase(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BundleAdjusterBase_Delete(handle);
-        }
+        public new DetailBundleAdjusterBaseHandle Handle => (DetailBundleAdjusterBaseHandle)base.Handle;
+        internal DetailBundleAdjusterBase(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterBaseHandle(handle, ownsHandle)) {}
+        internal DetailBundleAdjusterBase(DetailBundleAdjusterBaseHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1194,7 +1226,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1221,7 +1253,9 @@ namespace OpenCV5Sharp
         public void SetRefinementMask(Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_BundleAdjusterBase_setRefinementMask_0(Handle, ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_BundleAdjusterBase_setRefinementMask_0(Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(mask);
@@ -1288,17 +1322,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBundleAdjusterRay : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterRay(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BundleAdjusterRay_Delete(handle);
-        }
+        public new DetailBundleAdjusterRayHandle Handle => (DetailBundleAdjusterRayHandle)base.Handle;
+        internal DetailBundleAdjusterRay(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterRayHandle(handle, ownsHandle)) {}
+        internal DetailBundleAdjusterRay(DetailBundleAdjusterRayHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBundleAdjusterRay()
-            : base(NativeMethods.detail_BundleAdjusterRay_New_0())
+            : base(new DetailBundleAdjusterRayHandle(NativeMethods.detail_BundleAdjusterRay_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1315,17 +1347,15 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailBundleAdjusterReproj : DetailBundleAdjusterBase
     {
-        internal DetailBundleAdjusterReproj(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_BundleAdjusterReproj_Delete(handle);
-        }
+        public new DetailBundleAdjusterReprojHandle Handle => (DetailBundleAdjusterReprojHandle)base.Handle;
+        internal DetailBundleAdjusterReproj(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterReprojHandle(handle, ownsHandle)) {}
+        internal DetailBundleAdjusterReproj(DetailBundleAdjusterReprojHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailBundleAdjusterReproj()
-            : base(NativeMethods.detail_BundleAdjusterReproj_New_0())
+            : base(new DetailBundleAdjusterReprojHandle(NativeMethods.detail_BundleAdjusterReproj_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1340,11 +1370,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailCameraParams : DisposableOpenCVObject
     {
-        internal DetailCameraParams(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_CameraParams_Delete(handle);
-        }
+        public new DetailCameraParamsHandle Handle => (DetailCameraParamsHandle)base.Handle;
+        internal DetailCameraParams(IntPtr handle, bool ownsHandle = true) : base(new DetailCameraParamsHandle(handle, ownsHandle)) {}
+        internal DetailCameraParams(DetailCameraParamsHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1362,7 +1390,7 @@ namespace OpenCV5Sharp
             Mat? resultObj = null;
             try
             {
-                resultObj = new Mat(res);
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1429,7 +1457,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.detail_CameraParams_R_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.detail_CameraParams_R_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
         /// <summary>Gets or sets the t property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -1453,7 +1481,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.detail_CameraParams_t_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.detail_CameraParams_t_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
     }
 
@@ -1464,18 +1492,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailChannelsCompensator : DetailExposureCompensator
     {
-        internal DetailChannelsCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_ChannelsCompensator_Delete(handle);
-        }
+        public new DetailChannelsCompensatorHandle Handle => (DetailChannelsCompensatorHandle)base.Handle;
+        internal DetailChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailChannelsCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailChannelsCompensator(DetailChannelsCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="nr_feeds">The nr_feeds parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailChannelsCompensator(int nr_feeds)
-            : base(NativeMethods.detail_ChannelsCompensator_New_0(nr_feeds))
+            : base(new DetailChannelsCompensatorHandle(NativeMethods.detail_ChannelsCompensator_New_0(nr_feeds)))
         {
             ErrorHelper.CheckError();
         }
@@ -1492,7 +1518,11 @@ namespace OpenCV5Sharp
         public new void Apply(int index, Point corner, Mat image, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_ChannelsCompensator_apply_0(Handle, index, corner, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_ChannelsCompensator_apply_0(Handle, index, corner, image.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1580,18 +1610,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailDpSeamFinder : DetailSeamFinder
     {
-        internal DetailDpSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_DpSeamFinder_Delete(handle);
-        }
+        public new DetailDpSeamFinderHandle Handle => (DetailDpSeamFinderHandle)base.Handle;
+        internal DetailDpSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailDpSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailDpSeamFinder(DetailDpSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="costFunc">The costFunc parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailDpSeamFinder(string costFunc)
-            : base(NativeMethods.detail_DpSeamFinder_New_0(costFunc))
+            : base(new DetailDpSeamFinderHandle(NativeMethods.detail_DpSeamFinder_New_0(costFunc)))
         {
             ErrorHelper.CheckError();
         }
@@ -1621,11 +1649,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailEstimator : DisposableOpenCVObject
     {
-        internal DetailEstimator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_Estimator_Delete(handle);
-        }
+        public new DetailEstimatorHandle Handle => (DetailEstimatorHandle)base.Handle;
+        internal DetailEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailEstimatorHandle(handle, ownsHandle)) {}
+        internal DetailEstimator(DetailEstimatorHandle handle) : base(handle) {}
         /// <summary>
         /// Estimates camera parameters.
         /// </summary>
@@ -1650,11 +1676,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailExposureCompensator : DisposableOpenCVObject
     {
-        internal DetailExposureCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_ExposureCompensator_Delete(handle);
-        }
+        public new DetailExposureCompensatorHandle Handle => (DetailExposureCompensatorHandle)base.Handle;
+        internal DetailExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailExposureCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailExposureCompensator(DetailExposureCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1671,7 +1695,7 @@ namespace OpenCV5Sharp
             DetailExposureCompensator? resultObj = null;
             try
             {
-                resultObj = new DetailExposureCompensator(res);
+                resultObj = new DetailExposureCompensator(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -1714,7 +1738,11 @@ namespace OpenCV5Sharp
         public void Apply(int index, Point corner, Mat image, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_ExposureCompensator_apply_0(Handle, index, corner, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_ExposureCompensator_apply_0(Handle, index, corner, image.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -1777,18 +1805,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailFeatherBlender : DetailBlender
     {
-        internal DetailFeatherBlender(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_FeatherBlender_Delete(handle);
-        }
+        public new DetailFeatherBlenderHandle Handle => (DetailFeatherBlenderHandle)base.Handle;
+        internal DetailFeatherBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailFeatherBlenderHandle(handle, ownsHandle)) {}
+        internal DetailFeatherBlender(DetailFeatherBlenderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="sharpness">The sharpness parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailFeatherBlender(float sharpness)
-            : base(NativeMethods.detail_FeatherBlender_New_0(sharpness))
+            : base(new DetailFeatherBlenderHandle(NativeMethods.detail_FeatherBlender_New_0(sharpness)))
         {
             ErrorHelper.CheckError();
         }
@@ -1841,7 +1867,11 @@ namespace OpenCV5Sharp
         public new void Feed(Mat img, Mat mask, Point tl)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_FeatherBlender_feed_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), tl);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_FeatherBlender_feed_0(Handle, img.Handle, mask.Handle, tl);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -1858,7 +1888,11 @@ namespace OpenCV5Sharp
         public new void Blend(Mat dst, Mat dst_mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_FeatherBlender_blend_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(dst_mask, nameof(dst_mask), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (dst_mask == null) throw new ArgumentNullException(nameof(dst_mask));
+            dst_mask.ThrowIfDisposed();
+            NativeMethods.detail_FeatherBlender_blend_0(Handle, dst.Handle, dst_mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -1888,11 +1922,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailFeaturesMatcher : DisposableOpenCVObject
     {
-        internal DetailFeaturesMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_FeaturesMatcher_Delete(handle);
-        }
+        public new DetailFeaturesMatcherHandle Handle => (DetailFeaturesMatcherHandle)base.Handle;
+        internal DetailFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailFeaturesMatcherHandle(handle, ownsHandle)) {}
+        internal DetailFeaturesMatcher(DetailFeaturesMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// This is an overloaded member function, provided for convenience.
         /// </summary>
@@ -1905,7 +1937,13 @@ namespace OpenCV5Sharp
         public void Operator(DetailImageFeatures features1, DetailImageFeatures features2, DetailMatchesInfo matches_info)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_FeaturesMatcher_operator____0(Handle, ValidationHelper.GetHandle(features1, nameof(features1), false), ValidationHelper.GetHandle(features2, nameof(features2), false), ValidationHelper.GetHandle(matches_info, nameof(matches_info), false));
+            if (features1 == null) throw new ArgumentNullException(nameof(features1));
+            features1.ThrowIfDisposed();
+            if (features2 == null) throw new ArgumentNullException(nameof(features2));
+            features2.ThrowIfDisposed();
+            if (matches_info == null) throw new ArgumentNullException(nameof(matches_info));
+            matches_info.ThrowIfDisposed();
+            NativeMethods.detail_FeaturesMatcher_operator____0(Handle, features1.Handle, features2.Handle, matches_info.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(features1);
@@ -1962,17 +2000,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailGainCompensator : DetailExposureCompensator
     {
-        internal DetailGainCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_GainCompensator_Delete(handle);
-        }
+        public new DetailGainCompensatorHandle Handle => (DetailGainCompensatorHandle)base.Handle;
+        internal DetailGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailGainCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailGainCompensator(DetailGainCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailGainCompensator()
-            : base(NativeMethods.detail_GainCompensator_New_0())
+            : base(new DetailGainCompensatorHandle(NativeMethods.detail_GainCompensator_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -1982,7 +2018,7 @@ namespace OpenCV5Sharp
         /// <param name="nr_feeds">The nr_feeds parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailGainCompensator(int nr_feeds)
-            : base(NativeMethods.detail_GainCompensator_New_1(nr_feeds))
+            : base(new DetailGainCompensatorHandle(NativeMethods.detail_GainCompensator_New_1(nr_feeds)))
         {
             ErrorHelper.CheckError();
         }
@@ -1999,7 +2035,11 @@ namespace OpenCV5Sharp
         public new void Apply(int index, Point corner, Mat image, Mat mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_GainCompensator_apply_0(Handle, index, corner, ValidationHelper.GetHandle(image, nameof(image), false), ValidationHelper.GetHandle(mask, nameof(mask), false));
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_GainCompensator_apply_0(Handle, index, corner, image.Handle, mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(image);
@@ -2087,11 +2127,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailGraphCutSeamFinder : DisposableOpenCVObject
     {
-        internal DetailGraphCutSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_GraphCutSeamFinder_Delete(handle);
-        }
+        public new DetailGraphCutSeamFinderHandle Handle => (DetailGraphCutSeamFinderHandle)base.Handle;
+        internal DetailGraphCutSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailGraphCutSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailGraphCutSeamFinder(DetailGraphCutSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2100,7 +2138,7 @@ namespace OpenCV5Sharp
         /// <param name="bad_region_penalty">The bad_region_penalty parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailGraphCutSeamFinder(string cost_type, float terminal_cost, float bad_region_penalty)
-            : base(NativeMethods.detail_GraphCutSeamFinder_New_0(cost_type, terminal_cost, bad_region_penalty))
+            : base(new DetailGraphCutSeamFinderHandle(NativeMethods.detail_GraphCutSeamFinder_New_0(cost_type, terminal_cost, bad_region_penalty)))
         {
             ErrorHelper.CheckError();
         }
@@ -2126,18 +2164,16 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailHomographyBasedEstimator : DetailEstimator
     {
-        internal DetailHomographyBasedEstimator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_HomographyBasedEstimator_Delete(handle);
-        }
+        public new DetailHomographyBasedEstimatorHandle Handle => (DetailHomographyBasedEstimatorHandle)base.Handle;
+        internal DetailHomographyBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailHomographyBasedEstimatorHandle(handle, ownsHandle)) {}
+        internal DetailHomographyBasedEstimator(DetailHomographyBasedEstimatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <param name="is_focals_estimated">The is_focals_estimated parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailHomographyBasedEstimator(bool is_focals_estimated)
-            : base(NativeMethods.detail_HomographyBasedEstimator_New_0(is_focals_estimated))
+            : base(new DetailHomographyBasedEstimatorHandle(NativeMethods.detail_HomographyBasedEstimator_New_0(is_focals_estimated)))
         {
             ErrorHelper.CheckError();
         }
@@ -2149,11 +2185,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailImageFeatures : DisposableOpenCVObject
     {
-        internal DetailImageFeatures(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_ImageFeatures_Delete(handle);
-        }
+        public new DetailImageFeaturesHandle Handle => (DetailImageFeaturesHandle)base.Handle;
+        internal DetailImageFeatures(IntPtr handle, bool ownsHandle = true) : base(new DetailImageFeaturesHandle(handle, ownsHandle)) {}
+        internal DetailImageFeatures(DetailImageFeaturesHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2209,11 +2243,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailLightGlueFeaturesMatcher : DetailFeaturesMatcher
     {
-        internal DetailLightGlueFeaturesMatcher(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_LightGlueFeaturesMatcher_Delete(handle);
-        }
+        public new DetailLightGlueFeaturesMatcherHandle Handle => (DetailLightGlueFeaturesMatcherHandle)base.Handle;
+        internal DetailLightGlueFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailLightGlueFeaturesMatcherHandle(handle, ownsHandle)) {}
+        internal DetailLightGlueFeaturesMatcher(DetailLightGlueFeaturesMatcherHandle handle) : base(handle) {}
         /// <summary>
         /// Constructs a LightGlue features matcher.
         /// </summary>
@@ -2225,7 +2257,7 @@ namespace OpenCV5Sharp
         /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailLightGlueFeaturesMatcher(LightGlueMatcher lgMatcher, int num_matches_thresh1, int num_matches_thresh2, double matches_confidence_thresh)
-            : base(NativeMethods.detail_LightGlueFeaturesMatcher_New_0(ValidationHelper.GetHandle(lgMatcher, nameof(lgMatcher), false), num_matches_thresh1, num_matches_thresh2, matches_confidence_thresh))
+            : base(new DetailLightGlueFeaturesMatcherHandle(NativeMethods.detail_LightGlueFeaturesMatcher_New_0(ValidationHelper.GetHandle<LightGlueMatcherHandle>(lgMatcher, nameof(lgMatcher), false), num_matches_thresh1, num_matches_thresh2, matches_confidence_thresh)))
         {
             ErrorHelper.CheckError();
         }
@@ -2254,11 +2286,9 @@ namespace OpenCV5Sharp
     /// </remarks>
     public partial class DetailMatchesInfo : DisposableOpenCVObject
     {
-        internal DetailMatchesInfo(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_MatchesInfo_Delete(handle);
-        }
+        public new DetailMatchesInfoHandle Handle => (DetailMatchesInfoHandle)base.Handle;
+        internal DetailMatchesInfo(IntPtr handle, bool ownsHandle = true) : base(new DetailMatchesInfoHandle(handle, ownsHandle)) {}
+        internal DetailMatchesInfo(DetailMatchesInfoHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2342,7 +2372,7 @@ namespace OpenCV5Sharp
                     GC.KeepAlive(this);
                 }
             }
-            set { ThrowIfDisposed(); NativeMethods.detail_MatchesInfo_H_set(Handle, value == null ? IntPtr.Zero : value.Handle); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
+            set { ThrowIfDisposed(); NativeMethods.detail_MatchesInfo_H_set(Handle, ValidationHelper.GetHandle(value, nameof(value), true)); ErrorHelper.CheckError(); GC.KeepAlive(this); if (value != null) GC.KeepAlive(value); }
         }
         /// <summary>Gets or sets the confidence property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
@@ -2359,11 +2389,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailMultiBandBlender : DetailBlender
     {
-        internal DetailMultiBandBlender(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_MultiBandBlender_Delete(handle);
-        }
+        public new DetailMultiBandBlenderHandle Handle => (DetailMultiBandBlenderHandle)base.Handle;
+        internal DetailMultiBandBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailMultiBandBlenderHandle(handle, ownsHandle)) {}
+        internal DetailMultiBandBlender(DetailMultiBandBlenderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2372,7 +2400,7 @@ namespace OpenCV5Sharp
         /// <param name="weight_type">The weight_type parameter.</param>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailMultiBandBlender(int try_gpu, int num_bands, int weight_type)
-            : base(NativeMethods.detail_MultiBandBlender_New_0(try_gpu, num_bands, weight_type))
+            : base(new DetailMultiBandBlenderHandle(NativeMethods.detail_MultiBandBlender_New_0(try_gpu, num_bands, weight_type)))
         {
             ErrorHelper.CheckError();
         }
@@ -2425,7 +2453,11 @@ namespace OpenCV5Sharp
         public new void Feed(Mat img, Mat mask, Point tl)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_MultiBandBlender_feed_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), tl);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_MultiBandBlender_feed_0(Handle, img.Handle, mask.Handle, tl);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -2442,7 +2474,11 @@ namespace OpenCV5Sharp
         public new void Blend(Mat dst, Mat dst_mask)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_MultiBandBlender_blend_0(Handle, ValidationHelper.GetHandle(dst, nameof(dst), false), ValidationHelper.GetHandle(dst_mask, nameof(dst_mask), false));
+            if (dst == null) throw new ArgumentNullException(nameof(dst));
+            dst.ThrowIfDisposed();
+            if (dst_mask == null) throw new ArgumentNullException(nameof(dst_mask));
+            dst_mask.ThrowIfDisposed();
+            NativeMethods.detail_MultiBandBlender_blend_0(Handle, dst.Handle, dst_mask.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(dst);
@@ -2456,17 +2492,15 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailNoBundleAdjuster : DetailBundleAdjusterBase
     {
-        internal DetailNoBundleAdjuster(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_NoBundleAdjuster_Delete(handle);
-        }
+        public new DetailNoBundleAdjusterHandle Handle => (DetailNoBundleAdjusterHandle)base.Handle;
+        internal DetailNoBundleAdjuster(IntPtr handle, bool ownsHandle = true) : base(new DetailNoBundleAdjusterHandle(handle, ownsHandle)) {}
+        internal DetailNoBundleAdjuster(DetailNoBundleAdjusterHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public DetailNoBundleAdjuster()
-            : base(NativeMethods.detail_NoBundleAdjuster_New_0())
+            : base(new DetailNoBundleAdjusterHandle(NativeMethods.detail_NoBundleAdjuster_New_0()))
         {
             ErrorHelper.CheckError();
         }
@@ -2478,11 +2512,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailNoExposureCompensator : DetailExposureCompensator
     {
-        internal DetailNoExposureCompensator(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_NoExposureCompensator_Delete(handle);
-        }
+        public new DetailNoExposureCompensatorHandle Handle => (DetailNoExposureCompensatorHandle)base.Handle;
+        internal DetailNoExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailNoExposureCompensatorHandle(handle, ownsHandle)) {}
+        internal DetailNoExposureCompensator(DetailNoExposureCompensatorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2496,7 +2528,11 @@ namespace OpenCV5Sharp
         public new void Apply(int arg1, Point arg2, Mat arg3, Mat arg4)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_NoExposureCompensator_apply_0(Handle, arg1, arg2, ValidationHelper.GetHandle(arg3, nameof(arg3), false), ValidationHelper.GetHandle(arg4, nameof(arg4), false));
+            if (arg3 == null) throw new ArgumentNullException(nameof(arg3));
+            arg3.ThrowIfDisposed();
+            if (arg4 == null) throw new ArgumentNullException(nameof(arg4));
+            arg4.ThrowIfDisposed();
+            NativeMethods.detail_NoExposureCompensator_apply_0(Handle, arg1, arg2, arg3.Handle, arg4.Handle);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(arg3);
@@ -2534,11 +2570,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailNoSeamFinder : DetailSeamFinder
     {
-        internal DetailNoSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_NoSeamFinder_Delete(handle);
-        }
+        public new DetailNoSeamFinderHandle Handle => (DetailNoSeamFinderHandle)base.Handle;
+        internal DetailNoSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailNoSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailNoSeamFinder(DetailNoSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2561,11 +2595,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailPairwiseSeamFinder : DetailSeamFinder
     {
-        internal DetailPairwiseSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_PairwiseSeamFinder_Delete(handle);
-        }
+        public new DetailPairwiseSeamFinderHandle Handle => (DetailPairwiseSeamFinderHandle)base.Handle;
+        internal DetailPairwiseSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailPairwiseSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailPairwiseSeamFinder(DetailPairwiseSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2588,11 +2620,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailProjectorBase : DisposableOpenCVObject
     {
-        internal DetailProjectorBase(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_ProjectorBase_Delete(handle);
-        }
+        public new DetailProjectorBaseHandle Handle => (DetailProjectorBaseHandle)base.Handle;
+        internal DetailProjectorBase(IntPtr handle, bool ownsHandle = true) : base(new DetailProjectorBaseHandle(handle, ownsHandle)) {}
+        internal DetailProjectorBase(DetailProjectorBaseHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -2601,11 +2631,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailSeamFinder : DisposableOpenCVObject
     {
-        internal DetailSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_SeamFinder_Delete(handle);
-        }
+        public new DetailSeamFinderHandle Handle => (DetailSeamFinderHandle)base.Handle;
+        internal DetailSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailSeamFinder(DetailSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Estimates seams.
         /// </summary>
@@ -2636,7 +2664,7 @@ namespace OpenCV5Sharp
             DetailSeamFinder? resultObj = null;
             try
             {
-                resultObj = new DetailSeamFinder(res);
+                resultObj = new DetailSeamFinder(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2661,11 +2689,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailSphericalProjector : DetailProjectorBase
     {
-        internal DetailSphericalProjector(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_SphericalProjector_Delete(handle);
-        }
+        public new DetailSphericalProjectorHandle Handle => (DetailSphericalProjectorHandle)base.Handle;
+        internal DetailSphericalProjector(IntPtr handle, bool ownsHandle = true) : base(new DetailSphericalProjectorHandle(handle, ownsHandle)) {}
+        internal DetailSphericalProjector(DetailSphericalProjectorHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2704,11 +2730,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailTimelapser : DisposableOpenCVObject
     {
-        internal DetailTimelapser(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_Timelapser_Delete(handle);
-        }
+        public new DetailTimelapserHandle Handle => (DetailTimelapserHandle)base.Handle;
+        internal DetailTimelapser(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserHandle(handle, ownsHandle)) {}
+        internal DetailTimelapser(DetailTimelapserHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2725,7 +2749,7 @@ namespace OpenCV5Sharp
             DetailTimelapser? resultObj = null;
             try
             {
-                resultObj = new DetailTimelapser(res);
+                resultObj = new DetailTimelapser(res, true);
                 ErrorHelper.CheckError();
                 return resultObj;
             }
@@ -2766,7 +2790,11 @@ namespace OpenCV5Sharp
         public void Process(Mat img, Mat mask, Point tl)
         {
             ThrowIfDisposed();
-            NativeMethods.detail_Timelapser_process_0(Handle, ValidationHelper.GetHandle(img, nameof(img), false), ValidationHelper.GetHandle(mask, nameof(mask), false), tl);
+            if (img == null) throw new ArgumentNullException(nameof(img));
+            img.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            NativeMethods.detail_Timelapser_process_0(Handle, img.Handle, mask.Handle, tl);
             ErrorHelper.CheckError();
             GC.KeepAlive(this);
             GC.KeepAlive(img);
@@ -2793,11 +2821,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailTimelapserCrop : DetailTimelapser
     {
-        internal DetailTimelapserCrop(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_TimelapserCrop_Delete(handle);
-        }
+        public new DetailTimelapserCropHandle Handle => (DetailTimelapserCropHandle)base.Handle;
+        internal DetailTimelapserCrop(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserCropHandle(handle, ownsHandle)) {}
+        internal DetailTimelapserCrop(DetailTimelapserCropHandle handle) : base(handle) {}
     }
 
     /// <summary>
@@ -2806,11 +2832,9 @@ namespace OpenCV5Sharp
     /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
     public partial class DetailVoronoiSeamFinder : DetailPairwiseSeamFinder
     {
-        internal DetailVoronoiSeamFinder(IntPtr handle) : base(handle) {}
-        protected override void DisposeUnmanaged(IntPtr handle)
-        {
-            NativeMethods.detail_VoronoiSeamFinder_Delete(handle);
-        }
+        public new DetailVoronoiSeamFinderHandle Handle => (DetailVoronoiSeamFinderHandle)base.Handle;
+        internal DetailVoronoiSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailVoronoiSeamFinderHandle(handle, ownsHandle)) {}
+        internal DetailVoronoiSeamFinder(DetailVoronoiSeamFinderHandle handle) : base(handle) {}
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
