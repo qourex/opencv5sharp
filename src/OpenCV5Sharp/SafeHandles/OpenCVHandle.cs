@@ -8,7 +8,7 @@ namespace OpenCV5Sharp
 {
     /// <summary>
     /// Base class for all type-safe unmanaged resource handles in OpenCV5Sharp.
-    /// Inherits from <see cref="SafeHandleMinusOneIsInvalid"/> to leverage standard
+    /// Inherits from <see cref="SafeHandleZeroOrMinusOneIsInvalid"/> to leverage standard
     /// .NET P/Invoke reference counting and prevent use-after-free race conditions.
     /// </summary>
     public abstract class OpenCVHandle : SafeHandleZeroOrMinusOneIsInvalid
@@ -36,8 +36,15 @@ namespace OpenCV5Sharp
 
         /// <summary>
         /// Implicitly converts an <see cref="OpenCVHandle"/> to its raw unmanaged pointer.
+        /// <para><b>WARNING:</b> This operator uses <see cref="System.Runtime.InteropServices.SafeHandle.DangerousGetHandle"/>
+        /// without incrementing the reference count. The returned <see cref="IntPtr"/> may become
+        /// invalid if the owning object is garbage collected or disposed. Prefer passing the
+        /// <see cref="OpenCVHandle"/> directly to P/Invoke methods, which handle ref-counting
+        /// automatically. Only use this operator when you are certain the handle will be kept
+        /// alive by a <c>GC.KeepAlive</c> call or <c>using</c> scope.</para>
         /// </summary>
         /// <param name="h">The handle to convert.</param>
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]
         public static implicit operator IntPtr(OpenCVHandle? h)
         {
             return h?.DangerousGetHandle() ?? IntPtr.Zero;

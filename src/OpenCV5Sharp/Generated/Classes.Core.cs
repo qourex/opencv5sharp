@@ -1431,6 +1431,7 @@ namespace OpenCV5Sharp
             : base(new MatHandle(NativeMethods.Mat_New_3(ValidationHelper.GetHandle<MatHandle>(m, nameof(m), false), rowRange, colRange)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(m);
         }
         /// <summary>
         /// Represents an n-dimensional dense numerical array (image, matrix, or tensor).
@@ -1449,6 +1450,7 @@ namespace OpenCV5Sharp
             : base(new MatHandle(NativeMethods.Mat_New_4(ValidationHelper.GetHandle<MatHandle>(m, nameof(m), false), roi)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(m);
         }
         /// <summary>
         /// Represents an n-dimensional dense numerical array (image, matrix, or tensor).
@@ -2552,6 +2554,7 @@ namespace OpenCV5Sharp
             : base(new CudaBufferPoolHandle(NativeMethods.cuda_BufferPool_New_0(ValidationHelper.GetHandle<CudaStreamHandle>(stream, nameof(stream), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(stream);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -3666,6 +3669,7 @@ namespace OpenCV5Sharp
             : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_4(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(m);
         }
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
@@ -3684,6 +3688,7 @@ namespace OpenCV5Sharp
             : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_5(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false), rowRange, colRange)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(m);
         }
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
@@ -3701,6 +3706,7 @@ namespace OpenCV5Sharp
             : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_6(ValidationHelper.GetHandle<CudaGpuMatHandle>(m, nameof(m), false), roi)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(m);
         }
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
@@ -3718,6 +3724,7 @@ namespace OpenCV5Sharp
             : base(new CudaGpuMatHandle(NativeMethods.cuda_GpuMat_New_7(ValidationHelper.GetHandle<MatHandle>(arr, nameof(arr), false), allocator)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(arr);
         }
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
@@ -4936,6 +4943,7 @@ namespace OpenCV5Sharp
             : base(new CudaHostMemHandle(NativeMethods.cuda_HostMem_New_2(ValidationHelper.GetHandle<MatHandle>(arr, nameof(arr), false), (int)alloc_type)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(arr);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.

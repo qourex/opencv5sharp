@@ -9,6 +9,8 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
+        private static readonly Regex ExtensionRegex = new Regex(@"^\.[a-zA-Z0-9]+$", RegexOptions.Compiled);
+
         static Cv2()
         {
             PlatformGuard.EnsureSupported();
@@ -62,7 +64,7 @@ namespace OpenCV5Sharp
             if (img == null) throw new ArgumentNullException(nameof(img));
             
             // Validate extension to prevent path traversal (VULN-10)
-            if (!Regex.IsMatch(ext, @"^\.[a-zA-Z0-9]+$"))
+            if (!ExtensionRegex.IsMatch(ext))
             {
                 throw new ArgumentException("Invalid file extension format. Expected format like '.png' or '.jpg'.", nameof(ext));
             }

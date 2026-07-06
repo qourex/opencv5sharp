@@ -1580,7 +1580,7 @@ class OpenCVWrapperGenerator:
                         elif user_type in self.generated_class_names:
                             is_opt = "true" if arg[2] else "false"
                             call_args.append(f"ValidationHelper.GetHandle<{user_type}Handle>({san_name}, nameof({san_name}), {is_opt})")
-                        elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
+                        elif user_type not in ["void", "int", "double", "float", "bool", "byte", "sbyte", "short", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                             is_opt = "true" if arg[2] else "false"
                             call_args.append(f"ValidationHelper.GetHandle<OpenCVHandle>({san_name}, nameof({san_name}), {is_opt})")
                         else:
@@ -1603,6 +1603,11 @@ class OpenCVWrapperGenerator:
                     cs_class_methods.append(f'        : base(new {pascal_cls_name}Handle({base_call}))')
                     cs_class_methods.append('    {')
                     cs_class_methods.append('        ErrorHelper.CheckError();')
+                    for arg in args:
+                        san_name = sanitize_csharp_argument_name(arg[1])
+                        user_type = self.get_user_facing_csharp_type(arg[0])
+                        if user_type in self.generated_class_names:
+                            cs_class_methods.append(f'        GC.KeepAlive({san_name});')
                     cs_class_methods.append('    }')
                 else:
                     static_keyword = "static " if is_static else ""
@@ -1635,7 +1640,7 @@ class OpenCVWrapperGenerator:
                                 validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
                                 validation_lines.append(f"        {san_name}.ThrowIfDisposed();")
                                 call_args.append(f"{san_name}.Handle")
-                        elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
+                        elif user_type not in ["void", "int", "double", "float", "bool", "byte", "sbyte", "short", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                             if is_opt:
                                 call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
                             else:
@@ -1791,6 +1796,7 @@ class OpenCVWrapperGenerator:
                     cpp_impls.append(f'extern "C" __declspec(dllexport) void {setter_name}(void* self, {self.get_c_flat_type(prop_type)} val) {{')
                     cpp_impls.append('    _clearError();')
                     cpp_impls.append('    if (!self) { _setError(-1, "Null pointer: self"); return; }')
+                    clean_tp = clean_type(prop_type)
                     if self.get_c_flat_type(prop_type) == "void*" and clean_tp != "void":
                         cpp_impls.append('    if (!val) { _setError(-1, "Null pointer: val"); return; }')
                     if cls_name.split('.')[-1] in ptr_classes:
@@ -2124,7 +2130,7 @@ class OpenCVWrapperGenerator:
                         validation_lines.append(f"        if ({san_name} == null) throw new ArgumentNullException(nameof({san_name}));")
                         validation_lines.append(f"        {san_name}.ThrowIfDisposed();")
                         call_args.append(f"{san_name}.Handle")
-                elif user_type not in ["void", "int", "double", "float", "bool", "byte", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
+                elif user_type not in ["void", "int", "double", "float", "bool", "byte", "sbyte", "short", "long", "string", "IntPtr", "Size", "Point", "Rect", "Scalar", "Range", "TermCriteria", "Size2F", "Point2F", "Rect2F"]:
                     if is_opt:
                         call_args.append(f"ValidationHelper.GetHandle({san_name}, nameof({san_name}), true)")
                     else:

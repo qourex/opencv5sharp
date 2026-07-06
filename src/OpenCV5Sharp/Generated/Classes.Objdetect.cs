@@ -1313,6 +1313,9 @@ namespace OpenCV5Sharp
             : base(new ArucoArucoDetectorHandle(NativeMethods.aruco_ArucoDetector_New_0(ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), true), ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(dictionary);
+            GC.KeepAlive(detectorParams);
+            GC.KeepAlive(refineParams);
         }
         /// <summary>
         /// ArucoDetector constructor for multiple dictionaries
@@ -1328,6 +1331,8 @@ namespace OpenCV5Sharp
             : base(new ArucoArucoDetectorHandle(NativeMethods.aruco_ArucoDetector_New_1(dictionaries, ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(detectorParams);
+            GC.KeepAlive(refineParams);
         }
         /// <summary>
         /// Basic marker detection
@@ -1716,6 +1721,8 @@ namespace OpenCV5Sharp
             : base(new ArucoBoardHandle(NativeMethods.aruco_Board_New_0(objPoints, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(dictionary);
+            GC.KeepAlive(ids);
         }
         /// <summary>
         /// return the Dictionary of markers employed for this board
@@ -1880,6 +1887,8 @@ namespace OpenCV5Sharp
             : base(new ArucoCharucoBoardHandle(NativeMethods.aruco_CharucoBoard_New_0(size, squareLength, markerLength, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(dictionary);
+            GC.KeepAlive(ids);
         }
         /// <summary>
         /// set legacy chessboard pattern.
@@ -2011,6 +2020,10 @@ namespace OpenCV5Sharp
             : base(new ArucoCharucoDetectorHandle(NativeMethods.aruco_CharucoDetector_New_0(ValidationHelper.GetHandle<ArucoCharucoBoardHandle>(board, nameof(board), false), ValidationHelper.GetHandle<ArucoCharucoParametersHandle>(charucoParams, nameof(charucoParams), true), ValidationHelper.GetHandle<ArucoDetectorParametersHandle>(detectorParams, nameof(detectorParams), true), ValidationHelper.GetHandle<ArucoRefineParametersHandle>(refineParams, nameof(refineParams), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(board);
+            GC.KeepAlive(charucoParams);
+            GC.KeepAlive(detectorParams);
+            GC.KeepAlive(refineParams);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
@@ -2718,6 +2731,7 @@ namespace OpenCV5Sharp
             : base(new ArucoDictionaryHandle(NativeMethods.aruco_Dictionary_New_1(ValidationHelper.GetHandle<MatHandle>(bytesList, nameof(bytesList), false), _markerSize, maxcorr)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(bytesList);
         }
         /// <summary>
         /// Read a new dictionary from FileNode.
@@ -3038,6 +3052,8 @@ namespace OpenCV5Sharp
             : base(new ArucoGridBoardHandle(NativeMethods.aruco_GridBoard_New_0(size, markerLength, markerSeparation, ValidationHelper.GetHandle<ArucoDictionaryHandle>(dictionary, nameof(dictionary), false), ValidationHelper.GetHandle<MatHandle>(ids, nameof(ids), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(dictionary);
+            GC.KeepAlive(ids);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.

@@ -466,6 +466,7 @@ namespace OpenCV5Sharp
             : base(new OdometryHandle(NativeMethods.Odometry_New_2((int)otype, ValidationHelper.GetHandle<OdometrySettingsHandle>(settings, nameof(settings), false), (int)algtype)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(settings);
         }
         /// <summary>
         /// Prepare frame for odometry calculation
@@ -666,6 +667,10 @@ namespace OpenCV5Sharp
             : base(new OdometryFrameHandle(NativeMethods.OdometryFrame_New_0(ValidationHelper.GetHandle<MatHandle>(depth, nameof(depth), true), ValidationHelper.GetHandle<MatHandle>(image, nameof(image), true), ValidationHelper.GetHandle<MatHandle>(mask, nameof(mask), true), ValidationHelper.GetHandle<MatHandle>(normals, nameof(normals), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(depth);
+            GC.KeepAlive(image);
+            GC.KeepAlive(mask);
+            GC.KeepAlive(normals);
         }
         /// <summary>
         /// Get the original user-provided BGR/Gray image
@@ -1630,6 +1635,7 @@ namespace OpenCV5Sharp
             : base(new VolumeHandle(NativeMethods.Volume_New_0((int)vtype, ValidationHelper.GetHandle<VolumeSettingsHandle>(settings, nameof(settings), true))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(settings);
         }
         /// <summary>
         /// Integrates the input data to the volume.

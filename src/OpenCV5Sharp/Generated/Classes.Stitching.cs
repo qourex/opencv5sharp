@@ -2260,6 +2260,7 @@ namespace OpenCV5Sharp
             : base(new DetailLightGlueFeaturesMatcherHandle(NativeMethods.detail_LightGlueFeaturesMatcher_New_0(ValidationHelper.GetHandle<LightGlueMatcherHandle>(lgMatcher, nameof(lgMatcher), false), num_matches_thresh1, num_matches_thresh2, matches_confidence_thresh)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(lgMatcher);
         }
         /// <summary>
         /// Sets the LightGlue confidence threshold for filtering matches.

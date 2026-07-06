@@ -22,6 +22,15 @@ namespace OpenCV5Sharp
         public int ErrorCode { get; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OpenCVException"/> class.
+        /// </summary>
+        public OpenCVException()
+            : base("An unknown OpenCV error occurred.")
+        {
+            ErrorCode = -1;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OpenCVException"/> class
         /// with a specified error message and error code.
         /// </summary>

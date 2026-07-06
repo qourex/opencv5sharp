@@ -39,6 +39,8 @@ namespace OpenCV5Sharp
             : base(new FlannIndexHandle(NativeMethods.flann_Index_New_1(ValidationHelper.GetHandle<MatHandle>(features, nameof(features), false), ValidationHelper.GetHandle<FlannIndexParamsHandle>(@params, nameof(@params), false), (int)distType)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(features);
+            GC.KeepAlive(@params);
         }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.

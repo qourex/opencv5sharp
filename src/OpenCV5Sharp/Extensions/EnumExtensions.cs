@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Qourex. Licensed under Apache-2.0.
 // See LICENSE file in the project root for full license information.
 
-namespace OpenCV5Sharp.Extensions
+namespace OpenCV5Sharp
 {
     /// <summary>
     /// Extension methods for converting wrapper enums to integers to ease P/Invoke calls.

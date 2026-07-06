@@ -73,6 +73,13 @@ namespace OpenCV5Sharp
             {
                 _handle.Dispose();
             }
+            // When disposing == false (finalizer path), we intentionally do NOT call
+            // _handle.Dispose(). SafeHandle inherits from CriticalFinalizerObject,
+            // which guarantees its finalizer runs AFTER regular finalizers. The CLR
+            // will call SafeHandle.ReleaseHandle() automatically to free the native
+            // resource. Calling _handle.Dispose() here would be redundant and safe,
+            // but omitting it makes the design intent clear: SafeHandle manages its
+            // own CriticalFinalizer lifecycle independently.
         }
     }
 

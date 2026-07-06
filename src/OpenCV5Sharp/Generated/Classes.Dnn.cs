@@ -44,6 +44,7 @@ namespace OpenCV5Sharp
             : base(new DnnClassificationModelHandle(NativeMethods.dnn_ClassificationModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Set enable/disable softmax post processing option.
@@ -158,6 +159,7 @@ namespace OpenCV5Sharp
             : base(new DnnDetectionModelHandle(NativeMethods.dnn_DetectionModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// nmsAcrossClasses defaults to false,
@@ -559,6 +561,7 @@ namespace OpenCV5Sharp
             : base(new DnnKeypointsModelHandle(NativeMethods.dnn_KeypointsModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Given the <c>input</c> frame, create input blob, run net
@@ -786,6 +789,7 @@ namespace OpenCV5Sharp
             : base(new DnnModelHandle(NativeMethods.dnn_Model_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Set input size for frame.
@@ -2369,6 +2373,7 @@ namespace OpenCV5Sharp
             : base(new DnnSegmentationModelHandle(NativeMethods.dnn_SegmentationModel_New_1(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Given the <c>input</c> frame, create input blob, run net
@@ -2532,6 +2537,7 @@ namespace OpenCV5Sharp
             : base(new DnnTextDetectionModelDbHandle(NativeMethods.dnn_TextDetectionModel_DB_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Create text detection model from network represented in one of the supported formats.
@@ -2763,6 +2769,7 @@ namespace OpenCV5Sharp
             : base(new DnnTextDetectionModelEastHandle(NativeMethods.dnn_TextDetectionModel_EAST_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Create text detection model from network represented in one of the supported formats.
@@ -2900,6 +2907,7 @@ namespace OpenCV5Sharp
             : base(new DnnTextRecognitionModelHandle(NativeMethods.dnn_TextRecognitionModel_New_0(ValidationHelper.GetHandle<DnnNetHandle>(network, nameof(network), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(network);
         }
         /// <summary>
         /// Create text recognition model from network represented in one of the supported formats

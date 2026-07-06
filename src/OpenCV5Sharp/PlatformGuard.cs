@@ -8,7 +8,7 @@ namespace OpenCV5Sharp
 {
     /// <summary>
     /// Guards against usage on unsupported platforms.
-    /// OpenCV5Sharp ships native binaries for Windows (x64), Linux (x64),
+    /// OpenCV5Sharp ships native binaries for Windows (x64, ARM64), Linux (x64, ARM64),
     /// macOS (x64, ARM64), Android (ARM64), and iOS (ARM64).
     /// </summary>
     internal static class PlatformGuard
@@ -20,9 +20,9 @@ namespace OpenCV5Sharp
         {
             bool supported = false;
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && (RuntimeInformation.ProcessArchitecture == Architecture.X64 || RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 supported = true;
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && RuntimeInformation.ProcessArchitecture == Architecture.X64)
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && (RuntimeInformation.ProcessArchitecture == Architecture.X64 || RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 supported = true;
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && (RuntimeInformation.ProcessArchitecture == Architecture.X64 || RuntimeInformation.ProcessArchitecture == Architecture.Arm64))
                 supported = true;
@@ -37,7 +37,7 @@ namespace OpenCV5Sharp
             if (!supported)
             {
                 ErrorMsg = $"OpenCV5Sharp does not support {RuntimeInformation.RuntimeIdentifier}. " +
-                    $"Supported platforms: win-x64, linux-x64, osx-x64, osx-arm64, android-arm64, ios-arm64.";
+                    $"Supported platforms: win-x64, win-arm64, linux-x64, linux-arm64, osx-x64, osx-arm64, android-arm64, ios-arm64.";
             }
         }
 

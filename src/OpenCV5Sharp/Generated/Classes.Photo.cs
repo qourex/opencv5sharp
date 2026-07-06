@@ -1086,6 +1086,7 @@ namespace OpenCV5Sharp
             : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_1(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), constColor)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(src);
         }
         /// <summary>
         /// Color Correction Model
@@ -1100,6 +1101,8 @@ namespace OpenCV5Sharp
             : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_2(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), ValidationHelper.GetHandle<MatHandle>(colors, nameof(colors), false), (int)refColorSpace)))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(src);
+            GC.KeepAlive(colors);
         }
         /// <summary>
         /// Color Correction Model
@@ -1115,6 +1118,9 @@ namespace OpenCV5Sharp
             : base(new CcmColorCorrectionModelHandle(NativeMethods.ccm_ColorCorrectionModel_New_3(ValidationHelper.GetHandle<MatHandle>(src, nameof(src), false), ValidationHelper.GetHandle<MatHandle>(colors, nameof(colors), false), (int)refColorSpace, ValidationHelper.GetHandle<MatHandle>(coloredPatchesMask, nameof(coloredPatchesMask), false))))
         {
             ErrorHelper.CheckError();
+            GC.KeepAlive(src);
+            GC.KeepAlive(colors);
+            GC.KeepAlive(coloredPatchesMask);
         }
         /// <summary>
         /// set ColorSpace

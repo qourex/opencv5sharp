@@ -13,9 +13,9 @@ namespace OpenCV5Sharp.Tests
         public void FlannIndex_InstantiationAndDispose_Success()
         {
             // Verify that we can instantiate FlannIndex and its params classes cleanly
-            var index = new FlannIndex();
-            var indexParams = new FlannIndexParams();
-            var searchParams = new FlannSearchParams();
+            using var index = new FlannIndex();
+            using var indexParams = new FlannIndexParams();
+            using var searchParams = new FlannSearchParams();
 
             Assert.NotNull(index);
             Assert.NotEqual(IntPtr.Zero, index.Handle);
@@ -26,7 +26,7 @@ namespace OpenCV5Sharp.Tests
             Assert.NotNull(searchParams);
             Assert.NotEqual(IntPtr.Zero, searchParams.Handle);
 
-            // Dispose them
+            // Dispose them explicitly (using will also call Dispose at scope exit, which is safe)
             index.Dispose();
             indexParams.Dispose();
             searchParams.Dispose();
