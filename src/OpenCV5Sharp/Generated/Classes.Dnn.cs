@@ -19,8 +19,8 @@ namespace OpenCV5Sharp
     public partial class DnnClassificationModel : DnnModel
     {
         public new DnnClassificationModelHandle Handle => (DnnClassificationModelHandle)base.Handle;
-        internal DnnClassificationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnClassificationModelHandle(handle, ownsHandle)) {}
-        internal DnnClassificationModel(DnnClassificationModelHandle handle) : base(handle) {}
+        internal DnnClassificationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnClassificationModelHandle(handle, ownsHandle)) { }
+        internal DnnClassificationModel(DnnClassificationModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create classification model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -134,8 +134,8 @@ namespace OpenCV5Sharp
     public partial class DnnDetectionModel : DnnModel
     {
         public new DnnDetectionModelHandle Handle => (DnnDetectionModelHandle)base.Handle;
-        internal DnnDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnDetectionModelHandle(handle, ownsHandle)) {}
-        internal DnnDetectionModel(DnnDetectionModelHandle handle) : base(handle) {}
+        internal DnnDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnDetectionModelHandle(handle, ownsHandle)) { }
+        internal DnnDetectionModel(DnnDetectionModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create detection model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -243,8 +243,8 @@ namespace OpenCV5Sharp
     public partial class DnnDict : DisposableOpenCVObject
     {
         public new DnnDictHandle Handle => (DnnDictHandle)base.Handle;
-        internal DnnDict(IntPtr handle, bool ownsHandle = true) : base(new DnnDictHandle(handle, ownsHandle)) {}
-        internal DnnDict(DnnDictHandle handle) : base(handle) {}
+        internal DnnDict(IntPtr handle, bool ownsHandle = true) : base(new DnnDictHandle(handle, ownsHandle)) { }
+        internal DnnDict(DnnDictHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -264,8 +264,8 @@ namespace OpenCV5Sharp
     public partial class DnnDictValue : DisposableOpenCVObject
     {
         public new DnnDictValueHandle Handle => (DnnDictValueHandle)base.Handle;
-        internal DnnDictValue(IntPtr handle, bool ownsHandle = true) : base(new DnnDictValueHandle(handle, ownsHandle)) {}
-        internal DnnDictValue(DnnDictValueHandle handle) : base(handle) {}
+        internal DnnDictValue(IntPtr handle, bool ownsHandle = true) : base(new DnnDictValueHandle(handle, ownsHandle)) { }
+        internal DnnDictValue(DnnDictValueHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -410,8 +410,8 @@ namespace OpenCV5Sharp
     public partial class DnnImage2BlobParams : DisposableOpenCVObject
     {
         public new DnnImage2BlobParamsHandle Handle => (DnnImage2BlobParamsHandle)base.Handle;
-        internal DnnImage2BlobParams(IntPtr handle, bool ownsHandle = true) : base(new DnnImage2BlobParamsHandle(handle, ownsHandle)) {}
-        internal DnnImage2BlobParams(DnnImage2BlobParamsHandle handle) : base(handle) {}
+        internal DnnImage2BlobParams(IntPtr handle, bool ownsHandle = true) : base(new DnnImage2BlobParamsHandle(handle, ownsHandle)) { }
+        internal DnnImage2BlobParams(DnnImage2BlobParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -536,8 +536,8 @@ namespace OpenCV5Sharp
     public partial class DnnKeypointsModel : DnnModel
     {
         public new DnnKeypointsModelHandle Handle => (DnnKeypointsModelHandle)base.Handle;
-        internal DnnKeypointsModel(IntPtr handle, bool ownsHandle = true) : base(new DnnKeypointsModelHandle(handle, ownsHandle)) {}
-        internal DnnKeypointsModel(DnnKeypointsModelHandle handle) : base(handle) {}
+        internal DnnKeypointsModel(IntPtr handle, bool ownsHandle = true) : base(new DnnKeypointsModelHandle(handle, ownsHandle)) { }
+        internal DnnKeypointsModel(DnnKeypointsModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create keypoints model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -595,8 +595,8 @@ namespace OpenCV5Sharp
     public partial class DnnLayer : Algorithm
     {
         public new DnnLayerHandle Handle => (DnnLayerHandle)base.Handle;
-        internal DnnLayer(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerHandle(handle, ownsHandle)) {}
-        internal DnnLayer(DnnLayerHandle handle) : base(handle) {}
+        internal DnnLayer(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerHandle(handle, ownsHandle)) { }
+        internal DnnLayer(DnnLayerHandle handle) : base(handle) { }
         /// <summary>
         /// Computes and sets internal parameters according to inputs, outputs and blobs.
         /// </summary>
@@ -646,40 +646,52 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat[] Blobs
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_blobs_get(Handle);
                 if (res == IntPtr.Zero) return Array.Empty<Mat>();
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     int size = NativeMethods.cv_VectorMat_Size(res);
                     Mat[] data = new Mat[size];
-                    for (int i = 0; i < size; i++) {
+                    for (int i = 0; i < size; i++)
+                    {
                         IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);
                         data[i] = matPtr == IntPtr.Zero ? null! : new Mat(matPtr);
                     }
                     return data;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorMat_Delete(res);
                     GC.KeepAlive(this);
                 }
             }
-            set {
+            set
+            {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
-                for (int i = 0; i < value.Length; i++) {
+                for (int i = 0; i < value.Length; i++)
+                {
                     handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle.DangerousGetHandle();
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
-                try {
+                try
+                {
                     NativeMethods.dnn_Layer_blobs_set(Handle, vecPtr);
                     ErrorHelper.CheckError();
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorMat_Delete(vecPtr);
                     GC.KeepAlive(this);
-                    if (value != null) {
-                        for (int i = 0; i < value.Length; i++) {
+                    if (value != null)
+                    {
+                        for (int i = 0; i < value.Length; i++)
+                        {
                             if (value[i] != null) GC.KeepAlive(value[i]);
                         }
                     }
@@ -690,15 +702,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Name
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_name_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -709,15 +725,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Type
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.dnn_Layer_type_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -740,8 +760,8 @@ namespace OpenCV5Sharp
     public partial class DnnLayerParams : DisposableOpenCVObject
     {
         public new DnnLayerParamsHandle Handle => (DnnLayerParamsHandle)base.Handle;
-        internal DnnLayerParams(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerParamsHandle(handle, ownsHandle)) {}
-        internal DnnLayerParams(DnnLayerParamsHandle handle) : base(handle) {}
+        internal DnnLayerParams(IntPtr handle, bool ownsHandle = true) : base(new DnnLayerParamsHandle(handle, ownsHandle)) { }
+        internal DnnLayerParams(DnnLayerParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -764,8 +784,8 @@ namespace OpenCV5Sharp
     public partial class DnnModel : DisposableOpenCVObject
     {
         public new DnnModelHandle Handle => (DnnModelHandle)base.Handle;
-        internal DnnModel(IntPtr handle, bool ownsHandle = true) : base(new DnnModelHandle(handle, ownsHandle)) {}
-        internal DnnModel(DnnModelHandle handle) : base(handle) {}
+        internal DnnModel(IntPtr handle, bool ownsHandle = true) : base(new DnnModelHandle(handle, ownsHandle)) { }
+        internal DnnModel(DnnModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create model from deep learning network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -1200,8 +1220,8 @@ namespace OpenCV5Sharp
     public partial class DnnNet : DisposableOpenCVObject
     {
         public new DnnNetHandle Handle => (DnnNetHandle)base.Handle;
-        internal DnnNet(IntPtr handle, bool ownsHandle = true) : base(new DnnNetHandle(handle, ownsHandle)) {}
-        internal DnnNet(DnnNetHandle handle) : base(handle) {}
+        internal DnnNet(IntPtr handle, bool ownsHandle = true) : base(new DnnNetHandle(handle, ownsHandle)) { }
+        internal DnnNet(DnnNetHandle handle) : base(handle) { }
         /// <summary>
         /// Represents a deep learning neural network model.
         /// </summary>
@@ -2348,8 +2368,8 @@ namespace OpenCV5Sharp
     public partial class DnnSegmentationModel : DnnModel
     {
         public new DnnSegmentationModelHandle Handle => (DnnSegmentationModelHandle)base.Handle;
-        internal DnnSegmentationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnSegmentationModelHandle(handle, ownsHandle)) {}
-        internal DnnSegmentationModel(DnnSegmentationModelHandle handle) : base(handle) {}
+        internal DnnSegmentationModel(IntPtr handle, bool ownsHandle = true) : base(new DnnSegmentationModelHandle(handle, ownsHandle)) { }
+        internal DnnSegmentationModel(DnnSegmentationModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create segmentation model from network represented in one of the supported formats.
         /// * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.
@@ -2405,8 +2425,8 @@ namespace OpenCV5Sharp
     public partial class DnnTextDetectionModel : DnnModel
     {
         public new DnnTextDetectionModelHandle Handle => (DnnTextDetectionModelHandle)base.Handle;
-        internal DnnTextDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelHandle(handle, ownsHandle)) {}
-        internal DnnTextDetectionModel(DnnTextDetectionModelHandle handle) : base(handle) {}
+        internal DnnTextDetectionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelHandle(handle, ownsHandle)) { }
+        internal DnnTextDetectionModel(DnnTextDetectionModelHandle handle) : base(handle) { }
         /// <summary>
         /// Performs detection
         /// *
@@ -2524,8 +2544,8 @@ namespace OpenCV5Sharp
     public partial class DnnTextDetectionModelDb : DnnTextDetectionModel
     {
         public new DnnTextDetectionModelDbHandle Handle => (DnnTextDetectionModelDbHandle)base.Handle;
-        internal DnnTextDetectionModelDb(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelDbHandle(handle, ownsHandle)) {}
-        internal DnnTextDetectionModelDb(DnnTextDetectionModelDbHandle handle) : base(handle) {}
+        internal DnnTextDetectionModelDb(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelDbHandle(handle, ownsHandle)) { }
+        internal DnnTextDetectionModelDb(DnnTextDetectionModelDbHandle handle) : base(handle) { }
         /// <summary>
         /// Create text detection algorithm from deep learning network.
         /// </summary>
@@ -2756,8 +2776,8 @@ namespace OpenCV5Sharp
     public partial class DnnTextDetectionModelEast : DnnTextDetectionModel
     {
         public new DnnTextDetectionModelEastHandle Handle => (DnnTextDetectionModelEastHandle)base.Handle;
-        internal DnnTextDetectionModelEast(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelEastHandle(handle, ownsHandle)) {}
-        internal DnnTextDetectionModelEast(DnnTextDetectionModelEastHandle handle) : base(handle) {}
+        internal DnnTextDetectionModelEast(IntPtr handle, bool ownsHandle = true) : base(new DnnTextDetectionModelEastHandle(handle, ownsHandle)) { }
+        internal DnnTextDetectionModelEast(DnnTextDetectionModelEastHandle handle) : base(handle) { }
         /// <summary>
         /// Create text detection algorithm from deep learning network
         /// </summary>
@@ -2893,8 +2913,8 @@ namespace OpenCV5Sharp
     public partial class DnnTextRecognitionModel : DnnModel
     {
         public new DnnTextRecognitionModelHandle Handle => (DnnTextRecognitionModelHandle)base.Handle;
-        internal DnnTextRecognitionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextRecognitionModelHandle(handle, ownsHandle)) {}
-        internal DnnTextRecognitionModel(DnnTextRecognitionModelHandle handle) : base(handle) {}
+        internal DnnTextRecognitionModel(IntPtr handle, bool ownsHandle = true) : base(new DnnTextRecognitionModelHandle(handle, ownsHandle)) { }
+        internal DnnTextRecognitionModel(DnnTextRecognitionModelHandle handle) : base(handle) { }
         /// <summary>
         /// Create Text Recognition model from deep learning network
         /// * Call setDecodeType() and setVocabulary() after constructor to initialize the decoding method
@@ -3137,8 +3157,8 @@ namespace OpenCV5Sharp
     public partial class DnnTokenizer : DisposableOpenCVObject
     {
         public new DnnTokenizerHandle Handle => (DnnTokenizerHandle)base.Handle;
-        internal DnnTokenizer(IntPtr handle, bool ownsHandle = true) : base(new DnnTokenizerHandle(handle, ownsHandle)) {}
-        internal DnnTokenizer(DnnTokenizerHandle handle) : base(handle) {}
+        internal DnnTokenizer(IntPtr handle, bool ownsHandle = true) : base(new DnnTokenizerHandle(handle, ownsHandle)) { }
+        internal DnnTokenizer(DnnTokenizerHandle handle) : base(handle) { }
         /// <summary>
         /// Load a tokenizer from a model directory.
         /// *

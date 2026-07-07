@@ -44,7 +44,7 @@ namespace OpenCV5Sharp.Samples
 
         private static void TrackHandAndFingers(string sourceName, Mat frame)
         {
-            
+
 
             // 1. Convert BGR to YCrCb
             using (var ycrcb = new Mat())
@@ -175,7 +175,7 @@ namespace OpenCV5Sharp.Samples
         {
             const int width = 320;
             const int height = 240;
-            
+
 
             // Generate 3 different frames with 1, 3, and 5 fingers
             int[] fingersToDraw = { 1, 3, 5 };

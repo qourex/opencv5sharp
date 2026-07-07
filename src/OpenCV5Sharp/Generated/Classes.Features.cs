@@ -21,8 +21,8 @@ namespace OpenCV5Sharp
     public partial class Aliked : Feature2D
     {
         public new AlikedHandle Handle => (AlikedHandle)base.Handle;
-        internal Aliked(IntPtr handle, bool ownsHandle = true) : base(new AlikedHandle(handle, ownsHandle)) {}
-        internal Aliked(AlikedHandle handle) : base(handle) {}
+        internal Aliked(IntPtr handle, bool ownsHandle = true) : base(new AlikedHandle(handle, ownsHandle)) { }
+        internal Aliked(AlikedHandle handle) : base(handle) { }
         /// <summary>
         /// Creates ALIKED from a model file path.
         /// </summary>
@@ -70,8 +70,8 @@ namespace OpenCV5Sharp
     public partial class AlikedParams : DisposableOpenCVObject
     {
         public new AlikedParamsHandle Handle => (AlikedParamsHandle)base.Handle;
-        internal AlikedParams(IntPtr handle, bool ownsHandle = true) : base(new AlikedParamsHandle(handle, ownsHandle)) {}
-        internal AlikedParams(AlikedParamsHandle handle) : base(handle) {}
+        internal AlikedParams(IntPtr handle, bool ownsHandle = true) : base(new AlikedParamsHandle(handle, ownsHandle)) { }
+        internal AlikedParams(AlikedParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -129,8 +129,8 @@ namespace OpenCV5Sharp
     public partial class ANNIndex : DisposableOpenCVObject
     {
         public new ANNIndexHandle Handle => (ANNIndexHandle)base.Handle;
-        internal ANNIndex(IntPtr handle, bool ownsHandle = true) : base(new ANNIndexHandle(handle, ownsHandle)) {}
-        internal ANNIndex(ANNIndexHandle handle) : base(handle) {}
+        internal ANNIndex(IntPtr handle, bool ownsHandle = true) : base(new ANNIndexHandle(handle, ownsHandle)) { }
+        internal ANNIndex(ANNIndexHandle handle) : base(handle) { }
         /// <summary>
         /// Add feature vectors to index.
         /// *
@@ -318,8 +318,8 @@ namespace OpenCV5Sharp
     public partial class AffineFeature : Feature2D
     {
         public new AffineFeatureHandle Handle => (AffineFeatureHandle)base.Handle;
-        internal AffineFeature(IntPtr handle, bool ownsHandle = true) : base(new AffineFeatureHandle(handle, ownsHandle)) {}
-        internal AffineFeature(AffineFeatureHandle handle) : base(handle) {}
+        internal AffineFeature(IntPtr handle, bool ownsHandle = true) : base(new AffineFeatureHandle(handle, ownsHandle)) { }
+        internal AffineFeature(AffineFeatureHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -428,8 +428,8 @@ namespace OpenCV5Sharp
     public partial class BFMatcher : DescriptorMatcher
     {
         public new BFMatcherHandle Handle => (BFMatcherHandle)base.Handle;
-        internal BFMatcher(IntPtr handle, bool ownsHandle = true) : base(new BFMatcherHandle(handle, ownsHandle)) {}
-        internal BFMatcher(BFMatcherHandle handle) : base(handle) {}
+        internal BFMatcher(IntPtr handle, bool ownsHandle = true) : base(new BFMatcherHandle(handle, ownsHandle)) { }
+        internal BFMatcher(BFMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Brute-force matcher constructor (obsolete). Please use BFMatcher.create()
         /// *
@@ -489,8 +489,8 @@ namespace OpenCV5Sharp
     public partial class DescriptorMatcher : Algorithm
     {
         public new DescriptorMatcherHandle Handle => (DescriptorMatcherHandle)base.Handle;
-        internal DescriptorMatcher(IntPtr handle, bool ownsHandle = true) : base(new DescriptorMatcherHandle(handle, ownsHandle)) {}
-        internal DescriptorMatcher(DescriptorMatcherHandle handle) : base(handle) {}
+        internal DescriptorMatcher(IntPtr handle, bool ownsHandle = true) : base(new DescriptorMatcherHandle(handle, ownsHandle)) { }
+        internal DescriptorMatcher(DescriptorMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Adds descriptors to train a CPU(trainDescCollectionis) or GPU(utrainDescCollectionis) descriptor
         /// collection.
@@ -885,8 +885,8 @@ namespace OpenCV5Sharp
     public partial class FastFeatureDetector : Feature2D
     {
         public new FastFeatureDetectorHandle Handle => (FastFeatureDetectorHandle)base.Handle;
-        internal FastFeatureDetector(IntPtr handle, bool ownsHandle = true) : base(new FastFeatureDetectorHandle(handle, ownsHandle)) {}
-        internal FastFeatureDetector(FastFeatureDetectorHandle handle) : base(handle) {}
+        internal FastFeatureDetector(IntPtr handle, bool ownsHandle = true) : base(new FastFeatureDetectorHandle(handle, ownsHandle)) { }
+        internal FastFeatureDetector(FastFeatureDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1031,8 +1031,8 @@ namespace OpenCV5Sharp
     public partial class Feature2D : Algorithm
     {
         public new Feature2DHandle Handle => (Feature2DHandle)base.Handle;
-        internal Feature2D(IntPtr handle, bool ownsHandle = true) : base(new Feature2DHandle(handle, ownsHandle)) {}
-        internal Feature2D(Feature2DHandle handle) : base(handle) {}
+        internal Feature2D(IntPtr handle, bool ownsHandle = true) : base(new Feature2DHandle(handle, ownsHandle)) { }
+        internal Feature2D(Feature2DHandle handle) : base(handle) { }
         /// <summary>
         /// Detects keypoints in an image (first variant) or image set (second variant).
         /// </summary>
@@ -1278,8 +1278,8 @@ namespace OpenCV5Sharp
     public partial class GFTTDetector : Feature2D
     {
         public new GFTTDetectorHandle Handle => (GFTTDetectorHandle)base.Handle;
-        internal GFTTDetector(IntPtr handle, bool ownsHandle = true) : base(new GFTTDetectorHandle(handle, ownsHandle)) {}
-        internal GFTTDetector(GFTTDetectorHandle handle) : base(handle) {}
+        internal GFTTDetector(IntPtr handle, bool ownsHandle = true) : base(new GFTTDetectorHandle(handle, ownsHandle)) { }
+        internal GFTTDetector(GFTTDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1574,8 +1574,8 @@ namespace OpenCV5Sharp
     public partial class LightGlueMatcher : DescriptorMatcher
     {
         public new LightGlueMatcherHandle Handle => (LightGlueMatcherHandle)base.Handle;
-        internal LightGlueMatcher(IntPtr handle, bool ownsHandle = true) : base(new LightGlueMatcherHandle(handle, ownsHandle)) {}
-        internal LightGlueMatcher(LightGlueMatcherHandle handle) : base(handle) {}
+        internal LightGlueMatcher(IntPtr handle, bool ownsHandle = true) : base(new LightGlueMatcherHandle(handle, ownsHandle)) { }
+        internal LightGlueMatcher(LightGlueMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Creates LightGlueMatcher from a model file path.
         /// </summary>
@@ -1669,8 +1669,8 @@ namespace OpenCV5Sharp
     public partial class Mser : Feature2D
     {
         public new MserHandle Handle => (MserHandle)base.Handle;
-        internal Mser(IntPtr handle, bool ownsHandle = true) : base(new MserHandle(handle, ownsHandle)) {}
-        internal Mser(MserHandle handle) : base(handle) {}
+        internal Mser(IntPtr handle, bool ownsHandle = true) : base(new MserHandle(handle, ownsHandle)) { }
+        internal Mser(MserHandle handle) : base(handle) { }
         /// <summary>
         /// Full constructor for %MSER detector
         /// </summary>
@@ -2021,8 +2021,8 @@ namespace OpenCV5Sharp
     public partial class Orb : Feature2D
     {
         public new OrbHandle Handle => (OrbHandle)base.Handle;
-        internal Orb(IntPtr handle, bool ownsHandle = true) : base(new OrbHandle(handle, ownsHandle)) {}
-        internal Orb(OrbHandle handle) : base(handle) {}
+        internal Orb(IntPtr handle, bool ownsHandle = true) : base(new OrbHandle(handle, ownsHandle)) { }
+        internal Orb(OrbHandle handle) : base(handle) { }
         /// <summary>
         /// The ORB constructor
         /// </summary>
@@ -2324,8 +2324,8 @@ namespace OpenCV5Sharp
     public partial class Sift : Feature2D
     {
         public new SiftHandle Handle => (SiftHandle)base.Handle;
-        internal Sift(IntPtr handle, bool ownsHandle = true) : base(new SiftHandle(handle, ownsHandle)) {}
-        internal Sift(SiftHandle handle) : base(handle) {}
+        internal Sift(IntPtr handle, bool ownsHandle = true) : base(new SiftHandle(handle, ownsHandle)) { }
+        internal Sift(SiftHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2597,8 +2597,8 @@ namespace OpenCV5Sharp
     public partial class SimpleBlobDetector : Feature2D
     {
         public new SimpleBlobDetectorHandle Handle => (SimpleBlobDetectorHandle)base.Handle;
-        internal SimpleBlobDetector(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorHandle(handle, ownsHandle)) {}
-        internal SimpleBlobDetector(SimpleBlobDetectorHandle handle) : base(handle) {}
+        internal SimpleBlobDetector(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorHandle(handle, ownsHandle)) { }
+        internal SimpleBlobDetector(SimpleBlobDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Flag to enable contour collection.
         /// If set to true, the detector will store the contours of the detected blobs in memory,
@@ -2744,8 +2744,8 @@ namespace OpenCV5Sharp
     public partial class SimpleBlobDetectorParams : DisposableOpenCVObject
     {
         public new SimpleBlobDetectorParamsHandle Handle => (SimpleBlobDetectorParamsHandle)base.Handle;
-        internal SimpleBlobDetectorParams(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorParamsHandle(handle, ownsHandle)) {}
-        internal SimpleBlobDetectorParams(SimpleBlobDetectorParamsHandle handle) : base(handle) {}
+        internal SimpleBlobDetectorParams(IntPtr handle, bool ownsHandle = true) : base(new SimpleBlobDetectorParamsHandle(handle, ownsHandle)) { }
+        internal SimpleBlobDetectorParams(SimpleBlobDetectorParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

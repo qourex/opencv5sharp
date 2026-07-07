@@ -17,8 +17,8 @@ namespace OpenCV5Sharp
     public partial class MSTEdge : DisposableOpenCVObject
     {
         public new MSTEdgeHandle Handle => (MSTEdgeHandle)base.Handle;
-        internal MSTEdge(IntPtr handle, bool ownsHandle = true) : base(new MSTEdgeHandle(handle, ownsHandle)) {}
-        internal MSTEdge(MSTEdgeHandle handle) : base(handle) {}
+        internal MSTEdge(IntPtr handle, bool ownsHandle = true) : base(new MSTEdgeHandle(handle, ownsHandle)) { }
+        internal MSTEdge(MSTEdgeHandle handle) : base(handle) { }
         /// <summary>Gets or sets the source property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int Source
@@ -49,8 +49,8 @@ namespace OpenCV5Sharp
     public partial class Subdiv2D : DisposableOpenCVObject
     {
         public new Subdiv2DHandle Handle => (Subdiv2DHandle)base.Handle;
-        internal Subdiv2D(IntPtr handle, bool ownsHandle = true) : base(new Subdiv2DHandle(handle, ownsHandle)) {}
-        internal Subdiv2D(Subdiv2DHandle handle) : base(handle) {}
+        internal Subdiv2D(IntPtr handle, bool ownsHandle = true) : base(new Subdiv2DHandle(handle, ownsHandle)) { }
+        internal Subdiv2D(Subdiv2DHandle handle) : base(handle) { }
         /// <summary>
         /// creates an empty Subdiv2D object.
         /// </summary>
@@ -356,8 +356,8 @@ namespace OpenCV5Sharp
     public partial class UsacParams : DisposableOpenCVObject
     {
         public new UsacParamsHandle Handle => (UsacParamsHandle)base.Handle;
-        internal UsacParams(IntPtr handle, bool ownsHandle = true) : base(new UsacParamsHandle(handle, ownsHandle)) {}
-        internal UsacParams(UsacParamsHandle handle) : base(handle) {}
+        internal UsacParams(IntPtr handle, bool ownsHandle = true) : base(new UsacParamsHandle(handle, ownsHandle)) { }
+        internal UsacParams(UsacParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

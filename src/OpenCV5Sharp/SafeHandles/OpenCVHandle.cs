@@ -17,7 +17,7 @@ namespace OpenCV5Sharp
         /// Initializes a new instance of the <see cref="OpenCVHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during the finalization phase; otherwise, false.</param>
-        protected OpenCVHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OpenCVHandle(bool ownsHandle) : base(ownsHandle) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenCVHandle"/> class wrapping the raw pointer.

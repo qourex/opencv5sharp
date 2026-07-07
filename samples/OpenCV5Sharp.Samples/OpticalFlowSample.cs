@@ -114,8 +114,8 @@ namespace OpenCV5Sharp.Samples
 
         private static void RunSyntheticVerification()
         {
-            
-            
+
+
             const int size = 200;
 
             // Generate Frame 1: Black background with a white circle at (80, 80)
@@ -131,52 +131,52 @@ namespace OpenCV5Sharp.Samples
                 Cv2.Circle(frame1, new Point(80, 80), 8, new Scalar(255), -1, 8, 0);
                 Cv2.Circle(frame2, new Point(85, 83), 8, new Scalar(255), -1, 8, 0);
 
-            try
-            {
-                Cv2.Imwrite("optical_flow_frame1.png", frame1, IntPtr.Zero);
-                Cv2.Imwrite("optical_flow_frame2.png", frame2, IntPtr.Zero);
-
-                // Define initial point to track
-                using (var prevPts = new Mat(1, 1, MatType.CV_32FC2))
-                using (var nextPts = new Mat(1, 1, MatType.CV_32FC2))
-                using (var status = new Mat())
-                using (var err = new Mat())
+                try
                 {
-                    float[] ptsData = new float[] { 80.0f, 80.0f };
-                    Marshal.Copy(ptsData, 0, prevPts.Data, 2);
+                    Cv2.Imwrite("optical_flow_frame1.png", frame1, IntPtr.Zero);
+                    Cv2.Imwrite("optical_flow_frame2.png", frame2, IntPtr.Zero);
 
-                    // Run Optical Flow tracking from Frame 1 to Frame 2
-                    Cv2.CalcOpticalFlowPyrLK(
-                        frame1, frame2, prevPts, nextPts, status, err,
-                        new Size(15, 15), 3, new TermCriteria(3, 30, 0.01), 0, 1e-4
-                    );
+                    // Define initial point to track
+                    using (var prevPts = new Mat(1, 1, MatType.CV_32FC2))
+                    using (var nextPts = new Mat(1, 1, MatType.CV_32FC2))
+                    using (var status = new Mat())
+                    using (var err = new Mat())
+                    {
+                        float[] ptsData = new float[] { 80.0f, 80.0f };
+                        Marshal.Copy(ptsData, 0, prevPts.Data, 2);
 
-                    float[] resultData = new float[2];
-                    Marshal.Copy(nextPts.Data, resultData, 0, 2);
+                        // Run Optical Flow tracking from Frame 1 to Frame 2
+                        Cv2.CalcOpticalFlowPyrLK(
+                            frame1, frame2, prevPts, nextPts, status, err,
+                            new Size(15, 15), 3, new TermCriteria(3, 30, 0.01), 0, 1e-4
+                        );
 
-                    byte[] statusBytes = new byte[1];
-                    Marshal.Copy(status.Data, statusBytes, 0, 1);
+                        float[] resultData = new float[2];
+                        Marshal.Copy(nextPts.Data, resultData, 0, 2);
 
-                    Console.WriteLine($"   Tracking Status: {statusBytes[0]} (1 = Success)");
-                    Console.WriteLine($"   Start Position:  (80.0, 80.0)");
-                    Console.WriteLine($"   End Position:    ({resultData[0]:F1}, {resultData[1]:F1})");
+                        byte[] statusBytes = new byte[1];
+                        Marshal.Copy(status.Data, statusBytes, 0, 1);
 
-                    double dx = resultData[0] - 80.0;
-                    double dy = resultData[1] - 80.0;
-                    Console.WriteLine($"   Measured Offset: dx={dx:F1}, dy={dy:F1} (Expected: dx=5.0, dy=3.0)");
+                        Console.WriteLine($"   Tracking Status: {statusBytes[0]} (1 = Success)");
+                        Console.WriteLine($"   Start Position:  (80.0, 80.0)");
+                        Console.WriteLine($"   End Position:    ({resultData[0]:F1}, {resultData[1]:F1})");
+
+                        double dx = resultData[0] - 80.0;
+                        double dy = resultData[1] - 80.0;
+                        Console.WriteLine($"   Measured Offset: dx={dx:F1}, dy={dy:F1} (Expected: dx=5.0, dy=3.0)");
+                    }
                 }
-            }
-            finally
-            {
-                if (File.Exists("optical_flow_frame1.png"))
+                finally
                 {
-                    try { File.Delete("optical_flow_frame1.png"); } catch { }
+                    if (File.Exists("optical_flow_frame1.png"))
+                    {
+                        try { File.Delete("optical_flow_frame1.png"); } catch { }
+                    }
+                    if (File.Exists("optical_flow_frame2.png"))
+                    {
+                        try { File.Delete("optical_flow_frame2.png"); } catch { }
+                    }
                 }
-                if (File.Exists("optical_flow_frame2.png"))
-                {
-                    try { File.Delete("optical_flow_frame2.png"); } catch { }
-                }
-            }
             }
         }
     }

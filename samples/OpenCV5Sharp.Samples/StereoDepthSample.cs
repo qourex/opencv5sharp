@@ -14,7 +14,7 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [15] Stereo Depth Estimation (StereoBM) ---");
 
-            
+
             const int width = 320;
             const int height = 240;
 

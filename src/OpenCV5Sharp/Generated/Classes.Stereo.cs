@@ -16,8 +16,8 @@ namespace OpenCV5Sharp
     public partial class StereoBM : StereoMatcher
     {
         public new StereoBMHandle Handle => (StereoBMHandle)base.Handle;
-        internal StereoBM(IntPtr handle, bool ownsHandle = true) : base(new StereoBMHandle(handle, ownsHandle)) {}
-        internal StereoBM(StereoBMHandle handle) : base(handle) {}
+        internal StereoBM(IntPtr handle, bool ownsHandle = true) : base(new StereoBMHandle(handle, ownsHandle)) { }
+        internal StereoBM(StereoBMHandle handle) : base(handle) { }
         /// <summary>
         /// Computes stereo disparity using the block matching algorithm.
         /// </summary>
@@ -262,8 +262,8 @@ namespace OpenCV5Sharp
     public partial class StereoMatcher : Algorithm
     {
         public new StereoMatcherHandle Handle => (StereoMatcherHandle)base.Handle;
-        internal StereoMatcher(IntPtr handle, bool ownsHandle = true) : base(new StereoMatcherHandle(handle, ownsHandle)) {}
-        internal StereoMatcher(StereoMatcherHandle handle) : base(handle) {}
+        internal StereoMatcher(IntPtr handle, bool ownsHandle = true) : base(new StereoMatcherHandle(handle, ownsHandle)) { }
+        internal StereoMatcher(StereoMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Computes disparity map for the specified stereo pair
         /// </summary>
@@ -464,8 +464,8 @@ namespace OpenCV5Sharp
     public partial class StereoSGBM : StereoMatcher
     {
         public new StereoSGBMHandle Handle => (StereoSGBMHandle)base.Handle;
-        internal StereoSGBM(IntPtr handle, bool ownsHandle = true) : base(new StereoSGBMHandle(handle, ownsHandle)) {}
-        internal StereoSGBM(StereoSGBMHandle handle) : base(handle) {}
+        internal StereoSGBM(IntPtr handle, bool ownsHandle = true) : base(new StereoSGBMHandle(handle, ownsHandle)) { }
+        internal StereoSGBM(StereoSGBMHandle handle) : base(handle) { }
         /// <summary>
         /// Computes stereo disparity using the semi-global block matching algorithm.
         /// </summary>

@@ -45,7 +45,7 @@ namespace OpenCV5Sharp.Samples
 
         private static void DetectAndDrawCorners(string name, Mat frame)
         {
-            
+
 
             // Convert to grayscale
             using (var gray = new Mat())
@@ -130,7 +130,7 @@ namespace OpenCV5Sharp.Samples
 
         private static void RunSyntheticVerification()
         {
-            
+
             const int size = 300;
 
             // Generate synthetic chessboard-like image with shapes

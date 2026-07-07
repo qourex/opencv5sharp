@@ -15,8 +15,8 @@ namespace OpenCV5Sharp
     public partial class PyRotationWarper : DisposableOpenCVObject
     {
         public new PyRotationWarperHandle Handle => (PyRotationWarperHandle)base.Handle;
-        internal PyRotationWarper(IntPtr handle, bool ownsHandle = true) : base(new PyRotationWarperHandle(handle, ownsHandle)) {}
-        internal PyRotationWarper(PyRotationWarperHandle handle) : base(handle) {}
+        internal PyRotationWarper(IntPtr handle, bool ownsHandle = true) : base(new PyRotationWarperHandle(handle, ownsHandle)) { }
+        internal PyRotationWarper(PyRotationWarperHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -252,8 +252,8 @@ namespace OpenCV5Sharp
     public partial class Stitcher : DisposableOpenCVObject
     {
         public new StitcherHandle Handle => (StitcherHandle)base.Handle;
-        internal Stitcher(IntPtr handle, bool ownsHandle = true) : base(new StitcherHandle(handle, ownsHandle)) {}
-        internal Stitcher(StitcherHandle handle) : base(handle) {}
+        internal Stitcher(IntPtr handle, bool ownsHandle = true) : base(new StitcherHandle(handle, ownsHandle)) { }
+        internal Stitcher(StitcherHandle handle) : base(handle) { }
         /// <summary>
         /// Creates a Stitcher configured in one of the stitching modes.
         /// </summary>
@@ -589,8 +589,8 @@ namespace OpenCV5Sharp
     public partial class WarperCreator : DisposableOpenCVObject
     {
         public new WarperCreatorHandle Handle => (WarperCreatorHandle)base.Handle;
-        internal WarperCreator(IntPtr handle, bool ownsHandle = true) : base(new WarperCreatorHandle(handle, ownsHandle)) {}
-        internal WarperCreator(WarperCreatorHandle handle) : base(handle) {}
+        internal WarperCreator(IntPtr handle, bool ownsHandle = true) : base(new WarperCreatorHandle(handle, ownsHandle)) { }
+        internal WarperCreator(WarperCreatorHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -605,8 +605,8 @@ namespace OpenCV5Sharp
     public partial class DetailAffineBasedEstimator : DetailEstimator
     {
         public new DetailAffineBasedEstimatorHandle Handle => (DetailAffineBasedEstimatorHandle)base.Handle;
-        internal DetailAffineBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBasedEstimatorHandle(handle, ownsHandle)) {}
-        internal DetailAffineBasedEstimator(DetailAffineBasedEstimatorHandle handle) : base(handle) {}
+        internal DetailAffineBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBasedEstimatorHandle(handle, ownsHandle)) { }
+        internal DetailAffineBasedEstimator(DetailAffineBasedEstimatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -632,8 +632,8 @@ namespace OpenCV5Sharp
     public partial class DetailAffineBestOf2NearestMatcher : DetailBestOf2NearestMatcher
     {
         public new DetailAffineBestOf2NearestMatcherHandle Handle => (DetailAffineBestOf2NearestMatcherHandle)base.Handle;
-        internal DetailAffineBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBestOf2NearestMatcherHandle(handle, ownsHandle)) {}
-        internal DetailAffineBestOf2NearestMatcher(DetailAffineBestOf2NearestMatcherHandle handle) : base(handle) {}
+        internal DetailAffineBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailAffineBestOf2NearestMatcherHandle(handle, ownsHandle)) { }
+        internal DetailAffineBestOf2NearestMatcher(DetailAffineBestOf2NearestMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Constructs a "best of 2 nearest" matcher that expects affine transformation
         /// between images
@@ -664,8 +664,8 @@ namespace OpenCV5Sharp
     public partial class DetailBestOf2NearestMatcher : DetailFeaturesMatcher
     {
         public new DetailBestOf2NearestMatcherHandle Handle => (DetailBestOf2NearestMatcherHandle)base.Handle;
-        internal DetailBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestMatcherHandle(handle, ownsHandle)) {}
-        internal DetailBestOf2NearestMatcher(DetailBestOf2NearestMatcherHandle handle) : base(handle) {}
+        internal DetailBestOf2NearestMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestMatcherHandle(handle, ownsHandle)) { }
+        internal DetailBestOf2NearestMatcher(DetailBestOf2NearestMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Constructs a "best of 2 nearest" matcher.
         /// </summary>
@@ -736,8 +736,8 @@ namespace OpenCV5Sharp
     public partial class DetailBestOf2NearestRangeMatcher : DetailBestOf2NearestMatcher
     {
         public new DetailBestOf2NearestRangeMatcherHandle Handle => (DetailBestOf2NearestRangeMatcherHandle)base.Handle;
-        internal DetailBestOf2NearestRangeMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestRangeMatcherHandle(handle, ownsHandle)) {}
-        internal DetailBestOf2NearestRangeMatcher(DetailBestOf2NearestRangeMatcherHandle handle) : base(handle) {}
+        internal DetailBestOf2NearestRangeMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailBestOf2NearestRangeMatcherHandle(handle, ownsHandle)) { }
+        internal DetailBestOf2NearestRangeMatcher(DetailBestOf2NearestRangeMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -764,8 +764,8 @@ namespace OpenCV5Sharp
     public partial class DetailBlender : DisposableOpenCVObject
     {
         public new DetailBlenderHandle Handle => (DetailBlenderHandle)base.Handle;
-        internal DetailBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailBlenderHandle(handle, ownsHandle)) {}
-        internal DetailBlender(DetailBlenderHandle handle) : base(handle) {}
+        internal DetailBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailBlenderHandle(handle, ownsHandle)) { }
+        internal DetailBlender(DetailBlenderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -877,8 +877,8 @@ namespace OpenCV5Sharp
     public partial class DetailBlocksChannelsCompensator : DetailBlocksCompensator
     {
         public new DetailBlocksChannelsCompensatorHandle Handle => (DetailBlocksChannelsCompensatorHandle)base.Handle;
-        internal DetailBlocksChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksChannelsCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailBlocksChannelsCompensator(DetailBlocksChannelsCompensatorHandle handle) : base(handle) {}
+        internal DetailBlocksChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksChannelsCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailBlocksChannelsCompensator(DetailBlocksChannelsCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -900,8 +900,8 @@ namespace OpenCV5Sharp
     public partial class DetailBlocksCompensator : DetailExposureCompensator
     {
         public new DetailBlocksCompensatorHandle Handle => (DetailBlocksCompensatorHandle)base.Handle;
-        internal DetailBlocksCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailBlocksCompensator(DetailBlocksCompensatorHandle handle) : base(handle) {}
+        internal DetailBlocksCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailBlocksCompensator(DetailBlocksCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1072,8 +1072,8 @@ namespace OpenCV5Sharp
     public partial class DetailBlocksGainCompensator : DetailBlocksCompensator
     {
         public new DetailBlocksGainCompensatorHandle Handle => (DetailBlocksGainCompensatorHandle)base.Handle;
-        internal DetailBlocksGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksGainCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailBlocksGainCompensator(DetailBlocksGainCompensatorHandle handle) : base(handle) {}
+        internal DetailBlocksGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailBlocksGainCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailBlocksGainCompensator(DetailBlocksGainCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1160,8 +1160,8 @@ namespace OpenCV5Sharp
     public partial class DetailBundleAdjusterAffine : DetailBundleAdjusterBase
     {
         public new DetailBundleAdjusterAffineHandle Handle => (DetailBundleAdjusterAffineHandle)base.Handle;
-        internal DetailBundleAdjusterAffine(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffineHandle(handle, ownsHandle)) {}
-        internal DetailBundleAdjusterAffine(DetailBundleAdjusterAffineHandle handle) : base(handle) {}
+        internal DetailBundleAdjusterAffine(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffineHandle(handle, ownsHandle)) { }
+        internal DetailBundleAdjusterAffine(DetailBundleAdjusterAffineHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1187,8 +1187,8 @@ namespace OpenCV5Sharp
     public partial class DetailBundleAdjusterAffinePartial : DetailBundleAdjusterBase
     {
         public new DetailBundleAdjusterAffinePartialHandle Handle => (DetailBundleAdjusterAffinePartialHandle)base.Handle;
-        internal DetailBundleAdjusterAffinePartial(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffinePartialHandle(handle, ownsHandle)) {}
-        internal DetailBundleAdjusterAffinePartial(DetailBundleAdjusterAffinePartialHandle handle) : base(handle) {}
+        internal DetailBundleAdjusterAffinePartial(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterAffinePartialHandle(handle, ownsHandle)) { }
+        internal DetailBundleAdjusterAffinePartial(DetailBundleAdjusterAffinePartialHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1207,8 +1207,8 @@ namespace OpenCV5Sharp
     public partial class DetailBundleAdjusterBase : DetailEstimator
     {
         public new DetailBundleAdjusterBaseHandle Handle => (DetailBundleAdjusterBaseHandle)base.Handle;
-        internal DetailBundleAdjusterBase(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterBaseHandle(handle, ownsHandle)) {}
-        internal DetailBundleAdjusterBase(DetailBundleAdjusterBaseHandle handle) : base(handle) {}
+        internal DetailBundleAdjusterBase(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterBaseHandle(handle, ownsHandle)) { }
+        internal DetailBundleAdjusterBase(DetailBundleAdjusterBaseHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1323,8 +1323,8 @@ namespace OpenCV5Sharp
     public partial class DetailBundleAdjusterRay : DetailBundleAdjusterBase
     {
         public new DetailBundleAdjusterRayHandle Handle => (DetailBundleAdjusterRayHandle)base.Handle;
-        internal DetailBundleAdjusterRay(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterRayHandle(handle, ownsHandle)) {}
-        internal DetailBundleAdjusterRay(DetailBundleAdjusterRayHandle handle) : base(handle) {}
+        internal DetailBundleAdjusterRay(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterRayHandle(handle, ownsHandle)) { }
+        internal DetailBundleAdjusterRay(DetailBundleAdjusterRayHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1348,8 +1348,8 @@ namespace OpenCV5Sharp
     public partial class DetailBundleAdjusterReproj : DetailBundleAdjusterBase
     {
         public new DetailBundleAdjusterReprojHandle Handle => (DetailBundleAdjusterReprojHandle)base.Handle;
-        internal DetailBundleAdjusterReproj(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterReprojHandle(handle, ownsHandle)) {}
-        internal DetailBundleAdjusterReproj(DetailBundleAdjusterReprojHandle handle) : base(handle) {}
+        internal DetailBundleAdjusterReproj(IntPtr handle, bool ownsHandle = true) : base(new DetailBundleAdjusterReprojHandle(handle, ownsHandle)) { }
+        internal DetailBundleAdjusterReproj(DetailBundleAdjusterReprojHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1371,8 +1371,8 @@ namespace OpenCV5Sharp
     public partial class DetailCameraParams : DisposableOpenCVObject
     {
         public new DetailCameraParamsHandle Handle => (DetailCameraParamsHandle)base.Handle;
-        internal DetailCameraParams(IntPtr handle, bool ownsHandle = true) : base(new DetailCameraParamsHandle(handle, ownsHandle)) {}
-        internal DetailCameraParams(DetailCameraParamsHandle handle) : base(handle) {}
+        internal DetailCameraParams(IntPtr handle, bool ownsHandle = true) : base(new DetailCameraParamsHandle(handle, ownsHandle)) { }
+        internal DetailCameraParams(DetailCameraParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1439,21 +1439,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? R
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_CameraParams_R_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1463,21 +1470,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? T
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_CameraParams_t_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1493,8 +1507,8 @@ namespace OpenCV5Sharp
     public partial class DetailChannelsCompensator : DetailExposureCompensator
     {
         public new DetailChannelsCompensatorHandle Handle => (DetailChannelsCompensatorHandle)base.Handle;
-        internal DetailChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailChannelsCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailChannelsCompensator(DetailChannelsCompensatorHandle handle) : base(handle) {}
+        internal DetailChannelsCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailChannelsCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailChannelsCompensator(DetailChannelsCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1611,8 +1625,8 @@ namespace OpenCV5Sharp
     public partial class DetailDpSeamFinder : DetailSeamFinder
     {
         public new DetailDpSeamFinderHandle Handle => (DetailDpSeamFinderHandle)base.Handle;
-        internal DetailDpSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailDpSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailDpSeamFinder(DetailDpSeamFinderHandle handle) : base(handle) {}
+        internal DetailDpSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailDpSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailDpSeamFinder(DetailDpSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1650,8 +1664,8 @@ namespace OpenCV5Sharp
     public partial class DetailEstimator : DisposableOpenCVObject
     {
         public new DetailEstimatorHandle Handle => (DetailEstimatorHandle)base.Handle;
-        internal DetailEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailEstimatorHandle(handle, ownsHandle)) {}
-        internal DetailEstimator(DetailEstimatorHandle handle) : base(handle) {}
+        internal DetailEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailEstimatorHandle(handle, ownsHandle)) { }
+        internal DetailEstimator(DetailEstimatorHandle handle) : base(handle) { }
         /// <summary>
         /// Estimates camera parameters.
         /// </summary>
@@ -1677,8 +1691,8 @@ namespace OpenCV5Sharp
     public partial class DetailExposureCompensator : DisposableOpenCVObject
     {
         public new DetailExposureCompensatorHandle Handle => (DetailExposureCompensatorHandle)base.Handle;
-        internal DetailExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailExposureCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailExposureCompensator(DetailExposureCompensatorHandle handle) : base(handle) {}
+        internal DetailExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailExposureCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailExposureCompensator(DetailExposureCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1806,8 +1820,8 @@ namespace OpenCV5Sharp
     public partial class DetailFeatherBlender : DetailBlender
     {
         public new DetailFeatherBlenderHandle Handle => (DetailFeatherBlenderHandle)base.Handle;
-        internal DetailFeatherBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailFeatherBlenderHandle(handle, ownsHandle)) {}
-        internal DetailFeatherBlender(DetailFeatherBlenderHandle handle) : base(handle) {}
+        internal DetailFeatherBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailFeatherBlenderHandle(handle, ownsHandle)) { }
+        internal DetailFeatherBlender(DetailFeatherBlenderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1923,8 +1937,8 @@ namespace OpenCV5Sharp
     public partial class DetailFeaturesMatcher : DisposableOpenCVObject
     {
         public new DetailFeaturesMatcherHandle Handle => (DetailFeaturesMatcherHandle)base.Handle;
-        internal DetailFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailFeaturesMatcherHandle(handle, ownsHandle)) {}
-        internal DetailFeaturesMatcher(DetailFeaturesMatcherHandle handle) : base(handle) {}
+        internal DetailFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailFeaturesMatcherHandle(handle, ownsHandle)) { }
+        internal DetailFeaturesMatcher(DetailFeaturesMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// This is an overloaded member function, provided for convenience.
         /// </summary>
@@ -2001,8 +2015,8 @@ namespace OpenCV5Sharp
     public partial class DetailGainCompensator : DetailExposureCompensator
     {
         public new DetailGainCompensatorHandle Handle => (DetailGainCompensatorHandle)base.Handle;
-        internal DetailGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailGainCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailGainCompensator(DetailGainCompensatorHandle handle) : base(handle) {}
+        internal DetailGainCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailGainCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailGainCompensator(DetailGainCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2128,8 +2142,8 @@ namespace OpenCV5Sharp
     public partial class DetailGraphCutSeamFinder : DisposableOpenCVObject
     {
         public new DetailGraphCutSeamFinderHandle Handle => (DetailGraphCutSeamFinderHandle)base.Handle;
-        internal DetailGraphCutSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailGraphCutSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailGraphCutSeamFinder(DetailGraphCutSeamFinderHandle handle) : base(handle) {}
+        internal DetailGraphCutSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailGraphCutSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailGraphCutSeamFinder(DetailGraphCutSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2165,8 +2179,8 @@ namespace OpenCV5Sharp
     public partial class DetailHomographyBasedEstimator : DetailEstimator
     {
         public new DetailHomographyBasedEstimatorHandle Handle => (DetailHomographyBasedEstimatorHandle)base.Handle;
-        internal DetailHomographyBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailHomographyBasedEstimatorHandle(handle, ownsHandle)) {}
-        internal DetailHomographyBasedEstimator(DetailHomographyBasedEstimatorHandle handle) : base(handle) {}
+        internal DetailHomographyBasedEstimator(IntPtr handle, bool ownsHandle = true) : base(new DetailHomographyBasedEstimatorHandle(handle, ownsHandle)) { }
+        internal DetailHomographyBasedEstimator(DetailHomographyBasedEstimatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2186,8 +2200,8 @@ namespace OpenCV5Sharp
     public partial class DetailImageFeatures : DisposableOpenCVObject
     {
         public new DetailImageFeaturesHandle Handle => (DetailImageFeaturesHandle)base.Handle;
-        internal DetailImageFeatures(IntPtr handle, bool ownsHandle = true) : base(new DetailImageFeaturesHandle(handle, ownsHandle)) {}
-        internal DetailImageFeatures(DetailImageFeaturesHandle handle) : base(handle) {}
+        internal DetailImageFeatures(IntPtr handle, bool ownsHandle = true) : base(new DetailImageFeaturesHandle(handle, ownsHandle)) { }
+        internal DetailImageFeatures(DetailImageFeaturesHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2244,8 +2258,8 @@ namespace OpenCV5Sharp
     public partial class DetailLightGlueFeaturesMatcher : DetailFeaturesMatcher
     {
         public new DetailLightGlueFeaturesMatcherHandle Handle => (DetailLightGlueFeaturesMatcherHandle)base.Handle;
-        internal DetailLightGlueFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailLightGlueFeaturesMatcherHandle(handle, ownsHandle)) {}
-        internal DetailLightGlueFeaturesMatcher(DetailLightGlueFeaturesMatcherHandle handle) : base(handle) {}
+        internal DetailLightGlueFeaturesMatcher(IntPtr handle, bool ownsHandle = true) : base(new DetailLightGlueFeaturesMatcherHandle(handle, ownsHandle)) { }
+        internal DetailLightGlueFeaturesMatcher(DetailLightGlueFeaturesMatcherHandle handle) : base(handle) { }
         /// <summary>
         /// Constructs a LightGlue features matcher.
         /// </summary>
@@ -2288,8 +2302,8 @@ namespace OpenCV5Sharp
     public partial class DetailMatchesInfo : DisposableOpenCVObject
     {
         public new DetailMatchesInfoHandle Handle => (DetailMatchesInfoHandle)base.Handle;
-        internal DetailMatchesInfo(IntPtr handle, bool ownsHandle = true) : base(new DetailMatchesInfoHandle(handle, ownsHandle)) {}
-        internal DetailMatchesInfo(DetailMatchesInfoHandle handle) : base(handle) {}
+        internal DetailMatchesInfo(IntPtr handle, bool ownsHandle = true) : base(new DetailMatchesInfoHandle(handle, ownsHandle)) { }
+        internal DetailMatchesInfo(DetailMatchesInfoHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2355,21 +2369,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? H
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.detail_MatchesInfo_H_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -2391,8 +2412,8 @@ namespace OpenCV5Sharp
     public partial class DetailMultiBandBlender : DetailBlender
     {
         public new DetailMultiBandBlenderHandle Handle => (DetailMultiBandBlenderHandle)base.Handle;
-        internal DetailMultiBandBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailMultiBandBlenderHandle(handle, ownsHandle)) {}
-        internal DetailMultiBandBlender(DetailMultiBandBlenderHandle handle) : base(handle) {}
+        internal DetailMultiBandBlender(IntPtr handle, bool ownsHandle = true) : base(new DetailMultiBandBlenderHandle(handle, ownsHandle)) { }
+        internal DetailMultiBandBlender(DetailMultiBandBlenderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2494,8 +2515,8 @@ namespace OpenCV5Sharp
     public partial class DetailNoBundleAdjuster : DetailBundleAdjusterBase
     {
         public new DetailNoBundleAdjusterHandle Handle => (DetailNoBundleAdjusterHandle)base.Handle;
-        internal DetailNoBundleAdjuster(IntPtr handle, bool ownsHandle = true) : base(new DetailNoBundleAdjusterHandle(handle, ownsHandle)) {}
-        internal DetailNoBundleAdjuster(DetailNoBundleAdjusterHandle handle) : base(handle) {}
+        internal DetailNoBundleAdjuster(IntPtr handle, bool ownsHandle = true) : base(new DetailNoBundleAdjusterHandle(handle, ownsHandle)) { }
+        internal DetailNoBundleAdjuster(DetailNoBundleAdjusterHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2514,8 +2535,8 @@ namespace OpenCV5Sharp
     public partial class DetailNoExposureCompensator : DetailExposureCompensator
     {
         public new DetailNoExposureCompensatorHandle Handle => (DetailNoExposureCompensatorHandle)base.Handle;
-        internal DetailNoExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailNoExposureCompensatorHandle(handle, ownsHandle)) {}
-        internal DetailNoExposureCompensator(DetailNoExposureCompensatorHandle handle) : base(handle) {}
+        internal DetailNoExposureCompensator(IntPtr handle, bool ownsHandle = true) : base(new DetailNoExposureCompensatorHandle(handle, ownsHandle)) { }
+        internal DetailNoExposureCompensator(DetailNoExposureCompensatorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2572,8 +2593,8 @@ namespace OpenCV5Sharp
     public partial class DetailNoSeamFinder : DetailSeamFinder
     {
         public new DetailNoSeamFinderHandle Handle => (DetailNoSeamFinderHandle)base.Handle;
-        internal DetailNoSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailNoSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailNoSeamFinder(DetailNoSeamFinderHandle handle) : base(handle) {}
+        internal DetailNoSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailNoSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailNoSeamFinder(DetailNoSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2597,8 +2618,8 @@ namespace OpenCV5Sharp
     public partial class DetailPairwiseSeamFinder : DetailSeamFinder
     {
         public new DetailPairwiseSeamFinderHandle Handle => (DetailPairwiseSeamFinderHandle)base.Handle;
-        internal DetailPairwiseSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailPairwiseSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailPairwiseSeamFinder(DetailPairwiseSeamFinderHandle handle) : base(handle) {}
+        internal DetailPairwiseSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailPairwiseSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailPairwiseSeamFinder(DetailPairwiseSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2622,8 +2643,8 @@ namespace OpenCV5Sharp
     public partial class DetailProjectorBase : DisposableOpenCVObject
     {
         public new DetailProjectorBaseHandle Handle => (DetailProjectorBaseHandle)base.Handle;
-        internal DetailProjectorBase(IntPtr handle, bool ownsHandle = true) : base(new DetailProjectorBaseHandle(handle, ownsHandle)) {}
-        internal DetailProjectorBase(DetailProjectorBaseHandle handle) : base(handle) {}
+        internal DetailProjectorBase(IntPtr handle, bool ownsHandle = true) : base(new DetailProjectorBaseHandle(handle, ownsHandle)) { }
+        internal DetailProjectorBase(DetailProjectorBaseHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -2633,8 +2654,8 @@ namespace OpenCV5Sharp
     public partial class DetailSeamFinder : DisposableOpenCVObject
     {
         public new DetailSeamFinderHandle Handle => (DetailSeamFinderHandle)base.Handle;
-        internal DetailSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailSeamFinder(DetailSeamFinderHandle handle) : base(handle) {}
+        internal DetailSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailSeamFinder(DetailSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Estimates seams.
         /// </summary>
@@ -2691,8 +2712,8 @@ namespace OpenCV5Sharp
     public partial class DetailSphericalProjector : DetailProjectorBase
     {
         public new DetailSphericalProjectorHandle Handle => (DetailSphericalProjectorHandle)base.Handle;
-        internal DetailSphericalProjector(IntPtr handle, bool ownsHandle = true) : base(new DetailSphericalProjectorHandle(handle, ownsHandle)) {}
-        internal DetailSphericalProjector(DetailSphericalProjectorHandle handle) : base(handle) {}
+        internal DetailSphericalProjector(IntPtr handle, bool ownsHandle = true) : base(new DetailSphericalProjectorHandle(handle, ownsHandle)) { }
+        internal DetailSphericalProjector(DetailSphericalProjectorHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2732,8 +2753,8 @@ namespace OpenCV5Sharp
     public partial class DetailTimelapser : DisposableOpenCVObject
     {
         public new DetailTimelapserHandle Handle => (DetailTimelapserHandle)base.Handle;
-        internal DetailTimelapser(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserHandle(handle, ownsHandle)) {}
-        internal DetailTimelapser(DetailTimelapserHandle handle) : base(handle) {}
+        internal DetailTimelapser(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserHandle(handle, ownsHandle)) { }
+        internal DetailTimelapser(DetailTimelapserHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2823,8 +2844,8 @@ namespace OpenCV5Sharp
     public partial class DetailTimelapserCrop : DetailTimelapser
     {
         public new DetailTimelapserCropHandle Handle => (DetailTimelapserCropHandle)base.Handle;
-        internal DetailTimelapserCrop(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserCropHandle(handle, ownsHandle)) {}
-        internal DetailTimelapserCrop(DetailTimelapserCropHandle handle) : base(handle) {}
+        internal DetailTimelapserCrop(IntPtr handle, bool ownsHandle = true) : base(new DetailTimelapserCropHandle(handle, ownsHandle)) { }
+        internal DetailTimelapserCrop(DetailTimelapserCropHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -2834,8 +2855,8 @@ namespace OpenCV5Sharp
     public partial class DetailVoronoiSeamFinder : DetailPairwiseSeamFinder
     {
         public new DetailVoronoiSeamFinderHandle Handle => (DetailVoronoiSeamFinderHandle)base.Handle;
-        internal DetailVoronoiSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailVoronoiSeamFinderHandle(handle, ownsHandle)) {}
-        internal DetailVoronoiSeamFinder(DetailVoronoiSeamFinderHandle handle) : base(handle) {}
+        internal DetailVoronoiSeamFinder(IntPtr handle, bool ownsHandle = true) : base(new DetailVoronoiSeamFinderHandle(handle, ownsHandle)) { }
+        internal DetailVoronoiSeamFinder(DetailVoronoiSeamFinderHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

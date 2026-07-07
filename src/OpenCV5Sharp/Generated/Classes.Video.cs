@@ -19,8 +19,8 @@ namespace OpenCV5Sharp
     public partial class BackgroundSubtractor : Algorithm
     {
         public new BackgroundSubtractorHandle Handle => (BackgroundSubtractorHandle)base.Handle;
-        internal BackgroundSubtractor(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorHandle(handle, ownsHandle)) {}
-        internal BackgroundSubtractor(BackgroundSubtractorHandle handle) : base(handle) {}
+        internal BackgroundSubtractor(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorHandle(handle, ownsHandle)) { }
+        internal BackgroundSubtractor(BackgroundSubtractorHandle handle) : base(handle) { }
         /// <summary>
         /// Computes a foreground mask.
         /// </summary>
@@ -107,8 +107,8 @@ namespace OpenCV5Sharp
     public partial class BackgroundSubtractorKNN : BackgroundSubtractor
     {
         public new BackgroundSubtractorKNNHandle Handle => (BackgroundSubtractorKNNHandle)base.Handle;
-        internal BackgroundSubtractorKNN(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorKNNHandle(handle, ownsHandle)) {}
-        internal BackgroundSubtractorKNN(BackgroundSubtractorKNNHandle handle) : base(handle) {}
+        internal BackgroundSubtractorKNN(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorKNNHandle(handle, ownsHandle)) { }
+        internal BackgroundSubtractorKNN(BackgroundSubtractorKNNHandle handle) : base(handle) { }
         /// <summary>
         /// Returns the number of last frames that affect the background model
         /// </summary>
@@ -322,8 +322,8 @@ namespace OpenCV5Sharp
     public partial class BackgroundSubtractorMOG2 : BackgroundSubtractor
     {
         public new BackgroundSubtractorMOG2Handle Handle => (BackgroundSubtractorMOG2Handle)base.Handle;
-        internal BackgroundSubtractorMOG2(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorMOG2Handle(handle, ownsHandle)) {}
-        internal BackgroundSubtractorMOG2(BackgroundSubtractorMOG2Handle handle) : base(handle) {}
+        internal BackgroundSubtractorMOG2(IntPtr handle, bool ownsHandle = true) : base(new BackgroundSubtractorMOG2Handle(handle, ownsHandle)) { }
+        internal BackgroundSubtractorMOG2(BackgroundSubtractorMOG2Handle handle) : base(handle) { }
         /// <summary>
         /// Returns the number of last frames that affect the background model
         /// </summary>
@@ -729,8 +729,8 @@ namespace OpenCV5Sharp
     public partial class DISOpticalFlow : DenseOpticalFlow
     {
         public new DISOpticalFlowHandle Handle => (DISOpticalFlowHandle)base.Handle;
-        internal DISOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new DISOpticalFlowHandle(handle, ownsHandle)) {}
-        internal DISOpticalFlow(DISOpticalFlowHandle handle) : base(handle) {}
+        internal DISOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new DISOpticalFlowHandle(handle, ownsHandle)) { }
+        internal DISOpticalFlow(DISOpticalFlowHandle handle) : base(handle) { }
         /// <summary>
         /// Finest level of the Gaussian pyramid on which the flow is computed (zero level
         /// corresponds to the original image resolution). The final flow is obtained by bilinear upscaling.
@@ -1117,8 +1117,8 @@ namespace OpenCV5Sharp
     public partial class DenseOpticalFlow : Algorithm
     {
         public new DenseOpticalFlowHandle Handle => (DenseOpticalFlowHandle)base.Handle;
-        internal DenseOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new DenseOpticalFlowHandle(handle, ownsHandle)) {}
-        internal DenseOpticalFlow(DenseOpticalFlowHandle handle) : base(handle) {}
+        internal DenseOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new DenseOpticalFlowHandle(handle, ownsHandle)) { }
+        internal DenseOpticalFlow(DenseOpticalFlowHandle handle) : base(handle) { }
         /// <summary>
         /// Calculates an optical flow.
         /// </summary>
@@ -1164,8 +1164,8 @@ namespace OpenCV5Sharp
     public partial class ECCParameters : DisposableOpenCVObject
     {
         public new ECCParametersHandle Handle => (ECCParametersHandle)base.Handle;
-        internal ECCParameters(IntPtr handle, bool ownsHandle = true) : base(new ECCParametersHandle(handle, ownsHandle)) {}
-        internal ECCParameters(ECCParametersHandle handle) : base(handle) {}
+        internal ECCParameters(IntPtr handle, bool ownsHandle = true) : base(new ECCParametersHandle(handle, ownsHandle)) { }
+        internal ECCParameters(ECCParametersHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1193,29 +1193,37 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int[] ItersPerLevel
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.ECCParameters_itersPerLevel_get(Handle);
                 if (res == IntPtr.Zero) return Array.Empty<int>();
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     int size = NativeMethods.cv_VectorInt_Size(res);
                     int[] data = new int[size];
                     NativeMethods.cv_VectorInt_GetData(res, data);
                     return data;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorInt_Delete(res);
                     GC.KeepAlive(this);
                 }
             }
-            set {
+            set
+            {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr vecPtr = NativeMethods.cv_VectorInt_New(value, value.Length);
-                try {
+                try
+                {
                     NativeMethods.ECCParameters_itersPerLevel_set(Handle, vecPtr);
                     ErrorHelper.CheckError();
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorInt_Delete(vecPtr);
                     GC.KeepAlive(this);
                 }
@@ -1251,8 +1259,8 @@ namespace OpenCV5Sharp
     public partial class FarnebackOpticalFlow : DenseOpticalFlow
     {
         public new FarnebackOpticalFlowHandle Handle => (FarnebackOpticalFlowHandle)base.Handle;
-        internal FarnebackOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new FarnebackOpticalFlowHandle(handle, ownsHandle)) {}
-        internal FarnebackOpticalFlow(FarnebackOpticalFlowHandle handle) : base(handle) {}
+        internal FarnebackOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new FarnebackOpticalFlowHandle(handle, ownsHandle)) { }
+        internal FarnebackOpticalFlow(FarnebackOpticalFlowHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1508,8 +1516,8 @@ namespace OpenCV5Sharp
     public partial class KalmanFilter : DisposableOpenCVObject
     {
         public new KalmanFilterHandle Handle => (KalmanFilterHandle)base.Handle;
-        internal KalmanFilter(IntPtr handle, bool ownsHandle = true) : base(new KalmanFilterHandle(handle, ownsHandle)) {}
-        internal KalmanFilter(KalmanFilterHandle handle) : base(handle) {}
+        internal KalmanFilter(IntPtr handle, bool ownsHandle = true) : base(new KalmanFilterHandle(handle, ownsHandle)) { }
+        internal KalmanFilter(KalmanFilterHandle handle) : base(handle) { }
         /// <summary>
         /// Implements the standard Kalman filter algorithm for tracking and state estimation.
         /// </summary>
@@ -1617,21 +1625,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? StatePre
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_statePre_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1641,21 +1656,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? StatePost
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_statePost_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1665,21 +1687,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? TransitionMatrix
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_transitionMatrix_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1689,21 +1718,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? ControlMatrix
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_controlMatrix_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1713,21 +1749,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? MeasurementMatrix
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_measurementMatrix_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1737,21 +1780,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? ProcessNoiseCov
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_processNoiseCov_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1761,21 +1811,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? MeasurementNoiseCov
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_measurementNoiseCov_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1785,21 +1842,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? ErrorCovPre
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_errorCovPre_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1809,21 +1873,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? Gain
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_gain_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1833,21 +1904,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? ErrorCovPost
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.KalmanFilter_errorCovPost_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -1862,8 +1940,8 @@ namespace OpenCV5Sharp
     public partial class SparseOpticalFlow : Algorithm
     {
         public new SparseOpticalFlowHandle Handle => (SparseOpticalFlowHandle)base.Handle;
-        internal SparseOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new SparseOpticalFlowHandle(handle, ownsHandle)) {}
-        internal SparseOpticalFlow(SparseOpticalFlowHandle handle) : base(handle) {}
+        internal SparseOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new SparseOpticalFlowHandle(handle, ownsHandle)) { }
+        internal SparseOpticalFlow(SparseOpticalFlowHandle handle) : base(handle) { }
         /// <summary>
         /// Calculates a sparse optical flow.
         /// </summary>
@@ -1914,8 +1992,8 @@ namespace OpenCV5Sharp
     public partial class SparsePyrLKOpticalFlow : SparseOpticalFlow
     {
         public new SparsePyrLKOpticalFlowHandle Handle => (SparsePyrLKOpticalFlowHandle)base.Handle;
-        internal SparsePyrLKOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new SparsePyrLKOpticalFlowHandle(handle, ownsHandle)) {}
-        internal SparsePyrLKOpticalFlow(SparsePyrLKOpticalFlowHandle handle) : base(handle) {}
+        internal SparsePyrLKOpticalFlow(IntPtr handle, bool ownsHandle = true) : base(new SparsePyrLKOpticalFlowHandle(handle, ownsHandle)) { }
+        internal SparsePyrLKOpticalFlow(SparsePyrLKOpticalFlowHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2086,8 +2164,8 @@ namespace OpenCV5Sharp
     public partial class Tracker : DisposableOpenCVObject
     {
         public new TrackerHandle Handle => (TrackerHandle)base.Handle;
-        internal Tracker(IntPtr handle, bool ownsHandle = true) : base(new TrackerHandle(handle, ownsHandle)) {}
-        internal Tracker(TrackerHandle handle) : base(handle) {}
+        internal Tracker(IntPtr handle, bool ownsHandle = true) : base(new TrackerHandle(handle, ownsHandle)) { }
+        internal Tracker(TrackerHandle handle) : base(handle) { }
         /// <summary>
         /// Initialize the tracker with a known bounding box that surrounded the target
         /// </summary>
@@ -2148,8 +2226,8 @@ namespace OpenCV5Sharp
     public partial class TrackerDaSiamRPN : Tracker
     {
         public new TrackerDaSiamRPNHandle Handle => (TrackerDaSiamRPNHandle)base.Handle;
-        internal TrackerDaSiamRPN(IntPtr handle, bool ownsHandle = true) : base(new TrackerDaSiamRPNHandle(handle, ownsHandle)) {}
-        internal TrackerDaSiamRPN(TrackerDaSiamRPNHandle handle) : base(handle) {}
+        internal TrackerDaSiamRPN(IntPtr handle, bool ownsHandle = true) : base(new TrackerDaSiamRPNHandle(handle, ownsHandle)) { }
+        internal TrackerDaSiamRPN(TrackerDaSiamRPNHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -2196,8 +2274,8 @@ namespace OpenCV5Sharp
     public partial class TrackerDaSiamRPNParams : DisposableOpenCVObject
     {
         public new TrackerDaSiamRPNParamsHandle Handle => (TrackerDaSiamRPNParamsHandle)base.Handle;
-        internal TrackerDaSiamRPNParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerDaSiamRPNParamsHandle(handle, ownsHandle)) {}
-        internal TrackerDaSiamRPNParams(TrackerDaSiamRPNParamsHandle handle) : base(handle) {}
+        internal TrackerDaSiamRPNParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerDaSiamRPNParamsHandle(handle, ownsHandle)) { }
+        internal TrackerDaSiamRPNParams(TrackerDaSiamRPNParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2211,15 +2289,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Model
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerDaSiamRPN_Params_model_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2230,15 +2312,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? KernelCls1
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerDaSiamRPN_Params_kernel_cls1_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2249,15 +2335,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? KernelR1
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerDaSiamRPN_Params_kernel_r1_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2293,8 +2383,8 @@ namespace OpenCV5Sharp
     public partial class TrackerMIL : Tracker
     {
         public new TrackerMILHandle Handle => (TrackerMILHandle)base.Handle;
-        internal TrackerMIL(IntPtr handle, bool ownsHandle = true) : base(new TrackerMILHandle(handle, ownsHandle)) {}
-        internal TrackerMIL(TrackerMILHandle handle) : base(handle) {}
+        internal TrackerMIL(IntPtr handle, bool ownsHandle = true) : base(new TrackerMILHandle(handle, ownsHandle)) { }
+        internal TrackerMIL(TrackerMILHandle handle) : base(handle) { }
         /// <summary>
         /// Create MIL tracker instance
         /// </summary>
@@ -2341,8 +2431,8 @@ namespace OpenCV5Sharp
     public partial class TrackerMILParams : DisposableOpenCVObject
     {
         public new TrackerMILParamsHandle Handle => (TrackerMILParamsHandle)base.Handle;
-        internal TrackerMILParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerMILParamsHandle(handle, ownsHandle)) {}
-        internal TrackerMILParams(TrackerMILParamsHandle handle) : base(handle) {}
+        internal TrackerMILParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerMILParamsHandle(handle, ownsHandle)) { }
+        internal TrackerMILParams(TrackerMILParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2416,8 +2506,8 @@ namespace OpenCV5Sharp
     public partial class TrackerNano : Tracker
     {
         public new TrackerNanoHandle Handle => (TrackerNanoHandle)base.Handle;
-        internal TrackerNano(IntPtr handle, bool ownsHandle = true) : base(new TrackerNanoHandle(handle, ownsHandle)) {}
-        internal TrackerNano(TrackerNanoHandle handle) : base(handle) {}
+        internal TrackerNano(IntPtr handle, bool ownsHandle = true) : base(new TrackerNanoHandle(handle, ownsHandle)) { }
+        internal TrackerNano(TrackerNanoHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -2464,8 +2554,8 @@ namespace OpenCV5Sharp
     public partial class TrackerNanoParams : DisposableOpenCVObject
     {
         public new TrackerNanoParamsHandle Handle => (TrackerNanoParamsHandle)base.Handle;
-        internal TrackerNanoParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerNanoParamsHandle(handle, ownsHandle)) {}
-        internal TrackerNanoParams(TrackerNanoParamsHandle handle) : base(handle) {}
+        internal TrackerNanoParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerNanoParamsHandle(handle, ownsHandle)) { }
+        internal TrackerNanoParams(TrackerNanoParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2479,15 +2569,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Backbone
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerNano_Params_backbone_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2498,15 +2592,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Neckhead
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerNano_Params_neckhead_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2540,8 +2638,8 @@ namespace OpenCV5Sharp
     public partial class TrackerVit : Tracker
     {
         public new TrackerVitHandle Handle => (TrackerVitHandle)base.Handle;
-        internal TrackerVit(IntPtr handle, bool ownsHandle = true) : base(new TrackerVitHandle(handle, ownsHandle)) {}
-        internal TrackerVit(TrackerVitHandle handle) : base(handle) {}
+        internal TrackerVit(IntPtr handle, bool ownsHandle = true) : base(new TrackerVitHandle(handle, ownsHandle)) { }
+        internal TrackerVit(TrackerVitHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -2588,8 +2686,8 @@ namespace OpenCV5Sharp
     public partial class TrackerVitParams : DisposableOpenCVObject
     {
         public new TrackerVitParamsHandle Handle => (TrackerVitParamsHandle)base.Handle;
-        internal TrackerVitParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerVitParamsHandle(handle, ownsHandle)) {}
-        internal TrackerVitParams(TrackerVitParamsHandle handle) : base(handle) {}
+        internal TrackerVitParams(IntPtr handle, bool ownsHandle = true) : base(new TrackerVitParamsHandle(handle, ownsHandle)) { }
+        internal TrackerVitParams(TrackerVitParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2603,15 +2701,19 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public string? Net
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.TrackerVit_Params_net_get(Handle);
                 if (res == IntPtr.Zero) return null;
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     string strRes = Marshal.PtrToStringUTF8(res) ?? "";
                     return strRes;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_FreeString(res);
                     GC.KeepAlive(this);
                 }
@@ -2671,8 +2773,8 @@ namespace OpenCV5Sharp
     public partial class VariationalRefinement : DenseOpticalFlow
     {
         public new VariationalRefinementHandle Handle => (VariationalRefinementHandle)base.Handle;
-        internal VariationalRefinement(IntPtr handle, bool ownsHandle = true) : base(new VariationalRefinementHandle(handle, ownsHandle)) {}
-        internal VariationalRefinement(VariationalRefinementHandle handle) : base(handle) {}
+        internal VariationalRefinement(IntPtr handle, bool ownsHandle = true) : base(new VariationalRefinementHandle(handle, ownsHandle)) { }
+        internal VariationalRefinement(VariationalRefinementHandle handle) : base(handle) { }
         /// <summary>
         /// calc function overload to handle separate horizontal (u) and vertical (v) flow components
         /// (to avoid extra splits/merges)

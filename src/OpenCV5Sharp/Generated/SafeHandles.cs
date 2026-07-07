@@ -16,18 +16,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedHandle"/> class.
         /// </summary>
-        public AlikedHandle() : base(true) {}
+        public AlikedHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AlikedHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AlikedHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AlikedHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AlikedHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -53,18 +53,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedParamsHandle"/> class.
         /// </summary>
-        public AlikedParamsHandle() : base(true) {}
+        public AlikedParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AlikedParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AlikedParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlikedParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AlikedParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AlikedParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -90,18 +90,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ANNIndexHandle"/> class.
         /// </summary>
-        public ANNIndexHandle() : base(true) {}
+        public ANNIndexHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ANNIndexHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ANNIndexHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ANNIndexHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ANNIndexHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ANNIndexHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ANNIndexHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -127,18 +127,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AffineFeatureHandle"/> class.
         /// </summary>
-        public AffineFeatureHandle() : base(true) {}
+        public AffineFeatureHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AffineFeatureHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AffineFeatureHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AffineFeatureHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AffineFeatureHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AffineFeatureHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AffineFeatureHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -164,18 +164,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AlgorithmHandle"/> class.
         /// </summary>
-        public AlgorithmHandle() : base(true) {}
+        public AlgorithmHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlgorithmHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AlgorithmHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AlgorithmHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlgorithmHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AlgorithmHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AlgorithmHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -201,18 +201,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignExposuresHandle"/> class.
         /// </summary>
-        public AlignExposuresHandle() : base(true) {}
+        public AlignExposuresHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignExposuresHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AlignExposuresHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AlignExposuresHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignExposuresHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AlignExposuresHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AlignExposuresHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -238,18 +238,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignMTBHandle"/> class.
         /// </summary>
-        public AlignMTBHandle() : base(true) {}
+        public AlignMTBHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignMTBHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AlignMTBHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AlignMTBHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AlignMTBHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AlignMTBHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AlignMTBHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -275,18 +275,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimationHandle"/> class.
         /// </summary>
-        public AnimationHandle() : base(true) {}
+        public AnimationHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimationHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AnimationHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AnimationHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AnimationHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AnimationHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AnimationHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -312,18 +312,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncArrayHandle"/> class.
         /// </summary>
-        public AsyncArrayHandle() : base(true) {}
+        public AsyncArrayHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncArrayHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected AsyncArrayHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected AsyncArrayHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="AsyncArrayHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public AsyncArrayHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public AsyncArrayHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -349,18 +349,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="BFMatcherHandle"/> class.
         /// </summary>
-        public BFMatcherHandle() : base(true) {}
+        public BFMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BFMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected BFMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected BFMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BFMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public BFMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public BFMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -386,18 +386,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorHandle"/> class.
         /// </summary>
-        public BackgroundSubtractorHandle() : base(true) {}
+        public BackgroundSubtractorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected BackgroundSubtractorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected BackgroundSubtractorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public BackgroundSubtractorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public BackgroundSubtractorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -423,18 +423,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorKNNHandle"/> class.
         /// </summary>
-        public BackgroundSubtractorKNNHandle() : base(true) {}
+        public BackgroundSubtractorKNNHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorKNNHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected BackgroundSubtractorKNNHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected BackgroundSubtractorKNNHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorKNNHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public BackgroundSubtractorKNNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public BackgroundSubtractorKNNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -460,18 +460,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorMOG2Handle"/> class.
         /// </summary>
-        public BackgroundSubtractorMOG2Handle() : base(true) {}
+        public BackgroundSubtractorMOG2Handle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorMOG2Handle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected BackgroundSubtractorMOG2Handle(bool ownsHandle) : base(ownsHandle) {}
+        protected BackgroundSubtractorMOG2Handle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BackgroundSubtractorMOG2Handle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public BackgroundSubtractorMOG2Handle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public BackgroundSubtractorMOG2Handle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -497,18 +497,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaheHandle"/> class.
         /// </summary>
-        public ClaheHandle() : base(true) {}
+        public ClaheHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaheHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ClaheHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ClaheHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaheHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ClaheHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ClaheHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -534,18 +534,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateCRFHandle"/> class.
         /// </summary>
-        public CalibrateCRFHandle() : base(true) {}
+        public CalibrateCRFHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateCRFHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CalibrateCRFHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CalibrateCRFHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateCRFHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CalibrateCRFHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CalibrateCRFHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -571,18 +571,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateDebevecHandle"/> class.
         /// </summary>
-        public CalibrateDebevecHandle() : base(true) {}
+        public CalibrateDebevecHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateDebevecHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CalibrateDebevecHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CalibrateDebevecHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateDebevecHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CalibrateDebevecHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CalibrateDebevecHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -608,18 +608,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateRobertsonHandle"/> class.
         /// </summary>
-        public CalibrateRobertsonHandle() : base(true) {}
+        public CalibrateRobertsonHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateRobertsonHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CalibrateRobertsonHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CalibrateRobertsonHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CalibrateRobertsonHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CalibrateRobertsonHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CalibrateRobertsonHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -645,18 +645,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CirclesGridFinderParametersHandle"/> class.
         /// </summary>
-        public CirclesGridFinderParametersHandle() : base(true) {}
+        public CirclesGridFinderParametersHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CirclesGridFinderParametersHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CirclesGridFinderParametersHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CirclesGridFinderParametersHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CirclesGridFinderParametersHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CirclesGridFinderParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CirclesGridFinderParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -682,18 +682,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DISOpticalFlowHandle"/> class.
         /// </summary>
-        public DISOpticalFlowHandle() : base(true) {}
+        public DISOpticalFlowHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DISOpticalFlowHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DISOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DISOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DISOpticalFlowHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DISOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DISOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -719,18 +719,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DMatchHandle"/> class.
         /// </summary>
-        public DMatchHandle() : base(true) {}
+        public DMatchHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DMatchHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DMatchHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DMatchHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DMatchHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DMatchHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DMatchHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -756,18 +756,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DenseOpticalFlowHandle"/> class.
         /// </summary>
-        public DenseOpticalFlowHandle() : base(true) {}
+        public DenseOpticalFlowHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DenseOpticalFlowHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DenseOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DenseOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DenseOpticalFlowHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DenseOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DenseOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -793,18 +793,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DescriptorMatcherHandle"/> class.
         /// </summary>
-        public DescriptorMatcherHandle() : base(true) {}
+        public DescriptorMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DescriptorMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DescriptorMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DescriptorMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DescriptorMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DescriptorMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DescriptorMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -830,18 +830,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ECCParametersHandle"/> class.
         /// </summary>
-        public ECCParametersHandle() : base(true) {}
+        public ECCParametersHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ECCParametersHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ECCParametersHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ECCParametersHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ECCParametersHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ECCParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ECCParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -867,18 +867,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceDetectorYNHandle"/> class.
         /// </summary>
-        public FaceDetectorYNHandle() : base(true) {}
+        public FaceDetectorYNHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceDetectorYNHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FaceDetectorYNHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FaceDetectorYNHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceDetectorYNHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FaceDetectorYNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FaceDetectorYNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -904,18 +904,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceRecognizerSFHandle"/> class.
         /// </summary>
-        public FaceRecognizerSFHandle() : base(true) {}
+        public FaceRecognizerSFHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceRecognizerSFHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FaceRecognizerSFHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FaceRecognizerSFHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceRecognizerSFHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FaceRecognizerSFHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FaceRecognizerSFHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -941,18 +941,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FarnebackOpticalFlowHandle"/> class.
         /// </summary>
-        public FarnebackOpticalFlowHandle() : base(true) {}
+        public FarnebackOpticalFlowHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FarnebackOpticalFlowHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FarnebackOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FarnebackOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FarnebackOpticalFlowHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FarnebackOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FarnebackOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -978,18 +978,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FastFeatureDetectorHandle"/> class.
         /// </summary>
-        public FastFeatureDetectorHandle() : base(true) {}
+        public FastFeatureDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FastFeatureDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FastFeatureDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FastFeatureDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FastFeatureDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FastFeatureDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FastFeatureDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1015,18 +1015,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="Feature2DHandle"/> class.
         /// </summary>
-        public Feature2DHandle() : base(true) {}
+        public Feature2DHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Feature2DHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected Feature2DHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected Feature2DHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Feature2DHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public Feature2DHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public Feature2DHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1052,18 +1052,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FileNodeHandle"/> class.
         /// </summary>
-        public FileNodeHandle() : base(true) {}
+        public FileNodeHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileNodeHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FileNodeHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FileNodeHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileNodeHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FileNodeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FileNodeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1089,18 +1089,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStorageHandle"/> class.
         /// </summary>
-        public FileStorageHandle() : base(true) {}
+        public FileStorageHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStorageHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FileStorageHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FileStorageHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileStorageHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FileStorageHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FileStorageHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1126,18 +1126,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter2DParamsHandle"/> class.
         /// </summary>
-        public Filter2DParamsHandle() : base(true) {}
+        public Filter2DParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter2DParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected Filter2DParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected Filter2DParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter2DParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public Filter2DParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public Filter2DParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1163,18 +1163,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FontFaceHandle"/> class.
         /// </summary>
-        public FontFaceHandle() : base(true) {}
+        public FontFaceHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FontFaceHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FontFaceHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FontFaceHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FontFaceHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FontFaceHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FontFaceHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1200,18 +1200,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="GFTTDetectorHandle"/> class.
         /// </summary>
-        public GFTTDetectorHandle() : base(true) {}
+        public GFTTDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GFTTDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected GFTTDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected GFTTDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GFTTDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public GFTTDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public GFTTDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1237,18 +1237,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughHandle"/> class.
         /// </summary>
-        public GeneralizedHoughHandle() : base(true) {}
+        public GeneralizedHoughHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected GeneralizedHoughHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected GeneralizedHoughHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public GeneralizedHoughHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public GeneralizedHoughHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1274,18 +1274,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughBallardHandle"/> class.
         /// </summary>
-        public GeneralizedHoughBallardHandle() : base(true) {}
+        public GeneralizedHoughBallardHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughBallardHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected GeneralizedHoughBallardHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected GeneralizedHoughBallardHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughBallardHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public GeneralizedHoughBallardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public GeneralizedHoughBallardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1311,18 +1311,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughGuilHandle"/> class.
         /// </summary>
-        public GeneralizedHoughGuilHandle() : base(true) {}
+        public GeneralizedHoughGuilHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughGuilHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected GeneralizedHoughGuilHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected GeneralizedHoughGuilHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralizedHoughGuilHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public GeneralizedHoughGuilHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public GeneralizedHoughGuilHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1348,18 +1348,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphicalCodeDetectorHandle"/> class.
         /// </summary>
-        public GraphicalCodeDetectorHandle() : base(true) {}
+        public GraphicalCodeDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphicalCodeDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected GraphicalCodeDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected GraphicalCodeDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphicalCodeDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public GraphicalCodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public GraphicalCodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1385,18 +1385,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="KalmanFilterHandle"/> class.
         /// </summary>
-        public KalmanFilterHandle() : base(true) {}
+        public KalmanFilterHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="KalmanFilterHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected KalmanFilterHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected KalmanFilterHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="KalmanFilterHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public KalmanFilterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public KalmanFilterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1422,18 +1422,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyPointHandle"/> class.
         /// </summary>
-        public KeyPointHandle() : base(true) {}
+        public KeyPointHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyPointHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected KeyPointHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected KeyPointHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyPointHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public KeyPointHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public KeyPointHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1459,18 +1459,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="LightGlueMatcherHandle"/> class.
         /// </summary>
-        public LightGlueMatcherHandle() : base(true) {}
+        public LightGlueMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="LightGlueMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected LightGlueMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected LightGlueMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="LightGlueMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public LightGlueMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public LightGlueMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1496,18 +1496,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegmentDetectorHandle"/> class.
         /// </summary>
-        public LineSegmentDetectorHandle() : base(true) {}
+        public LineSegmentDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegmentDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected LineSegmentDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected LineSegmentDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegmentDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public LineSegmentDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public LineSegmentDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1533,18 +1533,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MserHandle"/> class.
         /// </summary>
-        public MserHandle() : base(true) {}
+        public MserHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MserHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MserHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MserHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MserHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MserHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MserHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1570,18 +1570,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MSTEdgeHandle"/> class.
         /// </summary>
-        public MSTEdgeHandle() : base(true) {}
+        public MSTEdgeHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MSTEdgeHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MSTEdgeHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MSTEdgeHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MSTEdgeHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MSTEdgeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MSTEdgeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1607,18 +1607,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MatHandle"/> class.
         /// </summary>
-        public MatHandle() : base(true) {}
+        public MatHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MatHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MatHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MatHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MatHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MatHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MatHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1644,18 +1644,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MatShapeHandle"/> class.
         /// </summary>
-        public MatShapeHandle() : base(true) {}
+        public MatShapeHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MatShapeHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MatShapeHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MatShapeHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MatShapeHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MatShapeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MatShapeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1681,18 +1681,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeDebevecHandle"/> class.
         /// </summary>
-        public MergeDebevecHandle() : base(true) {}
+        public MergeDebevecHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeDebevecHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MergeDebevecHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MergeDebevecHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeDebevecHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MergeDebevecHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MergeDebevecHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1718,18 +1718,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeExposuresHandle"/> class.
         /// </summary>
-        public MergeExposuresHandle() : base(true) {}
+        public MergeExposuresHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeExposuresHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MergeExposuresHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MergeExposuresHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeExposuresHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MergeExposuresHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MergeExposuresHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1755,18 +1755,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeMertensHandle"/> class.
         /// </summary>
-        public MergeMertensHandle() : base(true) {}
+        public MergeMertensHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeMertensHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MergeMertensHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MergeMertensHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeMertensHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MergeMertensHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MergeMertensHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1792,18 +1792,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeRobertsonHandle"/> class.
         /// </summary>
-        public MergeRobertsonHandle() : base(true) {}
+        public MergeRobertsonHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeRobertsonHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MergeRobertsonHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MergeRobertsonHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MergeRobertsonHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MergeRobertsonHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MergeRobertsonHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1829,18 +1829,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MomentsHandle"/> class.
         /// </summary>
-        public MomentsHandle() : base(true) {}
+        public MomentsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MomentsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MomentsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MomentsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MomentsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MomentsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MomentsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1866,18 +1866,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OrbHandle"/> class.
         /// </summary>
-        public OrbHandle() : base(true) {}
+        public OrbHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OrbHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OrbHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OrbHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OrbHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OrbHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OrbHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1903,18 +1903,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OctreeHandle"/> class.
         /// </summary>
-        public OctreeHandle() : base(true) {}
+        public OctreeHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OctreeHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OctreeHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OctreeHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OctreeHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OctreeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OctreeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1940,18 +1940,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryHandle"/> class.
         /// </summary>
-        public OdometryHandle() : base(true) {}
+        public OdometryHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OdometryHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OdometryHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OdometryHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OdometryHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -1977,18 +1977,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryFrameHandle"/> class.
         /// </summary>
-        public OdometryFrameHandle() : base(true) {}
+        public OdometryFrameHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryFrameHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OdometryFrameHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OdometryFrameHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometryFrameHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OdometryFrameHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OdometryFrameHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2014,18 +2014,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometrySettingsHandle"/> class.
         /// </summary>
-        public OdometrySettingsHandle() : base(true) {}
+        public OdometrySettingsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometrySettingsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OdometrySettingsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OdometrySettingsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OdometrySettingsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OdometrySettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OdometrySettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2051,18 +2051,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="PyRotationWarperHandle"/> class.
         /// </summary>
-        public PyRotationWarperHandle() : base(true) {}
+        public PyRotationWarperHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="PyRotationWarperHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected PyRotationWarperHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected PyRotationWarperHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="PyRotationWarperHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public PyRotationWarperHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public PyRotationWarperHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2088,18 +2088,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorHandle"/> class.
         /// </summary>
-        public QRCodeDetectorHandle() : base(true) {}
+        public QRCodeDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected QRCodeDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected QRCodeDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public QRCodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public QRCodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2125,18 +2125,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoHandle"/> class.
         /// </summary>
-        public QRCodeDetectorArucoHandle() : base(true) {}
+        public QRCodeDetectorArucoHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected QRCodeDetectorArucoHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected QRCodeDetectorArucoHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public QRCodeDetectorArucoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public QRCodeDetectorArucoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2162,18 +2162,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoParamsHandle"/> class.
         /// </summary>
-        public QRCodeDetectorArucoParamsHandle() : base(true) {}
+        public QRCodeDetectorArucoParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected QRCodeDetectorArucoParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected QRCodeDetectorArucoParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeDetectorArucoParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public QRCodeDetectorArucoParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public QRCodeDetectorArucoParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2199,18 +2199,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderHandle"/> class.
         /// </summary>
-        public QRCodeEncoderHandle() : base(true) {}
+        public QRCodeEncoderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected QRCodeEncoderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected QRCodeEncoderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public QRCodeEncoderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public QRCodeEncoderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2236,18 +2236,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderParamsHandle"/> class.
         /// </summary>
-        public QRCodeEncoderParamsHandle() : base(true) {}
+        public QRCodeEncoderParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected QRCodeEncoderParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected QRCodeEncoderParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="QRCodeEncoderParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public QRCodeEncoderParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public QRCodeEncoderParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2273,18 +2273,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="RgbdNormalsHandle"/> class.
         /// </summary>
-        public RgbdNormalsHandle() : base(true) {}
+        public RgbdNormalsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="RgbdNormalsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected RgbdNormalsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected RgbdNormalsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="RgbdNormalsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public RgbdNormalsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public RgbdNormalsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2310,18 +2310,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectHandle"/> class.
         /// </summary>
-        public RotatedRectHandle() : base(true) {}
+        public RotatedRectHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected RotatedRectHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected RotatedRectHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="RotatedRectHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public RotatedRectHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public RotatedRectHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2347,18 +2347,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SiftHandle"/> class.
         /// </summary>
-        public SiftHandle() : base(true) {}
+        public SiftHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SiftHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SiftHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SiftHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SiftHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SiftHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SiftHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2384,18 +2384,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorHandle"/> class.
         /// </summary>
-        public SimpleBlobDetectorHandle() : base(true) {}
+        public SimpleBlobDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SimpleBlobDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SimpleBlobDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SimpleBlobDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SimpleBlobDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2421,18 +2421,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorParamsHandle"/> class.
         /// </summary>
-        public SimpleBlobDetectorParamsHandle() : base(true) {}
+        public SimpleBlobDetectorParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SimpleBlobDetectorParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SimpleBlobDetectorParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleBlobDetectorParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SimpleBlobDetectorParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SimpleBlobDetectorParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2458,18 +2458,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SparseOpticalFlowHandle"/> class.
         /// </summary>
-        public SparseOpticalFlowHandle() : base(true) {}
+        public SparseOpticalFlowHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SparseOpticalFlowHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SparseOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SparseOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SparseOpticalFlowHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SparseOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SparseOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2495,18 +2495,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SparsePyrLKOpticalFlowHandle"/> class.
         /// </summary>
-        public SparsePyrLKOpticalFlowHandle() : base(true) {}
+        public SparsePyrLKOpticalFlowHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SparsePyrLKOpticalFlowHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SparsePyrLKOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SparsePyrLKOpticalFlowHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SparsePyrLKOpticalFlowHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SparsePyrLKOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SparsePyrLKOpticalFlowHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2532,18 +2532,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoBMHandle"/> class.
         /// </summary>
-        public StereoBMHandle() : base(true) {}
+        public StereoBMHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoBMHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected StereoBMHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected StereoBMHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoBMHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public StereoBMHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public StereoBMHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2569,18 +2569,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoMatcherHandle"/> class.
         /// </summary>
-        public StereoMatcherHandle() : base(true) {}
+        public StereoMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected StereoMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected StereoMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public StereoMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public StereoMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2606,18 +2606,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoSGBMHandle"/> class.
         /// </summary>
-        public StereoSGBMHandle() : base(true) {}
+        public StereoSGBMHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoSGBMHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected StereoSGBMHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected StereoSGBMHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StereoSGBMHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public StereoSGBMHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public StereoSGBMHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2643,18 +2643,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="StitcherHandle"/> class.
         /// </summary>
-        public StitcherHandle() : base(true) {}
+        public StitcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StitcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected StitcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected StitcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="StitcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public StitcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public StitcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2680,18 +2680,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="Subdiv2DHandle"/> class.
         /// </summary>
-        public Subdiv2DHandle() : base(true) {}
+        public Subdiv2DHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Subdiv2DHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected Subdiv2DHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected Subdiv2DHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Subdiv2DHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public Subdiv2DHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public Subdiv2DHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2717,18 +2717,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TickMeterHandle"/> class.
         /// </summary>
-        public TickMeterHandle() : base(true) {}
+        public TickMeterHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TickMeterHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TickMeterHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TickMeterHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TickMeterHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TickMeterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TickMeterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2754,18 +2754,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapHandle"/> class.
         /// </summary>
-        public TonemapHandle() : base(true) {}
+        public TonemapHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TonemapHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TonemapHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TonemapHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TonemapHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2791,18 +2791,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapDragoHandle"/> class.
         /// </summary>
-        public TonemapDragoHandle() : base(true) {}
+        public TonemapDragoHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapDragoHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TonemapDragoHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TonemapDragoHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapDragoHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TonemapDragoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TonemapDragoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2828,18 +2828,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapMantiukHandle"/> class.
         /// </summary>
-        public TonemapMantiukHandle() : base(true) {}
+        public TonemapMantiukHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapMantiukHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TonemapMantiukHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TonemapMantiukHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapMantiukHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TonemapMantiukHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TonemapMantiukHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2865,18 +2865,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapReinhardHandle"/> class.
         /// </summary>
-        public TonemapReinhardHandle() : base(true) {}
+        public TonemapReinhardHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapReinhardHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TonemapReinhardHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TonemapReinhardHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TonemapReinhardHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TonemapReinhardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TonemapReinhardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2902,18 +2902,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerHandle"/> class.
         /// </summary>
-        public TrackerHandle() : base(true) {}
+        public TrackerHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2939,18 +2939,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNHandle"/> class.
         /// </summary>
-        public TrackerDaSiamRPNHandle() : base(true) {}
+        public TrackerDaSiamRPNHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerDaSiamRPNHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerDaSiamRPNHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerDaSiamRPNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerDaSiamRPNHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -2976,18 +2976,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNParamsHandle"/> class.
         /// </summary>
-        public TrackerDaSiamRPNParamsHandle() : base(true) {}
+        public TrackerDaSiamRPNParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerDaSiamRPNParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerDaSiamRPNParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerDaSiamRPNParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerDaSiamRPNParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerDaSiamRPNParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3013,18 +3013,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILHandle"/> class.
         /// </summary>
-        public TrackerMILHandle() : base(true) {}
+        public TrackerMILHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerMILHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerMILHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerMILHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerMILHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3050,18 +3050,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILParamsHandle"/> class.
         /// </summary>
-        public TrackerMILParamsHandle() : base(true) {}
+        public TrackerMILParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerMILParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerMILParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerMILParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerMILParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerMILParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3087,18 +3087,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoHandle"/> class.
         /// </summary>
-        public TrackerNanoHandle() : base(true) {}
+        public TrackerNanoHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerNanoHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerNanoHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerNanoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerNanoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3124,18 +3124,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoParamsHandle"/> class.
         /// </summary>
-        public TrackerNanoParamsHandle() : base(true) {}
+        public TrackerNanoParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerNanoParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerNanoParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerNanoParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerNanoParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerNanoParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3161,18 +3161,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitHandle"/> class.
         /// </summary>
-        public TrackerVitHandle() : base(true) {}
+        public TrackerVitHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerVitHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerVitHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerVitHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerVitHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3198,18 +3198,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitParamsHandle"/> class.
         /// </summary>
-        public TrackerVitParamsHandle() : base(true) {}
+        public TrackerVitParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TrackerVitParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TrackerVitParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TrackerVitParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TrackerVitParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TrackerVitParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3235,18 +3235,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="TriangleRasterizeSettingsHandle"/> class.
         /// </summary>
-        public TriangleRasterizeSettingsHandle() : base(true) {}
+        public TriangleRasterizeSettingsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TriangleRasterizeSettingsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected TriangleRasterizeSettingsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected TriangleRasterizeSettingsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TriangleRasterizeSettingsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public TriangleRasterizeSettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public TriangleRasterizeSettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3272,18 +3272,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="UsacParamsHandle"/> class.
         /// </summary>
-        public UsacParamsHandle() : base(true) {}
+        public UsacParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="UsacParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected UsacParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected UsacParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="UsacParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public UsacParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public UsacParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3309,18 +3309,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationalRefinementHandle"/> class.
         /// </summary>
-        public VariationalRefinementHandle() : base(true) {}
+        public VariationalRefinementHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationalRefinementHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected VariationalRefinementHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected VariationalRefinementHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VariationalRefinementHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public VariationalRefinementHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public VariationalRefinementHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3346,18 +3346,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoCaptureHandle"/> class.
         /// </summary>
-        public VideoCaptureHandle() : base(true) {}
+        public VideoCaptureHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoCaptureHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected VideoCaptureHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected VideoCaptureHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoCaptureHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public VideoCaptureHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public VideoCaptureHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3383,18 +3383,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoWriterHandle"/> class.
         /// </summary>
-        public VideoWriterHandle() : base(true) {}
+        public VideoWriterHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoWriterHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected VideoWriterHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected VideoWriterHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VideoWriterHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public VideoWriterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public VideoWriterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3420,18 +3420,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeHandle"/> class.
         /// </summary>
-        public VolumeHandle() : base(true) {}
+        public VolumeHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected VolumeHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected VolumeHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public VolumeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public VolumeHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3457,18 +3457,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeSettingsHandle"/> class.
         /// </summary>
-        public VolumeSettingsHandle() : base(true) {}
+        public VolumeSettingsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeSettingsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected VolumeSettingsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected VolumeSettingsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeSettingsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public VolumeSettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public VolumeSettingsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3494,18 +3494,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="WarperCreatorHandle"/> class.
         /// </summary>
-        public WarperCreatorHandle() : base(true) {}
+        public WarperCreatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="WarperCreatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected WarperCreatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected WarperCreatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="WarperCreatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public WarperCreatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public WarperCreatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3531,18 +3531,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoArucoDetectorHandle"/> class.
         /// </summary>
-        public ArucoArucoDetectorHandle() : base(true) {}
+        public ArucoArucoDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoArucoDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoArucoDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoArucoDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoArucoDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoArucoDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoArucoDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3568,18 +3568,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoBoardHandle"/> class.
         /// </summary>
-        public ArucoBoardHandle() : base(true) {}
+        public ArucoBoardHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoBoardHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoBoardHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoBoardHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoBoardHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3605,18 +3605,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoBoardHandle"/> class.
         /// </summary>
-        public ArucoCharucoBoardHandle() : base(true) {}
+        public ArucoCharucoBoardHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoBoardHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoCharucoBoardHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoCharucoBoardHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoBoardHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoCharucoBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoCharucoBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3642,18 +3642,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoDetectorHandle"/> class.
         /// </summary>
-        public ArucoCharucoDetectorHandle() : base(true) {}
+        public ArucoCharucoDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoCharucoDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoCharucoDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoCharucoDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoCharucoDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3679,18 +3679,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoParametersHandle"/> class.
         /// </summary>
-        public ArucoCharucoParametersHandle() : base(true) {}
+        public ArucoCharucoParametersHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoParametersHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoCharucoParametersHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoCharucoParametersHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoCharucoParametersHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoCharucoParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoCharucoParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3716,18 +3716,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDetectorParametersHandle"/> class.
         /// </summary>
-        public ArucoDetectorParametersHandle() : base(true) {}
+        public ArucoDetectorParametersHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDetectorParametersHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoDetectorParametersHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoDetectorParametersHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDetectorParametersHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoDetectorParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoDetectorParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3753,18 +3753,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDictionaryHandle"/> class.
         /// </summary>
-        public ArucoDictionaryHandle() : base(true) {}
+        public ArucoDictionaryHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDictionaryHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoDictionaryHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoDictionaryHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoDictionaryHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoDictionaryHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoDictionaryHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3790,18 +3790,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoGridBoardHandle"/> class.
         /// </summary>
-        public ArucoGridBoardHandle() : base(true) {}
+        public ArucoGridBoardHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoGridBoardHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoGridBoardHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoGridBoardHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoGridBoardHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoGridBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoGridBoardHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3827,18 +3827,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoRefineParametersHandle"/> class.
         /// </summary>
-        public ArucoRefineParametersHandle() : base(true) {}
+        public ArucoRefineParametersHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoRefineParametersHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected ArucoRefineParametersHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected ArucoRefineParametersHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArucoRefineParametersHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public ArucoRefineParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public ArucoRefineParametersHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3864,18 +3864,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="BarcodeBarcodeDetectorHandle"/> class.
         /// </summary>
-        public BarcodeBarcodeDetectorHandle() : base(true) {}
+        public BarcodeBarcodeDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BarcodeBarcodeDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected BarcodeBarcodeDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected BarcodeBarcodeDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="BarcodeBarcodeDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public BarcodeBarcodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public BarcodeBarcodeDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3901,18 +3901,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CcmColorCorrectionModelHandle"/> class.
         /// </summary>
-        public CcmColorCorrectionModelHandle() : base(true) {}
+        public CcmColorCorrectionModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CcmColorCorrectionModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CcmColorCorrectionModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CcmColorCorrectionModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CcmColorCorrectionModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CcmColorCorrectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CcmColorCorrectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3938,18 +3938,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaBufferPoolHandle"/> class.
         /// </summary>
-        public CudaBufferPoolHandle() : base(true) {}
+        public CudaBufferPoolHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaBufferPoolHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaBufferPoolHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaBufferPoolHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaBufferPoolHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaBufferPoolHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaBufferPoolHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -3975,18 +3975,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaDeviceInfoHandle"/> class.
         /// </summary>
-        public CudaDeviceInfoHandle() : base(true) {}
+        public CudaDeviceInfoHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaDeviceInfoHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaDeviceInfoHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaDeviceInfoHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaDeviceInfoHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaDeviceInfoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaDeviceInfoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4012,18 +4012,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaEventHandle"/> class.
         /// </summary>
-        public CudaEventHandle() : base(true) {}
+        public CudaEventHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaEventHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaEventHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaEventHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaEventHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaEventHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaEventHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4049,18 +4049,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuDataHandle"/> class.
         /// </summary>
-        public CudaGpuDataHandle() : base(true) {}
+        public CudaGpuDataHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuDataHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaGpuDataHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaGpuDataHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuDataHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaGpuDataHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaGpuDataHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4086,18 +4086,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatHandle"/> class.
         /// </summary>
-        public CudaGpuMatHandle() : base(true) {}
+        public CudaGpuMatHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaGpuMatHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaGpuMatHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaGpuMatHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaGpuMatHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4123,18 +4123,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatAllocatorHandle"/> class.
         /// </summary>
-        public CudaGpuMatAllocatorHandle() : base(true) {}
+        public CudaGpuMatAllocatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatAllocatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaGpuMatAllocatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaGpuMatAllocatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatAllocatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaGpuMatAllocatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaGpuMatAllocatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4160,18 +4160,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatNDHandle"/> class.
         /// </summary>
-        public CudaGpuMatNDHandle() : base(true) {}
+        public CudaGpuMatNDHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatNDHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaGpuMatNDHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaGpuMatNDHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaGpuMatNDHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaGpuMatNDHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaGpuMatNDHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4197,18 +4197,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaHostMemHandle"/> class.
         /// </summary>
-        public CudaHostMemHandle() : base(true) {}
+        public CudaHostMemHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaHostMemHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaHostMemHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaHostMemHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaHostMemHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaHostMemHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaHostMemHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4234,18 +4234,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaStreamHandle"/> class.
         /// </summary>
-        public CudaStreamHandle() : base(true) {}
+        public CudaStreamHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaStreamHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaStreamHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaStreamHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaStreamHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaStreamHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaStreamHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4271,18 +4271,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaTargetArchsHandle"/> class.
         /// </summary>
-        public CudaTargetArchsHandle() : base(true) {}
+        public CudaTargetArchsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaTargetArchsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected CudaTargetArchsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected CudaTargetArchsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="CudaTargetArchsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public CudaTargetArchsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public CudaTargetArchsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4308,18 +4308,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBasedEstimatorHandle"/> class.
         /// </summary>
-        public DetailAffineBasedEstimatorHandle() : base(true) {}
+        public DetailAffineBasedEstimatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBasedEstimatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailAffineBasedEstimatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailAffineBasedEstimatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBasedEstimatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailAffineBasedEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailAffineBasedEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4345,18 +4345,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBestOf2NearestMatcherHandle"/> class.
         /// </summary>
-        public DetailAffineBestOf2NearestMatcherHandle() : base(true) {}
+        public DetailAffineBestOf2NearestMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBestOf2NearestMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailAffineBestOf2NearestMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailAffineBestOf2NearestMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailAffineBestOf2NearestMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailAffineBestOf2NearestMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailAffineBestOf2NearestMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4382,18 +4382,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestMatcherHandle"/> class.
         /// </summary>
-        public DetailBestOf2NearestMatcherHandle() : base(true) {}
+        public DetailBestOf2NearestMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBestOf2NearestMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBestOf2NearestMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBestOf2NearestMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBestOf2NearestMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4419,18 +4419,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestRangeMatcherHandle"/> class.
         /// </summary>
-        public DetailBestOf2NearestRangeMatcherHandle() : base(true) {}
+        public DetailBestOf2NearestRangeMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestRangeMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBestOf2NearestRangeMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBestOf2NearestRangeMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBestOf2NearestRangeMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBestOf2NearestRangeMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBestOf2NearestRangeMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4456,18 +4456,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlenderHandle"/> class.
         /// </summary>
-        public DetailBlenderHandle() : base(true) {}
+        public DetailBlenderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlenderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBlenderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBlenderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlenderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4493,18 +4493,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksChannelsCompensatorHandle"/> class.
         /// </summary>
-        public DetailBlocksChannelsCompensatorHandle() : base(true) {}
+        public DetailBlocksChannelsCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksChannelsCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBlocksChannelsCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBlocksChannelsCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksChannelsCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBlocksChannelsCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBlocksChannelsCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4530,18 +4530,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksCompensatorHandle"/> class.
         /// </summary>
-        public DetailBlocksCompensatorHandle() : base(true) {}
+        public DetailBlocksCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBlocksCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBlocksCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBlocksCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBlocksCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4567,18 +4567,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksGainCompensatorHandle"/> class.
         /// </summary>
-        public DetailBlocksGainCompensatorHandle() : base(true) {}
+        public DetailBlocksGainCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksGainCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBlocksGainCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBlocksGainCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBlocksGainCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBlocksGainCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBlocksGainCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4604,18 +4604,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffineHandle"/> class.
         /// </summary>
-        public DetailBundleAdjusterAffineHandle() : base(true) {}
+        public DetailBundleAdjusterAffineHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffineHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBundleAdjusterAffineHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBundleAdjusterAffineHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffineHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBundleAdjusterAffineHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBundleAdjusterAffineHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4641,18 +4641,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffinePartialHandle"/> class.
         /// </summary>
-        public DetailBundleAdjusterAffinePartialHandle() : base(true) {}
+        public DetailBundleAdjusterAffinePartialHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffinePartialHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBundleAdjusterAffinePartialHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBundleAdjusterAffinePartialHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterAffinePartialHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBundleAdjusterAffinePartialHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBundleAdjusterAffinePartialHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4678,18 +4678,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterBaseHandle"/> class.
         /// </summary>
-        public DetailBundleAdjusterBaseHandle() : base(true) {}
+        public DetailBundleAdjusterBaseHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterBaseHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBundleAdjusterBaseHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBundleAdjusterBaseHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterBaseHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBundleAdjusterBaseHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBundleAdjusterBaseHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4715,18 +4715,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterRayHandle"/> class.
         /// </summary>
-        public DetailBundleAdjusterRayHandle() : base(true) {}
+        public DetailBundleAdjusterRayHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterRayHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBundleAdjusterRayHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBundleAdjusterRayHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterRayHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBundleAdjusterRayHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBundleAdjusterRayHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4752,18 +4752,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterReprojHandle"/> class.
         /// </summary>
-        public DetailBundleAdjusterReprojHandle() : base(true) {}
+        public DetailBundleAdjusterReprojHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterReprojHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailBundleAdjusterReprojHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailBundleAdjusterReprojHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailBundleAdjusterReprojHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailBundleAdjusterReprojHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailBundleAdjusterReprojHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4789,18 +4789,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailCameraParamsHandle"/> class.
         /// </summary>
-        public DetailCameraParamsHandle() : base(true) {}
+        public DetailCameraParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailCameraParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailCameraParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailCameraParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailCameraParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailCameraParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailCameraParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4826,18 +4826,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailChannelsCompensatorHandle"/> class.
         /// </summary>
-        public DetailChannelsCompensatorHandle() : base(true) {}
+        public DetailChannelsCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailChannelsCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailChannelsCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailChannelsCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailChannelsCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailChannelsCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailChannelsCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4863,18 +4863,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailDpSeamFinderHandle"/> class.
         /// </summary>
-        public DetailDpSeamFinderHandle() : base(true) {}
+        public DetailDpSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailDpSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailDpSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailDpSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailDpSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailDpSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailDpSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4900,18 +4900,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailEstimatorHandle"/> class.
         /// </summary>
-        public DetailEstimatorHandle() : base(true) {}
+        public DetailEstimatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailEstimatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailEstimatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailEstimatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailEstimatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4937,18 +4937,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailExposureCompensatorHandle"/> class.
         /// </summary>
-        public DetailExposureCompensatorHandle() : base(true) {}
+        public DetailExposureCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailExposureCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailExposureCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailExposureCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailExposureCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailExposureCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailExposureCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -4974,18 +4974,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeatherBlenderHandle"/> class.
         /// </summary>
-        public DetailFeatherBlenderHandle() : base(true) {}
+        public DetailFeatherBlenderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeatherBlenderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailFeatherBlenderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailFeatherBlenderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeatherBlenderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailFeatherBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailFeatherBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5011,18 +5011,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeaturesMatcherHandle"/> class.
         /// </summary>
-        public DetailFeaturesMatcherHandle() : base(true) {}
+        public DetailFeaturesMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeaturesMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailFeaturesMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailFeaturesMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailFeaturesMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailFeaturesMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailFeaturesMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5048,18 +5048,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGainCompensatorHandle"/> class.
         /// </summary>
-        public DetailGainCompensatorHandle() : base(true) {}
+        public DetailGainCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGainCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailGainCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailGainCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGainCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailGainCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailGainCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5085,18 +5085,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGraphCutSeamFinderHandle"/> class.
         /// </summary>
-        public DetailGraphCutSeamFinderHandle() : base(true) {}
+        public DetailGraphCutSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGraphCutSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailGraphCutSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailGraphCutSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailGraphCutSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailGraphCutSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailGraphCutSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5122,18 +5122,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailHomographyBasedEstimatorHandle"/> class.
         /// </summary>
-        public DetailHomographyBasedEstimatorHandle() : base(true) {}
+        public DetailHomographyBasedEstimatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailHomographyBasedEstimatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailHomographyBasedEstimatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailHomographyBasedEstimatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailHomographyBasedEstimatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailHomographyBasedEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailHomographyBasedEstimatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5159,18 +5159,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailImageFeaturesHandle"/> class.
         /// </summary>
-        public DetailImageFeaturesHandle() : base(true) {}
+        public DetailImageFeaturesHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailImageFeaturesHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailImageFeaturesHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailImageFeaturesHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailImageFeaturesHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailImageFeaturesHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailImageFeaturesHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5196,18 +5196,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailLightGlueFeaturesMatcherHandle"/> class.
         /// </summary>
-        public DetailLightGlueFeaturesMatcherHandle() : base(true) {}
+        public DetailLightGlueFeaturesMatcherHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailLightGlueFeaturesMatcherHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailLightGlueFeaturesMatcherHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailLightGlueFeaturesMatcherHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailLightGlueFeaturesMatcherHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailLightGlueFeaturesMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailLightGlueFeaturesMatcherHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5233,18 +5233,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMatchesInfoHandle"/> class.
         /// </summary>
-        public DetailMatchesInfoHandle() : base(true) {}
+        public DetailMatchesInfoHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMatchesInfoHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailMatchesInfoHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailMatchesInfoHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMatchesInfoHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailMatchesInfoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailMatchesInfoHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5270,18 +5270,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMultiBandBlenderHandle"/> class.
         /// </summary>
-        public DetailMultiBandBlenderHandle() : base(true) {}
+        public DetailMultiBandBlenderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMultiBandBlenderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailMultiBandBlenderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailMultiBandBlenderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailMultiBandBlenderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailMultiBandBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailMultiBandBlenderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5307,18 +5307,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoBundleAdjusterHandle"/> class.
         /// </summary>
-        public DetailNoBundleAdjusterHandle() : base(true) {}
+        public DetailNoBundleAdjusterHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoBundleAdjusterHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailNoBundleAdjusterHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailNoBundleAdjusterHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoBundleAdjusterHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailNoBundleAdjusterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailNoBundleAdjusterHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5344,18 +5344,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoExposureCompensatorHandle"/> class.
         /// </summary>
-        public DetailNoExposureCompensatorHandle() : base(true) {}
+        public DetailNoExposureCompensatorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoExposureCompensatorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailNoExposureCompensatorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailNoExposureCompensatorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoExposureCompensatorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailNoExposureCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailNoExposureCompensatorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5381,18 +5381,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoSeamFinderHandle"/> class.
         /// </summary>
-        public DetailNoSeamFinderHandle() : base(true) {}
+        public DetailNoSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailNoSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailNoSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailNoSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailNoSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailNoSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5418,18 +5418,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPairwiseSeamFinderHandle"/> class.
         /// </summary>
-        public DetailPairwiseSeamFinderHandle() : base(true) {}
+        public DetailPairwiseSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPairwiseSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailPairwiseSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailPairwiseSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPairwiseSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailPairwiseSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailPairwiseSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5455,18 +5455,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPoseGraphHandle"/> class.
         /// </summary>
-        public DetailPoseGraphHandle() : base(true) {}
+        public DetailPoseGraphHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPoseGraphHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailPoseGraphHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailPoseGraphHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailPoseGraphHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailPoseGraphHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailPoseGraphHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5492,18 +5492,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailProjectorBaseHandle"/> class.
         /// </summary>
-        public DetailProjectorBaseHandle() : base(true) {}
+        public DetailProjectorBaseHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailProjectorBaseHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailProjectorBaseHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailProjectorBaseHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailProjectorBaseHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailProjectorBaseHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailProjectorBaseHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5529,18 +5529,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSeamFinderHandle"/> class.
         /// </summary>
-        public DetailSeamFinderHandle() : base(true) {}
+        public DetailSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5566,18 +5566,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSphericalProjectorHandle"/> class.
         /// </summary>
-        public DetailSphericalProjectorHandle() : base(true) {}
+        public DetailSphericalProjectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSphericalProjectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailSphericalProjectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailSphericalProjectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailSphericalProjectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailSphericalProjectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailSphericalProjectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5603,18 +5603,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserHandle"/> class.
         /// </summary>
-        public DetailTimelapserHandle() : base(true) {}
+        public DetailTimelapserHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailTimelapserHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailTimelapserHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailTimelapserHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailTimelapserHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5640,18 +5640,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserCropHandle"/> class.
         /// </summary>
-        public DetailTimelapserCropHandle() : base(true) {}
+        public DetailTimelapserCropHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserCropHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailTimelapserCropHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailTimelapserCropHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailTimelapserCropHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailTimelapserCropHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailTimelapserCropHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5677,18 +5677,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVoronoiSeamFinderHandle"/> class.
         /// </summary>
-        public DetailVoronoiSeamFinderHandle() : base(true) {}
+        public DetailVoronoiSeamFinderHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVoronoiSeamFinderHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DetailVoronoiSeamFinderHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DetailVoronoiSeamFinderHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailVoronoiSeamFinderHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DetailVoronoiSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DetailVoronoiSeamFinderHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5714,18 +5714,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnClassificationModelHandle"/> class.
         /// </summary>
-        public DnnClassificationModelHandle() : base(true) {}
+        public DnnClassificationModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnClassificationModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnClassificationModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnClassificationModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnClassificationModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnClassificationModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnClassificationModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5751,18 +5751,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDetectionModelHandle"/> class.
         /// </summary>
-        public DnnDetectionModelHandle() : base(true) {}
+        public DnnDetectionModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDetectionModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnDetectionModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnDetectionModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDetectionModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnDetectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnDetectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5788,18 +5788,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictHandle"/> class.
         /// </summary>
-        public DnnDictHandle() : base(true) {}
+        public DnnDictHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnDictHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnDictHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnDictHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnDictHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5825,18 +5825,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictValueHandle"/> class.
         /// </summary>
-        public DnnDictValueHandle() : base(true) {}
+        public DnnDictValueHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictValueHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnDictValueHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnDictValueHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnDictValueHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnDictValueHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnDictValueHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5862,18 +5862,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnImage2BlobParamsHandle"/> class.
         /// </summary>
-        public DnnImage2BlobParamsHandle() : base(true) {}
+        public DnnImage2BlobParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnImage2BlobParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnImage2BlobParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnImage2BlobParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnImage2BlobParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnImage2BlobParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnImage2BlobParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5899,18 +5899,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnKeypointsModelHandle"/> class.
         /// </summary>
-        public DnnKeypointsModelHandle() : base(true) {}
+        public DnnKeypointsModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnKeypointsModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnKeypointsModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnKeypointsModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnKeypointsModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnKeypointsModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnKeypointsModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5936,18 +5936,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerHandle"/> class.
         /// </summary>
-        public DnnLayerHandle() : base(true) {}
+        public DnnLayerHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnLayerHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnLayerHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnLayerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnLayerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -5973,18 +5973,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerParamsHandle"/> class.
         /// </summary>
-        public DnnLayerParamsHandle() : base(true) {}
+        public DnnLayerParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnLayerParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnLayerParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnLayerParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnLayerParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnLayerParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6010,18 +6010,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnModelHandle"/> class.
         /// </summary>
-        public DnnModelHandle() : base(true) {}
+        public DnnModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6047,18 +6047,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnNetHandle"/> class.
         /// </summary>
-        public DnnNetHandle() : base(true) {}
+        public DnnNetHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnNetHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnNetHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnNetHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnNetHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnNetHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnNetHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6084,18 +6084,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnSegmentationModelHandle"/> class.
         /// </summary>
-        public DnnSegmentationModelHandle() : base(true) {}
+        public DnnSegmentationModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnSegmentationModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnSegmentationModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnSegmentationModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnSegmentationModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnSegmentationModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnSegmentationModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6121,18 +6121,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelHandle"/> class.
         /// </summary>
-        public DnnTextDetectionModelHandle() : base(true) {}
+        public DnnTextDetectionModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnTextDetectionModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnTextDetectionModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnTextDetectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnTextDetectionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6158,18 +6158,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelDbHandle"/> class.
         /// </summary>
-        public DnnTextDetectionModelDbHandle() : base(true) {}
+        public DnnTextDetectionModelDbHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelDbHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnTextDetectionModelDbHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnTextDetectionModelDbHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelDbHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnTextDetectionModelDbHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnTextDetectionModelDbHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6195,18 +6195,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelEastHandle"/> class.
         /// </summary>
-        public DnnTextDetectionModelEastHandle() : base(true) {}
+        public DnnTextDetectionModelEastHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelEastHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnTextDetectionModelEastHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnTextDetectionModelEastHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextDetectionModelEastHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnTextDetectionModelEastHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnTextDetectionModelEastHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6232,18 +6232,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextRecognitionModelHandle"/> class.
         /// </summary>
-        public DnnTextRecognitionModelHandle() : base(true) {}
+        public DnnTextRecognitionModelHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextRecognitionModelHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnTextRecognitionModelHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnTextRecognitionModelHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTextRecognitionModelHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnTextRecognitionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnTextRecognitionModelHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6269,18 +6269,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTokenizerHandle"/> class.
         /// </summary>
-        public DnnTokenizerHandle() : base(true) {}
+        public DnnTokenizerHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTokenizerHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected DnnTokenizerHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected DnnTokenizerHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="DnnTokenizerHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public DnnTokenizerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public DnnTokenizerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6306,18 +6306,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexHandle"/> class.
         /// </summary>
-        public FlannIndexHandle() : base(true) {}
+        public FlannIndexHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FlannIndexHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FlannIndexHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FlannIndexHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FlannIndexHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6343,18 +6343,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexParamsHandle"/> class.
         /// </summary>
-        public FlannIndexParamsHandle() : base(true) {}
+        public FlannIndexParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FlannIndexParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FlannIndexParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannIndexParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FlannIndexParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FlannIndexParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6380,18 +6380,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannSearchParamsHandle"/> class.
         /// </summary>
-        public FlannSearchParamsHandle() : base(true) {}
+        public FlannSearchParamsHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannSearchParamsHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected FlannSearchParamsHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected FlannSearchParamsHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlannSearchParamsHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public FlannSearchParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public FlannSearchParamsHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6417,18 +6417,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerHandle"/> class.
         /// </summary>
-        public MccCCheckerHandle() : base(true) {}
+        public MccCCheckerHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MccCCheckerHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MccCCheckerHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MccCCheckerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MccCCheckerHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6454,18 +6454,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerDetectorHandle"/> class.
         /// </summary>
-        public MccCCheckerDetectorHandle() : base(true) {}
+        public MccCCheckerDetectorHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerDetectorHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MccCCheckerDetectorHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MccCCheckerDetectorHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccCCheckerDetectorHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MccCCheckerDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MccCCheckerDetectorHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6491,18 +6491,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="MccDetectorParametersMCCHandle"/> class.
         /// </summary>
-        public MccDetectorParametersMCCHandle() : base(true) {}
+        public MccDetectorParametersMCCHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccDetectorParametersMCCHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected MccDetectorParametersMCCHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected MccDetectorParametersMCCHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="MccDetectorParametersMCCHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public MccDetectorParametersMCCHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public MccDetectorParametersMCCHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6528,18 +6528,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OclDeviceHandle"/> class.
         /// </summary>
-        public OclDeviceHandle() : base(true) {}
+        public OclDeviceHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OclDeviceHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OclDeviceHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OclDeviceHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OclDeviceHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OclDeviceHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OclDeviceHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6565,18 +6565,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="OclOpenCLExecutionContextHandle"/> class.
         /// </summary>
-        public OclOpenCLExecutionContextHandle() : base(true) {}
+        public OclOpenCLExecutionContextHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OclOpenCLExecutionContextHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected OclOpenCLExecutionContextHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected OclOpenCLExecutionContextHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="OclOpenCLExecutionContextHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public OclOpenCLExecutionContextHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public OclOpenCLExecutionContextHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>
@@ -6602,18 +6602,18 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Initializes a new instance of the <see cref="SegmentationIntelligentScissorsMBHandle"/> class.
         /// </summary>
-        public SegmentationIntelligentScissorsMBHandle() : base(true) {}
+        public SegmentationIntelligentScissorsMBHandle() : base(true) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SegmentationIntelligentScissorsMBHandle"/> class.
         /// </summary>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        protected SegmentationIntelligentScissorsMBHandle(bool ownsHandle) : base(ownsHandle) {}
+        protected SegmentationIntelligentScissorsMBHandle(bool ownsHandle) : base(ownsHandle) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SegmentationIntelligentScissorsMBHandle"/> class wrapping the raw pointer.
         /// </summary>
         /// <param name="ptr">The raw unmanaged handle address.</param>
         /// <param name="ownsHandle">True to reliably release the handle during finalization; otherwise, false.</param>
-        public SegmentationIntelligentScissorsMBHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) {}
+        public SegmentationIntelligentScissorsMBHandle(IntPtr ptr, bool ownsHandle = true) : base(ptr, ownsHandle) { }
         /// <summary>
         /// Releases the native resource identified by the handle.
         /// </summary>

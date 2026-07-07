@@ -28,8 +28,8 @@ namespace OpenCV5Sharp
     public partial class VideoCapture : DisposableOpenCVObject
     {
         public new VideoCaptureHandle Handle => (VideoCaptureHandle)base.Handle;
-        internal VideoCapture(IntPtr handle, bool ownsHandle = true) : base(new VideoCaptureHandle(handle, ownsHandle)) {}
-        internal VideoCapture(VideoCaptureHandle handle) : base(handle) {}
+        internal VideoCapture(IntPtr handle, bool ownsHandle = true) : base(new VideoCaptureHandle(handle, ownsHandle)) { }
+        internal VideoCapture(VideoCaptureHandle handle) : base(handle) { }
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -398,8 +398,8 @@ namespace OpenCV5Sharp
     public partial class VideoWriter : DisposableOpenCVObject
     {
         public new VideoWriterHandle Handle => (VideoWriterHandle)base.Handle;
-        internal VideoWriter(IntPtr handle, bool ownsHandle = true) : base(new VideoWriterHandle(handle, ownsHandle)) {}
-        internal VideoWriter(VideoWriterHandle handle) : base(handle) {}
+        internal VideoWriter(IntPtr handle, bool ownsHandle = true) : base(new VideoWriterHandle(handle, ownsHandle)) { }
+        internal VideoWriter(VideoWriterHandle handle) : base(handle) { }
         /// <summary>
         /// Default constructors
         /// </summary>

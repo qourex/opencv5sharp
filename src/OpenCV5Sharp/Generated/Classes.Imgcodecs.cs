@@ -17,8 +17,8 @@ namespace OpenCV5Sharp
     public partial class Animation : DisposableOpenCVObject
     {
         public new AnimationHandle Handle => (AnimationHandle)base.Handle;
-        internal Animation(IntPtr handle, bool ownsHandle = true) : base(new AnimationHandle(handle, ownsHandle)) {}
-        internal Animation(AnimationHandle handle) : base(handle) {}
+        internal Animation(IntPtr handle, bool ownsHandle = true) : base(new AnimationHandle(handle, ownsHandle)) { }
+        internal Animation(AnimationHandle handle) : base(handle) { }
         /// <summary>
         /// Constructs an Animation object with optional loop count and background color.
         /// </summary>
@@ -48,29 +48,37 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int[] Durations
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.Animation_durations_get(Handle);
                 if (res == IntPtr.Zero) return Array.Empty<int>();
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     int size = NativeMethods.cv_VectorInt_Size(res);
                     int[] data = new int[size];
                     NativeMethods.cv_VectorInt_GetData(res, data);
                     return data;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorInt_Delete(res);
                     GC.KeepAlive(this);
                 }
             }
-            set {
+            set
+            {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr vecPtr = NativeMethods.cv_VectorInt_New(value, value.Length);
-                try {
+                try
+                {
                     NativeMethods.Animation_durations_set(Handle, vecPtr);
                     ErrorHelper.CheckError();
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorInt_Delete(vecPtr);
                     GC.KeepAlive(this);
                 }
@@ -80,40 +88,52 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat[] Frames
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.Animation_frames_get(Handle);
                 if (res == IntPtr.Zero) return Array.Empty<Mat>();
-                try {
+                try
+                {
                     ErrorHelper.CheckError();
                     int size = NativeMethods.cv_VectorMat_Size(res);
                     Mat[] data = new Mat[size];
-                    for (int i = 0; i < size; i++) {
+                    for (int i = 0; i < size; i++)
+                    {
                         IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(res, i);
                         data[i] = matPtr == IntPtr.Zero ? null! : new Mat(matPtr);
                     }
                     return data;
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorMat_Delete(res);
                     GC.KeepAlive(this);
                 }
             }
-            set {
+            set
+            {
                 ThrowIfDisposed();
                 if (value == null) return;
                 IntPtr[] handles = new IntPtr[value.Length];
-                for (int i = 0; i < value.Length; i++) {
+                for (int i = 0; i < value.Length; i++)
+                {
                     handles[i] = value[i] == null ? IntPtr.Zero : value[i].Handle.DangerousGetHandle();
                 }
                 IntPtr vecPtr = NativeMethods.cv_VectorMat_New(handles, handles.Length);
-                try {
+                try
+                {
                     NativeMethods.Animation_frames_set(Handle, vecPtr);
                     ErrorHelper.CheckError();
-                } finally {
+                }
+                finally
+                {
                     NativeMethods.cv_VectorMat_Delete(vecPtr);
                     GC.KeepAlive(this);
-                    if (value != null) {
-                        for (int i = 0; i < value.Length; i++) {
+                    if (value != null)
+                    {
+                        for (int i = 0; i < value.Length; i++)
+                        {
                             if (value[i] != null) GC.KeepAlive(value[i]);
                         }
                     }
@@ -124,21 +144,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? StillImage
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.Animation_still_image_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }

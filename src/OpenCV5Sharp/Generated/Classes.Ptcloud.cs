@@ -44,8 +44,8 @@ namespace OpenCV5Sharp
     public partial class Octree : DisposableOpenCVObject
     {
         public new OctreeHandle Handle => (OctreeHandle)base.Handle;
-        internal Octree(IntPtr handle, bool ownsHandle = true) : base(new OctreeHandle(handle, ownsHandle)) {}
-        internal Octree(OctreeHandle handle) : base(handle) {}
+        internal Octree(IntPtr handle, bool ownsHandle = true) : base(new OctreeHandle(handle, ownsHandle)) { }
+        internal Octree(OctreeHandle handle) : base(handle) { }
         /// <summary>
         /// This is an overloaded member function, provided for convenience.
         /// Creates an empty Octree with given maximum depth
@@ -432,8 +432,8 @@ namespace OpenCV5Sharp
     public partial class Odometry : DisposableOpenCVObject
     {
         public new OdometryHandle Handle => (OdometryHandle)base.Handle;
-        internal Odometry(IntPtr handle, bool ownsHandle = true) : base(new OdometryHandle(handle, ownsHandle)) {}
-        internal Odometry(OdometryHandle handle) : base(handle) {}
+        internal Odometry(IntPtr handle, bool ownsHandle = true) : base(new OdometryHandle(handle, ownsHandle)) { }
+        internal Odometry(OdometryHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -650,8 +650,8 @@ namespace OpenCV5Sharp
     public partial class OdometryFrame : DisposableOpenCVObject
     {
         public new OdometryFrameHandle Handle => (OdometryFrameHandle)base.Handle;
-        internal OdometryFrame(IntPtr handle, bool ownsHandle = true) : base(new OdometryFrameHandle(handle, ownsHandle)) {}
-        internal OdometryFrame(OdometryFrameHandle handle) : base(handle) {}
+        internal OdometryFrame(IntPtr handle, bool ownsHandle = true) : base(new OdometryFrameHandle(handle, ownsHandle)) { }
+        internal OdometryFrame(OdometryFrameHandle handle) : base(handle) { }
         /// <summary>
         /// Construct a new OdometryFrame object. All non-empty images should have the same size.
         /// *
@@ -824,8 +824,8 @@ namespace OpenCV5Sharp
     public partial class OdometrySettings : DisposableOpenCVObject
     {
         public new OdometrySettingsHandle Handle => (OdometrySettingsHandle)base.Handle;
-        internal OdometrySettings(IntPtr handle, bool ownsHandle = true) : base(new OdometrySettingsHandle(handle, ownsHandle)) {}
-        internal OdometrySettings(OdometrySettingsHandle handle) : base(handle) {}
+        internal OdometrySettings(IntPtr handle, bool ownsHandle = true) : base(new OdometrySettingsHandle(handle, ownsHandle)) { }
+        internal OdometrySettings(OdometrySettingsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1281,8 +1281,8 @@ namespace OpenCV5Sharp
     public partial class RgbdNormals : DisposableOpenCVObject
     {
         public new RgbdNormalsHandle Handle => (RgbdNormalsHandle)base.Handle;
-        internal RgbdNormals(IntPtr handle, bool ownsHandle = true) : base(new RgbdNormalsHandle(handle, ownsHandle)) {}
-        internal RgbdNormals(RgbdNormalsHandle handle) : base(handle) {}
+        internal RgbdNormals(IntPtr handle, bool ownsHandle = true) : base(new RgbdNormalsHandle(handle, ownsHandle)) { }
+        internal RgbdNormals(RgbdNormalsHandle handle) : base(handle) { }
         /// <summary>
         /// Creates new RgbdNormals object
         /// </summary>
@@ -1505,8 +1505,8 @@ namespace OpenCV5Sharp
     public partial class TriangleRasterizeSettings : DisposableOpenCVObject
     {
         public new TriangleRasterizeSettingsHandle Handle => (TriangleRasterizeSettingsHandle)base.Handle;
-        internal TriangleRasterizeSettings(IntPtr handle, bool ownsHandle = true) : base(new TriangleRasterizeSettingsHandle(handle, ownsHandle)) {}
-        internal TriangleRasterizeSettings(TriangleRasterizeSettingsHandle handle) : base(handle) {}
+        internal TriangleRasterizeSettings(IntPtr handle, bool ownsHandle = true) : base(new TriangleRasterizeSettingsHandle(handle, ownsHandle)) { }
+        internal TriangleRasterizeSettings(TriangleRasterizeSettingsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1621,8 +1621,8 @@ namespace OpenCV5Sharp
     public partial class Volume : DisposableOpenCVObject
     {
         public new VolumeHandle Handle => (VolumeHandle)base.Handle;
-        internal Volume(IntPtr handle, bool ownsHandle = true) : base(new VolumeHandle(handle, ownsHandle)) {}
-        internal Volume(VolumeHandle handle) : base(handle) {}
+        internal Volume(IntPtr handle, bool ownsHandle = true) : base(new VolumeHandle(handle, ownsHandle)) { }
+        internal Volume(VolumeHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor of custom volume.
         /// </summary>
@@ -2005,8 +2005,8 @@ namespace OpenCV5Sharp
     public partial class VolumeSettings : DisposableOpenCVObject
     {
         public new VolumeSettingsHandle Handle => (VolumeSettingsHandle)base.Handle;
-        internal VolumeSettings(IntPtr handle, bool ownsHandle = true) : base(new VolumeSettingsHandle(handle, ownsHandle)) {}
-        internal VolumeSettings(VolumeSettingsHandle handle) : base(handle) {}
+        internal VolumeSettings(IntPtr handle, bool ownsHandle = true) : base(new VolumeSettingsHandle(handle, ownsHandle)) { }
+        internal VolumeSettings(VolumeSettingsHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor of settings for custom Volume type.
         /// </summary>
@@ -2460,8 +2460,8 @@ namespace OpenCV5Sharp
     public partial class DetailPoseGraph : DisposableOpenCVObject
     {
         public new DetailPoseGraphHandle Handle => (DetailPoseGraphHandle)base.Handle;
-        internal DetailPoseGraph(IntPtr handle, bool ownsHandle = true) : base(new DetailPoseGraphHandle(handle, ownsHandle)) {}
-        internal DetailPoseGraph(DetailPoseGraphHandle handle) : base(handle) {}
+        internal DetailPoseGraph(IntPtr handle, bool ownsHandle = true) : base(new DetailPoseGraphHandle(handle, ownsHandle)) { }
+        internal DetailPoseGraph(DetailPoseGraphHandle handle) : base(handle) { }
     }
 
 }

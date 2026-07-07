@@ -24,7 +24,7 @@ namespace OpenCV5Sharp.Samples
 
                 // 1. Generate an ArUco marker
                 Console.WriteLine("\n1. Generating ArUco marker (ID: 24, Size: 200x200 pixels)...");
-                
+
                 using (var markerMat = new Mat(200, 200, MatType.CV_8UC1))
                 {
                     // Generate marker with ID 24, 200x200 size, border bits 1
@@ -34,7 +34,7 @@ namespace OpenCV5Sharp.Samples
 
                     // 2. Simulate a scene containing the marker
                     Console.WriteLine("\n2. Simulating a test scene with the generated marker...");
-                    
+
                     const int sceneSize = 400;
                     using (var scene = new Mat(sceneSize, sceneSize, MatType.CV_8UC3))
                     {

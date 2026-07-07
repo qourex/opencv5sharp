@@ -22,7 +22,7 @@ namespace OpenCV5Sharp.Samples
 
             // 2. Initializing with Scalar
             Console.WriteLine("\n2. Initializing a 3x3 RGB matrix with a blue color scalar...");
-             // 8-bit, 3 channels
+            // 8-bit, 3 channels
             using (Mat rgb = new Mat(3, 3, MatType.CV_8UC3))
             {
                 Console.WriteLine($"RGB Channels: {rgb.Channels()}, Type: {rgb.Type()}");

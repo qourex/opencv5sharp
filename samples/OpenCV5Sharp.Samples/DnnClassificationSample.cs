@@ -178,7 +178,7 @@ namespace OpenCV5Sharp.Samples
         private static void CreateSyntheticInputImage(string path)
         {
             const int size = 300;
-            
+
             using (Mat src = new Mat(size, size, MatType.CV_8UC3))
             {
                 int bufferSize = src.Rows * src.Cols * src.Channels();

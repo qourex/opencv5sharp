@@ -14,7 +14,7 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [15] Hough Line & Circle Detection ---");
 
-            
+
             const int size = 300;
 
             Console.WriteLine("\n1. Generating synthetic image with a circle and a line...");

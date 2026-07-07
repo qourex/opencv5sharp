@@ -14,7 +14,7 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [18] Object Tracking via CamShift ---");
 
-            
+
             const int size = 250;
 
             Console.WriteLine("\n1. Running CamShift tracking simulation (10 frames)...");

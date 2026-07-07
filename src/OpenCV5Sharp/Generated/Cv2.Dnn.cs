@@ -9,837 +9,837 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Wrapper for OpenCV's native functionality.
-            /// </summary>
-            /// <param name="be">The be parameter.</param>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static IntPtr DnnGetAvailableTargets(int be)
+        /// <summary>
+        /// Wrapper for OpenCV's native functionality.
+        /// </summary>
+        /// <param name="be">The be parameter.</param>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static IntPtr DnnGetAvailableTargets(int be)
+        {
+            var res = NativeMethods.cv_dnn_getAvailableTargets_0((int)be);
+            ErrorHelper.CheckError();
+            return res;
+        }
+        /// <summary>
+        /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+        /// </summary>
+        /// <param name="model">path to the .pb file with binary protobuf description of the network architecture</param>
+        /// <param name="config">path to the .pbtxt file that contains text graph definition in protobuf format. *               Resulting Net object is built by text graph using weights from a binary one that *               let us make it more flexible.</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used.</param>
+        /// <param name="extraOutputs">specify model outputs explicitly, in addition to the outputs the graph analyzer finds. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Net object.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromTensorflow(string model, string? config, int engine, IntPtr extraOutputs)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromTensorflow_0(model, config, engine, extraOutputs);
+            if (res == IntPtr.Zero)
             {
-                var res = NativeMethods.cv_dnn_getAvailableTargets_0((int)be);
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
                 ErrorHelper.CheckError();
-                return res;
+                return resultObj;
             }
-            /// <summary>
-            /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
-            /// </summary>
-            /// <param name="model">path to the .pb file with binary protobuf description of the network architecture</param>
-            /// <param name="config">path to the .pbtxt file that contains text graph definition in protobuf format. *               Resulting Net object is built by text graph using weights from a binary one that *               let us make it more flexible.</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used.</param>
-            /// <param name="extraOutputs">specify model outputs explicitly, in addition to the outputs the graph analyzer finds. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Net object.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromTensorflow(string model, string? config, int engine, IntPtr extraOutputs)
+            catch
             {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromTensorflow_0(model, config, engine, extraOutputs);
-                if (res == IntPtr.Zero)
+                if (resultObj == null)
                 {
-                    return null;
+                    NativeMethods.dnn_Net_Delete(res);
                 }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
+                throw;
             }
-            /// <summary>
-            /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
-            /// </summary>
-            /// <param name="bufferModel">buffer containing the content of the pb file</param>
-            /// <param name="bufferConfig">buffer containing the content of the pbtxt file</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used.</param>
-            /// <param name="extraOutputs">specify model outputs explicitly, in addition to the outputs the graph analyzer finds. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Net object.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromTensorflow(IntPtr bufferModel, IntPtr bufferConfig, int engine, IntPtr extraOutputs)
+            finally
             {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromTensorflow_1(bufferModel, bufferConfig, engine, extraOutputs);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
             }
-            /// <summary>
-            /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
-            /// </summary>
-            /// <param name="model">path to the .tflite file with binary flatbuffers description of the network architecture</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Net object.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromTFLite(string model, int engine)
+        }
+        /// <summary>
+        /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt; framework's format.
+        /// </summary>
+        /// <param name="bufferModel">buffer containing the content of the pb file</param>
+        /// <param name="bufferConfig">buffer containing the content of the pbtxt file</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used.</param>
+        /// <param name="extraOutputs">specify model outputs explicitly, in addition to the outputs the graph analyzer finds. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Net object.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromTensorflow(IntPtr bufferModel, IntPtr bufferConfig, int engine, IntPtr extraOutputs)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromTensorflow_1(bufferModel, bufferConfig, engine, extraOutputs);
+            if (res == IntPtr.Zero)
             {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromTFLite_0(model, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
+                return null;
             }
-            /// <summary>
-            /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
-            /// </summary>
-            /// <param name="bufferModel">buffer containing the content of the tflite file</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Net object.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromTFLite(IntPtr bufferModel, int engine)
+            DnnNet? resultObj = null;
+            try
             {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromTFLite_1(bufferModel, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Read deep learning network represented in one of the supported formats.
-            /// </summary>
-            /// <param name="model">Binary file contains trained weights. The following file *                  extensions are expected for models from different frameworks: *                  * `*.pb` (TensorFlow, https://www.tensorflow.org/) *                  * `*.bin` | `*.onnx` (OpenVINO, https://software.intel.com/openvino-toolkit) *                  * `*.onnx` (ONNX, https://onnx.ai/)</param>
-            /// <param name="config">Text file contains network configuration. It could be a *                   file with the following extensions: *                  * `*.pbtxt` (TensorFlow, https://www.tensorflow.org/) *                  * `*.xml` (OpenVINO, https://software.intel.com/openvino-toolkit)</param>
-            /// <param name="framework">Explicit framework name tag to determine a format.</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now. * Use ENGINE_CLASSIC if you want to use other back-ends.</param>
-            /// <returns>s Net object. * * This function automatically detects an origin framework of trained model * and calls an appropriate function such readNetFromTensorflow, readNetFromONNX. * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNet(string model, string? config, string? framework, int engine)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNet_0(model, config, framework, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Read deep learning network represented in one of the supported formats.
-            /// </summary>
-            /// <param name="framework">Name of origin framework.</param>
-            /// <param name="bufferModel">A buffer with a content of binary file with weights</param>
-            /// <param name="bufferConfig">A buffer with a content of text file contains network configuration.</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now. * Use ENGINE_CLASSIC if you want to use other back-ends.</param>
-            /// <returns>s Net object.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This is an overloaded member function, provided for convenience.
-            /// *          It differs from the above function only in what argument(s) it accepts.
-            /// </remarks>
-            public static DnnNet? DnnReadNet(string framework, IntPtr bufferModel, IntPtr bufferConfig, int engine)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNet_1(framework, bufferModel, bufferConfig, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Load a network from Intel's Model Optimizer intermediate representation.
-            /// </summary>
-            /// <param name="xml">XML configuration file with network's topology.</param>
-            /// <param name="bin">Binary file with trained weights.</param>
-            /// <returns>s Net object. *  Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine *  backend.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromModelOptimizer(string xml, string? bin)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromModelOptimizer_0(xml, bin);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Load a network from Intel's Model Optimizer intermediate representation.
-            /// </summary>
-            /// <param name="bufferModelConfig">Buffer contains XML configuration with network's topology.</param>
-            /// <param name="bufferWeights">Buffer contains binary data with trained weights.</param>
-            /// <returns>s Net object. *  Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine *  backend.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromModelOptimizer(IntPtr bufferModelConfig, IntPtr bufferWeights)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromModelOptimizer_1(bufferModelConfig, bufferWeights);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Reads a network model &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;.
-            /// </summary>
-            /// <param name="onnxFile">path to the .onnx file with text description of the network architecture.</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. *  Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Network object that ready to do forward, throw an exception in failure cases.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromONNX(string onnxFile, int engine)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromONNX_0(onnxFile, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Reads a network model from &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;
-            /// *         in-memory buffer.
-            /// </summary>
-            /// <param name="buffer">in-memory buffer that stores the ONNX model bytes.</param>
-            /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. *  Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
-            /// <returns>s Network object that ready to do forward, throw an exception *        in failure cases.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static DnnNet? DnnReadNetFromONNX(IntPtr buffer, int engine)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readNetFromONNX_1(buffer, engine);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                DnnNet? resultObj = null;
-                try
-                {
-                    resultObj = new DnnNet(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.dnn_Net_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Creates blob from .pb file.
-            /// </summary>
-            /// <param name="path">to the .pb file with input tensor.</param>
-            /// <returns>s Mat.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static Mat? DnnReadTensorFromONNX(string path)
-            {
-                IntPtr res = NativeMethods.cv_dnn_readTensorFromONNX_0(path);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                Mat? resultObj = null;
-                try
-                {
-                    resultObj = new Mat(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.Mat_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Creates 4-dimensional blob from image. Optionally resizes and crops <paramref name="image"/> from center,
-            /// *  subtract <paramref name="mean"/> values, scales values by <paramref name="scalefactor"/>, swap Blue and Red channels.
-            /// </summary>
-            /// <param name="image">input image (with 1-, 3- or 4-channels).</param>
-            /// <param name="scalefactor">multiplier for <c>images</c> values.</param>
-            /// <param name="size">spatial size for output image</param>
-            /// <param name="mean">scalar with mean values which are subtracted from channels. Values are intended *  to be in (mean-R, mean-G, mean-B) order if <paramref name="image"/> has BGR ordering and <paramref name="swapRB"/> is true.</param>
-            /// <param name="swapRB">flag which indicates that swap first and last channels *  in 3-channel image is necessary.</param>
-            /// <param name="crop">flag which indicates whether image will be cropped after resize or not</param>
-            /// <param name="ddepth">Depth of output blob. Choose CV_32F or CV_8U.</param>
-            /// <returns>s 4-dimensional Mat with NCHW dimensions order. *</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// if <paramref name="crop"/> is true, input image is resized so one side after resize is equal to corresponding
-            /// *  dimension in <paramref name="size"/> and another one is equal or larger. Then, crop from the center is performed.
-            /// *  If <paramref name="crop"/> is false, direct resize without cropping and preserving aspect ratio is performed.
-            /// 
-            /// * The order and usage of `scalefactor` and `mean` are (input - mean) * scalefactor.
-            /// </remarks>
-            public static Mat? DnnBlobFromImage(Mat image, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth)
-            {
-                if (image == null) throw new ArgumentNullException(nameof(image));
-                image.ThrowIfDisposed();
-                IntPtr res = NativeMethods.cv_dnn_blobFromImage_0(image.Handle, scalefactor, size, mean, swapRB, crop, ddepth);
-                if (res == IntPtr.Zero)
-                {
-                    GC.KeepAlive(image);
-                    return null;
-                }
-                Mat? resultObj = null;
-                try
-                {
-                    resultObj = new Mat(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.Mat_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                    GC.KeepAlive(image);
-                }
-            }
-            /// <summary>
-            /// Creates 4-dimensional blob from series of images. Optionally resizes and
-            /// *  crops <paramref name="images"/> from center, subtract <paramref name="mean"/> values, scales values by <paramref name="scalefactor"/>,
-            /// *  swap Blue and Red channels.
-            /// </summary>
-            /// <param name="images">input images (all with 1-, 3- or 4-channels).</param>
-            /// <param name="scalefactor">multiplier for <paramref name="images"/> values.</param>
-            /// <param name="size">spatial size for output image</param>
-            /// <param name="mean">scalar with mean values which are subtracted from channels. Values are intended *  to be in (mean-R, mean-G, mean-B) order if <c>image</c> has BGR ordering and <paramref name="swapRB"/> is true.</param>
-            /// <param name="swapRB">flag which indicates that swap first and last channels *  in 3-channel image is necessary.</param>
-            /// <param name="crop">flag which indicates whether image will be cropped after resize or not</param>
-            /// <param name="ddepth">Depth of output blob. Choose CV_32F or CV_8U.</param>
-            /// <returns>s 4-dimensional Mat with NCHW dimensions order. *</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// if <paramref name="crop"/> is true, input image is resized so one side after resize is equal to corresponding
-            /// *  dimension in <paramref name="size"/> and another one is equal or larger. Then, crop from the center is performed.
-            /// *  If <paramref name="crop"/> is false, direct resize without cropping and preserving aspect ratio is performed.
-            /// 
-            /// * The order and usage of `scalefactor` and `mean` are (input - mean) * scalefactor.
-            /// </remarks>
-            public static Mat? DnnBlobFromImages(IntPtr images, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth)
-            {
-                IntPtr res = NativeMethods.cv_dnn_blobFromImages_0(images, scalefactor, size, mean, swapRB, crop, ddepth);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                Mat? resultObj = null;
-                try
-                {
-                    resultObj = new Mat(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.Mat_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                }
-            }
-            /// <summary>
-            /// Creates 4-dimensional blob from image with given params.
-            /// *
-            /// </summary>
-            /// <param name="image">input image (all with 1-, 3- or 4-channels).</param>
-            /// <param name="param">struct of Image2BlobParams, contains all parameters needed by processing of image to blob.</param>
-            /// <returns>4-dimensional Mat.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This function is an extension of blobFromImage to meet more image preprocess needs.
-            /// *  Given input image and preprocessing parameters, and function outputs the blob.
-            /// *
-            /// </remarks>
-            public static Mat? DnnBlobFromImageWithParams(Mat image, DnnImage2BlobParams? param)
-            {
-                if (image == null) throw new ArgumentNullException(nameof(image));
-                image.ThrowIfDisposed();
-                if (param != null) param.ThrowIfDisposed();
-                IntPtr res = NativeMethods.cv_dnn_blobFromImageWithParams_0(image.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
-                if (res == IntPtr.Zero)
-                {
-                    GC.KeepAlive(image);
-                    GC.KeepAlive(param);
-                    return null;
-                }
-                Mat? resultObj = null;
-                try
-                {
-                    resultObj = new Mat(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.Mat_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                    GC.KeepAlive(image);
-                    GC.KeepAlive(param);
-                }
-            }
-            /// <summary>
-            /// This is an overloaded member function, provided for convenience.
-            /// </summary>
-            /// <param name="image">Input image.</param>
-            /// <param name="blob">The blob parameter.</param>
-            /// <param name="param">The param parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnBlobFromImageWithParams(Mat image, Mat blob, DnnImage2BlobParams? param)
-            {
-                if (image == null) throw new ArgumentNullException(nameof(image));
-                image.ThrowIfDisposed();
-                if (blob == null) throw new ArgumentNullException(nameof(blob));
-                blob.ThrowIfDisposed();
-                if (param != null) param.ThrowIfDisposed();
-                NativeMethods.cv_dnn_blobFromImageWithParams_1(image.Handle, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
+                resultObj = new DnnNet(res, true);
                 ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+        /// </summary>
+        /// <param name="model">path to the .tflite file with binary flatbuffers description of the network architecture</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Net object.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromTFLite(string model, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromTFLite_0(model, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Reads a network model stored in &lt;a href="https://www.tensorflow.org/lite"&gt;TFLite&lt;/a&gt; framework's format.
+        /// </summary>
+        /// <param name="bufferModel">buffer containing the content of the tflite file</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Net object.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromTFLite(IntPtr bufferModel, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromTFLite_1(bufferModel, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Read deep learning network represented in one of the supported formats.
+        /// </summary>
+        /// <param name="model">Binary file contains trained weights. The following file *                  extensions are expected for models from different frameworks: *                  * `*.pb` (TensorFlow, https://www.tensorflow.org/) *                  * `*.bin` | `*.onnx` (OpenVINO, https://software.intel.com/openvino-toolkit) *                  * `*.onnx` (ONNX, https://onnx.ai/)</param>
+        /// <param name="config">Text file contains network configuration. It could be a *                   file with the following extensions: *                  * `*.pbtxt` (TensorFlow, https://www.tensorflow.org/) *                  * `*.xml` (OpenVINO, https://software.intel.com/openvino-toolkit)</param>
+        /// <param name="framework">Explicit framework name tag to determine a format.</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now. * Use ENGINE_CLASSIC if you want to use other back-ends.</param>
+        /// <returns>s Net object. * * This function automatically detects an origin framework of trained model * and calls an appropriate function such readNetFromTensorflow, readNetFromONNX. * An order of <paramref name="model"/> and <paramref name="config"/> arguments does not matter.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNet(string model, string? config, string? framework, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNet_0(model, config, framework, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Read deep learning network represented in one of the supported formats.
+        /// </summary>
+        /// <param name="framework">Name of origin framework.</param>
+        /// <param name="bufferModel">A buffer with a content of binary file with weights</param>
+        /// <param name="bufferConfig">A buffer with a content of text file contains network configuration.</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. * Please pay attention that the new DNN does not support non-CPU back-ends for now. * Use ENGINE_CLASSIC if you want to use other back-ends.</param>
+        /// <returns>s Net object.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This is an overloaded member function, provided for convenience.
+        /// *          It differs from the above function only in what argument(s) it accepts.
+        /// </remarks>
+        public static DnnNet? DnnReadNet(string framework, IntPtr bufferModel, IntPtr bufferConfig, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNet_1(framework, bufferModel, bufferConfig, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Load a network from Intel's Model Optimizer intermediate representation.
+        /// </summary>
+        /// <param name="xml">XML configuration file with network's topology.</param>
+        /// <param name="bin">Binary file with trained weights.</param>
+        /// <returns>s Net object. *  Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine *  backend.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromModelOptimizer(string xml, string? bin)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromModelOptimizer_0(xml, bin);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Load a network from Intel's Model Optimizer intermediate representation.
+        /// </summary>
+        /// <param name="bufferModelConfig">Buffer contains XML configuration with network's topology.</param>
+        /// <param name="bufferWeights">Buffer contains binary data with trained weights.</param>
+        /// <returns>s Net object. *  Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine *  backend.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromModelOptimizer(IntPtr bufferModelConfig, IntPtr bufferWeights)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromModelOptimizer_1(bufferModelConfig, bufferWeights);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Reads a network model &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;.
+        /// </summary>
+        /// <param name="onnxFile">path to the .onnx file with text description of the network architecture.</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. *  Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Network object that ready to do forward, throw an exception in failure cases.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromONNX(string onnxFile, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromONNX_0(onnxFile, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Reads a network model from &lt;a href="https://onnx.ai/"&gt;ONNX&lt;/a&gt;
+        /// *         in-memory buffer.
+        /// </summary>
+        /// <param name="buffer">in-memory buffer that stores the ONNX model bytes.</param>
+        /// <param name="engine">select DNN engine to be used. With auto selection the new engine is used first and falls back to classic. *  Please pay attention that the new DNN does not support non-CPU back-ends for now.</param>
+        /// <returns>s Network object that ready to do forward, throw an exception *        in failure cases.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static DnnNet? DnnReadNetFromONNX(IntPtr buffer, int engine)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readNetFromONNX_1(buffer, engine);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            DnnNet? resultObj = null;
+            try
+            {
+                resultObj = new DnnNet(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.dnn_Net_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Creates blob from .pb file.
+        /// </summary>
+        /// <param name="path">to the .pb file with input tensor.</param>
+        /// <returns>s Mat.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static Mat? DnnReadTensorFromONNX(string path)
+        {
+            IntPtr res = NativeMethods.cv_dnn_readTensorFromONNX_0(path);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            Mat? resultObj = null;
+            try
+            {
+                resultObj = new Mat(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.Mat_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Creates 4-dimensional blob from image. Optionally resizes and crops <paramref name="image"/> from center,
+        /// *  subtract <paramref name="mean"/> values, scales values by <paramref name="scalefactor"/>, swap Blue and Red channels.
+        /// </summary>
+        /// <param name="image">input image (with 1-, 3- or 4-channels).</param>
+        /// <param name="scalefactor">multiplier for <c>images</c> values.</param>
+        /// <param name="size">spatial size for output image</param>
+        /// <param name="mean">scalar with mean values which are subtracted from channels. Values are intended *  to be in (mean-R, mean-G, mean-B) order if <paramref name="image"/> has BGR ordering and <paramref name="swapRB"/> is true.</param>
+        /// <param name="swapRB">flag which indicates that swap first and last channels *  in 3-channel image is necessary.</param>
+        /// <param name="crop">flag which indicates whether image will be cropped after resize or not</param>
+        /// <param name="ddepth">Depth of output blob. Choose CV_32F or CV_8U.</param>
+        /// <returns>s 4-dimensional Mat with NCHW dimensions order. *</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// if <paramref name="crop"/> is true, input image is resized so one side after resize is equal to corresponding
+        /// *  dimension in <paramref name="size"/> and another one is equal or larger. Then, crop from the center is performed.
+        /// *  If <paramref name="crop"/> is false, direct resize without cropping and preserving aspect ratio is performed.
+        /// 
+        /// * The order and usage of `scalefactor` and `mean` are (input - mean) * scalefactor.
+        /// </remarks>
+        public static Mat? DnnBlobFromImage(Mat image, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth)
+        {
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cv_dnn_blobFromImage_0(image.Handle, scalefactor, size, mean, swapRB, crop, ddepth);
+            if (res == IntPtr.Zero)
+            {
                 GC.KeepAlive(image);
-                GC.KeepAlive(blob);
+                return null;
+            }
+            Mat? resultObj = null;
+            try
+            {
+                resultObj = new Mat(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.Mat_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(image);
+            }
+        }
+        /// <summary>
+        /// Creates 4-dimensional blob from series of images. Optionally resizes and
+        /// *  crops <paramref name="images"/> from center, subtract <paramref name="mean"/> values, scales values by <paramref name="scalefactor"/>,
+        /// *  swap Blue and Red channels.
+        /// </summary>
+        /// <param name="images">input images (all with 1-, 3- or 4-channels).</param>
+        /// <param name="scalefactor">multiplier for <paramref name="images"/> values.</param>
+        /// <param name="size">spatial size for output image</param>
+        /// <param name="mean">scalar with mean values which are subtracted from channels. Values are intended *  to be in (mean-R, mean-G, mean-B) order if <c>image</c> has BGR ordering and <paramref name="swapRB"/> is true.</param>
+        /// <param name="swapRB">flag which indicates that swap first and last channels *  in 3-channel image is necessary.</param>
+        /// <param name="crop">flag which indicates whether image will be cropped after resize or not</param>
+        /// <param name="ddepth">Depth of output blob. Choose CV_32F or CV_8U.</param>
+        /// <returns>s 4-dimensional Mat with NCHW dimensions order. *</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// if <paramref name="crop"/> is true, input image is resized so one side after resize is equal to corresponding
+        /// *  dimension in <paramref name="size"/> and another one is equal or larger. Then, crop from the center is performed.
+        /// *  If <paramref name="crop"/> is false, direct resize without cropping and preserving aspect ratio is performed.
+        /// 
+        /// * The order and usage of `scalefactor` and `mean` are (input - mean) * scalefactor.
+        /// </remarks>
+        public static Mat? DnnBlobFromImages(IntPtr images, double scalefactor, Size size, Scalar mean, bool swapRB, bool crop, int ddepth)
+        {
+            IntPtr res = NativeMethods.cv_dnn_blobFromImages_0(images, scalefactor, size, mean, swapRB, crop, ddepth);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            Mat? resultObj = null;
+            try
+            {
+                resultObj = new Mat(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.Mat_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+            }
+        }
+        /// <summary>
+        /// Creates 4-dimensional blob from image with given params.
+        /// *
+        /// </summary>
+        /// <param name="image">input image (all with 1-, 3- or 4-channels).</param>
+        /// <param name="param">struct of Image2BlobParams, contains all parameters needed by processing of image to blob.</param>
+        /// <returns>4-dimensional Mat.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This function is an extension of blobFromImage to meet more image preprocess needs.
+        /// *  Given input image and preprocessing parameters, and function outputs the blob.
+        /// *
+        /// </remarks>
+        public static Mat? DnnBlobFromImageWithParams(Mat image, DnnImage2BlobParams? param)
+        {
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (param != null) param.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cv_dnn_blobFromImageWithParams_0(image.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
+            if (res == IntPtr.Zero)
+            {
+                GC.KeepAlive(image);
+                GC.KeepAlive(param);
+                return null;
+            }
+            Mat? resultObj = null;
+            try
+            {
+                resultObj = new Mat(res, true);
+                ErrorHelper.CheckError();
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.Mat_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
+                GC.KeepAlive(image);
                 GC.KeepAlive(param);
             }
-            /// <summary>
-            /// Creates 4-dimensional blob from series of images with given params.
-            /// *
-            /// </summary>
-            /// <param name="images">input image (all with 1-, 3- or 4-channels).</param>
-            /// <param name="param">struct of Image2BlobParams, contains all parameters needed by processing of image to blob.</param>
-            /// <returns>s 4-dimensional Mat.</returns>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// This function is an extension of blobFromImages to meet more image preprocess needs.
-            /// *  Given input image and preprocessing parameters, and function outputs the blob.
-            /// *
-            /// </remarks>
-            public static Mat? DnnBlobFromImagesWithParams(IntPtr images, DnnImage2BlobParams? param)
+        }
+        /// <summary>
+        /// This is an overloaded member function, provided for convenience.
+        /// </summary>
+        /// <param name="image">Input image.</param>
+        /// <param name="blob">The blob parameter.</param>
+        /// <param name="param">The param parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnBlobFromImageWithParams(Mat image, Mat blob, DnnImage2BlobParams? param)
+        {
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            blob.ThrowIfDisposed();
+            if (param != null) param.ThrowIfDisposed();
+            NativeMethods.cv_dnn_blobFromImageWithParams_1(image.Handle, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(image);
+            GC.KeepAlive(blob);
+            GC.KeepAlive(param);
+        }
+        /// <summary>
+        /// Creates 4-dimensional blob from series of images with given params.
+        /// *
+        /// </summary>
+        /// <param name="images">input image (all with 1-, 3- or 4-channels).</param>
+        /// <param name="param">struct of Image2BlobParams, contains all parameters needed by processing of image to blob.</param>
+        /// <returns>s 4-dimensional Mat.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// This function is an extension of blobFromImages to meet more image preprocess needs.
+        /// *  Given input image and preprocessing parameters, and function outputs the blob.
+        /// *
+        /// </remarks>
+        public static Mat? DnnBlobFromImagesWithParams(IntPtr images, DnnImage2BlobParams? param)
+        {
+            if (param != null) param.ThrowIfDisposed();
+            IntPtr res = NativeMethods.cv_dnn_blobFromImagesWithParams_0(images, ValidationHelper.GetHandle(param, nameof(param), true));
+            if (res == IntPtr.Zero)
             {
-                if (param != null) param.ThrowIfDisposed();
-                IntPtr res = NativeMethods.cv_dnn_blobFromImagesWithParams_0(images, ValidationHelper.GetHandle(param, nameof(param), true));
-                if (res == IntPtr.Zero)
-                {
-                    GC.KeepAlive(param);
-                    return null;
-                }
-                Mat? resultObj = null;
-                try
-                {
-                    resultObj = new Mat(res, true);
-                    ErrorHelper.CheckError();
-                    return resultObj;
-                }
-                catch
-                {
-                    if (resultObj == null)
-                    {
-                        NativeMethods.Mat_Delete(res);
-                    }
-                    throw;
-                }
-                finally
-                {
-                    GC.KeepAlive(param);
-                }
+                GC.KeepAlive(param);
+                return null;
             }
-            /// <summary>
-            /// This is an overloaded member function, provided for convenience.
-            /// </summary>
-            /// <param name="images">The images parameter.</param>
-            /// <param name="blob">The blob parameter.</param>
-            /// <param name="param">The param parameter.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnBlobFromImagesWithParams(IntPtr images, Mat blob, DnnImage2BlobParams? param)
+            Mat? resultObj = null;
+            try
             {
-                if (blob == null) throw new ArgumentNullException(nameof(blob));
-                blob.ThrowIfDisposed();
-                if (param != null) param.ThrowIfDisposed();
-                NativeMethods.cv_dnn_blobFromImagesWithParams_1(images, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
+                resultObj = new Mat(res, true);
                 ErrorHelper.CheckError();
-                GC.KeepAlive(blob);
+                return resultObj;
+            }
+            catch
+            {
+                if (resultObj == null)
+                {
+                    NativeMethods.Mat_Delete(res);
+                }
+                throw;
+            }
+            finally
+            {
                 GC.KeepAlive(param);
             }
-            /// <summary>
-            /// Parse a 4D blob and output the images it contains as 2D arrays through a simpler data structure
-            /// *  (Mat[]).
-            /// </summary>
-            /// <param name="blob_">4 dimensional array (images, channels, height, width) in floating point precision (CV_32F) from *  which you would like to extract the images.</param>
-            /// <param name="images_">array of 2D Mat containing the images extracted from the blob in floating point precision *  (CV_32F). They are non normalized neither mean added. The number of returned images equals the first dimension *  of the blob (batch size). Every image has a number of channels equals to the second dimension of the blob (depth).</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnImagesFromBlob(Mat blob_, IntPtr images_)
+        }
+        /// <summary>
+        /// This is an overloaded member function, provided for convenience.
+        /// </summary>
+        /// <param name="images">The images parameter.</param>
+        /// <param name="blob">The blob parameter.</param>
+        /// <param name="param">The param parameter.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnBlobFromImagesWithParams(IntPtr images, Mat blob, DnnImage2BlobParams? param)
+        {
+            if (blob == null) throw new ArgumentNullException(nameof(blob));
+            blob.ThrowIfDisposed();
+            if (param != null) param.ThrowIfDisposed();
+            NativeMethods.cv_dnn_blobFromImagesWithParams_1(images, blob.Handle, ValidationHelper.GetHandle(param, nameof(param), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(blob);
+            GC.KeepAlive(param);
+        }
+        /// <summary>
+        /// Parse a 4D blob and output the images it contains as 2D arrays through a simpler data structure
+        /// *  (Mat[]).
+        /// </summary>
+        /// <param name="blob_">4 dimensional array (images, channels, height, width) in floating point precision (CV_32F) from *  which you would like to extract the images.</param>
+        /// <param name="images_">array of 2D Mat containing the images extracted from the blob in floating point precision *  (CV_32F). They are non normalized neither mean added. The number of returned images equals the first dimension *  of the blob (batch size). Every image has a number of channels equals to the second dimension of the blob (depth).</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnImagesFromBlob(Mat blob_, IntPtr images_)
+        {
+            if (blob_ == null) throw new ArgumentNullException(nameof(blob_));
+            blob_.ThrowIfDisposed();
+            NativeMethods.cv_dnn_imagesFromBlob_0(blob_.Handle, images_);
+            ErrorHelper.CheckError();
+            GC.KeepAlive(blob_);
+        }
+        /// <summary>
+        /// Create a text representation for a binary network stored in protocol buffer format.
+        /// </summary>
+        /// <param name="model">A path to binary network.</param>
+        /// <param name="output">A path to output text file to be created. *</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// To reduce output file size, trained weights are not included.
+        /// </remarks>
+        public static void DnnWriteTextGraph(string model, string output)
+        {
+            NativeMethods.cv_dnn_writeTextGraph_0(model, output);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs non maximum suppression given boxes and corresponding scores.
+        /// </summary>
+        /// <param name="bboxes">a set of bounding boxes to apply NMS.</param>
+        /// <param name="scores">a set of corresponding confidences.</param>
+        /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
+        /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
+        /// <param name="indices">the kept indices of bboxes after NMS.</param>
+        /// <param name="eta">a coefficient in adaptive threshold formula: [formula].</param>
+        /// <param name="top_k">if `&gt;0`, keep at most <paramref name="top_k"/> picked indices.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnNMSBoxes(IntPtr bboxes, IntPtr scores, float score_threshold, float nms_threshold, IntPtr indices, float eta, int top_k)
+        {
+            NativeMethods.cv_dnn_NMSBoxes_0(bboxes, scores, score_threshold, nms_threshold, indices, eta, top_k);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs batched non maximum suppression on given boxes and corresponding scores across different classes.
+        /// </summary>
+        /// <param name="bboxes">a set of bounding boxes to apply NMS.</param>
+        /// <param name="scores">a set of corresponding confidences.</param>
+        /// <param name="class_ids">a set of corresponding class ids. Ids are integer and usually start from 0.</param>
+        /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
+        /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
+        /// <param name="indices">the kept indices of bboxes after NMS.</param>
+        /// <param name="eta">a coefficient in adaptive threshold formula: [formula].</param>
+        /// <param name="top_k">if `&gt;0`, keep at most <paramref name="top_k"/> picked indices.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnNMSBoxesBatched(IntPtr bboxes, IntPtr scores, IntPtr class_ids, float score_threshold, float nms_threshold, IntPtr indices, float eta, int top_k)
+        {
+            NativeMethods.cv_dnn_NMSBoxesBatched_0(bboxes, scores, class_ids, score_threshold, nms_threshold, indices, eta, top_k);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Performs soft non maximum suppression given boxes and corresponding scores.
+        /// * Reference: https://arxiv.org/abs/1704.04503
+        /// </summary>
+        /// <param name="bboxes">a set of bounding boxes to apply Soft NMS.</param>
+        /// <param name="scores">a set of corresponding confidences.</param>
+        /// <param name="updated_scores">a set of corresponding updated confidences.</param>
+        /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
+        /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
+        /// <param name="indices">the kept indices of bboxes after NMS.</param>
+        /// <param name="top_k">keep at most <paramref name="top_k"/> picked indices.</param>
+        /// <param name="sigma">parameter of Gaussian weighting.</param>
+        /// <param name="method">Gaussian or linear.</param>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// SoftNMSMethod
+        /// </remarks>
+        public static void DnnSoftNMSBoxes(IntPtr bboxes, IntPtr scores, IntPtr updated_scores, float score_threshold, float nms_threshold, IntPtr indices, long top_k, float sigma, DnnSoftNMSMethod method)
+        {
+            NativeMethods.cv_dnn_softNMSBoxes_0(bboxes, scores, updated_scores, score_threshold, nms_threshold, indices, top_k, sigma, (int)method);
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns Inference Engine internal backend API.
+        /// *
+        /// * See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
+        /// *
+        /// * `OPENCV_DNN_BACKEND_INFERENCE_ENGINE_TYPE` runtime parameter (environment variable) is ignored since 4.6.0.
+        /// *
+        /// * @deprecated
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? DnnGetInferenceEngineBackendType()
+        {
+            IntPtr res = NativeMethods.cv_dnn_getInferenceEngineBackendType_0();
+            if (res == IntPtr.Zero)
             {
-                if (blob_ == null) throw new ArgumentNullException(nameof(blob_));
-                blob_.ThrowIfDisposed();
-                NativeMethods.cv_dnn_imagesFromBlob_0(blob_.Handle, images_);
+                return null;
+            }
+            try
+            {
                 ErrorHelper.CheckError();
-                GC.KeepAlive(blob_);
+                string strRes = Marshal.PtrToStringUTF8(res) ?? "";
+                return strRes;
             }
-            /// <summary>
-            /// Create a text representation for a binary network stored in protocol buffer format.
-            /// </summary>
-            /// <param name="model">A path to binary network.</param>
-            /// <param name="output">A path to output text file to be created. *</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// To reduce output file size, trained weights are not included.
-            /// </remarks>
-            public static void DnnWriteTextGraph(string model, string output)
+            finally
             {
-                NativeMethods.cv_dnn_writeTextGraph_0(model, output);
+                NativeMethods.cv_FreeString(res);
+            }
+        }
+        /// <summary>
+        /// Specify Inference Engine internal backend API.
+        /// *
+        /// * See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
+        /// *
+        /// </summary>
+        /// <param name="newBackendType">The newBackendType parameter.</param>
+        /// <returns>s previous value of internal backend API * * @deprecated</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? DnnSetInferenceEngineBackendType(string newBackendType)
+        {
+            IntPtr res = NativeMethods.cv_dnn_setInferenceEngineBackendType_0(newBackendType);
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            try
+            {
                 ErrorHelper.CheckError();
+                string strRes = Marshal.PtrToStringUTF8(res) ?? "";
+                return strRes;
             }
-            /// <summary>
-            /// Performs non maximum suppression given boxes and corresponding scores.
-            /// </summary>
-            /// <param name="bboxes">a set of bounding boxes to apply NMS.</param>
-            /// <param name="scores">a set of corresponding confidences.</param>
-            /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
-            /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
-            /// <param name="indices">the kept indices of bboxes after NMS.</param>
-            /// <param name="eta">a coefficient in adaptive threshold formula: [formula].</param>
-            /// <param name="top_k">if `&gt;0`, keep at most <paramref name="top_k"/> picked indices.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnNMSBoxes(IntPtr bboxes, IntPtr scores, float score_threshold, float nms_threshold, IntPtr indices, float eta, int top_k)
+            finally
             {
-                NativeMethods.cv_dnn_NMSBoxes_0(bboxes, scores, score_threshold, nms_threshold, indices, eta, top_k);
+                NativeMethods.cv_FreeString(res);
+            }
+        }
+        /// <summary>
+        /// Release a Myriad device (binded by OpenCV).
+        /// *
+        /// * Single Myriad device cannot be shared across multiple processes which uses
+        /// * Inference Engine's Myriad plugin.
+        /// </summary>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnResetMyriadDevice()
+        {
+            NativeMethods.cv_dnn_resetMyriadDevice_0();
+            ErrorHelper.CheckError();
+        }
+        /// <summary>
+        /// Returns Inference Engine VPU type.
+        /// *
+        /// * See values of `CV_DNN_INFERENCE_ENGINE_VPU_TYPE_*` macros.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? DnnGetInferenceEngineVPUType()
+        {
+            IntPtr res = NativeMethods.cv_dnn_getInferenceEngineVPUType_0();
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            try
+            {
                 ErrorHelper.CheckError();
+                string strRes = Marshal.PtrToStringUTF8(res) ?? "";
+                return strRes;
             }
-            /// <summary>
-            /// Performs batched non maximum suppression on given boxes and corresponding scores across different classes.
-            /// </summary>
-            /// <param name="bboxes">a set of bounding boxes to apply NMS.</param>
-            /// <param name="scores">a set of corresponding confidences.</param>
-            /// <param name="class_ids">a set of corresponding class ids. Ids are integer and usually start from 0.</param>
-            /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
-            /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
-            /// <param name="indices">the kept indices of bboxes after NMS.</param>
-            /// <param name="eta">a coefficient in adaptive threshold formula: [formula].</param>
-            /// <param name="top_k">if `&gt;0`, keep at most <paramref name="top_k"/> picked indices.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnNMSBoxesBatched(IntPtr bboxes, IntPtr scores, IntPtr class_ids, float score_threshold, float nms_threshold, IntPtr indices, float eta, int top_k)
+            finally
             {
-                NativeMethods.cv_dnn_NMSBoxesBatched_0(bboxes, scores, class_ids, score_threshold, nms_threshold, indices, eta, top_k);
+                NativeMethods.cv_FreeString(res);
+            }
+        }
+        /// <summary>
+        /// Returns Inference Engine CPU type.
+        /// *
+        /// * Specify OpenVINO plugin: CPU or ARM.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static string? DnnGetInferenceEngineCPUType()
+        {
+            IntPtr res = NativeMethods.cv_dnn_getInferenceEngineCPUType_0();
+            if (res == IntPtr.Zero)
+            {
+                return null;
+            }
+            try
+            {
                 ErrorHelper.CheckError();
+                string strRes = Marshal.PtrToStringUTF8(res) ?? "";
+                return strRes;
             }
-            /// <summary>
-            /// Performs soft non maximum suppression given boxes and corresponding scores.
-            /// * Reference: https://arxiv.org/abs/1704.04503
-            /// </summary>
-            /// <param name="bboxes">a set of bounding boxes to apply Soft NMS.</param>
-            /// <param name="scores">a set of corresponding confidences.</param>
-            /// <param name="updated_scores">a set of corresponding updated confidences.</param>
-            /// <param name="score_threshold">a threshold used to filter boxes by score.</param>
-            /// <param name="nms_threshold">a threshold used in non maximum suppression.</param>
-            /// <param name="indices">the kept indices of bboxes after NMS.</param>
-            /// <param name="top_k">keep at most <paramref name="top_k"/> picked indices.</param>
-            /// <param name="sigma">parameter of Gaussian weighting.</param>
-            /// <param name="method">Gaussian or linear.</param>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// SoftNMSMethod
-            /// </remarks>
-            public static void DnnSoftNMSBoxes(IntPtr bboxes, IntPtr scores, IntPtr updated_scores, float score_threshold, float nms_threshold, IntPtr indices, long top_k, float sigma, DnnSoftNMSMethod method)
+            finally
             {
-                NativeMethods.cv_dnn_softNMSBoxes_0(bboxes, scores, updated_scores, score_threshold, nms_threshold, indices, top_k, sigma, (int)method);
-                ErrorHelper.CheckError();
+                NativeMethods.cv_FreeString(res);
             }
-            /// <summary>
-            /// Returns Inference Engine internal backend API.
-            /// *
-            /// * See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
-            /// *
-            /// * `OPENCV_DNN_BACKEND_INFERENCE_ENGINE_TYPE` runtime parameter (environment variable) is ignored since 4.6.0.
-            /// *
-            /// * @deprecated
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? DnnGetInferenceEngineBackendType()
-            {
-                IntPtr res = NativeMethods.cv_dnn_getInferenceEngineBackendType_0();
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                try
-                {
-                    ErrorHelper.CheckError();
-                    string strRes = Marshal.PtrToStringUTF8(res) ?? "";
-                    return strRes;
-                }
-                finally
-                {
-                    NativeMethods.cv_FreeString(res);
-                }
-            }
-            /// <summary>
-            /// Specify Inference Engine internal backend API.
-            /// *
-            /// * See values of `CV_DNN_BACKEND_INFERENCE_ENGINE_*` macros.
-            /// *
-            /// </summary>
-            /// <param name="newBackendType">The newBackendType parameter.</param>
-            /// <returns>s previous value of internal backend API * * @deprecated</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? DnnSetInferenceEngineBackendType(string newBackendType)
-            {
-                IntPtr res = NativeMethods.cv_dnn_setInferenceEngineBackendType_0(newBackendType);
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                try
-                {
-                    ErrorHelper.CheckError();
-                    string strRes = Marshal.PtrToStringUTF8(res) ?? "";
-                    return strRes;
-                }
-                finally
-                {
-                    NativeMethods.cv_FreeString(res);
-                }
-            }
-            /// <summary>
-            /// Release a Myriad device (binded by OpenCV).
-            /// *
-            /// * Single Myriad device cannot be shared across multiple processes which uses
-            /// * Inference Engine's Myriad plugin.
-            /// </summary>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnResetMyriadDevice()
-            {
-                NativeMethods.cv_dnn_resetMyriadDevice_0();
-                ErrorHelper.CheckError();
-            }
-            /// <summary>
-            /// Returns Inference Engine VPU type.
-            /// *
-            /// * See values of `CV_DNN_INFERENCE_ENGINE_VPU_TYPE_*` macros.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? DnnGetInferenceEngineVPUType()
-            {
-                IntPtr res = NativeMethods.cv_dnn_getInferenceEngineVPUType_0();
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                try
-                {
-                    ErrorHelper.CheckError();
-                    string strRes = Marshal.PtrToStringUTF8(res) ?? "";
-                    return strRes;
-                }
-                finally
-                {
-                    NativeMethods.cv_FreeString(res);
-                }
-            }
-            /// <summary>
-            /// Returns Inference Engine CPU type.
-            /// *
-            /// * Specify OpenVINO plugin: CPU or ARM.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static string? DnnGetInferenceEngineCPUType()
-            {
-                IntPtr res = NativeMethods.cv_dnn_getInferenceEngineCPUType_0();
-                if (res == IntPtr.Zero)
-                {
-                    return null;
-                }
-                try
-                {
-                    ErrorHelper.CheckError();
-                    string strRes = Marshal.PtrToStringUTF8(res) ?? "";
-                    return strRes;
-                }
-                finally
-                {
-                    NativeMethods.cv_FreeString(res);
-                }
-            }
-            /// <summary>
-            /// Release a HDDL plugin.
-            /// </summary>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DnnReleaseHDDLPlugin()
-            {
-                NativeMethods.cv_dnn_releaseHDDLPlugin_0();
-                ErrorHelper.CheckError();
-            }
+        }
+        /// <summary>
+        /// Release a HDDL plugin.
+        /// </summary>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DnnReleaseHDDLPlugin()
+        {
+            NativeMethods.cv_dnn_releaseHDDLPlugin_0();
+            ErrorHelper.CheckError();
+        }
     }
 }

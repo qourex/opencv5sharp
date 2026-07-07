@@ -170,8 +170,8 @@ namespace OpenCV5Sharp
     public partial class Algorithm : DisposableOpenCVObject
     {
         public new AlgorithmHandle Handle => (AlgorithmHandle)base.Handle;
-        internal Algorithm(IntPtr handle, bool ownsHandle = true) : base(new AlgorithmHandle(handle, ownsHandle)) {}
-        internal Algorithm(AlgorithmHandle handle) : base(handle) {}
+        internal Algorithm(IntPtr handle, bool ownsHandle = true) : base(new AlgorithmHandle(handle, ownsHandle)) { }
+        internal Algorithm(AlgorithmHandle handle) : base(handle) { }
         /// <summary>
         /// Clears the algorithm state
         /// </summary>
@@ -306,8 +306,8 @@ namespace OpenCV5Sharp
     public partial class AsyncArray : DisposableOpenCVObject
     {
         public new AsyncArrayHandle Handle => (AsyncArrayHandle)base.Handle;
-        internal AsyncArray(IntPtr handle, bool ownsHandle = true) : base(new AsyncArrayHandle(handle, ownsHandle)) {}
-        internal AsyncArray(AsyncArrayHandle handle) : base(handle) {}
+        internal AsyncArray(IntPtr handle, bool ownsHandle = true) : base(new AsyncArrayHandle(handle, ownsHandle)) { }
+        internal AsyncArray(AsyncArrayHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -411,8 +411,8 @@ namespace OpenCV5Sharp
     public partial class DMatch : DisposableOpenCVObject
     {
         public new DMatchHandle Handle => (DMatchHandle)base.Handle;
-        internal DMatch(IntPtr handle, bool ownsHandle = true) : base(new DMatchHandle(handle, ownsHandle)) {}
-        internal DMatch(DMatchHandle handle) : base(handle) {}
+        internal DMatch(IntPtr handle, bool ownsHandle = true) : base(new DMatchHandle(handle, ownsHandle)) { }
+        internal DMatch(DMatchHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -494,8 +494,8 @@ namespace OpenCV5Sharp
     public partial class FileNode : DisposableOpenCVObject
     {
         public new FileNodeHandle Handle => (FileNodeHandle)base.Handle;
-        internal FileNode(IntPtr handle, bool ownsHandle = true) : base(new FileNodeHandle(handle, ownsHandle)) {}
-        internal FileNode(FileNodeHandle handle) : base(handle) {}
+        internal FileNode(IntPtr handle, bool ownsHandle = true) : base(new FileNodeHandle(handle, ownsHandle)) { }
+        internal FileNode(FileNodeHandle handle) : base(handle) { }
         /// <summary>
         /// The constructors.
         /// </summary>
@@ -847,8 +847,8 @@ namespace OpenCV5Sharp
     public partial class FileStorage : DisposableOpenCVObject
     {
         public new FileStorageHandle Handle => (FileStorageHandle)base.Handle;
-        internal FileStorage(IntPtr handle, bool ownsHandle = true) : base(new FileStorageHandle(handle, ownsHandle)) {}
-        internal FileStorage(FileStorageHandle handle) : base(handle) {}
+        internal FileStorage(IntPtr handle, bool ownsHandle = true) : base(new FileStorageHandle(handle, ownsHandle)) { }
+        internal FileStorage(FileStorageHandle handle) : base(handle) { }
         /// <summary>
         /// The constructors.
         /// </summary>
@@ -1223,8 +1223,8 @@ namespace OpenCV5Sharp
     public partial class KeyPoint : DisposableOpenCVObject
     {
         public new KeyPointHandle Handle => (KeyPointHandle)base.Handle;
-        internal KeyPoint(IntPtr handle, bool ownsHandle = true) : base(new KeyPointHandle(handle, ownsHandle)) {}
-        internal KeyPoint(KeyPointHandle handle) : base(handle) {}
+        internal KeyPoint(IntPtr handle, bool ownsHandle = true) : base(new KeyPointHandle(handle, ownsHandle)) { }
+        internal KeyPoint(KeyPointHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1361,8 +1361,8 @@ namespace OpenCV5Sharp
     public partial class Mat : DisposableOpenCVObject
     {
         public new MatHandle Handle => (MatHandle)base.Handle;
-        internal Mat(IntPtr handle, bool ownsHandle = true) : base(new MatHandle(handle, ownsHandle)) {}
-        internal Mat(MatHandle handle) : base(handle) {}
+        internal Mat(IntPtr handle, bool ownsHandle = true) : base(new MatHandle(handle, ownsHandle)) { }
+        internal Mat(MatHandle handle) : base(handle) { }
         /// <summary>
         /// Represents an n-dimensional dense numerical array (image, matrix, or tensor).
         /// </summary>
@@ -1755,8 +1755,8 @@ namespace OpenCV5Sharp
     public partial class MatShape : DisposableOpenCVObject
     {
         public new MatShapeHandle Handle => (MatShapeHandle)base.Handle;
-        internal MatShape(IntPtr handle, bool ownsHandle = true) : base(new MatShapeHandle(handle, ownsHandle)) {}
-        internal MatShape(MatShapeHandle handle) : base(handle) {}
+        internal MatShape(IntPtr handle, bool ownsHandle = true) : base(new MatShapeHandle(handle, ownsHandle)) { }
+        internal MatShape(MatShapeHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1939,8 +1939,8 @@ namespace OpenCV5Sharp
     public partial class Moments : DisposableOpenCVObject
     {
         public new MomentsHandle Handle => (MomentsHandle)base.Handle;
-        internal Moments(IntPtr handle, bool ownsHandle = true) : base(new MomentsHandle(handle, ownsHandle)) {}
-        internal Moments(MomentsHandle handle) : base(handle) {}
+        internal Moments(IntPtr handle, bool ownsHandle = true) : base(new MomentsHandle(handle, ownsHandle)) { }
+        internal Moments(MomentsHandle handle) : base(handle) { }
         /// <summary>Gets or sets the m00 property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public double M00
@@ -2125,8 +2125,8 @@ namespace OpenCV5Sharp
     public partial class RotatedRect : DisposableOpenCVObject
     {
         public new RotatedRectHandle Handle => (RotatedRectHandle)base.Handle;
-        internal RotatedRect(IntPtr handle, bool ownsHandle = true) : base(new RotatedRectHandle(handle, ownsHandle)) {}
-        internal RotatedRect(RotatedRectHandle handle) : base(handle) {}
+        internal RotatedRect(IntPtr handle, bool ownsHandle = true) : base(new RotatedRectHandle(handle, ownsHandle)) { }
+        internal RotatedRect(RotatedRectHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2244,8 +2244,8 @@ namespace OpenCV5Sharp
     public partial class TickMeter : DisposableOpenCVObject
     {
         public new TickMeterHandle Handle => (TickMeterHandle)base.Handle;
-        internal TickMeter(IntPtr handle, bool ownsHandle = true) : base(new TickMeterHandle(handle, ownsHandle)) {}
-        internal TickMeter(TickMeterHandle handle) : base(handle) {}
+        internal TickMeter(IntPtr handle, bool ownsHandle = true) : base(new TickMeterHandle(handle, ownsHandle)) { }
+        internal TickMeter(TickMeterHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2541,8 +2541,8 @@ namespace OpenCV5Sharp
     public partial class CudaBufferPool : DisposableOpenCVObject
     {
         public new CudaBufferPoolHandle Handle => (CudaBufferPoolHandle)base.Handle;
-        internal CudaBufferPool(IntPtr handle, bool ownsHandle = true) : base(new CudaBufferPoolHandle(handle, ownsHandle)) {}
-        internal CudaBufferPool(CudaBufferPoolHandle handle) : base(handle) {}
+        internal CudaBufferPool(IntPtr handle, bool ownsHandle = true) : base(new CudaBufferPoolHandle(handle, ownsHandle)) { }
+        internal CudaBufferPool(CudaBufferPoolHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2672,8 +2672,8 @@ namespace OpenCV5Sharp
     public partial class CudaDeviceInfo : DisposableOpenCVObject
     {
         public new CudaDeviceInfoHandle Handle => (CudaDeviceInfoHandle)base.Handle;
-        internal CudaDeviceInfo(IntPtr handle, bool ownsHandle = true) : base(new CudaDeviceInfoHandle(handle, ownsHandle)) {}
-        internal CudaDeviceInfo(CudaDeviceInfoHandle handle) : base(handle) {}
+        internal CudaDeviceInfo(IntPtr handle, bool ownsHandle = true) : base(new CudaDeviceInfoHandle(handle, ownsHandle)) { }
+        internal CudaDeviceInfo(CudaDeviceInfoHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -3434,8 +3434,8 @@ namespace OpenCV5Sharp
     public partial class CudaEvent : DisposableOpenCVObject
     {
         public new CudaEventHandle Handle => (CudaEventHandle)base.Handle;
-        internal CudaEvent(IntPtr handle, bool ownsHandle = true) : base(new CudaEventHandle(handle, ownsHandle)) {}
-        internal CudaEvent(CudaEventHandle handle) : base(handle) {}
+        internal CudaEvent(IntPtr handle, bool ownsHandle = true) : base(new CudaEventHandle(handle, ownsHandle)) { }
+        internal CudaEvent(CudaEventHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -3506,8 +3506,8 @@ namespace OpenCV5Sharp
     public partial class CudaGpuData : DisposableOpenCVObject
     {
         public new CudaGpuDataHandle Handle => (CudaGpuDataHandle)base.Handle;
-        internal CudaGpuData(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuDataHandle(handle, ownsHandle)) {}
-        internal CudaGpuData(CudaGpuDataHandle handle) : base(handle) {}
+        internal CudaGpuData(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuDataHandle(handle, ownsHandle)) { }
+        internal CudaGpuData(CudaGpuDataHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -3540,8 +3540,8 @@ namespace OpenCV5Sharp
     public partial class CudaGpuMat : DisposableOpenCVObject
     {
         public new CudaGpuMatHandle Handle => (CudaGpuMatHandle)base.Handle;
-        internal CudaGpuMat(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatHandle(handle, ownsHandle)) {}
-        internal CudaGpuMat(CudaGpuMatHandle handle) : base(handle) {}
+        internal CudaGpuMat(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatHandle(handle, ownsHandle)) { }
+        internal CudaGpuMat(CudaGpuMatHandle handle) : base(handle) { }
         /// <summary>
         /// Represents a dense GPU memory matrix for CUDA-accelerated operations.
         /// </summary>
@@ -4870,8 +4870,8 @@ namespace OpenCV5Sharp
     public partial class CudaGpuMatAllocator : DisposableOpenCVObject
     {
         public new CudaGpuMatAllocatorHandle Handle => (CudaGpuMatAllocatorHandle)base.Handle;
-        internal CudaGpuMatAllocator(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatAllocatorHandle(handle, ownsHandle)) {}
-        internal CudaGpuMatAllocator(CudaGpuMatAllocatorHandle handle) : base(handle) {}
+        internal CudaGpuMatAllocator(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatAllocatorHandle(handle, ownsHandle)) { }
+        internal CudaGpuMatAllocator(CudaGpuMatAllocatorHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -4881,8 +4881,8 @@ namespace OpenCV5Sharp
     public partial class CudaGpuMatND : DisposableOpenCVObject
     {
         public new CudaGpuMatNDHandle Handle => (CudaGpuMatNDHandle)base.Handle;
-        internal CudaGpuMatND(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatNDHandle(handle, ownsHandle)) {}
-        internal CudaGpuMatND(CudaGpuMatNDHandle handle) : base(handle) {}
+        internal CudaGpuMatND(IntPtr handle, bool ownsHandle = true) : base(new CudaGpuMatNDHandle(handle, ownsHandle)) { }
+        internal CudaGpuMatND(CudaGpuMatNDHandle handle) : base(handle) { }
     }
 
     /// <summary>
@@ -4904,8 +4904,8 @@ namespace OpenCV5Sharp
     public partial class CudaHostMem : DisposableOpenCVObject
     {
         public new CudaHostMemHandle Handle => (CudaHostMemHandle)base.Handle;
-        internal CudaHostMem(IntPtr handle, bool ownsHandle = true) : base(new CudaHostMemHandle(handle, ownsHandle)) {}
-        internal CudaHostMem(CudaHostMemHandle handle) : base(handle) {}
+        internal CudaHostMem(IntPtr handle, bool ownsHandle = true) : base(new CudaHostMemHandle(handle, ownsHandle)) { }
+        internal CudaHostMem(CudaHostMemHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -5240,8 +5240,8 @@ namespace OpenCV5Sharp
     public partial class CudaStream : DisposableOpenCVObject
     {
         public new CudaStreamHandle Handle => (CudaStreamHandle)base.Handle;
-        internal CudaStream(IntPtr handle, bool ownsHandle = true) : base(new CudaStreamHandle(handle, ownsHandle)) {}
-        internal CudaStream(CudaStreamHandle handle) : base(handle) {}
+        internal CudaStream(IntPtr handle, bool ownsHandle = true) : base(new CudaStreamHandle(handle, ownsHandle)) { }
+        internal CudaStream(CudaStreamHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -5376,8 +5376,8 @@ namespace OpenCV5Sharp
     public partial class CudaTargetArchs : DisposableOpenCVObject
     {
         public new CudaTargetArchsHandle Handle => (CudaTargetArchsHandle)base.Handle;
-        internal CudaTargetArchs(IntPtr handle, bool ownsHandle = true) : base(new CudaTargetArchsHandle(handle, ownsHandle)) {}
-        internal CudaTargetArchs(CudaTargetArchsHandle handle) : base(handle) {}
+        internal CudaTargetArchs(IntPtr handle, bool ownsHandle = true) : base(new CudaTargetArchsHandle(handle, ownsHandle)) { }
+        internal CudaTargetArchs(CudaTargetArchsHandle handle) : base(handle) { }
         /// <summary>
         /// There is a set of methods to check whether the module contains intermediate (PTX) or binary CUDA
         /// code for the given architecture(s):
@@ -5479,8 +5479,8 @@ namespace OpenCV5Sharp
     public partial class OclDevice : DisposableOpenCVObject
     {
         public new OclDeviceHandle Handle => (OclDeviceHandle)base.Handle;
-        internal OclDevice(IntPtr handle, bool ownsHandle = true) : base(new OclDeviceHandle(handle, ownsHandle)) {}
-        internal OclDevice(OclDeviceHandle handle) : base(handle) {}
+        internal OclDevice(IntPtr handle, bool ownsHandle = true) : base(new OclDeviceHandle(handle, ownsHandle)) { }
+        internal OclDevice(OclDeviceHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -6558,8 +6558,8 @@ namespace OpenCV5Sharp
     public partial class OclOpenCLExecutionContext : DisposableOpenCVObject
     {
         public new OclOpenCLExecutionContextHandle Handle => (OclOpenCLExecutionContextHandle)base.Handle;
-        internal OclOpenCLExecutionContext(IntPtr handle, bool ownsHandle = true) : base(new OclOpenCLExecutionContextHandle(handle, ownsHandle)) {}
-        internal OclOpenCLExecutionContext(OclOpenCLExecutionContextHandle handle) : base(handle) {}
+        internal OclOpenCLExecutionContext(IntPtr handle, bool ownsHandle = true) : base(new OclOpenCLExecutionContextHandle(handle, ownsHandle)) { }
+        internal OclOpenCLExecutionContext(OclOpenCLExecutionContextHandle handle) : base(handle) { }
     }
 
 }

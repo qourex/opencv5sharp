@@ -15,8 +15,8 @@ namespace OpenCV5Sharp
     public partial class CirclesGridFinderParameters : DisposableOpenCVObject
     {
         public new CirclesGridFinderParametersHandle Handle => (CirclesGridFinderParametersHandle)base.Handle;
-        internal CirclesGridFinderParameters(IntPtr handle, bool ownsHandle = true) : base(new CirclesGridFinderParametersHandle(handle, ownsHandle)) {}
-        internal CirclesGridFinderParameters(CirclesGridFinderParametersHandle handle) : base(handle) {}
+        internal CirclesGridFinderParameters(IntPtr handle, bool ownsHandle = true) : base(new CirclesGridFinderParametersHandle(handle, ownsHandle)) { }
+        internal CirclesGridFinderParameters(CirclesGridFinderParametersHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -150,8 +150,8 @@ namespace OpenCV5Sharp
     public partial class FaceDetectorYN : DisposableOpenCVObject
     {
         public new FaceDetectorYNHandle Handle => (FaceDetectorYNHandle)base.Handle;
-        internal FaceDetectorYN(IntPtr handle, bool ownsHandle = true) : base(new FaceDetectorYNHandle(handle, ownsHandle)) {}
-        internal FaceDetectorYN(FaceDetectorYNHandle handle) : base(handle) {}
+        internal FaceDetectorYN(IntPtr handle, bool ownsHandle = true) : base(new FaceDetectorYNHandle(handle, ownsHandle)) { }
+        internal FaceDetectorYN(FaceDetectorYNHandle handle) : base(handle) { }
         /// <summary>
         /// Set the size for the network input, which overwrites the input size of creating model. Call this method when the size of input image does not match the input size when creating model
         /// *
@@ -377,8 +377,8 @@ namespace OpenCV5Sharp
     public partial class FaceRecognizerSF : DisposableOpenCVObject
     {
         public new FaceRecognizerSFHandle Handle => (FaceRecognizerSFHandle)base.Handle;
-        internal FaceRecognizerSF(IntPtr handle, bool ownsHandle = true) : base(new FaceRecognizerSFHandle(handle, ownsHandle)) {}
-        internal FaceRecognizerSF(FaceRecognizerSFHandle handle) : base(handle) {}
+        internal FaceRecognizerSF(IntPtr handle, bool ownsHandle = true) : base(new FaceRecognizerSFHandle(handle, ownsHandle)) { }
+        internal FaceRecognizerSF(FaceRecognizerSFHandle handle) : base(handle) { }
         /// <summary>
         /// Aligns detected face with the source input image and crops it
         /// </summary>
@@ -529,8 +529,8 @@ namespace OpenCV5Sharp
     public partial class GraphicalCodeDetector : DisposableOpenCVObject
     {
         public new GraphicalCodeDetectorHandle Handle => (GraphicalCodeDetectorHandle)base.Handle;
-        internal GraphicalCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new GraphicalCodeDetectorHandle(handle, ownsHandle)) {}
-        internal GraphicalCodeDetector(GraphicalCodeDetectorHandle handle) : base(handle) {}
+        internal GraphicalCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new GraphicalCodeDetectorHandle(handle, ownsHandle)) { }
+        internal GraphicalCodeDetector(GraphicalCodeDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Detects graphical code in image and returns the quadrangle containing the code.
         /// </summary>
@@ -721,8 +721,8 @@ namespace OpenCV5Sharp
     public partial class QRCodeDetector : GraphicalCodeDetector
     {
         public new QRCodeDetectorHandle Handle => (QRCodeDetectorHandle)base.Handle;
-        internal QRCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorHandle(handle, ownsHandle)) {}
-        internal QRCodeDetector(QRCodeDetectorHandle handle) : base(handle) {}
+        internal QRCodeDetector(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorHandle(handle, ownsHandle)) { }
+        internal QRCodeDetector(QRCodeDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Provides APIs to detect and decode QR codes in images.
         /// </summary>
@@ -948,8 +948,8 @@ namespace OpenCV5Sharp
     public partial class QRCodeDetectorAruco : GraphicalCodeDetector
     {
         public new QRCodeDetectorArucoHandle Handle => (QRCodeDetectorArucoHandle)base.Handle;
-        internal QRCodeDetectorAruco(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoHandle(handle, ownsHandle)) {}
-        internal QRCodeDetectorAruco(QRCodeDetectorArucoHandle handle) : base(handle) {}
+        internal QRCodeDetectorAruco(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoHandle(handle, ownsHandle)) { }
+        internal QRCodeDetectorAruco(QRCodeDetectorArucoHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1094,8 +1094,8 @@ namespace OpenCV5Sharp
     public partial class QRCodeDetectorArucoParams : DisposableOpenCVObject
     {
         public new QRCodeDetectorArucoParamsHandle Handle => (QRCodeDetectorArucoParamsHandle)base.Handle;
-        internal QRCodeDetectorArucoParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoParamsHandle(handle, ownsHandle)) {}
-        internal QRCodeDetectorArucoParams(QRCodeDetectorArucoParamsHandle handle) : base(handle) {}
+        internal QRCodeDetectorArucoParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeDetectorArucoParamsHandle(handle, ownsHandle)) { }
+        internal QRCodeDetectorArucoParams(QRCodeDetectorArucoParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1163,8 +1163,8 @@ namespace OpenCV5Sharp
     public partial class QRCodeEncoder : DisposableOpenCVObject
     {
         public new QRCodeEncoderHandle Handle => (QRCodeEncoderHandle)base.Handle;
-        internal QRCodeEncoder(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderHandle(handle, ownsHandle)) {}
-        internal QRCodeEncoder(QRCodeEncoderHandle handle) : base(handle) {}
+        internal QRCodeEncoder(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderHandle(handle, ownsHandle)) { }
+        internal QRCodeEncoder(QRCodeEncoderHandle handle) : base(handle) { }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -1242,8 +1242,8 @@ namespace OpenCV5Sharp
     public partial class QRCodeEncoderParams : DisposableOpenCVObject
     {
         public new QRCodeEncoderParamsHandle Handle => (QRCodeEncoderParamsHandle)base.Handle;
-        internal QRCodeEncoderParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderParamsHandle(handle, ownsHandle)) {}
-        internal QRCodeEncoderParams(QRCodeEncoderParamsHandle handle) : base(handle) {}
+        internal QRCodeEncoderParams(IntPtr handle, bool ownsHandle = true) : base(new QRCodeEncoderParamsHandle(handle, ownsHandle)) { }
+        internal QRCodeEncoderParams(QRCodeEncoderParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1297,8 +1297,8 @@ namespace OpenCV5Sharp
     public partial class ArucoArucoDetector : Algorithm
     {
         public new ArucoArucoDetectorHandle Handle => (ArucoArucoDetectorHandle)base.Handle;
-        internal ArucoArucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoArucoDetectorHandle(handle, ownsHandle)) {}
-        internal ArucoArucoDetector(ArucoArucoDetectorHandle handle) : base(handle) {}
+        internal ArucoArucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoArucoDetectorHandle(handle, ownsHandle)) { }
+        internal ArucoArucoDetector(ArucoArucoDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Basic ArucoDetector constructor
         /// *
@@ -1705,8 +1705,8 @@ namespace OpenCV5Sharp
     public partial class ArucoBoard : DisposableOpenCVObject
     {
         public new ArucoBoardHandle Handle => (ArucoBoardHandle)base.Handle;
-        internal ArucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoBoardHandle(handle, ownsHandle)) {}
-        internal ArucoBoard(ArucoBoardHandle handle) : base(handle) {}
+        internal ArucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoBoardHandle(handle, ownsHandle)) { }
+        internal ArucoBoard(ArucoBoardHandle handle) : base(handle) { }
         /// <summary>
         /// Common Board constructor
         /// *
@@ -1869,8 +1869,8 @@ namespace OpenCV5Sharp
     public partial class ArucoCharucoBoard : ArucoBoard
     {
         public new ArucoCharucoBoardHandle Handle => (ArucoCharucoBoardHandle)base.Handle;
-        internal ArucoCharucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoBoardHandle(handle, ownsHandle)) {}
-        internal ArucoCharucoBoard(ArucoCharucoBoardHandle handle) : base(handle) {}
+        internal ArucoCharucoBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoBoardHandle(handle, ownsHandle)) { }
+        internal ArucoCharucoBoard(ArucoCharucoBoardHandle handle) : base(handle) { }
         /// <summary>
         /// CharucoBoard constructor
         /// *
@@ -2003,8 +2003,8 @@ namespace OpenCV5Sharp
     public partial class ArucoCharucoDetector : Algorithm
     {
         public new ArucoCharucoDetectorHandle Handle => (ArucoCharucoDetectorHandle)base.Handle;
-        internal ArucoCharucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoDetectorHandle(handle, ownsHandle)) {}
-        internal ArucoCharucoDetector(ArucoCharucoDetectorHandle handle) : base(handle) {}
+        internal ArucoCharucoDetector(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoDetectorHandle(handle, ownsHandle)) { }
+        internal ArucoCharucoDetector(ArucoCharucoDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Basic CharucoDetector constructor
         /// *
@@ -2300,8 +2300,8 @@ namespace OpenCV5Sharp
     public partial class ArucoCharucoParameters : DisposableOpenCVObject
     {
         public new ArucoCharucoParametersHandle Handle => (ArucoCharucoParametersHandle)base.Handle;
-        internal ArucoCharucoParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoParametersHandle(handle, ownsHandle)) {}
-        internal ArucoCharucoParameters(ArucoCharucoParametersHandle handle) : base(handle) {}
+        internal ArucoCharucoParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoCharucoParametersHandle(handle, ownsHandle)) { }
+        internal ArucoCharucoParameters(ArucoCharucoParametersHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2315,21 +2315,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? CameraMatrix
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_cameraMatrix_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -2339,21 +2346,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? DistCoeffs
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_CharucoParameters_distCoeffs_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -2389,8 +2403,8 @@ namespace OpenCV5Sharp
     public partial class ArucoDetectorParameters : DisposableOpenCVObject
     {
         public new ArucoDetectorParametersHandle Handle => (ArucoDetectorParametersHandle)base.Handle;
-        internal ArucoDetectorParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoDetectorParametersHandle(handle, ownsHandle)) {}
-        internal ArucoDetectorParameters(ArucoDetectorParametersHandle handle) : base(handle) {}
+        internal ArucoDetectorParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoDetectorParametersHandle(handle, ownsHandle)) { }
+        internal ArucoDetectorParameters(ArucoDetectorParametersHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2706,8 +2720,8 @@ namespace OpenCV5Sharp
     public partial class ArucoDictionary : DisposableOpenCVObject
     {
         public new ArucoDictionaryHandle Handle => (ArucoDictionaryHandle)base.Handle;
-        internal ArucoDictionary(IntPtr handle, bool ownsHandle = true) : base(new ArucoDictionaryHandle(handle, ownsHandle)) {}
-        internal ArucoDictionary(ArucoDictionaryHandle handle) : base(handle) {}
+        internal ArucoDictionary(IntPtr handle, bool ownsHandle = true) : base(new ArucoDictionaryHandle(handle, ownsHandle)) { }
+        internal ArucoDictionary(ArucoDictionaryHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -2988,21 +3002,28 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public Mat? BytesList
         {
-            get {
+            get
+            {
                 ThrowIfDisposed();
                 IntPtr res = NativeMethods.aruco_Dictionary_bytesList_get(Handle);
                 if (res == IntPtr.Zero) return null;
                 Mat? resultObj = null;
-                try {
+                try
+                {
                     resultObj = new Mat(res);
                     ErrorHelper.CheckError();
                     return resultObj;
-                } catch {
-                    if (resultObj == null) {
+                }
+                catch
+                {
+                    if (resultObj == null)
+                    {
                         NativeMethods.Mat_Delete(res);
                     }
                     throw;
-                } finally {
+                }
+                finally
+                {
                     GC.KeepAlive(this);
                 }
             }
@@ -3034,8 +3055,8 @@ namespace OpenCV5Sharp
     public partial class ArucoGridBoard : ArucoBoard
     {
         public new ArucoGridBoardHandle Handle => (ArucoGridBoardHandle)base.Handle;
-        internal ArucoGridBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoGridBoardHandle(handle, ownsHandle)) {}
-        internal ArucoGridBoard(ArucoGridBoardHandle handle) : base(handle) {}
+        internal ArucoGridBoard(IntPtr handle, bool ownsHandle = true) : base(new ArucoGridBoardHandle(handle, ownsHandle)) { }
+        internal ArucoGridBoard(ArucoGridBoardHandle handle) : base(handle) { }
         /// <summary>
         /// GridBoard constructor
         /// *
@@ -3103,8 +3124,8 @@ namespace OpenCV5Sharp
     public partial class ArucoRefineParameters : DisposableOpenCVObject
     {
         public new ArucoRefineParametersHandle Handle => (ArucoRefineParametersHandle)base.Handle;
-        internal ArucoRefineParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoRefineParametersHandle(handle, ownsHandle)) {}
-        internal ArucoRefineParameters(ArucoRefineParametersHandle handle) : base(handle) {}
+        internal ArucoRefineParameters(IntPtr handle, bool ownsHandle = true) : base(new ArucoRefineParametersHandle(handle, ownsHandle)) { }
+        internal ArucoRefineParameters(ArucoRefineParametersHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -3186,8 +3207,8 @@ namespace OpenCV5Sharp
     public partial class BarcodeBarcodeDetector : GraphicalCodeDetector
     {
         public new BarcodeBarcodeDetectorHandle Handle => (BarcodeBarcodeDetectorHandle)base.Handle;
-        internal BarcodeBarcodeDetector(IntPtr handle, bool ownsHandle = true) : base(new BarcodeBarcodeDetectorHandle(handle, ownsHandle)) {}
-        internal BarcodeBarcodeDetector(BarcodeBarcodeDetectorHandle handle) : base(handle) {}
+        internal BarcodeBarcodeDetector(IntPtr handle, bool ownsHandle = true) : base(new BarcodeBarcodeDetectorHandle(handle, ownsHandle)) { }
+        internal BarcodeBarcodeDetector(BarcodeBarcodeDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Initialize the BarcodeDetector. Super resolution is disabled.
         /// </summary>
@@ -3445,8 +3466,8 @@ namespace OpenCV5Sharp
     public partial class MccCChecker : Algorithm
     {
         public new MccCCheckerHandle Handle => (MccCCheckerHandle)base.Handle;
-        internal MccCChecker(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerHandle(handle, ownsHandle)) {}
-        internal MccCChecker(MccCCheckerHandle handle) : base(handle) {}
+        internal MccCChecker(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerHandle(handle, ownsHandle)) { }
+        internal MccCChecker(MccCCheckerHandle handle) : base(handle) { }
         /// <summary>
         /// Create a new CChecker object.
         /// *
@@ -3708,8 +3729,8 @@ namespace OpenCV5Sharp
     public partial class MccCCheckerDetector : Algorithm
     {
         public new MccCCheckerDetectorHandle Handle => (MccCCheckerDetectorHandle)base.Handle;
-        internal MccCCheckerDetector(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerDetectorHandle(handle, ownsHandle)) {}
-        internal MccCCheckerDetector(MccCCheckerDetectorHandle handle) : base(handle) {}
+        internal MccCCheckerDetector(IntPtr handle, bool ownsHandle = true) : base(new MccCCheckerDetectorHandle(handle, ownsHandle)) { }
+        internal MccCCheckerDetector(MccCCheckerDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Find the ColorCharts in the given image.
         /// *
@@ -3982,8 +4003,8 @@ namespace OpenCV5Sharp
     public partial class MccDetectorParametersMCC : DisposableOpenCVObject
     {
         public new MccDetectorParametersMCCHandle Handle => (MccDetectorParametersMCCHandle)base.Handle;
-        internal MccDetectorParametersMCC(IntPtr handle, bool ownsHandle = true) : base(new MccDetectorParametersMCCHandle(handle, ownsHandle)) {}
-        internal MccDetectorParametersMCC(MccDetectorParametersMCCHandle handle) : base(handle) {}
+        internal MccDetectorParametersMCC(IntPtr handle, bool ownsHandle = true) : base(new MccDetectorParametersMCCHandle(handle, ownsHandle)) { }
+        internal MccDetectorParametersMCC(MccDetectorParametersMCCHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

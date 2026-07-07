@@ -34,7 +34,7 @@ namespace OpenCV5Sharp.Samples
                 int width = original.Cols;
                 int height = original.Rows;
 
-                
+
                 using (var corrupted = original.Clone())
                 using (var mask = new Mat(height, width, MatType.CV_8UC1))
                 {

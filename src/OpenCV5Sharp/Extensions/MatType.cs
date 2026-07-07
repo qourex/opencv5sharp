@@ -12,8 +12,8 @@ namespace OpenCV5Sharp
     public static class MatType
     {
         // Depth Constants
-        public const int CV_8U  = 0;
-        public const int CV_8S  = 1;
+        public const int CV_8U = 0;
+        public const int CV_8S = 1;
         public const int CV_16U = 2;
         public const int CV_16S = 3;
         public const int CV_32S = 4;

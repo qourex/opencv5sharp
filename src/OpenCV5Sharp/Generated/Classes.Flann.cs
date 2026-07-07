@@ -15,8 +15,8 @@ namespace OpenCV5Sharp
     public partial class FlannIndex : DisposableOpenCVObject
     {
         public new FlannIndexHandle Handle => (FlannIndexHandle)base.Handle;
-        internal FlannIndex(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexHandle(handle, ownsHandle)) {}
-        internal FlannIndex(FlannIndexHandle handle) : base(handle) {}
+        internal FlannIndex(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexHandle(handle, ownsHandle)) { }
+        internal FlannIndex(FlannIndexHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -203,8 +203,8 @@ namespace OpenCV5Sharp
     public partial class FlannIndexParams : DisposableOpenCVObject
     {
         public new FlannIndexParamsHandle Handle => (FlannIndexParamsHandle)base.Handle;
-        internal FlannIndexParams(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexParamsHandle(handle, ownsHandle)) {}
-        internal FlannIndexParams(FlannIndexParamsHandle handle) : base(handle) {}
+        internal FlannIndexParams(IntPtr handle, bool ownsHandle = true) : base(new FlannIndexParamsHandle(handle, ownsHandle)) { }
+        internal FlannIndexParams(FlannIndexParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -223,8 +223,8 @@ namespace OpenCV5Sharp
     public partial class FlannSearchParams : DisposableOpenCVObject
     {
         public new FlannSearchParamsHandle Handle => (FlannSearchParamsHandle)base.Handle;
-        internal FlannSearchParams(IntPtr handle, bool ownsHandle = true) : base(new FlannSearchParamsHandle(handle, ownsHandle)) {}
-        internal FlannSearchParams(FlannSearchParamsHandle handle) : base(handle) {}
+        internal FlannSearchParams(IntPtr handle, bool ownsHandle = true) : base(new FlannSearchParamsHandle(handle, ownsHandle)) { }
+        internal FlannSearchParams(FlannSearchParamsHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

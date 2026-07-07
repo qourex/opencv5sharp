@@ -9,475 +9,475 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Loads a point cloud from a file.
-            /// *
-            /// * The function loads point cloud from the specified file and returns it.
-            /// * If the cloud cannot be read, throws an error.
-            /// * Vertex coordinates, normals and colors are returned as they are saved in the file
-            /// * even if these arrays have different sizes and their elements do not correspond to each other
-            /// * (which is typical for OBJ files for example)
-            /// *
-            /// * Currently, the following file formats are supported:
-            /// * -  [Wavefront obj file *.obj](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
-            /// * -  [Polygon File Format *.ply](https://en.wikipedia.org/wiki/PLY_(file_format))
-            /// *
-            /// </summary>
-            /// <param name="filename">Name of the file</param>
-            /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
-            /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
-            /// <param name="rgb">per-vertex colors, each value contains 3 floats</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void LoadPointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (normals != null) normals.ThrowIfDisposed();
-                if (rgb != null) rgb.ThrowIfDisposed();
-                NativeMethods.cv_loadPointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(normals);
-                GC.KeepAlive(rgb);
-            }
-            /// <summary>
-            /// Saves a point cloud to a specified file.
-            /// *
-            /// * The function saves point cloud to the specified file.
-            /// * File format is chosen based on the filename extension.
-            /// *
-            /// </summary>
-            /// <param name="filename">Name of the file</param>
-            /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
-            /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
-            /// <param name="rgb">per-vertex colors, each value contains 3 floats</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void SavePointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (normals != null) normals.ThrowIfDisposed();
-                if (rgb != null) rgb.ThrowIfDisposed();
-                NativeMethods.cv_savePointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(normals);
-                GC.KeepAlive(rgb);
-            }
-            /// <summary>
-            /// Loads a mesh from a file.
-            /// *
-            /// * The function loads mesh from the specified file and returns it.
-            /// * If the mesh cannot be read, throws an error
-            /// * Vertex attributes (i.e. space and texture coodinates, normals and colors) are returned in same-sized
-            /// * arrays with corresponding elements having the same indices.
-            /// * This means that if a face uses a vertex with a normal or a texture coordinate with different indices
-            /// * (which is typical for OBJ files for example), this vertex will be duplicated for each face it uses.
-            /// *
-            /// * Currently, the following file formats are supported:
-            /// * -  [Wavefront obj file *.obj](https://en.wikipedia.org/wiki/Wavefront_.obj_file) (ONLY TRIANGULATED FACES)
-            /// * -  [Polygon File Format *.ply](https://en.wikipedia.org/wiki/PLY_(file_format))
-            /// </summary>
-            /// <param name="filename">Name of the file</param>
-            /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
-            /// <param name="indices">per-face list of vertices, each value is a vector of ints</param>
-            /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
-            /// <param name="colors">per-vertex colors, each value contains 3 floats</param>
-            /// <param name="texCoords">per-vertex texture coordinates, each value contains 2 or 3 floats</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void LoadMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (normals != null) normals.ThrowIfDisposed();
-                if (colors != null) colors.ThrowIfDisposed();
-                if (texCoords != null) texCoords.ThrowIfDisposed();
-                NativeMethods.cv_loadMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(normals);
-                GC.KeepAlive(colors);
-                GC.KeepAlive(texCoords);
-            }
-            /// <summary>
-            /// Saves a mesh to a specified file.
-            /// *
-            /// * The function saves mesh to the specified file.
-            /// * File format is chosen based on the filename extension.
-            /// *
-            /// </summary>
-            /// <param name="filename">Name of the file.</param>
-            /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
-            /// <param name="indices">per-face list of vertices, each value is a vector of ints</param>
-            /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
-            /// <param name="colors">per-vertex colors, each value contains 3 floats</param>
-            /// <param name="texCoords">per-vertex texture coordinates, each value contains 2 or 3 floats</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void SaveMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (normals != null) normals.ThrowIfDisposed();
-                if (colors != null) colors.ThrowIfDisposed();
-                if (texCoords != null) texCoords.ThrowIfDisposed();
-                NativeMethods.cv_saveMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(normals);
-                GC.KeepAlive(colors);
-                GC.KeepAlive(texCoords);
-            }
-            /// <summary>
-            /// Renders a set of triangles on a depth and color image
-            /// *
-            /// * Triangles can be drawn white (1.0, 1.0, 1.0), flat-shaded or with a color interpolation between vertices.
-            /// * In flat-shaded mode the 1st vertex color of each triangle is used to fill the whole triangle.
-            /// *
-            /// * The world2cam is an inverted camera pose matrix in fact. It transforms vertices from world to
-            /// * camera coordinate system.
-            /// *
-            /// * The camera coordinate system emulates the OpenGL's coordinate system having coordinate origin in a screen center,
-            /// * X axis pointing right, Y axis pointing up and Z axis pointing towards the viewer
-            /// * except that image is vertically flipped after the render.
-            /// * This means that all visible objects are placed in z-negative area, or exactly in -zNear &gt; z &gt; -zFar since
-            /// * zNear and zFar are positive.
-            /// * For example, at fovY = PI/2 the point (0, 1, -1) will be projected to (width/2, 0) screen point,
-            /// * (1, 0, -1) to (width/2 + height/2, height/2). Increasing fovY makes projection smaller and vice versa.
-            /// *
-            /// * The function does not create or clear output images before the rendering. This means that it can be used
-            /// * for drawing over an existing image or for rendering a model into a 3D scene using pre-filled Z-buffer.
-            /// *
-            /// * Empty scene results in a depth buffer filled by the maximum value since every pixel is infinitely far from the camera.
-            /// * Therefore, before rendering anything from scratch the depthBuf should be filled by zFar values (or by ones in INVDEPTH mode).
-            /// *
-            /// * There are special versions of this function named triangleRasterizeDepth and triangleRasterizeColor
-            /// * for cases if a user needs a color image or a depth image alone; they may run slightly faster.
-            /// *
-            /// </summary>
-            /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
-            /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
-            /// <param name="colors">per-vertex colors of CV_32FC3 type or compatible. Can be empty or the same size as vertices array. * If the values are out of [0; 1] range, the result correctness is not guaranteed</param>
-            /// <param name="colorBuf">an array representing the final rendered image. Should containt CV_32FC3 values and be the same size as depthBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene.</param>
-            /// <param name="depthBuf">an array of floats containing resulting Z buffer. Should contain float values and be the same size as colorBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene. * Empty scene corresponds to all values set to zFar (or to 1.0 in INVDEPTH mode)</param>
-            /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
-            /// <param name="fovY">field of view in vertical direction, given in radians</param>
-            /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
-            /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
-            /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void TriangleRasterize(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (indices == null) throw new ArgumentNullException(nameof(indices));
-                indices.ThrowIfDisposed();
-                if (colors == null) throw new ArgumentNullException(nameof(colors));
-                colors.ThrowIfDisposed();
-                if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
-                colorBuf.ThrowIfDisposed();
-                if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
-                depthBuf.ThrowIfDisposed();
-                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
-                world2cam.ThrowIfDisposed();
-                if (settings != null) settings.ThrowIfDisposed();
-                NativeMethods.cv_triangleRasterize_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(indices);
-                GC.KeepAlive(colors);
-                GC.KeepAlive(colorBuf);
-                GC.KeepAlive(depthBuf);
-                GC.KeepAlive(world2cam);
-                GC.KeepAlive(settings);
-            }
-            /// <summary>
-            /// Overloaded version of triangleRasterize() with depth-only rendering
-            /// *
-            /// </summary>
-            /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
-            /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
-            /// <param name="depthBuf">an array of floats containing resulting Z buffer. Should contain float values and be the same size as colorBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene. * Empty scene corresponds to all values set to zFar (or to 1.0 in INVDEPTH mode)</param>
-            /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
-            /// <param name="fovY">field of view in vertical direction, given in radians</param>
-            /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
-            /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
-            /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void TriangleRasterizeDepth(Mat vertices, Mat indices, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (indices == null) throw new ArgumentNullException(nameof(indices));
-                indices.ThrowIfDisposed();
-                if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
-                depthBuf.ThrowIfDisposed();
-                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
-                world2cam.ThrowIfDisposed();
-                if (settings != null) settings.ThrowIfDisposed();
-                NativeMethods.cv_triangleRasterizeDepth_0(vertices.Handle, indices.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(indices);
-                GC.KeepAlive(depthBuf);
-                GC.KeepAlive(world2cam);
-                GC.KeepAlive(settings);
-            }
-            /// <summary>
-            /// Overloaded version of triangleRasterize() with color-only rendering
-            /// *
-            /// </summary>
-            /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
-            /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
-            /// <param name="colors">per-vertex colors of CV_32FC3 type or compatible. Can be empty or the same size as vertices array. * If the values are out of [0; 1] range, the result correctness is not guaranteed</param>
-            /// <param name="colorBuf">an array representing the final rendered image. Should containt CV_32FC3 values and be the same size as depthBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene.</param>
-            /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
-            /// <param name="fovY">field of view in vertical direction, given in radians</param>
-            /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
-            /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
-            /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void TriangleRasterizeColor(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
-            {
-                if (vertices == null) throw new ArgumentNullException(nameof(vertices));
-                vertices.ThrowIfDisposed();
-                if (indices == null) throw new ArgumentNullException(nameof(indices));
-                indices.ThrowIfDisposed();
-                if (colors == null) throw new ArgumentNullException(nameof(colors));
-                colors.ThrowIfDisposed();
-                if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
-                colorBuf.ThrowIfDisposed();
-                if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
-                world2cam.ThrowIfDisposed();
-                if (settings != null) settings.ThrowIfDisposed();
-                NativeMethods.cv_triangleRasterizeColor_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(vertices);
-                GC.KeepAlive(indices);
-                GC.KeepAlive(colors);
-                GC.KeepAlive(colorBuf);
-                GC.KeepAlive(world2cam);
-                GC.KeepAlive(settings);
-            }
-            /// <summary>
-            /// Registers depth data to an external camera
-            /// </summary>
-            /// <param name="unregisteredCameraMatrix">the camera matrix of the depth camera</param>
-            /// <param name="registeredCameraMatrix">the camera matrix of the external camera</param>
-            /// <param name="registeredDistCoeffs">the distortion coefficients of the external camera</param>
-            /// <param name="Rt">the rigid body transform between the cameras. Transforms points from depth camera frame to external camera frame.</param>
-            /// <param name="unregisteredDepth">the input depth data</param>
-            /// <param name="outputImagePlaneSize">the image plane dimensions of the external camera (width, height)</param>
-            /// <param name="registeredDepth">the result of transforming the depth into the external camera</param>
-            /// <param name="depthDilation">whether or not the depth is dilated to avoid holes and occlusion errors (optional)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * Registration is performed by creating a depth cloud, transforming the cloud by
-            /// * the rigid body transformation between the cameras, and then projecting the
-            /// * transformed points into the RGB camera.
-            /// *
-            /// * uv_rgb = K_rgb * [R | t] * z * inv(K_ir) * uv_ir
-            /// *
-            /// * Currently does not check for negative depth values.
-            /// *
-            /// </remarks>
-            public static void RegisterDepth(Mat unregisteredCameraMatrix, Mat registeredCameraMatrix, Mat registeredDistCoeffs, Mat Rt, Mat unregisteredDepth, Size outputImagePlaneSize, Mat registeredDepth, bool depthDilation)
-            {
-                if (unregisteredCameraMatrix == null) throw new ArgumentNullException(nameof(unregisteredCameraMatrix));
-                unregisteredCameraMatrix.ThrowIfDisposed();
-                if (registeredCameraMatrix == null) throw new ArgumentNullException(nameof(registeredCameraMatrix));
-                registeredCameraMatrix.ThrowIfDisposed();
-                if (registeredDistCoeffs == null) throw new ArgumentNullException(nameof(registeredDistCoeffs));
-                registeredDistCoeffs.ThrowIfDisposed();
-                if (Rt == null) throw new ArgumentNullException(nameof(Rt));
-                Rt.ThrowIfDisposed();
-                if (unregisteredDepth == null) throw new ArgumentNullException(nameof(unregisteredDepth));
-                unregisteredDepth.ThrowIfDisposed();
-                if (registeredDepth == null) throw new ArgumentNullException(nameof(registeredDepth));
-                registeredDepth.ThrowIfDisposed();
-                NativeMethods.cv_registerDepth_0(unregisteredCameraMatrix.Handle, registeredCameraMatrix.Handle, registeredDistCoeffs.Handle, Rt.Handle, unregisteredDepth.Handle, outputImagePlaneSize, registeredDepth.Handle, depthDilation);
-                ErrorHelper.CheckError();
-                GC.KeepAlive(unregisteredCameraMatrix);
-                GC.KeepAlive(registeredCameraMatrix);
-                GC.KeepAlive(registeredDistCoeffs);
-                GC.KeepAlive(Rt);
-                GC.KeepAlive(unregisteredDepth);
-                GC.KeepAlive(registeredDepth);
-            }
-            /// <summary>
-            /// Wrapper for OpenCV's native functionality.
-            /// </summary>
-            /// <param name="depth">the depth image</param>
-            /// <param name="in_K">The in_K parameter.</param>
-            /// <param name="in_points">the list of xy coordinates</param>
-            /// <param name="points3d">the resulting 3d points (point is represented by 4 chanels value [x, y, z, 0])</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void DepthTo3dSparse(Mat depth, Mat in_K, Mat in_points, Mat points3d)
-            {
-                if (depth == null) throw new ArgumentNullException(nameof(depth));
-                depth.ThrowIfDisposed();
-                if (in_K == null) throw new ArgumentNullException(nameof(in_K));
-                in_K.ThrowIfDisposed();
-                if (in_points == null) throw new ArgumentNullException(nameof(in_points));
-                in_points.ThrowIfDisposed();
-                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
-                points3d.ThrowIfDisposed();
-                NativeMethods.cv_depthTo3dSparse_0(depth.Handle, in_K.Handle, in_points.Handle, points3d.Handle);
-                ErrorHelper.CheckError();
-                GC.KeepAlive(depth);
-                GC.KeepAlive(in_K);
-                GC.KeepAlive(in_points);
-                GC.KeepAlive(points3d);
-            }
-            /// <summary>
-            /// Converts a depth image to 3d points. If the mask is empty then the resulting array has the same dimensions as `depth`,
-            /// </summary>
-            /// <param name="depth">the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters *              (as done with the Microsoft Kinect), otherwise, if given as CV_32F or CV_64F, it is assumed in meters)</param>
-            /// <param name="K">The calibration matrix</param>
-            /// <param name="points3d">the resulting 3d points (point is represented by 4 channels value [x, y, z, 0]). They are of the same depth as `depth` if it is CV_32F or CV_64F, and the *        depth of `K` if `depth` is of depth CV_16U or CV_16S</param>
-            /// <param name="mask">the mask of the points to consider (can be empty)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * otherwise it is 1d vector containing mask-enabled values only.
-            /// * The coordinate system is x pointing left, y down and z away from the camera
-            /// </remarks>
-            public static void DepthTo3d(Mat depth, Mat K, Mat points3d, Mat? mask)
-            {
-                if (depth == null) throw new ArgumentNullException(nameof(depth));
-                depth.ThrowIfDisposed();
-                if (K == null) throw new ArgumentNullException(nameof(K));
-                K.ThrowIfDisposed();
-                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
-                points3d.ThrowIfDisposed();
-                if (mask != null) mask.ThrowIfDisposed();
-                NativeMethods.cv_depthTo3d_0(depth.Handle, K.Handle, points3d.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(depth);
-                GC.KeepAlive(K);
-                GC.KeepAlive(points3d);
-                GC.KeepAlive(mask);
-            }
-            /// <summary>
-            /// If the input image is of type CV_16UC1 (like the Kinect one), the image is converted to floats, divided
-            /// </summary>
-            /// <param name="in">the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters *              (as done with the Microsoft Kinect), it is assumed in meters)</param>
-            /// <param name="type">the desired output depth (CV_32F or CV_64F)</param>
-            /// <param name="out">The rescaled float depth image</param>
-            /// <param name="depth_factor">(optional) factor by which depth is converted to distance (by default = 1000.0 for Kinect sensor)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * by depth_factor to get a depth in meters, and the values 0 are converted to std.numeric_limits&lt;float&gt;::quiet_NaN()
-            /// * Otherwise, the image is simply converted to floats
-            /// </remarks>
-            public static void RescaleDepth(Mat @in, int type, Mat @out, double depth_factor)
-            {
-                if (@in == null) throw new ArgumentNullException(nameof(@in));
-                @in.ThrowIfDisposed();
-                if (@out == null) throw new ArgumentNullException(nameof(@out));
-                @out.ThrowIfDisposed();
-                NativeMethods.cv_rescaleDepth_0(@in.Handle, type, @out.Handle, depth_factor);
-                ErrorHelper.CheckError();
-                GC.KeepAlive(@in);
-                GC.KeepAlive(@out);
-            }
-            /// <summary>
-            /// Warps depth or RGB-D image by reprojecting it in 3d, applying Rt transformation
-            /// </summary>
-            /// <param name="depth">Depth data, should be 1-channel CV_16U, CV_16S, CV_32F or CV_64F</param>
-            /// <param name="image">RGB image (optional), should be 1-, 3- or 4-channel CV_8U</param>
-            /// <param name="mask">Mask of used pixels (optional), should be CV_8UC1, CV_8SC1 or CV_BoolC1</param>
-            /// <param name="Rt">Rotation+translation matrix (3x4 or 4x4) to be applied to depth points</param>
-            /// <param name="cameraMatrix">Camera intrinsics matrix (3x3)</param>
-            /// <param name="warpedDepth">The warped depth data (optional)</param>
-            /// <param name="warpedImage">The warped RGB image (optional)</param>
-            /// <param name="warpedMask">The mask of valid pixels in warped image (optional)</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            /// <remarks>
-            /// * and then projecting it back onto the image plane.
-            /// * This function can be used to visualize the results of the Odometry algorithm.
-            /// </remarks>
-            public static void WarpFrame(Mat depth, Mat image, Mat mask, Mat Rt, Mat cameraMatrix, Mat? warpedDepth, Mat? warpedImage, Mat? warpedMask)
-            {
-                if (depth == null) throw new ArgumentNullException(nameof(depth));
-                depth.ThrowIfDisposed();
-                if (image == null) throw new ArgumentNullException(nameof(image));
-                image.ThrowIfDisposed();
-                if (mask == null) throw new ArgumentNullException(nameof(mask));
-                mask.ThrowIfDisposed();
-                if (Rt == null) throw new ArgumentNullException(nameof(Rt));
-                Rt.ThrowIfDisposed();
-                if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
-                cameraMatrix.ThrowIfDisposed();
-                if (warpedDepth != null) warpedDepth.ThrowIfDisposed();
-                if (warpedImage != null) warpedImage.ThrowIfDisposed();
-                if (warpedMask != null) warpedMask.ThrowIfDisposed();
-                NativeMethods.cv_warpFrame_0(depth.Handle, image.Handle, mask.Handle, Rt.Handle, cameraMatrix.Handle, ValidationHelper.GetHandle(warpedDepth, nameof(warpedDepth), true), ValidationHelper.GetHandle(warpedImage, nameof(warpedImage), true), ValidationHelper.GetHandle(warpedMask, nameof(warpedMask), true));
-                ErrorHelper.CheckError();
-                GC.KeepAlive(depth);
-                GC.KeepAlive(image);
-                GC.KeepAlive(mask);
-                GC.KeepAlive(Rt);
-                GC.KeepAlive(cameraMatrix);
-                GC.KeepAlive(warpedDepth);
-                GC.KeepAlive(warpedImage);
-                GC.KeepAlive(warpedMask);
-            }
-            /// <summary>
-            /// Find the planes in a depth image
-            /// </summary>
-            /// <param name="points3d">the 3d points organized like the depth image: rows x cols with 3 channels</param>
-            /// <param name="normals">the normals for every point in the depth image; optional, can be empty</param>
-            /// <param name="mask">An image where each pixel is labeled with the plane it belongs to *        and 255 if it does not belong to any plane</param>
-            /// <param name="plane_coefficients">the coefficients of the corresponding planes (a,b,c,d) such that ax+by+cz+d=0, norm(a,b,c)=1 *        and c &lt; 0 (so that the normal points towards the camera)</param>
-            /// <param name="block_size">The size of the blocks to look at for a stable MSE</param>
-            /// <param name="min_size">The minimum size of a cluster to be considered a plane</param>
-            /// <param name="threshold">The maximum distance of a point from a plane to belong to it (in meters)</param>
-            /// <param name="sensor_error_a">coefficient of the sensor error. 0 by default, use 0.0075 for a Kinect</param>
-            /// <param name="sensor_error_b">coefficient of the sensor error. 0 by default</param>
-            /// <param name="sensor_error_c">coefficient of the sensor error. 0 by default</param>
-            /// <param name="method">The method to use to compute the planes.</param>
-            /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
-            /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static void FindPlanes(Mat points3d, Mat normals, Mat mask, Mat plane_coefficients, int block_size, int min_size, double threshold, double sensor_error_a, double sensor_error_b, double sensor_error_c, RgbdPlaneMethod method)
-            {
-                if (points3d == null) throw new ArgumentNullException(nameof(points3d));
-                points3d.ThrowIfDisposed();
-                if (normals == null) throw new ArgumentNullException(nameof(normals));
-                normals.ThrowIfDisposed();
-                if (mask == null) throw new ArgumentNullException(nameof(mask));
-                mask.ThrowIfDisposed();
-                if (plane_coefficients == null) throw new ArgumentNullException(nameof(plane_coefficients));
-                plane_coefficients.ThrowIfDisposed();
-                NativeMethods.cv_findPlanes_0(points3d.Handle, normals.Handle, mask.Handle, plane_coefficients.Handle, block_size, min_size, threshold, sensor_error_a, sensor_error_b, sensor_error_c, (int)method);
-                ErrorHelper.CheckError();
-                GC.KeepAlive(points3d);
-                GC.KeepAlive(normals);
-                GC.KeepAlive(mask);
-                GC.KeepAlive(plane_coefficients);
-            }
+        /// <summary>
+        /// Loads a point cloud from a file.
+        /// *
+        /// * The function loads point cloud from the specified file and returns it.
+        /// * If the cloud cannot be read, throws an error.
+        /// * Vertex coordinates, normals and colors are returned as they are saved in the file
+        /// * even if these arrays have different sizes and their elements do not correspond to each other
+        /// * (which is typical for OBJ files for example)
+        /// *
+        /// * Currently, the following file formats are supported:
+        /// * -  [Wavefront obj file *.obj](https://en.wikipedia.org/wiki/Wavefront_.obj_file)
+        /// * -  [Polygon File Format *.ply](https://en.wikipedia.org/wiki/PLY_(file_format))
+        /// *
+        /// </summary>
+        /// <param name="filename">Name of the file</param>
+        /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
+        /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
+        /// <param name="rgb">per-vertex colors, each value contains 3 floats</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void LoadPointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (normals != null) normals.ThrowIfDisposed();
+            if (rgb != null) rgb.ThrowIfDisposed();
+            NativeMethods.cv_loadPointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(normals);
+            GC.KeepAlive(rgb);
+        }
+        /// <summary>
+        /// Saves a point cloud to a specified file.
+        /// *
+        /// * The function saves point cloud to the specified file.
+        /// * File format is chosen based on the filename extension.
+        /// *
+        /// </summary>
+        /// <param name="filename">Name of the file</param>
+        /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
+        /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
+        /// <param name="rgb">per-vertex colors, each value contains 3 floats</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void SavePointCloud(string filename, Mat vertices, Mat? normals, Mat? rgb)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (normals != null) normals.ThrowIfDisposed();
+            if (rgb != null) rgb.ThrowIfDisposed();
+            NativeMethods.cv_savePointCloud_0(filename, vertices.Handle, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(rgb, nameof(rgb), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(normals);
+            GC.KeepAlive(rgb);
+        }
+        /// <summary>
+        /// Loads a mesh from a file.
+        /// *
+        /// * The function loads mesh from the specified file and returns it.
+        /// * If the mesh cannot be read, throws an error
+        /// * Vertex attributes (i.e. space and texture coodinates, normals and colors) are returned in same-sized
+        /// * arrays with corresponding elements having the same indices.
+        /// * This means that if a face uses a vertex with a normal or a texture coordinate with different indices
+        /// * (which is typical for OBJ files for example), this vertex will be duplicated for each face it uses.
+        /// *
+        /// * Currently, the following file formats are supported:
+        /// * -  [Wavefront obj file *.obj](https://en.wikipedia.org/wiki/Wavefront_.obj_file) (ONLY TRIANGULATED FACES)
+        /// * -  [Polygon File Format *.ply](https://en.wikipedia.org/wiki/PLY_(file_format))
+        /// </summary>
+        /// <param name="filename">Name of the file</param>
+        /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
+        /// <param name="indices">per-face list of vertices, each value is a vector of ints</param>
+        /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
+        /// <param name="colors">per-vertex colors, each value contains 3 floats</param>
+        /// <param name="texCoords">per-vertex texture coordinates, each value contains 2 or 3 floats</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void LoadMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (normals != null) normals.ThrowIfDisposed();
+            if (colors != null) colors.ThrowIfDisposed();
+            if (texCoords != null) texCoords.ThrowIfDisposed();
+            NativeMethods.cv_loadMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(normals);
+            GC.KeepAlive(colors);
+            GC.KeepAlive(texCoords);
+        }
+        /// <summary>
+        /// Saves a mesh to a specified file.
+        /// *
+        /// * The function saves mesh to the specified file.
+        /// * File format is chosen based on the filename extension.
+        /// *
+        /// </summary>
+        /// <param name="filename">Name of the file.</param>
+        /// <param name="vertices">vertex coordinates, each value contains 3 floats</param>
+        /// <param name="indices">per-face list of vertices, each value is a vector of ints</param>
+        /// <param name="normals">per-vertex normals, each value contains 3 floats</param>
+        /// <param name="colors">per-vertex colors, each value contains 3 floats</param>
+        /// <param name="texCoords">per-vertex texture coordinates, each value contains 2 or 3 floats</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void SaveMesh(string filename, Mat vertices, IntPtr indices, Mat? normals, Mat? colors, Mat? texCoords)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (normals != null) normals.ThrowIfDisposed();
+            if (colors != null) colors.ThrowIfDisposed();
+            if (texCoords != null) texCoords.ThrowIfDisposed();
+            NativeMethods.cv_saveMesh_0(filename, vertices.Handle, indices, ValidationHelper.GetHandle(normals, nameof(normals), true), ValidationHelper.GetHandle(colors, nameof(colors), true), ValidationHelper.GetHandle(texCoords, nameof(texCoords), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(normals);
+            GC.KeepAlive(colors);
+            GC.KeepAlive(texCoords);
+        }
+        /// <summary>
+        /// Renders a set of triangles on a depth and color image
+        /// *
+        /// * Triangles can be drawn white (1.0, 1.0, 1.0), flat-shaded or with a color interpolation between vertices.
+        /// * In flat-shaded mode the 1st vertex color of each triangle is used to fill the whole triangle.
+        /// *
+        /// * The world2cam is an inverted camera pose matrix in fact. It transforms vertices from world to
+        /// * camera coordinate system.
+        /// *
+        /// * The camera coordinate system emulates the OpenGL's coordinate system having coordinate origin in a screen center,
+        /// * X axis pointing right, Y axis pointing up and Z axis pointing towards the viewer
+        /// * except that image is vertically flipped after the render.
+        /// * This means that all visible objects are placed in z-negative area, or exactly in -zNear &gt; z &gt; -zFar since
+        /// * zNear and zFar are positive.
+        /// * For example, at fovY = PI/2 the point (0, 1, -1) will be projected to (width/2, 0) screen point,
+        /// * (1, 0, -1) to (width/2 + height/2, height/2). Increasing fovY makes projection smaller and vice versa.
+        /// *
+        /// * The function does not create or clear output images before the rendering. This means that it can be used
+        /// * for drawing over an existing image or for rendering a model into a 3D scene using pre-filled Z-buffer.
+        /// *
+        /// * Empty scene results in a depth buffer filled by the maximum value since every pixel is infinitely far from the camera.
+        /// * Therefore, before rendering anything from scratch the depthBuf should be filled by zFar values (or by ones in INVDEPTH mode).
+        /// *
+        /// * There are special versions of this function named triangleRasterizeDepth and triangleRasterizeColor
+        /// * for cases if a user needs a color image or a depth image alone; they may run slightly faster.
+        /// *
+        /// </summary>
+        /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
+        /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
+        /// <param name="colors">per-vertex colors of CV_32FC3 type or compatible. Can be empty or the same size as vertices array. * If the values are out of [0; 1] range, the result correctness is not guaranteed</param>
+        /// <param name="colorBuf">an array representing the final rendered image. Should containt CV_32FC3 values and be the same size as depthBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene.</param>
+        /// <param name="depthBuf">an array of floats containing resulting Z buffer. Should contain float values and be the same size as colorBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene. * Empty scene corresponds to all values set to zFar (or to 1.0 in INVDEPTH mode)</param>
+        /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
+        /// <param name="fovY">field of view in vertical direction, given in radians</param>
+        /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
+        /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
+        /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void TriangleRasterize(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
+            colorBuf.ThrowIfDisposed();
+            if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
+            depthBuf.ThrowIfDisposed();
+            if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+            world2cam.ThrowIfDisposed();
+            if (settings != null) settings.ThrowIfDisposed();
+            NativeMethods.cv_triangleRasterize_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(indices);
+            GC.KeepAlive(colors);
+            GC.KeepAlive(colorBuf);
+            GC.KeepAlive(depthBuf);
+            GC.KeepAlive(world2cam);
+            GC.KeepAlive(settings);
+        }
+        /// <summary>
+        /// Overloaded version of triangleRasterize() with depth-only rendering
+        /// *
+        /// </summary>
+        /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
+        /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
+        /// <param name="depthBuf">an array of floats containing resulting Z buffer. Should contain float values and be the same size as colorBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene. * Empty scene corresponds to all values set to zFar (or to 1.0 in INVDEPTH mode)</param>
+        /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
+        /// <param name="fovY">field of view in vertical direction, given in radians</param>
+        /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
+        /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
+        /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void TriangleRasterizeDepth(Mat vertices, Mat indices, Mat depthBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (depthBuf == null) throw new ArgumentNullException(nameof(depthBuf));
+            depthBuf.ThrowIfDisposed();
+            if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+            world2cam.ThrowIfDisposed();
+            if (settings != null) settings.ThrowIfDisposed();
+            NativeMethods.cv_triangleRasterizeDepth_0(vertices.Handle, indices.Handle, depthBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(indices);
+            GC.KeepAlive(depthBuf);
+            GC.KeepAlive(world2cam);
+            GC.KeepAlive(settings);
+        }
+        /// <summary>
+        /// Overloaded version of triangleRasterize() with color-only rendering
+        /// *
+        /// </summary>
+        /// <param name="vertices">vertices coordinates array. Should contain values of CV_32FC3 type or a compatible one (e.g. Vec3f, etc.)</param>
+        /// <param name="indices">triangle vertices index array, 3 per triangle. Each index indicates a vertex in a vertices array. * Should contain CV_32SC3 values or compatible</param>
+        /// <param name="colors">per-vertex colors of CV_32FC3 type or compatible. Can be empty or the same size as vertices array. * If the values are out of [0; 1] range, the result correctness is not guaranteed</param>
+        /// <param name="colorBuf">an array representing the final rendered image. Should containt CV_32FC3 values and be the same size as depthBuf. * Not cleared before rendering, i.e. the content is reused as there is some pre-rendered scene.</param>
+        /// <param name="world2cam">a 4x3 or 4x4 float or double matrix containing inverted (sic!) camera pose</param>
+        /// <param name="fovY">field of view in vertical direction, given in radians</param>
+        /// <param name="zNear">minimum Z value to render, everything closer is clipped</param>
+        /// <param name="zFar">maximum Z value to render, everything farther is clipped</param>
+        /// <param name="settings">see TriangleRasterizeSettings. By default the smooth shading is on, * with CW culling and with disabled GL compatibility</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void TriangleRasterizeColor(Mat vertices, Mat indices, Mat colors, Mat colorBuf, Mat world2cam, double fovY, double zNear, double zFar, TriangleRasterizeSettings? settings)
+        {
+            if (vertices == null) throw new ArgumentNullException(nameof(vertices));
+            vertices.ThrowIfDisposed();
+            if (indices == null) throw new ArgumentNullException(nameof(indices));
+            indices.ThrowIfDisposed();
+            if (colors == null) throw new ArgumentNullException(nameof(colors));
+            colors.ThrowIfDisposed();
+            if (colorBuf == null) throw new ArgumentNullException(nameof(colorBuf));
+            colorBuf.ThrowIfDisposed();
+            if (world2cam == null) throw new ArgumentNullException(nameof(world2cam));
+            world2cam.ThrowIfDisposed();
+            if (settings != null) settings.ThrowIfDisposed();
+            NativeMethods.cv_triangleRasterizeColor_0(vertices.Handle, indices.Handle, colors.Handle, colorBuf.Handle, world2cam.Handle, fovY, zNear, zFar, ValidationHelper.GetHandle(settings, nameof(settings), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(vertices);
+            GC.KeepAlive(indices);
+            GC.KeepAlive(colors);
+            GC.KeepAlive(colorBuf);
+            GC.KeepAlive(world2cam);
+            GC.KeepAlive(settings);
+        }
+        /// <summary>
+        /// Registers depth data to an external camera
+        /// </summary>
+        /// <param name="unregisteredCameraMatrix">the camera matrix of the depth camera</param>
+        /// <param name="registeredCameraMatrix">the camera matrix of the external camera</param>
+        /// <param name="registeredDistCoeffs">the distortion coefficients of the external camera</param>
+        /// <param name="Rt">the rigid body transform between the cameras. Transforms points from depth camera frame to external camera frame.</param>
+        /// <param name="unregisteredDepth">the input depth data</param>
+        /// <param name="outputImagePlaneSize">the image plane dimensions of the external camera (width, height)</param>
+        /// <param name="registeredDepth">the result of transforming the depth into the external camera</param>
+        /// <param name="depthDilation">whether or not the depth is dilated to avoid holes and occlusion errors (optional)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * Registration is performed by creating a depth cloud, transforming the cloud by
+        /// * the rigid body transformation between the cameras, and then projecting the
+        /// * transformed points into the RGB camera.
+        /// *
+        /// * uv_rgb = K_rgb * [R | t] * z * inv(K_ir) * uv_ir
+        /// *
+        /// * Currently does not check for negative depth values.
+        /// *
+        /// </remarks>
+        public static void RegisterDepth(Mat unregisteredCameraMatrix, Mat registeredCameraMatrix, Mat registeredDistCoeffs, Mat Rt, Mat unregisteredDepth, Size outputImagePlaneSize, Mat registeredDepth, bool depthDilation)
+        {
+            if (unregisteredCameraMatrix == null) throw new ArgumentNullException(nameof(unregisteredCameraMatrix));
+            unregisteredCameraMatrix.ThrowIfDisposed();
+            if (registeredCameraMatrix == null) throw new ArgumentNullException(nameof(registeredCameraMatrix));
+            registeredCameraMatrix.ThrowIfDisposed();
+            if (registeredDistCoeffs == null) throw new ArgumentNullException(nameof(registeredDistCoeffs));
+            registeredDistCoeffs.ThrowIfDisposed();
+            if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+            Rt.ThrowIfDisposed();
+            if (unregisteredDepth == null) throw new ArgumentNullException(nameof(unregisteredDepth));
+            unregisteredDepth.ThrowIfDisposed();
+            if (registeredDepth == null) throw new ArgumentNullException(nameof(registeredDepth));
+            registeredDepth.ThrowIfDisposed();
+            NativeMethods.cv_registerDepth_0(unregisteredCameraMatrix.Handle, registeredCameraMatrix.Handle, registeredDistCoeffs.Handle, Rt.Handle, unregisteredDepth.Handle, outputImagePlaneSize, registeredDepth.Handle, depthDilation);
+            ErrorHelper.CheckError();
+            GC.KeepAlive(unregisteredCameraMatrix);
+            GC.KeepAlive(registeredCameraMatrix);
+            GC.KeepAlive(registeredDistCoeffs);
+            GC.KeepAlive(Rt);
+            GC.KeepAlive(unregisteredDepth);
+            GC.KeepAlive(registeredDepth);
+        }
+        /// <summary>
+        /// Wrapper for OpenCV's native functionality.
+        /// </summary>
+        /// <param name="depth">the depth image</param>
+        /// <param name="in_K">The in_K parameter.</param>
+        /// <param name="in_points">the list of xy coordinates</param>
+        /// <param name="points3d">the resulting 3d points (point is represented by 4 chanels value [x, y, z, 0])</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void DepthTo3dSparse(Mat depth, Mat in_K, Mat in_points, Mat points3d)
+        {
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            if (in_K == null) throw new ArgumentNullException(nameof(in_K));
+            in_K.ThrowIfDisposed();
+            if (in_points == null) throw new ArgumentNullException(nameof(in_points));
+            in_points.ThrowIfDisposed();
+            if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+            points3d.ThrowIfDisposed();
+            NativeMethods.cv_depthTo3dSparse_0(depth.Handle, in_K.Handle, in_points.Handle, points3d.Handle);
+            ErrorHelper.CheckError();
+            GC.KeepAlive(depth);
+            GC.KeepAlive(in_K);
+            GC.KeepAlive(in_points);
+            GC.KeepAlive(points3d);
+        }
+        /// <summary>
+        /// Converts a depth image to 3d points. If the mask is empty then the resulting array has the same dimensions as `depth`,
+        /// </summary>
+        /// <param name="depth">the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters *              (as done with the Microsoft Kinect), otherwise, if given as CV_32F or CV_64F, it is assumed in meters)</param>
+        /// <param name="K">The calibration matrix</param>
+        /// <param name="points3d">the resulting 3d points (point is represented by 4 channels value [x, y, z, 0]). They are of the same depth as `depth` if it is CV_32F or CV_64F, and the *        depth of `K` if `depth` is of depth CV_16U or CV_16S</param>
+        /// <param name="mask">the mask of the points to consider (can be empty)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * otherwise it is 1d vector containing mask-enabled values only.
+        /// * The coordinate system is x pointing left, y down and z away from the camera
+        /// </remarks>
+        public static void DepthTo3d(Mat depth, Mat K, Mat points3d, Mat? mask)
+        {
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            if (K == null) throw new ArgumentNullException(nameof(K));
+            K.ThrowIfDisposed();
+            if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+            points3d.ThrowIfDisposed();
+            if (mask != null) mask.ThrowIfDisposed();
+            NativeMethods.cv_depthTo3d_0(depth.Handle, K.Handle, points3d.Handle, ValidationHelper.GetHandle(mask, nameof(mask), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(depth);
+            GC.KeepAlive(K);
+            GC.KeepAlive(points3d);
+            GC.KeepAlive(mask);
+        }
+        /// <summary>
+        /// If the input image is of type CV_16UC1 (like the Kinect one), the image is converted to floats, divided
+        /// </summary>
+        /// <param name="in">the depth image (if given as short int CV_U, it is assumed to be the depth in millimeters *              (as done with the Microsoft Kinect), it is assumed in meters)</param>
+        /// <param name="type">the desired output depth (CV_32F or CV_64F)</param>
+        /// <param name="out">The rescaled float depth image</param>
+        /// <param name="depth_factor">(optional) factor by which depth is converted to distance (by default = 1000.0 for Kinect sensor)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * by depth_factor to get a depth in meters, and the values 0 are converted to std.numeric_limits&lt;float&gt;::quiet_NaN()
+        /// * Otherwise, the image is simply converted to floats
+        /// </remarks>
+        public static void RescaleDepth(Mat @in, int type, Mat @out, double depth_factor)
+        {
+            if (@in == null) throw new ArgumentNullException(nameof(@in));
+            @in.ThrowIfDisposed();
+            if (@out == null) throw new ArgumentNullException(nameof(@out));
+            @out.ThrowIfDisposed();
+            NativeMethods.cv_rescaleDepth_0(@in.Handle, type, @out.Handle, depth_factor);
+            ErrorHelper.CheckError();
+            GC.KeepAlive(@in);
+            GC.KeepAlive(@out);
+        }
+        /// <summary>
+        /// Warps depth or RGB-D image by reprojecting it in 3d, applying Rt transformation
+        /// </summary>
+        /// <param name="depth">Depth data, should be 1-channel CV_16U, CV_16S, CV_32F or CV_64F</param>
+        /// <param name="image">RGB image (optional), should be 1-, 3- or 4-channel CV_8U</param>
+        /// <param name="mask">Mask of used pixels (optional), should be CV_8UC1, CV_8SC1 or CV_BoolC1</param>
+        /// <param name="Rt">Rotation+translation matrix (3x4 or 4x4) to be applied to depth points</param>
+        /// <param name="cameraMatrix">Camera intrinsics matrix (3x3)</param>
+        /// <param name="warpedDepth">The warped depth data (optional)</param>
+        /// <param name="warpedImage">The warped RGB image (optional)</param>
+        /// <param name="warpedMask">The mask of valid pixels in warped image (optional)</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        /// <remarks>
+        /// * and then projecting it back onto the image plane.
+        /// * This function can be used to visualize the results of the Odometry algorithm.
+        /// </remarks>
+        public static void WarpFrame(Mat depth, Mat image, Mat mask, Mat Rt, Mat cameraMatrix, Mat? warpedDepth, Mat? warpedImage, Mat? warpedMask)
+        {
+            if (depth == null) throw new ArgumentNullException(nameof(depth));
+            depth.ThrowIfDisposed();
+            if (image == null) throw new ArgumentNullException(nameof(image));
+            image.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            if (Rt == null) throw new ArgumentNullException(nameof(Rt));
+            Rt.ThrowIfDisposed();
+            if (cameraMatrix == null) throw new ArgumentNullException(nameof(cameraMatrix));
+            cameraMatrix.ThrowIfDisposed();
+            if (warpedDepth != null) warpedDepth.ThrowIfDisposed();
+            if (warpedImage != null) warpedImage.ThrowIfDisposed();
+            if (warpedMask != null) warpedMask.ThrowIfDisposed();
+            NativeMethods.cv_warpFrame_0(depth.Handle, image.Handle, mask.Handle, Rt.Handle, cameraMatrix.Handle, ValidationHelper.GetHandle(warpedDepth, nameof(warpedDepth), true), ValidationHelper.GetHandle(warpedImage, nameof(warpedImage), true), ValidationHelper.GetHandle(warpedMask, nameof(warpedMask), true));
+            ErrorHelper.CheckError();
+            GC.KeepAlive(depth);
+            GC.KeepAlive(image);
+            GC.KeepAlive(mask);
+            GC.KeepAlive(Rt);
+            GC.KeepAlive(cameraMatrix);
+            GC.KeepAlive(warpedDepth);
+            GC.KeepAlive(warpedImage);
+            GC.KeepAlive(warpedMask);
+        }
+        /// <summary>
+        /// Find the planes in a depth image
+        /// </summary>
+        /// <param name="points3d">the 3d points organized like the depth image: rows x cols with 3 channels</param>
+        /// <param name="normals">the normals for every point in the depth image; optional, can be empty</param>
+        /// <param name="mask">An image where each pixel is labeled with the plane it belongs to *        and 255 if it does not belong to any plane</param>
+        /// <param name="plane_coefficients">the coefficients of the corresponding planes (a,b,c,d) such that ax+by+cz+d=0, norm(a,b,c)=1 *        and c &lt; 0 (so that the normal points towards the camera)</param>
+        /// <param name="block_size">The size of the blocks to look at for a stable MSE</param>
+        /// <param name="min_size">The minimum size of a cluster to be considered a plane</param>
+        /// <param name="threshold">The maximum distance of a point from a plane to belong to it (in meters)</param>
+        /// <param name="sensor_error_a">coefficient of the sensor error. 0 by default, use 0.0075 for a Kinect</param>
+        /// <param name="sensor_error_b">coefficient of the sensor error. 0 by default</param>
+        /// <param name="sensor_error_c">coefficient of the sensor error. 0 by default</param>
+        /// <param name="method">The method to use to compute the planes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when a required parameter is null.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown when a parameter has been disposed.</exception>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static void FindPlanes(Mat points3d, Mat normals, Mat mask, Mat plane_coefficients, int block_size, int min_size, double threshold, double sensor_error_a, double sensor_error_b, double sensor_error_c, RgbdPlaneMethod method)
+        {
+            if (points3d == null) throw new ArgumentNullException(nameof(points3d));
+            points3d.ThrowIfDisposed();
+            if (normals == null) throw new ArgumentNullException(nameof(normals));
+            normals.ThrowIfDisposed();
+            if (mask == null) throw new ArgumentNullException(nameof(mask));
+            mask.ThrowIfDisposed();
+            if (plane_coefficients == null) throw new ArgumentNullException(nameof(plane_coefficients));
+            plane_coefficients.ThrowIfDisposed();
+            NativeMethods.cv_findPlanes_0(points3d.Handle, normals.Handle, mask.Handle, plane_coefficients.Handle, block_size, min_size, threshold, sensor_error_a, sensor_error_b, sensor_error_c, (int)method);
+            ErrorHelper.CheckError();
+            GC.KeepAlive(points3d);
+            GC.KeepAlive(normals);
+            GC.KeepAlive(mask);
+            GC.KeepAlive(plane_coefficients);
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace OpenCV5Sharp
         {
             if (bytes == null) throw new ArgumentNullException(nameof(bytes));
             if (bytes.Length == 0) return new Mat();
-            
+
             using var mat = new Mat(1, bytes.Length, 0); // CV_8UC1 = 0
             IntPtr dataPtr = mat.Data;
             if (dataPtr == IntPtr.Zero)
@@ -37,7 +37,7 @@ namespace OpenCV5Sharp
                 throw new InvalidOperationException("Failed to allocate unmanaged memory for Mat.");
             }
             Marshal.Copy(bytes, 0, dataPtr, bytes.Length);
-            
+
             var result = Imdecode(mat, flags);
             if (result == null || result.IsDisposed || result.Handle.IsInvalid || result.Data == IntPtr.Zero)
             {
@@ -62,15 +62,15 @@ namespace OpenCV5Sharp
         {
             if (ext == null) throw new ArgumentNullException(nameof(ext));
             if (img == null) throw new ArgumentNullException(nameof(img));
-            
+
             // Validate extension to prevent path traversal (VULN-10)
             if (!ExtensionRegex.IsMatch(ext))
             {
                 throw new ArgumentException("Invalid file extension format. Expected format like '.png' or '.jpg'.", nameof(ext));
             }
-            
+
             img.ThrowIfDisposed();
-            
+
             string tempFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString("N") + ext);
             try
             {

@@ -15,8 +15,8 @@ namespace OpenCV5Sharp
     public partial class Clahe : Algorithm
     {
         public new ClaheHandle Handle => (ClaheHandle)base.Handle;
-        internal Clahe(IntPtr handle, bool ownsHandle = true) : base(new ClaheHandle(handle, ownsHandle)) {}
-        internal Clahe(ClaheHandle handle) : base(handle) {}
+        internal Clahe(IntPtr handle, bool ownsHandle = true) : base(new ClaheHandle(handle, ownsHandle)) { }
+        internal Clahe(ClaheHandle handle) : base(handle) { }
         /// <summary>
         /// Equalizes the histogram of a grayscale image using Contrast Limited Adaptive Histogram Equalization.
         /// </summary>
@@ -134,8 +134,8 @@ namespace OpenCV5Sharp
     public partial class Filter2DParams : DisposableOpenCVObject
     {
         public new Filter2DParamsHandle Handle => (Filter2DParamsHandle)base.Handle;
-        internal Filter2DParams(IntPtr handle, bool ownsHandle = true) : base(new Filter2DParamsHandle(handle, ownsHandle)) {}
-        internal Filter2DParams(Filter2DParamsHandle handle) : base(handle) {}
+        internal Filter2DParams(IntPtr handle, bool ownsHandle = true) : base(new Filter2DParamsHandle(handle, ownsHandle)) { }
+        internal Filter2DParams(Filter2DParamsHandle handle) : base(handle) { }
         /// <summary>Gets or sets the anchorX property.</summary>
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public int AnchorX
@@ -192,8 +192,8 @@ namespace OpenCV5Sharp
     public partial class FontFace : DisposableOpenCVObject
     {
         public new FontFaceHandle Handle => (FontFaceHandle)base.Handle;
-        internal FontFace(IntPtr handle, bool ownsHandle = true) : base(new FontFaceHandle(handle, ownsHandle)) {}
-        internal FontFace(FontFaceHandle handle) : base(handle) {}
+        internal FontFace(IntPtr handle, bool ownsHandle = true) : base(new FontFaceHandle(handle, ownsHandle)) { }
+        internal FontFace(FontFaceHandle handle) : base(handle) { }
         /// <summary>
         /// loads default font
         /// </summary>
@@ -290,8 +290,8 @@ namespace OpenCV5Sharp
     public partial class GeneralizedHough : Algorithm
     {
         public new GeneralizedHoughHandle Handle => (GeneralizedHoughHandle)base.Handle;
-        internal GeneralizedHough(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughHandle(handle, ownsHandle)) {}
-        internal GeneralizedHough(GeneralizedHoughHandle handle) : base(handle) {}
+        internal GeneralizedHough(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughHandle(handle, ownsHandle)) { }
+        internal GeneralizedHough(GeneralizedHoughHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -529,8 +529,8 @@ namespace OpenCV5Sharp
     public partial class GeneralizedHoughBallard : GeneralizedHough
     {
         public new GeneralizedHoughBallardHandle Handle => (GeneralizedHoughBallardHandle)base.Handle;
-        internal GeneralizedHoughBallard(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughBallardHandle(handle, ownsHandle)) {}
-        internal GeneralizedHoughBallard(GeneralizedHoughBallardHandle handle) : base(handle) {}
+        internal GeneralizedHoughBallard(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughBallardHandle(handle, ownsHandle)) { }
+        internal GeneralizedHoughBallard(GeneralizedHoughBallardHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -593,8 +593,8 @@ namespace OpenCV5Sharp
     public partial class GeneralizedHoughGuil : GeneralizedHough
     {
         public new GeneralizedHoughGuilHandle Handle => (GeneralizedHoughGuilHandle)base.Handle;
-        internal GeneralizedHoughGuil(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughGuilHandle(handle, ownsHandle)) {}
-        internal GeneralizedHoughGuil(GeneralizedHoughGuilHandle handle) : base(handle) {}
+        internal GeneralizedHoughGuil(IntPtr handle, bool ownsHandle = true) : base(new GeneralizedHoughGuilHandle(handle, ownsHandle)) { }
+        internal GeneralizedHoughGuil(GeneralizedHoughGuilHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -909,8 +909,8 @@ namespace OpenCV5Sharp
     public partial class LineSegmentDetector : Algorithm
     {
         public new LineSegmentDetectorHandle Handle => (LineSegmentDetectorHandle)base.Handle;
-        internal LineSegmentDetector(IntPtr handle, bool ownsHandle = true) : base(new LineSegmentDetectorHandle(handle, ownsHandle)) {}
-        internal LineSegmentDetector(LineSegmentDetectorHandle handle) : base(handle) {}
+        internal LineSegmentDetector(IntPtr handle, bool ownsHandle = true) : base(new LineSegmentDetectorHandle(handle, ownsHandle)) { }
+        internal LineSegmentDetector(LineSegmentDetectorHandle handle) : base(handle) { }
         /// <summary>
         /// Finds lines in the input image.
         /// </summary>

@@ -12,15 +12,15 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Read option.
         /// </summary>
-        Read = unchecked((int)(1<<24)),
+        Read = unchecked((int)(1 << 24)),
         /// <summary>
         /// Write option.
         /// </summary>
-        Write = unchecked((int)(1<<25)),
+        Write = unchecked((int)(1 << 25)),
         /// <summary>
         /// Rw option.
         /// </summary>
-        Rw = unchecked((int)(3<<24)),
+        Rw = unchecked((int)(3 << 24)),
         /// <summary>
         /// Mask option.
         /// </summary>
@@ -28,7 +28,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Fast option.
         /// </summary>
-        Fast = unchecked((int)(1<<26)),
+        Fast = unchecked((int)(1 << 26)),
     }
 
     /// <summary>
@@ -602,7 +602,7 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Format mask option.
         /// </summary>
-        FormatMask = unchecked((int)(7<<3)),
+        FormatMask = unchecked((int)(7 << 3)),
         /// <summary>
         /// Format auto option.
         /// </summary>
@@ -610,19 +610,19 @@ namespace OpenCV5Sharp
         /// <summary>
         /// Format xml option.
         /// </summary>
-        FormatXml = unchecked((int)(1<<3)),
+        FormatXml = unchecked((int)(1 << 3)),
         /// <summary>
         /// Format yaml option.
         /// </summary>
-        FormatYaml = unchecked((int)(2<<3)),
+        FormatYaml = unchecked((int)(2 << 3)),
         /// <summary>
         /// Format json option.
         /// </summary>
-        FormatJson = unchecked((int)(3<<3)),
+        FormatJson = unchecked((int)(3 << 3)),
         /// <summary>
         /// Format yaml10 option.
         /// </summary>
-        FormatYaml10 = unchecked((int)(4<<3)),
+        FormatYaml10 = unchecked((int)(4 << 3)),
         /// <summary>
         /// Base64 option.
         /// </summary>

@@ -9,16 +9,16 @@ namespace OpenCV5Sharp
 {
     public static partial class Cv2
     {
-            /// <summary>
-            /// Wrapper for OpenCV's native functionality.
-            /// </summary>
-            /// <returns>The returned value.</returns>
-            /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
-            public static bool InitAll()
-            {
-                var res = NativeMethods.cv_initAll_0();
-                ErrorHelper.CheckError();
-                return res;
-            }
+        /// <summary>
+        /// Wrapper for OpenCV's native functionality.
+        /// </summary>
+        /// <returns>The returned value.</returns>
+        /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
+        public static bool InitAll()
+        {
+            var res = NativeMethods.cv_initAll_0();
+            ErrorHelper.CheckError();
+            return res;
+        }
     }
 }

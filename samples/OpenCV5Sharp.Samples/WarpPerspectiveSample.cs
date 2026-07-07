@@ -39,7 +39,7 @@ namespace OpenCV5Sharp.Samples
                     int height = srcImg.Rows;
 
                     Console.WriteLine($"\n1. Defining perspective warp target coordinate transformation...");
-                    
+
 
                     // Source corners: (0,0), (width-1, 0), (width-1, height-1), (0, height-1)
                     // Target corners: skewed to simulate an inclined card/document plane

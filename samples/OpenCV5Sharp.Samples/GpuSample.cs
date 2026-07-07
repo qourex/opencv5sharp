@@ -35,7 +35,7 @@ namespace OpenCV5Sharp.Samples
             Cv2.CudaPrintShortCudaDeviceInfo(currentDevice);
 
             // 3. Generate a synthetic high-resolution image with random Gaussian noise
-            
+
             const int Width = 1920;
             const int Height = 1080;
             Console.WriteLine($"\nGenerating noisy {Width}x{Height} synthetic image...");

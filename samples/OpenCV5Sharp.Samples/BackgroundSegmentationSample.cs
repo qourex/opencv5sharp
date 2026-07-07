@@ -61,7 +61,7 @@ namespace OpenCV5Sharp.Samples
         {
             const int width = 320;
             const int height = 240;
-            
+
 
             using (var frame = new Mat(height, width, MatType.CV_8UC3))
             using (var fgMask = new Mat())

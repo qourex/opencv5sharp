@@ -15,8 +15,8 @@ namespace OpenCV5Sharp
     public partial class AlignExposures : Algorithm
     {
         public new AlignExposuresHandle Handle => (AlignExposuresHandle)base.Handle;
-        internal AlignExposures(IntPtr handle, bool ownsHandle = true) : base(new AlignExposuresHandle(handle, ownsHandle)) {}
-        internal AlignExposures(AlignExposuresHandle handle) : base(handle) {}
+        internal AlignExposures(IntPtr handle, bool ownsHandle = true) : base(new AlignExposuresHandle(handle, ownsHandle)) { }
+        internal AlignExposures(AlignExposuresHandle handle) : base(handle) { }
         /// <summary>
         /// Aligns images
         /// </summary>
@@ -55,8 +55,8 @@ namespace OpenCV5Sharp
     public partial class AlignMTB : AlignExposures
     {
         public new AlignMTBHandle Handle => (AlignMTBHandle)base.Handle;
-        internal AlignMTB(IntPtr handle, bool ownsHandle = true) : base(new AlignMTBHandle(handle, ownsHandle)) {}
-        internal AlignMTB(AlignMTBHandle handle) : base(handle) {}
+        internal AlignMTB(IntPtr handle, bool ownsHandle = true) : base(new AlignMTBHandle(handle, ownsHandle)) { }
+        internal AlignMTB(AlignMTBHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -248,8 +248,8 @@ namespace OpenCV5Sharp
     public partial class CalibrateCRF : Algorithm
     {
         public new CalibrateCRFHandle Handle => (CalibrateCRFHandle)base.Handle;
-        internal CalibrateCRF(IntPtr handle, bool ownsHandle = true) : base(new CalibrateCRFHandle(handle, ownsHandle)) {}
-        internal CalibrateCRF(CalibrateCRFHandle handle) : base(handle) {}
+        internal CalibrateCRF(IntPtr handle, bool ownsHandle = true) : base(new CalibrateCRFHandle(handle, ownsHandle)) { }
+        internal CalibrateCRF(CalibrateCRFHandle handle) : base(handle) { }
         /// <summary>
         /// Recovers inverse camera response.
         /// </summary>
@@ -286,8 +286,8 @@ namespace OpenCV5Sharp
     public partial class CalibrateDebevec : CalibrateCRF
     {
         public new CalibrateDebevecHandle Handle => (CalibrateDebevecHandle)base.Handle;
-        internal CalibrateDebevec(IntPtr handle, bool ownsHandle = true) : base(new CalibrateDebevecHandle(handle, ownsHandle)) {}
-        internal CalibrateDebevec(CalibrateDebevecHandle handle) : base(handle) {}
+        internal CalibrateDebevec(IntPtr handle, bool ownsHandle = true) : base(new CalibrateDebevecHandle(handle, ownsHandle)) { }
+        internal CalibrateDebevec(CalibrateDebevecHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -376,8 +376,8 @@ namespace OpenCV5Sharp
     public partial class CalibrateRobertson : CalibrateCRF
     {
         public new CalibrateRobertsonHandle Handle => (CalibrateRobertsonHandle)base.Handle;
-        internal CalibrateRobertson(IntPtr handle, bool ownsHandle = true) : base(new CalibrateRobertsonHandle(handle, ownsHandle)) {}
-        internal CalibrateRobertson(CalibrateRobertsonHandle handle) : base(handle) {}
+        internal CalibrateRobertson(IntPtr handle, bool ownsHandle = true) : base(new CalibrateRobertsonHandle(handle, ownsHandle)) { }
+        internal CalibrateRobertson(CalibrateRobertsonHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -475,8 +475,8 @@ namespace OpenCV5Sharp
     public partial class MergeDebevec : MergeExposures
     {
         public new MergeDebevecHandle Handle => (MergeDebevecHandle)base.Handle;
-        internal MergeDebevec(IntPtr handle, bool ownsHandle = true) : base(new MergeDebevecHandle(handle, ownsHandle)) {}
-        internal MergeDebevec(MergeDebevecHandle handle) : base(handle) {}
+        internal MergeDebevec(IntPtr handle, bool ownsHandle = true) : base(new MergeDebevecHandle(handle, ownsHandle)) { }
+        internal MergeDebevec(MergeDebevecHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -534,8 +534,8 @@ namespace OpenCV5Sharp
     public partial class MergeExposures : Algorithm
     {
         public new MergeExposuresHandle Handle => (MergeExposuresHandle)base.Handle;
-        internal MergeExposures(IntPtr handle, bool ownsHandle = true) : base(new MergeExposuresHandle(handle, ownsHandle)) {}
-        internal MergeExposures(MergeExposuresHandle handle) : base(handle) {}
+        internal MergeExposures(IntPtr handle, bool ownsHandle = true) : base(new MergeExposuresHandle(handle, ownsHandle)) { }
+        internal MergeExposures(MergeExposuresHandle handle) : base(handle) { }
         /// <summary>
         /// Merges images.
         /// </summary>
@@ -579,8 +579,8 @@ namespace OpenCV5Sharp
     public partial class MergeMertens : MergeExposures
     {
         public new MergeMertensHandle Handle => (MergeMertensHandle)base.Handle;
-        internal MergeMertens(IntPtr handle, bool ownsHandle = true) : base(new MergeMertensHandle(handle, ownsHandle)) {}
-        internal MergeMertens(MergeMertensHandle handle) : base(handle) {}
+        internal MergeMertens(IntPtr handle, bool ownsHandle = true) : base(new MergeMertensHandle(handle, ownsHandle)) { }
+        internal MergeMertens(MergeMertensHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -713,8 +713,8 @@ namespace OpenCV5Sharp
     public partial class MergeRobertson : MergeExposures
     {
         public new MergeRobertsonHandle Handle => (MergeRobertsonHandle)base.Handle;
-        internal MergeRobertson(IntPtr handle, bool ownsHandle = true) : base(new MergeRobertsonHandle(handle, ownsHandle)) {}
-        internal MergeRobertson(MergeRobertsonHandle handle) : base(handle) {}
+        internal MergeRobertson(IntPtr handle, bool ownsHandle = true) : base(new MergeRobertsonHandle(handle, ownsHandle)) { }
+        internal MergeRobertson(MergeRobertsonHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -772,8 +772,8 @@ namespace OpenCV5Sharp
     public partial class Tonemap : Algorithm
     {
         public new TonemapHandle Handle => (TonemapHandle)base.Handle;
-        internal Tonemap(IntPtr handle, bool ownsHandle = true) : base(new TonemapHandle(handle, ownsHandle)) {}
-        internal Tonemap(TonemapHandle handle) : base(handle) {}
+        internal Tonemap(IntPtr handle, bool ownsHandle = true) : base(new TonemapHandle(handle, ownsHandle)) { }
+        internal Tonemap(TonemapHandle handle) : base(handle) { }
         /// <summary>
         /// Tonemaps image
         /// </summary>
@@ -836,8 +836,8 @@ namespace OpenCV5Sharp
     public partial class TonemapDrago : Tonemap
     {
         public new TonemapDragoHandle Handle => (TonemapDragoHandle)base.Handle;
-        internal TonemapDrago(IntPtr handle, bool ownsHandle = true) : base(new TonemapDragoHandle(handle, ownsHandle)) {}
-        internal TonemapDrago(TonemapDragoHandle handle) : base(handle) {}
+        internal TonemapDrago(IntPtr handle, bool ownsHandle = true) : base(new TonemapDragoHandle(handle, ownsHandle)) { }
+        internal TonemapDrago(TonemapDragoHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -902,8 +902,8 @@ namespace OpenCV5Sharp
     public partial class TonemapMantiuk : Tonemap
     {
         public new TonemapMantiukHandle Handle => (TonemapMantiukHandle)base.Handle;
-        internal TonemapMantiuk(IntPtr handle, bool ownsHandle = true) : base(new TonemapMantiukHandle(handle, ownsHandle)) {}
-        internal TonemapMantiuk(TonemapMantiukHandle handle) : base(handle) {}
+        internal TonemapMantiuk(IntPtr handle, bool ownsHandle = true) : base(new TonemapMantiukHandle(handle, ownsHandle)) { }
+        internal TonemapMantiuk(TonemapMantiukHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -968,8 +968,8 @@ namespace OpenCV5Sharp
     public partial class TonemapReinhard : Tonemap
     {
         public new TonemapReinhardHandle Handle => (TonemapReinhardHandle)base.Handle;
-        internal TonemapReinhard(IntPtr handle, bool ownsHandle = true) : base(new TonemapReinhardHandle(handle, ownsHandle)) {}
-        internal TonemapReinhard(TonemapReinhardHandle handle) : base(handle) {}
+        internal TonemapReinhard(IntPtr handle, bool ownsHandle = true) : base(new TonemapReinhardHandle(handle, ownsHandle)) { }
+        internal TonemapReinhard(TonemapReinhardHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1057,8 +1057,8 @@ namespace OpenCV5Sharp
     public partial class CcmColorCorrectionModel : DisposableOpenCVObject
     {
         public new CcmColorCorrectionModelHandle Handle => (CcmColorCorrectionModelHandle)base.Handle;
-        internal CcmColorCorrectionModel(IntPtr handle, bool ownsHandle = true) : base(new CcmColorCorrectionModelHandle(handle, ownsHandle)) {}
-        internal CcmColorCorrectionModel(CcmColorCorrectionModelHandle handle) : base(handle) {}
+        internal CcmColorCorrectionModel(IntPtr handle, bool ownsHandle = true) : base(new CcmColorCorrectionModelHandle(handle, ownsHandle)) { }
+        internal CcmColorCorrectionModel(CcmColorCorrectionModelHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>
@@ -1604,8 +1604,8 @@ namespace OpenCV5Sharp
     public partial class SegmentationIntelligentScissorsMB : DisposableOpenCVObject
     {
         public new SegmentationIntelligentScissorsMBHandle Handle => (SegmentationIntelligentScissorsMBHandle)base.Handle;
-        internal SegmentationIntelligentScissorsMB(IntPtr handle, bool ownsHandle = true) : base(new SegmentationIntelligentScissorsMBHandle(handle, ownsHandle)) {}
-        internal SegmentationIntelligentScissorsMB(SegmentationIntelligentScissorsMBHandle handle) : base(handle) {}
+        internal SegmentationIntelligentScissorsMB(IntPtr handle, bool ownsHandle = true) : base(new SegmentationIntelligentScissorsMBHandle(handle, ownsHandle)) { }
+        internal SegmentationIntelligentScissorsMB(SegmentationIntelligentScissorsMBHandle handle) : base(handle) { }
         /// <summary>
         /// Wrapper for OpenCV's native functionality.
         /// </summary>

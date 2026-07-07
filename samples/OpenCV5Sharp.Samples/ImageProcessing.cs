@@ -19,7 +19,7 @@ namespace OpenCV5Sharp.Samples
 
             // 1. Generate a synthetic image to draw on and process
             Console.WriteLine("\n1. Creating a synthetic input image with shapes and text...");
-            
+
             using (Mat src = new Mat(300, 300, MatType.CV_8UC3))
             {
                 // Clear image to a custom color (BGR: dark grey 50, 50, 50)
