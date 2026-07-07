@@ -132,6 +132,6 @@ To run the full test suite locally:
 dotnet test
 ```
 
-::: note
+::: info
 CUDA GPU tests are designed with dynamic skip conditions and will automatically skip on CPU-only machines or where CUDA runtimes are unconfigured. This keeps the test pipeline green on all development machines.
 :::
