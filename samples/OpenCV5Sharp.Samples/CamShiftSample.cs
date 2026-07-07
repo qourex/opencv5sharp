@@ -14,7 +14,7 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [18] Object Tracking via CamShift ---");
 
-            const int CV_8UC1 = 0;
+
             const int size = 250;
 
             Console.WriteLine("\n1. Running CamShift tracking simulation (10 frames)...");
@@ -29,7 +29,7 @@ namespace OpenCV5Sharp.Samples
             int boxW = 40;
             int boxH = 40;
 
-            using (var probImage = new Mat(size, size, CV_8UC1))
+            using (var probImage = new Mat(size, size, MatType.CV_8UC1))
             {
                 byte[] zeros = new byte[size * size];
 

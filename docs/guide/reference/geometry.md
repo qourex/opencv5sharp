@@ -533,18 +533,17 @@ This is an overloaded member function, provided for convenience.
 Converts a rotation matrix to a rotation vector or vice versa.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 More information about the computation of the derivative of a 3D rotation matrix with respect to its exponential coordinate
 can be found in:
 - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi **Citation**:  Gallego2014ACF
-.:
-.: info Note
+:::
+::: info Note
 Useful information on SE(3) and Lie Groups can be found in:
 - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco **Citation**:  blanco2010tutorial
 - Lie Groups for 2D and 3D Transformation, Ethan Eade **Citation**:  Eade17
 - A micro Lie theory for state estimation in robotics, Joan Solà, Jérémie Deray, Dinesh Atchuthan **Citation**:  Sol2018AML
-.:
-
+:::
 **Parameters**:
 * `src`: Input rotation vector (3x1 or 1x3) or rotation matrix (3x3).
 * `dst`: Output rotation matrix (3x3) or rotation vector (3x1 or 1x3), respectively.
@@ -557,13 +556,12 @@ Useful information on SE(3) and Lie Groups can be found in:
 Finds a perspective transformation between two planes.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Whenever an formula matrix cannot be estimated, an empty one will be returned.
 **See also**: 
 getAffineTransform, estimateAffine2D, estimateAffinePartial2D, getPerspectiveTransform, warpPerspective,
 perspectiveTransform
-.:
-
+:::
 **Parameters**:
 * `srcPoints`: Coordinates of the points in the original plane, a matrix of the type CV_32FC2 or Point2f[] .
 * `dstPoints`: Coordinates of the points in the target plane, a matrix of the type CV_32FC2 or a Point2f[] .
@@ -669,21 +667,20 @@ the particular parameters, intrinsic and/or extrinsic. The Jacobians are used du
 optimization in `CalibrateCamera`, `SolvePnP`, and `stereoCalibrate`. The function itself
 can also be used to compute a re-projection error, given the current intrinsic and extrinsic
 parameters.
-.: info Note
+::: info Note
 **Coordinate Systems:**
 - **Input (`objectPoints`)**: 3D points in the **world coordinate frame**.
 - **Output (`imagePoints`)**: 2D projections in **pixel coordinates** of the image plane, with distortion applied.
 The coordinates formula are measured in pixels from the top-left corner of the image.
 The transformation chain is: World coordinates → Camera coordinates (via rvec/tvec) → Normalized camera coordinates
 → Distortion applied → Pixel coordinates (via cameraMatrix).
-.:
-.: info Note
+:::
+::: info Note
 By setting rvec = tvec = formula, or by setting cameraMatrix to a 3x3 identity matrix,
 or by passing zero distortion coefficients, one can get various useful partial cases of the
 function. This means, one can compute the distorted coordinates for a sparse set of points or apply
 a perspective transformation (and also compute the derivatives) in the ideal zero-distortion setup.
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: Array of object points expressed wrt. the world coordinate frame. A 3xN/Nx3 1-channel or 1xN/Nx1 3-channel (or Point3f[] ), where N is the number of points in the view.
 * `rvec`: The rotation vector (`Rodrigues`) that, together with tvec, performs a change of basis from world to camera coordinate system, see `CalibrateCamera` for details.
@@ -735,8 +732,7 @@ Number of input points must be 4. Object points must be defined in the following
 - point 2: [ squareLength / 2, -squareLength / 2, 0]
 - point 3: [-squareLength / 2, -squareLength / 2, 0]
 - for all the other flags, number of input points must be >= 4 and object points can be in any configuration.
-.: info Note
-
+::: info Note
 -   An example of how to use SolvePnP for planar augmented reality can be found at
 -    where Mat, in order to use a subset of
 it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
@@ -756,8 +752,7 @@ Number of input points must be 4. Object points must be defined in the following
 - point 2: [ squareLength / 2, -squareLength / 2, 0]
 - point 3: [-squareLength / 2, -squareLength / 2, 0]
 -  With `SOLVEPNP_SQPNP` input points must be >= 3
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. Point3D[] can be also passed here.
 * `imagePoints`: Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. Point2D[] can be also passed here.
@@ -779,8 +774,7 @@ Finds an object pose formula from 3D-2D point correspondences using the RANSAC s
 **Detailed Remarks**:
 { width=50% }
 **See also**: `calib3d_SolvePnP`
-.: info Note
-
+::: info Note
 -   An example of how to use SolvePnPRansac for object detection can be found at
 `tutorial_real_time_pose`
 -   The default method used to estimate the camera pose for the Minimal Sample Sets step
@@ -790,8 +784,7 @@ is `SOLVEPNP_EPNP`. Exceptions are:
 -   The method used to estimate the camera pose using all the inliers is defined by the
 flags parameters unless it is equal to `SOLVEPNP_P3P` or `SOLVEPNP_AP3P`. In this case,
 the method `SOLVEPNP_EPNP` will be used instead.
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. Point3D[] can be also passed here.
 * `imagePoints`: Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. Point2D[] can be also passed here.
@@ -835,11 +828,9 @@ Finds an object pose formula from **3** 3D-2D point correspondences.
 **Detailed Remarks**:
 { width=50% }
 **See also**: `calib3d_SolvePnP`
-.: info Note
-
+::: info Note
 The solutions are sorted by reprojection errors (lowest to highest).
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: Array of object points in the object coordinate space, 3x3 1-channel or 1x3/3x1 3-channel. Point3f[] can be also passed here.
 * `imagePoints`: Array of corresponding image points, 3x2 1-channel or 1x3/3x1 2-channel. Point2f[] can be also passed here.
@@ -909,8 +900,7 @@ Number of input points must be 4 and 2 solutions are returned. Object points mus
 - point 3: [-squareLength / 2, -squareLength / 2, 0]
 - for all the other flags, number of input points must be >= 4 and object points can be in any configuration.
 Only 1 solution is returned.
-.: info Note
-
+::: info Note
 -   An example of how to use SolvePnP for planar augmented reality can be found at
 -    where Mat, in order to use a subset of
 it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
@@ -929,8 +919,7 @@ Number of input points must be 4. Object points must be defined in the following
 - point 2: [ squareLength / 2, -squareLength / 2, 0]
 - point 3: [-squareLength / 2, -squareLength / 2, 0]
 -   With `SOLVEPNP_SQPNP` input points must be >= 3
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. Point3D[] can be also passed here.
 * `imagePoints`: Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. Point2D[] can be also passed here.
@@ -1232,18 +1221,15 @@ For points in an image of a stereo pair, computes the corresponding epilines in 
 This function reconstructs 3-dimensional points (in homogeneous coordinates) by using their observations with a stereo camera.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 Keep in mind that all input data should be of float type in order for this function to work.
-.:
-.: info Note
-
+:::
+::: info Note
 If the projection matrices from `stereoRectify` are used, then the returned points are
 represented in the first camera's rectified coordinate system.
 **See also**: 
 reprojectImageTo3D
-.:
-
+:::
 **Parameters**:
 * `projMatr1`: 3x4 projection matrix of the first camera, i.e. this matrix projects 3D points given in the world's coordinate system into the first image.
 * `projMatr2`: 3x4 projection matrix of the second camera, i.e. this matrix projects 3D points given in the world's coordinate system into the second image.
@@ -1403,14 +1389,12 @@ b_2\\
 \end{bmatrix}
 $$
 
-.: info Note
-
+::: info Note
 The RANSAC method can handle practically any ratio of outliers but needs a threshold to
 distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
 correctly only when there are more than 50% of inliers.
 **See also**: estimateAffinePartial2D, getAffineTransform
-.:
-
+:::
 **Parameters**:
 * `from`: First input 2D point set containing formula.
 * `to`: Second input 2D point set containing formula.
@@ -1444,14 +1428,12 @@ Wrapper for OpenCV's native functionality.
 Computes an optimal limited affine transformation with 4 degrees of freedom between two 2D point sets.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 The RANSAC method can handle practically any ratio of outliers but need a threshold to
 distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
 correctly only when there are more than 50% of inliers.
 **See also**: estimateAffine2D, getAffineTransform
-.:
-
+:::
 **Parameters**:
 * `from`: First input 2D point set.
 * `to`: Second input 2D point set.
@@ -1494,14 +1476,12 @@ t_y
 \end{bmatrix}.
 $$
 
-.: info Note
-
+::: info Note
 The RANSAC method can handle practically any ratio of outliers but needs a threshold to
 distinguish inliers from outliers. The method LMeDS does not need any threshold but works
 correctly only when there are more than 50% inliers.
 **See also**: estimateAffine2D, estimateAffinePartial2D, getAffineTransform
-.:
-
+:::
 **Parameters**:
 * `from`: First input 2D point set containing formula.
 * `to`: Second input 2D point set containing formula.
@@ -1643,7 +1623,7 @@ where *undistort* is an approximate iterative algorithm that estimates the norma
 point coordinates out of the normalized distorted point coordinates ("normalized" means that the
 coordinates do not depend on the camera matrix).
 The function can be used for both a stereo camera head or a monocular camera (when R is empty).
-.: info Note
+::: info Note
 **Coordinate Systems:**
 - **Input (`src`)**: Points are expected in **pixel coordinates** of the distorted image, i.e.,
 coordinates formula measured in pixels from the top-left corner of the image.
@@ -1652,8 +1632,7 @@ coordinates formula measured in pixels from the top-left corner of the image.
 - If `P` is empty or identity: Output points are in **normalized camera coordinates** (also called "normalized image coordinates"),
 which are dimensionless coordinates formula in the camera's focal plane, related to pixel coordinates by:
 formula and formula. These normalized coordinates are independent of the camera's intrinsic parameters and are useful for 3D reconstruction or epipolar geometry.
-.:
-
+:::
 **Parameters**:
 * `src`: Observed point coordinates in **pixel coordinates** of the distorted image, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or Point2f[] ).
 * `dst`: Output ideal point coordinates (1xN/Nx1 2-channel or Point2f[] ) after undistortion and reverse perspective transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
@@ -1742,7 +1721,7 @@ compared to the standard pinhole camera model used by `undistortPoints`. The fis
 for wide-angle cameras.
 The function transforms points from the distorted fisheye image to undistorted coordinates, optionally
 applying a rectification transformation (R) and projecting to a new image plane (P).
-.: info Note
+::: info Note
 **Coordinate Systems:**
 - **Input (`distorted`)**: Points are expected in **pixel coordinates** of the distorted fisheye image,
 i.e., coordinates measured in pixels from the top-left corner of the image.
@@ -1751,14 +1730,13 @@ i.e., coordinates measured in pixels from the top-left corner of the image.
 image plane, using the camera matrix `P`.
 - If `P` is empty or identity: Output points are in **normalized camera coordinates** (normalized image coordinates),
 which are dimensionless coordinates in the camera's focal plane, independent of intrinsic parameters.
-.:
-.: info Note
+:::
+::: info Note
 **Fisheye vs. Standard Model:**
 Use this function (Cv2.fisheye.undistortPoints) for fisheye cameras (wide-angle lenses).
 For standard pinhole cameras, use `undistortPoints` instead. The fisheye model uses a different distortion
 parameterization (4 coefficients) compared to the standard model (4-14 coefficients).
-.:
-
+:::
 **Parameters**:
 * `distorted`: Array of distorted point coordinates in **pixel coordinates** of the fisheye image, 1xN/Nx1 2-channel (or Point2f[] ), where N is the number of points in the view.
 * `undistorted`: Output array of undistorted image points, 1xN/Nx1 2-channel, or Point2f[] . The coordinate system depends on parameter P (see above).
@@ -1838,10 +1816,10 @@ Finds an object pose from 3D-2D point correspondences using the RANSAC scheme fo
 * lowest weight is considered. If the graph is disconnected or input is invalid, the function
 * returns false.
 
-.: info Note
+::: info Note
 *  The `root` parameter is ignored for algorithms that do not require a starting node.
-.:
-.: info Note
+:::
+::: info Note
 *  Additional MST algorithms may be supported in the future via the `algorithm` parameter
 * (see `MSTAlgorithm`).
 
@@ -1852,8 +1830,7 @@ Finds an object pose from 3D-2D point correspondences using the RANSAC scheme fo
 * * **Parameter** `root`:  Starting node for the MST algorithm (only used for certain algorithms).
 **Returns**: true if a valid MST was successfully built; false otherwise.
 * **Throws**: Error (StsBadArg) if an invalid algorithm is specified.
-.:
-
+:::
 **Parameters**:
 * `numNodes`: The numNodes parameter.
 * `inputEdges`: The inputEdges parameter.

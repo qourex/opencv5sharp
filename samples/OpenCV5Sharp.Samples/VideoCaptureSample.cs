@@ -36,7 +36,7 @@ namespace OpenCV5Sharp.Samples
                     for (int i = 1; i <= 10; i++)
                     {
                         bool success = capture.Read(frame);
-                        if (success && frame.Handle != IntPtr.Zero)
+                        if (success && !frame.Empty())
                         {
                             Console.WriteLine($"   Frame [{i}]: Size={frame.Cols}x{frame.Rows}, Channels={frame.Channels()}");
                         }

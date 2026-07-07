@@ -653,12 +653,11 @@ Class for extracting keypoints and computing descriptors using the Scale Invaria
   * *Summary*: Wrapper for OpenCV's native functionality.
   * *Remarks*:
 
-.: info Note
+::: info Note
 The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When
 nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set
 this argument to 0.09.
-.:
-
+:::
   * *Parameter* `nfeatures`: The number of best features to retain. The features are ranked by their scores (measured in SIFT algorithm as the local contrast)
   * *Parameter* `nOctaveLayers`: The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.
   * *Parameter* `contrastThreshold`: The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.
@@ -670,12 +669,11 @@ this argument to 0.09.
   * *Summary*: Create SIFT with specified descriptorType.
   * *Remarks*:
 
-.: info Note
+::: info Note
 The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When
 nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set
 this argument to 0.09.
-.:
-
+:::
   * *Parameter* `nfeatures`: The number of best features to retain. The features are ranked by their scores (measured in SIFT algorithm as the local contrast)
   * *Parameter* `nOctaveLayers`: The number of layers in each octave. 3 is the value used in D. Lowe paper. The number of octaves is computed automatically from the image resolution.
   * *Parameter* `contrastThreshold`: The contrast threshold used to filter out weak features in semi-uniform (low-contrast) regions. The larger the threshold, the less features are produced by the detector.
@@ -755,10 +753,9 @@ Default values of parameters are tuned to extract dark circular blobs.
   * *Summary*: Flag to enable contour collection. If set to true, the detector will store the contours of the detected blobs in memory, which can be retrieved after the detect() call using getBlobContours().
   * *Remarks*:
 
-.: info Note
+::: info Note
 Default value is false.
-.:
-
+:::
   * *Parameter* `parameters`: The parameters parameter.
   * *Returns*: The returned value.
 * `void SetParams(IntPtr @params)`
@@ -774,11 +771,10 @@ Default value is false.
   * *Summary*: Returns the contours of the blobs detected during the last call to detect().
   * *Remarks*:
 
-.: info Note
+::: info Note
 The `Params`.collectContours parameter must be set to true before calling
 detect() for this method to return any data.
-.:
-
+:::
   * *Returns*: The returned value.
 
 ---
@@ -836,13 +832,12 @@ formula are rejected.
 -   Function throws away each corner for which there is a stronger corner at a distance less than
 maxDistance.
 The function can be used to initialize a point-based tracker of an object.
-.: info Note
+::: info Note
 If the function is called with different values A and B of the parameter qualityLevel , and
 A \> B, the vector of returned corners with qualityLevel=A will be the prefix of the output vector
 with qualityLevel=B .
 **See also**: cornerMinEigenVal, cornerHarris, calcOpticalFlowPyrLK, estimateRigidTransform,
-.:
-
+:::
 **Parameters**:
 * `image`: Input 8-bit or floating-point 32-bit, single-channel image.
 * `corners`: Output vector of detected corners.
@@ -898,13 +893,11 @@ Same as above, but returns also quality measure of the detected corners.
 Draws keypoints.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 Flags are specified via DrawMatchesFlags options,
 DrawMatchesFlags.DrawRichKeypoints, DrawMatchesFlags.DrawOverOutimg,
 DrawMatchesFlags.NotDrawSinglePoints
-.:
-
+:::
 **Parameters**:
 * `image`: Source image.
 * `keypoints`: Keypoints from the source image.

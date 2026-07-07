@@ -24,7 +24,7 @@ namespace OpenCV5Sharp.Samples
 
             using (var original = Cv2.Imread(LenaPath, (int)ImreadModes.Color))
             {
-                if (original.Handle == IntPtr.Zero)
+                if (original == null || original.Empty())
                 {
                     Console.WriteLine("   [ERROR] Failed to load source image for warping.");
                     return;
@@ -39,12 +39,12 @@ namespace OpenCV5Sharp.Samples
                     int height = srcImg.Rows;
 
                     Console.WriteLine($"\n1. Defining perspective warp target coordinate transformation...");
-                    const int CV_32FC2 = 37;
+
 
                     // Source corners: (0,0), (width-1, 0), (width-1, height-1), (0, height-1)
                     // Target corners: skewed to simulate an inclined card/document plane
-                    using (var srcPts = new Mat(4, 1, CV_32FC2))
-                    using (var dstPts = new Mat(4, 1, CV_32FC2))
+                    using (var srcPts = new Mat(4, 1, MatType.CV_32FC2))
+                    using (var dstPts = new Mat(4, 1, MatType.CV_32FC2))
                     {
                         float[] srcCoords = new float[] {
                             0f, 0f,

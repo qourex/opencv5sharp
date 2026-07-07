@@ -19,10 +19,10 @@ public static void RunCudaBenchmark()
     int height = 1080;
 
     // Generate random noisy source image on CPU
-    using var noisyImg = new Mat(height, width, 0); // CV_8UC1 = 0
-    using var randMat = new Mat(height, width, 0);
-    using var lowMat = new Mat(height, width, 0);
-    using var highMat = new Mat(height, width, 0);
+    using var noisyImg = new Mat(height, width, MatType.CV_8UC1); // CV_8UC1
+    using var randMat = new Mat(height, width, MatType.CV_8UC1);
+    using var lowMat = new Mat(height, width, MatType.CV_8UC1);
+    using var highMat = new Mat(height, width, MatType.CV_8UC1);
 
     // Populate boundary matrices for Randu interop
     byte[] lowData = new byte[width * height];
@@ -40,8 +40,8 @@ public static void RunCudaBenchmark()
 
     // 1. Warm-up GPU pipelines
     Console.WriteLine("Initializing GPU...");
-    using (var gpuSrc = new CudaGpuMat(height, width, 0, defaultAllocator))
-    using (var gpuDst = new CudaGpuMat(height, width, 0, defaultAllocator))
+    using (var gpuSrc = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
+    using (var gpuDst = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
     {
         gpuSrc.Upload(noisyImg);
         Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 15.0f, 21, 7, null);
@@ -49,8 +49,8 @@ public static void RunCudaBenchmark()
 
     // 2. Run actual benchmark
     var swGpu = Stopwatch.StartNew();
-    using (var gpuSrc = new CudaGpuMat(height, width, 0, defaultAllocator))
-    using (var gpuDst = new CudaGpuMat(height, width, 0, defaultAllocator))
+    using (var gpuSrc = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
+    using (var gpuDst = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
     {
         gpuSrc.Upload(noisyImg);
         Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 15.0f, 21, 7, null);
@@ -85,14 +85,14 @@ class DnnClassifier
         
         // 2. Prepare input image
         using var img = Cv2.Imread(imagePath, (int)ImreadModes.Color);
-        if (img == null || img.Handle == IntPtr.Zero)
+        if (img == null || img.Empty())
         {
             Console.WriteLine("Failed to load image.");
             return;
         }
 
         using var blob = Cv2.DnnBlobFromImage(img, 1.0 / 255.0, new Size(224, 224),
-            new Scalar(0, 0, 0), true, false, 5); // ddepth: CV_32F = 5
+            new Scalar(0, 0, 0), true, false, MatType.CV_32F); // ddepth: CV_32F = 5
         net.SetInput(blob, "", 1.0, new Scalar(0, 0, 0, 0));
         
         // 3. Forward pass
@@ -156,14 +156,14 @@ using OpenCV5Sharp;
 void DetectMarkers(string imagePath)
 {
     using var src = Cv2.Imread(imagePath, (int)ImreadModes.Color);
-    if (src == null || src.Handle == IntPtr.Zero)
+    if (src == null || src.Empty())
     {
         Console.WriteLine("Failed to load image.");
         return;
     }
 
     // Get a predefined ArUco dictionary (DICT_6X6_250 = 10)
-    using var dictionary = Cv2.ArucoGetPredefinedDictionary(10);
+    using var dictionary = Cv2.ArucoGetPredefinedDictionary((int)ArucoPredefinedDictionaryType._6x6250);
     using var detectorParams = new ArucoDetectorParameters();
     
     // Instantiate detector

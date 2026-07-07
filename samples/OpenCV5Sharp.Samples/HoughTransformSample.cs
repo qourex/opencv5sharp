@@ -14,11 +14,11 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [15] Hough Line & Circle Detection ---");
 
-            const int CV_8UC1 = 0;
+
             const int size = 300;
 
             Console.WriteLine("\n1. Generating synthetic image with a circle and a line...");
-            using (var img = new Mat(size, size, CV_8UC1))
+            using (var img = new Mat(size, size, MatType.CV_8UC1))
             {
                 // Clear to black (0)
                 byte[] bg = new byte[size * size];

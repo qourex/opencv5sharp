@@ -21,7 +21,7 @@ namespace OpenCV5Sharp.Tests
                 Assert.Equal(2.0, clahe.GetClipLimit());
             }
 
-            using (Orb orb = Orb.Create(500, 1.2f, 8, 31, 0, 2, IntPtr.Zero, 31, 20))
+            using (Orb orb = Orb.Create(500, 1.2f, 8, 31, 0, 2, 0, 31, 20))
             {
                 Assert.NotNull(orb);
             }

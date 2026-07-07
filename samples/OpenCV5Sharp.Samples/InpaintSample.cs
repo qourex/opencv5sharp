@@ -24,7 +24,7 @@ namespace OpenCV5Sharp.Samples
 
             using (var original = Cv2.Imread(LenaPath, (int)ImreadModes.Color))
             {
-                if (original.Handle == IntPtr.Zero)
+                if (original == null || original.Empty())
                 {
                     Console.WriteLine("   [ERROR] Failed to load source image for inpainting.");
                     return;
@@ -34,9 +34,9 @@ namespace OpenCV5Sharp.Samples
                 int width = original.Cols;
                 int height = original.Rows;
 
-                const int CV_8UC1 = 0;
+
                 using (var corrupted = original.Clone())
-                using (var mask = new Mat(height, width, CV_8UC1))
+                using (var mask = new Mat(height, width, MatType.CV_8UC1))
                 {
                     if (corrupted == null)
                     {

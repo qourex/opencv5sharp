@@ -577,12 +577,11 @@ Wrapper for OpenCV's native functionality.
 * If camera parameters are provided, the process is based in an approximated pose estimation, else it is based on local homography.
 * Only visible corners are returned. For each corner, its corresponding identifier is also returned in charucoIds.
 **See also**: *  findChessboardCorners
-.: info Note
+::: info Note
 *  After OpenCV 4.6.0, there was an incompatible change in the ChArUco pattern generation algorithm for even row counts.
 * Use aruco.CharucoBoard.setLegacyPattern() to ensure compatibility with patterns created using OpenCV versions prior to 4.6.0.
 * For more information, see the issue: https://github.com/opencv/opencv/issues/23152
-.:
-
+:::
   * *Parameter* `image`: Input image.
   * *Parameter* `charucoCorners`: The charucoCorners parameter.
   * *Parameter* `charucoIds`: The charucoIds parameter.
@@ -1033,15 +1032,14 @@ struct DetectorParametersMCC is used by CCheckerDetector
 Finds the positions of internal corners of the chessboard.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 The function requires white space (like a square-thick border, the wider the better) around
 the board to make the detection more robust in various environments. Otherwise, if there is no
 border and the background is dark, the outer black squares cannot be segmented properly and so the
 square grouping and ordering algorithm fails.
 Use the checkerboard generator script (`tutorial_camera_calibration_pattern`)
 to create the desired checkerboard pattern.
-.:
-
+:::
 **Parameters**:
 * `image`: Source chessboard view. It must be an 8-bit grayscale or color image.
 * `patternSize`: Number of inner corners per a chessboard row and column ( patternSize = Size(points_per_row,points_per_column) = Size(columns,rows) ).
@@ -1082,7 +1080,7 @@ Checks whether the image contains chessboard of the specific size or not.
 Finds the positions of internal corners of the chessboard using a sector based approach.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 The function requires a white boarder with roughly the same width as one
 of the checkerboard fields around the whole board to improve the detection in
 various environments. In addition, because of the localized radon
@@ -1093,8 +1091,7 @@ can be used as well.
 Use the checkerboard generator script (`tutorial_camera_calibration_pattern`)
 to create the corresponding checkerboard pattern:
 
-.:
-
+:::
 **Parameters**:
 * `image`: Source chessboard view. It must be an 8-bit grayscale or color image.
 * `patternSize`: Number of inner corners per a chessboard row and column ( patternSize = Size(points_per_row,points_per_column) = Size(columns,rows) ).
@@ -1175,11 +1172,10 @@ Renders the detected chessboard corners.
 Finds centers in the grid of circles.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 The function requires white space (like a square-thick border, the wider the better) around
 the board to make the detection more robust in various environments.
-.:
-
+:::
 **Parameters**:
 * `image`: grid view of input circles; it must be an 8-bit grayscale or color image.
 * `patternSize`: number of circles per row and column ( patternSize = Size(points_per_row, points_per_column) ).

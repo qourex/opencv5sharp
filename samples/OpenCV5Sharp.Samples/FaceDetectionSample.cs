@@ -68,7 +68,7 @@ namespace OpenCV5Sharp.Samples
                         {
                             for (int i = 1; i <= 30; i++)
                             {
-                                if (capture.Read(frame) && frame.Handle != IntPtr.Zero)
+                                if (capture.Read(frame) && !frame.Empty())
                                 {
                                     detector.Detect(frame, faces);
                                     PrintFaceDetails($"Webcam Frame {i}/30", faces);
@@ -114,7 +114,7 @@ namespace OpenCV5Sharp.Samples
 
             using (var img = Cv2.Imread(selectedPath, (int)ImreadModes.Color))
             {
-                if (img.Handle == IntPtr.Zero)
+                if (img == null || img.Empty())
                 {
                     Console.WriteLine("   [ERROR] Failed to load Lena image for face detection verification.");
                     return;
@@ -202,45 +202,6 @@ namespace OpenCV5Sharp.Samples
             catch (Exception ex)
             {
                 throw new Exception($"Failed to download YuNet model: {ex.Message}", ex);
-            }
-        }
-
-        private static void DrawCircle(byte[] pixels, int width, int height, int cx, int cy, int radius, byte b, byte g, byte r)
-        {
-            for (int y = cy - radius; y <= cy + radius; y++)
-            {
-                for (int x = cx - radius; x <= cx + radius; x++)
-                {
-                    if (x >= 0 && x < width && y >= 0 && y < height)
-                    {
-                        int dx = x - cx;
-                        int dy = y - cy;
-                        if (dx * dx + dy * dy <= radius * radius)
-                        {
-                            int idx = (y * width + x) * 3;
-                            pixels[idx] = b;
-                            pixels[idx + 1] = g;
-                            pixels[idx + 2] = r;
-                        }
-                    }
-                }
-            }
-        }
-
-        private static void DrawRect(byte[] pixels, int width, int height, int rx, int ry, int rw, int rh, byte b, byte g, byte r)
-        {
-            for (int y = ry; y <= ry + rh; y++)
-            {
-                for (int x = rx; x <= rx + rw; x++)
-                {
-                    if (x >= 0 && x < width && y >= 0 && y < height)
-                    {
-                        int idx = (y * width + x) * 3;
-                        pixels[idx] = b;
-                        pixels[idx + 1] = g;
-                        pixels[idx + 2] = r;
-                    }
-                }
             }
         }
     }

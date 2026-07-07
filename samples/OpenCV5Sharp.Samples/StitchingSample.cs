@@ -24,7 +24,7 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine("\n1. Slicing test image into overlapping left and right halves...");
             using (var img = Cv2.Imread(LenaPath, (int)ImreadModes.Color))
             {
-                if (img.Handle == IntPtr.Zero)
+                if (img == null || img.Empty())
                 {
                     Console.WriteLine("   [ERROR] Failed to load source image for stitching.");
                     return;

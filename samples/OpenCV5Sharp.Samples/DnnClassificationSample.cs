@@ -37,7 +37,7 @@ namespace OpenCV5Sharp.Samples
             try
             {
                 Console.WriteLine("\n1. Loading ONNX network...");
-                using (DnnNet? net = Cv2.DnnReadNetFromONNX(ModelPath, 1))
+                using (DnnNet? net = Cv2.DnnReadNetFromONNX(ModelPath, (int)DnnEngineType.Classic))
                 {
                     if (net == null)
                     {
@@ -70,7 +70,7 @@ namespace OpenCV5Sharp.Samples
                     Console.WriteLine("\n2. Preprocessing input image...");
                     using (Mat img = Cv2.Imread(imagePath, (int)ImreadModes.Color))
                     {
-                        if (img.Handle == IntPtr.Zero)
+                        if (img == null || img.Empty())
                         {
                             Console.WriteLine("   [ERROR] Failed to load test image.");
                             return;
@@ -84,7 +84,7 @@ namespace OpenCV5Sharp.Samples
                             new Scalar(123.675, 116.28, 103.53, 0),
                             true,
                             false,
-                            5))
+                            MatType.CV_32F))
                         {
                             if (blob == null || blob.Handle == IntPtr.Zero)
                             {
@@ -178,8 +178,8 @@ namespace OpenCV5Sharp.Samples
         private static void CreateSyntheticInputImage(string path)
         {
             const int size = 300;
-            const int CV_8UC3 = 64;
-            using (Mat src = new Mat(size, size, CV_8UC3))
+
+            using (Mat src = new Mat(size, size, MatType.CV_8UC3))
             {
                 int bufferSize = src.Rows * src.Cols * src.Channels();
                 byte[] bg = new byte[bufferSize];

@@ -26,11 +26,10 @@ segmentation algorithms.
   * *Summary*: Computes a foreground mask with known foreground mask input.
   * *Remarks*:
 
-.: info Note
+::: info Note
 This method has a default virtual implementation that throws a "not impemented" error.
 Foreground masking may not be supported by all background subtractors.
-.:
-
+:::
   * *Parameter* `image`: Next video frame. Floating point frame will be used without scaling and should be in range formula.
   * *Parameter* `knownForegroundMask`: The mask for inputting already known foreground, allows model to ignore pixels.
   * *Parameter* `fgmask`: The output foreground mask as an 8-bit binary image.
@@ -39,11 +38,10 @@ Foreground masking may not be supported by all background subtractors.
   * *Summary*: Computes a background image.
   * *Remarks*:
 
-.: info Note
+::: info Note
 Sometimes the background image can be very blurry, as it contain the average background
 statistics.
-.:
-
+:::
   * *Parameter* `backgroundImage`: The output background image.
 
 ---
@@ -522,11 +520,10 @@ Kalman filter class.
 The class implements a standard Kalman filter <http://en.wikipedia.org/wiki/Kalman_filter>,
 **Citation**:  Welch95 . However, you can modify transitionMatrix, controlMatrix, and measurementMatrix to get
 an extended Kalman filter functionality.
-.: info Note
+::: info Note
 In C API when CvKalman\* kalmanFilter structure is not needed anymore, it should be released
 with cvReleaseKalman(&kalmanFilter)
-.:
-
+:::
 #### Properties
 | Property | Type | Description |
 | :--- | :--- | :--- |
@@ -954,11 +951,10 @@ Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
 Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Some examples:
 -   An example using the Lucas-Kanade optical flow algorithm can be found at
-.:
-
+:::
 **Parameters**:
 * `prevImg`: first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid.
 * `nextImg`: second input image or pyramid of the same size and the same type as prevImg.
@@ -979,11 +975,10 @@ Some examples:
 Computes a dense optical flow using the Gunnar Farneback's algorithm.
 
 **Detailed Remarks**:
-.: info Note
+::: info Note
 Some examples:
 -   An example using the optical flow algorithm described by Gunnar Farneback can be found at
-.:
-
+:::
 **Parameters**:
 * `prev`: first 8-bit single-channel input image.
 * `next`: second input image of the same size and the same type as prev.

@@ -96,7 +96,7 @@ namespace OpenCV5Sharp.Tests
         }
         #endregion
 
-        #region 2. Color Conversions (30 tests)
+        #region 2. Color Conversions (40 tests)
         public static IEnumerable<object[]> GetColorConversionData()
         {
             // List of (code, inputChannels)
@@ -106,7 +106,12 @@ namespace OpenCV5Sharp.Tests
                 (6, 3), (7, 3), (8, 1), (9, 1), (10, 4), (11, 4), // Bgr2gray, Rgb2gray, Gray2bgr, Gray2bgra, Bgra2gray, Rgba2gray
                 (40, 3), (41, 3), (54, 3), (55, 3), // Bgr2hsv, Rgb2hsv, Hsv2bgr, Hsv2rgb
                 (32, 3), (33, 3), (34, 3), (35, 3), // Bgr2xyz, Rgb2xyz, Xyz2bgr, Xyz2rgb
-                (82, 3), (83, 3) // Bgr2yuv, Rgb2yuv
+                (82, 3), (83, 3), // Bgr2yuv, Rgb2yuv
+                (66, 3), (67, 3), (68, 3), (69, 3), // Hsv2bgr_full, Hsv2rgb_full, Bgr2hsv_full, Rgb2hsv_full
+                (52, 3), (53, 3), (60, 3), (61, 3), // Bgr2hls, Rgb2hls, Hls2bgr, Hls2rgb
+                (70, 3), (71, 3), (72, 3), (73, 3), // Bgr2hls_full, Rgb2hls_full, Hls2bgr_full, Hls2rgb_full
+                (44, 3), (45, 3), (56, 3), (57, 3), // Bgr2lab, Rgb2lab, Lab2bgr, Lab2rgb
+                (58, 3), (59, 3) // Luv2bgr, Luv2rgb
             };
 
             foreach (var conv in conversions)

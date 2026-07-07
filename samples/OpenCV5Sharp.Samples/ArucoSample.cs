@@ -24,8 +24,8 @@ namespace OpenCV5Sharp.Samples
 
                 // 1. Generate an ArUco marker
                 Console.WriteLine("\n1. Generating ArUco marker (ID: 24, Size: 200x200 pixels)...");
-                const int CV_8UC1 = 0;
-                using (var markerMat = new Mat(200, 200, CV_8UC1))
+
+                using (var markerMat = new Mat(200, 200, MatType.CV_8UC1))
                 {
                     // Generate marker with ID 24, 200x200 size, border bits 1
                     dict.GenerateImageMarker(24, 200, markerMat, 1);
@@ -34,16 +34,16 @@ namespace OpenCV5Sharp.Samples
 
                     // 2. Simulate a scene containing the marker
                     Console.WriteLine("\n2. Simulating a test scene with the generated marker...");
-                    const int CV_8UC3 = 64;
+
                     const int sceneSize = 400;
-                    using (var scene = new Mat(sceneSize, sceneSize, CV_8UC3))
+                    using (var scene = new Mat(sceneSize, sceneSize, MatType.CV_8UC3))
                     {
                         // Fill scene with light gray color
                         byte[] bg = new byte[sceneSize * sceneSize * 3];
                         for (int k = 0; k < bg.Length; k++) bg[k] = 220;
                         Marshal.Copy(bg, 0, scene.Data, bg.Length);
 
-                        // Copy markerMat (which is grayscale CV_8UC1) into the center of scene (which is CV_8UC3)
+                        // Copy markerMat (which is grayscale MatType.CV_8UC1) into the center of scene (which is MatType.CV_8UC3)
                         byte[] markerData = new byte[200 * 200];
                         Marshal.Copy(markerMat.Data, markerData, 0, markerData.Length);
 
@@ -73,52 +73,58 @@ namespace OpenCV5Sharp.Samples
                         {
                             IntPtr cornersVec = NativeMethods.cv_VectorMat_New(new IntPtr[0], 0);
                             IntPtr rejectedVec = NativeMethods.cv_VectorMat_New(new IntPtr[0], 0);
-                            using (var ids = new Mat())
+                            try
                             {
-                                detector.DetectMarkers(scene, cornersVec, ids, rejectedVec);
-
-                                int detectedCount = NativeMethods.cv_VectorMat_Size(cornersVec);
-                                Console.WriteLine($"   Markers detected: {detectedCount}");
-
-                                if (detectedCount > 0)
+                                using (var ids = new Mat())
                                 {
-                                    int[] markerIds = new int[detectedCount];
-                                    Marshal.Copy(ids.Data, markerIds, 0, detectedCount);
+                                    detector.DetectMarkers(scene, cornersVec, ids, rejectedVec);
 
-                                    for (int i = 0; i < detectedCount; i++)
+                                    int detectedCount = NativeMethods.cv_VectorMat_Size(cornersVec);
+                                    Console.WriteLine($"   Markers detected: {detectedCount}");
+
+                                    if (detectedCount > 0)
                                     {
-                                        Console.WriteLine($"   - Marker Index {i}: ID = {markerIds[i]}");
+                                        int[] markerIds = new int[detectedCount];
+                                        Marshal.Copy(ids.Data, markerIds, 0, detectedCount);
 
-                                        IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(cornersVec, i);
-                                        using (var cornersMat = new Mat(matPtr))
+                                        for (int i = 0; i < detectedCount; i++)
                                         {
-                                            float[] points = new float[8];
-                                            Marshal.Copy(cornersMat.Data, points, 0, 8);
-                                            Console.WriteLine($"     Corner 0 (Top-Left):  ({points[0]:F1}, {points[1]:F1})");
-                                            Console.WriteLine($"     Corner 1 (Top-Right): ({points[2]:F1}, {points[3]:F1})");
-                                            Console.WriteLine($"     Corner 2 (Bottom-Right): ({points[4]:F1}, {points[5]:F1})");
-                                            Console.WriteLine($"     Corner 3 (Bottom-Left):  ({points[6]:F1}, {points[7]:F1})");
+                                            Console.WriteLine($"   - Marker Index {i}: ID = {markerIds[i]}");
+
+                                            IntPtr matPtr = NativeMethods.cv_VectorMat_GetElement(cornersVec, i);
+                                            using (var cornersMat = new Mat(matPtr))
+                                            {
+                                                float[] points = new float[8];
+                                                Marshal.Copy(cornersMat.Data, points, 0, 8);
+                                                Console.WriteLine($"     Corner 0 (Top-Left):  ({points[0]:F1}, {points[1]:F1})");
+                                                Console.WriteLine($"     Corner 1 (Top-Right): ({points[2]:F1}, {points[3]:F1})");
+                                                Console.WriteLine($"     Corner 2 (Bottom-Right): ({points[4]:F1}, {points[5]:F1})");
+                                                Console.WriteLine($"     Corner 3 (Bottom-Left):  ({points[6]:F1}, {points[7]:F1})");
+                                            }
+                                        }
+
+                                        // Draw detected marker visual indicators on the scene
+                                        using (var markedScene = scene.Clone())
+                                        {
+                                            if (markedScene != null)
+                                            {
+                                                Cv2.ArucoDrawDetectedMarkers(markedScene, cornersVec, ids, new Scalar(0, 255, 0));
+                                                Cv2.Imwrite("aruco_detected_output.png", markedScene, IntPtr.Zero);
+                                                Console.WriteLine("   Saved visual detection results to: aruco_detected_output.png");
+                                            }
                                         }
                                     }
-
-                                    // Draw detected marker visual indicators on the scene
-                                    using (var markedScene = scene.Clone())
+                                    else
                                     {
-                                        if (markedScene != null)
-                                        {
-                                            Cv2.ArucoDrawDetectedMarkers(markedScene, cornersVec, ids, new Scalar(0, 255, 0));
-                                            Cv2.Imwrite("aruco_detected_output.png", markedScene, IntPtr.Zero);
-                                            Console.WriteLine("   Saved visual detection results to: aruco_detected_output.png");
-                                        }
+                                        Console.WriteLine("   [WARNING] No markers were detected in the scene.");
                                     }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("   [WARNING] No markers were detected in the scene.");
                                 }
                             }
-                            NativeMethods.cv_VectorMat_Delete(cornersVec);
-                            NativeMethods.cv_VectorMat_Delete(rejectedVec);
+                            finally
+                            {
+                                NativeMethods.cv_VectorMat_Delete(cornersVec);
+                                NativeMethods.cv_VectorMat_Delete(rejectedVec);
+                            }
                         }
                     }
                 }
@@ -137,22 +143,26 @@ namespace OpenCV5Sharp.Samples
                     {
                         for (int f = 1; f <= 30; f++)
                         {
-                            if (capture.Read(frame) && frame.Handle != IntPtr.Zero)
+                            if (capture.Read(frame) && !frame.Empty())
                             {
                                 IntPtr cornersVec = NativeMethods.cv_VectorMat_New(new IntPtr[0], 0);
                                 IntPtr rejectedVec = NativeMethods.cv_VectorMat_New(new IntPtr[0], 0);
-
-                                detector.DetectMarkers(frame, cornersVec, ids, rejectedVec);
-                                int detected = NativeMethods.cv_VectorMat_Size(cornersVec);
-                                if (detected > 0)
+                                try
                                 {
-                                    int[] markerIds = new int[detected];
-                                    Marshal.Copy(ids.Data, markerIds, 0, detected);
-                                    Console.WriteLine($"   [Frame {f}/30] Detected {detected} marker(s). IDs: {string.Join(", ", markerIds)}");
+                                    detector.DetectMarkers(frame, cornersVec, ids, rejectedVec);
+                                    int detected = NativeMethods.cv_VectorMat_Size(cornersVec);
+                                    if (detected > 0)
+                                    {
+                                        int[] markerIds = new int[detected];
+                                        Marshal.Copy(ids.Data, markerIds, 0, detected);
+                                        Console.WriteLine($"   [Frame {f}/30] Detected {detected} marker(s). IDs: {string.Join(", ", markerIds)}");
+                                    }
                                 }
-
-                                NativeMethods.cv_VectorMat_Delete(cornersVec);
-                                NativeMethods.cv_VectorMat_Delete(rejectedVec);
+                                finally
+                                {
+                                    NativeMethods.cv_VectorMat_Delete(cornersVec);
+                                    NativeMethods.cv_VectorMat_Delete(rejectedVec);
+                                }
                             }
                             System.Threading.Thread.Sleep(80);
                         }

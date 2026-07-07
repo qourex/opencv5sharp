@@ -14,13 +14,13 @@ namespace OpenCV5Sharp.Samples
         {
             Console.WriteLine("--- [15] Stereo Depth Estimation (StereoBM) ---");
 
-            const int CV_8UC1 = 0;
+
             const int width = 320;
             const int height = 240;
 
             Console.WriteLine("\n1. Generating synthetic stereo left and right image pair...");
-            using (var left = new Mat(height, width, CV_8UC1))
-            using (var right = new Mat(height, width, CV_8UC1))
+            using (var left = new Mat(height, width, MatType.CV_8UC1))
+            using (var right = new Mat(height, width, MatType.CV_8UC1))
             {
                 // Clear both to black background (intensity 20)
                 byte[] bg = new byte[width * height];
@@ -109,7 +109,7 @@ namespace OpenCV5Sharp.Samples
                         // 3. Normalize and save the disparity map for visualization
                         using (var disp8 = new Mat())
                         {
-                            Cv2.Normalize(disparity, disp8, 0, 255, (int)NormTypes.Minmax, CV_8UC1, null);
+                            Cv2.Normalize(disparity, disp8, 0, 255, (int)NormTypes.Minmax, MatType.CV_8UC1, null);
                             Cv2.Imwrite("stereo_disparity.png", disp8, IntPtr.Zero);
                             Console.WriteLine("   Saved colorized disparity map to: stereo_disparity.png");
                         }

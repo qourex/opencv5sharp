@@ -5,8 +5,9 @@ This page contains links to the detailed API references for each module, alongsi
 ## 📦 API Reference by Module
 Select a module below to view all its classes, enums, and methods:
 
-> [!NOTE]
-> **OpenCV 5 Module Reorganization:** If you're coming from OpenCV 4.x, note that the `calib3d` module has been split into three separate modules in OpenCV 5: **Calib** (camera calibration), **Stereo** (stereo correspondence), and **Geometry** (geometric algorithms). The `features2d` module has similarly been renamed to **Features**.
+::: note
+**OpenCV 5 Module Reorganization:** If you're coming from OpenCV 4.x, note that the `calib3d` module has been split into three separate modules in OpenCV 5: **Calib** (camera calibration), **Stereo** (stereo correspondence), and **Geometry** (geometric algorithms). The `features2d` module has similarly been renamed to **Features**.
+:::
 
 * [**Core Module**](/guide/reference/core) — Matrix class (`Mat`), CUDA execution contexts, arrays, and basic mathematical operations.
 * [**Imgproc (Image Processing)**](/guide/reference/imgproc) — Image filters (blur, dilate, erode), color conversions, resize, histograms, and contour extraction.
@@ -36,7 +37,7 @@ The primary CPU matrix class, matching C++ `cv::Mat`. Holds an unmanaged pointer
 | :--- | :--- | :--- |
 | **`Rows`** | `int` | The number of rows (height) of the matrix. |
 | **`Cols`** | `int` | The number of columns (width) of the matrix. |
-| **`Type()`** | `int` | Returns the data type and channel layout as an integer constant (e.g. 0 for CV_8UC1, 16 for CV_8UC3). |
+| **`Type()`** | `int` | Returns the data type and channel layout as an integer constant (e.g. 0 for CV_8UC1, 64 for CV_8UC3). |
 | **`Empty()`** | `bool` | Returns `true` if the matrix holds no data (0 rows or 0 columns). |
 | **`Dispose()`** | `void` | Releases the underlying C++ memory heap immediately. |
 
@@ -64,9 +65,9 @@ OpenCV uses integer constants for matrix type identifiers. Common values:
 | Constant | Value | Description |
 | :--- | :---: | :--- |
 | `CV_8UC1` | `0` | 8-bit unsigned integer, single channel (Grayscale) |
-| `CV_8UC3` | `16` | 8-bit unsigned integer, three channels (BGR) |
+| `CV_8UC3` | `64` | 8-bit unsigned integer, three channels (BGR) |
 | `CV_32FC1` | `5` | 32-bit float, single channel (Depth maps) |
-| `CV_32FC3` | `21` | 32-bit float, three channels |
+| `CV_32FC3` | `69` | 32-bit float, three channels |
 
 Pass these as raw `int` values to methods that accept a type parameter.
 

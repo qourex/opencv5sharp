@@ -35,29 +35,29 @@ namespace OpenCV5Sharp.Samples
             Cv2.CudaPrintShortCudaDeviceInfo(currentDevice);
 
             // 3. Generate a synthetic high-resolution image with random Gaussian noise
-            const int CV_8UC1 = 0;
-            const int width = 1920;
-            const int height = 1080;
-            Console.WriteLine($"\nGenerating noisy {width}x{height} synthetic image...");
 
-            using (var cleanImg = new Mat(height, width, CV_8UC1))
-            using (var noisyImg = new Mat(height, width, CV_8UC1))
+            const int Width = 1920;
+            const int Height = 1080;
+            Console.WriteLine($"\nGenerating noisy {Width}x{Height} synthetic image...");
+
+            using (var cleanImg = new Mat(Height, Width, MatType.CV_8UC1))
+            using (var noisyImg = new Mat(Height, Width, MatType.CV_8UC1))
             {
                 // Fill clean image with a pattern
-                byte[] pattern = new byte[width * height];
-                for (int y = 0; y < height; y++)
+                byte[] pattern = new byte[Width * Height];
+                for (int y = 0; y < Height; y++)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int x = 0; x < Width; x++)
                     {
                         // Generate a grid pattern
-                        pattern[y * width + x] = (byte)(((x / 80) % 2 == 0 ^ (y / 80) % 2 == 0) ? 200 : 50);
+                        pattern[y * Width + x] = (byte)(((x / 80) % 2 == 0 ^ (y / 80) % 2 == 0) ? 200 : 50);
                     }
                 }
                 Marshal.Copy(pattern, 0, cleanImg.Data, pattern.Length);
 
                 // Add Gaussian noise (add random values)
                 Random rand = new Random(42);
-                byte[] noisyData = new byte[width * height];
+                byte[] noisyData = new byte[Width * Height];
                 for (int i = 0; i < noisyData.Length; i++)
                 {
                     int noise = (int)(rand.NextDouble() * 80 - 40); // Noise range [-40, 40]
@@ -83,8 +83,8 @@ namespace OpenCV5Sharp.Samples
                 // 5. GPU Benchmark (Warm-up first to compile/initialize pipelines)
                 Console.WriteLine("\nInitializing GPU pipelines (Warm-up run)...");
                 IntPtr defaultAllocator = CudaGpuMat.DefaultAllocator();
-                using (var gpuSrc = new CudaGpuMat(height, width, CV_8UC1, defaultAllocator))
-                using (var gpuDst = new CudaGpuMat(height, width, CV_8UC1, defaultAllocator))
+                using (var gpuSrc = new CudaGpuMat(Height, Width, MatType.CV_8UC1, defaultAllocator))
+                using (var gpuDst = new CudaGpuMat(Height, Width, MatType.CV_8UC1, defaultAllocator))
                 {
                     gpuSrc.Upload(noisyImg);
                     Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 15.0f, 21, 7, null);
@@ -103,8 +103,8 @@ namespace OpenCV5Sharp.Samples
 
                 swGpuTotal.Start();
                 swGpuUpload.Start();
-                using (var gpuSrc = new CudaGpuMat(height, width, CV_8UC1, defaultAllocator))
-                using (var gpuDst = new CudaGpuMat(height, width, CV_8UC1, defaultAllocator))
+                using (var gpuSrc = new CudaGpuMat(Height, Width, MatType.CV_8UC1, defaultAllocator))
+                using (var gpuDst = new CudaGpuMat(Height, Width, MatType.CV_8UC1, defaultAllocator))
                 {
                     gpuSrc.Upload(noisyImg);
                     swGpuUpload.Stop();

@@ -22,7 +22,8 @@ namespace OpenCV5Sharp
         /// </param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="src"/>, <paramref name="dst"/>, or <paramref name="processRow"/> is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when <paramref name="src"/> or <paramref name="dst"/> has been disposed.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="dst"/> size does not match <paramref name="src"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="dst"/> size or type does not match <paramref name="src"/>.</exception>
+        /// <exception cref="AggregateException">Thrown when the <paramref name="processRow"/> delegate throws an exception during parallel execution.</exception>
         /// <example>
         /// <code>
         /// Cv2.ParallelProcessRows(src, dst, (srcRow, dstRow, rowIndex) => {
@@ -42,15 +43,22 @@ namespace OpenCV5Sharp
             if (src.Rows != dst.Rows || src.Cols != dst.Cols)
                 throw new ArgumentException("Destination matrix size must match the source matrix size.");
 
+            if (src.Type() != dst.Type())
+                throw new ArgumentException("Source and destination matrix types must match.");
+
             int totalRows = src.Rows;
             int totalCols = src.Cols;
 
             Parallel.For(0, totalRows, r =>
             {
+                ErrorHelper.ClearStaleErrors();
                 using var srcRow = new Mat(src, new Rect(0, r, totalCols, 1));
                 using var dstRow = new Mat(dst, new Rect(0, r, totalCols, 1));
                 processRow(srcRow, dstRow, r);
             });
+
+            GC.KeepAlive(src);
+            GC.KeepAlive(dst);
         }
 
         /// <summary>
@@ -66,8 +74,9 @@ namespace OpenCV5Sharp
         /// </param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="src"/>, <paramref name="dst"/>, or <paramref name="processTile"/> is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when <paramref name="src"/> or <paramref name="dst"/> has been disposed.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="dst"/> size does not match <paramref name="src"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="dst"/> size or type does not match <paramref name="src"/>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="tileSize"/> width or height is less than or equal to zero.</exception>
+        /// <exception cref="AggregateException">Thrown when the <paramref name="processTile"/> delegate throws an exception during parallel execution.</exception>
         /// <example>
         /// <code>
         /// Cv2.ParallelProcessTiles(src, dst, new Size(64, 64), (srcTile, dstTile, roi) => {
@@ -87,6 +96,9 @@ namespace OpenCV5Sharp
             if (src.Rows != dst.Rows || src.Cols != dst.Cols)
                 throw new ArgumentException("Destination matrix size must match the source matrix size.");
 
+            if (src.Type() != dst.Type())
+                throw new ArgumentException("Source and destination matrix types must match.");
+
             if (tileSize.Width <= 0 || tileSize.Height <= 0)
                 throw new ArgumentOutOfRangeException(nameof(tileSize), "Tile width and height must be greater than zero.");
 
@@ -94,22 +106,29 @@ namespace OpenCV5Sharp
             int rows = src.Rows;
 
             var tiles = new List<Rect>();
-            for (int y = 0; y < rows; y += tileSize.Height)
+            checked
             {
-                int h = Math.Min(tileSize.Height, rows - y);
-                for (int x = 0; x < cols; x += tileSize.Width)
+                for (int y = 0; y < rows; y += tileSize.Height)
                 {
-                    int w = Math.Min(tileSize.Width, cols - x);
-                    tiles.Add(new Rect(x, y, w, h));
+                    int h = Math.Min(tileSize.Height, rows - y);
+                    for (int x = 0; x < cols; x += tileSize.Width)
+                    {
+                        int w = Math.Min(tileSize.Width, cols - x);
+                        tiles.Add(new Rect(x, y, w, h));
+                    }
                 }
             }
 
             Parallel.ForEach(tiles, tile =>
             {
+                ErrorHelper.ClearStaleErrors();
                 using var srcTile = new Mat(src, tile);
                 using var dstTile = new Mat(dst, tile);
                 processTile(srcTile, dstTile, tile);
             });
+
+            GC.KeepAlive(src);
+            GC.KeepAlive(dst);
         }
 
         /// <summary>
@@ -123,6 +142,7 @@ namespace OpenCV5Sharp
         /// <returns>A thread-safe array containing the processed matrices in the original order.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputs"/> or <paramref name="processor"/> is null, or when an individual matrix inside <paramref name="inputs"/> is null.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when an input matrix inside <paramref name="inputs"/> has been disposed.</exception>
+        /// <exception cref="AggregateException">Thrown when the <paramref name="processor"/> delegate throws an exception during parallel execution.</exception>
         /// <example>
         /// <code>
         /// var results = Cv2.ParallelBatchProcess(images, img => {
@@ -138,20 +158,47 @@ namespace OpenCV5Sharp
             if (processor == null) throw new ArgumentNullException(nameof(processor));
 
             int count = inputs.Count;
-            var results = new Mat[count];
-
-            Parallel.For(0, count, i =>
+            var inputsCopy = new Mat[count];
+            for (int i = 0; i < count; i++)
             {
                 var input = inputs[i];
                 if (input == null)
-                    throw new ArgumentNullException($"Matrix at index {i} in the inputs list is null.");
-
+                {
+                    throw new ArgumentNullException(nameof(inputs), $"Matrix at index {i} in the inputs list is null.");
+                }
                 input.ThrowIfDisposed();
+                inputsCopy[i] = input;
+            }
 
-                results[i] = processor(input);
-            });
+            var results = new Mat[count];
 
-            return results;
+            try
+            {
+                Parallel.For(0, count, i =>
+                {
+                    ErrorHelper.ClearStaleErrors();
+                    results[i] = processor(inputsCopy[i]);
+                });
+                return results;
+            }
+            catch
+            {
+                foreach (var resultMat in results)
+                {
+                    resultMat?.Dispose();
+                }
+                throw;
+            }
+            finally
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (inputsCopy[i] != null)
+                    {
+                        GC.KeepAlive(inputsCopy[i]);
+                    }
+                }
+            }
         }
     }
 }

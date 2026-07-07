@@ -107,8 +107,14 @@ namespace OpenCV5Sharp.Tests
         [Fact]
         public void TestParallelValidation()
         {
-            Assert.Throws<ArgumentNullException>(() => Cv2.ParallelProcessRows(null!, new Mat(), (s, d, r) => { }));
-            Assert.Throws<ArgumentNullException>(() => Cv2.ParallelProcessTiles(null!, new Mat(), new Size(10, 10), (s, d, r) => { }));
+            using (var dummyMat1 = new Mat())
+            {
+                Assert.Throws<ArgumentNullException>(() => Cv2.ParallelProcessRows(null!, dummyMat1, (s, d, r) => { }));
+            }
+            using (var dummyMat2 = new Mat())
+            {
+                Assert.Throws<ArgumentNullException>(() => Cv2.ParallelProcessTiles(null!, dummyMat2, new Size(10, 10), (s, d, r) => { }));
+            }
             Assert.Throws<ArgumentNullException>(() => Cv2.ParallelBatchProcess(null!, m => m));
         }
     }

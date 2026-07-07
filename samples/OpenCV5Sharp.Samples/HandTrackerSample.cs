@@ -22,7 +22,7 @@ namespace OpenCV5Sharp.Samples
                     {
                         for (int i = 1; i <= 30; i++)
                         {
-                            if (capture.Read(frame) && frame.Handle != IntPtr.Zero)
+                            if (capture.Read(frame) && !frame.Empty())
                             {
                                 TrackHandAndFingers($"Webcam Frame {i}/30", frame);
                             }
@@ -44,7 +44,7 @@ namespace OpenCV5Sharp.Samples
 
         private static void TrackHandAndFingers(string sourceName, Mat frame)
         {
-            const int CV_8UC3 = 64;
+
 
             // 1. Convert BGR to YCrCb
             using (var ycrcb = new Mat())
@@ -55,8 +55,8 @@ namespace OpenCV5Sharp.Samples
                 // Typical skin range in YCrCb: Y: [0, 255], Cr: [133, 173], Cb: [77, 127]
                 int rows = ycrcb.Rows;
                 int cols = ycrcb.Cols;
-                using (var lowerb = new Mat(rows, cols, CV_8UC3))
-                using (var upperb = new Mat(rows, cols, CV_8UC3))
+                using (var lowerb = new Mat(rows, cols, MatType.CV_8UC3))
+                using (var upperb = new Mat(rows, cols, MatType.CV_8UC3))
                 using (var skinMask = new Mat())
                 {
                     int pixelCount = rows * cols;
@@ -175,14 +175,14 @@ namespace OpenCV5Sharp.Samples
         {
             const int width = 320;
             const int height = 240;
-            const int CV_8UC3 = 64;
+
 
             // Generate 3 different frames with 1, 3, and 5 fingers
             int[] fingersToDraw = { 1, 3, 5 };
 
             foreach (int count in fingersToDraw)
             {
-                using (var img = new Mat(height, width, CV_8UC3))
+                using (var img = new Mat(height, width, MatType.CV_8UC3))
                 {
                     byte[] pixels = new byte[width * height * 3];
 

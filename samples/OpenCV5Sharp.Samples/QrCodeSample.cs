@@ -19,7 +19,7 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine($"\n1. Encoding text to QR Code: \"{qrText}\"");
 
             using (var parameters = new QRCodeEncoderParams())
-            using (var encoder = QRCodeEncoder.Create(parameters.Handle))
+            using (var encoder = QRCodeEncoder.Create(parameters))
             {
                 if (encoder == null)
                 {
@@ -48,7 +48,7 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine("\n2. Loading and decoding the QR Code from disk...");
             using (var qrImage = Cv2.Imread(qrImagePath, (int)ImreadModes.Color))
             {
-                if (qrImage.Handle == IntPtr.Zero)
+                if (qrImage == null || qrImage.Empty())
                 {
                     Console.WriteLine("   [ERROR] Failed to load QR Code image.");
                     return;

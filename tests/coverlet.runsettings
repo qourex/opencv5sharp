@@ -8,7 +8,7 @@
           <Exclude>[OpenCV5Sharp.Tests]*</Exclude>
           <Include>[OpenCV5Sharp]*</Include>
           <ExcludeByAttribute>System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute,System.CodeDom.Compiler.GeneratedCodeAttribute</ExcludeByAttribute>
-          <Threshold>50</Threshold>
+          <Threshold>80</Threshold>
           <ThresholdType>line</ThresholdType>
           <ThresholdStat>total</ThresholdStat>
         </Configuration>

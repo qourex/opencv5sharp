@@ -34,7 +34,7 @@ namespace OpenCV5Sharp.Samples
                         {
                             for (int i = 1; i <= 30; i++)
                             {
-                                if (capture.Read(frame) && frame.Handle != IntPtr.Zero)
+                                if (capture.Read(frame) && !frame.Empty())
                                 {
                                     bgSubtractor.Apply(frame, fgMask, -1.0);
 
@@ -61,9 +61,9 @@ namespace OpenCV5Sharp.Samples
         {
             const int width = 320;
             const int height = 240;
-            const int CV_8UC3 = 64;
 
-            using (var frame = new Mat(height, width, CV_8UC3))
+
+            using (var frame = new Mat(height, width, MatType.CV_8UC3))
             using (var fgMask = new Mat())
             {
                 // Clear frame to black initially

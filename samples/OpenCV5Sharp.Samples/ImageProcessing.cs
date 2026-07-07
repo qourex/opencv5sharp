@@ -19,8 +19,8 @@ namespace OpenCV5Sharp.Samples
 
             // 1. Generate a synthetic image to draw on and process
             Console.WriteLine("\n1. Creating a synthetic input image with shapes and text...");
-            const int CV_8UC3 = 64;
-            using (Mat src = new Mat(300, 300, CV_8UC3))
+
+            using (Mat src = new Mat(300, 300, MatType.CV_8UC3))
             {
                 // Clear image to a custom color (BGR: dark grey 50, 50, 50)
                 int bufferSize = src.Rows * src.Cols * src.Channels();
@@ -62,7 +62,7 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine($"\n2. Loading image from disk using Imread...");
             using (Mat img = Cv2.Imread(inputPath, (int)ImreadModes.Color))
             {
-                if (img.Handle == IntPtr.Zero)
+                if (img == null || img.Empty())
                 {
                     throw new Exception("Failed to load image.");
                 }

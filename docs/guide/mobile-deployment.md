@@ -13,8 +13,9 @@ To run high-performance image processing algorithms on mobile devices, OpenCV5Sh
 | **Android** | `arm64-v8a` (64-bit) | ARM NEON | `libopencv5sharp_native.so`, `libopencv_world.so` |
 | **iOS** | `arm64` (64-bit) | ARM NEON / Apple Accelerate | `libopencv5sharp_native.dylib`, `libopencv_world.dylib` (Framework) |
 
-> [!WARNING]
-> Only 64-bit mobile devices and simulators are supported. Attempting to build or run on 32-bit simulators or legacy devices will result in a `DllNotFoundException` or runtime execution failures.
+::: warning
+Only 64-bit mobile devices and simulators are supported. Attempting to build or run on 32-bit simulators or legacy devices will result in a `DllNotFoundException` or runtime execution failures.
+:::
 
 
 ---

@@ -27,23 +27,20 @@ Finds an initial camera intrinsic matrix from 3D-2D point correspondences.
 Finds the camera intrinsic and extrinsic parameters from several views of a calibration pattern.
 
 **Detailed Remarks**:
-.: info Note
-
+::: info Note
 If you use a non-square (i.e. non-N-by-N) grid and `findChessboardCorners` for calibration,
 and `CalibrateCamera` returns bad values (zero distortion coefficients, formula and
 formula very far from the image center, and/or large differences between formula and
 formula (ratios of 10:1 or more)), then you are probably using patternSize=cvSize(rows,cols)
 instead of using patternSize=cvSize(cols,rows) in `findChessboardCorners`.
-.:
-.: info Note
-
+:::
+::: info Note
 The function may throw exceptions, if unsupported combination of parameters is provided or
 the system is underconstrained.
 **See also**: 
 CalibrateCameraRO, findChessboardCorners, SolvePnP, initCameraMatrix2D, stereoCalibrate,
 undistort
-.:
-
+:::
 **Parameters**:
 * `objectPoints`: In the new interface it is a arrays of matrices of calibration pattern points in the calibration pattern coordinate space (e.g. Vec3f[][]). The outer vector contains as many elements as the number of pattern views. If the same calibration pattern is shown in each view and it is fully visible, all the vectors will be the same. Although, it is possible to use partially occluded patterns or even different patterns in different views. Then, the vectors will be different. Although the points are 3D, they all lie in the calibration pattern's XY coordinate plane (thus 0 in the Z-coordinate), if the used calibration pattern is a planar rig. In the old interface all the vectors of object points from different views are concatenated together.
 * `imagePoints`: In the new interface it is a arrays of matrices of the projections of calibration pattern points (e.g. Vec2f[][]). imagePoints.size() and objectPoints.size(), and imagePoints[i].size() and objectPoints[i].size() for each i, must be equal, respectively. In the old interface all the vectors of object points from different views are concatenated together.
@@ -221,8 +218,8 @@ Calibrates a camera pair set up. This function finds the extrinsic parameters be
 **See also**: CalibrateCamera, stereoCalibrate
 
 **Parameters**:
-* `objectPoints1`: Vector of vectors of the calibration pattern points for camera 1. A similar structure as objectPoints in `CalibrateCamera` and for each pattern view, both cameras do not need to see the same object points. objectPoints1.size(), imagePoints1.size() nees to be equal,as well as objectPoints1[i].size(), imagePoints1[i].size() need to be equal for each i.
-* `objectPoints2`: Vector of vectors of the calibration pattern points for camera 2. A similar structure as objectPoints1. objectPoints2.size(), and imagePoints2.size() nees to be equal, as well as objectPoints2[i].size(), imagePoints2[i].size() need to be equal for each i. However, objectPoints1[i].size() and objectPoints2[i].size() are not required to be equal.
+* `objectPoints1`: Vector of vectors of the calibration pattern points for camera 1. A similar structure as objectPoints in `CalibrateCamera` and for each pattern view, both cameras do not need to see the same object points. objectPoints1.size(), imagePoints1.size() needs to be equal,as well as objectPoints1[i].size(), imagePoints1[i].size() need to be equal for each i.
+* `objectPoints2`: Vector of vectors of the calibration pattern points for camera 2. A similar structure as objectPoints1. objectPoints2.size(), and imagePoints2.size() needs to be equal, as well as objectPoints2[i].size(), imagePoints2[i].size() need to be equal for each i. However, objectPoints1[i].size() and objectPoints2[i].size() are not required to be equal.
 * `imagePoints1`: Vector of vectors of the projections of the calibration pattern points, observed by the first camera. The same structure as in `CalibrateCamera`.
 * `imagePoints2`: Vector of vectors of the projections of the calibration pattern points, observed by the second camera. The same structure as in `CalibrateCamera`.
 * `cameraMatrix1`: Input/output camera intrinsic matrix for the first camera, the same as in `CalibrateCamera`. Furthermore, for the stereo case, additional flags may be used, see below.
