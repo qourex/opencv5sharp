@@ -19,10 +19,10 @@ public static void RunCudaBenchmark()
     int height = 1080;
 
     // Generate random noisy source image on CPU
-    using var noisyImg = new Mat(height, width, 0); // CV_8UC1 = 0
-    using var randMat = new Mat(height, width, 0);
-    using var lowMat = new Mat(height, width, 0);
-    using var highMat = new Mat(height, width, 0);
+    using var noisyImg = new Mat(height, width, MatType.CV_8UC1); // CV_8UC1
+    using var randMat = new Mat(height, width, MatType.CV_8UC1);
+    using var lowMat = new Mat(height, width, MatType.CV_8UC1);
+    using var highMat = new Mat(height, width, MatType.CV_8UC1);
 
     // Populate boundary matrices for Randu interop
     byte[] lowData = new byte[width * height];
@@ -40,8 +40,8 @@ public static void RunCudaBenchmark()
 
     // 1. Warm-up GPU pipelines
     Console.WriteLine("Initializing GPU...");
-    using (var gpuSrc = new CudaGpuMat(height, width, 0, defaultAllocator))
-    using (var gpuDst = new CudaGpuMat(height, width, 0, defaultAllocator))
+    using (var gpuSrc = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
+    using (var gpuDst = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
     {
         gpuSrc.Upload(noisyImg);
         Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 15.0f, 21, 7, null);
@@ -49,8 +49,8 @@ public static void RunCudaBenchmark()
 
     // 2. Run actual benchmark
     var swGpu = Stopwatch.StartNew();
-    using (var gpuSrc = new CudaGpuMat(height, width, 0, defaultAllocator))
-    using (var gpuDst = new CudaGpuMat(height, width, 0, defaultAllocator))
+    using (var gpuSrc = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
+    using (var gpuDst = new CudaGpuMat(height, width, MatType.CV_8UC1, defaultAllocator))
     {
         gpuSrc.Upload(noisyImg);
         Cv2.CudaFastNlMeansDenoising(gpuSrc, gpuDst, 15.0f, 21, 7, null);

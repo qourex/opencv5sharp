@@ -17,8 +17,8 @@ This guide will help you get your environment set up and outline our development
 ### Getting Started
 
 ```bash
-# Clone the repository
-git clone https://github.com/qourex/opencv5sharp.git
+# Clone the repository recursively to fetch the opencv submodule headers
+git clone --recursive https://github.com/qourex/opencv5sharp.git
 cd opencv5sharp
 
 # Restore .NET dependencies
@@ -29,6 +29,12 @@ dotnet build src/OpenCV5Sharp/OpenCV5Sharp.csproj -c Debug
 
 # Run the test suite
 dotnet test
+
+# Alternative: Compile the native C++ DLL + C# library using root scripts
+# Windows:
+.\build.ps1
+# macOS/Linux:
+./build.sh
 ```
 
 ## How to Modify the Generator
@@ -43,18 +49,21 @@ changes will be overwritten on the next generation run.
 - `src/OpenCV5Sharp.Native/opencv5sharp_native.h`
 
 ### Hand-written files (safe to edit):
+- `src/OpenCV5Sharp/SafeHandles/OpenCVHandle.cs` (Base unmanaged handle class)
 - `src/OpenCV5Sharp/DisposableOpenCVObject.cs`
 - `src/OpenCV5Sharp/OpenCVException.cs`
 - `src/OpenCV5Sharp/AssemblyInfo.cs`
 - `src/OpenCV5Sharp/PlatformGuard.cs`
 - `src/OpenCV5Sharp/Extensions/*.cs`
 - `src/OpenCV5Sharp.Generator/generator.py`
+- `src/OpenCV5Sharp.Native/CMakeLists.txt` (Native project build config)
 - All test and sample files
 
 ### Regenerating bindings
 ```bash
-py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir .
+python src/OpenCV5Sharp.Generator/generator.py
 ```
+*(The generator script will automatically locate directory paths relative to its location unless overridden with `--opencv-dir` or `--workspace-dir` flags.)*
 
 ## Branch Naming Convention
 
@@ -87,13 +96,14 @@ git commit -s -m "feat: add new feature"
 ## Code Style
 
 - Follow the `.editorconfig` rules in the repository root.
+- Run `dotnet format` locally before committing to check formatting (enforced by pull request check workflows).
 - Use PascalCase for all public APIs.
 - All public methods must have XML documentation comments.
 - All source files must include the Apache 2.0 copyright header.
 
 ## Testing Requirements
 
-OpenCV5Sharp has a comprehensive test suite (602 unique test cases executing 1,204 runs across .NET 8.0 and .NET 9.0) located in `tests/OpenCV5Sharp.Tests/`. The tests cover:
+OpenCV5Sharp has a comprehensive test suite (638 unique test cases executing 1,276 runs across .NET 8.0 and .NET 9.0) located in `tests/OpenCV5Sharp.Tests/`. The tests cover:
 - Core Memory layout (data alignment, row-stride safety).
 - Image Processing (color space grids, morphology, thresholding, filtering, resizing).
 - Extended algorithms (DNN models, keypoint descriptors, camera chessboards, and StereoBM).

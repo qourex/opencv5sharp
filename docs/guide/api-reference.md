@@ -5,8 +5,9 @@ This page contains links to the detailed API references for each module, alongsi
 ## 📦 API Reference by Module
 Select a module below to view all its classes, enums, and methods:
 
-> [!NOTE]
-> **OpenCV 5 Module Reorganization:** If you're coming from OpenCV 4.x, note that the `calib3d` module has been split into three separate modules in OpenCV 5: **Calib** (camera calibration), **Stereo** (stereo correspondence), and **Geometry** (geometric algorithms). The `features2d` module has similarly been renamed to **Features**.
+::: note
+**OpenCV 5 Module Reorganization:** If you're coming from OpenCV 4.x, note that the `calib3d` module has been split into three separate modules in OpenCV 5: **Calib** (camera calibration), **Stereo** (stereo correspondence), and **Geometry** (geometric algorithms). The `features2d` module has similarly been renamed to **Features**.
+:::
 
 * [**Core Module**](/guide/reference/core) — Matrix class (`Mat`), CUDA execution contexts, arrays, and basic mathematical operations.
 * [**Imgproc (Image Processing)**](/guide/reference/imgproc) — Image filters (blur, dilate, erode), color conversions, resize, histograms, and contour extraction.

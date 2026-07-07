@@ -80,7 +80,7 @@ class Program
         // 1. Load the input image
         Console.WriteLine("Loading image...");
         using var src = Cv2.Imread(inputPath, (int)ImreadModes.Color);
-        if (src == null || src.Handle == IntPtr.Zero)
+        if (src == null || src.Empty())
         {
             Console.WriteLine("Failed to load image.");
             return;
@@ -118,7 +118,7 @@ Because OpenCV5Sharp wraps native C++ pointers, you must follow the `.NET IDispo
 
 ## 🧪 Running the Test Suite
 
-OpenCV5Sharp includes an extensive unit test project located in the `tests/OpenCV5Sharp.Tests/` directory. It targets `.NET 8.0`, `.NET 9.0`, and `.NET 10.0` frameworks, running **638 unique test cases** (totaling **1,276 execution runs**).
+OpenCV5Sharp includes an extensive unit test project located in the `tests/OpenCV5Sharp.Tests/` directory. It targets `.NET 8.0` and `.NET 9.0` frameworks, running **638 unique test cases** (totaling **1,276 execution runs**).
 
 The test suite systematically verifies:
 * **Memory and Alignment**: Blittable structures (`Point`, `Size`, `Rect`, `Scalar`), marshaling layouts, and row-stride padding safety.
@@ -132,5 +132,6 @@ To run the full test suite locally:
 dotnet test
 ```
 
-> [!NOTE]
-> CUDA GPU tests are designed with dynamic skip conditions and will automatically skip on CPU-only machines or where CUDA runtimes are unconfigured. This keeps the test pipeline green on all development machines.
+::: note
+CUDA GPU tests are designed with dynamic skip conditions and will automatically skip on CPU-only machines or where CUDA runtimes are unconfigured. This keeps the test pipeline green on all development machines.
+:::

@@ -14,7 +14,7 @@
 
 **OpenCV5Sharp.Gpu** is the GPU-accelerated suite of the C# port of OpenCV 5. To comply with the 250 MB NuGet.org package size limit, the GPU version is separated into platform-specific packages bundling precompiled native binaries built with **CUDA** and **cuDNN** enabled:
 
-- **`OpenCV5Sharp.Gpu.Windows`**: Bundles `opencv_world500.dll` and `opencv5sharp_native.dll` compiled for Windows x64.
+- **`OpenCV5Sharp.Gpu.Windows`**: Bundles `opencv_world510.dll`, `opencv_videoio_ffmpeg510_64.dll`, and `opencv5sharp_native.dll` compiled for Windows x64.
 - **`OpenCV5Sharp.Gpu.Linux`**: Bundles `libopencv_world.so` and `libopencv5sharp_native.so` compiled for Linux x64.
 
 For CPU-only execution without CUDA prerequisites, please use the cross-platform CPU packages: [OpenCV5Sharp](https://www.nuget.org/packages/OpenCV5Sharp) for desktop (Windows, Linux, macOS) or [OpenCV5Sharp.Mobile](https://www.nuget.org/packages/OpenCV5Sharp.Mobile) for mobile devices (Android, iOS).
@@ -51,7 +51,7 @@ dotnet add package OpenCV5Sharp.Gpu.Linux
 To run these packages with GPU acceleration, you must have the following NVIDIA runtimes installed and configured on your host system:
 
 ### Windows
-1. **NVIDIA CUDA Toolkit 12.8** — [CUDA Downloads](https://developer.nvidia.com/cuda-downloads)
+1. **NVIDIA CUDA Toolkit 12.9** — [CUDA Downloads](https://developer.nvidia.com/cuda-downloads)
 2. **NVIDIA cuDNN 8.9.7** — [cuDNN Downloads Archive](https://developer.nvidia.com/cudnn-downloads-archive)
 
 Ensure that the following DLLs from these installations are available in your system `PATH`:
@@ -62,13 +62,13 @@ Ensure that the following DLLs from these installations are available in your sy
 
 ### Linux / WSL2
 1. **NVIDIA CUDA Toolkit 12.8** — [WSL/Linux CUDA Downloads](https://developer.nvidia.com/cuda-downloads)
-2. **NVIDIA cuDNN 8.9.7** — [cuDNN Downloads Archive](https://developer.nvidia.com/cudnn-downloads-archive)
+2. **NVIDIA cuDNN 9.7.0+** — [cuDNN Downloads Archive](https://developer.nvidia.com/cudnn-downloads-archive)
 
 Ensure that the following shared libraries from these installations are available in your `LD_LIBRARY_PATH` or system library paths (e.g. `/usr/local/cuda/lib64`):
 - `libcudart.so.12`
 - `libcublas.so.12`
 - `libcublasLt.so.12`
-- `libcudnn.so.8` (specifically cuDNN v8.9.x)
+- `libcudnn.so.9` (specifically cuDNN v9.x)
 
 ---
 

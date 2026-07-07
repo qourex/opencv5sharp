@@ -16,8 +16,8 @@ OpenCV 5 C++ library and managed .NET code:
 │  ┌──────────┐  ┌─────────────┐  ┌────────────────┐         │
 │  │ Classes  │  │    Cv2      │  │  NativeMethods │         │
 │  │ (Mat,    │  │ (static    │  │  (P/Invoke     │         │
-│  │  Net,   │  │  API like  │  │   declarations)│         │
-│  │  ORB...)│  │  cv:: )    │  │                │         │
+│  │ DnnNet,   │  │  API like  │  │   declarations)│         │
+│  │  Orb...)│  │  cv:: )    │  │                │         │
 │  └──────────┘  └─────────────┘  └────────────────┘         │
 ├─────────────────────────────────────────────────────────────┤
 │  Layer 2: Native C++ Flat Exports (extern "C")              │
@@ -73,13 +73,13 @@ py src/OpenCV5Sharp.Generator/generator.py --opencv-dir ./opencv --workspace-dir
 ```csharp
 // Caller MUST dispose:
 using var mat = new Mat(100, 100, 64); // 64 = CV_8UC3 (8-bit unsigned, 3 channels)
-using var orb = ORB.Create();
+using var orb = Orb.Create();
 ```
 
 ### Rule 2: Thread-Safe Native Lifecycle via SafeHandle
 
 Unmanaged resources are wrapped by `OpenCVHandle`, which inherits from .NET's 
-`SafeHandleZeroOrMinusOneIsInvalid`. Over 180 typed SafeHandle subclasses (e.g., `MatHandle`, `AlgorithmHandle`)
+`SafeHandleZeroOrMinusOneIsInvalid`. Exactly 179 typed SafeHandle subclasses (e.g., `MatHandle`, `AlgorithmHandle`)
 are auto-generated.
 
 The managed classes inherit from `DisposableOpenCVObject`, which wraps these handles.
@@ -114,6 +114,10 @@ catch
         NativeMethods.SomeClass_Delete(res); // Free native pointer if wrap failed
     }
     throw;
+}
+finally
+{
+    GC.KeepAlive(this); // Guarantees parent lifetime during P/Invoke
 }
 ```
 
@@ -174,7 +178,7 @@ OpenCV5/
 ├── src/
 │   ├── OpenCV5Sharp/                 # Managed C# CPU library
 │   │   ├── Generated/               # Generated: split module classes, enums, P/Invokes
-│   │   │   └── SafeHandles.cs       # Generated SafeHandle subclasses (180+)
+│   │   │   └── SafeHandles.cs       # Generated SafeHandle subclasses (179)
 │   │   ├── Extensions/              # Hand-written: Cv2Extensions, Cv2Parallel
 │   │   ├── SafeHandles/             # Hand-written base handles
 │   │   │   └── OpenCVHandle.cs      # OpenCV base SafeHandle class

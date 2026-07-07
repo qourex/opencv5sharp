@@ -48,8 +48,7 @@ Here is a copy-pasteable example of loading an image, converting it to grayscale
 
 ```csharp
 using System;
-using OpenCV5Sharp;
-using OpenCV5Sharp.Extensions; // Provides ToInt() extensions
+using OpenCV5Sharp; // Provides classes and ToInt() enum extensions
 
 class Program
 {
