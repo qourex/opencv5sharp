@@ -22,16 +22,16 @@ namespace OpenCV5Sharp.Samples
 
             // 2. Initializing with Scalar
             Console.WriteLine("\n2. Initializing a 3x3 RGB matrix with a blue color scalar...");
-            const int CV_8UC3 = 64; // 8-bit, 3 channels
-            using (Mat rgb = new Mat(3, 3, CV_8UC3))
+             // 8-bit, 3 channels
+            using (Mat rgb = new Mat(3, 3, MatType.CV_8UC3))
             {
                 Console.WriteLine($"RGB Channels: {rgb.Channels()}, Type: {rgb.Type()}");
             }
 
             // 3. Matrix Math
             Console.WriteLine("\n3. Performing matrix addition...");
-            using (Mat m1 = new Mat(2, 2, CV_8UC3))
-            using (Mat m2 = new Mat(2, 2, CV_8UC3))
+            using (Mat m1 = new Mat(2, 2, MatType.CV_8UC3))
+            using (Mat m2 = new Mat(2, 2, MatType.CV_8UC3))
             using (Mat dst = new Mat())
             {
                 Cv2.Add(m1, m2, dst, null, -1);
@@ -40,7 +40,7 @@ namespace OpenCV5Sharp.Samples
 
             // 4. Submatrix (Region of Interest - ROI)
             Console.WriteLine("\n4. Creating a submatrix (Region of Interest)...");
-            using (Mat parent = new Mat(100, 100, CV_8UC3))
+            using (Mat parent = new Mat(100, 100, MatType.CV_8UC3))
             {
                 // Extract a 50x50 ROI from the top-left corner
                 using (Mat roi = new Mat(parent, new Range(0, 50), new Range(0, 50)))

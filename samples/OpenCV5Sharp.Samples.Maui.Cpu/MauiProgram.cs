@@ -833,6 +833,8 @@ namespace OpenCV5Sharp.Samples.Maui.Cpu
         {
             base.OnDisappearing();
             StopCapture();
+            _yoloNet?.Dispose();
+            _yunetNet?.Dispose();
         }
     }
 }

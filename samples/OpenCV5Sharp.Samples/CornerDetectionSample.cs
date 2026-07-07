@@ -23,7 +23,7 @@ namespace OpenCV5Sharp.Samples
                     {
                         for (int i = 1; i <= 30; i++)
                         {
-                            if (capture.Read(frame) && frame.Handle != IntPtr.Zero)
+                            if (capture.Read(frame) && !frame.Empty())
                             {
                                 DetectAndDrawCorners($"Webcam Frame {i}/30", frame);
                             }
@@ -45,7 +45,7 @@ namespace OpenCV5Sharp.Samples
 
         private static void DetectAndDrawCorners(string name, Mat frame)
         {
-            const int CV_8UC1 = 0;
+            
 
             // Convert to grayscale
             using (var gray = new Mat())
@@ -101,7 +101,7 @@ namespace OpenCV5Sharp.Samples
                         using (var normScaled = new Mat())
                         {
                             Cv2.Normalize(harrisResponse, norm, 0, 255, (int)NormTypes.Minmax, -1, null);
-                            norm.ConvertTo(normScaled, CV_8UC1, 1.0, 0.0);
+                            norm.ConvertTo(normScaled, MatType.CV_8UC1, 1.0, 0.0);
 
                             int rows = normScaled.Rows;
                             int cols = normScaled.Cols;
@@ -130,11 +130,11 @@ namespace OpenCV5Sharp.Samples
 
         private static void RunSyntheticVerification()
         {
-            const int CV_8UC3 = 64;
+            
             const int size = 300;
 
             // Generate synthetic chessboard-like image with shapes
-            using (var img = new Mat(size, size, CV_8UC3))
+            using (var img = new Mat(size, size, MatType.CV_8UC3))
             {
                 // Clear to white
                 byte[] bg = new byte[size * size * 3];

@@ -32,7 +32,10 @@
 		<MauiAsset Include="Resources\Raw\*" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<ProjectReference Include="..\..\src\OpenCV5Sharp.Gpu.Windows\OpenCV5Sharp.Gpu.Windows.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="!$(TargetFramework.Contains('-windows'))">
+		<ProjectReference Include="..\..\src\OpenCV5Sharp\OpenCV5Sharp.csproj" />
 	</ItemGroup>
 </Project>

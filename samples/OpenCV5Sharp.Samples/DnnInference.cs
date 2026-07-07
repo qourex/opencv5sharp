@@ -17,11 +17,11 @@ namespace OpenCV5Sharp.Samples
             Console.WriteLine("\n[Instruction] To run DNN inference in a real application, you would load an ONNX model file.");
             Console.WriteLine($"   Example code pattern:\n");
             Console.WriteLine($"   // 1. Load ONNX model");
-            Console.WriteLine($"   using (DnnNet net = Cv2.DnnReadNetFromONNX(\"resnet50.onnx\", 0))");
+            Console.WriteLine($"   using (DnnNet net = Cv2.DnnReadNetFromONNX(\"resnet50.onnx\", (int)DnnEngineType.Classic))");
             Console.WriteLine($"   // 2. Load input image");
-            Console.WriteLine($"   using (Mat img = Cv2.Imread(\"cat.jpg\", 1))");
+            Console.WriteLine($"   using (Mat img = Cv2.Imread(\"cat.jpg\", (int)ImreadModes.Color))");
             Console.WriteLine($"   // 3. Preprocess image into a 4D tensor blob (1/255 scale, 224x224 input size, Swap Red/Blue)");
-            Console.WriteLine($"   using (Mat blob = Cv2.DnnBlobFromImage(img, 1.0 / 255.0, new Size(224, 224), new Scalar(123.675, 116.28, 103.53, 0), true, false, -1))");
+            Console.WriteLine($"   using (Mat blob = Cv2.DnnBlobFromImage(img, 1.0 / 255.0, new Size(224, 224), new Scalar(123.675, 116.28, 103.53, 0), true, false, MatType.CV_32F))");
             Console.WriteLine($"   {{");
             Console.WriteLine($"       // 4. Set network input");
             Console.WriteLine($"       net.SetInput(blob, \"\", 1.0, new Scalar(0, 0, 0, 0));");

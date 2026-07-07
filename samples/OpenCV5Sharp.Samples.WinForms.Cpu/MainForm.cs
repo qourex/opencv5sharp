@@ -790,6 +790,8 @@ namespace OpenCV5Sharp.Samples.WinForms.Cpu
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             StopProcessing();
+            _yoloNet?.Dispose();
+            _yunetNet?.Dispose();
             base.OnFormClosing(e);
         }
     }

@@ -732,5 +732,7 @@
     public void Dispose()
     {
         StopWebcam();
+        _yoloNet?.Dispose();
+        _yunetNet?.Dispose();
     }
 }

@@ -114,13 +114,13 @@ namespace OpenCV5Sharp.Samples
 
         private static void RunSyntheticVerification()
         {
-            const int CV_8UC1 = 0;
-            const int CV_32FC2 = 37;
+            
+            
             const int size = 200;
 
             // Generate Frame 1: Black background with a white circle at (80, 80)
-            using (var frame1 = new Mat(size, size, CV_8UC1))
-            using (var frame2 = new Mat(size, size, CV_8UC1))
+            using (var frame1 = new Mat(size, size, MatType.CV_8UC1))
+            using (var frame2 = new Mat(size, size, MatType.CV_8UC1))
             {
                 // Clear images to black
                 byte[] zeros = new byte[size * size];
@@ -131,12 +131,14 @@ namespace OpenCV5Sharp.Samples
                 Cv2.Circle(frame1, new Point(80, 80), 8, new Scalar(255), -1, 8, 0);
                 Cv2.Circle(frame2, new Point(85, 83), 8, new Scalar(255), -1, 8, 0);
 
+            try
+            {
                 Cv2.Imwrite("optical_flow_frame1.png", frame1, IntPtr.Zero);
                 Cv2.Imwrite("optical_flow_frame2.png", frame2, IntPtr.Zero);
 
                 // Define initial point to track
-                using (var prevPts = new Mat(1, 1, CV_32FC2))
-                using (var nextPts = new Mat(1, 1, CV_32FC2))
+                using (var prevPts = new Mat(1, 1, MatType.CV_32FC2))
+                using (var nextPts = new Mat(1, 1, MatType.CV_32FC2))
                 using (var status = new Mat())
                 using (var err = new Mat())
                 {
@@ -163,6 +165,18 @@ namespace OpenCV5Sharp.Samples
                     double dy = resultData[1] - 80.0;
                     Console.WriteLine($"   Measured Offset: dx={dx:F1}, dy={dy:F1} (Expected: dx=5.0, dy=3.0)");
                 }
+            }
+            finally
+            {
+                if (File.Exists("optical_flow_frame1.png"))
+                {
+                    try { File.Delete("optical_flow_frame1.png"); } catch { }
+                }
+                if (File.Exists("optical_flow_frame2.png"))
+                {
+                    try { File.Delete("optical_flow_frame2.png"); } catch { }
+                }
+            }
             }
         }
     }
