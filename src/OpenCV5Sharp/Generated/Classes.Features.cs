@@ -2039,7 +2039,12 @@ namespace OpenCV5Sharp
         /// <exception cref="OpenCVException">Thrown when the underlying OpenCV native call fails.</exception>
         public static Orb? Create(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold)
         {
-            IntPtr res = NativeMethods.ORB_create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, (int)scoreType, patchSize, fastThreshold);
+            IntPtr res;
+            unsafe
+            {
+                int scoreVal = scoreType;
+                res = NativeMethods.ORB_create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, (IntPtr)(&scoreVal), patchSize, fastThreshold);
+            }
             if (res == IntPtr.Zero)
             {
                 return null;

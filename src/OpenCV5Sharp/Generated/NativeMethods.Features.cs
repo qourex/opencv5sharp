@@ -266,7 +266,7 @@ namespace OpenCV5Sharp
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ORB_Delete(IntPtr self);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ORB_create_0(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold);
+        public static extern IntPtr ORB_create_0(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, IntPtr scoreType, int patchSize, int fastThreshold);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
         public static extern void ORB_setMaxFeatures_0(OrbHandle self, int maxFeatures);
         [DllImport("opencv5sharp_native", CallingConvention = CallingConvention.Cdecl)]
